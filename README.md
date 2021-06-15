@@ -3,7 +3,7 @@
 - Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
 
 ### Branch
-- 1.0.0-tsi.d.t : Model for the Transport SDN Introduction at Telefonica Germany
+- 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
 ### Documentation
 - [210615 Documentation](./210615_Documentation.pdf)
