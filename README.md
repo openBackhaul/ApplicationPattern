@@ -6,8 +6,7 @@
 - 1.0.0-tsi.d.t : Model for the Transport SDN Introduction at Telefonica Germany
 
 ### Documentation
-- [210615 Documentation](./210615 Documentation.pdf)
--
+- [210615 Documentation](./210615_Documentation.pdf)
 
 ### Open API specification (Swagger)
 - 
