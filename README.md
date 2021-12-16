@@ -8,6 +8,9 @@
 ### Services
 - [ApplicationPattern_0.0.2_tsi.211216.1425+services.1](./ApplicationPattern_0.0.2_tsi.211216.1425+services.1.xlsx)
 
+### Forwardings
+- [ApplicationPattern_0.0.2_tsi.211216.1425+forwardings.1](./ApplicationPattern_0.0.2_tsi.211216.1425+forwardings.1.xlsx)
+
 ### Open API specification (Swagger)
 - [ApplicationPattern_0.0.2_tsi.211216.1425](./ApplicationPattern_0.0.2_tsi.211216.1425.yaml)
 
