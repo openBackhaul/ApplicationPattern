@@ -5,3 +5,5 @@ The name of the application must
 - be most precise
 - be written in UpperCamelCase
 - be unique
+
+The uppercase letters of the name of must form an abbreviation, which is also unique.
