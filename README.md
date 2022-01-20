@@ -5,6 +5,9 @@
 ### Branch
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
+### Documentation
+- [ApplicationPattern](./doc/Main.md)
+
 ### Services
 - [ApplicationPattern_0.0.2_tsi.211216.1425+services.1](./ApplicationPattern_0.0.2_tsi.211216.1425+services.1.xlsx)
 
