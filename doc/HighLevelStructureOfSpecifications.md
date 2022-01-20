@@ -1,11 +1,11 @@
 # High Level Structure of Specifications
 ### First steps and high level design
-* Name of Application
-* Purpose of Application
-* Service List
-* Forwarding List
+* [Name of Application](./NameOfApplication.md)
+* [Purpose of Application](./PurposeOfApplication.md)
+* [Service List](./ServiceList.md)
+* [Forwarding List](./ForwardingList.md)
 
 ### Detailed design
-* Open API specification
-* LOADfile
-* Test cases
+* [Open API specification](./OpenApiSpecification.md)
+* [LOADfile](./LoadFile.md)
+* [Test cases](./TestCases.md)
