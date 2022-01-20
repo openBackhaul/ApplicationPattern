@@ -4,7 +4,7 @@ info:
   version: 0.0.2
 
 servers:
-  - url: 'https://10.118.125.157:1000'
+  - url: 'https://10.118.125.157:1008'
     description: 'Initial deployment'
 
 paths:
