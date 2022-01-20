@@ -7,3 +7,5 @@ The name of the application must
 - be unique
 
 The uppercase letters of the name of must form an abbreviation, which is also unique.
+
+[Main](./Main.md) / [HighLevelStructureOfSpecifications](./HighLevelStructureOfSpecifications.md)
