@@ -1,5 +1,4 @@
 # ServiceList
-All services, which are either provided or consumed by the application, must be listed in the ServiceList.
 The latest template is to be downloaded before starting to specify.
 
 The grey areas of the template must not be altered; they are describing services, which are common to all applications.
