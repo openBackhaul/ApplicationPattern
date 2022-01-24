@@ -17,7 +17,7 @@ It is sub-structured into
 
 The applications of the lower two layers are implemented as bare REST servers. This makes them very efficient to implement, to test and to deploy.
 
-The ApplicationPattern is required to asure smooth integration into an operation and maintenance infrastructure.
+The ApplicationPattern is required to assure smooth integration into an operation and maintenance infrastructure.
 It defines
 
 * headers, for providing information that is required by central management functions
