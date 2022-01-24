@@ -1,6 +1,4 @@
-# Documentation of the ApplicationPattern
-
-### Introduction
+# Introduction
 
 Overall target is implementing an SDN, which facilitates vendor agnostic network automation.
 
@@ -48,15 +46,15 @@ The **TestCases** are a Postman collection of requests for
 * continuous integration testing
 
 
-### Preparing for specifying Applications
+# Preparing for specifying Applications
 
-The following steps have to be taken to become an ApplicationOwner.
+The following steps have to be taken to prepare for becoming an ApplicationOwner.
 
-#### **GitHub**
+### GitHub
 
 A detailed documentation is required to be efficient in developing the application layer. All ApplicationOwners are very much invited to contribute to the guidelines. 
 
-The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](./https://github.com/openBackhaul/Overview). It is recommended to create a bookmark for jumping into the Overview.
+The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](./https://github.com/openBackhaul/Overview). It is recommended to create a bookmark in the browser for jumping into the Overview.
 
 All information about the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository](./https://github.com/openBackhaul/ApplicationPattern/tree/tsi).
 
@@ -72,38 +70,40 @@ All documentation, readme and issues on GitHub are edited in MarkDown syntax. [B
 
 > If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.
 
-#### **Postman**
+### Postman
 
-While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is representing the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases.
+While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases.
 
-The basic Postman is for free. Installing it according to [this guideline](./?) will facilitate smooth connection to the SDN laboratory environment.
+The basic Postman is for free. Installing it according to [this guideline](./InstallingPostman/InstallingPostman.md) will facilitate smooth connection to the SDN laboratory environment.
 
-Also Postman is providing a [vast documentation](./https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](./https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](./?).
+Also Postman is providing a [vast documentation](./https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](./https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](./OpenApiSpecification/OpenApiSpecification.md).
 
 Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams, but this requires chargeable licenses, which are available to limited extend.
 
-#### **Open API specification (Swagger)**
+### Open API specification (Swagger) and YAML
 
+Automated code generation requires syntactically well defined specifications.
 
-#### **YAML**
+OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs. [Very good documentation](./https://swagger.io/docs/specification/basic-structure/).
 
+YAML format has been choosen for writing the OpenApiSpecifications. It is based on indents and is easy to learn from the examples in the Swagger Specifications.
 
-#### **Notepad++**
+### JSON and Notepad++
 
+LOADfiles are written in JSON. Reading through existing examples is probably the easiest way of learning the necessary structures and formats.  
+LOADfiles are of several thousands of lines. Notepad++ or other feature rich editors are very much preferred over the Windows standard editor. Notepad++ can be loaded from the corporate app store.
 
-#### **JSON**
+### JavaScript
 
+TestCases are sequences of Requests in Postman. A Postman Request combines a Pre-request Script, an actual HTTP request and a Test Script. The Pre-request Script is for preparing the HTTP request. The Test Script is for assessing the response to the HTTP request. Both Pre-request and Test Script are little JavaScript programs, which are executed in the Postman JavaScript sandbox.  
+Despite Postman provides a lot of guidance (, but also limitations), is recommended to take care for a good basic knowledge of JavaScript.
 
-#### **JavaScript**
+# Specifying Applications
 
+More detailed guidance is given for the following components of the specification.
 
-
-
-
-### Guidance for specifying Applications
-
-Additional guidance is given in the following aspects.
-
-
-
-* [High Level Structure of Specifications](./HighLevelStructureOfSpecifications.md)
+* [ServiceList](./ServiceList/ServiceList.md)
+* [ForwardingList](./ForwardingList/ForwardingList.md)
+* [OpenApiSpecification](./OpenApiSpecification/OpenApiSpecification.md)
+* [LOADfile](./LoadFile/LoadFile.md)
+* [TestCases](./TestCases/TestCases.md)
