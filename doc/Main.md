@@ -50,7 +50,54 @@ The **TestCases** are a Postman collection of requests for
 
 ### Preparing for specifying Applications
 
-The following steps have to be taken to prepare for specifying applications.
+The following steps have to be taken to become an ApplicationOwner.
+
+#### **GitHub**
+
+A detailed documentation is required to be efficient in developing the application layer. All ApplicationOwners are very much invited to contribute to the guidelines. 
+
+The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](./https://github.com/openBackhaul/Overview). It is recommended to create a bookmark for jumping into the Overview.
+
+All information about the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository](./https://github.com/openBackhaul/ApplicationPattern/tree/tsi).
+
+Documentation and templates are linked into the readme. Need for change or completion of the ApplicationPattern is addressed in the [Issues](.https://github.com/openBackhaul/ApplicationPattern/issues).
+
+An own GitHub account is required to collaborate. Cooperation will be easier, if real names are used. [Guidance for creating a free account](.https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
+
+In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense.
+
+GitHub is providing a [vast documentation](./https://docs.github.com/en). The section about [Collaborating with pull requests](./https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
+
+All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](./https://www.markdownguide.org/basic-syntax/).
+
+> If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.
+
+#### **Postman**
+
+While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is representing the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases.
+
+The basic Postman is for free. Installing it according to [this guideline](./?) will facilitate smooth connection to the SDN laboratory environment.
+
+Also Postman is providing a [vast documentation](./https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](./https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](./?).
+
+Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams, but this requires chargeable licenses, which are available to limited extend.
+
+#### **Open API specification (Swagger)**
+
+
+#### **YAML**
+
+
+#### **Notepad++**
+
+
+#### **JSON**
+
+
+#### **JavaScript**
+
+
+
 
 
 ### Guidance for specifying Applications
