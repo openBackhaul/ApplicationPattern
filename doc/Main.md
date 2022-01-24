@@ -26,25 +26,17 @@ It defines
 * and an OaM layer that makes the internal resources of the application available for configuration.
 
 Automated code generation and testing requires the applications being specified in syntactically well defined way. Any specification has to comprise the following components.
-
-The **Name of the application** must describe the application's role in the modular application layer in few, but meaningful words. It must be written in UpperCamelCase and it must be unique. The uppercase letters of the name must form an abbreviation, which is also unique within the modular application layer.
-
-The **Purpose of the application** must be expressed in a single sentence. It must be most comprehensive and precise.
-
-The **ServiceList** must represent all services, which are either provided or consumed by the application.
-
-The **ForwardingList** must describe all relationships between events and reactions that need to be documented and configurable at the application.
-
-The **OpenApiSpecification** represents the detailed specification of the REST API of the application.
-
-The **LOADfile** describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
-
-The **TestCases** are a Postman collection of requests for 
-* describing the business logic, which is to be implemented behind the REST API
-* supporting testing during implementation
-* acceptance testing
-* continuous integration testing
-
+* The **Name of the application** must describe the application's role in the modular application layer in few, but meaningful words. It must be written in UpperCamelCase and it must be unique. The uppercase letters of the name must form an abbreviation, which is also unique within the modular application layer.
+* The **Purpose of the application** must be expressed in a single sentence. It must be most comprehensive and precise.
+* The **ServiceList** must represent all services, which are either provided or consumed by the application.
+* The **ForwardingList** must describe all relationships between events and reactions that need to be documented and configurable at the application.
+* The **OpenApiSpecification** represents the detailed specification of the REST API of the application.
+* The **LOADfile** describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
+* The **TestCases** are a Postman collection of requests for 
+  * describing the business logic, which is to be implemented behind the REST API
+  * supporting testing during implementation
+  * acceptance testing
+  * continuous integration testing
 
 # Preparing for specifying Applications
 
@@ -54,19 +46,19 @@ The following steps have to be taken to prepare for becoming an ApplicationOwner
 
 A detailed documentation is required to be efficient in developing the application layer. All ApplicationOwners are very much invited to contribute to the guidelines. 
 
-The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](./https://github.com/openBackhaul/Overview). It is recommended to create a bookmark in the browser for jumping into the Overview.
+The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](https://github.com/openBackhaul/Overview). It is recommended to create a bookmark in the browser for jumping into the Overview.
 
-All information about the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository](./https://github.com/openBackhaul/ApplicationPattern/tree/tsi).
+All information about the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern/tree/tsi).
 
-Documentation and templates are linked into the readme. Need for change or completion of the ApplicationPattern is addressed in the [Issues](.https://github.com/openBackhaul/ApplicationPattern/issues).
+Documentation and templates are linked into the readme. Need for change or completion of the ApplicationPattern is addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues).
 
-An own GitHub account is required to collaborate. Cooperation will be easier, if real names are used. [Guidance for creating a free account](.https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
+An own GitHub account is required to collaborate. Cooperation will be easier, if real names are used. [Guidance for creating a free account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
 
 In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense.
 
-GitHub is providing a [vast documentation](./https://docs.github.com/en). The section about [Collaborating with pull requests](./https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
+GitHub is providing a [vast documentation](https://docs.github.com/en). The section about [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
 
-All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](./https://www.markdownguide.org/basic-syntax/).
+All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/).
 
 > If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.
 
@@ -76,7 +68,7 @@ While using Postman for writing the OpenApiSpecification, it is only a few click
 
 The basic Postman is for free. Installing it according to [this guideline](./InstallingPostman/InstallingPostman.md) will facilitate smooth connection to the SDN laboratory environment.
 
-Also Postman is providing a [vast documentation](./https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](./https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](./OpenApiSpecification/OpenApiSpecification.md).
+Also Postman is providing a [vast documentation](https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](./OpenApiSpecification/OpenApiSpecification.md).
 
 Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams, but this requires chargeable licenses, which are available to limited extend.
 
@@ -84,7 +76,7 @@ Postman is synchronizing into its own cloud. So the ApplicationOwner can seamles
 
 Automated code generation requires syntactically well defined specifications.
 
-OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs. [Very good documentation](./https://swagger.io/docs/specification/basic-structure/).
+OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs. [Very good documentation](https://swagger.io/docs/specification/basic-structure/).
 
 YAML format has been choosen for writing the OpenApiSpecifications. It is based on indents and is easy to learn from the examples in the Swagger Specifications.
 
