@@ -26,6 +26,7 @@ It defines
 * and an OaM layer that makes the internal resources of the application available for configuration.
 
 Automated code generation and testing requires the applications being specified in syntactically well defined way. Any specification has to comprise the following components.
+
 * The **Name of the application** must describe the application's role in the modular application layer in few, but meaningful words. It must be written in UpperCamelCase and it must be unique. The uppercase letters of the name must form an abbreviation, which is also unique within the modular application layer.
 * The **Purpose of the application** must be expressed in a single sentence. It must be most comprehensive and precise.
 * The **ServiceList** must represent all services, which are either provided or consumed by the application.
@@ -82,12 +83,14 @@ YAML format has been choosen for writing the OpenApiSpecifications. It is based 
 
 ### JSON and Notepad++
 
-LOADfiles are written in JSON. Reading through existing examples is probably the easiest way of learning the necessary structures and formats.  
+LOADfiles are written in JSON. Reading through existing examples is probably the easiest way of learning the necessary structures and formats.
+
 LOADfiles are of several thousands of lines. Notepad++ or other feature rich editors are very much preferred over the Windows standard editor. Notepad++ can be loaded from the corporate app store.
 
 ### JavaScript
 
-TestCases are sequences of Requests in Postman. A Postman Request combines a Pre-request Script, an actual HTTP request and a Test Script. The Pre-request Script is for preparing the HTTP request. The Test Script is for assessing the response to the HTTP request. Both Pre-request and Test Script are little JavaScript programs, which are executed in the Postman JavaScript sandbox.  
+TestCases are sequences of Requests in Postman. A Postman Request combines a Pre-request Script, an actual HTTP request and a Test Script. The Pre-request Script is for preparing the HTTP request. The Test Script is for assessing the response to the HTTP request. Both Pre-request and Test Script are little JavaScript programs, which are executed in the Postman JavaScript sandbox.
+
 Despite Postman provides a lot of guidance (, but also limitations), is recommended to take care for a good basic knowledge of JavaScript.
 
 # Specifying Applications
