@@ -91,7 +91,15 @@ LOADfiles are of several thousands of lines. Notepad++ or other feature rich edi
 
 TestCases are sequences of Requests in Postman. A Postman Request combines a Pre-request Script, an actual HTTP request and a Test Script. The Pre-request Script is for preparing the HTTP request. The Test Script is for assessing the response to the HTTP request. Both Pre-request and Test Script are little JavaScript programs, which are executed in the Postman JavaScript sandbox.
 
-Despite Postman provides a lot of guidance (, but also limitations), is recommended to take care for a good basic knowledge of JavaScript.
+This sandbox relieves the ApplicationOwner from many, many tasks, which would have to be done in "real" JavaScript programming.
+Reading about
+* language core (e.g. variables, datatypes, operations, conditions, loops, functions, error handling)
+* composed datatypes and references
+should suffice for preparing.
+
+It is necessary to read the chapter [Writing Scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) at the Postman learning center to understand the specifics of the sandbox and particularly the handling of variables between the scripts.
+
+Further on, it is recommended to new ApplicationOwners to study existing testcase collections for getting familiar with the basic structures.
 
 # Specifying Applications
 
@@ -102,3 +110,10 @@ More detailed guidance is given for the following components of the specificatio
 * [OpenApiSpecification](./OpenApiSpecification/OpenApiSpecification.md)
 * [LOADfile](./LoadFile/LoadFile.md)
 * [TestCases](./TestCases/TestCases.md)
+
+# Components of the TinyApplicationController
+
+# Elements of the ApplicationPatternn
+* header
+* basic services
+* OaM layer
