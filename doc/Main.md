@@ -113,7 +113,21 @@ More detailed guidance is given for the following components of the specificatio
 
 # Components of the TinyApplicationController
 
-# Elements of the ApplicationPatternn
+### RegistryOffice
+
+### TypeApprovalRegister
+
+### ExecutionAndTraceLog
+
+### OamLog
+
+### AdministratorAdministration
+
+### ApplicationLayerTopology
+
+### OperationKeyManagement
+
+# Elements of the ApplicationPattern
 * header
 * basic services
 * OaM layer
