@@ -13,6 +13,8 @@ It is sub-structured into
 * business layer, which is for holding domain specific functions that are either implementing automation or supporting humans in configuration activities
 * representation layer, which is for providing user interfaces that are representing the functions of the business layer.
 
+![Substructure of the Modular MW SDN Application Layer](https://user-images.githubusercontent.com/15265413/151411515-49b13bcb-01d6-45a9-bbad-30a6329b9ed0.png)
+
 The applications of the lower two layers are implemented as REST servers. This makes them very efficient to implement, to test and to deploy.
 
 The ApplicationPattern is required to assure smooth integration into an operation and maintenance infrastructure.
@@ -114,18 +116,25 @@ More detailed guidance is given for the following components of the specificatio
 # Components of the TinyApplicationController
 
 ### RegistryOffice
+All applications will automatically register at the RegistryOffice
 
 ### TypeApprovalRegister
+The TypeApprovalRegister stores already granted approvals
 
 ### ExecutionAndTraceLog
+ExecutionAndTraceLog is logging all service activities
 
 ### OamLog
+OamLog is logging all administrative activities
 
 ### AdministratorAdministration
+AdministratorAdministration is authenticating OaM requests
 
 ### ApplicationLayerTopology
+ApplicationLayerTopology represents interfaces and forwardings
 
 ### OperationKeyManagement
+OperationKeyManagement keeps operation keys in synch
 
 # Elements of the ApplicationPattern
 * header
