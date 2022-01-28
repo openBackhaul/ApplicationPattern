@@ -57,13 +57,13 @@ Documentation and templates are linked into the readme. Need for change or compl
 
 An own GitHub account is required to collaborate. Cooperation will be easier, if real names are used. [Guidance for creating a free account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
 
-In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense. [Guidance on how to connect VisualStudio on OfficeLaptop with GitHub](./VisualStudio2GitHub).
+In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense. [Guidance on how to connect VisualStudio on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
 
 GitHub is providing a [vast documentation](https://docs.github.com/en). The section about [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
 
 All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/).
 
-> If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.
+**If you would find need for correcting or complementing these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.**
 
 ### Postman
 
@@ -85,9 +85,9 @@ YAML format has been choosen for writing the OpenApiSpecifications. It is based 
 
 ### JSON and Notepad++
 
-LOADfiles are written in JSON. Reading through existing examples is probably the easiest way of learning the necessary structures and formats.
+LOADfiles are written in JSON. Reading through existing examples like e.g. in [RegistryOffice](../../../../RegistryOffice/tree/tsi/) or [ExecutionAndTraceLog](../../../../ExecutionAndTraceLog/tree/tsi/) is probably the easiest way of learning the necessary structures and formats.
 
-LOADfiles are of several thousands of lines. Notepad++ or other feature rich editors are very much preferred over the Windows standard editor. Notepad++ can be loaded from the corporate app store.
+LOADfiles are of several thousands of lines. Notepad++ or other feature rich editors are very much preferred over the standard Editor provided with Windows. Notepad++ can be loaded from the corporate app store.
 
 ### JavaScript
 
@@ -99,7 +99,7 @@ Reading about
 * composed datatypes and references
 should suffice for preparing.
 
-It is necessary to read the chapter [Writing Scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) at the Postman learning center to understand the specifics of the sandbox and particularly the handling of variables between the scripts.
+It is necessary to read the chapter [Writing Scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) at the Postman learning center to understand the specifics of the sandbox and particularly the handling of variables of different layers (e.g. Environment, Collection).
 
 Further on, it is recommended to new ApplicationOwners to study existing testcase collections for getting familiar with the basic structures.
 
