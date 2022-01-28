@@ -1,4 +1,4 @@
-# Preparing for specifying Applications
+# Preparing for Specifying Applications
 
 The following steps have to be taken to prepare for becoming an ApplicationOwner.
 
@@ -20,7 +20,7 @@ GitHub is providing a [vast documentation](https://docs.github.com/en). The sect
 
 All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/).
 
-> If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.
+**If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.**
 
 ### Postman
 
