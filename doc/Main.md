@@ -6,10 +6,3 @@
 3. [Specifying Applications](./SpecifyingApplications/SpecifyingApplications.md)
 4. [Components of the TinyApplicationController](./TinyApplicationController/TinyApplicationController.md)
 5. [Elements of the ApplicationPattern](./ElementsApplicationPattern/ElementsApplicationPattern.md)
-
-
-
-
-
-
-
