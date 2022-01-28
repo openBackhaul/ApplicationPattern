@@ -57,7 +57,7 @@ Documentation and templates are linked into the readme. Need for change or compl
 
 An own GitHub account is required to collaborate. Cooperation will be easier, if real names are used. [Guidance for creating a free account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
 
-In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense.
+In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense. [Guidance on how to connect VisualStudio on OfficeLaptop with GitHub](./VisualStudio2GitHub).
 
 GitHub is providing a [vast documentation](https://docs.github.com/en). The section about [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
 
