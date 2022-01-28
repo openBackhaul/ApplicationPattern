@@ -1,4 +1,4 @@
-# Main
+# Documentation of the Application Pattern
 
 **Table of Content**
 1. [Introduction](./Introduction/Introduction.md)
