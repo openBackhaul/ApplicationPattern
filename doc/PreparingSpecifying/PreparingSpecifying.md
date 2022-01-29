@@ -12,7 +12,7 @@ All information about the ApplicationPattern can be found in the [TSI branch of 
 
 Documentation and templates are linked into the readme. Need for change or completion of the ApplicationPattern is addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues).
 
-[Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) is required for actively collaborating. Cooperation will be easier, if real names are used. [Guidance for creating a free account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
+[Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) is required for actively collaborating. Cooperation will be easier, if real names are used. [Getting started on GitHub](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
 
 In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense. [Guidance on how to connect VisualStudio on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
 
