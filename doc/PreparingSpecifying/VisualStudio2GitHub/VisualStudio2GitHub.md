@@ -1,2 +1,2 @@
-# Connecting VisualStudio on OfficeLaptop with GitHub
+# Connecting VisualStudioCode on OfficeLaptop with GitHub
 

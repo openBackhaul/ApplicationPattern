@@ -4,23 +4,25 @@ The following steps have to be taken to prepare for becoming an ApplicationOwner
 
 ### GitHub
 
-A detailed documentation is required to be efficient in developing the application layer. All ApplicationOwners are very much invited to contribute to the guidelines. 
+Good collaboration and detailed documentation are required for efficiently developing the application layer.
 
-The guidelines as well as the later specifications are hosted and managed on [github.com/openBackhaul](https://github.com/openBackhaul/Overview). It is recommended to create a bookmark in the browser for jumping into the Overview.
+Documentation and templates of the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository on GitHub.com/openBackhaul](https://github.com/openBackhaul/ApplicationPattern/tree/tsi). Also need for change or completion of the ApplicationPattern has to be addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues) of the same repository.
 
-All information about the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern/tree/tsi).
+**All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by formulating pull requests).**
 
-Documentation and templates are linked into the readme. Need for change or completion of the ApplicationPattern is addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues).
+[Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) is required for contributing.
 
-[Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) is required for actively collaborating. Cooperation will be easier, if real names are used. [Getting started on GitHub](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
+GitHub is providing a [vast documentation](https://docs.github.com/en), for e.g. on [getting started](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account) or [collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
 
-In the beginning, no local installation is required for working with GitHub. Later, linking with VisualStudio or another development environment might make sense. [Guidance on how to connect VisualStudio on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
+### Git and VisualStudioCode
 
-GitHub is providing a [vast documentation](https://docs.github.com/en). The section about [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
+GitHub provides a good web interface for getting started, but a local installation of Git and VisualStudioCode is recommended for more advanced working on code and documentation.
+
+[Guidance for installing Git](./InstallingGit/InstallingGit.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
+
+### MarkDown
 
 All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/).
-
-**If you would have found need for correction or completion on these guideline, please feel very much invited to create pull requests, which are proposing improved formulations.**
 
 ### Postman
 
