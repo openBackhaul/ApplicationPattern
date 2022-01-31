@@ -28,3 +28,5 @@ After completing the installation, connecting with GitHub needs to be prepared.
 * enter "git config --global user.email _emailAddress_" with _emailAddress_ being identical with the email address you used during registering at GitHub.
 
 (The configurations made with "git config --global" will be used as a default for all repositories on your PC. They will be saved in a file called .gitconfig, which is located in your home folder.)
+
+[Up to Preparing](../PreparingSpecifying/PreparingSpecifying.md)
