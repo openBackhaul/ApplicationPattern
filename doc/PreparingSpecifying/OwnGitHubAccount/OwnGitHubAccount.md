@@ -13,4 +13,4 @@ _Git - Projektverwaltung für Entwickler und DevOps-Teams_
 Bernd Öggl und Michael Kofler
 Rheinwerk Verlag
 
-[Up to Preparing](../PreparingSpecifying/PreparingSpecifying.md)
+[Up to Preparing](../PreparingSpecifying.md)
