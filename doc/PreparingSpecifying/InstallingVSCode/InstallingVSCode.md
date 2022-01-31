@@ -9,7 +9,7 @@
   
 **1. Open your browser and grab the installer from [here](https://code.visualstudio.com/download). <br><br>**
 Select the one appropriate for your environment (e.g. "User Installer" for 64 bit). <br>
-It can be installed on the Telefonica laptop without admin rights. <br><br>
+It can be installed on the laptop without admin rights. <br><br>
 ![vscodeinstall_01](https://user-images.githubusercontent.com/57349523/151799917-28882154-78cc-4152-af05-cdb5abf648ea.jpg)
 
 Download the installer file to the desired path:<br><br>
