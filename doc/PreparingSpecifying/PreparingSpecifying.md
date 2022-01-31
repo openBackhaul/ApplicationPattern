@@ -22,9 +22,8 @@ Git is for keeping local data in synch with a common repository. It is command l
 VisualStudioCode is an advanced editor, which is very well integrating Git into its grafical user interface.  
 Both, Git and VisualStudioCode are available for Linux, Windows and Mac.  
 (VisualStudioCode is not to be mixed with VisualStudio, which is a development environment on Windows only.)
- 
 
-[Guidance for installing Git](./InstallingGit/InstallingGit.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
+Guidance for [installing Git](./InstallingGit/InstallingGit.md), [installing VisualStudioCode](./InstallingVSCode/InstallingVSCode.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VSCode2GitHub/VSCode2GitHub.md).
 
 ### MarkDown
 
