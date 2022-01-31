@@ -29,4 +29,4 @@ After completing the installation, connecting with GitHub needs to be prepared.
 
 (The configurations made with "git config --global" will be used as a default for all repositories on your PC. They will be saved in a file called .gitconfig, which is located in your home folder.)
 
-[Up to Preparing](../PreparingSpecifying/PreparingSpecifying.md)
+[Up to Preparing](../PreparingSpecifying.md)
