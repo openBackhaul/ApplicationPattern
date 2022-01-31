@@ -17,14 +17,13 @@ It is sub-structured into
 
 The applications of the lower two layers are implemented as REST servers. This makes them very efficient to implement, to test and to deploy.
 
-The ApplicationPattern is required to assure smooth integration into an operation and maintenance infrastructure.
-It defines
+The ApplicationPattern, which is required for assuring smooth integration into an operation and maintenance infrastructure for applications, defines:
 
-* headers, for providing information that is required by central management functions
-* services, for
-  * supporting centralized functions like access management
+* headers for authentication and providing information, which is required by central management functions,
+* services for
+  * supporting centralized functions like logging and tracing
   * informing about the application itself
-  * administrating the application, e.g. in case of update
+  * administrating the application, e.g. in case of updates
 * and an OaM layer that makes the internal resources of the application available for configuration.
 
 [Up to Main](../Main.md) - - - [Ahead to Preparing->](../PreparingSpecifying/PreparingSpecifying.md)
