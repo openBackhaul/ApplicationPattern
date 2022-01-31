@@ -27,25 +27,31 @@ Guidance for [installing Git](./InstallingGit/InstallingGit.md), [installing Vis
 
 ### MarkDown
 
-All documentation, readme and issues on GitHub are edited in MarkDown syntax. [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/).
+All documentation, readme and issues on GitHub are edited in MarkDown syntax.  
+Mastering [basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/) is precondition for actively contributing.
 
 ### Postman
 
 While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases.
 
-The basic Postman is for free. Installing it according to [this guideline](./InstallingPostman/InstallingPostman.md) will facilitate smooth connection to the SDN laboratory environment.
+A properly working Postman is a precondition for describing the APIs of the applications.
 
-Also Postman is providing a [vast documentation](https://learning.postman.com/docs/getting-started/introduction/). The section about [designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) is complementing the specific guidance given in [elaborating the OpenApiSpecification](../SpecifyingApplications/OpenApiSpecification/OpenApiSpecification.md).
+The basic Postman is for free. Installing it according to [this guideline](./InstallingPostman/InstallingPostman.md) will facilitate smooth connection into the Internet and to the SDN laboratory environment.
 
-Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams, but this requires chargeable licenses, which are available to limited extend.
+Also Postman is providing a [vast documentation](https://learning.postman.com/docs/getting-started/introduction/). Both, [designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) as well as [introduction into scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) are providing a good base for defining and testing of the Open API specifications, which we require for our applications.
+
+Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams. This requires chargeable licenses, which are available to limited extend.
 
 ### Open API specification (Swagger) and YAML
 
-Automated code generation requires syntactically well defined specifications.
+Automated code generation requires syntactically well defined specifications.  
+OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs.
+Indent based YAML format has been choosen for formatting the OAS coding.
 
-OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs. [Very good documentation](https://swagger.io/docs/specification/basic-structure/).
+Mastering OpenAPI Specification 3.0 expressed in YAML is a precondition for describing the APIs of the applications.  
+Very good documentation with tons of code snippets can be found on the [Swagger website](https://swagger.io/docs/specification/basic-structure/).
 
-YAML format has been choosen for writing the OpenApiSpecifications. It is based on indents and is easy to learn from the examples in the Swagger Specifications.
+The general documentation of language and coding is complemented by a set rules for assuring resulting applications to follow the ApplicationPattern and to fit into the operation and maintenance structure. [Specifics of the OpenApiSpecification](../SpecifyingApplications/OpenApiSpecification/OpenApiSpecification.md).
 
 ### JSON and Notepad++
 
