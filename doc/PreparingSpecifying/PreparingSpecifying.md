@@ -4,19 +4,25 @@ The following steps have to be taken to prepare for becoming an ApplicationOwner
 
 ### GitHub
 
-Good collaboration and detailed documentation are required for efficiently developing the application layer.
+Good collaboration processes and detailed guidelines are required for efficiently commonly growing the application layer.
 
 Documentation and templates of the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository on GitHub.com/openBackhaul](https://github.com/openBackhaul/ApplicationPattern/tree/tsi). Also need for change or completion of the ApplicationPattern has to be addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues) of the same repository.
 
 **All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by formulating pull requests).**
 
-[Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) is required for contributing.
+All ApplicationOwners need an [own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) from beginning on.
 
-GitHub is providing a [vast documentation](https://docs.github.com/en), for e.g. on [getting started](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account) or [collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) is of special importance.
+GitHub is providing a [vast documentation](https://docs.github.com/en), for e.g. on [getting started](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account) or [collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests).
 
 ### Git and VisualStudioCode
 
 GitHub provides a good web interface for getting started, but a local installation of Git and VisualStudioCode is recommended for more advanced working on code and documentation.
+
+Git is for keeping local data in synch with a common repository. It is command line based.  
+VisualStudioCode is an advanced editor, which is very well integrating Git into its grafical user interface.  
+Both, Git and VisualStudioCode are available for Linux, Windows and Mac.  
+(VisualStudioCode is not to be mixed with VisualStudio, which is a development environment on Windows only.)
+ 
 
 [Guidance for installing Git](./InstallingGit/InstallingGit.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VisualStudio2GitHub/VisualStudio2GitHub.md).
 
