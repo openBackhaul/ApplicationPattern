@@ -8,9 +8,9 @@ Versuchen Sie also, einen möglichst sinnvollen Namen zu finden. (Ihr eigener Na
 
 In der Folge müssen Sie ein einfaches Rätsel lösen (um sicherzugehen, dass Sie kein Programm bzw. Bot sind) und können ein paar freiwillige Angaben zu Ihrem beruflichen Umfeld und Ihrer Programmiererfahrung machen. Zuletzt wird Ihre E-Mail-Adresse verifiziert. Später können Sie Ihren Account noch mit einem Foto oder Avatar, einem Link auf Ihre Website etc. personalisieren – aber all diese Daten sind optional.
 
-Quelle: 
-_Git - Projektverwaltung für Entwickler und DevOps-Teams_
-Bernd Öggl und Michael Kofler
+Quelle:  
+_Git - Projektverwaltung für Entwickler und DevOps-Teams_  
+Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
 
 [Up to Preparing](../PreparingSpecifying.md)
