@@ -23,6 +23,9 @@
 ### Test Cases (Postman Export)
 - 
 
+### NodeJS Implementation
+- [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
+
 ### Publication
 - No official publication planned
 
