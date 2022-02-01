@@ -32,9 +32,9 @@ Häufig werden sie projektintern verwendet, um unkoordinierte Änderungen am Rep
 
 Beachten Sie, dass Forks und Pull Requests keine Git-Techniken sind. Dementsprechend gibt es dafür auch keine git-Subkommandos. Vielmehr müssen Sie diese Operationen in der Weboberfläche Ihrer Git-Plattform durchführen. Die Nomenklatur kann dabei je nach Plattform variieren. Unter GitLab ist beispielsweise von Merge-Requests die Rede.
 
-Quelle: 
-_Git - Projektverwaltung für Entwickler und DevOps-Teams_
-Bernd Öggl und Michael Kofler
+Quelle:  
+_Git - Projektverwaltung für Entwickler und DevOps-Teams_  
+Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
 
 [Up to Preparing](../PreparingSpecifying.md)
