@@ -33,15 +33,15 @@
 
 ### HTTP Server Interface
 
-| UUID        | Application Name         | Release Number           |
-| ----------- | ------------------------ | ------------------------ |
-| http-s-0000 | OperationKeyManagement   | 0.0.1                    |
+| UUID        | Application Name         | Release Number                    |
+| ----------- | ------------------------ | --------------------------------- |
+| http-s-0000 | OperationKeyManagement   | 0.0.1                             |
 
 ### TCP Server Interface
 
-| UUID       | Own IP Address  | Own TCP Port  |
-| ---------- | ----------------| ------------- |
-| tcp-s-0000 | 10.118.125.157  | 1006          |
+| UUID       | Own IP Address  | Own TCP Port                                |
+| ---------- | ----------------| ------------------------------------------- |
+| tcp-s-0000 | 10.118.125.157  | 1006                                        |
 
 ---
 ## Old Release
@@ -54,15 +54,15 @@
 
 ### HTTP Client Interface
 
-| UUID        | Application Name         | Release Number           |
-| ----------- | ------------------------ | ------------------------ |
-| http-c-0000 | OldRelease               | 0.0.1                    |
+| UUID        | Application Name         | Release Number                    |
+| ----------- | ------------------------ | --------------------------------- |
+| http-c-0000 | OldRelease               | 0.0.1                             |
 
 ### TCP Client Interface
 
-| UUID       | IP Address      | TCP Port      |
-| ---------- | ----------------| ------------- |
-| tcp-c-0000 | 10.118.125.157  | 1006          |
+| UUID       | IP Address      | TCP Port                                    |
+| ---------- | ----------------| ------------------------------------------- |
+| tcp-c-0000 | 10.118.125.157  | 1006                                        |
 
 ---
 ## New Release
@@ -75,14 +75,14 @@
 
 ### HTTP Client Interface
 
-| UUID        | Application Name         | Release Number           |
-| ----------- | ------------------------ | ------------------------ |
-| http-c-0010 | NewRelease               | 0.0.2                    |
+| UUID        | Application Name         | Release Number                    |
+| ----------- | ------------------------ | --------------------------------- |
+| http-c-0010 | NewRelease               | 0.0.2                             |
 
 ### TCP Client Interface
 
-| UUID       | IP Address      | TCP Port      |
-| ---------- | ----------------| ------------- |
-| tcp-c-0010 | 10.118.125.157  | 7006          |
+| UUID       | IP Address      | TCP Port                                    |
+| ---------- | ----------------| ------------------------------------------- |
+| tcp-c-0010 | 10.118.125.157  | 7006                                        |
 
 
