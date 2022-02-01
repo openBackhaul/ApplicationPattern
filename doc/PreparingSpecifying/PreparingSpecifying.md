@@ -8,7 +8,7 @@ Good collaboration processes and detailed guidelines are required for efficientl
 
 Documentation and templates of the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository on GitHub.com/openBackhaul](https://github.com/openBackhaul/ApplicationPattern/tree/tsi). Also need for change or completion of the ApplicationPattern has to be addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues) of the same repository.
 
-**All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by formulating pull requests).**
+**All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by [formulating pull requests](./FormulatingPullRequests/FormulatingPullRequests.md)).**
 
 All ApplicationOwners need an [own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) from beginning on.
 
