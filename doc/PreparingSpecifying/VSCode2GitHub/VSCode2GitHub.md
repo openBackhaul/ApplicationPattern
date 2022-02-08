@@ -19,7 +19,7 @@ As the https proxy is not needed, only the http proxy has to be set:
 git config --global http.proxy http://bc-proxy-vip-prod.de.pri.o2.com:8080
 ```
 
-Alternatively this can also be done by editing the git config file, typically found under path *"C:\Users\<username>\.gitconfig"*. The file should look similar to the following example:  
+As a result the git config file, typically found under path *"C:\Users\<username>\.gitconfig"*, should look similar to the following example:  
 ```
 [filter "lfs"]
 	required = true
