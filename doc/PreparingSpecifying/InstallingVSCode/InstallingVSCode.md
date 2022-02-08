@@ -2,7 +2,7 @@
 
 ### Windows
 
-This guide shows how to install Visual Studio Code on Windows environments.
+This guide shows how to install Visual Studio Code (VSCode) on Windows environments.
 
 **Downloading**
 
@@ -45,3 +45,7 @@ Guidance on other Linux distributions can be found on [this website](https://cod
 
 [Up to Preparing](../PreparingSpecifying.md)
 
+### Recommended extensions
+
+* **GitHub Pull Requests and Issues**: used to issue pull requests directly from VSCode
+* **GitLens**: code authorship visualisation and seamless navigation of Git repositories
