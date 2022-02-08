@@ -25,6 +25,8 @@ Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 
 Guidance for [installing Git](./InstallingGit/InstallingGit.md), [installing VisualStudioCode](./InstallingVSCode/InstallingVSCode.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VSCode2GitHub/VSCode2GitHub.md).
 
+Guidance for [adding another GitHub repository](./VSCode2GitHub/AddingARepo.md) to the workbench in VisualStudioCode.
+
 ### MarkDown
 
 All documentation, readme and issues on GitHub are edited in MarkDown syntax.  
