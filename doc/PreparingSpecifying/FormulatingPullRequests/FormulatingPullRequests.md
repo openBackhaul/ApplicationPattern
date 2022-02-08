@@ -1,38 +1,35 @@
 # Formulating Pull Requests
 
-Viele große Open-Source-Projekte haben ein öffentliches GitHub-Repository. Sie können unkompliziert git clone ausführen, den Code herunterladen und ausführen bzw. kompilieren. Nicht funktionieren wird, den Code zu ändern und nach einem Commit mit git push wieder hochzuladen: Sie sind ja kein Mitglied des Entwicklerteams und können deswegen keine Änderungen durchführen. git push scheitert daher mit einer Fehlermeldung.
-Nun könnten Sie natürlich mit den Entwicklern in Kontakt treten und sie bitten, Sie ins Team zu nehmen und Ihnen Collaboration-Rechte für das Repository zu geben. Das Echo wird jedoch verhalten bis skeptisch ausfallen. Schließlich ist unklar, wie groß Ihr Know-how ist, ob Ihr Code qualitativ überzeugt und den Richtlinien der anderen Entwickler entspricht usw. Generell versuchen die meisten Projekte, die Anzahl der Personen, die eigenständig Änderungen im Repository durchführen dürfen, möglichst klein zu halten.
+A lot of big Open-Source projects do have a public GitHub repository. Via git clone code can easily be downloaded and compiled or executed. However, changing the code, committing it and then uploading it with a git push will not work as only members of the development team are allowed to apply changes. Thus, git push will fail with an error message.  
+As it cannot be ensured that all commits/pushes are of sufficient quality, the number of development team members normally will be kept rather small.  
 
-GitHub hat deswegen eine andere Vorgehensweise etabliert, die von den meisten anderen Git-Plattformen in ähnlicher Form praktiziert wird:
+Hence, GitHub has established another approach, which also most other Git plattforms also use in a similar fashion:
 
-**Erst Fork, ...**
+**First Fork, ...**
 
-* Um an einem fremden Projekt mitzuarbeiten, besuchen Sie seine GitHub-Seite und klicken dort auf den Button Fork.
-* Sie erstellen damit eine Kopie des fremden Repositorys in Ihrem eigenen GitHub-Account.
-* Im nächsten Schritt können Sie nun von dieser Kopie mit git clone ein lokales Repository auf Ihrem Rechner erstellen.
-* Dort führen Sie die gewünschten Änderungen durch, testen Ihren Code, führen Commits aus.
-* Wenn Ihre Änderungen abgeschlossen sind, übertragen Sie diese schließlich mit git push zurück in ihren GitHub-Fork, also in Ihre Kopie des ursprünglichen Repositorys.
+* To contribute to a foreign project, navigate to its GitHub webpage and there press the *Fork* button.
+* By forking you will create a copy of the foreign repository inside your own GitHub account.
+* Next you can create a local repository on your laptop from the copy via git clone.
+* There you can apply the desired changes, test the code and commit it
+* If your changes are completed, they can be sychronised to your own GitHub fork (i.e. your copy of the original repository) by using git push. 
 
-**... dann Pull-Request**
+**... then Pull Request**
 
-* In der GitHub-Weboberfläche finden Sie in Ihrem lokalen Fork im Dialogblatt Pull-Requests den Button _New pull request_. Damit werden Sie auf die Seite des ursprünglichen Projekts umgeleitet.
-
+* Inside your local fork on the GitHub web gui there is a tab called "Pull requests". It contains the button *New pull request*. With it you will be redirected to the page of the original project.  
     ![NewPullRequestButton](./pictures/NewPullRequestButton.png)
 
-* Die GitHub-Oberfläche zeigt zuerst eine Zusammenfassung der durchgeführten Änderungen an.
-* In einem weiteren Schritt übermitteln Sie eine Nachricht an die Entwickler des externen Repositorys, üblicherweise mit Informationen dazu, was Sie geändert haben und eventuell auch, warum.
-* _Create pull request_ schließt den Vorgang ab.
-
+* The GitHub gui first shows a summary of the applied changes.
+* In the next step you will send a message to the developers of the external repository, normally with information about what has been changed and why. By pressing *Create pull request* the operation is finished.  
     ![CreatePullRequestButton](./pictures/CreatePullRequestButton.png)
 
-* Es obliegt den Besitzern des fremden Repositorys, Ihre Änderungen zu akzeptieren (_Merge pull request_), abzulehnen oder auch Verbesserungsvorschläge zu machen bzw. weitere Änderungen von Ihnen einzufordern (_Comment_).
+* The foreign repositories owners are in charge of accepting your changes (*Merge pull request*), declining them or suggesting improvals and asking you for further changes (*Comment*).
 
-Pull-Requests bieten die einzige Möglichkeit, an GitHub-Projekten teilzunehmen, ohne Mitglied des jeweiligen Entwicklerteams zu sein.  
-Häufig werden sie projektintern verwendet, um unkoordinierte Änderungen am Repository zu verhindern. (Weitere Details zum Pull-Request auch in unten genannter Quelle.)
+Pull requests are the only way to participate in GitHub projects without being a member of the actual development team.  
+Often they are using internally inside a project, to prevent uncoordinated changes to the repository. (Further details on pull requests are also found in below listed source.)  
 
-Beachten Sie, dass Forks und Pull Requests keine Git-Techniken sind. Dementsprechend gibt es dafür auch keine git-Subkommandos. Vielmehr müssen Sie diese Operationen in der Weboberfläche Ihrer Git-Plattform durchführen. Die Nomenklatur kann dabei je nach Plattform variieren. Unter GitLab ist beispielsweise von Merge-Requests die Rede.
+Note that forks and pull requests are not Git techniques. Therefore, no git sub-commands exist. You rather have to conduct these operations inside the web gui of your Git plattform (or if Visual Studio Code is used, a special plugin can be used for operations - see [here](../VSCode2GitHub/VSCode2GitHub.md) for instructions). The nomenclature can be different across various plattforms. E.g. with GitLab they are called "Merge requests".  
 
-Quelle:  
+Source: 
 _Git - Projektverwaltung für Entwickler und DevOps-Teams_  
 Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
