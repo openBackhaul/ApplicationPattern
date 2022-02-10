@@ -3,6 +3,7 @@
 When working on your computer locally, Git allows you to set the identity of the comitter and author of yor changes without further authentication (so potentially anyone could impersonate someone else). As a result, it can be tough for others to determine that commits and tags you create are actually yours. To overcome this problem you can sign your commits and tags.
 
 A signed commit can be recognized by the green `Verified` bagde behind a commit:
+
 ![Verified Commmit](./pictures/VerifiedCommit.PNG)
 
 This ensures the integrity of the commit, that means:
@@ -44,18 +45,26 @@ There are two ways of creating a key pair: Kleoptra and CLI (only recommended fo
 #### Kleopatra
 
 1. Open Kleopatra (has been installed together with GPG4Win)
+
 2. Press `Ctrl` + `N` to create a new key pair
+
 3. Choose `Generate OpenGPG key pair` (`Persönliches OpenGPG-Schlüsselpaar erstellen`)
+   
    ![Start generating key pair](./pictures/Kleopatra/3_CreateKey.PNG)
+
 4. Enter your name and email.
    _Note that your email also has to be added and verified to your GitHub account, for more information click [here](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-user-account/managing-email-preferences/adding-an-email-address-to-your-github-account)._ Press `Continue`.
 
    ![Personal information](./pictures/Kleopatra/4_EnterName.PNG)
+
 5. Check one more time if you input the right information and press `Create`.
-![Confirmation](./pictures/Kleopatra/5_Confirm.PNG) _This now may take a while._
+
+   ![Confirmation](./pictures/Kleopatra/5_Confirm.PNG) _This now may take a while._
+
 6. Enter a passphrase in the popup (**DONT FORGET THIS PASSPHRASE!**).
 
    ![Enter Passphrase](./pictures/Kleopatra/6_Password.PNG)
+
 7. After a while there should pop up an confirmation message. Press `Confirm`.
 
 Congratulations, you just created your first key pair!
@@ -139,9 +148,12 @@ Last you have to set up VS Code for signing commits
 
 1. Open VS Code
 2. Open Settings
+
    ![VS Code Settings](./pictures/VSCode/2_Settings.PNG)
+
 3. Search for `gpg`
 4. Check the box named `Enables commit signing with GPG`
+
    ![gpg check box](./pictures/VSCode/3_GPG.PNG)
 
 ## Sources
