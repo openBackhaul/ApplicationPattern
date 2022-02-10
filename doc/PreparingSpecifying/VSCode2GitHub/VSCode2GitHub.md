@@ -132,4 +132,5 @@ In case the following error message appears when trying to clone the repository 
 **_Conflicts in pull requests_**:  
 The pull request will show that there are conflicts that need to be removed before a merge can be done. As a pull request is issued *because* changes were made, this should always be the case. Before the changes can be merged into the target branch these conflicts need to be resolved. For the *tsi* branch this needs to be done by the users with push permission.
 
+[Forward to Signing Commits in VS Code](../SigningCommitsInVSCode/SigningCommits.md)\
 [Up to Preparing](../PreparingSpecifying.md)
