@@ -1,0 +1,106 @@
+forwardings:
+  - PromptForRegisteringCausesRegistrationRequest
+      op-fc-0000
+      Invariant Process Snippet
+      management-requests:
+        operation-client-creation:
+          - /v1/register-yourself
+              op-s-0000
+        fc-port-creation:
+          - /v1/register-yourself
+              op-s-0000
+        fc-port-deletion:
+        operation-client-deletion:
+      initiating-requests:
+        - /v1/register-yourself
+            op-s-0000
+      consequent-requests:
+        - RegistryOffice://v1/register-application
+            op-c-0020
+  - PromptForEmbeddingCausesRequestForBequeathingData
+      op-fc-0001
+      Invariant Process Snippet
+      management-requests:
+        operation-client-creation:
+        fc-port-creation:
+        fc-port-deletion:
+        operation-client-deletion:
+      initiating-requests:
+        - /v1/embed-yourself
+            op-s-0001
+      consequent-requests:
+        - OldRelease://v1/bequeath-your-data-and-die
+            op-c-0000
+  - ServiceRequestCausesLoggingRequest
+      op-fc-0002
+      Invariant Process Snippet
+      management-requests:
+        operation-client-creation:
+          - /v1/redirect-service-request-information
+              op-s-0002
+        fc-port-creation:
+          - /v1/redirect-service-request-information
+              op-s-0002
+        fc-port-deletion:
+        operation-client-deletion:
+      initiating-requests:
+        - /v1/register-yourself
+            op-s-0000
+        - /v1/embed-yourself
+            op-s-0001
+        - /v1/redirect-service-request-information
+            op-s-0002
+        - /v1/redirect-oam-request-information
+            op-s-0003
+        - /v1/end-subscription
+            op-s-0004
+        - /v1/inquire-oam-request-approvals
+            op-s-0005
+        - /v1/update-client
+            op-s-0007
+        - /v1/list-ltps-and-fcs
+            op-s-0008
+        - /v1/redirect-topology-change-information
+            op-s-0009
+        - /v1/update-operation-key
+            op-s-0010
+        - /v1/update-operation-client
+            op-s-0011
+        - /v1/bequeath-your-data-and-die
+            op-s-1000
+        - /v1/inform-about-application
+            op-s-2001
+        - /v1/inform-about-application-in-generic-representation
+            op-s-2002
+        - /v1/inform-about-release-history
+            op-s-2003
+        - /v1/inform-about-release-history-in-generic-representation
+            op-s-2004
+        - /v1/start-application-in-generic-representation
+            op-s-3000
+        ## All service requests to be complemented
+      consequent-requests:
+        - ExecutionAndTraceLog://v1/record-service-request
+            op-c-0040
+  - OamRequestCausesLoggingRequest
+      op-fc-0003
+      Invariant Process Snippet
+      management-requests:
+        operation-client-creation:
+          - /v1/redirect-oam-request-information
+              op-s-0003
+        fc-port-creation:
+          - /v1/redirect-oam-request-information
+              op-s-0003
+        fc-port-deletion:
+        operation-client-deletion:
+      initiating-requests:
+      consequent-requests:
+        - OamLog://v1/record-oam-request
+            op-c-0050
+      
+    
+    
+
+
+    
