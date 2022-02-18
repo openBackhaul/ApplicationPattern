@@ -1,0 +1,20 @@
+profiles:
+
+  - profile-name: ApplicationProfile
+    uuid: application-p-0000
+    application-name: RegistryOffice
+    release-number: 0.0.1
+    approval-status: approved
+
+  - profile-name: IntegerProfile
+    uuid: integer-p-0000
+    integer-name: maximumNumberOfEntries
+    unit: records
+    minimum: 0
+    maximum: 17
+    configured-value: 8
+
+  - profile-name: StringProfile
+    uuid: string-p-0000
+    string-name: operationMode
+    configured-value: sanitation
