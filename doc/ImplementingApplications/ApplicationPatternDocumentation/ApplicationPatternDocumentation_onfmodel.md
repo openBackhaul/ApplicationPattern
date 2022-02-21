@@ -438,4 +438,4 @@ This module provides functionalities that converts the attributes to ONF CoreMod
 |---|---|---|
 |**modifyJSONObjectKeysToKebabCase** <br>This function modifies the JSON object keys from lower camelCase to kebabCase.|{Object} *JSONObject* JSON object for which the keys need to be modified to kebabCase.|{Object} modified JSON object in kebabcase.
 
-[<- Back to Application Pattern Documentation](ApplicationPatternDocumentation.md) - - - [Up to Main](../../Main.md)
+[Up to Application Pattern Documentation](ApplicationPatternDocumentation.md)

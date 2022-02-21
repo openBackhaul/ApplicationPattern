@@ -418,4 +418,4 @@ This module provides functionality to decode an authorization code.
 
 This module provides functionality to migrate data from the current version to the next version. This file should be modified according to the individual service forwarding requirements.
  
-[<- Back to ImplementingApplications](../ImplementingApplications.md) - - - [Up to Main](../../Main.md)
+[Up to ImplementingApplications](../ImplementingApplications.md)
