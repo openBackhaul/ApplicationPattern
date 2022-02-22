@@ -432,35 +432,26 @@ paths:
                   consequent-action-list:
                     type: array
                     uniqueItems: true
-                    # replace by correct number of services in generic representation
-                    minItems: 1
-                    maxItems: 1
                     items:
                       type: object
                       required:
                         - label
                         - request
+                        - display-in-new-browser-window
                       properties:
                         label:
                           type: string
-                          enum:
-                            # complete the list of services in generic representation
-                            - 'Inform about Application'
+                          description: >
+                            'Label that shall be presented on the button
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
-                            'https://
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
-                            :
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
-                            and either
-                            # complete the list of services in generic representation
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-2002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                            'Request that shall be called, when button gets pressed
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/request]'
                         input-value-list:
                           type: array
                           uniqueItems: true
-                          maxItems: 0
                           items:
                             type: object
                             required:
@@ -468,12 +459,23 @@ paths:
                             properties:
                               field-name:
                                 type: string
+                                description: >
+                                  'Name of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
                               unit:
                                 type: string
+                                description: >
+                                  'Unit of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
+                        display-in-new-browser-window:
+                          type: boolean
+                          description: >
+                            'True in case Request shall be represented in a new browser window
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
-                      # complete the list of services in generic representation
                       - label: 'Inform about Application'
                         request: 'https://10.118.125.157:1000/v1/inform-about-application-in-generic-representation'
+                        display-in-new-browser-window: false
           headers:
             x-correlator:
               schema: 
@@ -1835,9 +1837,12 @@ paths:
                   core-model-1-4:control-construct:
                     type: object
                     required:
+                      - uuid
                       - logical-termination-point
                       - forwarding-domain
                     properties:
+                      uuid:
+                        type: string
                       logical-termination-point:
                         type: array
                         uniqueItems: true
@@ -2371,9 +2376,12 @@ paths:
                         core-model-1-4:control-construct:
                           type: object
                           required:
+                            - uuid
                             - logical-termination-point
                             - forwarding-domain
                           properties:
+                            uuid:
+                              type: string
                             logical-termination-point:
                               type: array
                               uniqueItems: true
@@ -3164,7 +3172,7 @@ paths:
                             logical-termination-point: '*-0-0-1-op-c-0050'
               responses:
                 '204':
-                  description: 'FC port will be updated'
+                  description: 'FC will be updated'
                   headers:
                     x-correlator:
                       schema: 
@@ -4005,7 +4013,6 @@ paths:
               type: object
               required:
                 - operation-uuid
-                - old-operation-key
                 - new-operation-key
               properties:
                 operation-uuid:
@@ -4013,11 +4020,6 @@ paths:
                   description: >
                     'UUID of LTP that is target of the updating of the operation key
                     find [/core-model-1-4:control-construct/logical-termination-point=uuid]'
-                old-operation-key:
-                  type: string
-                  description: >
-                    'Current operation key
-                    find [/core-model-1-4:control-construct/logical-termination-point={operation-uuid}/layer-protocol=0/operation-*-interface-1-0:operation-*-interface-pac/operation-*-interface-configuration/operation-key]'
                 new-operation-key:
                   type: string
                   minLength: 5
@@ -4026,7 +4028,6 @@ paths:
                     update [/core-model-1-4:control-construct/logical-termination-point={operation-uuid}/layer-protocol=0/operation-*-interface-1-0:operation-*-interface-pac/operation-*-interface-configuration/operation-key]'
               example:
                 operation-uuid: 'ro-0-0-1-op-s-3003'
-                old-operation-key: 'Operation key not yet provided.'
                 new-operation-key: 'Operation key not yet provided.'
       responses:
         '204':
@@ -4357,34 +4358,26 @@ paths:
                   consequent-action-list:
                     type: array
                     uniqueItems: true
-                    minItems: 2
-                    maxItems: 2
                     items:
                       type: object
                       required:
                         - label
                         - request
+                        - display-in-new-browser-window
                       properties:
                         label:
                           type: string
-                          enum:
-                            - 'Release History'
-                            - 'API Documentation'
+                          description: >
+                            'Label that shall be presented on the button
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
-                            'https://
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
-                            :
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
-                            and either
-                            [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-2004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]
-                            or
-                            /v1/inform-about-api'
+                            'Request that shall be called, when button gets pressed
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/request]'
                         input-value-list:
                           type: array
                           uniqueItems: true
-                          maxItems: 0
                           items:
                             type: object
                             required:
@@ -4392,13 +4385,26 @@ paths:
                             properties:
                               field-name:
                                 type: string
+                                description: >
+                                  'Name of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
                               unit:
                                 type: string
+                                description: >
+                                  'Unit of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
+                        display-in-new-browser-window:
+                          type: boolean
+                          description: >
+                            'True in case Request shall be represented in a new browser window
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
                       - label: 'Release History'
                         request: 'https://10.118.125.157:1000/v1/inform-about-release-history-in-generic-representation'
+                        display-in-new-browser-window: false
                       - label: 'API Documentation'
                         request: 'https://10.118.125.157:1000/v1/inform-about-api'
+                        display-in-new-browser-window: true
           headers:
             x-correlator:
               schema: 
@@ -4569,22 +4575,26 @@ paths:
                   consequent-action-list:
                     type: array
                     uniqueItems: true
-                    maxItems: 0
                     items:
                       type: object
                       required:
                         - label
                         - request
-                        - input-value-list
+                        - display-in-new-browser-window
                       properties:
                         label:
                           type: string
+                          description: >
+                            'Label that shall be presented on the button
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
+                          description: >
+                            'Request that shall be called, when button gets pressed
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/request]'
                         input-value-list:
                           type: array
                           uniqueItems: true
-                          maxItems: 0
                           items:
                             type: object
                             required:
@@ -4592,8 +4602,19 @@ paths:
                             properties:
                               field-name:
                                 type: string
+                                description: >
+                                  'Name of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
                               unit:
                                 type: string
+                                description: >
+                                  'Unit of an input value required for executing the Request
+                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
+                        display-in-new-browser-window:
+                          type: boolean
+                          description: >
+                            'True in case Request shall be represented in a new browser window
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-0-0-1-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
           headers:
             x-correlator:
               schema: 
@@ -4657,10 +4678,13 @@ paths:
                   core-model-1-4:control-construct:
                     type: object
                     required:
+                      - uuid
                       - profile-collection
                       - logical-termination-point
                       - forwarding-domain
                     properties:
+                      uuid:
+                        type: string
                       profile-collection:
                         type: object
                         required:
@@ -4693,6 +4717,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     admin-profile-1-0:admin-profile-pac:
                                       type: object
                                       required:
@@ -4737,6 +4762,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     string-profile-1-0:string-profile-pac:
                                       type: object
                                       required:
@@ -4775,6 +4801,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     integer-profile-1-0:integer-profile-pac:
                                       type: object
                                       required:
@@ -4819,6 +4846,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     application-profile-1-0:application-profile-pac:
                                       type: object
                                       required:
@@ -4865,6 +4893,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     service-record-profile-1-0:service-record-profile-pac:
                                       type: object
                                       required:
@@ -4919,6 +4948,7 @@ paths:
                                         - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
                                         - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
                                         - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                     oam-record-profile-1-0:oam-record-profile-pac:
                                       type: object
                                       required:
@@ -4957,6 +4987,57 @@ paths:
                                               type: string
                                             timestamp:
                                               type: string
+                                - description: 'action profile'
+                                  type: object
+                                  required:
+                                    - uuid
+                                    - profile-name
+                                    - action-profile-1-0:action-profile-pac
+                                  properties:
+                                    uuid:
+                                      type: string
+                                    profile-name:
+                                      type: string
+                                      enum:
+                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
+                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
+                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                    action-profile-1-0:action-profile-pac:
+                                      type: object
+                                      required:
+                                        - action-profile-capability
+                                      properties:
+                                        action-profile-capability:
+                                          type: object
+                                          required:
+                                            - operation-name
+                                            - label
+                                            - request
+                                            - new-browser-window
+                                          properties:
+                                            operation-name:
+                                              type: string
+                                            label:
+                                              type: string
+                                            request:
+                                              type: string
+                                            input-value-list:
+                                              type: array
+                                              items:
+                                                type: object
+                                                required:
+                                                  - field-name
+                                                properties:
+                                                  field-name:
+                                                    type: string
+                                                  unit:
+                                                    type: string
+                                            display-in-new-browser-window:
+                                              type: boolean
                             example:
                               - uuid: '*-0-0-1-integer-p-0000'
                                 profile-name: 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
