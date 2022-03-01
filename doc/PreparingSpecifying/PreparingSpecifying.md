@@ -4,15 +4,17 @@ The following steps have to be taken to prepare for becoming an ApplicationOwner
 
 ### GitHub
 
-Good collaboration processes and detailed guidelines are required for efficiently commonly growing the application layer.
+Good collaboration processes and detailed guidelines are required for efficiently commonly growing the application layer.  
+All ApplicationOwners need an own GitHub account from beginning on.
 
-Documentation and templates of the ApplicationPattern can be found in the [TSI branch of the ApplicationPattern repository on GitHub.com/openBackhaul](https://github.com/openBackhaul/ApplicationPattern/tree/tsi). Also need for change or completion of the ApplicationPattern has to be addressed in the [Issues](https://github.com/openBackhaul/ApplicationPattern/issues) of the same repository.
+* [Open own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
+* [Formulating Issues](./FormulatingIssues/FormulatingIssues.md)
+* [Workflow for contributing](./GitWorkflow/GitWorkflow.md)
+* [Formulating Commit Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
+* [Formulating Pull Requests](./FormulatingPullRequests/FormulatingPullRequests.md)
+* [More about collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)
 
-**All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by [formulating pull requests](./FormulatingPullRequests/FormulatingPullRequests.md)).**
-
-All ApplicationOwners need an [own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md) from beginning on.
-
-GitHub is providing a [vast documentation](https://docs.github.com/en), for e.g. on [getting started](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account) or [collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests).
+All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by [formulating pull requests](./FormulatingPullRequests/FormulatingPullRequests.md)).
 
 ### Git and VisualStudioCode
 
