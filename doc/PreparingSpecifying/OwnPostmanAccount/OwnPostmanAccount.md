@@ -17,7 +17,11 @@ After that your new user should automatically be logged in to Postman.
 |![postman_03](https://user-images.githubusercontent.com/57349523/156576787-925a9f5e-6377-4a06-beaf-93244c142c08.jpg)|
 |---|
 
-Notify the plattform owner of your new user account in order to get added to the MW_SDN_Domain team.
+At this point the account still needs to be activated, which can be done from the email which will be sent by the Postman team. Press the *Confirm My Email* button to do so:  
+|![postman_04](https://user-images.githubusercontent.com/57349523/156581231-55e8b8f4-3966-47be-9fda-292f95dae0d3.jpg)|
+|---|
+
+The last step is to notify the plattform owner of your new user account in order to get added to the MW_SDN_Domain team.  
 Send an email to: Thorsten.Heinze@telefonica.com
 
 ***
