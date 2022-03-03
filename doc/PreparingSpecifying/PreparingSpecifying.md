@@ -36,15 +36,13 @@ Mastering [basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/
 
 ### Postman
 
-While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases.
+While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases. A Postman account is for free. All ApplicationOwners need an own Postman account.
 
-A properly working Postman is a precondition for describing the APIs of the applications.
-
-The basic Postman is for free. Installing it according to [this guideline](./InstallingPostman/InstallingPostman.md) will facilitate smooth connection into the Internet and to the SDN laboratory environment.
-
-Also Postman is providing a [vast documentation](https://learning.postman.com/docs/getting-started/introduction/). Both, [designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/) as well as [introduction into scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) are providing a good base for defining and testing of the Open API specifications, which we require for our applications.
-
-Postman is synchronizing into its own cloud. So the ApplicationOwner can seamlessly work on his APIs and TestCases on multiple devices. It is also possible to work in teams. This requires chargeable licenses, which are available to limited extend.
+* [Open own Postman account](./OwnPostmanAccount/OwnPostmanAccount.md) 
+* [Installing Postman on OfficeLaptop](./InstallingPostman/InstallingPostman.md)
+* [Introduction](https://learning.postman.com/docs/getting-started/introduction/)
+* [Designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/)
+* [Introduction into test scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)
 
 ### Open API specification (Swagger) and YAML
 
