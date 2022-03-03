@@ -17,7 +17,7 @@ Many different workflows can be implemented based on Git and GitHub.
 The proposed workflows are a bit more complex to apply in the beginning, but they are comperably transparent and comperably ease to debug (in case of Kuddelmuddel).  
 * ApplicationOwner (and PlatformOwner): 
   * will be assigned to be _Collaborator_, which allows to create branches in the _origin_ repository
-  * will apply the _Gitflow_ process
+  * will apply the _Gitflow Workflow_
 * Everybody else:
   * will apply the _Forking Workflow_, which can be applied in most open source projects
 
