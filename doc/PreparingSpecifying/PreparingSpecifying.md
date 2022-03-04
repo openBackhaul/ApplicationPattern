@@ -10,8 +10,7 @@ All ApplicationOwners need an own GitHub account from beginning on.
 * [Open own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
 * [Formulating Issues](./FormulatingIssues/FormulatingIssues.md)
 * [Workflow for contributing](./GitWorkflow/GitWorkflow.md)
-* [Formulating Commit Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
-* [Formulating Pull Requests](./FormulatingPullRequests/FormulatingPullRequests.md)
+* [Formulating Commit and Pull Request Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
 * [More about collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)
 
 All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by [formulating pull requests](./FormulatingPullRequests/FormulatingPullRequests.md)).
