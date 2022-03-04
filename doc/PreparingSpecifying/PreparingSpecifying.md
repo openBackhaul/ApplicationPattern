@@ -2,31 +2,35 @@
 
 The following steps have to be taken to prepare for becoming an ApplicationOwner.
 
-### GitHub
+### GitHub, Git and Visual Studio Code
 
 Good collaboration processes and detailed guidelines are required for efficiently commonly growing the application layer.  
-All ApplicationOwners need an own GitHub account from beginning on.
+All ApplicationOwners need an own GitHub account and local installations of Git and VSCode from beginning on.
+GitHub is a cloud based platform for sharing code in open source projects.  
+Git is for keeping local data in synch with GitHub.  
+Visual Studio Code is an advanced editor, which is very well integrating Git into its grafical user interface.  
+Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 
-* [Open own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
+**Concepts**
+* [Introduction to Git and GitHub](./Introduction2Git/Introduction2Git.md)
+* [Workflow for contributing](./WorkflowForContributing.md/WorkflowForContributing.md.md)
+* [GitFlow Workflow](./GitFlowWorkflow/GitFlowWorkflow.md)
+* [Forking Workflow](./ForkingWorkflow/ForkingWorkflow.md)
 * [Formulating Issues](./FormulatingIssues/FormulatingIssues.md)
-* [Workflow for contributing](./GitWorkflow/GitWorkflow.md)
-* [Formulating Commit and Pull Request Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
-* [More about collaborating by pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)
+* [Formulating Commit and Merge Request Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
 
-All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines (by [formulating pull requests](./FormulatingPullRequests/FormulatingPullRequests.md)).
+**Step-by-Step Guidelines**
+* [Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
+* [Installing Git](./InstallingGit/InstallingGit.md)
+* [Installing Visual Studio Code](./InstallingVSCode/InstallingVSCode.md)
+* [Connecting VS Code with a GitHub repository](./VSCode2GitHub/VSCode2GitHub.md)
+* [Connecting another GitHub repository](./VSCode2GitHub/AddingARepo.md)
+* [Documenting an Issue](./DocumentingAnIssue/DocumentingAnIssue.md)
+* [Processing an Issue](./ProcessingAnIssue/ProcessingAnIssue.md)
+* [Creating an Commit](./CreatingCommit/CreatingCommit.md)
+* [Completing an Issue](./CreatingMergeRequest/CreatingMergeRequest.md)
 
-### Git and VisualStudioCode
-
-GitHub provides a good web interface for getting started, but a local installation of Git and VisualStudioCode is recommended for more advanced working on code and documentation.
-
-Git is for keeping local data in synch with a common repository. It is command line based.  
-VisualStudioCode is an advanced editor, which is very well integrating Git into its grafical user interface.  
-Both, Git and VisualStudioCode are available for Linux, Windows and Mac.  
-(VisualStudioCode is not to be mixed with VisualStudio, which is a development environment on Windows only.)
-
-Guidance for [installing Git](./InstallingGit/InstallingGit.md), [installing VisualStudioCode](./InstallingVSCode/InstallingVSCode.md) and [connecting VisualStudioCode on OfficeLaptop with GitHub](./VSCode2GitHub/VSCode2GitHub.md).
-
-Guidance for [adding another GitHub repository](./VSCode2GitHub/AddingARepo.md) to the workbench in VisualStudioCode.
+All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines by addressing pull requests.
 
 ### MarkDown
 
