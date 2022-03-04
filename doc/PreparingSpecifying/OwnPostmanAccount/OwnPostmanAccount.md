@@ -49,4 +49,4 @@ After some time you will get an email inviting you to the team. To do so just pr
 
 ***
 **Post steps**  
-In case of logging for the first time with a new user account also make sure that the proxy settings are set up again (see [here](../InstallingPostman/InstallingPostman.md) for information on how to do that.)
+In case of logging for the first time with a new user account also make sure that the proxy settings are set up again (see [here](../InstallingPostman/InstallingPostman.md) for information on how to do that.) 
