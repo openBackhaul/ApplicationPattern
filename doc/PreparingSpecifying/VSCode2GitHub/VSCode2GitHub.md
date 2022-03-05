@@ -48,11 +48,11 @@ With the URL now being available in the clipboard open VSCode and select the *�
 Press *“Clone from URL”* and select a location to which the repository will be downloaded (note that a folder of the repository's name will automatically be created).  
 ![vsc_03](https://user-images.githubusercontent.com/57349523/152162630-03b0bdbb-c44e-43a8-b954-72b9fba97f84.jpg)
 
-Change to the *develop* branch by pressing the branch button in the bottom left corner and select the *develop* branch in the then appearing selection menu.  
+Change to the **develop** branch by pressing the branch button in the bottom left corner and select the *develop* branch in the then appearing selection menu.  
 The resources of the selected branch will then be downloaded to the local directory and are shown in VSCode.  
 ![vsc_06](https://user-images.githubusercontent.com/57349523/152162636-3587d64c-21d0-4d54-8869-700b293bc995.jpg)
 
-The *develop* branch resources will be shown in the explorer:  
+The **develop** branch resources will be shown in the explorer:  
 ![vsc_07](https://user-images.githubusercontent.com/57349523/152162638-ec039755-eb12-4119-bc8e-40d4b9df8139.jpg)
 
 If asked whether the repository should be fetched regularly select “yes”.  
