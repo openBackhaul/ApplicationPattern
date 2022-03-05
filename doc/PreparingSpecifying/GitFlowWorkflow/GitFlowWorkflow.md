@@ -1,4 +1,4 @@
-### GitFlow Workflow
+# GitFlow Workflow
 
 Dieser Workflow definiert ein striktes Branching-Modell, das auf die Auslieferung von Releases abzielt.  
 Der Gitflow-Workflow weist verschiedenen Branches strikte Rollen zu, die festlegen, wie und wann sie interagieren.  
