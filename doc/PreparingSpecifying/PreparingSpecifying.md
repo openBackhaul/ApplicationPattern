@@ -1,19 +1,17 @@
 # Preparing for Specifying Applications
 
-The following steps have to be taken to prepare for becoming an ApplicationOwner.
-
 ### GitHub, Git and Visual Studio Code
 
-Good collaboration processes and detailed guidelines are required for efficiently commonly growing the application layer.  
-All ApplicationOwners need an own GitHub account and local installations of Git and VSCode from beginning on.
-GitHub is a cloud based platform for sharing code in open source projects.  
+Good collaboration processes and detailed guidelines are required for efficiently growing the application layer.  
+All ApplicationOwners need an own GitHub account and local installations of Git and VSCode from beginning on.  
+GitHub is a cloud based versioning system for sharing code in open source projects.  
 Git is for keeping local data in synch with GitHub.  
 Visual Studio Code is an advanced editor, which is very well integrating Git into its grafical user interface.  
 Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 
 **Concepts**
 * [Introduction to Git and GitHub](./Introduction2Git/Introduction2Git.md)
-* [Workflow for contributing](./WorkflowForContributing.md/WorkflowForContributing.md.md)
+* [Workflow for contributing](./WorkflowForContributing/WorkflowForContributing.md)
 * [GitFlow Workflow](./GitFlowWorkflow/GitFlowWorkflow.md)
 * [Forking Workflow](./ForkingWorkflow/ForkingWorkflow.md)
 * [Formulating Issues](./FormulatingIssues/FormulatingIssues.md)
