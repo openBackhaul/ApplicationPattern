@@ -1,6 +1,6 @@
-# Connecting another repository on GitHub with VisualStudioCode
+# Connecting another repository on GitHub with Visual Studio Code
 
-Use browser for going into the GitHub repository, which you would like to connect with VisualStudioCode.   
+Use browser for going into the GitHub repository, which you would like to connect with VSCode.   
 Open the “Code” menu and copy the HTTPS link.  
 ![Getting the HTTPS Link](./Figures/01_HTTPS_link.png)
 
