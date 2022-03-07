@@ -25,7 +25,7 @@ Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 * [Connecting another GitHub repository](./VSCode2GitHub/AddingARepo.md)
 * [Documenting an Issue](./DocumentingAnIssue/DocumentingAnIssue.md)
 * [Processing an Issue](./ProcessingAnIssue/ProcessingAnIssue.md)
-* [Creating an Commit](./CreatingCommit/CreatingCommit.md)
+* [Creating a Commit](./CreatingCommit/CreatingCommit.md)
 * [Completing an Issue](./CreatingMergeRequest/CreatingMergeRequest.md)
 
 All ApplicationOwners are very much invited to propose corrections and completions on the ApplicationPattern (by creating Issues) or its guidelines by addressing pull requests.
