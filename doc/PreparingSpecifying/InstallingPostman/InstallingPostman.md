@@ -20,7 +20,7 @@ After the installer has finished the Postman window opens and provides different
 The screenshot shows the application window after pressing "Skip and go to the app". From here signing in or creating a new account is also possible.  
 ![postman_05](https://user-images.githubusercontent.com/57349523/151944538-a96502f8-1b50-4aa9-bb84-b252f3fd7266.jpg)
 
-If an account is not available yet, it should be created now, as otherwise the user workspace cannot be saved. If the "Create account" button is pressed a new browser window the the password creation dialogue opens. The picture below shows the "Sign In" dialogue, which also is opened in the browser.  
+If an account is not available yet, it should be created now, as otherwise the user workspace cannot be saved. When creating a new user follow the [guideline](../OwnPostmanAccount/OwnPostmanAccount.md) to ensure proper collaboration is possible. The picture below shows the "Sign In" dialogue, which also is opened in the browser.  
 ![postman_06](https://user-images.githubusercontent.com/57349523/151944853-7c409f73-5745-4304-9bc1-0583d7997bb5.jpg)
 
 To create a desktop icon open the Explorer and navigate to path *C:\Users\<username>\AppData\Local\Postman* and create the link to the Postman.exe manually:  
