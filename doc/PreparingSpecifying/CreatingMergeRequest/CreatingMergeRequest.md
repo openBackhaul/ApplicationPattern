@@ -1,59 +1,36 @@
 # Completing an Issue and creating a Merge Request
 
-**Under Construction!!!**
+After committing all changes, which are necessary to complete the _Issue_, and publishing (_Pushing_) them to the remote repository on GitHub, it's time for consolidating into the _develop_ branch and cutting all the loose ends.
 
-**Text just copied from some other chapter**
+For creating a _Merge Request_, click on the source control symbol (the branch icon in the menu bar to the left).  
 
-### Creating a Pull Request
+![RequestingMerge1](./pictures/RequestingMerge_01.png)  
 
-After changing files different actions are possible:
-* Commit: a commit captures the currently staged changes (locally if done in VSCode)
-* Revert: a forward-moving undo operation that offers a safe method of undoing changes
-* Push: pushes the committed changes from the local to the remote repository (requires special permissions!)
-* Pull: downloads the recent changes on the remote repository to the local repository and is also used for merging changes from one branch to another. (Before changing anything it is recommended to issue a pull to ensure that your local repository is up to date.)
+New _Merge Request_ can be created from the source control tab by pressing the new pull request icon:  
 
-
-**Creating pull requests in the browser**
-
-Open the GitHub repository in the browser. The recent changes should be shown along with the option to create a pull request. Continue by pressing the create button:  
-![vsc_15](https://user-images.githubusercontent.com/57349523/152191162-c92af012-f450-4827-a7ec-c7993e06d7bc.jpg)
-
-In the dialogue ensure that the target branch is set to *tsi* and add a meaningful message. Then create the pull request and wait for it to be approved of:  
-![vsc_16](https://user-images.githubusercontent.com/57349523/152191181-e2fbf0c5-7e24-43d0-9c56-4ebdb36f7f0c.jpg)
-
-**Creating pull requests from VSCode**
-
-For creating pull requests directly from VSCode an additional VSCode extension will be used.
-
-**_Installation of VSCode extension_**
-
-Ensure that the VSCode extension *"GitHub Pull Request and Issues"* is installed. Display the extensions tab:  
-![pull_01](https://user-images.githubusercontent.com/57349523/152354603-9a6c09d2-9001-48a5-9701-bedb7f63724a.jpg)
-
-If it is not listed under the installed extensions execute the installation now:  
-![pull_02](https://user-images.githubusercontent.com/57349523/152344762-ebdd0a19-9042-4b22-965d-944357753477.jpg)
-![pull_03](https://user-images.githubusercontent.com/57349523/152344763-6aeb9d76-7588-4b32-8b90-1c5fcd3963b3.jpg)
-
-A new viewlet will apear on the activity bar. Click on the new button and sign in to GitHub:  
-![pull_04](https://user-images.githubusercontent.com/57349523/152354638-2b7d89cc-496b-41c4-bc6e-ee41abdc57c9.jpg)
-
-After successful login the new viewlet will show a list of pull requests and issues:  
-![pull_05](https://user-images.githubusercontent.com/57349523/152344766-72416398-cdc6-4ba0-a006-64109cc87ebd.jpg)
-
-**_Creation of pull requests_**
-
-New pull requests can be created from the source control tab by pressing the new pull request icon:  
 ![pull_06](https://user-images.githubusercontent.com/57349523/152344768-12c76921-c38e-4701-a1bd-3b76e8b90d64.jpg)
 
-Set the correct branches (do not select *main* as target branch, but *tsi*!) for the pull and add a proper title:   
-![pull_08](https://user-images.githubusercontent.com/57349523/152344773-b52e3942-3e90-45bd-9949-45f46e701dfd.jpg)
+If you created a branch from an _Issue_, did the changes, _Committed_ and _Pushed_ the changes and started to formulate the _Merge Request_ in one sequence, VSCode is now automatically filling the source and target fields properly.  
 
-After creation the pull request will be visible in the viewlet:  
-![pull_10](https://user-images.githubusercontent.com/57349523/152344776-4c486b0a-af65-4e26-ae62-df86a7a2eeee.jpg)
+![RequestingMerge5](./pictures/RequestingMerge_05.png)  
 
-Note: *as this is a pull and not a push request the changes will not be visible in the target branch until a user with push permission approves of the changes and merges them in to the target branch.*
+As you can see from the picture, the _Merge Request_ is not involving your local repository.  
+The _Merge_ is happening exclusively in the remote repository on GitHub.  
+
+If you would not have kept the process described above, you would now have to extremly carefully configure source and target branches.  
+You have to undoubtedly identify the remote branch holding your changes.  
+Please, be aware that there might be many branches with very similar names available at the remote repository depending on the number of _Collaborators_, who are working in parallel with you, and their disciplin to clean up.  
+The target should always be the _develop_ branch on the remote repository (never request for _Merging_ into _main_).
+
+Please, add a _Merge Request_ message, which is complying to chapter [Formulating Merge Request Messages](../FormulatingCommitMessages/FormulatingCommitMessages.md).  
+Don't be concerned, if the _Merge Request_ message would be identical with your latest _Commit_ message.
+
+![RequestingMerge6](./pictures/RequestingMerge_06.png)  
+
+After pushing "Create", the PlatformOwner of the repository will be informed about your _Merge Request_ and will soon review and _Merge_.
 
 ### Troubleshooting
 
-**_Conflicts in pull requests_**:  
-The pull request will show that there are conflicts that need to be removed before a merge can be done. As a pull request is issued *because* changes were made, this should always be the case. Before the changes can be merged into the target branch these conflicts need to be resolved. For the *tsi* branch this needs to be done by the users with push permission.
+**Conflicts in Merge Requests**  
+In principle, altering the same source by several persons has the intrinsic risk of creating conflicts. If the described process has been followed, such conflicts should be rare.  
+If there would be such conflicts between the branches, they would emerge during creating the "Merge Request". Before the changes can be _Merged_ into the target branch, these conflicts need to be resolved. This needs to be done by the user, who is addressing the "Merge Request".
