@@ -1,4 +1,4 @@
-# Creating an Postman account
+# Creating a Postman account
 
 
 **Account creation**  
