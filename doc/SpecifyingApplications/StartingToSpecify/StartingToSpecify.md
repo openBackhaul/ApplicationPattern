@@ -1,4 +1,6 @@
-# Connecting another repository on GitHub with Visual Studio Code
+# First Steps of the Specification Process
+
+**Creating a local repository from the ApplicationRepository**
 
 Use browser for going into the GitHub repository, which you would like to connect with VSCode.   
 Open the “Code” menu and copy the HTTPS link.  

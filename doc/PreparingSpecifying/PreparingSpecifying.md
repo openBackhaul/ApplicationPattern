@@ -22,7 +22,6 @@ Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 * [Installing Git](./InstallingGit/InstallingGit.md)
 * [Installing Visual Studio Code](./InstallingVSCode/InstallingVSCode.md)
 * [Connecting VS Code with a GitHub repository](./VSCode2GitHub/VSCode2GitHub.md)
-* [Connecting another GitHub repository](./VSCode2GitHub/AddingARepo.md)
 * [Documenting an Issue](./DocumentingAnIssue/DocumentingAnIssue.md)
 * [Processing an Issue](./ProcessingAnIssue/ProcessingAnIssue.md)
 * [Creating a Commit](./CreatingCommit/CreatingCommit.md)
@@ -32,29 +31,39 @@ All ApplicationOwners are very much invited to propose corrections and completio
 
 ### MarkDown
 
-All documentation, readme and issues on GitHub are edited in MarkDown syntax.  
-Mastering [basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/) is precondition for actively contributing.
+All documentation, readme and issues on GitHub are edited in MarkDown syntax. Mastering MarkDown is a precondition.
+
+**Documentation**
+* [Basic syntax of MarkDown](https://www.markdownguide.org/basic-syntax/)
 
 ### Postman
 
-While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification and it is very supportive while writing the TestCases. A Postman account is for free. All ApplicationOwners need an own Postman account.
+While using Postman for writing the OpenApiSpecification, it is only a few clicks to create a dummy server (mock), which is simulating the API. The mock helps verifying correctness of the specification.  
+Anyway, Postman is needed for writing the TestCases.  
+A Postman account is for free.  
+All ApplicationOwners need an own Postman account.  
 
+**Step-by-Step Guidelines**
 * [Open own Postman account](./OwnPostmanAccount/OwnPostmanAccount.md) 
 * [Installing Postman on OfficeLaptop](./InstallingPostman/InstallingPostman.md)
+
+**Documentation**
 * [Introduction](https://learning.postman.com/docs/getting-started/introduction/)
 * [Designing APIs](https://learning.postman.com/docs/designing-and-developing-your-api/the-api-workflow/)
 * [Introduction into test scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)
 
-### Open API specification (Swagger) and YAML
+### OpenAPI specification (Swagger) and YAML
 
 Automated code generation requires syntactically well defined specifications.  
-OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs.
-Indent based YAML format has been choosen for formatting the OAS coding.
+OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs.  
+Indent based YAML format has been choosen for formatting the OAS coding.  
+Mastering OpenAPI Specification 3.0 in YAML is a precondition.  
 
-Mastering OpenAPI Specification 3.0 expressed in YAML is a precondition for describing the APIs of the applications.  
-Very good documentation with tons of code snippets can be found on the [Swagger website](https://swagger.io/docs/specification/basic-structure/).
+**Documentation**
+* [OpenAPI Guide](https://swagger.io/docs/specification/basic-structure/)
 
-The general documentation of language and coding is complemented by a set rules for assuring resulting applications to follow the ApplicationPattern and to fit into the operation and maintenance structure. [Specifics of the OpenApiSpecification](../SpecifyingApplications/OpenApiSpecification/OpenApiSpecification.md).
+**Concepts**
+* [Specifics of the ApplicationPattern](./OasBasedOnApplicationPattern/OasBasedOnApplicationPattern.md)
 
 ### JSON and Notepad++
 
