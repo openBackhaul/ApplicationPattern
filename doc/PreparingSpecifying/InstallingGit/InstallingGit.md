@@ -2,7 +2,7 @@
 
 ### Installation on Windows
 
-At first, it is recommended to check, whether Git isn't already installed by pressing return after entering "git --version" into the CMD.
+At first, it is recommended to check, whether Git is not already installed by pressing return after entering "git --version" into the CMD.
 
 If actually not yet installed, download the [standalone installer for windows](https://git-scm.com/download/win) and execute it.
 

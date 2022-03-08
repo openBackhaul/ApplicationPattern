@@ -35,9 +35,8 @@ Well formulated **merge request messages must support efficiently reviewing** th
 * wrap lines at 72 characters
 * do not assume that reviewers understand what the original problem was
 * do not assume the change/code is self-evident/self-documenting
-* If documentation from inside GitHub or external pages should be referenced, these can be linked by \[add link text in square brackets\]\(add link URL in parenthesis\)
-   
-.  
+* if documentation from inside GitHub or external pages should be referenced, these can be linked by \[add link text in square brackets\]\(add link URL in parenthesis\)
+    
 The commit message dialogues at GitHub and VSCode are slightly different.
 
 |**GitHub**|**VSCode**|

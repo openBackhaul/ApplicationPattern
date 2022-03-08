@@ -1,31 +1,31 @@
 # Introduction to Git and GitHub
 
-### Was ist Git?
+### What is Git?
 
-Git ist ein dezentrales Versionsverwaltungsprogramm. Bei Softwareprojekten hilft Git dabei, sich die von unterschiedlichen Entwicklern durchgeführten Änderungen zu merken. Später können Sie nachvollziehen, wer wann welche Änderungen durchgeführt hat (und wer für den zwei Jahre später entdeckten katastrophalen Sicherheitsbug verantwortlich war ...).  
-Grundsätzlich können Sie Git für jede Art von Projekt verwenden, bei dem nur Sie oder ein ganzes Team immer wieder diverse Dateien verändern, hinzufügen oder löschen.  
+Git is a decentralized version control program. In software projects, Git helps to remember changes made by different developers. Later you can trace who made which changes and when (and who was responsible for the catastrophic security bug discovered two years later...).
+In principle, you can use Git for any type of project in which only you or a whole team is constantly changing, adding or deleting various files.  
 
-Besonders gut funktioniert Git, wenn ein Projekt aus vielen, relativ kleinen Text- dateien besteht. Zwar kommt Git auch mit Binärdateien zurecht, allerdings lassen sich dann Veränderungen in solchen Dateien schwer nachvollziehen. Insofern ist Git nicht ideal geeignet, um Änderungen in Office-Dokumenten, in Audio- und Videodateien oder in den Images virtueller Maschinen zu verfolgen.  
+Git works particularly well when a project consists of many relatively small text files. Although Git can also handle binary files, changes in such files are difficult to trace. As such, Git is not ideal for tracking changes in Office documents, in audio and video files, or in virtual machine images.  
 
-Im Terminal oder in der PowerShell steuern Sie Git durch das Kommando git. Die zahlreichen Optionen dieses Kommandos erlauben Ihnen, Git-Projekte von externen Repositorys wie GitHub herunterzuladen, geänderte Dateien in einem »Commit« zu speichern und wieder hochzuladen, zwischen verschiedenen Zweigen eines Softwareprojekts zu wechseln (z. B. master und develop ), Änderungen rückgängig zu machen etc. (Als Repository gilt die Sammlung aller Dateien eines Projekts, wobei darin nicht nur die aktuelle Version enthalten ist, sondern auch alle früheren Versionen und alle Entwicklungszweige.)  
+In the terminal or in PowerShell, you control Git with the *git* command. The numerous options of this command allow you to download Git projects from external repositories like GitHub, save changed files in a *commit* and re-upload them, switch between different branches of a software project (e.g. master and develop), undo changes etc. (The repository is the collection of all files in a project, which includes not only the current version, but also all previous versions and all development branches.)  
 
-Zumindest ein Subset der Git-Funktionen können Sie aber auch über komfortable Oberflächen nutzen. Nahezu alle gängigen Entwicklungsumgebungen (Visual Studio, Xcode, IntelliJ, Android Studio usw.) sowie die meisten größeren Editoren (Atom, Sublime, VSCode etc.) stellen Menükommandos zur Auswahl, mit denen Sie elementare Git-Operationen unkompliziert durchführen können. Analog gilt das auch für
-Weboberflächen wie GitHub oder GitLab. Damit können Sie nicht nur Git-Projekte verwalten und beispielsweise die in einer Datei durchgeführten Änderungen verfolgen, sondern auch diverse Zusatzfunktionen nutzen (Issue/Bug-Management, automatisierte Tests etc.).  
+However, you can also use at least a subset of the Git functions via convenient interfaces. Almost all common development environments (Visual Studio, Xcode, IntelliJ, Android Studio, etc.) as well as most major editors (Atom, Sublime, VSCode, etc.) provide menu commands with which you can easily perform elementary Git operations. This also applies analogously to Web interfaces such as GitHub or GitLab. This not only allows you to manage Git projects and, for example, track the changes made to a file, but also use various additional functions (issue/bug management, automated tests, etc.).  
+  
+Despite all the charm that emanates from comfortable user interfaces, you must be aware that if you do not understand Git, you will sooner or later end up in a dead end (rather sooner) when using even the nicest tools.
 
-Bei allem Charme, der von komfortablen Benutzeroberflächen ausgeht, muss Ihnen aber klar sein: Wenn Sie Git nicht verstehen, werden Sie bei der Anwendung noch so hübscher Tools früher oder später in der Sackgasse landen (eher früher).
 
 ### Git versus GitHub versus GitLab
 
-Grundsätzlich ist Git ein dezentrales Werkzeug, das nicht auf zentrale Repositorys angewiesen ist. In der Praxis sind externe Git-Repositorys wie GitHub oder GitLab aber allgegenwärtig. Sie vereinfachen den Datenaustausch zwischen den Mitgliedern eines Entwicklungsteams erheblich, dienen als zusätzliches Backup und stellen diverse Zusatzfunktionen (Dokumentation, Bug-Tracker, Qualitätssicherung etc.) zur Verfügung. Bei öffentlichen Projekten fungieren sie auch als Informations- und Downloadseite für alle Personen, die am Projekt interessiert sind.  
+Basically, Git is a decentralized tool that does not rely on central repositories. In practice, however, external Git repositories such as GitHub or GitLab are ubiquitous. They simplify data exchange between the members of a development team considerably, serve as an additional backup and provide various additional functions (documentation, bug tracker, quality assurance, etc.). In the case of public projects, they also function as information and download sites for anyone interested in the project.  
 
-Moderne Weboberflächen erleichtern sowohl den Einstieg als auch die Administration von Projekten. Unter den Git-Hosting-Anbietern hat die 2018 von Microsoft aufgekaufte Firma GitHub aktuell den größten Marktanteil. Open-Source-Projekte konnten dort schon immer kostenlos eingerichtet werden.  
-Zu GitHub gibt es eine Menge Alternativen. Am bekanntesten ist die Firma GitLab, die ganz ähnliche Funktionen anbietet – auch in diesem Fall je nach Anforderung kostenlos oder kommerziell. Die eigentliche Besonderheit von GitLab besteht darin, dass der Quellcode des Programms frei zur Verfügung steht. Damit ist es möglich, GitLab auf einem eigenen Server einzurichten.  
-Weitere Anbieter für das Git-Hosting bzw. für entsprechende Software sind Azure Repos, Bitbucket sowie Gitea und Gitolite (beide zum Betrieb auf einem eigenen Server).  
+Modern web interfaces make it easier to get started and to administrate projects. GitHub, a company bought by Microsoft in 2018, currently has the largest market share among Git hosting providers. Open source projects could always be set up there free of charge.
+There are a lot of alternatives to GitHub. The best known is the company GitLab, which offers very similar functions - also in this case free of charge or commercially, depending on the requirements. The real specialty of GitLab is that the source code of the program is freely available. This makes it possible to set up GitLab on your own server.
+Other providers for Git hosting or for the corresponding software are Azure Repos, Bitbucket as well as Gitea and Gitolite (both to run on their own server).  
 
-Git-Hoster sind keine Alternative zu Git, sondern eine Ergänzung!
-Anbieter wie GitHub oder GitLab ersetzen weder die Git-Konzepte noch das Kommando git! Vielmehr bauen diese Firmen auf den durch Git vorgegebenen Ideen auf. Sie bieten Zusatzfunktionen, die sich in der Praxis als enorm nützlich erwiesen haben, und sie mindern die Einstiegshürde.
+Git hosters are not an alternative to Git, but a complement!  
+Providers such as GitHub or GitLab do not replace the Git concepts or the git command! Rather, these companies build on the ideas provided by Git. They offer additional functions that have proven to be extremely useful in practice and they lower the barrier to entry.  
 
-Quelle:
+Translated from source:
 _Git - Projektverwaltung für Entwickler und DevOps-Teams_  
 Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
