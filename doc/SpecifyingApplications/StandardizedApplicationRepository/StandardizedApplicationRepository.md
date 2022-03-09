@@ -13,7 +13,7 @@ As a matter of first individualization, ...
 * ... the ApplicationRepository gets renamed towards the ApplicationName, so it can be properly referenced by local Git installations
 * ... the ApplicationOwner is configured to be _Contributor_ on the individual ApplicationRepository, so he can create the branches, which are necessary for driving the specification.  
 
-During the specification and implementation process, the individual ApplicationRepository will serve as a joint between several other repositories.
+During the specification and implementation process, the individual ApplicationRepository will serve as a joint between several other repositories .
 
 It contains a _subtree_, which is referencing the implementation of the basic components in the ApplicationPattern repository. The contained code will be _forked_ together with the specification by the ApplicationImplementer after being assigned.  
 
