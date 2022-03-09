@@ -1,6 +1,6 @@
 # Completing an Issue and creating a Merge Request
 
-After committing all changes, which are necessary to complete the _Issue_, and publishing (_Pushing_) them to the remote repository on GitHub, it's time for consolidating into the _develop_ branch and cutting all the loose ends.
+After committing all changes, which are necessary to complete the _Issue_, and publishing (_pushing_) them to the remote repository on GitHub, it's time for consolidating into the _develop_ branch and cutting all the loose ends.
 
 For creating a _Merge Request_, click on the source control symbol (the branch icon in the menu bar to the left).  
 
