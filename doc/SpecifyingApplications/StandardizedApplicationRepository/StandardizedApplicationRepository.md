@@ -15,7 +15,7 @@ As a matter of first individualization, ...
 
 During the specification and implementation process, the individual ApplicationRepository will serve as a joint between several other repositories.
 
-It contains a _Subtree_, which is referencing the implementation of the basic components in the ApplicationPattern repository. The contained code will be forked together with the specification by the ApplicationImplementer after being assigned.  
+It contains a _subtree_, which is referencing the implementation of the basic components in the ApplicationPattern repository. The contained code will be _forked_ together with the specification by the ApplicationImplementer after being assigned.  
 
 Likewise, the ApplicationImplementer will request for _merging_ his code into the ApplicationRepository, from where it will be _forked_ by our private GitLab installation, which is automating acceptance and integration testing in our laboratory environment.
 
