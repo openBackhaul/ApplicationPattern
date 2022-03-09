@@ -9,11 +9,16 @@ An OpenDaylight SDN Controller is translating from NETCONF to RESTCONF.
 The application layer is modular for being more flexible and cost efficient than former dominance of monolithic blocks.
 It is sub-structured into
 
-* data sanitation and caching layer, which is for providing a high performance network interface
-* business layer, which is for holding domain specific functions that are either implementing automation or supporting humans in configuration activities
-* representation layer, which is for providing user interfaces that are representing the functions of the business layer.
+* data sanitation and caching layer 
+  * for providing a high performance network interface
+* business layer for holding domain specific functions that are either 
+  * implementing automation or 
+  * supporting humans in configuration activities
+* representation layer
+  * for providing user interfaces that are representing the functions of the business layer.
 
-![Substructure of the Modular MW SDN Application Layer](https://user-images.githubusercontent.com/15265413/151411515-49b13bcb-01d6-45a9-bbad-30a6329b9ed0.png)
+|![Substructure of the Modular MW SDN Application Layer](https://user-images.githubusercontent.com/15265413/151411515-49b13bcb-01d6-45a9-bbad-30a6329b9ed0.png)|
+|---|
 
 The applications of the lower two layers are implemented as REST servers. This makes them very efficient to implement, to test and to deploy.
 
