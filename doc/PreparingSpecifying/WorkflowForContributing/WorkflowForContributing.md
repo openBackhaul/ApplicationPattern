@@ -5,7 +5,7 @@ Efficiently doing so requires definition of a process, which is kept by all invo
 
 ### Requirements to the workflow
 
-* _master branch_ on GitHub: Every commit is representing an official version, which is initiating further actions in neighboring domains (e.g. implementation or procurement)
+* _master branch_ on GitHub: Each commit is representing an official version, which is initiating further actions in neighboring domains (e.g. implementation or procurement)
 * _develop branch_ (instead of tsi, tsp and so on) on GitHub: Common base for all persons, who are involved into the specification process
 * Short living _feature, hotfix and release branches_: Separate place for advancing the specification before sharing results in the _develop branch_
 * _public_ repository: Allowing virtually everybody to contribute either by formulation _issues_ or addressing _pull-requests_, which are proposing concrete changes to the specification
