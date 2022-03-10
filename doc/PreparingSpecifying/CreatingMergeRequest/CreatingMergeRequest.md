@@ -1,36 +1,66 @@
 # Completing an Issue and creating a Merge Request
 
-After _committing_ all changes, which are necessary to complete the _Issue_, and publishing (_Pushing_) them to the remote repository on GitHub, it's time for consolidating into the _develop_ branch and cutting all the loose ends.
+After _committing_ all changes, which are necessary to complete the _Issue_, it is time for consolidating your contribution into the common _develop_ branch.
 
-For creating a _Merge Request_, click on the source control symbol (the branch icon in the menu bar to the left).  
+For contributing your work, click on the source control symbol (the branch icon in the menu bar to the left).  
 
-![RequestingMerge1](./pictures/RequestingMerge_01.png)  
+![RequestingMerge1](./pictures/RequestingMerge_01.png)
 
-New _Merge Request_ can be created from the source control tab by pressing the new pull request icon:  
+In a first phase of the process, you have to assure that your contribution is not creating any conflicts while _merging_ into the common _develop branch_.
+For this purpose, you have to _merge_ an up-to-date copy of the _develop branch_ into your local _feature branch_.
 
-![pull_06](https://user-images.githubusercontent.com/57349523/152344768-12c76921-c38e-4701-a1bd-3b76e8b90d64.jpg)
+* Click on the current branch name in the lower left corner of the VSCode window ...  
+![RequestingMerge2](./pictures/RequestingMerge_02.png)
 
-If you created a branch from an _Issue_, did the changes, _Committed_ and _Pushed_ the changes and started to formulate the _Merge Request_ in one sequence, VSCode is now automatically filling the source and target fields properly.  
+* ... and choose the _develop branch_ from the list.  
+![RequestingMerge3](./pictures/RequestingMerge_03.png)
 
-![RequestingMerge5](./pictures/RequestingMerge_05.png)  
+* Click on the round arrow for updating the local copy of the _develop branch_.  
+![RequestingMerge4](./pictures/RequestingMerge_04.png)
 
-As you can see from the picture, the _Merge Request_ is not involving your local repository.  
+* Click again von the current branch name in the lower left corner of the VSCode window ...  
+![RequestingMerge5](./pictures/RequestingMerge_05.png)
+
+* ... and change back into the _feature branch_ you would like to finish.  
+![RequestingMerge6](./pictures/RequestingMerge_06.png)
+
+* Now, open the menu at the repository, which you would like to contribute to, click on "Branch zusammenführen"...  
+![RequestingMerge7](./pictures/RequestingMerge_07.png)
+
+* ... and chose the _develop branch_ from the list.  
+![RequestingMerge8](./pictures/RequestingMerge_08.png)
+
+* If there would be any _merge conflicts_, they would show up now.
+* After analyzing two conflicting versions of the code, you could decide for the versions (current, incoming or both) to become part of your local branch.  
+![RequestingMerge9](./pictures/RequestingMerge_09.png)
+
+* Save the files, which got changed during resolving all conflicts by Ctrl+s and _stage_ them for being _committed_ during the _merge_ of the up-to-date copy of the _develop branch_ into your _feature branch_.  
+![RequestingMerge10](./pictures/RequestingMerge_10.png)
+
+* Confirm the _merge_ of the up-to-date copy of the _develop branch_ into your _feature branch_ ...  
+![RequestingMerge11](./pictures/RequestingMerge_11.png)
+
+* ... and _push_ your local _feature branch_ with the resolved conflicts to the remote repository.  
+![RequestingMerge12](./pictures/RequestingMerge_12.png)
+
+In the second phase of the process, you have to create the _Merge Request_ for consolidating the remote copy of your _feature branch_, which is now cleared from conflicts, into the common _develop branch_.  
+
+* Click on the pull request icon at the repository you would like to change.  
+![RequestingMerge13](./pictures/RequestingMerge_13.png)
+
+* VSCode is now automatically filling the source and target branch into a form and you just have to double check. Please, add a _Merge Request_ message, which is complying the chapter about [Formulating Merge Request Messages](../FormulatingCommitMessages/FormulatingCommitMessages.md) and click Create.  
+![RequestingMerge14](./pictures/RequestingMerge_14.png)
+
+* Alike in the following picture, the _Merge Request_ does not create any conflicts and can directly be _merged_ after reviewing the changes.  
+![RequestingMerge15](./pictures/RequestingMerge_15.png)
+
+As you can see from the pictures, the _Merge Request_ is not involving your local repository.  
 The _Merge_ is happening exclusively in the remote repository on GitHub.  
 
-If you would not have kept the process described above, you would now have to extremly carefully configure source and target branches.  
-You have to undoubtedly identify the remote branch holding your changes.  
-Please, be aware that there might be many branches with very similar names available at the remote repository depending on the number of _Collaborators_, who are working in parallel with you, and their disciplin to clean up.  
-The target should always be the _develop_ branch on the remote repository (never request for _Merging_ into _main_).
+After conducting the _merge_  
+* the _Issue_, which initiated creation of the _feature branch_, will be closed
+* and the remote copy of the _feature branch_ will be deleted.
 
-Please, add a _Merge Request_ message, which is complying to chapter [Formulating Merge Request Messages](../FormulatingCommitMessages/FormulatingCommitMessages.md).  
-Don't be concerned, if the _Merge Request_ message would be identical with your latest _Commit_ message.
+Please, take care that you are also removing your local _feature branch_ after you got informed about the successful _merging_. Otherwise your local repository will turn into a dump and you will get confused by mixing _branches_ of similar sounding names.
 
-![RequestingMerge6](./pictures/RequestingMerge_06.png)  
-
-After pushing "Create", the PlatformOwner of the repository will be informed about your _Merge Request_ and will soon review and _Merge_.
-
-### Troubleshooting
-
-**Conflicts in Merge Requests**  
-In principle, altering the same source by several persons has the intrinsic risk of creating conflicts. If the described process has been followed, such conflicts should be rare.  
-If there would be such conflicts between the branches, they would emerge during creating the "Merge Request". Before the changes can be _Merged_ into the target branch, these conflicts need to be resolved. This needs to be done by the user, who is addressing the "Merge Request".
+[Up to Preparing](../PreparingSpecifying.md)
