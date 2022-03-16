@@ -22,10 +22,7 @@ This means:
 The following proceeding is effective and very easy to implement:  
 * Finishing all changes, which are required to complete the underlying _Issue_, and saving them into the local _feature branch_
 * Making a _commit_ in the local _feature branch_ (do not forget a descriptive _commit message_)
-* Changing into the local _develop branch_
-* _Pulling_ an update of the local _develop branch_ from the remote repository
-* Changing back into the local _feature branch_
-* _Merging_ the updated local _develop branch_ into the local _feature branch_ (please be aware of the direction: our underlying target is _merging_ the local _feature branch_ into the remote _develop branch_, but for solving the conflicts upfront and locally, we are merging an updated local copy of the _develop branch_ into the local _feature branch_)
+* _Merging_ the remote _develop branch_ into the local _feature branch_ (please be aware of the direction: our underlying target is _merging_ the local _feature branch_ into the remote _develop branch_, but for solving the conflicts upfront and locally, we are merging the remote _develop branch_ into the local _feature branch_ first)
 * Solving all the conflicts that get indicated during this purely local _merge_, if there are any
 * Saving all the files that have been changed during conflict resolution into the local _feature branch_
 * Making a _commit_ in the local _feature branch_
