@@ -17,6 +17,7 @@ Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 * [Formulating Issues](./FormulatingIssues/FormulatingIssues.md)
 * [Formulating Commit and Merge Request Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
 * [Managing Conflicts](./ConflictManagement/ConflictManagement.md)
+* [Avoiding Conflicts](./AvoidingConflicts/AvoidingConflicts.md)
 
 **Step-by-Step Guidelines**
 * [Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
