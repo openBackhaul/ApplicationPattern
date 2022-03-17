@@ -31,6 +31,10 @@ Now, the _Issue_ is marked to be in grogress.
 
 Attention! During the latest step, a new branch has been created locally and VSCode automatically switched its view into this branch.  
 
+This step would not succeed, if you would neither be owner nor _Contributor_ to the addressed repository.  
+In such case you would be informed about not having permission for _pushing_ into the addressed repository and you would be asked, whether you would like to _fork_ (copy) the addressed repository into your own GitHub account.  
+If you would confirm _forking_, you would proceed according to the [Forking Workflow](../ForkingWorkflow/ForkingWorkflow.md), which is absolutely fine, too.  
+
 ![processIssuePicture8](./pictures/processIssue_08.png)  
 
 It is recommended to click the cloud symbol for publishing the new branch on the remote GitHub for indicating that work on this _Issue_ is on-going.  
