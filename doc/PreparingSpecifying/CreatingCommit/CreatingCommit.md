@@ -51,4 +51,4 @@ In such case, you would now fail to push your commit into _develop_ or _main_ br
 
 If you are _Contributor_ (as the ApplicationOwner you certainly are) and properly created a feature branch before starting to make changes, the latest state of the feature branch will now be published in the original repository on GitHub.  
 
-[Up to Preparing](../PreparingSpecifying.md)
+[<- Back to Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Completing an Issue ->](../CreatingMergeRequest/CreatingMergeRequest.md)

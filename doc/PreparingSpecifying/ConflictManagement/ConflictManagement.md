@@ -31,3 +31,5 @@ The following proceeding is effective and very easy to implement:
 * That's it :)
 
 ![MerginConcept2](./pictures/mergingConcept%2002.png)
+
+[<- Back to Formulating Commit Messages](../FormulatingCommitMessages/FormulatingCommitMessages.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Avoiding Conflicts ->](../AvoidingConflicts/AvoidingConflicts.md)

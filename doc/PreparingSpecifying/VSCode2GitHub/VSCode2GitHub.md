@@ -72,4 +72,4 @@ In that case go over the configuration steps again to ensure everything was conf
 |![vsc_04_errormsg](https://user-images.githubusercontent.com/57349523/152162632-f35d84e1-8337-4949-8a59-8a2b4b78c863.jpg)|
 |---|
 
-[Up to Preparing](../PreparingSpecifying.md)
+[<- Back to Installing VSCode](../InstallingVSCode/InstallingVSCode.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Documenting an Issuee ->](../DocumentingAnIssue/DocumentingAnIssue.md)

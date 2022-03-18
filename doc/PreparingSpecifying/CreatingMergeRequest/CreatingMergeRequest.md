@@ -66,4 +66,4 @@ After conducting the _merge_
 * the _Issue_, which initiated creation of the _feature branch_, will be closed
 * and the remote copy of the _feature branch_ will be deleted.
 
-[Up to Preparing](../PreparingSpecifying.md)
+[<- Back to Creating a Commit](../CreatingCommit/CreatingCommit.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md)

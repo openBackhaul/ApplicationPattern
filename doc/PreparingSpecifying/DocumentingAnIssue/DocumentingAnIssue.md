@@ -26,3 +26,5 @@ Complete creating the _Issue_ by clicking the tick in the upper right corner and
 ![createIssuePicture6](./pictures/createIssue_06.png)  
 
 If the creation of the _Issue_ has been confirmed, it has also been automatically published on the original repository on GitHub.
+
+[<- Back to Connecting VSCode with GitHub ->](../VSCode2GitHub/VSCode2GitHub.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Processing an Issue ->](../ProcessingAnIssue/ProcessingAnIssue.md)

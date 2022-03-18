@@ -50,3 +50,5 @@ Of course, your actual doing should now exclusively relate to the chosen _Issue_
 ![processIssuePicture11](./pictures/processIssue_11.png)  
 
 See [Creating a Commit](../CreatingCommit/CreatingCommit.md) and [Creating a Merge Request](../CreatingMergeRequest/CreatingMergeRequest.md) for consequent steps.
+
+[<- Back to Documenting an Issuee](../DocumentingAnIssue/DocumentingAnIssue.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Creating a Commit ->](../CreatingCommit/CreatingCommit.md)
