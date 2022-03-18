@@ -19,7 +19,7 @@ For this purpose, you have to _merge_ the _origin/develop branch_ into your loca
 * After analyzing two conflicting versions of the code, you could decide for the versions (current, incoming or both) to become part of your local _feature branch_.  
 ![RequestingMerge9](./pictures/RequestingMerge_09.png)
 
-* Save the files, which got changed during resolving all conflicts by Ctrl+s and _stage_ them for being _committed_ during the _merge_ of the _origin/develop branch_ into your local _feature branch_.  
+* Save the files, which got changed during resolving all conflicts by Ctrl+s and _stage_ them for being _committed_ during the _merge_ of the _origin/develop branch_ into your local _feature branch_.2  
 ![RequestingMerge10](./pictures/RequestingMerge_10.png)
 
 * Confirm the _merge_ of the _origin/develop branch_ into your local _feature branch_ ...  
