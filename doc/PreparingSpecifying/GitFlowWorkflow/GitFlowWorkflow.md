@@ -50,3 +50,5 @@ _hotfix branch_ sind sozusagen Ad-hoc-Release-Branches, die direkt mit dem _mast
 Quelle: 
 //Seibert/Media
 https://infos.seibert-media.net/display/Productivity/Git-Workflows+-+Der+Gitflow-Workflow
+
+[<- Back to Workflow for contributing](../WorkflowForContributing/WorkflowForContributing.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Forking Workflow ->](../ForkingWorkflow/ForkingWorkflow.md)

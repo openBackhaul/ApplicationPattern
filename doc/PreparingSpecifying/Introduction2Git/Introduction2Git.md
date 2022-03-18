@@ -29,3 +29,5 @@ Translated from source:
 _Git - Projektverwaltung für Entwickler und DevOps-Teams_  
 Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
+
+[Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Workflow for contributing ->](../WorkflowForContributing/WorkflowForContributing.md)

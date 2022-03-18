@@ -37,4 +37,4 @@ _Git - Projektverwaltung für Entwickler und DevOps-Teams_
 Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
 
-[Up to Preparing](../PreparingSpecifying.md)
+[<- Back to GitFlow](../GitFlowWorkflow/GitFlowWorkflow.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Formulating Issues ->](../FormulatingIssues/FormulatingIssues.md)

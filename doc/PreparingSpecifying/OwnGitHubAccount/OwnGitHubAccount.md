@@ -13,4 +13,4 @@ _Git - Projektverwaltung für Entwickler und DevOps-Teams_
 Bernd Öggl und Michael Kofler  
 Rheinwerk Verlag
 
-[Up to Preparing](../PreparingSpecifying.md)
+[<- Back to Avoiding Conflicts](../AvoidingConflicts/AvoidingConflicts.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Installing Git ->](../InstallingGit/InstallingGit.md)

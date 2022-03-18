@@ -44,3 +44,5 @@ Issues shall
 	* *add project version*: important for context of the issue
 	* *add branch* to which the issue is related (e.g. on branch-1 the issue is still there, but not on branch-2, as it has been fixed there already)
 	* *code over text*: include relevant code snippet instead of explaining what it does.
+
+[<- Back to Forking Workflow](../ForkingWorkflow/ForkingWorkflow.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Formulating Commit Messages ->](../FormulatingCommitMessages/FormulatingCommitMessages.md)

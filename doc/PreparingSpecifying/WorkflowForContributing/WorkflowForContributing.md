@@ -20,3 +20,5 @@ The proposed workflows are a bit more complex to apply in the beginning, but the
   * will apply the [_Gitflow Workflow_](../GitFlowWorkflow/GitFlowWorkflow.md)
 * Everybody else:
   * will apply the [_Forking Workflow_](../ForkingWorkflow/ForkingWorkflow.md), which can be applied in most open source projects
+
+[<- Back to Introduction to Git and GitHub](../Introduction2Git/Introduction2Git.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to GitFlow ->](../GitFlowWorkflow/GitFlowWorkflow.md)

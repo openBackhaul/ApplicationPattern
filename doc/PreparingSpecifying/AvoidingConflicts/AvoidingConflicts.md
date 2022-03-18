@@ -33,3 +33,5 @@ It is not planned to _merge_ partly solved problems or half of an _Issue_.
 In rare cases, it is maybe unavoidable to work on an _Issue_ for several days and create a lot of changes until an executable contribution to the _develop branch_ is ready for _merging_.  
 In such case, at least the second root cause of conflicts (changes, which have been made by other members of the team) should be actively managed by _merging_ the latest status of the _develop branch_ into the local _feature branch_ on a daily base.  
 It is recommended to do this before continuing working in the local _feature branch_.
+
+[<- Back to Managing Conflicts](../ConflictManagement/ConflictManagement.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to own GitHub account ->](../OwnGitHubAccount/OwnGitHubAccount.md)
