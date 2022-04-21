@@ -11,7 +11,7 @@ Issues shall
 
 * !!! **one issue per issue** !!!: try to break down complex problems into multiple issues
 * **keep titles short and descriptive**
-* **start titles with one of the following keywords** (followed by a ":") for consistency:
+* **start titles with a verb, e.g. with one of the following keywords**:
   * Add
   * Fix
   * Merge
@@ -22,8 +22,8 @@ Issues shall
   * Revert
   * Update
 * **remain clear and concise**: keep messages short and to the point, use bullet points
-* format messages: use markdown syntax help reader focus, use bold text, lists, images, etc. (only use plain markdown syntax, no embedded html etc.)
-* avoid duplication: before creating a new issue check that it not already exists; if duplicates are found close one (typically the less thorough one) and add missing information from it to the remaining one. The closing comment should contain a link to the remaining issue.
+* format messages: use markdown syntax for headlines, bold text, lists, images, etc. (only use plain markdown syntax, no embedded html etc.)
+* avoid duplication: before creating a new issue assure that it is not already covered by an existing one; if duplicates are found close one (typically the less thorough one) and add missing information from it to the remaining one. The closing comment should contain a link to the remaining issue.
 * avoid speculation and opinion: E.g. for a bug describe it thorougly and include some investigation results, but do not speculate where the bug happens.
 * issue as user story: if possible consider to include one in the issue, especially beneficial to feature requests. (Example format: “As a [type of user] I want [my goal] so that [my reason].”
 * **use labels**: use labels to reflect the issue status or type (e.g. "bug" for bug issues, or "duplicate" to show that it is a duplicate issue.)
