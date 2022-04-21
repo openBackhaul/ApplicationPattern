@@ -1,7 +1,7 @@
 ## What are Microservices ?
 Microservices architecture is a software development technique that structures an application as a set of loosely coupled, modular and collaborating services.
 Using the ideology of microservices, large complex applications can be split up into smaller building blocks of executables, that when recomposed offer all of the functionality of a large scale, highly complex application. 
- ![Microservice](./pictures/Microservice.PNG)  
+ ![Microservice](./pictures/MicroService.PNG)  
 Each service has its own database in order to be decoupled from other services. Services communicate using either synchronous protocols such as HTTP/REST or asynchronous protocols such as AMQP(ex. RabbitMQ). 
 
 ## Why Microservices?
