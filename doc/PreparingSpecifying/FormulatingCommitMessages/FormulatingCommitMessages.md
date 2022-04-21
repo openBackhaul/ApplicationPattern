@@ -8,7 +8,7 @@ Well formulated **merge request messages must support efficiently reviewing** th
 ### Subject line
 
 * **50 characters** or less: formulate meaningful, concise and comprehensive!
-* **start subject line with one of the following keywords** (followed by a ":") for consistency:
+* **start subject line with a verb, e.g. with one of the following keywords**:
   * Add
   * Fix
   * Merge
