@@ -16,13 +16,13 @@ Since we are following an API first approach , an application owner will analyze
 
 A developer's actual work starts after receiving the Open API specification and the initial load file from the application owner.
 
-**Further reading ,** 
+### Further reading ,
 - Understanding the Requirement
 - Implementation and code collaboration
 - System Verification
 - Deployment and Integration
 
-**Further reading for beginners ,** 
+### Further reading for beginners ,
 - [What are Microservices ?](https://github.com/openBackhaul/ApplicationPattern/blob/PrathibaJee/issue86/doc/ImplementingApplications/Microservices/WhatAreMicroservices.md)
 - [What is REST?](https://github.com/openBackhaul/ApplicationPattern/blob/PrathibaJee/issue86/doc/ImplementingApplications/RESTfulServices/RESTfulServices.md)
 - [What is an API first approach?](https://github.com/openBackhaul/ApplicationPattern/blob/PrathibaJee/issue86/doc/ImplementingApplications/APIFirstApproach/APIFirstApproach.md)
