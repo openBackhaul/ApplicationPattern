@@ -27,3 +27,7 @@ One of the aspects of Microservice is **high maintainability**. This means that 
 
 This can be achieved by doing a clean code form the starting. 
 Please go through the suggested [coding guidelines](CodingGuidelines.md). Also, if you would like to improvise the guidelines , please feel free to raise an issue with the details.
+
+
+
+[<- Back to Implementation and Collaboration](./ImplementationAndCodeCollaboration.md) - - - [Up to CodingGuidelines](CodingGuidelines.md)

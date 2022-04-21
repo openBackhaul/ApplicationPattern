@@ -9,6 +9,11 @@ To do so ,
 - In the index.js , include the following lines at the end of the file , 
   ```
   global.databasePath = './database/load.json'
+  
   ```
+
+
+  
+[<- Back to Stub Generation](StubGeneration.md)  - - - [Up to Integrating basic services](IntegratingBasicServices.md)
 
 

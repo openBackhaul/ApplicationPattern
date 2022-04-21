@@ -11,3 +11,5 @@ To model an OAM service ,
     - Import the **‘onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver’** from the application pattern module
     - For GET request , directly read the resource by using the request.url by calling the **‘readFromDatabaseAsync’** function in the JSONDriver
     - For PUT request , use the method **‘writeToDatabaseAsync’** along with the url and the requestBody to update the intended value.
+
+[<- Back to How to model an Individual service](HowToModelAnIndividualService.md) 

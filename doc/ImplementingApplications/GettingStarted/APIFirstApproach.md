@@ -8,3 +8,8 @@ When properly defined, a developer can understand the requirement , generate stu
 ### Further reading :
 https://swagger.io/resources/articles/adopting-an-api-first-approach/ 
 https://swagger.io/specification/ 
+
+
+
+
+[<- Back to What is REST?](RESTfulServices.md) - - - [Up to Understanding the Requirement](../UnderstandingTheRequirement/UnderstandingTheRequirement.md)

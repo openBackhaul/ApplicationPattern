@@ -19,3 +19,8 @@ To integrate the application pattern basic services package,
 2.	After including this dependency , we have to redirect the service request to the '**onf-core-model-ap-bs/basicServices/ BasicServicesService**’ instead of the '**../service/BasicServicesService**'
 
 Also please refer the https://github.com/openBackhaul/RegistryOffice/blob/develop/server/controllers/BasicServices.js to see how to modify the functions. Even copy pasting this file is fine.
+
+
+
+ 
+[<- Back to Integrating load file](IntegratingLoadFile.md)   - - - [Up to How to model an Individual service](HowToModelAnIndividualService.md)

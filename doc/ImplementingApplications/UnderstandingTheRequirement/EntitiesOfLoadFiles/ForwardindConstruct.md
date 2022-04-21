@@ -17,3 +17,5 @@ The FcPort consists of the following properties ,
     - **INVARIANT_PROCESS_SNIPPET** : means all the OUPUT FcPorts will be executed. Addition or deletion of FcPorts are not allowed as this FC is invariant.
     - **PROCESS_SNIPPET** : means any one or two or all of the OUTPUT FcPorts will be executed based on the context and requirement. Addition or deletion of FcPorts are allowed.
     - **SUBSCRIPTION** : means all the OUTPUT FcPorts will be executed. Addition or deletion of FcPorts are allowed.
+
+[<- Back to LogicalTerminationPoint](./LogicalTerminationPoint.md) - - - [Up to How to get a high-level overview](../UnderstandingTheOAS/HighLevelOverview.md)

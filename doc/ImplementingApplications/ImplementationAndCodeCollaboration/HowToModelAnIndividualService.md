@@ -11,3 +11,6 @@ To model an individual service ,
     - Implement **business logic** for the service
     - **Configure LTP,FCs** if required
     - **Automate** the specified **forwardings** with proper request body
+
+
+[<- Back to Integrating basic services](IntegratingBasicServices.md) - - - [Up to to model an OAM service](HowToModelAnOAMService.md)
