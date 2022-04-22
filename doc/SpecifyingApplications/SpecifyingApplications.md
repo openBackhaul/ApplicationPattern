@@ -1,27 +1,35 @@
 # Specifying Applications
 
 Automated code generation and testing requires the applications being specified in syntactically well defined way.  
-Any specification has to comprise the following components.
+Any specification, which shall be published for implementation, has to comprise OpenApiSpecification, LOADfile and TestCases.  
+A couple of additional documents are created to ease creation of the three main documents.  
+In general the following sequence of activities is recommended:
 
-### Name of the Application
+![Workflow for Specifying Applications](https://www.plantuml.com/plantuml/svg/NP31JiD034JlV8M_0owDMkLKaQf1uhnDPnkBpNhhtIKgNuy3I0szlXcFnzxauhJKAT2xw8SFCfCNfJvXO7_ZUA4cfS23AomnFptlu3bY3RivGbyM9G_A9z2XQf8C4azb_6SrrpOujM1gQpnR-a96MTmhswkROC8HrufSVlgir2CidOleRHcMAGKKK0_zv05xpcMDMz7PwRBfJx6MV8cqxvgTvu0xwH9Ya_Zty7lVtcvAXTwioDPbP4Ej0b-WH-UXdWBdyP5l4C_stcy0 "Workflow for Specifying Applications")
 
-The Application needs a proper naming.  
-This issue must not be underestimated. The ApplicationName is treated as an identifier (means e.g. that it must be invariant). Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).
-
-**Concepts**
-* [Structure of ApplicationNames](./StructureOfApplicationNames/StructureOfApplicationNames.md)
 
 ### Purpose of the Application
 
 The Purpose of the application must be expressed in a single sentence. It must be most comprehensive and precise.
 
-### Repository
+
+### Name of the Application
+
+The Application needs a proper naming.  
+This issue must not be underestimated. The ApplicationName is treated as an identifier (means e.g. that it must be invariant). Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).  
 
 **Concepts**
+* [Structure of ApplicationNames](./StructureOfApplicationNames/StructureOfApplicationNames.md)
+
+
+### Repository
+Every Application needs an own repository, which will exist in parallel to the Application over its entire lifespan. Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.
+
+**Concepts**
+* [Creating the ApplicationRepository](./CreatingApplicationRepository/CreatingApplicationRepository.md)
 * [Standardized ApplicationRepository](./StandardizedApplicationRepository/StandardizedApplicationRepository.md)
 
 **Step-by-Step Guidelines**
-* [Getting the ApplicationRepository](./GettingApplicationRepository/GettingApplicationRepository.md)
 * [Starting the Specification](./StartingToSpecify/StartingToSpecify.md)
 
 
