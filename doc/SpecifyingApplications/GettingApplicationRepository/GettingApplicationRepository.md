@@ -8,4 +8,4 @@ Sponsoring (incl. budget) of the implementation of the Application must be assur
 
 It must be assured that the Application will fit into the overall concept of the architecture. So purpose, respectively use cases must be understood and agreed by the group of ApplicationOwners.
 
-As soon as high probability of successfully accomplishing the process is assured, the PlatformOwner will make an instance of the ApplicationRepository available.
+As soon as high probability of successfully accomplishing the process is assured, the ApplicationOwner has to request the PlatformOwner to create an instance of the ApplicationRepository from the corresponding pattern.
