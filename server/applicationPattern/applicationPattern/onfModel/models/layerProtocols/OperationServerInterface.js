@@ -220,6 +220,12 @@ class OperationServerInterface extends layerProtocol {
                 let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
                 let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
                 lifeCycleState = operationServerConfiguration[onfAttributes.OPERATION_SERVER.LIFE_CYCLE_STATE];
+                let lifeCycleStateEnum = OperationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
+                for (let lifeCycleStateKey in lifeCycleStateEnum) {
+                   if (lifeCycleStateEnum[lifeCycleStateKey] == lifeCycleState) {
+                        lifeCycleState = lifeCycleStateKey;
+                    }
+                }
                 resolve(lifeCycleState);
             } catch (error) {
                 reject(error);
