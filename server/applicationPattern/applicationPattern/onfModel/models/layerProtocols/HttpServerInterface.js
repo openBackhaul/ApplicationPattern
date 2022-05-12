@@ -27,6 +27,12 @@ class HttpServerInterface extends layerProtocol {
             ownerName;
             ownerEmailAddress;
             releaseList;
+            static dataUpdatePeriodEnum = {
+                "real-time" : "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
+                "1h-period" : "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_1H_PERIOD",
+                "24h-period" : "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_24H_PERIOD",
+                manual : "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_MANUAL",
+            };
             Release = class Release {
                 releaseNumber;
                 releaseDate;
@@ -125,6 +131,12 @@ class HttpServerInterface extends layerProtocol {
                 let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
                 let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
                 httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+                let dataUpdatePeriodEnum = HttpServerInterface.HttpServerInterfacePac.HttpServerInterfaceCapability.dataUpdatePeriodEnum;
+                for (let dataUpdatePeriodkey in dataUpdatePeriodEnum) {
+                    if (dataUpdatePeriodEnum[dataUpdatePeriodkey] == httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD]) {
+                        httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD] = dataUpdatePeriodkey;
+                    }
+                }
                 resolve(httpServerCapability);
             } catch (error) {
                 reject(error);

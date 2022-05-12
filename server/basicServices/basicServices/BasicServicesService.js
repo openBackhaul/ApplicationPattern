@@ -212,7 +212,11 @@ exports.informAboutApplication = function (user, originator, xCorrelator, traceI
         let key = entry[0];
         let value = entry[1];
         if (key != onfAttributes.HTTP_SERVER.RELEASE_LIST) {
-          applicationInformation[key] = value;
+          if(key === onfAttributes.HTTP_SERVER.RELEASE_NUMBER) {
+            applicationInformation['application-release-number'] = value;
+          }  else {
+            applicationInformation[key] = value;
+          }
         }
       });
 

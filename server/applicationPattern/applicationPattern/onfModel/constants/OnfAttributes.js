@@ -130,6 +130,7 @@ const HTTP_SERVER = {
     RELEASE_NUMBER: "release-number",
     RELEASE_DATE: "release-date",
     RELEASE_LIST: "release-list",
+    DATA_UPDATE_PERIOD : "data-update-period",
     CHANGES: "changes"
 };
 
