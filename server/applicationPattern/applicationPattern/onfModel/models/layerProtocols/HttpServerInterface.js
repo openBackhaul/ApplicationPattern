@@ -27,11 +27,17 @@ class HttpServerInterface extends layerProtocol {
             ownerName;
             ownerEmailAddress;
             releaseList;
+            static dataUpdatePeriodEnum = {
+                "real-time": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
+                "1h-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_1H_PERIOD",
+                "24h-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_24H_PERIOD",
+                "manual": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_MANUAL",
+            };
             Release = class Release {
                 releaseNumber;
                 releaseDate;
                 changes;
-                
+
                 /**
                  * constructor 
                  * @param {string} releaseNumber release number of the application.
@@ -78,12 +84,12 @@ class HttpServerInterface extends layerProtocol {
          */
         constructor(applicationName, releaseNumber, applicationPurpose, dataUpdatePeriod, ownerName, ownerEmailAddress, releaseList) {
             this.httpServerInterfaceCapability = new HttpServerInterfacePac.HttpServerInterfaceCapability(
-                applicationName, 
-                releaseNumber, 
-                applicationPurpose, 
-                dataUpdatePeriod, 
-                ownerName, 
-                ownerEmailAddress, 
+                applicationName,
+                releaseNumber,
+                applicationPurpose,
+                dataUpdatePeriod,
+                ownerName,
+                ownerEmailAddress,
                 releaseList);
         }
     }
@@ -99,15 +105,15 @@ class HttpServerInterface extends layerProtocol {
      * @param {string} releaseList release list of the application along with its history.
      */
     constructor(applicationName, releaseNumber, applicationPurpose, dataUpdatePeriod, ownerName, ownerEmailAddress, releaseList) {
-        super(0, 
+        super(0,
             HttpServerInterface.HttpServerInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC] = new HttpServerInterface.HttpServerInterfacePac(
-            applicationName, 
-            releaseNumber, 
-            applicationPurpose, 
-            dataUpdatePeriod, 
-            ownerName, 
-            ownerEmailAddress, 
+            applicationName,
+            releaseNumber,
+            applicationPurpose,
+            dataUpdatePeriod,
+            ownerName,
+            ownerEmailAddress,
             releaseList);
     }
 
@@ -125,6 +131,12 @@ class HttpServerInterface extends layerProtocol {
                 let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
                 let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
                 httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+                let dataUpdatePeriodEnum = HttpServerInterface.HttpServerInterfacePac.HttpServerInterfaceCapability.dataUpdatePeriodEnum;
+                for (let dataUpdatePeriodkey in dataUpdatePeriodEnum) {
+                    if (dataUpdatePeriodEnum[dataUpdatePeriodkey] == httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD]) {
+                        httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD] = dataUpdatePeriodkey;
+                    }
+                }
                 resolve(httpServerCapability);
             } catch (error) {
                 reject(error);
@@ -167,7 +179,7 @@ class HttpServerInterface extends layerProtocol {
                 let logicalTerminationPoint = logicalTerminationPointList[0];
                 let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
                 let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];                
+                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
                 releaseNumber = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_NUMBER];
                 resolve(releaseNumber);
             } catch (error) {
@@ -189,7 +201,7 @@ class HttpServerInterface extends layerProtocol {
                 let logicalTerminationPoint = logicalTerminationPointList[0];
                 let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
                 let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];      
+                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
                 releaseList = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST];
                 resolve(releaseList);
             } catch (error) {
