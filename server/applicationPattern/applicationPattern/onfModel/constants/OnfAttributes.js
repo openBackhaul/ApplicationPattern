@@ -7,7 +7,7 @@
  ********global nd local class*************
  *****************************************/
 
- const GLOBAL_CLASS = {
+const GLOBAL_CLASS = {
     UUID: "uuid"
 };
 
@@ -96,10 +96,10 @@ const OAM_RECORD_PROFILE = {
     RELEASE_NUMBER: "release-number",
     METHOD: "method",
     RESOURCE: "resource",
-    STRINGIFIED_BODY : "stringified-body",
-    RESPONSE_CODE : "response-code",
-    USER_NAME : "user-name",
-    TIMESTAMP : "timestamp"
+    STRINGIFIED_BODY: "stringified-body",
+    RESPONSE_CODE: "response-code",
+    USER_NAME: "user-name",
+    TIMESTAMP: "timestamp"
 };
 
 /******************************************
@@ -130,6 +130,7 @@ const HTTP_SERVER = {
     RELEASE_NUMBER: "release-number",
     RELEASE_DATE: "release-date",
     RELEASE_LIST: "release-list",
+    DATA_UPDATE_PERIOD: "data-update-period",
     CHANGES: "changes"
 };
 
