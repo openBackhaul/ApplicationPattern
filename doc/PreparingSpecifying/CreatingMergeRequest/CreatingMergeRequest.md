@@ -45,7 +45,7 @@ Please, add a _Merge Request_ message, which is complying the chapter about [For
 
 In the third phase of the process, it is recommended to immediately clean up your local repository.  
 Your local _feature branch_ has been copied to the remote repository. So your data is save.  
-After successfully _merging_ into the _origin/develop branch_, the remote _feature branch_ will be deleted, but your local copy is disconnected from further proceeding.  
+After successfully _merging_ into the _origin/develop branch_, the remote _feature branch_ will be automatically(!) deleted, but your local copy is disconnected from further proceeding.  
 For avoiding accumulating useless branches in your local repository, it is recommended to delete the local _feature branch_ right after formulating the _Merge Request_.
 
 * For deleting the obsolete _feature branch_, you have to leave it first.  
@@ -64,6 +64,6 @@ So open the list of branches ...
 
 After conducting the _merge_  
 * the _Issue_, which initiated creation of the _feature branch_, will be closed
-* and the remote copy of the _feature branch_ will be deleted.
+* and the remote copy of the _feature branch_ will be automatically(!) deleted.
 
 [<- Back to Creating a Commit](../CreatingCommit/CreatingCommit.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md)
