@@ -3,7 +3,7 @@
 - Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
 
 ### Documentation
-- [ApplicationPattern Guidelines](./doc/Main.md)
+- to be provided
 
 ### Services
 - [ApplicationPattern+services](./ApplicationPattern+services.yaml)
@@ -24,7 +24,7 @@
 - to be provided
 
 ### NodeJS Implementation
-- [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
+- to be provided
 
 ### Publication
 - No official publication planned
@@ -36,4 +36,3 @@
 - [ApplicationPattern/issues](../../issues)
 
 ### Comments
-
