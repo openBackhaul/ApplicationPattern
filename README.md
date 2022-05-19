@@ -2,11 +2,8 @@
 - Pattern for REST applications on top of the SDN Controller
 - Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
 
-### Branch
-- 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
-
 ### Documentation
-- [ApplicationPattern Guidelines](./doc/Main.md)
+- to be provided
 
 ### Services
 - [ApplicationPattern+services](./ApplicationPattern+services.yaml)
@@ -24,10 +21,10 @@
 - [ApplicationPattern+data](./ApplicationPattern+data.json)
 
 ### Test Cases (Postman Export)
-- 
+- to be provided
 
 ### NodeJS Implementation
-- [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
+- to be provided
 
 ### Publication
 - No official publication planned
@@ -39,4 +36,3 @@
 - [ApplicationPattern/issues](../../issues)
 
 ### Comments
-
