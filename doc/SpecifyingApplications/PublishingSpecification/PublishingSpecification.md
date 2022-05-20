@@ -18,7 +18,7 @@ This means that at the end of the specification activities:
 
 Creating the Github Release shall follow this [guideline for managing releases in a repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#deleting-a-release).  
 
-The tag of the Release shall be comprised by two identifiers:
+The tag of the Release shall be composed from two identifiers:
 - first shall identify the release in the sequence of releases (release number)
 - second shall identify the type of delivery in regard of the referred release
 
@@ -30,8 +30,10 @@ So, e.g. a first specification shall be tagged with "v1.0.0_spec"; the consequen
 
 If a bug fix, which is not adding additional function to the application, would have to be published during the implementation period, it would be tagged with "v1.0.1_spec".  
 
-If a specification of a backward compatible release, which is adding additional function to the original release of the application, but not outdating existing function, would be published during or after the implementation period of the v.1.0.0, it would be tagged with "v1.1.0_spec".  
+If a specification of a backward compatible release, which is adding additional function to the original release of the application without outdating existing function, would be published during or after the implementation period of the v.1.0.0, it would be tagged with "v1.1.0_spec".  
 
-It is of course important that the implementer is referencing the correct release number in its tag particularly if several specifications have been published.
+It is of course important that the implementer is referencing the correct release number in its tag particularly if several specifications have been published.  
 
-The [ApplicationPattern v1.0.0](https://github.com/openBackhaul/ApplicationPattern/releases/tag/v1.0.0_spec) shows an example for a first published specification.
+The [ApplicationPattern v1.0.0](https://github.com/openBackhaul/ApplicationPattern/releases/tag/v1.0.0_spec) shows an example of a specification, which has been published for the first time.  
+
+[Up to Specifying Applications](../SpecifyingApplications.md)
