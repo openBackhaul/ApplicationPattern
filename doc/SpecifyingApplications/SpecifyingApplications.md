@@ -61,7 +61,8 @@ The OpenApiSpecification represents the detailed specification of the REST API o
 
 The LOADfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
-[LOADfile](./LoadFile/LoadFile.md)
+**Concepts**
+* [LOADfile](./LoadFile/LoadFile.md)
 
 ### TestCases
 
@@ -71,10 +72,15 @@ The TestCases are a Postman collection of requests for
   * acceptance testing
   * continuous integration testing
 
-  [TestCases](./TestCases/TestCases.md)
+**Concepts**
+* [TestCases](./TestCases/TestCases.md)
+
+### Publishing
+
+After finishing specification work on a release, files have to be published for initiating next steps.
+
+**Concepts**
+* [Publishing a Specification](./PublishingSpecification/PublishingSpecification.md)
 
 
-
-
-
-  [<- Back to Preparing](../PreparingSpecifying/PreparingSpecifying.md) - - - [Up to Main](../Main.md) - - - [Ahead to TinyApplicationController ->](../TinyApplicationController/TinyApplicationController.md)
+[<- Back to Preparing](../PreparingSpecifying/PreparingSpecifying.md) - - - [Up to Main](../Main.md) - - - [Ahead to TinyApplicationController ->](../TinyApplicationController/TinyApplicationController.md)
