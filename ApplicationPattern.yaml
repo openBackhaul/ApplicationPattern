@@ -1,7 +1,7 @@
 ﻿openapi: 3.0.0
 info:
   title: ApplicationName
-  version: 0.0.2
+  version: 1.0.1
 
 servers:
   - url: 'https://10.118.125.157:1000'
@@ -1105,13 +1105,13 @@ paths:
                           description: 'Response code sent to [originator] after invoking [operation-name] at [application-name]'
                         timestamp:
                           type: string
-                          description: 'Date and time when [application-name] sent response to [originator]'
+                          description: 'Date and time when [application-name] sent response to [originator]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                         stringified-body:
                           type: string
-                          description: 'Stringified body of the request addressed from [originator] to [application-name]'
+                          description: 'Stringified body of the request addressed from [originator] to [application-name]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                         stringified-response:
                           type: string
-                          description: 'Stringified response sent from [application-name] to [originator]'
+                          description: 'Stringified response sent from [application-name] to [originator]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                       example:
                         x-correlator: '550e8400-e29b-11d4-a716-446655440000'
                         trace-indicator: '1.1'
