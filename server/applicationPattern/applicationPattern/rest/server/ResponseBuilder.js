@@ -18,25 +18,10 @@ exports.buildResponse = function (response, responseCode, responseBody, response
       "message": "Unauthorized Access"
     }
   }
-  if (typeof responseBody === 'object') {
-    responseBody = JSON.stringify(
-      responseBody, 
-      null, 
-      2);
-  }
-  let stringifiedResponseHeader = {
-    'Content-Type': 'application/json'
-  };
   if (responseHeader != undefined) {
-    stringifiedResponseHeader = OnfAttributeFormatter.
+    const stringifiedResponseHeader = OnfAttributeFormatter.
     modifyJsonObjectKeysToKebabCase(responseHeader);
+    response.set(stringifiedResponseHeader);
   }
-  Object.keys(stringifiedResponseHeader).forEach(key => {
-    response.setHeader(
-      key, 
-      stringifiedResponseHeader[key]
-      );
-  });
-  response.writeHead(responseCode);
-  response.end(responseBody);
+  response.status(responseCode).json(responseBody);
 }
