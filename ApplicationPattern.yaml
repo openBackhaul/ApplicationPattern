@@ -563,6 +563,7 @@ paths:
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 registration-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'If body provided, operation for registering
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0020/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
@@ -776,16 +777,19 @@ paths:
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 relay-server-replacement-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for requesting for broadcasting a new server address
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0021/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 relay-operation-update-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for requesting for broadcasting a backward compatible replacement of an operation
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0023/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 deregistration-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for deregistering from the application layer
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
@@ -986,6 +990,7 @@ paths:
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0040/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 service-log-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for recording the service requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
@@ -1105,13 +1110,13 @@ paths:
                           description: 'Response code sent to [originator] after invoking [operation-name] at [application-name]'
                         timestamp:
                           type: string
-                          description: 'Date and time when [application-name] sent response to [originator]'
+                          description: 'Date and time when [application-name] sent response to [originator]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                         stringified-body:
                           type: string
-                          description: 'Stringified body of the request addressed from [originator] to [application-name]'
+                          description: 'Stringified body of the request addressed from [originator] to [application-name]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                         stringified-response:
                           type: string
-                          description: 'Stringified response sent from [application-name] to [originator]'
+                          description: 'Stringified response sent from [application-name] to [originator]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
                       example:
                         x-correlator: '550e8400-e29b-11d4-a716-446655440000'
                         trace-indicator: '1.1'
@@ -1207,6 +1212,7 @@ paths:
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0050/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-log-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for recording the OaM requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0050/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
@@ -1418,6 +1424,7 @@ paths:
                     find [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 subscription:
                   type: string
+                  minLength: 6
                   description: >
                     'Name of operation that had been addressed for starting getting notifications
                     find [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-*/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
@@ -1510,6 +1517,7 @@ paths:
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0060/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-approval-operation:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for approving the OaM requests
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0060/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
@@ -2256,31 +2264,37 @@ paths:
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0070/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 topology-operation-application-update:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for updating the entire information about an application
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0070/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-update:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for updating an LTP
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0071/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-deletion:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for deleting an LTP
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0072/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-update:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for updating an FC port
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0073/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-update:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for updating an FC port
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0074/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-deletion:
                   type: string
+                  minLength: 6
                   description: >
                     'Operation for deleting an FC port
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0075/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
