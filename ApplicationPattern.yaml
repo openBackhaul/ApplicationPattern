@@ -5295,6 +5295,8 @@ paths:
                                                 type: string
                                               operation-key:
                                                 type: string
+                                              detailed-logging-is-on:
+                                                type: boolean
                                           operation-client-interface-status:
                                             type: object
                                             required:
