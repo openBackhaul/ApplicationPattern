@@ -49,11 +49,21 @@ paths:
                     'Release of application that shall be target of the handover process
                     find or update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 new-application-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of application that shall be target of the handover process
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of application that shall be target of the handover process
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Domain name of application that shall be target of the handover process
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 new-application-port:
                   type: integer
                   minimum: 0
@@ -64,7 +74,8 @@ paths:
               example:
                 new-application-name: 'NewApplicationName'
                 new-application-release: '0.0.2'
-                new-application-address: '10.118.125.157'
+                new-application-address:
+                  ipv-4-address: '10.118.125.157'
                 new-application-port: 7000
       responses:
         '204':
@@ -116,7 +127,7 @@ paths:
         # individual callbacks to be added here 
 
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0021/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0021/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -153,10 +164,19 @@ paths:
                             'Future release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         new-application-address:
-                          type: string
-                          description: >
-                            'Future IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                          type: object
+                          minProperties: 1
+                          properties:
+                            ipv-4-address:
+                              type: string
+                              description: >
+                                'Future IP address
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            domain-name:
+                              type: string
+                              description: >
+                                'Future domain name
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                         new-application-port:
                           type: integer
                           description: >
@@ -166,7 +186,8 @@ paths:
                         application-name: 'RegistryOffice'
                         old-application-release-number: '0.0.1'
                         new-application-release-number: '0.0.2'
-                        new-application-address: '10.118.125.157'
+                        new-application-address: 
+                          ipv-4-address: '10.118.125.157'
                         new-application-port: 7000
               responses:
                 '204':
@@ -212,7 +233,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -287,7 +308,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0023/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0023/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -568,11 +589,21 @@ paths:
                     'If body provided, operation for registering
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0020/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 registry-office-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'If body provided, IP address of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'If body provided, IP address of RegistryOffice application
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'If body provided, domain name of RegistryOffice application
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 registry-office-port:
                   type: integer
                   minimum: 0
@@ -584,7 +615,8 @@ paths:
                 registry-office-application: 'RegistryOffice'
                 registry-office-application-release-number: '0.0.1'
                 registration-operation: '/v1/register-application'
-                registry-office-address: '10.118.125.157'
+                registry-office-address: 
+                  ipv-4-address: '10.118.125.157'
                 registry-office-port: 1000
       responses:
         '204':
@@ -633,7 +665,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRegisteringCausesRegistrationRequest:
-          https://{$request.body#registry-office-address}:{$request.body#registry-office-port}{$request.body#registration-operation}:
+          https://{$request.body#registry-office-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -676,10 +708,19 @@ paths:
                             'Name of service for broadcasting server changes
                             from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-0007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         application-address:
-                          type: string
-                          description: >
-                            'Own IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                          type: object
+                          minProperties: 1
+                          properties:
+                            ipv-4-address:
+                              type: string
+                              description: >
+                                'Own IP address
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            domain-name:
+                              type: string
+                              description: >
+                                'Own domain name
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
                         application-port:
                           type: integer
                           description: >
@@ -690,7 +731,8 @@ paths:
                         application-release-number: '0.0.1'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
-                        application-address: '10.118.125.157'
+                        application-address: 
+                          ipv-4-address: '10.118.125.157'
                         application-port: 1000
               responses:
                 '204':
@@ -794,11 +836,21 @@ paths:
                     'Operation for deregistering from the application layer
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 registry-office-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of RegistryOffice application
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Domain name of RegistryOffice application
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 registry-office-port:
                   type: integer
                   minimum: 0
@@ -812,7 +864,8 @@ paths:
                 relay-server-replacement-operation: '/v1/relay-server-replacement'
                 relay-operation-update-operation: '/v1/relay-operation-update'
                 deregistration-operation: '/v1/deregister-application'
-                registry-office-address: '10.118.125.157'
+                registry-office-address:
+                  ipv-4-address: '10.118.125.157'
                 registry-office-port: 1000
       responses:
         '204':
@@ -861,7 +914,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForEmbeddingCausesRequestForBequeathingData:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -892,10 +945,19 @@ paths:
                             'Own release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         new-application-address:
-                          type: string
-                          description: >
-                            'Own IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                          type: object
+                          minProperties: 1
+                          properties:
+                            ipv-4-address:
+                              type: string
+                              description: >
+                                'Own IP address
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            domain-name:
+                              type: string
+                              description: >
+                                'Own IP address
+                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
                         new-application-port:
                           type: integer
                           description: >
@@ -904,7 +966,8 @@ paths:
                       example:
                         new-application-name: 'OwnApplicationName'
                         new-application-release: '0.0.2'
-                        new-application-address: '10.118.125.157'
+                        new-application-address:
+                          ipv-4-address: '10.118.125.157'
                         new-application-port: 7000
               responses:
                 '204':
@@ -995,11 +1058,21 @@ paths:
                     'Operation for recording the service requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0040/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 service-log-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of application that shall record the service requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of application that shall record the service requests
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Domain name of application that shall record the service requests
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 service-log-port:
                   type: integer
                   minimum: 0
@@ -1011,7 +1084,8 @@ paths:
                 service-log-application: 'ExecutionAndTraceLog'
                 service-log-application-release-number: '0.0.1'
                 service-log-operation: '/v1/record-service-request'
-                service-log-address: '10.118.125.157'
+                service-log-address:
+                  ipv-4-address: '10.118.125.157'
                 service-log-port: 1002
       responses:
         '204':
@@ -1060,7 +1134,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLoggingRequest:
-          https://{$request.body#service-log-address}:{$request.body#service-log-port}{$request.body#service-log-operation}:
+          https://{$request.body#service-log-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1217,11 +1291,22 @@ paths:
                     'Operation for recording the OaM requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0050/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 oam-log-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of application that shall record the OaM requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of application that shall record the OaM requests
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'IP address of application that shall record the OaM requests
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+
                 oam-log-port:
                   type: integer
                   minimum: 0
@@ -1233,7 +1318,8 @@ paths:
                 oam-log-application: 'OamLog'
                 oam-log-application-release-number: '0.0.1'
                 oam-log-operation: '/v1/record-oam-request'
-                oam-log-address: '10.118.125.157'
+                oam-log-address:
+                  ipv-4-address: '10.118.125.157'
                 oam-log-port: 1003
       responses:
         '204':
@@ -1282,7 +1368,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesLoggingRequest:
-          https://{$request.body#oam-log-address}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
+          https://{$request.body#oam-log-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1522,11 +1608,21 @@ paths:
                     'Operation for approving the OaM requests
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0060/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 oam-approval-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of application that shall approve the OaM requests
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Domain name of application that shall approve the OaM requests
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 oam-approval-port:
                   type: integer
                   minimum: 0
@@ -1538,7 +1634,8 @@ paths:
                 oam-approval-application: 'AdministratorAdministration'
                 oam-approval-application-release-number: '0.0.1'
                 oam-approval-operation: '/v1/approve-oam-request'
-                oam-approval-address: '10.118.125.157'
+                oam-approval-address:
+                  ipv-4-address: '10.118.125.157'
                 oam-approval-port: 1004
       responses:
         '204':
@@ -1587,7 +1684,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesInquiryForAuthentication:
-          https://{$request.body#oam-approval-address}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
+          https://{$request.body#oam-approval-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1755,11 +1852,21 @@ paths:
                     'Future release number of the application that has updated connection data
                     update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 new-application-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'Future IP address of the application that has updated connection data
-                    update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'Future IP address of the application that has updated connection data
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Future IP address of the application that has updated connection data
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/domain-name]'
                 new-application-port:
                   type: integer
                   minimum: 0
@@ -1771,7 +1878,8 @@ paths:
                 application-name: 'RegistryOffice'
                 old-application-release-number: '0.0.1'
                 new-application-release-number: '0.0.2'
-                new-application-address: '10.118.125.157'
+                new-application-address:
+                  ipv-4-address: '10.118.125.157'
                 new-application-port: 7000
       responses:
         '204':
@@ -1967,8 +2075,11 @@ paths:
                                             properties:
                                               local-address:
                                                 type: object
+                                                minProperties: 1
                                                 properties:
                                                   ipv-4-address:
+                                                    type: string
+                                                  domain-name:
                                                     type: string
                                               local-port:
                                                 type: integer
@@ -2061,16 +2172,17 @@ paths:
                                             properties:
                                               remote-address:
                                                 type: object
-                                                required:
-                                                  - ip-address
+                                                minProperties: 1
+                                                maxProperties: 1
                                                 properties:
                                                   ip-address:
                                                     type: object
-                                                    required:
-                                                      - ipv-4-address
+                                                    minProperties: 1
                                                     properties:
                                                       ipv-4-address:
                                                         type: string
+                                                  domain-name:
+                                                    type: string
                                               remote-port:
                                                 type: integer
                         example:
@@ -2299,11 +2411,21 @@ paths:
                     'Operation for deleting an FC port
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-c-0075/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-application-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  description: >
-                    'IP address of application that shall record the service requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      description: >
+                        'IP address of application that shall record the service requests
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      description: >
+                        'Domain name of application that shall record the service requests
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 topology-application-port:
                   type: integer
                   minimum: 0
@@ -2320,7 +2442,8 @@ paths:
                 topology-operation-fc-update: '/v1/update-fc'
                 topology-operation-fc-port-update: '/v1/update-fc-port'
                 topology-operation-fc-port-deletion: '/v1/delete-fc-port'
-                topology-application-address: '10.118.125.157'
+                topology-application-address:
+                  ipv-4-address: '10.118.125.157'
                 topology-application-port: 1005
       responses:
         '204':
@@ -2369,7 +2492,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-application-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-application-update}:
             description: 'Informing about a potentially new ALT results in sending all interfaces and internal conntections to that ALT'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -2512,8 +2635,11 @@ paths:
                                                   properties:
                                                     local-address:
                                                       type: object
+                                                      minProperties: 1
                                                       properties:
                                                         ipv-4-address:
+                                                          type: string
+                                                        domain-name:
                                                           type: string
                                                     local-port:
                                                       type: integer
@@ -2606,16 +2732,17 @@ paths:
                                                   properties:
                                                     remote-address:
                                                       type: object
-                                                      required:
-                                                        - ip-address
+                                                      minProperties: 1
+                                                      maxProperties: 1
                                                       properties:
                                                         ip-address:
                                                           type: object
-                                                          required:
-                                                            - ipv-4-address
+                                                          minProperties: 1
                                                           properties:
                                                             ipv-4-address:
                                                               type: string
+                                                        domain-name:
+                                                          type: string
                                                     remote-port:
                                                       type: integer
                               example:
@@ -2766,7 +2893,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
             description: 'To be activated whenever a service request causes the creation or change of an LTP'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -2892,8 +3019,11 @@ paths:
                                         properties:
                                           local-address:
                                             type: object
+                                            minProperties: 1
                                             properties:
                                               ipv-4-address:
+                                                type: string
+                                              domain-name:
                                                 type: string
                                           local-port:
                                             type: integer
@@ -2986,16 +3116,17 @@ paths:
                                         properties:
                                           remote-address:
                                             type: object
-                                            required:
-                                              - ip-address
+                                            minProperties: 1
+                                            maxProperties: 1
                                             properties:
                                               ip-address:
                                                 type: object
-                                                required:
-                                                  - ipv-4-address
+                                                minProperties: 1
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
+                                              domain-name:
+                                                type: string
                                           remote-port:
                                             type: integer
                       example:
@@ -3055,7 +3186,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
             description: 'To be activated whenever a service request causes an LTP being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3121,7 +3252,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
             description: 'To be activated whenever a service request causes the creation or change of an FC port'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3228,7 +3359,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
             description: 'To be activated whenever a service request causes an FC port being updated'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3316,7 +3447,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
             description: 'To be activated whenever a service request causes an FC port being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3386,7 +3517,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
             description: 'To be activated whenever an OaM request causes the creation or change of an LTP'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3512,8 +3643,11 @@ paths:
                                         properties:
                                           local-address:
                                             type: object
+                                            minProperties: 1
                                             properties:
                                               ipv-4-address:
+                                                type: string
+                                              domain-name:
                                                 type: string
                                           local-port:
                                             type: integer
@@ -3606,16 +3740,17 @@ paths:
                                         properties:
                                           remote-address:
                                             type: object
-                                            required:
-                                              - ip-address
+                                            minProperties: 1
+                                            maxProperties: 1
                                             properties:
                                               ip-address:
                                                 type: object
-                                                required:
-                                                  - ipv-4-address
+                                                minProperties: 1
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
+                                              domain-name:
+                                                type: string
                                           remote-port:
                                             type: integer
                       example:
@@ -3675,7 +3810,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
             description: 'To be activated whenever an OaM request causes an LTP being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3741,7 +3876,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
             description: 'To be activated whenever an OaM request causes the creation or change of an FC port'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3848,7 +3983,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
             description: 'To be activated whenever an OaM request causes an FC port being updated'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3936,7 +4071,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
             description: 'To be activated whenever an OaM request causes an FC port being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -5256,8 +5391,11 @@ paths:
                                             properties:
                                               local-address:
                                                 type: object
+                                                minProperties: 1
                                                 properties:
                                                   ipv-4-address:
+                                                    type: string
+                                                  domain-name:
                                                     type: string
                                               local-port:
                                                 type: integer
@@ -5387,16 +5525,17 @@ paths:
                                             properties:
                                               remote-address:
                                                 type: object
-                                                required:
-                                                  - ip-address
+                                                minProperties: 1
+                                                maxProperties: 1
                                                 properties:
                                                   ip-address:
                                                     type: object
-                                                    required:
-                                                      - ipv-4-address
+                                                    minProperties: 1
                                                     properties:
                                                       ipv-4-address:
                                                         type: string
+                                                  domain-name:
+                                                    type: string
                                               remote-port:
                                                 type: integer
                         example:
@@ -6450,7 +6589,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address:
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address: 
     parameters:
       - in: path
         name: uuid
@@ -6460,25 +6599,32 @@ paths:
           pattern: '-\d+-\d+-\d+-tcp-s-\d{4}$'
           example: '*-0-0-1-tcp-s-0000'
     get:
-      operationId: getTcpServerLocalIpv4Address
-      summary: 'Returns IPv4 address of the server'
+      operationId: getTcpServerLocalAddress
+      summary: 'Returns address of the server'
       tags:
         - TcpServer
       security:
         - basicAuth: []
       responses:
         '200':
-          description: 'Local IPv4 address provided'
+          description: 'Local address provided'
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - tcp-server-interface-1-0:ipv-4-address
+                  - tcp-server-interface-1-0:local-address
                 properties:
-                  tcp-server-interface-1-0:ipv-4-address:
-                    type: string
-                    example: '10.118.125.157'
+                  tcp-server-interface-1-0:local-address:
+                    type: object
+                    minProperties: 1
+                    properties:
+                      ipv-4-address:
+                        type: string
+                        example: '10.118.125.157'
+                      domain-name:
+                        type: string
+                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -6492,8 +6638,8 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
     put:
-      operationId: putTcpServerLocalIpv4Address
-      summary: 'Documents IPv4 address of the server'
+      operationId: putTcpServerLocalAddress
+      summary: 'Documents address of the server'
       tags:
         - TcpServer
       security:
@@ -6505,12 +6651,20 @@ paths:
             schema:
               type: object
               required:
-                - tcp-server-interface-1-0:ipv-4-address
+                - tcp-server-interface-1-0:local-address
               properties:
-                tcp-server-interface-1-0:ipv-4-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  example: '10.118.125.157'
+                tcp-server-interface-1-0:local-address:
+                  type: object
+                  minProperties: 1
+                  properties:
+                    ipv-4-address:
+                      type: string
+                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                      example: '10.118.125.157'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
       responses:
         '204':
           description: 'Local IPv4 address documented'
@@ -7043,7 +7197,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'  
 
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address:
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address:
     parameters:
       - in: path
         name: uuid
@@ -7053,25 +7207,37 @@ paths:
           pattern: '-\d+-\d+-\d+-tcp-c-\d{4}$'
           example: '*-0-0-1-tcp-c-0000'
     get:
-      operationId: getTcpClientRemoteIpv4Address
-      summary: 'Returns remote IPv4 address'
+      operationId: getTcpClientRemoteAddress
+      summary: 'Returns remote address'
       tags:
         - TcpClient
       security:
         - basicAuth: []
       responses:
         '200':
-          description: 'Remote IPv4 address provided'
+          description: 'Remote address provided'
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - tcp-client-interface-1-0:ipv-4-address
+                  - tcp-client-interface-1-0:remote-address
                 properties:
-                  tcp-client-interface-1-0:ipv-4-address:
-                    type: string
-                    example: '10.118.125.157'
+                  tcp-client-interface-1-0:remote-address:
+                    type: object
+                    minProperties: 1
+                    maxProperties: 1
+                    properties:
+                      ip-address:
+                        type: object
+                        minProperties: 1
+                        properties:
+                          ipv-4-address:
+                            type: string
+                            example: '10.118.125.157'
+                      domain-name:
+                        type: string
+                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -7085,8 +7251,8 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
     put:
-      operationId: putTcpClientRemoteIpv4Address
-      summary: 'Configures remote IPv4 address'
+      operationId: putTcpClientRemoteAddress
+      summary: 'Configures remote address'
       tags:
         - TcpClient
       security:
@@ -7098,12 +7264,25 @@ paths:
             schema:
               type: object
               required:
-                - tcp-client-interface-1-0:ipv-4-address
+                - tcp-client-interface-1-0:remote-address
               properties:
-                tcp-client-interface-1-0:ipv-4-address:
-                  type: string
-                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                  example: '10.118.125.157'
+                tcp-client-interface-1-0:remote-address:
+                  type: object
+                  minProperties: 1
+                  maxProperties: 1
+                  properties:
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          example: '10.118.125.157'
+                    domain-name:
+                      type: string
+                      pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                      example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
       responses:
         '204':
           description: 'Remote IPv4 address configured'
