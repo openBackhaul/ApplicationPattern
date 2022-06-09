@@ -956,7 +956,7 @@ paths:
                             domain-name:
                               type: string
                               description: >
-                                'Own IP address
+                                'Own domain-name
                                 from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
                         new-application-port:
                           type: integer
@@ -1304,7 +1304,7 @@ paths:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
-                        'IP address of application that shall record the OaM requests
+                        'Domain name of application that shall record the OaM requests
                         update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
 
                 oam-log-port:
@@ -1865,8 +1865,8 @@ paths:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
-                        'Future IP address of the application that has updated connection data
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/domain-name]'
+                        'Future domain name of the application that has updated connection data
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 new-application-port:
                   type: integer
                   minimum: 0
@@ -2418,20 +2418,20 @@ paths:
                       type: string
                       pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                       description: >
-                        'IP address of application that shall record the service requests
+                        'IP address of application that shall document the application layer topology
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
-                        'Domain name of application that shall record the service requests
+                        'Domain name of application that shall document the application layer topology
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 topology-application-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
-                    'Port of application that shall record the service requests
+                    'Port of application that shall document the application layer topology
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 topology-application: 'ApplicationLayerTopology'
