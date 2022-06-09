@@ -51,13 +51,20 @@ paths:
                 new-application-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of application that shall be target of the handover process
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of application that shall be target of the handover process
+                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -75,7 +82,8 @@ paths:
                 new-application-name: 'NewApplicationName'
                 new-application-release: '0.0.2'
                 new-application-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 new-application-port: 7000
       responses:
         '204':
@@ -166,12 +174,19 @@ paths:
                         new-application-address:
                           type: object
                           minProperties: 1
+                          maxProperties: 1
+                          additionalProperties: false
                           properties:
-                            ipv-4-address:
-                              type: string
-                              description: >
-                                'Future IP address
-                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            ip-address:
+                              type: object
+                              minProperties: 1
+                              additionalProperties: false
+                              properties:
+                                ipv-4-address:
+                                  type: string
+                                  description: >
+                                    'Future IPv4 address
+                                    from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                             domain-name:
                               type: string
                               description: >
@@ -186,8 +201,9 @@ paths:
                         application-name: 'RegistryOffice'
                         old-application-release-number: '0.0.1'
                         new-application-release-number: '0.0.2'
-                        new-application-address: 
-                          ipv-4-address: '10.118.125.157'
+                        new-application-address:
+                          ip-address:
+                            ipv-4-address: '10.118.125.157'
                         new-application-port: 7000
               responses:
                 '204':
@@ -591,13 +607,20 @@ paths:
                 registry-office-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'If body provided, IP address of RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'If body provided, IPv4 address of RegistryOffice application
+                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -615,8 +638,9 @@ paths:
                 registry-office-application: 'RegistryOffice'
                 registry-office-application-release-number: '0.0.1'
                 registration-operation: '/v1/register-application'
-                registry-office-address: 
-                  ipv-4-address: '10.118.125.157'
+                registry-office-address:
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 registry-office-port: 1000
       responses:
         '204':
@@ -710,12 +734,19 @@ paths:
                         application-address:
                           type: object
                           minProperties: 1
+                          maxProperties: 1
+                          additionalProperties: false
                           properties:
-                            ipv-4-address:
-                              type: string
-                              description: >
-                                'Own IP address
-                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            ip-address:
+                              type: object
+                              minProperties: 1
+                              additionalProperties: false
+                              properties:
+                                ipv-4-address:
+                                  type: string
+                                  description: >
+                                    'Own IPv4 address
+                                    from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                             domain-name:
                               type: string
                               description: >
@@ -731,8 +762,9 @@ paths:
                         application-release-number: '0.0.1'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
-                        application-address: 
-                          ipv-4-address: '10.118.125.157'
+                        application-address:
+                          ip-address:
+                            ipv-4-address: '10.118.125.157'
                         application-port: 1000
               responses:
                 '204':
@@ -838,13 +870,20 @@ paths:
                 registry-office-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of RegistryOffice application
+                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -865,7 +904,8 @@ paths:
                 relay-operation-update-operation: '/v1/relay-operation-update'
                 deregistration-operation: '/v1/deregister-application'
                 registry-office-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 registry-office-port: 1000
       responses:
         '204':
@@ -947,12 +987,19 @@ paths:
                         new-application-address:
                           type: object
                           minProperties: 1
+                          maxProperties: 1
+                          additionalProperties: false
                           properties:
-                            ipv-4-address:
-                              type: string
-                              description: >
-                                'Own IP address
-                                from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            ip-address:
+                              type: object
+                              minProperties: 1
+                              additionalProperties: false
+                              properties:
+                                ipv-4-address:
+                                  type: string
+                                  description: >
+                                    'Own IPv4 address
+                                    from [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                             domain-name:
                               type: string
                               description: >
@@ -967,7 +1014,8 @@ paths:
                         new-application-name: 'OwnApplicationName'
                         new-application-release: '0.0.2'
                         new-application-address:
-                          ipv-4-address: '10.118.125.157'
+                          ip-address:
+                            ipv-4-address: '10.118.125.157'
                         new-application-port: 7000
               responses:
                 '204':
@@ -1060,13 +1108,20 @@ paths:
                 service-log-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of application that shall record the service requests
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of application that shall record the service requests
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -1085,7 +1140,8 @@ paths:
                 service-log-application-release-number: '0.0.1'
                 service-log-operation: '/v1/record-service-request'
                 service-log-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 service-log-port: 1002
       responses:
         '204':
@@ -1293,20 +1349,26 @@ paths:
                 oam-log-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of application that shall record the OaM requests
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of application that shall record the OaM requests
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of application that shall record the OaM requests
                         update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-
                 oam-log-port:
                   type: integer
                   minimum: 0
@@ -1319,7 +1381,8 @@ paths:
                 oam-log-application-release-number: '0.0.1'
                 oam-log-operation: '/v1/record-oam-request'
                 oam-log-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 oam-log-port: 1003
       responses:
         '204':
@@ -1610,13 +1673,20 @@ paths:
                 oam-approval-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of application that shall approve the OaM requests
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of application that shall approve the OaM requests
+                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -1635,7 +1705,8 @@ paths:
                 oam-approval-application-release-number: '0.0.1'
                 oam-approval-operation: '/v1/approve-oam-request'
                 oam-approval-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 oam-approval-port: 1004
       responses:
         '204':
@@ -1854,13 +1925,20 @@ paths:
                 new-application-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'Future IP address of the application that has updated connection data
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'Future IPv4 address of the application that has updated connection data
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -1879,7 +1957,8 @@ paths:
                 old-application-release-number: '0.0.1'
                 new-application-release-number: '0.0.2'
                 new-application-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 new-application-port: 7000
       responses:
         '204':
@@ -2076,6 +2155,7 @@ paths:
                                               local-address:
                                                 type: object
                                                 minProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
@@ -2174,10 +2254,12 @@ paths:
                                                 type: object
                                                 minProperties: 1
                                                 maxProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ip-address:
                                                     type: object
                                                     minProperties: 1
+                                                    additionalProperties: false
                                                     properties:
                                                       ipv-4-address:
                                                         type: string
@@ -2413,13 +2495,20 @@ paths:
                 topology-application-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    ipv-4-address:
-                      type: string
-                      pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      description: >
-                        'IP address of application that shall document the application layer topology
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    ip-address:
+                      type: object
+                      minProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of application that shall document the application layer topology
+                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
@@ -2443,7 +2532,8 @@ paths:
                 topology-operation-fc-port-update: '/v1/update-fc-port'
                 topology-operation-fc-port-deletion: '/v1/delete-fc-port'
                 topology-application-address:
-                  ipv-4-address: '10.118.125.157'
+                  ip-address:
+                    ipv-4-address: '10.118.125.157'
                 topology-application-port: 1005
       responses:
         '204':
@@ -2636,6 +2726,7 @@ paths:
                                                     local-address:
                                                       type: object
                                                       minProperties: 1
+                                                      additionalProperties: false
                                                       properties:
                                                         ipv-4-address:
                                                           type: string
@@ -2734,10 +2825,12 @@ paths:
                                                       type: object
                                                       minProperties: 1
                                                       maxProperties: 1
+                                                      additionalProperties: false
                                                       properties:
                                                         ip-address:
                                                           type: object
                                                           minProperties: 1
+                                                          additionalProperties: false
                                                           properties:
                                                             ipv-4-address:
                                                               type: string
@@ -3020,6 +3113,7 @@ paths:
                                           local-address:
                                             type: object
                                             minProperties: 1
+                                            additionalProperties: false
                                             properties:
                                               ipv-4-address:
                                                 type: string
@@ -3118,10 +3212,12 @@ paths:
                                             type: object
                                             minProperties: 1
                                             maxProperties: 1
+                                            additionalProperties: false
                                             properties:
                                               ip-address:
                                                 type: object
                                                 minProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
@@ -3644,6 +3740,7 @@ paths:
                                           local-address:
                                             type: object
                                             minProperties: 1
+                                            additionalProperties: false
                                             properties:
                                               ipv-4-address:
                                                 type: string
@@ -3742,10 +3839,12 @@ paths:
                                             type: object
                                             minProperties: 1
                                             maxProperties: 1
+                                            additionalProperties: false
                                             properties:
                                               ip-address:
                                                 type: object
                                                 minProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
@@ -5392,6 +5491,7 @@ paths:
                                               local-address:
                                                 type: object
                                                 minProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ipv-4-address:
                                                     type: string
@@ -5527,10 +5627,12 @@ paths:
                                                 type: object
                                                 minProperties: 1
                                                 maxProperties: 1
+                                                additionalProperties: false
                                                 properties:
                                                   ip-address:
                                                     type: object
                                                     minProperties: 1
+                                                    additionalProperties: false
                                                     properties:
                                                       ipv-4-address:
                                                         type: string
@@ -6618,6 +6720,7 @@ paths:
                   tcp-server-interface-1-0:local-address:
                     type: object
                     minProperties: 1
+                    additionalProperties: false
                     properties:
                       ipv-4-address:
                         type: string
@@ -6656,6 +6759,7 @@ paths:
                 tcp-server-interface-1-0:local-address:
                   type: object
                   minProperties: 1
+                  additionalProperties: false
                   properties:
                     ipv-4-address:
                       type: string
@@ -7227,10 +7331,12 @@ paths:
                     type: object
                     minProperties: 1
                     maxProperties: 1
+                    additionalProperties: false
                     properties:
                       ip-address:
                         type: object
                         minProperties: 1
+                        additionalProperties: false
                         properties:
                           ipv-4-address:
                             type: string
@@ -7270,10 +7376,12 @@ paths:
                   type: object
                   minProperties: 1
                   maxProperties: 1
+                  additionalProperties: false
                   properties:
                     ip-address:
                       type: object
                       minProperties: 1
+                      additionalProperties: false
                       properties:
                         ipv-4-address:
                           type: string
