@@ -689,7 +689,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRegisteringCausesRegistrationRequest:
-          https://{$request.body#registry-office-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}:
+          https://{$request.body#registry-office-address/ip-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1190,7 +1190,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLoggingRequest:
-          https://{$request.body#service-log-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}:
+          https://{$request.body#service-log-address/ip-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1431,7 +1431,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesLoggingRequest:
-          https://{$request.body#oam-log-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
+          https://{$request.body#oam-log-address/ip-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1755,7 +1755,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesInquiryForAuthentication:
-          https://{$request.body#oam-approval-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
+          https://{$request.body#oam-approval-address/ip-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -2582,7 +2582,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-application-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-application-update}:
             description: 'Informing about a potentially new ALT results in sending all interfaces and internal conntections to that ALT'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -2986,7 +2986,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
             description: 'To be activated whenever a service request causes the creation or change of an LTP'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3282,7 +3282,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
             description: 'To be activated whenever a service request causes an LTP being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3348,7 +3348,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
             description: 'To be activated whenever a service request causes the creation or change of an FC port'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3455,7 +3455,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
             description: 'To be activated whenever a service request causes an FC port being updated'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3543,7 +3543,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
             description: 'To be activated whenever a service request causes an FC port being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3613,7 +3613,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
             description: 'To be activated whenever an OaM request causes the creation or change of an LTP'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3909,7 +3909,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
             description: 'To be activated whenever an OaM request causes an LTP being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -3975,7 +3975,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
             description: 'To be activated whenever an OaM request causes the creation or change of an FC port'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -4082,7 +4082,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
             description: 'To be activated whenever an OaM request causes an FC port being updated'
             parameters:
               - $ref: '#/components/parameters/user'
@@ -4170,7 +4170,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
             description: 'To be activated whenever an OaM request causes an FC port being deleted'
             parameters:
               - $ref: '#/components/parameters/user'
