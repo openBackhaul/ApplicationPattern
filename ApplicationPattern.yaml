@@ -4265,6 +4265,7 @@ paths:
               properties:
                 operation-uuid:
                   type: string
+                  pattern: '^[a-z]+-\d+-\d+-\d+-op-s-\d{4}$'
                   description: >
                     'UUID of LTP that is target of the updating of the operation key
                     find [/core-model-1-4:control-construct/logical-termination-point=uuid]'
@@ -5770,7 +5771,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-application-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-application-p-\d{4}$'
           example: '*-0-0-1-application-p-0000'
     get:
       operationId: getApplicationProfileApplicationName
@@ -5811,7 +5812,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-application-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-application-p-\d{4}$'
           example: '*-0-0-1-application-p-0000'
     get:
       operationId: getApplicationProfileReleaseNumber
@@ -5852,7 +5853,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-application-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-application-p-\d{4}$'
           example: '*-0-0-1-application-p-0000'
     get:
       operationId: getApplicationProfileApprovalStatus
@@ -5938,7 +5939,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-integer-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-integer-p-\d{4}$'
           example: '*-0-0-1-integer-p-0000'
     get:
       operationId: getIntegerProfileIntegerName
@@ -5979,7 +5980,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-integer-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-integer-p-\d{4}$'
           example: '*-0-0-1-integer-p-0000'
     get:
       operationId: getIntegerProfileUnit
@@ -6020,7 +6021,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-integer-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-integer-p-\d{4}$'
           example: '*-0-0-1-integer-p-0000'
     get:
       operationId: getIntegerProfileMinimum
@@ -6061,7 +6062,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-integer-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-integer-p-\d{4}$'
           example: '*-0-0-1-integer-p-0000'
     get:
       operationId: getIntegerProfileMaximum
@@ -6102,7 +6103,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-integer-p-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-integer-p-\d{4}$'
           example: '*-0-0-1-integer-p-0000'
     get:
       operationId: getIntegerProfileIntegerValue
@@ -6181,7 +6182,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-s-\d{4}$'
           example: '*-0-0-1-op-s-0000'
     get:
       operationId: getOperationServerOperationName
@@ -6222,7 +6223,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-s-\d{4}$'
           example: '*-0-0-1-op-s-0000'
     get:
       operationId: getOperationServerLifeCycleState
@@ -6311,7 +6312,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-s-\d{4}$'
           example: '*-0-0-1-op-s-0000'
     get:
       operationId: getOperationServerOperationKey
@@ -6388,7 +6389,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerApplicationName
@@ -6429,7 +6430,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerReleaseNumber
@@ -6470,7 +6471,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerApplicationPurpose
@@ -6511,7 +6512,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerDataUpdatePeriode
@@ -6557,7 +6558,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerOwnerName
@@ -6598,7 +6599,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerOwnerEmailAddress
@@ -6639,7 +6640,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-s-\d{4}$'
           example: '*-0-0-1-http-s-0000'
     get:
       operationId: getHttpServerReleaseList
@@ -6698,7 +6699,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-tcp-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-tcp-s-\d{4}$'
           example: '*-0-0-1-tcp-s-0000'
     get:
       operationId: getTcpServerLocalAddress
@@ -6791,7 +6792,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-tcp-s-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-tcp-s-\d{4}$'
           example: '*-0-0-1-tcp-s-0000'
     get:
       operationId: getTcpServerLocalPort
@@ -6869,7 +6870,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-c-\d{4}$'
           example: '*-0-0-1-op-c-0000'
     get:
       operationId: getOperationClientOperationName
@@ -6945,7 +6946,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-c-\d{4}$'
           example: '*-0-0-1-op-c-0000'
     get:
       operationId: getOperationClientOperationKey
@@ -7021,7 +7022,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-c-\d{4}$'
           example: '*-0-0-1-op-c-0000'
     get:
       operationId: getOperationClientOperationalState
@@ -7066,7 +7067,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-c-\d{4}$'
           example: '*-0-0-1-op-c-0000'
     get:
       operationId: getOperationClientLifeCycleState
@@ -7114,7 +7115,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-op-c-0040'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-op-c-0040'
           example: '*-0-0-1-op-c-0040'
     get:
       operationId: getOperationClientDetailedLoggingIsOn
@@ -7190,7 +7191,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-c-\d{4}$'
           example: '*-0-0-1-http-c-0000'
     get:
       operationId: getHttpClientApplicationName
@@ -7231,7 +7232,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-http-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-http-c-\d{4}$'
           example: '*-0-0-1-http-c-0000'
     get:
       operationId: getHttpClientReleaseNumber
@@ -7308,7 +7309,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-tcp-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-tcp-c-\d{4}$'
           example: '*-0-0-1-tcp-c-0000'
     get:
       operationId: getTcpClientRemoteAddress
@@ -7413,7 +7414,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '-\d+-\d+-\d+-tcp-c-\d{4}$'
+          pattern: '^[a-z,*]+-\d+-\d+-\d+-tcp-c-\d{4}$'
           example: '*-0-0-1-tcp-c-0000'
     get:
       operationId: getTcpClientRemotePort
