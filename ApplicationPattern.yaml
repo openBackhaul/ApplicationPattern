@@ -5157,6 +5157,7 @@ paths:
                                             - user
                                             - originator
                                             - application-name
+                                            - application-release-number
                                             - operation-name
                                             - response-code
                                           properties:
@@ -5169,6 +5170,8 @@ paths:
                                             originator:
                                               type: string
                                             application-name:
+                                              type: string
+                                            application-release-number:
                                               type: string
                                             operation-name:
                                               type: string
