@@ -13,25 +13,26 @@ This is a step by step cookbook for creating the ServiceList.
 
 ### HTTP and TCP Server
 * Replace "## OwnApplicationName" by the official name of the application
-* Replace "## OwnReleaseNumber (e.g. 0.0.1)" by the official release number.
-
+* Replace "## OwnReleaseNumber (e.g. 0.0.1)" by the official release number
+* Replace "## OwnIpAddress" by the expected IP address
+* Replace "## OwnTcpPort" by the expected TCP port
 
 
 ### OperationServers
 
-* Jump to section "## Services specific to this application"
-! Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !
+* Replace "## Services specific to this application" by the OperationServers
+  * Add the following two lines for every service the application shall provide  
+```
+    - service-name:
+      uuid:
+```
+  * Fill in a name of the service according to [structure of service names](../StructureOfServiceNames/StructureOfServiceNames.md)
+  * Put them into a reasonable order (potentially following the sequence they might be applied during regular operation)
+  * Fill in UUIDs to the provided services according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md)
 
-* Put them into a reasonable order (potentially following the sequence they might be applied during regular operation)
-* Assign UUIDs to the provided services
-* Complement the HTTP (ApplicationName, ReleaseNumber) and TCP server (IP address, TCP port) information in the sections, which are marked by '##'.
-
-* fill in offered services 
-* name offered services according to structure of service names
-* add additional http and tcp clients if required
 
 ### OperationClients
-
+* add additional http and tcp clients if required
 * Continue filling in the ServiceList template from above
 * Add the services, which need to be consumed by the new application
   * Search the list of clients for the application, which is providing the needed service
