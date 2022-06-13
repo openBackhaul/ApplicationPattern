@@ -1,8 +1,8 @@
 # Specifying Applications
 
 Automated code generation and testing requires the applications being specified in syntactically well defined way.  
-Any specification, which shall be published for implementation, has to comprise OpenApiSpecification, LOADfile and TestCases.  
-A couple of additional documents are created to ease creation of the three main documents.  
+Any specification, which shall be published for implementation, has to comprise OpenApiSpecification, CONFIGfile and TestCases.  
+A couple of additional documents have to be elaborated to ease creation of the three main documents.  
 In general the following sequence of activities is recommended:
 
 ![Workflow for Specifying Applications](https://www.plantuml.com/plantuml/svg/NP31JiD034JlV8M_0owDMkLKaQf1uhnDPnkBpNhhtIKgNuy3I0szlXcFnzxauhJKAT2xw8SFCfCNfJvXO7_ZUA4cfS23AomnFptlu3bY3RivGbyM9G_A9z2XQf8C4azb_6SrrpOujM1gQpnR-a96MTmhswkROC8HrufSVlgir2CidOleRHcMAGKKK0_zv05xpcMDMz7PwRBfJx6MV8cqxvgTvu0xwH9Ya_Zty7lVtcvAXTwioDPbP4Ej0b-WH-UXdWBdyP5l4C_stcy0 "Workflow for Specifying Applications")
