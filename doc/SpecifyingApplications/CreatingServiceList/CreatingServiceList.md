@@ -1,13 +1,25 @@
 # Creating the ServiceList
 
-### OperationServers
+This is a step by step cookbook for creating the ServiceList.
+! Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !
 
-This is a step by step cookbook for filling the ServiceList.
 
-* Assure that a copy of the ApplicationPattern+services.yaml is in the develop Branch of your application's repository.
-  If not already there, download a copy of the latest [ServiceList template](../../../../../tree/tsi/ApplicationPattern+services.yaml) and put it there.
+### File Handling
+
+* Assure that there is a copy of the ApplicationPattern+services.yaml in the develop Branch of your application's repository.
+  If it would not be already there, get it from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern).
 * Rename the file, by replacing "ApplicationPattern" by your application's name.
 
+
+### HTTP and TCP Server
+* Replace "## OwnApplicationName" by the official name of the application
+* Replace "## OwnReleaseNumber (e.g. 0.0.1)" by the official release number.
+
+
+
+### OperationServers
+
+* Jump to section "## Services specific to this application"
 ! Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !
 
 * Put them into a reasonable order (potentially following the sequence they might be applied during regular operation)
