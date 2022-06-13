@@ -39,10 +39,10 @@ The ServiceList must represent all services, which are either provided or consum
 
 **Concepts**
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
-* [ServiceList](./ServiceList/ServiceList.md)
+* [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
-* Creating the ServiceList
+* [Creating the ServiceList](./CreatingServiceList/CreatingServiceList.md)
 
 
 ### ForwardingList

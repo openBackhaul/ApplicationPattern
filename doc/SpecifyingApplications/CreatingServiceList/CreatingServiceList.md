@@ -1,28 +1,24 @@
-# ServiceList
+# Creating the ServiceList
 
-This is the step by step cookbook for filling the ServiceList.
+### OperationServers
 
-* Before starting to create a new specification, download a copy of the latest [ServiceList template](../../../../../tree/tsi/ApplicationPattern+services.yaml).
-* Be aware that the template must not be altered outside the zones indicated by comments starting with '##'
+This is a step by step cookbook for filling the ServiceList.
 
-**Planning Operation Servers**
+* Assure that a copy of the ApplicationPattern+services.yaml is in the develop Branch of your application's repository.
+  If not already there, download a copy of the latest [ServiceList template](../../../../../tree/tsi/ApplicationPattern+services.yaml) and put it there.
+* Rename the file, by replacing "ApplicationPattern" by your application's name.
 
-* Add the Services, which shall be provided by the new application, into the section operation-servers/service/individual.
-  * Service names shall start with a version identifier (e.g. v1)
-  * Service names shall be formulated like orders (e.g. calculate-mw-capacity); means they shall start with a verb, followed by an object; further details might follow
-  * Chose meaningful verbs and objects, so the service is already explained by its naming and it’s possible to conclude on the purpose of the application from reading the service names
-  * Start and separate version identifier from service name with slash; use hyphens to separate words in the service name; e.g. /v1/service-name
-  * Please, take already existing definitions in the ServiceList template as a reference
-* While creating new Services, think about 
-  * the services, which shall be provided to other applications,
-  * parameters, which might be needed to be pre-configured at this application,
-  * different responses (e.g. filtered)
-  * potentially required inversions (e.g. stop subscription) or restoring the original state
+! Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !
+
 * Put them into a reasonable order (potentially following the sequence they might be applied during regular operation)
 * Assign UUIDs to the provided services
 * Complement the HTTP (ApplicationName, ReleaseNumber) and TCP server (IP address, TCP port) information in the sections, which are marked by '##'.
 
-**Planning Operation Clients**
+* fill in offered services 
+* name offered services according to structure of service names
+* add additional http and tcp clients if required
+
+### OperationClients
 
 * Continue filling in the ServiceList template from above
 * Add the services, which need to be consumed by the new application
@@ -37,7 +33,7 @@ This is the step by step cookbook for filling the ServiceList.
 * Take care that application name and release number are properly filled.
 * Fill in latest IP address and TCP port information
 
-**Validation**
+### Validation
 
 * Open the YAML validator at [www.yamllint.com](http://www.yamllint.com/)
 * Click into the ServiceList, Control+A, Control+C
