@@ -10,13 +10,13 @@ In general the following sequence of activities is recommended:
 
 ### Purpose of the Application
 
-The Purpose of the application must be expressed in a single sentence. It must be most comprehensive and precise.
+The Purpose of the application shall be expressed in a single sentence. It must be most comprehensive and precise.
 
 
 ### Name of the Application
 
-The Application needs a proper naming.  
-This issue must not be underestimated. The ApplicationName is treated as an identifier (means e.g. that it must be invariant). Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).  
+The ApplicationName is treated as an identifier (means e.g. that it must be invariant).
+Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).  
 
 **Concepts**
 * [Structure of ApplicationNames](./StructureOfApplicationNames/StructureOfApplicationNames.md)
@@ -37,7 +37,13 @@ Every Application needs an own repository, which will exist in parallel to the A
 
 The ServiceList must represent all services, which are either provided or consumed by the application.
 
-[ServiceList](./ServiceList/ServiceList.md)
+**Concepts**
+* [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
+* [ServiceList](./ServiceList/ServiceList.md)
+
+**Step-by-Step Guidelines**
+* Creating the ServiceList
+
 
 ### ForwardingList
 
