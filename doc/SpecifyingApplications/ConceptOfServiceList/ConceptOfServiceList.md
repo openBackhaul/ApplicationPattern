@@ -3,6 +3,13 @@
 * Be aware that the template must not be altered outside the zones indicated by comments starting with '##'
 
 
+### Preparing HTTP and TCP Server
+* Release number has to semantic versioning.
+  * New applications get 1.0.0. 
+  * Bugfixes and updates, which do not add functionality have to increment the last digit.
+  * Releases adding minor and backward compatible functionality have to increment the second digit.
+  * Major updates, particularly if containing non-backward compatible changes have to increment the first digit.
+
 ### Planning Operation Servers
 
 * Add the Services, which shall be provided by the new application, into the section operation-servers/service/individual.
