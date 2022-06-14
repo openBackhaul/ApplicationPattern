@@ -38,6 +38,7 @@ Every Application needs an own repository, which will exist in parallel to the A
 The ServiceList must represent all services, which are either provided or consumed by the application.
 
 **Concepts**
+* [Structure of Services](./StructureOfServices/StructureOfServices.md)
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
 * [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
