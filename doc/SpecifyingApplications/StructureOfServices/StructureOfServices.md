@@ -18,13 +18,16 @@ Need for updating will in tendency reduce to a single, relatively small place, i
 **Idempotent**  
 There is two different ways of leading.
 1) You tell what to do
-2) You tell the wished target state
-Example: "Clean up the yard!" vs. "Make sure the yard is clean!"
-Telling the wished target state is leaving it to the implementation to decide about how to reach that state.
-This usually leads to more efficient implementations and it also supports encapsulating the impact of changes.
-As a side effect, the same service can be called over and over again, it always leads to the same result (which is the target state).
-This supports debugging the overall system of applications.
-Unfortunately, this concept cannot be applied in all cases and often it is not that explicit.
-Nevertheless, it is recommended to use it as often as possible.
+2) You tell the wished target state  
+
+Example: "Clean up the yard!" vs. "Make sure the yard is clean!"  
+
+Telling the wished target state is leaving it to the implementation to decide about how to reach that state.  
+This usually leads to more efficient implementations and it also supports encapsulating the impact of changes.  
+As a side effect, the same service can be called over and over again, it always leads to the same result (which is the target state).  
+This supports debugging the overall system of applications.  
+Unfortunately, this concept cannot be applied in all cases and often it is not that explicit.  
+Nevertheless, it is recommended to use it as often as possible.  
+
 Example:
 /v1/notify-approvals creates or updates a subscription for a combination of application name and release number.
