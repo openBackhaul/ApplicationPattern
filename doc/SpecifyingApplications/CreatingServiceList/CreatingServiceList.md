@@ -1,13 +1,13 @@
 # Creating the ServiceList
 
-This is a step by step cookbook for creating the ServiceList.
-! Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !
+This is a step by step cookbook for creating the ServiceList.  
+**Be aware that the template must not be altered outside the zones indicated by comments starting with '##' !**
 
 
 ### File Handling
 
-* Assure that there is a copy of the ApplicationPattern+services.yaml in the develop Branch of your application's repository.
-  If it would not be already there, get it from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern).
+* Assure that there is a copy of the ApplicationPattern+services.yaml in the develop branch of your application's repository.
+  In case it is missing from there, get it from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern).
 * Rename the file, by replacing "ApplicationPattern" by your application's name.
 
 
@@ -32,14 +32,14 @@ This is a step by step cookbook for creating the ServiceList.
 
 
 ### OperationClients
-* add additional http and tcp clients if required
+* Add additional http and tcp clients if required
 * Continue filling in the ServiceList template from above
 * Add the services, which need to be consumed by the new application
   * Search the list of clients for the application, which is providing the needed service
   * If not yet available, add an additional section at the bottom of the list
   * Add the service name as it is already specified in the serving application
-    * If some service would be consumed at all other applications, it shall be listed in the operation-clients/service/basic section
-    * If some service would be consumed from one or several, but not all other applications, it shall be listed in the operation-clients/service/individual section
+    * If some service would be consumed at all other applications, it shall be listed in the _operation-clients/service/basic_ section
+    * If some service would be consumed from one or several, but not all other applications, it shall be listed in the _operation-clients/service/individual_ section
   * Find info about existing applications e.g. in the GenericRepresentationApplication
   * Put them into a reasonable order (potentially following the sequence they might be consumed during regular operation)
   * Assign UUIDs to the consumed services
