@@ -6,7 +6,7 @@
 :Request for ApplicationRepository;
 :Complete ServiceList;
 :Complete ForwardingList;
-:Design LOADfile;
+:Design CONFIGfile;
 :Design OpenApiSpecification;
 :Script TestCases;
 :Freeze Specification;

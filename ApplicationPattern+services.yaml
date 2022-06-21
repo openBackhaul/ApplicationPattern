@@ -243,13 +243,13 @@ clients:
           ## Clients specific to this application
 
   - http-client:
-      application-name: CurrentController
-      release-number: 0.0.1
-      uuid: http-c-2300
+      application-name: ## Name of application to be addressed
+      release-number: ## Release number of application to be addressed
+      uuid: ## UUID of the HttpClient
     tcp:
-      ip-address: 10.118.125.157
-      tcp-port: 2000
-      uuid: tcp-c-2300
+      ip-address: ## IP address of application to be addressed
+      tcp-port: ## TCP port of application to be addressed
+      uuid: ## UUID of the TcpClient
     operation-clients:
       own-oam:
         basic:

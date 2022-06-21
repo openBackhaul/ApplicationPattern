@@ -1,19 +1,20 @@
-# ServiceList
+# Concept of the ServiceList
 
 The ServiceList is a compact notation for designing the service names and allocating the uuids.  
 It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
 
-The latest [template for the ServiceList](https://github.com/openBackhaul/ApplicationPattern/blob/develop/ApplicationPattern+services.yaml) can be downloaded from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern/tree/develop).  
-**Be aware that the template must not be altered outside the zones indicated by comments starting with '##'.**
+**Be aware that the template must not be altered outside the zones indicated by comments starting with '##'.**   
 
 
 ### HTTP and TCP Server
 
-* Release number has to follow the concept of semantic versioning.
+* The application name must be identical with the one stated in the repository.
+* The release number has to follow the concept of semantic versioning.
   * New applications get 1.0.0. 
   * Bugfixes and updates, which do not add functionality have to increment the last digit.
   * Releases adding minor and backward compatible functionality have to increment the second digit.
   * Major updates, particularly if containing non-backward compatible changes have to increment the first digit.
+  * The release number has to identify the version resulting from the specification. If originally planned to fix some bugs and later decided to add functionality the release number has to be adapted accordingly.
 * IP address and TCP port will be assigned by the platform owner. Please, request for an address.
 
 
