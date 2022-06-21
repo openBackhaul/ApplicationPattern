@@ -14,8 +14,8 @@ This is a step by step cookbook for creating the ServiceList.
 
 ### General
 
-* Re-using already implemented services for avoiding redundant code is very much recommended.
-* Informantion about existing applications can be found e.g. in the GenericRepresentationApplication.
+* Re-using already existing services for avoiding redundant code is very much recommended.
+* Information about existing applications can be found e.g. in the GenericRepresentationApplication.
 * In case clarification about existing services would be needed, the responsible ApplicationOwner has to be addressed for complementing the documentation of his application.
 
 
@@ -69,7 +69,7 @@ This is a step by step cookbook for creating the ServiceList.
 ```
   * Fill in the name of the service, which is identically available at all applications.
   * Fill in a UUID starting with "op-c-2", followed by two digits that are identifying the application and a sequence number.
-* If your application would _not_ address all other applications at the same OperationServer (which is very likely), the "## Clients specific to this application, but addressing all other applications" needs to be deleted through out the entire ServerList.
+* If your application would _not_ address all other applications at the same OperationServer (which is very likely), the "## Clients specific to this application, but addressing all other applications" needs to be deleted throughout the entire ServiceList.
 * If your application would address one or several applications of the TinyApplicationController, 
   * "## Clients specific to this application" would have to be replaced by the usual two lines for defining a service client at the affected applications of the TinyApplicationController:  
 ```
@@ -109,7 +109,7 @@ This is a step by step cookbook for creating the ServiceList.
     * followed by "3" indicating that an individual service gets addressed
     * followed by the same two digit sequence number, which is unique for the individual application, like at the HttpClient
     * followed by a sequence number starting at "0" and incrementing for every additional individual service to be addressed at the same application.
-* In the extremly unlikely case that the application is addressing the same service at all other applications, the "## Clients specific to this application, but addressing all other applications" has to be replaced by the usual two lines for defining a service client:  
+* In the extremely unlikely case that the application is addressing the same service at all other applications, the "## Clients specific to this application, but addressing all other applications" has to be replaced by the usual two lines for defining a service client:  
 ```
     - service-name:
       uuid:
