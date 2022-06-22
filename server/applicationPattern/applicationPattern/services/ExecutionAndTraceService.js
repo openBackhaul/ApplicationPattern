@@ -1,18 +1,19 @@
+// @ts-check
+'use strict';
 
 const moment = require('moment');
-const requestHeader = require('onf-core-model-ap/applicationPattern/rest/client/RequestHeader');
-const requestBuilder = require('onf-core-model-ap/applicationPattern/rest/client/RequestBuilder');
+const requestHeader = require('../rest/client/RequestHeader');
+const requestBuilder = require('../rest/client/RequestBuilder');
 
-const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
+const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
 
-const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
-const forwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain'); 
-const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
+const HttpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
+const operationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
+const forwardingDomain = require('../onfModel/models/ForwardingDomain'); 
+const FcPort = require('../onfModel/models/FcPort');
 
 
 /**
- * @deprecated use the service from onf-core-model-ap
  * This function formulates the response body with the required attributes that needs to be sent to the Execution and Trace Log application<br>
  * @param {string} xCorrelator correlation tag of the current execution<br>
  * @param {string} traceIndicator sequence number of the execution<br>
@@ -93,7 +94,7 @@ function formulateResponseBody(xCorrelator, traceIndicator, userName, originator
 
 /**
  * This function returns the operation client uuid of the service that needs to be called to log the service requests<br>
- * @returns {string} return the uuid of the operation client of the service that needs to be addressed to log the service request<br>
+ * @returns {Promise<string>} return the uuid of the operation client of the service that needs to be addressed to log the service request<br>
  * This method performs the following step,<br>
  * step 1: extract the forwarding-construct ServiceRequestCausesLoggingRequest<br>
  * step 2: get the output fc-port from the forwarding-construct<br>

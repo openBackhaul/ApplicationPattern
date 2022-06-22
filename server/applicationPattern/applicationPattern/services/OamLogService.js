@@ -1,3 +1,6 @@
+// @ts-check
+'use strict';
+
 /**
  * <p>This class provides functionality to log the OAM request to the OAM Log application in the framework.
  * A rest call will be initiated from this application to the OAM Log application to report the transaction happend in the OAM layer.</p>  
@@ -8,24 +11,23 @@
  * @module OAMLog
  **/
 
- const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
- const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
- const requestHeader = require('onf-core-model-ap/applicationPattern/rest/client/RequestHeader');
- const requestBuilder = require('onf-core-model-ap/applicationPattern/rest/client/RequestBuilder');
- const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
- const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
- const forwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
+ const operationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
+ const HttpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
+ const requestHeader = require('../rest/client/RequestHeader');
+ const requestBuilder = require('../rest/client/RequestBuilder');
+ const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
+ const FcPort = require('../onfModel/models/FcPort');
+ const forwardingDomain = require('../onfModel/models/ForwardingDomain');
  const moment = require('moment');
  
  /**
-  * @deprecated use the service from onf-core-model-ap
   * This function recods the OAM request to the OAM lof application<br>
   * @param {string} oamPath oam path that is accessed during the request<br>
   * @param {string} requestBody incase if it is a put request, then the request body of the request<br>
   * @param {string} responseCode response code of the rest call execution<br>
   * @param {string} authorizationCode authorization code used to access the oam layer. This will then decoded to findout the username<br>
   * @param {string} method HTTP method of the OAM layer call. It can be PUT,GET<br>
-  * @returns {boolean} returns true if the operation is successful<br>
+  * @returns {Promise<boolean>} returns true if the operation is successful<br>
   * This method performs the following step,<br>
   * step 1: Get the operation client of the OAM log application that needs to be executed to log the OAM request <br>
   * 2. If user value is empty , then the value from originator will be copied<br>
@@ -115,7 +117,7 @@
  /**
   * @description To decode base64 authorization code from authorization header<br> 
   * @param {string} authorizationCode base64 encoded authorization code<br>
-  * @returns {Promise} returns user name based on the decoded authorization code
+  * @returns {string} returns user name based on the decoded authorization code
   * <b><u>Procedure :</u></b><br>
   * <b>step 1 :</b> Get the authorization code from the header<br>
   * <b>step 2 :</b> split the authorization code with delimiter "space" to ignore the prefix "basic" from the authorization code<br>
@@ -133,6 +135,6 @@
          return userName;
      } catch (error) {
          console.log(error);
-         return undefined;
+         return "";
      }
  }
