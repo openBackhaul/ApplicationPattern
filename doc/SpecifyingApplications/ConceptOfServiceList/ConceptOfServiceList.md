@@ -33,7 +33,7 @@ It provides full focus on composing a complete and well-structured set of servic
   * Reflecting the expected sequence of appliance of the services might be helpful.
   * Grouping services, which are either doing similar stuff or are for inverting some condition, might also ease understanding.
 * Sleep over, double check the definitions and probably discuss them with a colleague.
-* As a last step, assign the UUIDs. They shall start with "op-s-" to indicate that they identify an OperationServer. The consequent number shall start counting at 3000. It must be unique within the scope of the individual application, but it does not necessarily need to be sequencial.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) and contain "op-s-" to indicate that they are identifying an OperationServer.
 
 
 ### Planning Clients
@@ -54,11 +54,11 @@ It provides full focus on composing a complete and well-structured set of servic
 ### HTTP and TCP Clients
 
 * It is recommended to update the HTTP and TCP Clients in the ServiceList before adding the OperationClients.
-* **Do not delete the HTTP and TCP Clients with UUID sequence numbers lower than 2300**. These Clients are required for embedding the application into the microservice management environment.
+* **Do not delete the HTTP and TCP Clients with UUIDs containing numbers lower than 2300**. These Clients are required for embedding the application into the microservice management environment.
 * The HTTP and TCP Clients holding the OperationClients listed during the brainstorming shall be added. Take care for correct application names and latest release numbers.
 * Ask the platform owner for latest IP addresses and TCP ports.
-* It would be helpful, if the sequence of HTTP and TCP Clients would be the same accross all applications. So please, look into one or several existing ServiceLists or CONFIGfiles and maybe even copy.
-* In principle, UUIDs of clients could differ from application to application, but life would be easier, if the numbers would be identical across all applications. So maybe just copy from existing ServiceLists of CONFIGfiles.
+* It would be helpful, if the sequence of HTTP and TCP Clients would be the same accross all applications. So please, take a look into the defintion of the ApplicationNumber in [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) and put the HTTP and TCP Clients into the same order.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) and contain "http-c-"/"tcp-c-" to indicate that they are identifying an HTTP, respectively TCP Client. In most cases it makes sense to just copy the UUIDs from existing ServiceLists or CONFIGfiles.
 
 
 ### Operation Clients
@@ -72,7 +72,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * The order of the services shall support understanding the purpose of the individual service.
   * Reflecting the expected sequence of appliance of the services might be helpful.
   * Grouping services, which are either doing similar stuff or are for inverting some condition, might also ease understanding.
-* As a last step, assign the UUIDs. They shall start with "op-c-" to indicate that they are identifying an OperationClient. The consequent number of an individual service shall start with 3. The next two digits have to be identical with the second and third digit of the UUID of the HTTP Client. The last digit is for counting, but it does not necessarily need to be sequencial.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) and contain "op-c-" to indicate that they are identifying an OperationClient.
 
 
 ### Validation

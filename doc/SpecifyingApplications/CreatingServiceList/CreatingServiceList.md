@@ -56,7 +56,7 @@ This is a step by step cookbook for creating the ServiceList.
 ```
   * Fill in a name of the service according to OperationServer definitions from above.
   * Put them into execution sequence.
-  * Fill in UUIDs starting with "op-c-101" and add a sequence number.
+  * Fill in UUIDs according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).
 
 
 ### From RegistryOffice to OperationKeyManagement
@@ -77,7 +77,7 @@ This is a step by step cookbook for creating the ServiceList.
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-    * Fill in a UUID starting with "op-c-3", followed by two digits that are identifying the application and a sequence number.
+  * Fill in UUIDs according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).
 * "## Clients specific to this application" has to be deleted at all other applications of the TinyApplicationController.
   
 
@@ -88,38 +88,24 @@ This is a step by step cookbook for creating the ServiceList.
 * Start with specifying the http and tcp clients.
   * Replace "## Name of application to be addressed" by the official name of the application, which shall be addressed.
   * Replace "## Release number of application to be addressed" by the number of the operational release.
-  * Replace "## UUID of the HttpClient" by a string 
-    * starting with "http-c-"
-    * followed by one digit indicating the highest class of service consumed at the application ("2" for basic service, "3" for individual service)
-    * followed by a two digit sequence number, which is unique for the individual application and centrally administrated for that reason.
-    * followed by a "0".
+  * Replace "## UUID of the HttpClient" by a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
   * Replace "## IP address of application to be addressed" by the IP address of the application to be addressed.
   * Replace "## TCP port of application to be addressed" by the TCP port of the application to be addressed.
-  * Replace "## UUID of the TcpClient" by a string 
-    * starting with "tcp-c-"
-    * followed by the same four digit number applied for the UUID of the HttpClient.
+  * Replace "## UUID of the TcpClient" by a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
 * If some service would be consumed from one or several, but not all other applications, it shall be listed in the _operation-clients/service/individual_ section; replace "## Clients specific to this application" by the usual two lines for defining a service client:  
 ```
     - service-name:
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-  * Fill in a UUID 
-    * starting with "op-c-"
-    * followed by "3" indicating that an individual service gets addressed
-    * followed by the same two digit sequence number, which is unique for the individual application, like at the HttpClient
-    * followed by a sequence number starting at "0" and incrementing for every additional individual service to be addressed at the same application.
+  * Fill in a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
 * In the extremely unlikely case that the application is addressing the same service at all other applications, the "## Clients specific to this application, but addressing all other applications" has to be replaced by the usual two lines for defining a service client:  
 ```
     - service-name:
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-  * Fill in a UUID 
-    * starting with "op-c-"
-    * followed by "2" indicating that a basic service gets addressed
-    * followed by the same two digit sequence number, which is unique for the individual application, like at the HttpClient
-    * followed by a sequence number starting at "0" and incrementing for every additional basic service to be addressed at the same application.
+  * Fill in a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
 
 
 ### Validation

@@ -23,6 +23,7 @@ Right after starting the specification and implementation process, resources wil
 
 
 ### Repository
+
 Every Application needs an own repository, which will exist in parallel to the Application over its entire lifespan. Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.
 
 **Concepts**
@@ -40,6 +41,7 @@ The ServiceList must represent all services, which are either provided or consum
 **Concepts**
 * [Structure of Services](./StructureOfServices/StructureOfServices.md)
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
+* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
 * [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
