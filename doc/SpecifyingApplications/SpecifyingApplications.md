@@ -40,6 +40,7 @@ The ServiceList must represent all services, which are either provided or consum
 **Concepts**
 * [Structure of Services](./StructureOfServices/StructureOfServices.md)
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
+* [Structure of Release Numbers](./StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
 * [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
