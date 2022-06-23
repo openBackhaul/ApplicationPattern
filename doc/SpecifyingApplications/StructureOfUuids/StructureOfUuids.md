@@ -3,7 +3,7 @@
 UUIDs are used for identifying the individual objects within the structure of the configuration data inside the applications.  
 Example: If interfaces A and B are identified by UUIDs, it suffices to list the two UUIDs to express a connection between the two interfaces.  
 Obviously, UUIDs have to be unique within the network domain for expressing connections between interfaces at different applications.  
-Harmonizing UUIDs accross all applications helps reading and navigating through the configuration data of the individual applications.  
+Harmonizing UUIDs across all applications helps reading and navigating through the configuration data of the individual applications.  
 
 
 **UUIDs are composed from the following information:**  
@@ -46,11 +46,11 @@ Within the respective layers the following types of objects are defined:
 - p = Profile  
 
 **ApiSegment**  
-The API (REST interface) of the application is substructured in regards to the following two aspects:  
+The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
 - Own Management vs. Offered Services  
 - Basic to all applications vs. Individual to this application  
 
-This results in four cathegories:  
+This results in four categories:  
 - 0 = Management, which is available at this application, but all other applications, too  
 - 1 = Management, which is individual to this application  
 - 2 = Services, which have to be provided by all applications  
@@ -75,10 +75,17 @@ If the ObjectType indicates a client, the ApplicationNumber identifies a client 
 - 07 = ApplicationLayerTopology  
 - 08 = OperationKeyManagement  
 - 09 - 29 = _reserved for further applications of the TinyApplicationController_  
-- 30 = MicroWaveDeviceInventory  
-- 31 ... = _future applications_  
+- 30 = CurrentController  
+- 31 = MicroWaveDeviceInventory  
+- 32 ... = _future applications_  
 
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
-If the ObjectType indicates a server, the SequenceNumber has two digets.  
+If the ObjectType indicates a server, the SequenceNumber has two digits.  
 If the ObjectType indicates a client, the SequenceNumber has just one digit.  
+
+**Examples**
+- ro-1-0-0-op-s-0004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0
+- ol-1-0-0-op-c-0021 = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**1) inside the OamLog release 1.0.0
+- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**1) inside the OamLog release 1.0.0
+- aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0

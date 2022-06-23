@@ -85,7 +85,7 @@ This is a step by step cookbook for creating the ServiceList.
 
 * If further applications would have to be addressed, create additional entries into the clients list.  
 * Take the last entry as a template (and delete it, if no longer needed).  
-* Start with specifying the http and tcp clients.
+* Start with specifying the HTTP and TCP clients.
   * Replace "## Name of application to be addressed" by the official name of the application, which shall be addressed.
   * Replace "## Release number of application to be addressed" by the number of the operational release.
   * Replace "## UUID of the HttpClient" by a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
