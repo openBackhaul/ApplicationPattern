@@ -40,13 +40,16 @@ Please, add a _Merge Request_ message, which is complying the chapter about [For
 * Alike in the following picture, the _Merge Request_ does not create any conflicts and can directly be _merged_ after reviewing the changes. As you can see, the _Merge Request_ is not involving your local repository. The _Merge_ is happening exclusively in the remote repository on GitHub. 
 ![RequestingMerge15](./pictures/RequestingMerge_15.png)
 
-* It would make sense, adding at least the originator of the _Issue_, which is underlying the branch that is now requested to be merged, as a Reviewer.  
+* At least the originator of the _Issue_, which is underlying the branch that is now requested to be merged, should be marked as a Reviewer.  
 ![RequestingMerge16](./pictures/RequestingMerge_16.png)
+
+* The _Merge Request_ should be assigned to the assignee of the underlying _Issue_, because the assignee of the _Issue_ should be the person, who merges the results into the _origin/develop branch_ and deletes the _feature branch_.  
+![RequestingMerge16](./pictures/RequestingMerge_15a.png)
 
 In the third phase of the process, it is recommended to immediately clean up your local repository.  
 Your local _feature branch_ has been copied to the remote repository. So your data is save.  
 After successfully _merging_ into the _origin/develop branch_, the remote _feature branch_ will be automatically(!) deleted, but your local copy is disconnected from further proceeding.  
-For avoiding accumulating useless branches in your local repository, it is recommended to delete the local _feature branch_ right after formulating the _Merge Request_.
+For avoiding accumulating useless branches in your local repository, it is recommended to delete the local _feature branch_ right after formulating the _Merge Request_.  
 
 * For deleting the obsolete _feature branch_, you have to leave it first.  
 So open the list of branches ...  

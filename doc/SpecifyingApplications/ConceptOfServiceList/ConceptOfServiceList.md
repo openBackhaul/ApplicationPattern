@@ -9,12 +9,9 @@ It provides full focus on composing a complete and well-structured set of servic
 ### HTTP and TCP Server
 
 * The application name must be identical with the one stated in the repository.
-* The release number has to follow the concept of semantic versioning.
-  * New applications get 1.0.0. 
-  * Bugfixes and updates, which do not add functionality have to increment the last digit.
-  * Releases adding minor and backward compatible functionality have to increment the second digit.
-  * Major updates, particularly if containing non-backward compatible changes have to increment the first digit.
-  * The release number has to identify the version resulting from the specification. If originally planned to fix some bugs and later decided to add functionality the release number has to be adapted accordingly.
+* The release number ...
+  * has to follow the definitions in  [Structure of Release Numbers](../StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
+  * has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
 * IP address and TCP port will be assigned by the platform owner. Please, request for an address.
 
 
