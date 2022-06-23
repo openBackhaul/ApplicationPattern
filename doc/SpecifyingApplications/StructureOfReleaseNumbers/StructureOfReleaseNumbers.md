@@ -36,6 +36,9 @@ The resulting specification will be identified by the release number 2.0.0
 
 ### Specification
 
+The following rules have been copied from the official definition of Semantic Versioning referenced down below.  
+Some rules have been adapted or removed.  
+
 1. Software using Semantic Versioning MUST declare a public API.  
 This API could be declared in the code itself or exist strictly in documentation.  
 However it is done, it SHOULD be precise and comprehensive.  
