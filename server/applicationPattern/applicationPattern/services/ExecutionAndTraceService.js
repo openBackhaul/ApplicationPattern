@@ -15,6 +15,47 @@ const FcPort = require('../onfModel/models/FcPort');
 
 /**
  * This function formulates the response body with the required attributes that needs to be sent to the Execution and Trace Log application<br>
+ * @param {string} serverApplicationName application name of the server side<br>
+ * @param {string} serverApplicationReleaseNumber application release number of the server side<br>
+ * @param {string} xCorrelator correlation tag of the current execution<br>
+ * @param {string} traceIndicator sequence number of the execution<br>
+ * @param {string} userName name of the user who is accessed the service<br>
+ * @param {string} originator originator of the request<br>
+ * @param {string} operationName name of the called service<br>
+ * @param {string} responseCode response code of the rest call execution<br>
+ * @param {string} requestBody  request body<br>
+ * @param {string} responseBody  response body<br>
+ * @returns {object} return the formulated responseBody<br>
+ */
+ exports.recordServiceRequestFromClient = function (serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, userName, originator,
+    operationName, responseCode, requestBody, responseBody) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let operationClientUuid = await getOperationClientToLogServiceRequest();
+            let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+            let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
+            let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
+            let timestamp = moment().format();
+            let applicationName = await HttpServerInterface.getApplicationNameAsync();
+            let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
+            let stringifiedRequestBody = JSON.stringify(requestBody);
+            let stringifiedResponseBody = JSON.stringify(responseBody);
+            let httpRequestBody = formulateResponseBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
+                operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
+            let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
+            if (response !== undefined && response.status === 200) {
+                resolve(true);
+            }
+            resolve(false);
+        } catch (error) {
+            console.log(error);
+            reject(false);
+        }
+    });
+}
+
+/**
+ * This function formulates the response body with the required attributes that needs to be sent to the Execution and Trace Log application<br>
  * @param {string} xCorrelator correlation tag of the current execution<br>
  * @param {string} traceIndicator sequence number of the execution<br>
  * @param {string} userName name of the user who is accessed the service<br>

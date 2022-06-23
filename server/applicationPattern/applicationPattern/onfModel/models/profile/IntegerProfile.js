@@ -5,12 +5,12 @@
 
  'use strict';
 
- const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
- const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
- const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
- const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
- const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
- const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+ const controlConstruct = require('../../../onfModel/models/ControlConstruct');
+ const profileCollection = require('../../../onfModel/models/ProfileCollection');
+ const profile = require('../../../onfModel/models/Profile');
+ const onfPaths = require('../../../onfModel/constants/OnfPaths');
+ const onfAttributes = require('../../../onfModel/constants/OnfAttributes');
+ const fileOperation = require('../../../databaseDriver/JSONDriver');
  
  /** 
   * @extends profile

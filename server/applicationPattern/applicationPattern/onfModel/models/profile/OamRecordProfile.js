@@ -5,11 +5,11 @@
 
  'use strict';
 
- const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
- const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
- const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
- const integerProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile');
- const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
+ const profile = require('../../../onfModel/models/Profile');
+ const controlConstruct = require('../../../onfModel/models/ControlConstruct');
+ const profileCollection = require('../../../onfModel/models/ProfileCollection');
+ const integerProfile = require('../../../onfModel/models/profile/IntegerProfile');
+ const onfAttributes = require('../../../onfModel/constants/OnfAttributes');
  
  /** 
   * @extends profile
