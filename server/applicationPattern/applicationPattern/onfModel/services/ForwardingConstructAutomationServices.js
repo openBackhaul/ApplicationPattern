@@ -11,7 +11,6 @@
 
 const ForwardingDomain = require('../models/ForwardingDomain');
 const logicalTerminationPoint = require('../models/LogicalTerminationPoint');
-const OperationClientInterface = require('../models/layerProtocols/OperationClientInterface');
 const OperationServerInterface = require('../models/layerProtocols/OperationServerInterface');
 const HttpClientInterface = require('../models/layerProtocols/HttpClientInterface');
 const eventDispatcher = require('../../rest/client/eventDispatcher');
@@ -129,7 +128,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     if (isOutputMatchesContext) {
                         let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
                         traceIndicator = traceIndicator + "." + (i + 1);
-                        response = await forwardRequest(
+                        response = await eventDispatcher.dispatchEvent(
                             fcPortLogicalTerminationPoint,
                             attributeList,
                             user,
@@ -169,7 +168,7 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 let fcPortDirection = fcPort["port-direction"];
                 if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
                     traceIndicator = traceIndicator + "." + (i + 1);
-                    response = await forwardRequest(
+                    response = await eventDispatcher.dispatchEvent(
                         fcPortLogicalTerminationPoint,
                         attributeList,
                         user,
@@ -180,42 +179,6 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 }
             }
             resolve(response);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
- * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
- * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
- **/
-function forwardRequest(operationClientUuid, attributeList, user, xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let operationKey = await OperationClientInterface.getOperationKeyAsync(
-                operationClientUuid);
-            let operationName = await OperationClientInterface.getOperationNameAsync(
-                operationClientUuid);
-            let remoteIpAndPort = await OperationClientInterface.getTcpIpAddressAndPortAsyncAsync(
-                operationClientUuid);
-            let result = await eventDispatcher.dispatchEvent(
-                remoteIpAndPort,
-                operationName,
-                operationKey,
-                attributeList,
-                user,
-                xCorrelator,
-                traceIndicator,
-                customerJourney
-            );
-            resolve(result);
         } catch (error) {
             reject(error);
         }
