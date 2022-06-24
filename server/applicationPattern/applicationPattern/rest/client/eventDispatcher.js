@@ -56,9 +56,9 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             if (responseCode.toString().startsWith("2")) {
                 result = true;
             } else if (responseCode.toString().startsWith("5")) {
-                let httpClientUiid = await LogicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
-                let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUiid);
-                let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUiid);
+                let httpClientUuid = await LogicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+                let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid);
+                let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid);
                 recordServiceRequestFromClient(serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, user, originator, operationName, responseCode, httpRequestBody, response.data)
                     .catch((error) => console.log(`record service request ${JSON.stringify({
                         xCorrelator,
