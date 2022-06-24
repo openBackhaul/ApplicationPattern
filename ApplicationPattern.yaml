@@ -3,10 +3,6 @@ info:
   title: ApplicationName
   version: 1.0.1
 
-servers:
-  - url: 'https://10.118.125.157:1000'
-    description: 'Initial deployment'
-
 paths:
 ########################################################################################################################
 #   Service Layer - Individual Part - Following paths can be taken as a base for individualization
