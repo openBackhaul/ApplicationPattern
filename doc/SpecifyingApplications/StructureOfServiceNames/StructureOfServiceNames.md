@@ -2,7 +2,7 @@
 
 The name of a service shall be formulated like an order (e.g. _calculate-mw-capacity_); meaning it shall start with a verb, followed by an object and potentially further details.
 
-It shall be comprised from two to five meaningful words.  
+It shall be composed from two to five meaningful words.  
 The service shall already be explained by its naming.  
 The purpose of the application shall be clear from reading the service names.  
 
@@ -17,7 +17,7 @@ Since POST method shall exclusively be used in the service section of the OpenAp
 If an alternative verb would describe the effect of the operation more precisely, the alternative verb shall be preferred.
 
 Service names shall start with a slash followed by a version identifier (e.g. /v1).  
-A second slash shall separate the version identifier from the descriptive part of the service name.
+A second slash shall separate the version identifier from the descriptive part of the service name.  
 Hyphens have to be used for separating words in the descriptive part of the service name.  
 
 Example: _/v1/provide-proper-service-names_

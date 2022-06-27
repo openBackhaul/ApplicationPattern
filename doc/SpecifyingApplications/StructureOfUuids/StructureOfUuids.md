@@ -10,13 +10,15 @@ Harmonizing UUIDs across all applications helps reading and navigating through t
 [ApplicationID]-[ReleaseNumber]-[LayerID]-[ObjectType]-[ApiSegment][ApplicationNumber][SequenceNumber]  
 
 **ApplicationID**  
-Official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR).  
+Official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar).  
 (Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
 
 **ReleaseNumber**  
-Official release number of the specification.  
+Official release number of the specification of the application that contains the data object.  
 Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1).  
+
+If someone would find it more convinient, UUIDs in ServiceList and ForwardingList could abstract ApplicationID and ReleaseNumber, but latest OAS, CONFIGfile and test cases must contain complete UUIDs.
 
 **LayerID**  
 Currently the following layers are defined:  
@@ -45,6 +47,9 @@ Within the respective layers the following types of objects are defined:
 - link = Link (actual forwarding outside applications)  
 - p = Profile  
 
+_The consequence definitions for ApiSegment, ApplicationNumber and SequenceNumber apply for Clients and Servers._  
+_Similar rules for ForwardingDomain, ForwardingConstruct, Link and Profile will be added during writing the guidelines for elaborating the ForwardingList and the ProfileList._  
+
 **ApiSegment**  
 The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
 - Own Management vs. Offered Services  
@@ -60,11 +65,12 @@ This results in four categories:
 
 **ApplicationNumber**  
 This application identifier relates to the application that is connected by the described interface object.  
+Counting is hexadecimal.  
 
-If the ObjectType indicates a server:  
+If the ObjectType indicates a server (s):  
 - 0 = The ApplicationNumber can just relate to the application itself.  
 
-If the ObjectType indicates a client, the ApplicationNumber identifies a client to connect to the following application:  
+If the ObjectType indicates a client (c), the ApplicationNumber identifies a client to connect to the following application:  
 - 00 = OldRelease of the same application  
 - 01 = NewRelease of the same application  
 - 02 = RegistryOffice  
@@ -74,18 +80,20 @@ If the ObjectType indicates a client, the ApplicationNumber identifies a client 
 - 06 = AdministratorAdministration  
 - 07 = ApplicationLayerTopology  
 - 08 = OperationKeyManagement  
-- 09 - 29 = _reserved for further applications of the TinyApplicationController_  
+- 09 - 2f = _reserved for further applications of the TinyApplicationController_  
 - 30 = CurrentController  
 - 31 = MicroWaveDeviceInventory  
-- 32 ... = _future applications_  
+- 32 - ff = _future applications_  
 
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
+Counting is hexadecimal.  
 If the ObjectType indicates a server, the SequenceNumber has two digits.  
 If the ObjectType indicates a client, the SequenceNumber has just one digit.  
+If the defined numbers of digits would not suffice in some case (e.g. provided servers or clients towards one application) additional digits must be added to all UUIDs inside the same application.  
 
-**Examples**
-- ro-1-0-0-op-s-0004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0
-- ol-1-0-0-op-c-0021 = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**1) inside the OamLog release 1.0.0
-- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**1) inside the OamLog release 1.0.0
-- aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0
+**Examples**  
+- ro-1-0-0-op-s-0004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0  
+- ol-1-0-0-op-c-002a = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**a) inside the OamLog release 1.0.0  
+- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**1) inside the OamLog release 1.0.0  
+- aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0  

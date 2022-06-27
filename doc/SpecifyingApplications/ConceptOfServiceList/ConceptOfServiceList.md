@@ -72,9 +72,18 @@ It provides full focus on composing a complete and well-structured set of servic
 * As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and contain "op-c-" to indicate that they are identifying an OperationClient. The consequent number of an individual service shall start with 3. The next two digits have to be identical with the second and third digit of the UUID of the HTTP Client. The last digit is for counting, but it does not necessarily need to be sequential.
 
 
+### Commenting  
+
+The template of the ServiceListe is prepared in such a way that comments have to be replaced by changes that are individual to the application under specification.  
+If this initial concept would be followed, the ServiceList would be finalized as soon as all comments would either be replaced or deleted.  
+On the other hand, the ServiceListe serves as a draft for preparing the OpenApiSpecification and the CONFIGfile.  
+So, if someone would find it helpful to add his thoughts into the ServiceListe, he would be free to do so, but should be aware that an indicator for completeness gets lost.
+If someone would decide to add comments into the ServiceList, it would be strongly recommended to properly indent the additional lines.
+
+
 ### Validation
 
-Supporting to automatically transfer the ServiceList content into the OpenApiSpecification is planned for the future.
-Proper YAML files are required for facilitating such tool support.
-It is recommended to validate the ServiceList.yaml for proper YAML syntax before publishing.
-This could be done by copying the content of the file into the [YAML Validator](https://jsonformatter.org/yaml-validator).
+Supporting to automatically transfer the ServiceList content into the OpenApiSpecification is planned for the future.  
+Proper YAML files are required for facilitating such tool support.  
+It is recommended to validate the ServiceList.yaml for proper YAML syntax before publishing.  
+This could be done by copying the content of the file into the [YAML Validator](https://jsonformatter.org/yaml-validator).  

@@ -3,7 +3,7 @@
 
 ### Summary 
 
-Release Numbers shall follow the concept of Semantic Versioning.  
+Release Numbers shall follow the concept of Semantic Versioning (with some deviations that are described below).  
 Given a version number MAJOR.MINOR.PATCH, increment the:  
 
 - MAJOR version when you make incompatible API changes,
@@ -13,25 +13,27 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ### Example
 
-- A new application gets specified.  
+- Situation: A new application gets specified.  
 The specification will be identified by the release number 1.0.0  
 
-- After publishing, the implementer communicates need for clarification.  
-Comments get added and corrected in the 1.0.0 release (backwards compatible bug fixes).  
+- Situation: After publishing, the implementer communicates need for clarification.  
+Comments get added and corrected in the existing 1.0.0 release (backwards compatible bug fixes).  
 The resulting specification will be identified by the release number 1.0.1  
 
-- After putting release 1.0.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
+- Situation: After putting release 1.0.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
 The existing operations gets specified and implemented for a second time, but now providing the result in Celsius instead of Kelvin.  
 For avoiding breaking the backward compatibility, the operations for Celsius are run in parallel to the ones for Kelvin (functionality added in a backwards compatible manner).  
 The resulting specification will be identified by the release number 1.1.0  
 
-- After a while, several wishes for additional functionality have been addressed.  
-Further on, the existing operation providing its result in Kelvin shall be deleted, because it caused confusion (incompatible API change).  
+- Situation: After a while, several wishes for additional functionality have been addressed.  
+Further on, the existing operation providing its result in Kelvin shall be deleted, because it permanently confuses users (incompatible API change).  
 The resulting specification will be identified by the release number 2.0.0  
 
-- Whenever the specification gets merged into the main Branch for handing it over to the implementers, it gets tagged with "2.0.0_spec".
+- Situation: The specification 2.0.0 has been finished and develop Branch got merged into main Branch for publishing it to potential implementers.
+The new content of the main Branch gets tagged with "2.0.0_spec".
 
-- In case the implementation would also be published on GitHub, it would be tagged with "2.0.0_imp".
+- Situation: The specification 2.0.0 has been implemented and the implementer merged his code into the main Branch.
+The new content of the main Branch gets tagged with "2.0.0_imp".
 
 
 ### Specification
