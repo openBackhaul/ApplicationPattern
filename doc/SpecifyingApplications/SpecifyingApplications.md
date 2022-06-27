@@ -23,6 +23,7 @@ Right after starting the specification and implementation process, resources wil
 
 
 ### Repository
+
 Every Application needs an own repository, which will exist in parallel to the Application over its entire lifespan. Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.
 
 **Concepts**
@@ -35,12 +36,13 @@ Every Application needs an own repository, which will exist in parallel to the A
 
 ### ServiceList
 
-The ServiceList must represent all services, which are either provided or consumed by the application. The ServiceList is a compact notation for designing the service names and allocating the uuids. It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
+The ServiceList must represent all services, which are either provided or consumed by the application. The ServiceList is a compact notation for designing the service names and allocating the UUIDs. It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
 
 **Concepts**
 * [Structure of Services](./StructureOfServices/StructureOfServices.md)
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
 * [Structure of Release Numbers](./StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
+* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
 * [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
