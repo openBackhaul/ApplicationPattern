@@ -1,20 +1,20 @@
+ // @ts-check
+ 'use strict';
+ const requestHeader = require('../rest/client/RequestHeader');
+ const restRequestBuilder = require('../rest/client/RequestBuilder');
  
- const requestHeader = require('onf-core-model-ap/applicationPattern/rest/client/RequestHeader');
- const restRequestBuilder = require('onf-core-model-ap/applicationPattern/rest/client/RequestBuilder');
- 
- const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
+ const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
 
- const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
- const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
- const forwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
- const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
+ const operationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
+ const httpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
+ const forwardingDomain = require('../onfModel/models/ForwardingDomain');
+ const FcPort = require('../onfModel/models/FcPort');
  
  /**
-  * @deprecated use the service from onf-core-model-ap
   * This function authorizes the user credentials<br>
   * @param {string} authorizationCode authorization code received from the header<br>
   * @param {string} method is the https method name<br>
-  * @returns {boolean} return the authorization result<br>
+  * @returns {Promise<boolean>} return the authorization result<br>
   * This method performs the following step,<br>
   * step 1: extract the <br>
   * 2. If user value is empty , then the value from originator will be copied<br>
@@ -75,7 +75,7 @@
  
  /**
   * This function returns the operation client uuid of the service that needs to be called to authenticate the OAM requests<br>
-  * @returns {string} return the uuid of the operation client of the service that needs to be addressed to authenticate the OAM request<br>
+  * @returns {Promise<string>} return the uuid of the operation client of the service that needs to be addressed to authenticate the OAM request<br>
   * This method performs the following step,<br>
   * step 1: extract the forwarding-construct OamRequestCausesInquiryForAuthentication<br>
   * step 2: get the output fc-port from the forwarding-construct<br>
@@ -106,7 +106,7 @@
  /**
   * @description To decode base64 authorization code from authorization header<br>
   * @param {string} authorizationCode base64 encoded authorization code<br> 
-  * @returns {Promise} returns user name based on the decoded authorization code
+  * @returns {string} returns user name based on the decoded authorization code
   **/
  function decodeAuthorizationCodeAndExtractUserName(authorizationCode) {
      try {
@@ -119,7 +119,7 @@
          return userName;
      } catch (error) {
          console.log(error);
-         return undefined;
+         return "";
      }
  }
  

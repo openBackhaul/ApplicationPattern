@@ -5,7 +5,7 @@ Any specification, which shall be published for implementation, has to comprise 
 A couple of additional documents have to be elaborated to ease creation of the three main documents.  
 In general the following sequence of activities is recommended:
 
-![Workflow for Specifying Applications](https://www.plantuml.com/plantuml/svg/NP31JiD034JlV8M_0owDMkLKaQf1uhnDPnkBpNhhtIKgNuy3I0szlXcFnzxauhJKAT2xw8SFCfCNfJvXO7_ZUA4cfS23AomnFptlu3bY3RivGbyM9G_A9z2XQf8C4azb_6SrrpOujM1gQpnR-a96MTmhswkROC8HrufSVlgir2CidOleRHcMAGKKK0_zv05xpcMDMz7PwRBfJx6MV8cqxvgTvu0xwH9Ya_Zty7lVtcvAXTwioDPbP4Ej0b-WH-UXdWBdyP5l4C_stcy0 "Workflow for Specifying Applications")
+![Workflow for Specifying Applications](https://user-images.githubusercontent.com/57349523/175539673-fc620814-681f-48b2-8e42-8063afc855be.jpg)
 
 
 ### Purpose of the Application

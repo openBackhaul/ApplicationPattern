@@ -10,7 +10,7 @@ const protocol = "http";
  * @param {string} remoteIpAddressAndPort ip address,port of the client application in the format <ipaddress>:<port>.
  * @param {string} operationName service that needs to be addressed in the client application 
  * @param {string} method http method for the REST request
- * @param {string} requestHeader http request header for the REST call
+ * @param {object} requestHeader http request header for the REST call
  * @param {string} requestBody request body for the REST call
  * @returns {promise} returns the http response received
  */

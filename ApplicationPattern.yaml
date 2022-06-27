@@ -3,10 +3,6 @@ info:
   title: ApplicationName
   version: 1.0.1
 
-servers:
-  - url: 'https://10.118.125.157:1000'
-    description: 'Initial deployment'
-
 paths:
 ########################################################################################################################
 #   Service Layer - Individual Part - Following paths can be taken as a base for individualization
@@ -461,11 +457,11 @@ paths:
                         datatype:
                           type: string
                           enum:
-                            - 'String'
+                            - 'string'
                     example:
                       - field-name: 'applicationName'
                         value: 'OwnApplicationName'
-                        datatype: 'String'
+                        datatype: 'string'
                   consequent-action-list:
                     type: array
                     uniqueItems: true
@@ -4586,26 +4582,26 @@ paths:
                         datatype:
                           type: string
                           enum:
-                            - 'String'
+                            - 'string'
                     example:
                       - field-name: 'applicationName'
                         value: 'OwnApplicationName'
-                        datatype: 'String'
+                        datatype: 'string'
                       - field-name: 'releaseNumber'
                         value: '0.0.1'
-                        datatype: 'String'
+                        datatype: 'string'
                       - field-name: 'applicationPurpose'
                         value: 'Brief description of the purpose of the application.'
-                        datatype: 'String'
+                        datatype: 'string'
                       - field-name: 'dataUpdatePeriod'
                         value: 'real-time'
-                        datatype: 'String'
+                        datatype: 'string'
                       - field-name: 'ownerName'
                         value: 'Thorsten Heinze'
-                        datatype: 'String'
+                        datatype: 'string'
                       - field-name: 'ownerEmailAddress'
                         value: 'Thorsten.Heinze@telefonica.com'
-                        datatype: 'String'
+                        datatype: 'string'
                   consequent-action-list:
                     type: array
                     uniqueItems: true
@@ -4818,11 +4814,11 @@ paths:
                         datatype:
                           type: string
                           enum:
-                            - 'String'
+                            - 'string'
                     example:
                       - field-name: '0.0.1'
                         value: '20.11.2010 - Initial version.'
-                        datatype: 'String'
+                        datatype: 'string'
                   consequent-action-list:
                     type: array
                     uniqueItems: true
