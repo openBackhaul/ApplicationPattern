@@ -5,7 +5,7 @@ Any specification, which shall be published for implementation, has to comprise 
 A couple of additional documents have to be elaborated to ease creation of the three main documents.  
 In general the following sequence of activities is recommended:
 
-![Workflow for Specifying Applications](https://user-images.githubusercontent.com/57349523/175539673-fc620814-681f-48b2-8e42-8063afc855be.jpg)
+![Workflow for Specifying Applications](https://user-images.githubusercontent.com/57349523/176184764-e890b2ca-3a16-418b-bae9-7919ea609d71.jpg)
 
 
 ### Purpose of the Application
