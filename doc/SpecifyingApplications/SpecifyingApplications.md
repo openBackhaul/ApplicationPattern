@@ -49,6 +49,19 @@ The ServiceList must represent all services, which are either provided or consum
 * [Creating the ServiceList](./CreatingServiceList/CreatingServiceList.md)
 
 
+### ProfileList
+
+The ProfileList must represent all Profiles, which are used inside the application. Profiles are used for storing configuration information, which is not directly related to a specific interface. The ProfileList is a compact notation for designing Profiles.
+
+**Concepts**
+* [Concept of Profiles](./ConceptOfProfiles/ConceptOfProfiles.md)
+* [Structure of ProfileNames](./StructureOfProfileNames/StructureOfProfileNames.md)
+* see [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) from above
+
+**Step-by-Step Guidelines**
+* [Creating the ProfileList](./CreatingServiceList/CreatingServiceList.md)
+
+
 ### ForwardingList
 
 The ForwardingList must describe all relationships between events and reactions that need to be documented and configurable at the application.
