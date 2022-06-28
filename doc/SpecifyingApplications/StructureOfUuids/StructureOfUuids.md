@@ -32,11 +32,9 @@ If the ObjectType identifies an instance of a Profile (p), the LayerID is used f
 In principle, the ApplicationOwner is free in defining Profiles and choosing the LayerID, because instances of Profile just exist within the application itself.  
 If an already existing Profile definition is re-used, it is recommended to re-use the same LayerID, too.  
 The following LayerIDs are already in use for Profiles:  
-- string = For storing a single String  
 - integer = For storing a single Integer  
+- string = For storing a single String  
 - action = For describing the consequent action in a generic representation  
-- admin = For storing information to authenticate an administrator  
-- application = For storing the approval status of an application  
 
 **ObjectType**  
 Within the respective layers the following types of objects are defined:  
@@ -47,8 +45,8 @@ Within the respective layers the following types of objects are defined:
 - link = Link (actual forwarding outside applications)  
 - p = Profile  
 
-_The consequence definitions for ApiSegment, ApplicationNumber and SequenceNumber apply for Clients and Servers._  
-_Similar rules for ForwardingDomain, ForwardingConstruct, Link and Profile will be added during writing the guidelines for elaborating the ForwardingList and the ProfileList._  
+_The consequence definitions for ApiSegment, ApplicationNumber and SequenceNumber apply for Clients, Servers and Profiles._  
+_Similar rules for ForwardingDomain, ForwardingConstruct and Link will be added during writing the guidelines for elaborating the ForwardingList._  
 
 **ApiSegment**  
 The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
@@ -63,11 +61,13 @@ This results in four categories:
 
 (Now, it's clear why (almost) all numbers within the UUIDs inside the ApplicationPattern are starting either with 0 or 2.)  
 
+Profiles always relate to Management, which is individual to this application (1).  
+
 **ApplicationNumber**  
 This application identifier relates to the application that is connected by the described interface object.  
 Counting is hexadecimal.  
 
-If the ObjectType indicates a server (s):  
+If the ObjectType indicates a server (s) or a Profile (p):  
 - 0 = The ApplicationNumber can just relate to the application itself.  
 
 If the ObjectType indicates a client (c), the ApplicationNumber identifies a client to connect to the following application:  
@@ -88,8 +88,8 @@ If the ObjectType indicates a client (c), the ApplicationNumber identifies a cli
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
 Counting is hexadecimal.  
-If the ObjectType indicates a server, the SequenceNumber has two digits.  
-If the ObjectType indicates a client, the SequenceNumber has just one digit.  
+If the ObjectType indicates a server (s) or a Profile (p), the SequenceNumber has two digits.  
+If the ObjectType indicates a client (c), the SequenceNumber has just one digit.  
 If the defined numbers of digits would not suffice in some case (e.g. provided servers or clients towards one application) additional digits must be added to all UUIDs inside the same application.  
 
 **Examples**  
@@ -97,3 +97,4 @@ If the defined numbers of digits would not suffice in some case (e.g. provided s
 - ol-1-0-0-op-c-002a = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**a) inside the OamLog release 1.0.0  
 - ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**1) inside the OamLog release 1.0.0  
 - aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0  
+- eatl-1-0-1-integer-p-1000 = Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1  

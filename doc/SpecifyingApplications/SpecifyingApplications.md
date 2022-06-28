@@ -54,18 +54,19 @@ The ServiceList must represent all services, which are either provided or consum
 The ProfileList must represent all Profiles, which are used inside the application. Profiles are used for storing configuration information, which is not directly related to a specific interface. The ProfileList is a compact notation for designing Profiles.
 
 **Concepts**
+* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
 * [Concept of Profiles](./ConceptOfProfiles/ConceptOfProfiles.md)
-* [Structure of ProfileNames](./StructureOfProfileNames/StructureOfProfileNames.md)
-* see [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) from above
 
 **Step-by-Step Guidelines**
 * [Creating the ProfileList](./CreatingServiceList/CreatingServiceList.md)
+* [Library of Profiles](./ProfileLibrary/ProfileLibrary.md)
 
 
 ### ForwardingList
 
 The ForwardingList must describe all relationships between events and reactions that need to be documented and configurable at the application.
 [ForwardingList](./ForwardingList/ForwardingList.md)
+
 
 ### OpenApiSpecification
 
@@ -80,12 +81,14 @@ The OpenApiSpecification represents the detailed specification of the REST API o
 * [Creating Mock](./CreatingMock/CreatingMock.md)
 * [Reviewing the OAS](./ReviewingOas/ReviewingOas.md)
 
+
 ### LOADfile
 
 The LOADfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
 **Concepts**
 * [LOADfile](./LoadFile/LoadFile.md)
+
 
 ### TestCases
 
@@ -97,6 +100,7 @@ The TestCases are a Postman collection of requests for
 
 **Concepts**
 * [TestCases](./TestCases/TestCases.md)
+
 
 ### Publishing
 
