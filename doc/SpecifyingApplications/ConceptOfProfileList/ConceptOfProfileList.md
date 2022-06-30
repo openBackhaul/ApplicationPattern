@@ -8,7 +8,7 @@ It provides full focus on composing the set of necessary attributes and their da
 The ProfileList is preparing for defining the individual section of the OaM part of the OpenApiSpecification.  
 
 Definition of the Profiles gives much more freedom to the ApplicationOwner than defining the interfaces.  
-The template of the ProfileList contains the definitions of the existings Profiles.  
+The template of the ProfileList contains the definitions of the existing Profiles.  
 Unused definitions need to be deleted from the application specific copy of the template.  
 Additional definitions can be added, if needed.  
 
