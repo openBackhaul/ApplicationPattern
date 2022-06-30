@@ -21,7 +21,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Check your ServiceList for services that are implementing the concept of generic representation.  
 * If you would need to add further instances of ActionProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept.  
 * Copy/paste and alter additional instances of ActionProfile for configuring a step-by-step-clicking-through-process after starting with /v1/start-application-in-generic-representation.  
-* Finaly, just delete the form that waits for completion.  
+* Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "ActionProfile".  
@@ -64,7 +64,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 * Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of IntegerProfile is required.  
 * Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
-* Finaly, just delete the form that waits for completion.  
+* Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "IntegerProfile".  
@@ -100,7 +100,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 * Whenever you would like to make an aspect of the application's behavior configurable and this aspect needs to be expressed as a String, an additional instance of StringProfile is required.  
 * Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
-* Finaly, just delete the form that waits for completion.  
+* Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "StringProfile".  
@@ -132,7 +132,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 ### New Profiles  
 
-* You are free to instantiate as many objects based on the selfdefined Profiles as you like.  
+* You are free to instantiate as many objects based on the self-defined Profiles as you like.  
 * Just copy/paste the lines for ProfileName and UUID from an existing definition and the additional stereotypes of your attribute or composed datatype.  
 * Be aware that you just need to describe the structuring of configuration information. Application data shall be encapsulated by the application.  
 
