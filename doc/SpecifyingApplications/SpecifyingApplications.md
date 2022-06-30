@@ -10,12 +10,12 @@ In general the following sequence of activities is recommended:
 
 ### Purpose of the Application
 
-The Purpose of the application shall be expressed in a single sentence. It must be most comprehensive and precise.
+The Purpose of the application shall be expressed in a single sentence. It must be most comprehensive and precise.  
 
 
 ### Name of the Application
 
-The ApplicationName is treated as an identifier (means e.g. that it must be invariant).
+The ApplicationName is treated as an identifier (means e.g. that it must be invariant).  
 Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).  
 
 **Concepts**
@@ -24,7 +24,8 @@ Right after starting the specification and implementation process, resources wil
 
 ### Repository
 
-Every Application needs an own repository, which will exist in parallel to the Application over its entire lifespan. Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.
+Every Application needs an own repository, which will exist in parallel to the Application over its entire lifespan.  
+Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.  
 
 **Concepts**
 * [Creating the ApplicationRepository](./CreatingApplicationRepository/CreatingApplicationRepository.md)
@@ -36,7 +37,9 @@ Every Application needs an own repository, which will exist in parallel to the A
 
 ### ServiceList
 
-The ServiceList must represent all services, which are either provided or consumed by the application. The ServiceList is a compact notation for designing the service names and allocating the UUIDs. It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
+The ServiceList must represent all services, which are either provided or consumed by the application.  
+The ServiceList is a compact notation for designing the service names and allocating the UUIDs.  
+It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
 
 **Concepts**
 * [Structure of Services](./StructureOfServices/StructureOfServices.md)
@@ -51,11 +54,14 @@ The ServiceList must represent all services, which are either provided or consum
 
 ### ProfileList and ProfileInstanceList
 
-The ProfileList must represent all Profiles, which are used inside the application. Profiles are used for storing configuration information, which is not directly related to a specific interface.
+The ProfileList and the ProfileInstanceList must represent all Profiles, which are used inside the application.  
+Profiles are used for storing configuration information, which is not directly related to a specific interface.  
+The ProfileList describes the Profiles as classes and supports creating the OpenApiSpecification.  
+The ProfileInstanceList lists all objects created from the Profile classes; it supports creating the CONFIGfile.  
 
 **Concepts**
-* [Structure of Profiles](./StructureOfProfiles/StructureOfProfiles.md)
-* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
+* [Concept of Profiles](./ConceptOfProfiles/ConceptOfProfiles.md)
+* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) (same as above)
 * [Concepts of ProfileList and ProfileInstanceList ](./ConceptOfProfileList/ConceptOfProfileList.md)
 
 **Step-by-Step Guidelines**
@@ -83,12 +89,12 @@ The OpenApiSpecification represents the detailed specification of the REST API o
 * [Reviewing the OAS](./ReviewingOas/ReviewingOas.md)
 
 
-### LOADfile
+### CONFIGfile
 
-The LOADfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
+The CONFIGfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
 **Concepts**
-* [LOADfile](./LoadFile/LoadFile.md)
+* [CONFIGfile](./LoadFile/LoadFile.md)
 
 
 ### TestCases

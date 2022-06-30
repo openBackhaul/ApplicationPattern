@@ -2,7 +2,7 @@
 
 This is a step by step cookbook for creating the ProfileInstanceList.  
 
-**Please, read the background information about the [Structure of Profiles](../StructureOfProfiles/) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileInstanceList.**   
+**Please, read the background information about the [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
 
 
 ### File Handling
@@ -19,8 +19,9 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 ### Further Instances of ActionProfile  
 
 * Check your ServiceList for services that are implementing the concept of generic representation.  
-* If you would need to add further instances of ActionProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept. Otherwise, just keep the three instances from the template and delete the one prepared for completion.  
-* Copy/paste additional instances of ActionProfile for making them available in a step-by-step-clicking-through-process after starting with /v1/start-application-in-generic-representation.  
+* If you would need to add further instances of ActionProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept.  
+* Copy/paste and alter additional instances of ActionProfile for configuring a step-by-step-clicking-through-process after starting with /v1/start-application-in-generic-representation.  
+* Finaly, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "ActionProfile".  
@@ -41,11 +42,11 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 **Request**  
 * Fill in the complete URL that shall be addressed by the GenericRepresentation whenever the button gets pressed.  
-* Several parts (e.g. IP address, TCP port, operationName) of the URL might be subject to configuration. These parts have to be substituted by references into the data tree. The references have to be put into cornered brackets "[]".  
-* UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).
+* Several parts (e.g. IP address, TCP port, operationName) of the URL might be subject to the configuration of some interface. These parts have to be substituted by references into the data tree. The references have to be put into cornered brackets "[]".  
+* UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).  
 
 **InputValueList::FieldName**
-* If the Request needs to send values in its body, these values have to be defined in the InputValueList.  
+* If the Request needs to send parameters in its body, these parameters have to be defined in the InputValueList.  
 * Don't represent the InputValueList, if not required.  
 * Be aware that the FieldName will not just be sent as an attribute's name in the body of the request, but also be represented by the GenericRepresentation besides an input field.  
 * Fill in the FieldName in UpperCamelCase notation.  
@@ -55,14 +56,15 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Don't represent this stereotype, if not required.  
 
 **DisplayInNewBrowserWindow**  
-* Usually, DisplayInNewBrowserWindow is set on false.  
+* Usually, DisplayInNewBrowserWindow is set on false and the response to the described request will be presented in the same browser window.  
 * If the response to clicking the button shall be represented in a new window of the GenericRepresentation, DisplayInNewBrowserWindow has to be set on true.  
 
 
 ### Instances of IntegerProfile  
 
-* Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed by an Integer value, an additional instance of IntegerProfile is required.  
-* Just copy/paste the one prepared for completion and delete unused instances.  
+* Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of IntegerProfile is required.  
+* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Finaly, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "IntegerProfile".  
@@ -94,10 +96,11 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Fill in the current value, respectively the value that shall be applied right after instantiating the application.  
 
 
-### Instances of StringProfile
+### Instances of StringProfile  
 
-* Whenever you would like to make an aspect of the application's behavior configurable and this aspect needs to be expressed by a String, an additional instance of StringProfile is required.  
-* Just copy/paste the one prepared for completion and delete unused instances.  
+* Whenever you would like to make an aspect of the application's behavior configurable and this aspect needs to be expressed as a String, an additional instance of StringProfile is required.  
+* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Finaly, just delete the form that waits for completion.  
 
 **ProfileName**  
 * The ProfileName shall be set on "StringProfile".  
@@ -110,33 +113,33 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The ApplicationNumber shall be set on "0" (the application itself).  
 * The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
-**StringName**
+**StringName**  
 * Document the attribute's name.  
 
-**Enumeration**
+**Enumeration**  
 * If only a predefined set of values (e.g. operation modes) shall be accepted, while configuring the attribute via the individual OaM section of the REST API, put a comma separated list of these values into cornered brackets here.  
 * Don't represent this stereotype, if not required.  
 
-**Pattern**
-* If only strings following a generic definition shall be accepted, while configuring the attribute via the individual OaM section of the REST API, put a Regex expression here.  
-* Formulating Regex is not easy. Surf for documentation. Potentially [this one](https://user.phil.hhu.de/~seyffarth/classes/python2020/09-01%20Regular%20Expressions%20schreiben.html) helps.  
+**Pattern**  
+* If only strings that are following a generic definition shall be accepted, while configuring the attribute via the individual OaM section of the REST API, a Regex expression can be defined as a pattern.  
+* Formulating Regex is not easy. Potentially [this documentation](https://user.phil.hhu.de/~seyffarth/classes/python2020/09-01%20Regular%20Expressions%20schreiben.html) might be helpful.  
 * [Test the Regex](https://regex101.com/).  
 * Don't represent this stereotype, if not required.  
 
-**ConfiguredValue**
+**ConfiguredValue**  
 * Fill in the current value, respectively the value that shall be applied right after instantiating the application.  
 
 
-### New Profiles
+### New Profiles  
 
-* You are free to define additional Profiles.  
-* Just copy/paste the lines for ProfileName and UUID from an existing definition and add further stereotypes of your attribute or composed datatype.  
+* You are free to instantiate as many objects based on the selfdefined Profiles as you like.  
+* Just copy/paste the lines for ProfileName and UUID from an existing definition and the additional stereotypes of your attribute or composed datatype.  
 * Be aware that you just need to describe the structuring of configuration information. Application data shall be encapsulated by the application.  
 
 **ProfileName**  
-* The ProfileName shall comply with the rules stated in [Structure of Profiles](../StructureOfProfiles/StructureOfProfiles.md).
+* The ProfileName shall comply with the rules stated in [Structure of Profiles](../StructureOfProfiles/StructureOfProfiles.md).  
 
-**UUID**
+**UUID**  
 * The UUID shall follow the [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).  
 * Choose a meaningful LayerID.  
 * The ObjectType shall be set on "p" (Profile).  
@@ -144,9 +147,9 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The ApplicationNumber shall be set on "0" (the application itself).  
 * The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
-**Further Stereotypes**
-* Be free to add further stereotypes.
-* Don't forget to define the attribute's value during instantiation of the application.
+**Further Stereotypes**  
+* Add the stereotypes of your profile definition.  
+* Don't forget to define the attribute's value during instantiation of the application.  
 
 
 ### Validation
