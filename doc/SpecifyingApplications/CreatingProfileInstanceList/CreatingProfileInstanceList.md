@@ -137,7 +137,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Be aware that you just need to describe the structuring of configuration information. Application data shall be encapsulated by the application.  
 
 **ProfileName**  
-* The ProfileName shall comply with the rules stated in [Structure of Profiles](../StructureOfProfiles/StructureOfProfiles.md).  
+* The ProfileName shall comply with the rules stated in [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md).  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).  
