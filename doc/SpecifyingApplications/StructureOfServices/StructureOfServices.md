@@ -30,4 +30,4 @@ Nevertheless, it is recommended to use it as often as possible.
 Example: _/v1/notify-approvals_ creates or updates a subscription for a specific combination of application name and release number.  
 (It does not create another subscription, if there is already one for the same combination of application name and release number.  
 There is no _update subscription_ service required.  
-Using by the _subscription_ service again with the same combination of application name and release number, but different value of IP address and port, will define a different target state.)
+Using the _subscription_ service again with the same combination of application name and release number, but different value of IP address and port, will define a different target state.)
