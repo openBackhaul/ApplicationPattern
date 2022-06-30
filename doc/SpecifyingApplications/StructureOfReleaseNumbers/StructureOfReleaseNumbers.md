@@ -16,7 +16,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 - Situation: A new application gets specified.  
 The specification will be identified by the release number 1.0.0  
 
-- Situation: After publishing, the implementer communicates need for clarification.  
+- Situation: After publishing, the implementer requests for clarification.  
 Comments get added and corrected in the existing 1.0.0 release (backwards compatible bug fixes).  
 The resulting specification will be identified by the release number 1.0.1  
 
