@@ -13,26 +13,26 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ### Example
 
-- Situation: A new application gets specified.  
+- Situation 1: A new application gets specified.  
 The specification will be identified by the release number 1.0.0  
 
-- Situation: After publishing, the implementer requests for clarification.  
+- Situation 2: After publishing, the implementer requests for clarification.  
 Comments get added and corrected in the existing 1.0.0 release (backwards compatible bug fixes).  
 The resulting specification will be identified by the release number 1.0.1  
 
-- Situation: After putting release 1.0.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
+- Situation 3: After putting release 1.0.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
 The existing operations gets specified and implemented for a second time, but now providing the result in Celsius instead of Kelvin.  
-For avoiding breaking the backward compatibility, the operations for Celsius are run in parallel to the ones for Kelvin (functionality added in a backwards compatible manner).  
+The operations for Celsius are added (backward compatible) and run in parallel to the ones for Kelvin, which just get marked as deprecated (also backward compatible).  
 The resulting specification will be identified by the release number 1.1.0  
 
-- Situation: After a while, several wishes for additional functionality have been addressed.  
+- Situation 4: After a while, several wishes for additional functionality have been addressed.  
 Further on, the existing operation providing its result in Kelvin shall be deleted, because it permanently confuses users (incompatible API change).  
 The resulting specification will be identified by the release number 2.0.0  
 
-- Situation: The specification 2.0.0 has been finished and develop Branch got merged into main Branch for publishing it to potential implementers.
+- Situation 5: The specification 2.0.0 has been finished and develop Branch got merged into main Branch for publishing it to potential implementers.
 The new content of the main Branch gets tagged with "2.0.0_spec".
 
-- Situation: The specification 2.0.0 has been implemented and the implementer merged his code into the main Branch.
+- Situation 6: The specification 2.0.0 has been implemented and the implementer merged his code into the main Branch.
 The new content of the main Branch gets tagged with "2.0.0_imp".
 
 
