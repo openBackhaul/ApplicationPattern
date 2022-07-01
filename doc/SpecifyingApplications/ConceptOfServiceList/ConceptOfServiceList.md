@@ -41,7 +41,7 @@ It provides full focus on composing a complete and well-structured set of servic
   * input data, which is needed,
   * event notifications, which need to be subscribed for triggering activities,
   * additional services, which are needed for inverting originally desired conditions (e.g. stop subscription) or for restoring an original or default state,
-* Knowing the existing services is crucial for efficient microservice specification. It is very much recommended to use e.g. the GenericRepresentation application to brows the API descriptions of existing implementations
+* Knowing the existing services is crucial for efficient microservice specification. It is very much recommended to use e.g. the GenericRepresentation application to browse the API descriptions of existing implementations
 * While considering consumption of data provided by other applications, take special care for 
   * exact meaning of the provided attributes
   * update period of the provided information
