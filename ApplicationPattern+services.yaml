@@ -44,7 +44,7 @@ servers:
         ## Services specific to this application
   http-server:
     own-application-name: ## OwnApplicationName
-    own-release-number: ## OwnReleaseNumber (e.g. 0.0.1)
+    own-release-number: ## OwnReleaseNumber (e.g. 1.0.0)
     uuid: http-s-0000
   tpc-server:
     own-ip-address: ## OwnIpAddress
@@ -57,7 +57,7 @@ clients:
 
   - http-client:
       application-name: OldRelease
-      release-number: ## Number of Release to be substituted (e.g. 0.0.1)
+      release-number: ## Number of Release to be substituted (e.g. 1.0.0)
       uuid: http-c-0000
     tcp-client:
       ip-address: ## IpAddress of Release to be substituted
@@ -75,7 +75,7 @@ clients:
 
   - http-client:
       application-name: NewRelease
-      release-number: ## Number of substituting Release (e.g. 0.0.2)
+      release-number: ## Number of substituting Release (e.g. 1.0.1)
       uuid: http-c-0010
     tcp-client:
       ip-address: ## IpAddress of substituting Release
