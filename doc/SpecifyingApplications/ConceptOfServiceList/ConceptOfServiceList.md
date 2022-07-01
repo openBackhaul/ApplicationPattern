@@ -86,4 +86,4 @@ If someone would decide to add comments into the ServiceList, it would be strong
 Supporting to automatically transfer the ServiceList content into the OpenApiSpecification is planned for the future.  
 Proper YAML files are required for facilitating such tool support.  
 It is recommended to validate the ServiceList.yaml for proper YAML syntax before publishing.  
-This could be done by copying the content of the file into the [YAML Validator](https://jsonformatter.org/yaml-validator).  
+This could be done by copying the content of the file into the YAML validator at [www.yamllint.com](http://www.yamllint.com/).  
