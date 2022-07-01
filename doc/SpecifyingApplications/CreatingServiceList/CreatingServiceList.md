@@ -22,7 +22,7 @@ This is a step by step cookbook for creating the ServiceList.
 ### HTTP and TCP Server
 
 * Replace "## OwnApplicationName" by the official name of the application.
-* Replace "## OwnReleaseNumber (e.g. 0.0.1)" by the official release number.
+* Replace "## OwnReleaseNumber (e.g. 1.0.0)" by the official release number.
 * Replace "## OwnIpAddress" by the expected IP address.
 * Replace "## OwnTcpPort" by the expected TCP port.
 
@@ -42,12 +42,12 @@ This is a step by step cookbook for creating the ServiceList.
 
 ### OldRelease and NewRelease
 
-* Replace "## Number of Release to be substituted (e.g. 0.0.1)" by the official release number of the operational version of the application. In case of new applications, put the same value as in "## OwnReleaseNumber (e.g. 0.0.1)" from above.
+* Replace "## Number of Release to be substituted (e.g. 1.0.0)" by the official release number of the operational version of the application. In case of new applications, put the same value as in "## OwnReleaseNumber (e.g. 1.0.0)" from above.
 * Replace "## IpAddress of Release to be substituted" by the IP address of the operational version of the application.
 * Replace "## TcpPort of Release to be substituted" by the TCP port of the operational version of the application.
-* Replace "## Number of substituting Release (e.g. 0.0.2)" by the same value as in "## OwnReleaseNumber (e.g. 0.0.1)" from above.
+* Replace "## Number of substituting Release (e.g. 2.0.0)" by the same value as in "## OwnReleaseNumber (e.g. 1.0.0)" from above.
 * Replace "## IpAddress of substituting Release" by the same value as in "## OwnIpAddress" from above.
-* Replace "## TcpPort of substituting Release by the same value as in "## OwnTcpPort" from above.
+* Replace "## TcpPort of substituting Release" by the same value as in "## OwnTcpPort" from above.
 * Replace "## Services required for handing-over configuration or data during update" by OperationsClients at the OldRelease, which are required for addressing OperationServers at the NewRelease to handover configuration and data.
   * Add the following two lines for every service client that shall be defined:  
 ```
