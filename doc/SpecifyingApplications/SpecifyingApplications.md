@@ -32,7 +32,7 @@ Initial specification, but also implementation and later bug fixing and potentia
 * [Standardized ApplicationRepository](./StandardizedApplicationRepository/StandardizedApplicationRepository.md)
 
 **Step-by-Step Guidelines**
-* [Starting the Specification](./StartingToSpecify/StartingToSpecify.md)
+* [Starting the Specification Process](./StartingToSpecify/StartingToSpecify.md)
 
 
 ### ServiceList
