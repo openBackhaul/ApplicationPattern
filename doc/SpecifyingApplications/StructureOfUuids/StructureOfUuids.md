@@ -95,6 +95,6 @@ If the defined numbers of digits would not suffice in some case (e.g. provided s
 **Examples**  
 - ro-1-0-0-op-s-0004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0  
 - ol-1-0-0-op-c-002a = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**a) inside the OamLog release 1.0.0  
-- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**1) inside the OamLog release 1.0.0  
+- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**0) inside the OamLog release 1.0.0  
 - aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0  
 - eatl-1-0-1-integer-p-1000 = Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1  
