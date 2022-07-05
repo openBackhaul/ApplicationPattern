@@ -1,12 +1,12 @@
 @startuml Workflow for Specifying Applications
-:Define ApplicationOwner;
-:Describe Purpose of the Application;
-:Clarify Funding;
-:Choose ApplicationName;
-:Request for ApplicationRepository;
-:Complete ServiceList;
-:Complete ProfileList;
-:Complete ProfileInstanceList;
+:<color:Green>Define ApplicationOwner</color>;
+:<color:Green>Describe Purpose of the Application</color>;
+:<color:Green>Clarify Funding</color>;
+:<color:Green>Choose ApplicationName</color>;
+:<color:Green>Request for ApplicationRepository</color>;
+:<color:Green>Complete ServiceList</color>;
+:<color:Green>Complete ProfileList</color>;
+:<color:Green>Complete ProfileInstanceList</color>;
 :Complete ForwardingList;
 :Design CONFIGfile;
 :Design OpenApiSpecification;
