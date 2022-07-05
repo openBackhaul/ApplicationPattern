@@ -26,4 +26,9 @@ Unused forms need to be deleted from the application specific copy of the templa
 
 Additional instances can be described for additional definitions of Profiles, if needed.
 
+
+### Profiles and ProfileInstances  
+
+![Profiles and Instances](./pictures/ProfileAndInstance.png)  
+
 **Be aware that the template must not be altered outside the zones indicated by comments starting with '##'.**   
