@@ -5,10 +5,13 @@
 :Choose ApplicationName;
 :Request for ApplicationRepository;
 :Complete ServiceList;
+:Complete ProfileList;
+:Complete ProfileInstanceList;
 :Complete ForwardingList;
 :Design CONFIGfile;
 :Design OpenApiSpecification;
 :Script TestCases;
+:Review;
 :Freeze Specification;
 :Publish Specification;
 @enduml
