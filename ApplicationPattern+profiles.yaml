@@ -1,7 +1,7 @@
 profiles:
 
   - profile-name: ActionProfile
-    uuid: -action-p-10
+    uuid: *-action-p-10??
     operation-name: string
     label: string
     request: string
@@ -11,7 +11,7 @@ profiles:
     display-in-new-browser-window: boolean
 
   - profile-name: IntegerProfile
-    uuid: -integer-p-10
+    uuid: *-integer-p-10??
     integer-name: string
     unit: string
     minimum: integer
@@ -19,8 +19,10 @@ profiles:
     configured-value: integer
 
   - profile-name: StringProfile
-    uuid: -string-p-10
+    uuid: *-string-p-10??
     string-name: string
     enumeration: array
     pattern: string
     configured-value: string
+
+## Add further Profile definitions, if required
