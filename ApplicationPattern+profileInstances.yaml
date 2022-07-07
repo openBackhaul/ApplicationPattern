@@ -1,4 +1,4 @@
-profileInstances:
+profile-instances:
 
   - profile-name: ActionProfile
     uuid: *-action-p-1000 ## Replace * by ApplicationID and ReleaseNumber
