@@ -10,6 +10,7 @@
 
 ### Profiles
 - [ApplicationPattern+profiles](./ApplicationPattern+profiles.yaml)
+- [ApplicationPattern+profileInstances](./ApplicationPattern+profileInstances.yaml)
 
 ### Forwardings
 - [ApplicationPattern+forwardings](./ApplicationPattern+forwardings.yaml)
