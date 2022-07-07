@@ -1,13 +1,21 @@
 # Concept of Profiles
 
+
 ### Purpose of Profiles  
-Profiles are data structures for holding information that is not directly connected with an individual interface.  
+Profiles are for holding configuration information.  
+Most the configuration information is for documenting traffic relationships (e.g. HttpServer, OperationClient).  
+Profiles are for configuration information that is not directly related to an individual interface.  
 Contained information could relate e.g.  
 * to all or a group of interfaces  
 * or to a process or calculation that is executed inside the application.  
 
-Profiles are for holding configuration information (which is different from application data).  
-While data is entering the application through body or response body of some service, configuration information is read and set through GET and PUT requests in the OaM section of the REST API.  
+Examples:  
+- If there would be an application, which is documenting records about some type of events, it would probably make sense to make the number of events, which are to be recorded before deleting the eldest record, configurable.  
+- If there would be an application for calculating some value from input from the network, there could be one or several static parameters in that formular. Potentially, it would make sense to make these parameters available for configuration during runtime of the application.  
+
+Configuration information is not to be mixed with application data.  
+While data is entering the application through body or response body of services, configuration information is read and set through GET and PUT requests in the OaM section of the REST API.  
+Moreover structuring and storing of application data is implementation specific (could be e.g. a database), while structuring of configuration information is subject to specification and storing is happening in the CONFIGfile.  
 
 
 ### Structure of Profiles  
