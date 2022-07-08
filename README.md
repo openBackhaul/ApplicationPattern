@@ -18,7 +18,7 @@
 ### Open API specification (Swagger)
 - [ApplicationPattern](./ApplicationPattern.yaml)
 
-### Load File (JSON)
+### CONFIGfile (JSON)
 - [ApplicationPattern+data](./ApplicationPattern+data.json)
 
 ### Test Cases (Postman Export)
