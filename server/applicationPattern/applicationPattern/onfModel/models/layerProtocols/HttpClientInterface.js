@@ -75,7 +75,7 @@ class HttpClientInterface extends layerProtocol {
      * This constructor will instantiate the HttpClientInterface class
      */
     constructor(applicationName, releaseNumber) {
-        super(0,
+        super("0",
             HttpClientInterface.HttpClientInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC] = new HttpClientInterface.
         HttpClientInterfacePac(
