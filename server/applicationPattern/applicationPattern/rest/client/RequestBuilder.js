@@ -17,6 +17,9 @@ const protocol = "http";
 exports.BuildAndTriggerRestRequest = function (remoteIpAddressAndPort ,operationName, method,  requestHeader, requestBody) {
     return new Promise(async function (resolve, reject) {
         try {
+            if(operationName.indexOf("/") != 0) {
+                operationName = "/"+ operationName
+            }
             let url = protocol + "://" + remoteIpAddressAndPort + operationName;
             let request = {
             method: method,

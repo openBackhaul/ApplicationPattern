@@ -37,7 +37,7 @@ class OperationClientInterface extends layerProtocol {
                 OperationClientInterfacePac.defaultOperationKey);
             this.operationClientInterfaceStatus = new OperationClientInterfacePac.
             OperationClientInterfaceStatus(
-                OperationClientInterfacePac.defaultOperationState,
+                OperationClientInterfacePac.defaultOperationalState,
                 OperationClientInterfacePac.defaultLifeCycleState);
         }
 
@@ -58,10 +58,10 @@ class OperationClientInterface extends layerProtocol {
         };
 
         static OperationClientInterfaceStatus = class OperationClientInterfaceStatus {
-            operationState;
+            operationalState;
             lifeCycleState;
 
-            static operationStateEnum = {
+            static operationalStateEnum = {
                 AVAILABLE: "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE",
                 UNAVAILABLE: "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE",
                 NOT_YET_DEFINED: "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED"
@@ -77,18 +77,18 @@ class OperationClientInterface extends layerProtocol {
 
             /**
              * constructor 
-             * @param {string} operationState operation state of the operation client.
+             * @param {string} operationalState operation state of the operation client.
              * @param {string} lifeCycleState life cycle state of the operation client.
              */
-            constructor(operationState, lifeCycleState) {
-                this.operationState = operationState;
+            constructor(operationalState, lifeCycleState) {
+                this.operationalState = operationalState;
                 this.lifeCycleState = lifeCycleState;
             }
         };
 
         static layerProtocolName = layerProtocol.layerProtocolNameEnum.OPERATION_CLIENT;
         static defaultOperationKey = "Operation key not yet provided.";
-        static defaultOperationState = OperationClientInterfacePac.OperationClientInterfaceStatus.operationStateEnum.NOT_YET_DEFINED;
+        static defaultOperationalState = OperationClientInterfacePac.OperationClientInterfaceStatus.operationalStateEnum.NOT_YET_DEFINED;
         static defaultLifeCycleState = OperationClientInterfacePac.OperationClientInterfaceStatus.lifeCycleStateEnum.NOT_YET_DEFINED;
 
     }
@@ -99,7 +99,7 @@ class OperationClientInterface extends layerProtocol {
      */
     constructor(operationName) {
         super(
-            0,
+            "0",
             OperationClientInterface.OperationClientInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC] = new OperationClientInterface.
         OperationClientInterfacePac(operationName);
