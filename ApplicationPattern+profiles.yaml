@@ -1,7 +1,8 @@
 profiles:
 
   - profile-name: ActionProfile
-    uuid: *-action-p-10??
+    uuid: string
+      pattern: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-action-p-10[0-9]{2}$'
     operation-name: string
     label: string
     request: string
@@ -11,7 +12,8 @@ profiles:
     display-in-new-browser-window: boolean
 
   - profile-name: IntegerProfile
-    uuid: *-integer-p-10??
+    uuid: string
+      pattern: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-10[0-9]{2}$'
     integer-name: string
     unit: string
     minimum: integer
@@ -19,7 +21,8 @@ profiles:
     configured-value: integer
 
   - profile-name: StringProfile
-    uuid: *-string-p-10??
+    uuid: string
+      pattern: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-10[0-9]{2}$'
     string-name: string
     enumeration: array
     pattern: string

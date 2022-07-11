@@ -17,7 +17,7 @@ This is a step by step cookbook for creating the ProfileList.
 * Remove unnecessary Profile definitions from the template.  
 * Add required Profile definitions according to the specifications made in [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md) and [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) at the end of the file.  
 * Re-using already existing definitions of Profiles from ProfileLists of other applications is very much recommended.  
-
+* Define patterns for String attributes, wherever reasonable (Potentially [this documentation](https://user.phil.hhu.de/~seyffarth/classes/python2020/09-01%20Regular%20Expressions%20schreiben.html) might be helpful. [Test the Regex](https://regex101.com/).).  
 
 ### Validation
 
