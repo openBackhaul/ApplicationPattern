@@ -36,6 +36,10 @@ UUIDs of Profiles have to comply with the rules defined in [Structure of UUIDs](
 
 **Additional Attributes**  
 The ApplicationOwner is free to define a set of additional attributes in the ProfileList.  
+Attributes have to be substructured into:  
+  * Invariant attributes that are for identifying the instance of Profile (Capability)  
+  * Attributes that are available for storing values during run-time of the application (Configuration)  
+(Capability attributes will only be represented by GET method in the OaM section of the OAS, while Configuration attributes will have PUT method, too.)
 
 
 ### Re-use of Profiles
