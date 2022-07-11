@@ -16,13 +16,13 @@ profiles:
     unit: string
     minimum: integer
     maximum: integer
-    configured-value: integer
+    integer-value: integer
 
   - profile-name: StringProfile
     uuid: *-string-p-10??
     string-name: string
     enumeration: array
     pattern: string
-    configured-value: string
+    string-value: string
 
 ## Add further Profile definitions, if required
