@@ -92,7 +92,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Fill in the maximum value that shall be accepted, while configuring the attribute via the individual OaM section of the REST API.  
 * Don't represent this stereotype, if not required.  
 
-**ConfiguredValue**  
+**IntegerValue**  
 * Fill in the current value, respectively the value that shall be applied right after instantiating the application.  
 
 
@@ -126,7 +126,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * [Test the Regex](https://regex101.com/).  
 * Don't represent this stereotype, if not required.  
 
-**ConfiguredValue**  
+**StringValue**  
 * Fill in the current value, respectively the value that shall be applied right after instantiating the application.  
 
 
