@@ -4650,7 +4650,7 @@ paths:
                         request: 'https://10.118.125.157:1000/v1/inform-about-release-history-in-generic-representation'
                         display-in-new-browser-window: false
                       - label: 'API Documentation'
-                        request: 'https://10.118.125.157:1000/v1/inform-about-api'
+                        request: 'https://10.118.125.157:1000/docs'
                         display-in-new-browser-window: true
           headers:
             x-correlator:
