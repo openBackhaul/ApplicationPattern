@@ -41,7 +41,7 @@ profile-instances:
     unit: ## Unit of the Integer attribute
     minimum: ## Minimum value to be accepted, while configuration
     maximum: ## Maximum value to be accepted, while configuration
-    configured-value: ## Current value of the attribute
+    integer-value: ## Current value of the attribute
 
   ## Potentially further instances of IntegerProfile to be added
 
@@ -51,6 +51,6 @@ profile-instances:
     string-name: ## Name of the String attribute
     enumeration: ## Set of allowed values in cornered brackets
     pattern: ## Regex for validating configuration values
-    configured-value: ## Current value of the attribute
+    string-value: ## Current value of the attribute
 
   ## Potentially further instances of StringProfile to be added
