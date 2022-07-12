@@ -80,7 +80,7 @@ class TcpClientInterface extends layerProtocol {
      * @param {string} remotePort tcp port where the application is running .
      */
     constructor(remoteAddress, remotePort) {
-        super(0,
+        super("0",
             TcpClientInterface.TcpClientInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC] = new TcpClientInterface
             .TcpClientInterfacePac(

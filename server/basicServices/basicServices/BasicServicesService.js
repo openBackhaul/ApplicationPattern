@@ -254,7 +254,7 @@ exports.informAboutApplicationInGenericRepresentation = function (user, originat
        * Preparing consequent-action-list for response body
        ****************************************************************************************/
       let consequentActionList = [];
-      let protocol = "https";
+      let protocol = "http";
 
       let localAddress = await tcpServerInterface.getLocalAddress();
       let localPort = await tcpServerInterface.getLocalPort();
