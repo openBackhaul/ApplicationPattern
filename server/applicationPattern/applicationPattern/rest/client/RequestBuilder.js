@@ -11,10 +11,10 @@ const protocol = "http";
  * @param {string} operationName service that needs to be addressed in the client application 
  * @param {string} method http method for the REST request
  * @param {object} requestHeader http request header for the REST call
- * @param {string} requestBody request body for the REST call
- * @returns {promise} returns the http response received
+ * @param {object} requestBody request body for the REST call
+ * @returns {Promise} returns the http response received
  */
-exports.BuildAndTriggerRestRequest = function (remoteIpAddressAndPort ,operationName, method,  requestHeader, requestBody) {
+exports.BuildAndTriggerRestRequest = function (remoteIpAddressAndPort, operationName, method, requestHeader, requestBody) {
     return new Promise(async function (resolve, reject) {
         try {
             if(operationName.indexOf("/") != 0) {

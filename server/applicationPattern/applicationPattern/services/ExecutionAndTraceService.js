@@ -22,14 +22,15 @@ const FcPort = require('../onfModel/models/FcPort');
  * @param {string} userName name of the user who is accessed the service<br>
  * @param {string} originator originator of the request<br>
  * @param {string} operationName name of the called service<br>
- * @param {string} responseCode response code of the rest call execution<br>
- * @param {string} requestBody  request body<br>
- * @param {string} responseBody  response body<br>
- * @returns {object} return the formulated responseBody<br>
+ * @param {number} responseCode response code of the rest call execution<br>
+ * @param {object} requestBody  request body<br>
+ * @param {object} responseBody  response body<br>
+ * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
  exports.recordServiceRequestFromClient = function (serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, userName, originator,
     operationName, responseCode, requestBody, responseBody) {
     return new Promise(async function (resolve, reject) {
+        let httpRequestBody = {};
         try {
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
@@ -40,16 +41,17 @@ const FcPort = require('../onfModel/models/FcPort');
             let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
             let stringifiedRequestBody = JSON.stringify(requestBody);
             let stringifiedResponseBody = JSON.stringify(responseBody);
-            let httpRequestBody = formulateResponseBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
+            let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
             if (response !== undefined && response.status === 200) {
                 resolve(true);
             }
+            console.log(`recordServiceRequestFromClient - record service request from client with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
             resolve(false);
         } catch (error) {
-            console.log(error);
-            reject(false);
+            console.log(`recordServiceRequestFromClient - record service request from client with body ${JSON.stringify(httpRequestBody)} failed with error: ${error.message}`);
+            resolve(false);
         }
     });
 }
@@ -61,14 +63,15 @@ const FcPort = require('../onfModel/models/FcPort');
  * @param {string} userName name of the user who is accessed the service<br>
  * @param {string} originator originator of the request<br>
  * @param {string} operationName name of the called service<br>
- * @param {string} responseCode response code of the rest call execution<br>
- * @param {string} requestBody  request body<br>
- * @param {string} responseBody  response body<br>
- * @returns {object} return the formulated responseBody<br>
+ * @param {number} responseCode response code of the rest call execution<br>
+ * @param {object} requestBody  request body<br>
+ * @param {object} responseBody  response body<br>
+ * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
 exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, originator,
     operationName, responseCode, requestBody, responseBody) {
     return new Promise(async function (resolve, reject) {
+        let httpRequestBody = {};
         try {
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
@@ -80,16 +83,17 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
             let stringifiedRequestBody = JSON.stringify(requestBody);
             let stringifiedResponseBody = JSON.stringify(responseBody);
-            let httpRequestBody = formulateResponseBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
+            let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
             if (response !== undefined && response.status === 200) {
                 resolve(true);
             }
+            console.log(`recordServiceRequest - record service request with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
             resolve(false);
         } catch (error) {
-            console.log(error);
-            reject(false);
+            console.log(`recordServiceRequest - record service request with body ${JSON.stringify(httpRequestBody)} failed with error: ${error.message}`);
+            resolve(false);
         }
     });
 }
@@ -103,13 +107,13 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
  * @param {string} applicationName name of the calling application<br>
  * @param {string} applicationReleaseNumber release number of the calling application<br>
  * @param {string} operationName name of the called service<br>
- * @param {string} responseCode response code of the rest call execution<br>
+ * @param {number} responseCode response code of the rest call execution<br>
  * @param {string} timestamp timestamp of the execution<br>
  * @param {string} stringifiedBody stringified request body<br>
  * @param {string} stringifiedResponse stringified response body<br>
  * @returns {object} return the formulated responseBody<br>
  */
-function formulateResponseBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
+function formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
     operationName, responseCode, timestamp, stringifiedBody, stringifiedResponse) {
     let httpRequestBody = {};
     try {
