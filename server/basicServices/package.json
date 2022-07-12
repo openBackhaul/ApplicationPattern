@@ -1,6 +1,6 @@
 {
   "name": "onf-core-model-ap-bs",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "oas3-tools": "^2.2.3",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2",
-    "onf-core-model-ap": "0.0.14"
+    "onf-core-model-ap": "0.0.15"
   },
   "author": "Prathiba Jeevan",
   "license": "Apache-2.0"
