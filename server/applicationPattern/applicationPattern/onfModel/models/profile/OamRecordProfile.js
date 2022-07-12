@@ -114,7 +114,7 @@
                      let uuidNumber = lastUuid.substring(lastUuid.lastIndexOf("-") + 1, lastUuid.length);
                      nextUuid = uuidPrefix + (parseInt(uuidNumber) + 1).toString().padStart(6, 0);
                  } else {
-                     let coreModelUuid = await controlConstruct.getUuid();
+                     let coreModelUuid = await controlConstruct.getUuidAsync();
                      nextUuid = coreModelUuid + initialProfileSuffix;
                  }
                  resolve(nextUuid);
