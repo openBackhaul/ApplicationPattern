@@ -7,6 +7,7 @@ The ProfileList is a compact notation for designing the Profiles as classes.
 It provides full focus on composing the set of necessary attributes and their datatypes.  
 In case of String datatype, it also allows defining generic expression about the allowed values of the String.  
 This must be applied on the UUIDs and can be applied on any other String attribute.  
+The ProfileList distinguishes invariant and configurable attributes.
 The ProfileList is preparing for defining the individual section of the OaM part of the OpenApiSpecification.  
 
 Definition of the Profiles gives much more freedom to the ApplicationOwner than defining the interfaces.  

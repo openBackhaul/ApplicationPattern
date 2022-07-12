@@ -40,11 +40,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 **Label**  
 * Fill in the text that shall be printed on the label, which shall be represented in the GenericRepresentation.  
 
-**Request**  
-* Fill in the complete URL that shall be addressed by the GenericRepresentation whenever the button gets pressed.  
-* Several parts (e.g. IP address, TCP port, operationName) of the URL might be subject to the configuration of some interface. These parts have to be substituted by references into the data tree. The references have to be put into cornered brackets "[]".  
-* UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).  
-
 **InputValueList::FieldName**
 * If the Request needs to send parameters in its body, these parameters have to be defined in the InputValueList.  
 * Don't represent the InputValueList, if not required.  
@@ -58,6 +53,11 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 **DisplayInNewBrowserWindow**  
 * Usually, DisplayInNewBrowserWindow is set on false and the response to the described request will be presented in the same browser window.  
 * If the response to clicking the button shall be represented in a new window of the GenericRepresentation, DisplayInNewBrowserWindow has to be set on true.  
+
+**Request**  
+* Fill in the complete URL that shall be addressed by the GenericRepresentation whenever the button gets pressed.  
+* Several parts (e.g. IP address, TCP port, operationName) of the URL might be subject to the configuration of some interface. These parts have to be substituted by references into the data tree. The references have to be put into cornered brackets "[]".  
+* UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).  
 
 
 ### Instances of IntegerProfile  
