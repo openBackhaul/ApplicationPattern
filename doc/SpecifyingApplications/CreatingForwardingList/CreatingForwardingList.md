@@ -1,4 +1,4 @@
-# ForwardingList
+# Creating the ForwardingList
 
 This is the step by step cookbook for filling the ForwardingList.
 
