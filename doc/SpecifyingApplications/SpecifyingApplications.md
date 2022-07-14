@@ -75,8 +75,8 @@ The ForwardingList must describe all relationships between events and reactions 
 
 **Concepts**
 * [Concepts of Forwarding](./ConceptsOfForwarding/ConceptsOfForwarding.md)
-* [Concepts of the ForwardingList](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)
 * [Structure of CallbackNames](./StructureOfCallbackNames/StructureOfCallbackNames.md)
+* [Concepts of the ForwardingList](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)
 
 **Step-by-Step Guidelines**
 * [Creating the ForwardingList](./CreatingForwardingList/CreatingForwardingList.md)
