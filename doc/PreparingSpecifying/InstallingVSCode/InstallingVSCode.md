@@ -48,6 +48,10 @@ Guidance on other Linux distributions can be found on [this website](https://cod
 ### Recommended extensions
 
 * **GitHub Pull Requests and Issues**: used to issue pull requests directly from VSCode
+* **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)
 * **GitLens**: code authorship visualisation and seamless navigation of Git repositories
+
+To install the extensions either press the extensions button on the VSCode sidebar or press F1 and navigate to "Extensions: Install Extensions".
+
 
 [<- Back to Installing Git](../InstallingGit/InstallingGit.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Connecting VSCode with GitHub ->](../VSCode2GitHub/VSCode2GitHub.md)
