@@ -62,4 +62,4 @@ The output file will contain all the details like test run summary, result detai
 
 ![Test Report detailed](./pictures/testcaseReport.png)
 
-[<-- Back to Specifying Testcases](./Testcases.md)   - - -  [Up to Specifying Applications](../SpecifyingApplications.md)
+[<-- Back to Specifying Testcases](./TestCases.md)   - - -  [Up to Specifying Applications](../SpecifyingApplications.md)
