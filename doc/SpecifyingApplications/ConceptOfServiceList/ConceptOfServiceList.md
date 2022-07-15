@@ -74,10 +74,9 @@ It provides full focus on composing a complete and well-structured set of servic
 
 ### Commenting  
 
-The template of the ServiceList is prepared in such a way that comments have to be replaced by changes that are individual to the application under specification.  
-If this initial concept would be followed, the ServiceList would be finalized as soon as all comments would either be replaced or deleted.  
-On the other hand, the ServiceList serves as a draft for preparing the OpenApiSpecification and the CONFIGfile.  
-So, if someone would find it helpful to add his thoughts into the ServiceList, he would be free to do so, but should be aware that an indicator for completeness gets lost.
+The template of the ServiceList is prepared in such a way that comments (## TODO:) have to be replaced by changes that are individual to the application under specification.  
+If this initial concept would be followed, the ServiceList would be finalized as soon as all "## TODO:" would either be replaced or deleted.  
+If someone would find it helpful to add his thoughts into the ServiceList, he would be free to add own comments, but these comments should not start with "TODO:" after finalizing the ServiceList.  
 If someone would decide to add comments into the ServiceList, it would be strongly recommended to properly indent the additional lines.
 
 
