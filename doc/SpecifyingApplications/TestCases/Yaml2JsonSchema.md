@@ -26,4 +26,4 @@ The tiny validator validated the data against a JSON schema. But, the schema ava
 
 Here, the output json schema will be written into outputSchema.json and the --pretty option enables formatting in the generated output. We can now use the generated JSON schema in our tv4 validator to validate our response.
 
-[<-- Back to Specifying Testcases](./Testcases.md)
+[<-- Back to Specifying Testcases](./TestCases.md)
