@@ -23,4 +23,4 @@ The reviewer will add comments or approve and merge the request into the main br
 
 Reference : [postman version control using fork](https://learning.postman.com/docs/collaborating-in-postman/version-control/)
 
-[<-- Back to Specifying Applications](../SpecifyingApplications.md)  - - -  [Ahead to Testing -->](./Testcases.md)
+[<-- Back to Specifying Applications](../SpecifyingApplications.md)  - - -  [Ahead to Testing -->](./TestCases.md)
