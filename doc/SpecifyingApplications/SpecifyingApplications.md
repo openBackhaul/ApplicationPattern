@@ -106,13 +106,19 @@ The CONFIGfile describes the data structure inside the application and on the di
 
 ## TestCases
 
-The TestCases are a Postman collection of requests for 
-  * describing the business logic, which is to be implemented behind the REST API
-  * supporting testing during implementation
-  * acceptance testing
-  * continuous integration testing
+Test suites are written in postman as collections. A set of testcases are defined for each request that mainly focuses on
+
+- determining if different features/functionality of the service (Rest API) is working fine.
+- that could reveal errors or defects during development of the application 
+
+**pre-requisiteS**
+
+- [Installing postman](../PreparingSpecifying/InstallingPostman/InstallingPostman.md)
+- [Creating postman account](../PreparingSpecifying/OwnPostmanAccount/OwnPostmanAccount.md)
+- [Creating application specific workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/) *(optional)*
 
 **Concepts**
+* [Starting with postman collections](./TestCases/postmanCollection.md)
 * [TestCases](./TestCases/TestCases.md)
 
 
