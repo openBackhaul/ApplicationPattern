@@ -109,9 +109,9 @@ The CONFIGfile describes the data structure inside the application and on the di
 Test suites are written in postman as collections. A set of testcases are defined for each request that mainly focuses on
 
 - determining if different features/functionality of the service (Rest API) is working fine.
-- that could reveal errors or defects during development of the application 
+- revealing errors or defects of the application implementation. 
 
-**pre-requisiteS**
+**pre-requisites**
 
 - [Installing postman](../PreparingSpecifying/InstallingPostman/InstallingPostman.md)
 - [Creating postman account](../PreparingSpecifying/OwnPostmanAccount/OwnPostmanAccount.md)

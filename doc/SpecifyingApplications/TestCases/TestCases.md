@@ -22,15 +22,17 @@ In this folder, any common re-usable functions could be defined.
 | :---- | :---- |
 |Reference|Gathering some required information related to the proceeding test script|
 |Expected|Testing expected scenario specific testcases|
-|Dummy|POST/PUT some randomly generated dummy values through into request body|
+|Dummy|POST/PUT some randomly generated dummy values into request body|
 |Initial|POST/PUT service/API with Initial values for inversing any potential change in configuration|
 |Clearing|Operations performed for clearing any evident changes in the configuration|
 |sampling|Testing the actual testcase (just for experimental purpose)|
 |Check|Test script that test whether the configuration remains the same as initial data|
+|for gating|a gating request between Continuous Integration and Acceptance block (decision based on input from user through load-file)|
+|for exiting|a dummy request to indicate that a service has been tested successfully and the block has been exitied|
 
 ### ServiceLayer and OamLayer
 
-This folder contains testcases for API enpoints exposed in serviceLayer. It further contains IndividualPart and BasicPart which refers to IndividualServices and BasicServices respectively in OAS specification. Under IndividualPart or BasicPart, testcases for all the services or AI endpoints are listed.
+This folder contains testcases for API enpoints exposed in serviceLayer and OamLayer. It further contains IndividualPart and BasicPart which refers to IndividualServices and BasicServices respectively in OAS specification. Under IndividualPart or BasicPart, testcases for all the services or API endpoints are listed.
 
 Under each service, we have ContinuousIntegration, Acceptance, Gate and Exit folders.
 

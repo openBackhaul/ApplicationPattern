@@ -12,7 +12,7 @@
 
 **Step 3**: A new collection will get created. Rename the collection to the corresponding application name in the below format
 
-> ApplicationName_version.date.time+testcases.1
+> ApplicationName_version_date.time+testcases.1
 
 ## Version control on collection
 

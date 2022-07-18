@@ -15,6 +15,16 @@ Now, The test suite can be tested against the mock server initially for basic co
 
 ## Testing the server
 
+Before running the collection, the attributes in input load-file needs to be customized as per current configurations.
+
+- **typeOfTesting** value should be according to environment on which the collection is expected to run.
+    - In testbed, it is necessary for executing both Acceptance and Continuous Integration testcases. In this case the value will be "Acceptance"
+    - In production, only Continuous Integration testcases are executed. In this case, the value can be either "ContinuousIntegration" or "Integration"
+- **dummyUrl** value should be a reachable URL according to environment(testbed or production) on which the collection is expected to run.
+- **serverUrl** is filled with either URL of actual server or mock server against which the test suites are expected to be tested.
+- **userName** should be filled  with a valid user name string. This value will be used for logging and debugging purposes.
+- **authorizationCode** to be filled with a valid auth code as per Administrator Administration application's configuration. This code will be used by the test suite for authorization purpose.
+
 ### Method 1: Testing locally from postman
 
 **Step 1**: On clicking the three dots on right to the collection, a drop-down will appear on which click on Run Collection
