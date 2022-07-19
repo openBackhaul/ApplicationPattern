@@ -12,7 +12,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * The release number ...
   * has to follow the definitions in  [Structure of Release Numbers](../StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
   * has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
-* IP address and TCP port will be assigned by the platform owner. Please, request for an address.
+* IP address and TCP port will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
 
 
 ### Operation Servers
