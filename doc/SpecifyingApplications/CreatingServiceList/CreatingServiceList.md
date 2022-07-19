@@ -23,8 +23,8 @@ This is a step by step cookbook for creating the ServiceList.
 
 * Replace "## OwnApplicationName" by the official name of the application.
 * Replace "## OwnReleaseNumber (e.g. 1.0.0)" by the official release number.
-* Replace "## OwnIpAddress" by the expected IP address.
-* Replace "## OwnTcpPort" by the expected TCP port.
+* Replace "## OwnIpAddress" by fake IP address from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
+* Replace "## OwnTcpPort" by fake TCP port from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
 
 
 ### OperationServers
@@ -43,8 +43,8 @@ This is a step by step cookbook for creating the ServiceList.
 ### OldRelease and NewRelease
 
 * Replace "## Number of Release to be substituted (e.g. 1.0.0)" by the official release number of the operational version of the application. In case of new applications, put the same value as in "## OwnReleaseNumber (e.g. 1.0.0)" from above.
-* Replace "## IpAddress of Release to be substituted" by the IP address of the operational version of the application.
-* Replace "## TcpPort of Release to be substituted" by the TCP port of the operational version of the application.
+* Replace "## IpAddress of Release to be substituted" by fake IP address of the operational version of the application.
+* Replace "## TcpPort of Release to be substituted" by fake TCP port of the operational version of the application.
 * Replace "## Number of substituting Release (e.g. 2.0.0)" by the same value as in "## OwnReleaseNumber (e.g. 1.0.0)" from above.
 * Replace "## IpAddress of substituting Release" by the same value as in "## OwnIpAddress" from above.
 * Replace "## TcpPort of substituting Release" by the same value as in "## OwnTcpPort" from above.
@@ -89,8 +89,8 @@ This is a step by step cookbook for creating the ServiceList.
   * Replace "## Name of application to be addressed" by the official name of the application, which shall be addressed.
   * Replace "## Release number of application to be addressed" by the number of the operational release.
   * Replace "## UUID of the HttpClient" by a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
-  * Replace "## IP address of application to be addressed" by the IP address of the application to be addressed.
-  * Replace "## TCP port of application to be addressed" by the TCP port of the application to be addressed.
+  * Replace "## IP address of application to be addressed" by the fake IP address of the application to be addressed.
+  * Replace "## TCP port of application to be addressed" by the fake TCP port of the application to be addressed.
   * Replace "## UUID of the TcpClient" by a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
 * If some service would be consumed from one or several, but not all other applications, it shall be listed in the _operation-clients/service/individual_ section; replace "## Clients specific to this application" by the usual two lines for defining a service client:  
 ```
