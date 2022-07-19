@@ -106,10 +106,10 @@ The CONFIGfile describes the data structure inside the application and on the di
 
 ## TestCases
 
-Test suites are written in postman as collections. A set of testcases are defined for each request that mainly focuses on
-
-- determining if different features/functionality of the service (Rest API) is working fine.
-- revealing errors or defects of the application implementation. 
+TestCases are written in Postman as collections of small scripts.  
+A set of testcases is defined for each individual request and it mainly focuses on
+* determining if the functionality of the service is working as expected.  
+* revealing errors or defects of the implementation.  
 
 **pre-requisites**
 
