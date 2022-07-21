@@ -31,4 +31,4 @@ profiles:
     configuration:
       string-value: string
 
-## Add further Profile definitions, if required
+## TODO: Add further Profile definitions, if required
