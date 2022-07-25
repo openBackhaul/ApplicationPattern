@@ -30,10 +30,10 @@ Further on, the existing operation providing its result in Kelvin shall be delet
 The resulting specification will be identified by the release number 2.0.0  
 
 - Situation 5: The specification 2.0.0 has been finished and develop Branch got merged into main Branch for publishing it to potential implementers.
-The new content of the main Branch gets tagged with "2.0.0_spec".
+The new content of the main Branch gets tagged with "2.0.0_spec" by the PlatformOwner (no other than main branch gets tagged).
 
 - Situation 6: The specification 2.0.0 has been implemented and the implementer merged his code into the main Branch.
-The new content of the main Branch gets tagged with "2.0.0_imp".
+The new content of the main Branch gets tagged with "2.0.0_imp" by the PlatformOwner (no other than main branch gets tagged).
 
 
 ### Specification
