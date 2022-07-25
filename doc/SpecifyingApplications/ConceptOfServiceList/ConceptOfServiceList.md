@@ -72,7 +72,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and contain "op-c-" to indicate that they are identifying an OperationClient. The consequent number of an individual service shall start with 3. The next two digits have to be identical with the second and third digit of the UUID of the HTTP Client. The last digit is for counting, but it does not necessarily need to be sequential.
 
 
-### Commenting  
+### Commenting
 
 The template of the ServiceList is prepared in such a way that comments (## TODO:) have to be replaced by changes that are individual to the application under specification.  
 If this initial concept would be followed, the ServiceList would be finalized as soon as all "## TODO:" would either be replaced or deleted.  
