@@ -8,3 +8,5 @@
 5. [Components of the TinyApplicationController](./TinyApplicationController/TinyApplicationController.md)
 6. [Elements of the ApplicationPattern](./ElementsApplicationPattern/ElementsApplicationPattern.md)
 7. [Implementing Applications](./ImplementingApplications/ImplementingApplications.md)
+8. [Deploying Applications](./DeployingApplications/DeployingApplications.md)
+
