@@ -7,8 +7,6 @@ Harmonizing UUIDs across all applications helps reading and navigating through t
 
 
 **UUIDs are composed from the following information:**  
-[OwnApplicationID]-[LayerID]-[ObjectType]-[ApiSegment]-[TargetApplicationID]-[SequenceNumber]  
-.  
 
 ![UUID Structure](./pictures/uuid-structure.png)
 
