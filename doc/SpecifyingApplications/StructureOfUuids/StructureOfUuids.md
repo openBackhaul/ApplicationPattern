@@ -8,7 +8,9 @@ Harmonizing UUIDs across all applications helps reading and navigating through t
 
 **UUIDs are composed from the following information:**  
 [OwnApplicationID]-[LayerID]-[ObjectType]-[ApiSegment]-[TargetApplicationID]-[SequenceNumber]  
+.  
 
+![UUID Structure](./pictures/uuid-structure.png)
 
 **OwnApplicationID**  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
@@ -71,8 +73,10 @@ It has three digits.
 Counting is decimal.  
 
 **Examples**  
-- ro-1-0-0-op-s-bm-004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0  
-- ol-1-0-0-op-c-bm-ro-1-0-0-010 = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0  
-- ol-1-0-0-http-c-bm-alt-1-0-0-000 = HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0  
-- aa-1-0-0-op-fc-005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0  
-- eatl-1-0-1-integer-p-000 = Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1  
+| UUID | Object description |
+| ---- | ------------------ |
+| ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
+| ol-1-0-0-op-c-bm-ro-1-0-0-010 | OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0 |  
+| ol-1-0-0-http-c-bm-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
+| aa-1-0-0-op-fc-005 | ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
+| eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
