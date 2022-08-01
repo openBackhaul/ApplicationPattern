@@ -12,7 +12,7 @@
 * [Git, Github and Plug-ins](./Infrastructure/Tools/Git/Git.md)
 * [Docker](./Infrastructure/Tools/Docker/Docker.md)
 * [Newman](./Infrastructure/Tools/Newman/Newman.md)
-* [Scripts](./Infrastructure/Tools/Scripts/Scripts.md)
+* [HAScripts](./Infrastructure/Tools/Scripts/Scripts.md)
 
 
 ### Acceptance Testing
