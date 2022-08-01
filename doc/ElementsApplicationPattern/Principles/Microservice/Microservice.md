@@ -32,8 +32,3 @@ Developers must deal with the additional complexity of creating a distributed sy
 
 ### Further reading :
 To have a deep look into microservices , please refer https://microservices.io/patterns/microservices.html
-
-
-
-
-[<- Back to Getting Started](./GettingStarted.md) - - - [Up to What is REST?](RESTfulServices.md)
