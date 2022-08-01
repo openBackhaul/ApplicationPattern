@@ -2,7 +2,7 @@
 
 This is a step by step cookbook for creating the ProfileInstanceList.  
 
-**Please, read the background information about the [Concept of Profiles](../../ElementsApplicationPattern/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
+**Please, read the background information about the [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
 
 
 ### File Handling
@@ -27,7 +27,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The ProfileName shall be set on "ActionProfile".  
 
 **UUID**  
-* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "action".  
 * The ObjectType shall be set on "p" (Profile).  
 * The ApiSegment shall be set on "1" (management, which is individual to this application).  
@@ -70,7 +70,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The ProfileName shall be set on "IntegerProfile".  
 
 **UUID**  
-* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "integer".  
 * The ObjectType shall be set on "p" (Profile).  
 * The ApiSegment shall be set on "1" (management, which is individual to this application).  
@@ -106,7 +106,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The ProfileName shall be set on "StringProfile".  
 
 **UUID**  
-* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "string".  
 * The ObjectType shall be set on "p" (Profile).  
 * The ApiSegment shall be set on "1" (management, which is individual to this application).  
@@ -137,10 +137,10 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Be aware that you just need to describe the structuring of configuration information. Application data shall be encapsulated by the application.  
 
 **ProfileName**  
-* The ProfileName shall comply with the rules stated in [Concept of Profiles](../../ElementsApplicationPattern/ConceptOfProfiles/ConceptOfProfiles.md).  
+* The ProfileName shall comply with the rules stated in [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md).  
 
 **UUID**  
-* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * Choose a meaningful LayerID.  
 * The ObjectType shall be set on "p" (Profile).  
 * The ApiSegment shall be set on "1" (management, which is individual to this application).  

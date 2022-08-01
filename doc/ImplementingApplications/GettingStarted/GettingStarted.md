@@ -23,9 +23,9 @@ A developer's actual work starts after receiving the Open API specification and 
 - Deployment and Integration
 
 **Further reading for beginners ,** 
-- [What are Microservices ?](WhatAreMicroservices.md)
-- [What is REST?](RESTfulServices.md)
-- [What is an API first approach?](APIFirstApproach.md)
+- [What are Microservices ?](../../ElementsApplicationPattern/Principles/Microservice/Microservice.md)
+- [What is REST?](../../ElementsApplicationPattern/Principles/Restful/Restful.md)
+- [What is an API first approach?](../../ElementsApplicationPattern/Principles/ApiFirst/ApiFirst.md)
 
 
 [<- Back to Implementing Applications](../ImplementingApplications.md) - - - [Up to Understanding the Requirement](../UnderstandingTheRequirement/UnderstandingTheRequirement.md)

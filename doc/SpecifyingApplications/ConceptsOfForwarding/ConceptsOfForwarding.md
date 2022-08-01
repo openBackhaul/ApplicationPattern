@@ -1,3 +1,3 @@
 # Concepts of Forwarding  
 
-Has been moved to [Concepts of Forwarding](../../ElementsApplicationPattern/ConceptsOfForwarding/ConceptsOfForwarding.md).
+Has been moved to [Concepts of Forwarding](../../ElementsApplicationPattern/Functions/ConceptsOfForwarding/ConceptsOfForwarding.md).

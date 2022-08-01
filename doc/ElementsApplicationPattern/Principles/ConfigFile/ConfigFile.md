@@ -1,6 +1,6 @@
-## What is this load file ?
-The values defined in a load file indicate the initial state of the application as soon as it is installed. This can be customized if require.
-The load file provides information about , 
+## CONFIGfile 
+The values defined in a CONFIGfile indicate the initial state of the application as soon as it is installed. This can be customized if require.
+The CONFIGfile provides information about , 
 
 - the Microservice and its purpose, 
 - the exposed services, 
