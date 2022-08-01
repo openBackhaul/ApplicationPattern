@@ -33,7 +33,7 @@
 * LayerProtocol
 * Profile
 * **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
-* [ForwardingConstruct](./InformationModel/ForwardindConstruct/ForwardindConstruct.md)
+* [ForwardingConstruct](./InformationModel/ForwardingConstruct/ForwardingConstruct.md)
 * ForwardingConstructPort
 * NetworkControlDomain
 * Link

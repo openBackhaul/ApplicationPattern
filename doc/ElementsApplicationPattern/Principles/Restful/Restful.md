@@ -22,7 +22,7 @@ For Microservice based architecture , REST is preferred because it is lightweigh
 
 ## What is REST?
 REST is a set of architectural constraints, not a protocol or a standard. API developers can implement REST in a variety of ways.
- ![RESTfuleService](./pictures/RestfulApi.png)  
+ ![RESTfuleService](./pictures/RestfulApi.png)
 In order for an API to be considered RESTful, it has to conform to these criteria:
 
 - A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
