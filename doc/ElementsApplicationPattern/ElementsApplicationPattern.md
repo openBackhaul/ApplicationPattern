@@ -9,6 +9,7 @@
 * [Concepts of Forwarding](./ConceptsOfForwarding/ConceptsOfForwarding.md)
 
 **Names and IDs**
+* [Structure of ApplicationNames](./StructureOfApplicationNames/StructureOfApplicationNames.md)
 * [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
 * [Structure of Release Numbers](./StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
 * [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
