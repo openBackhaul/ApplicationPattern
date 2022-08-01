@@ -10,6 +10,3 @@ The syntax of a CC uuid is ,
 ```
 
 For example, if the application name is Registry Office , then the shorthand notation of the application is RO. And let’s say the release number of the application is 0.0.1 , then the uuid is ro-0-0-1.
-
-
-[<- Back to What is this load file ?](../WhatIsALoadFile.md) - - - [Up to LogicalTerminationPoint](./LogicalTerminationPoint.md)
