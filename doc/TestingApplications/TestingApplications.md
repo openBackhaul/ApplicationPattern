@@ -8,8 +8,11 @@
 * [Fake IP Addresses](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
 
 **Tools**
-* [GitLab](./Infrastructure/Tools/GitLab/GitLab.md)
 * [Jenkins](./Infrastructure/Tools/Jenkins/)
+* [Git, Github and Plug-ins](./Infrastructure/Tools/Git/Git.md)
+* [Docker](./Infrastructure/Tools/Docker/Docker.md)
+* [Newman](./Infrastructure/Tools/Newman/Newman.md)
+* [Scripts](./Infrastructure/Tools/Scripts/Scripts.md)
 
 
 ### Acceptance Testing
