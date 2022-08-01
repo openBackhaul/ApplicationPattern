@@ -42,10 +42,6 @@ The ServiceList is a compact notation for designing the service names and alloca
 It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
 
 **Concepts**
-* [Structure of Services](./StructureOfServices/StructureOfServices.md)
-* [Structure of ServiceNames](./StructureOfServiceNames/StructureOfServiceNames.md)
-* [Structure of Release Numbers](./StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
-* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md)
 * [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
@@ -60,8 +56,6 @@ The ProfileList describes the Profiles as classes and supports creating the Open
 The ProfileInstanceList lists all objects created from the Profile classes; it supports creating the CONFIGfile.  
 
 **Concepts**
-* [Concept of Profiles](./ConceptOfProfiles/ConceptOfProfiles.md)
-* [Structure of UUIDs](./StructureOfUuids/StructureOfUuids.md) (same as above)
 * [Concepts of ProfileList and ProfileInstanceList ](./ConceptOfProfileList/ConceptOfProfileList.md)
 
 **Step-by-Step Guidelines**
@@ -74,8 +68,6 @@ The ProfileInstanceList lists all objects created from the Profile classes; it s
 The ForwardingList must describe all relationships between events and reactions that need to be documented and configurable at the application.
 
 **Concepts**
-* [Concepts of Forwarding](./ConceptsOfForwarding/ConceptsOfForwarding.md)
-* [Structure of CallbackNames](./StructureOfCallbackNames/StructureOfCallbackNames.md)
 * [Concepts of the ForwardingList](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)
 
 **Step-by-Step Guidelines**
