@@ -2,7 +2,7 @@
 
 This is a step by step cookbook for creating the ProfileInstanceList.  
 
-**Please, read the background information about the [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
+**Please, read the background information about the [Concept of Profiles](../../ElementsApplicationPattern/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
 
 
 ### File Handling
