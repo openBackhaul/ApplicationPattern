@@ -28,12 +28,12 @@
 **Overview Information Model**
 
 **Classes**
-* [ControlConstruct](./EntitiesOfLoadFiles/ControlConstruct.md) 
-* [LogicalTerminationPoint](./EntitiesOfLoadFiles/LogicalTerminationPoint.md)
+* [ControlConstruct](./InformationModel/ControlConstruct/ControlConstruct.md) 
+* [LogicalTerminationPoint](./InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
 * LayerProtocol
 * Profile
 * **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
-* [ForwardingConstruct](./EntitiesOfLoadFiles/ForwardindConstruct.md)
+* [ForwardingConstruct](./InformationModel/ForwardingConstruct/ForwardingConstruct.md)
 * ForwardingConstructPort
 * NetworkControlDomain
 * Link

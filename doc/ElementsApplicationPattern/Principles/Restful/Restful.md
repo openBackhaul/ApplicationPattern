@@ -21,10 +21,10 @@ For years, people have been debating which of these web services is better and w
 For Microservice based architecture , REST is preferred because it is lightweight , flexible and simpler that SOAP.
 
 ## What is REST?
-REST is a set of architectural constraints, not a protocol or a standard. API developers can implement REST in a variety of ways.
+REST is a set of architectural constraints, not a protocol or a standard. API developers can implement REST in a variety of ways.  
  ![RESTfuleService](./pictures/RestfulApi.png)  
-In order for an API to be considered RESTful, it has to conform to these criteria:
 
+In order for an API to be considered RESTful, it has to conform to these criteria:  
 - A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
 - Stateless client-server communication, meaning no client information is stored between get requests and each request is separate and unconnected.
 - Cacheable data that streamlines client-server interactions.
@@ -38,11 +38,3 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 
 ### Further reading :
 To have a deep understanding , please have a look into https://www.restapitutorial.com/ 
-
-
-
-
-[<- Back to What are Microservices](./WhatAreMicroservices.md) - - - [Up to What is an API first approach?](APIFirstApproach.md)
-
-
-
