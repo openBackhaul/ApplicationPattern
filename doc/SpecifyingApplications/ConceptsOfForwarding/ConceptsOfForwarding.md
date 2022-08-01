@@ -1,7 +1,7 @@
-# Concepts of Forwarding  
+# Concept of Internal Forwarding  
 
 
-### Purpose of Forwarding  
+### Purpose of Internal Forwarding  
 
 There are a lot of interactions between the applications of the modular application layer.  
 For example, whenever an application receives a request, it has to send one to the ExecutionAndTraceLog application for documenting processing of the received request.  
@@ -14,7 +14,7 @@ This is why we did not just put these values into a CONFIGfile, but also made th
 Even better, communication and configuration of many changes to the traffic relationships between the applications got automated, - but also these automations require to be documented as Forwardings.  
 
 
-### Structure of Forwardings
+### Structure of Internal Forwardings
 
 Forwardings are describing relationships between Events and Reactions.  
 Since we are dealing with REST servers,  
@@ -33,7 +33,7 @@ Input/Event: Some new application is addressing the /v1/register-application ser
 Output/Reaction: The RegistryOffice is addressing the service that has been prescribed by the TypeApprovalRegister in the initial Management request.  
 
 
-### Types of Forwardings
+### Types of Internal Forwardings
 
 Forwardings can be distinguished by the way of reacting on Management requests.  
 
@@ -59,7 +59,7 @@ Up to now, the only way of describing Processing is scripting TestCases.
 Anyway, meaningful ServiceNames and ForwardingNames are supporting understanding the application from reading the OpenApiSpecification.
 
 
-### Management of Forwarding
+### Management of Internal Forwarding
 
 In principle, Forwarding defines an Event-Reaction-relationship between at least two interfaces.  
 These interfaces can exist idenpendently from the Forwarding.  
@@ -72,3 +72,6 @@ Nevertheless, the FowardingList allows expressing:
 - Just disconnecting, but not deleting an interface
 (Deleting, but not disconnecting doesn't make sense.)
 
+
+# Concept of External Forwarding  
+_Documentation about External Forwarding to be added_
