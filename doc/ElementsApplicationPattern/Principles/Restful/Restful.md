@@ -38,11 +38,3 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 
 ### Further reading :
 To have a deep understanding , please have a look into https://www.restapitutorial.com/ 
-
-
-
-
-[<- Back to What are Microservices](./WhatAreMicroservices.md) - - - [Up to What is an API first approach?](APIFirstApproach.md)
-
-
-
