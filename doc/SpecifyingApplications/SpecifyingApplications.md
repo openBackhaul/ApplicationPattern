@@ -17,9 +17,7 @@ The Purpose of the application shall be expressed in a single sentence. It must 
 
 The ApplicationName is treated as an identifier (means e.g. that it must be invariant).  
 Right after starting the specification and implementation process, resources will be referenced by ApplicationName and also during later operation, important processes will reference the ApplicationName (and ReleaseNumber).  
-
-**Concepts**
-* [Structure of ApplicationNames](./StructureOfApplicationNames/StructureOfApplicationNames.md)
+Guidance can be found in [Structure of ApplicationNames](./../ElementsApplicationPattern/StructureOfApplicationNames/StructureOfApplicationNames.md).  
 
 
 ## Repository

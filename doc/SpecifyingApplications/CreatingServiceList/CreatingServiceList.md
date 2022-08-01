@@ -33,9 +33,9 @@ This is a step by step cookbook for creating the ServiceList.
     - service-name:
       uuid:
 ```
-  * Fill in a name of the service according to [structure of service names](../StructureOfServiceNames/StructureOfServiceNames.md).
+  * Fill in a name of the service according to [structure of service names](../../ElementsApplicationPattern/StructureOfServiceNames/StructureOfServiceNames.md).
   * Put them into a reasonable order.
-  * Fill in UUIDs according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).
+  * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).
 
 
 ### OldRelease
@@ -56,7 +56,7 @@ This is a step by step cookbook for creating the ServiceList.
 ```
   * Fill in a name of the service according to OperationServer definitions from above.  
   * Put them into execution sequence.  
-  * Fill in UUIDs according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).  
+  * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
 
 
 ### From RegistryOffice to OperationKeyManagement
@@ -77,7 +77,7 @@ This is a step by step cookbook for creating the ServiceList.
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-  * Fill in UUIDs according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).
+  * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).
 
 
 ### Further OperationClients
@@ -86,23 +86,23 @@ This is a step by step cookbook for creating the ServiceList.
 * Take the last entry as a template (and delete it, if no longer needed).  
 * Start with specifying the HTTP and TCP clients.  
   * Add the official name and release number of the application, which shall be addressed, into the HttpClient.  
-  * Add a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).  
+  * Add a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
   * Add the fake IP address and TCP port of the application to be addressed to the TcpClient.  
-  * Add a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).  
+  * Add a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).  
 * If some service would be consumed from one or several, but not all other applications, it shall be listed in the _operation-clients/service/individual_ section; Add the usual two lines for defining a service client:  
 ```
     - service-name:
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-  * Fill in a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
+  * Fill in a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md). 
 * In the extremely unlikely case that the application is addressing the same service at all other applications, the following two lines have to be added to the _operation-clients/service/basic_ section:  
 ```
     - service-name:
       uuid:
 ```
   * Fill in the name of the service, which shall be addressed.
-  * Fill in a UUID according to [structure of UUIDs](../StructureOfUuids/StructureOfUuids.md). 
+  * Fill in a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md). 
 
 
 ### Validation

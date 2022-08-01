@@ -3,15 +3,15 @@
 The FordingList is basically a list of homogenous elements that are describing an individual Forwarding.
 
 ### ForwardingName
-The ForwardingName has to be defined according to the rules stated in [Structure of CallbackNames](../StructureOfCallbackNames/StructureOfCallbackNames.md).
+The ForwardingName has to be defined according to the rules stated in [Structure of CallbackNames](../../ElementsApplicationPattern/StructureOfCallbackNames/StructureOfCallbackNames.md).
 
 
 ### UUID
-The UUID has to be defined according to the rules stated in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md).
+The UUID has to be defined according to the rules stated in [Structure of UUIDs](../../ElementsApplicationPattern/StructureOfUuids/StructureOfUuids.md).
 
 
 ### ForwardingType
-The ForwardingType has to be chosen from the ones that have been explained in chapter "Types of Forwardings" of [Concepts of Forwarding](../ConceptsOfForwarding/ConceptsOfForwarding.md).
+The ForwardingType has to be chosen from the ones that have been explained in chapter "Types of Forwardings" of [Concepts of Forwarding](../../ElementsApplicationPattern/ConceptsOfForwarding/ConceptsOfForwarding.md).
 
 
 ### ManagementRequests - OperationClientUpdate - ServerName / UUID:
