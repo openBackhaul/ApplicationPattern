@@ -1,24 +1,26 @@
-## LogicalTerminationPoint
-CC consists of a list of LogicalTerminationPoint(LTP) instance. Each LTP in the list is unique and is identified by a uuid.
-The LTP class represents the own application information, details of the exposed and the consumed services. The data represented by a LTP depends on the type of the underlying layer protocol. There are 6 types of layer protocols , 
+# LogicalTerminationPoint
 
-![LayerProtocolTypes](pictures/LayerProtocol.png)
+ControlConstructs consist of a list of LogicalTerminationPoints (LTP).  
+The LTP class represents the termination point of a connection, means: interface.  
+In case of applications, this includes details about the exposed and the consumed services.  
+The attributes represented by an LTP depends on the type of connection terminated.  
 
-The server interfaces provide information about the Own application. 
+Most relevant types of connections documented in the CONFIGfile of the applications:
 
-- The HttpServer provides the current application name , release number , owner, and the revision history. There will be only one HttpServer instance per application.
-- The TcpServer provides the IPv4 address and port where the current application is running. There will be only one TcpServer instance per application.
-- The services exposed by the application will be represented as OperationServer. The number of OperationServer depends on the exposed service. If a application exposes 4 services, then for each service , there will be a OperationClient instance available in the LTP list. The OperationServer consists of the name, operation key to validate the authorization and the lifecycle state of the service.
+![LayerProtocolTypes](pictures/LayerProtocol.png)  
 
-The client interfaces provide information about the consumed services and their application and transport details.
+The server interfaces provide information about the application itself:  
+- The HttpServer provides the current application name, release number, owner, and the revision history. There will be only one HttpServer instance per application.  
+- The TcpServer represents the current IPv4 address and port of the application. There will be only one TcpServer instance per application.  
+- The services exposed by the application will be represented as OperationServer. If a application exposes four services, then for each service, there will be a OperationServer instance available in the LTP list. The OperationServer consists of the name, operation key to validate the authorization and the lifecycle state of the service.  
 
-- The OperationClient interface provides information about the consumed services. The major property of this interface is the name of the consumed service and the operation key using which we can authorize the service.
-- The HttpClient represents the details of a client application whose APIs are consumed. HttpClient acts as a server to the OperationClient. There is a one-to-many mapping between HttpClient to OperationClient.
-- The TcpClient provides information about the IPv4 address and port at which a client application is running. There is a one-to-one mapping between a HttpClient and a TcpClient.
+The client interfaces provide information about the consumed services, their application and transport details:  
+- The OperationClient interface provides information about the consumed services. The major property of this interface is the name of the consumed service and the operation key using which we can authorize the service.  
+- The HttpClient represents the details of a client application whose APIs are consumed. HttpClient acts as a server to the OperationClient. There is a one-to-many mapping between HttpClient to OperationClient.  
+- The TcpClient stores information about the IPv4 address and port at which a serving application can be reached. There is a one-to-one mapping between a HttpClient and a TcpClient.  
 
-The association between the Tcp, Http and Operation client/server are represented by the properties “ClientLtp” and “ServerLtp”.
+Each LTP is identified by a unique ID (UUID).  
+The clients/server relationships between the Tcp, Http and Operation LTPs are expressed by the “ClientLtp” and “ServerLtp” properties.  
+The “ClientLtp” and “ServerLtp” properties are containing the UUIDs of the respective client or server LTPs.  
 
-![ClientServerRelationships](pictures/clientServerLtp.png)
-
-The LTP uuid’s generic syntax is `<CC-uuid>-[tcp|http|op]-[c|s]- d{4}`. 
-For example , for a TcpServer interface of the Registry Office application , the uuid will be ro-0-0-1-tcp-s-0000.
+![ClientServerRelationships](pictures/clientServerLtp.png)  
