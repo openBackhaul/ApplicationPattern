@@ -9,7 +9,7 @@ To understand the requirement, it is necessary to know in advance the applicatio
   - [ControlConstruct](../../ElementsApplicationPattern/InformationModel/ControlConstruct/ControlConstruct.md) 
   - [LogicalTerminationPoint](../../ElementsApplicationPattern/InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
   - ForwardingDomain: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
-  - [ForwardingConstruct](../../ElementsApplicationPattern/InformationModel/ForwardingConstruct/ForwardindConstruct.md)
+  - [ForwardingConstruct](../../ElementsApplicationPattern/InformationModel/ForwardingConstruct/ForwardingConstruct.md)
 
 ### Understanding the OAS 
 One of the most popular API description languages is OpenAPI (OAS 3, formerly called Swagger).
