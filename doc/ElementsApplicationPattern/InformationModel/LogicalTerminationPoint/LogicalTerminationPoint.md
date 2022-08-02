@@ -22,6 +22,3 @@ The association between the Tcp, Http and Operation client/server are represente
 
 The LTP uuid’s generic syntax is `<CC-uuid>-[tcp|http|op]-[c|s]- d{4}`. 
 For example , for a TcpServer interface of the Registry Office application , the uuid will be ro-0-0-1-tcp-s-0000.
-
-
-[<- Back to ControlConstruct](./ControlConstruct.md) - - - [Up to ForwardingConstruct](./ForwardindConstruct.md)
