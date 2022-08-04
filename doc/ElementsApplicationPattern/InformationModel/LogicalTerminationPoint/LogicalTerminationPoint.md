@@ -20,6 +20,7 @@ The client interfaces provide information about the consumed services, their app
 - The TcpClient stores information about the IPv4 address and port at which a serving application can be reached. There is a one-to-one mapping between a HttpClient and a TcpClient.  
 
 Each LTP is identified by a unique ID (UUID).  
+Exact details on the format of UUIDs can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).  
 The clients/server relationships between the Tcp, Http and Operation LTPs are expressed by the “ClientLtp” and “ServerLtp” properties.  
 The “ClientLtp” and “ServerLtp” properties are containing the UUIDs of the respective client or server LTPs.  
 
