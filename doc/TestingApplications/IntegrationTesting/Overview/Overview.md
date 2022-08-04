@@ -19,8 +19,7 @@ Integration Testing is a finalized testing of software product. Normally softwar
 - Results available
 - Email Notification
 
-<img src="images/IntegrationFlow.jpg"
-style="width:5.70834in;height:1.98958in" />
+![IntegrationFlow](./../Images/IntegrationFlow.PNG)
 
 #### Source stage : 
 Take clone from the github of current testcases

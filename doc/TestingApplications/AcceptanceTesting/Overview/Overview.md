@@ -20,8 +20,7 @@ Once Application deployed and automatically acceptance testing performed.
 - Results available
 - Email Notification
 
-<img src="images/AcceptanceTestingflow.jpg"
-style="width:5.70834in;height:1.98958in" />
+![Accep](../Images/AcceptanceTestingflow.PNG)
 
 #### Source stage : 
 Take clone from the github of current testcases
