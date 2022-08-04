@@ -1,6 +1,39 @@
 # Implementing Applications
-* [Getting Started](GettingStarted/GettingStarted.md)
-* [Documentation of the Implementation of the ApplicationPattern](./ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
-* [General Design Principles](../ElementsApplicationPattern/ElementsApplicationPattern.md)
+- [Getting started](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/GettingStarted/GettingStarted.md)
+  - [Understanding the requirement](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheRequirement.md)
+     - Understanding the Load file
+       - [What is this CONFIGfile ?](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/ConfigFile/ConfigFile.md)
+         - Entities of Load files
+           - [ControlConstruct](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/InformationModel/ControlConstruct/ControlConstruct.md)
+           - [LogicalTerminationPoint](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
+           - ForwardingDomain
+           - [ForwardingConstruct](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/InformationModel/ForwardingConstruct/ForwardingConstruct.md)
+       - Understanding the OAS
+         - [How to get a high-level overview](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheOAS/HighLevelOverview.md)
+         - [Associating specification and load file](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheOAS/AssociatingSpecificationAndLoadFile.md)
+         - [Types of Services](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheOAS/TypesOfServices.md)
+           - Basic concepts
+             - [Request Header](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheOAS/RequestHeader.md)
+           - What are Individual Services ?
+           - What are Basic Services ?
+             - [Basic service](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/UnderstandingTheRequirement/UnderstandingTheOAS/BasicServices.md)
+           - What are OAM services ?
+   - [Implementation and code collaboration](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/ImplementationAndCodeCollaboration.md)
+     - [Development Environmental setup](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/DevelopmentEnvironmentalSetup.md)
+       - Setup
+       - [coding guidelines](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/CodingGuidelines.md)
+     - Application Development
+       - [Code Collaboration](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/CodeCollaboration.md)
+       - [Stub Generation](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/StubGeneration.md)
+       - [Integrating load file](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/IntegratingLoadFile.md)
+       - [Integrating basic services](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/IntegratingBasicServices.md)
+       - [How to model an Individual service](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/HowToModelAnIndividualService.md)
+       - [How to model an OAM service](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ImplementationAndCodeCollaboration/HowToModelAnOAMService.md)
+   - For beginners
+     - [What are Microservices ?](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/Microservice/Microservice.md)
+     - [What is REST?](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/Restful/Restful.md)
+     - [What is an API first approach?](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/ApiFirst/ApiFirst.md)
+- [Documentation of the Implementation of the ApplicationPattern](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
+- [General Design Principles](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/ElementsApplicationPattern.md)
 
-[<- Back to ApplicationPattern](../ElementsApplicationPattern/ElementsApplicationPattern.md) - - - [Up to Main](../Main.md)
+[<- Back to ApplicationPattern](../ElementsApplicationPattern/ElementsApplicationPattern.md) - - - [Up to Getting started ->](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ImplementingApplications/GettingStarted/GettingStarted.md)
