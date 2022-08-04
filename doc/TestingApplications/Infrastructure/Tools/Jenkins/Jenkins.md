@@ -13,32 +13,9 @@ This chapter gives us more understanding about the jenkins used as CI tool in SD
         - Installing it through our Jenkins dashboard
         - Download and install manually
     - Configure master-slave configuration
+* Email Notification configuration
 * List of Jenkins Jobs for this SDN project
-* SDN deployments for ApplicationPattern
-    - Application Deployment in Test Bed
-        - Create pipeline jobs with required configuration
-        - Pipeline Stages
-        - CI/CD Pipeline Flow
-        - Automated pipeline scripts
-        - Verify the applications are up and running
-        - Run the Automation testsuites
-          Acceptance Testing
-            - source stage
-            - Setup to run postman collection file
-            - Run Acceptance test cases
-        - Email Notification
-    - Application Deployment in Production
-        - Create pipeline jobs with required configuration
-        - Pipeline Stages
-        - CI/CD Pipeline Flow
-        - Automated pipeline scripts
-        - Verify the applications are up and running
-        - Run the Automation testsuites
-          Integration Testing
-            - source stage
-            - Setup to run postman collection file
-            - Run Acceptance test cases
-        - Email Notification
+* SDN ApplicationPattern Deployment
 
 
 #### Overview 
@@ -211,6 +188,24 @@ Open Jenkins Dashboard==>Click on Manage Jenkins==>Click on Manage Nodes and Clo
 
 The complete set up is ready in current SDN controller application testing.
 
+### Email Notification configuration
+To get Notified us about the build status and testing results to the team, jenkins provided email feature. We can configure this to all jobs.
+![emailnotification](images/Mailnotification.png)
+
+Jenkins has a service of Email
+Notifications to handle below situations.
+
+* If the build is not successful then the team of developers is notified about the status of the build. This can be done with the help of an Email plugin in Jenkins. 
+
+* Using the email plugin, can configure the email details of the responsible person who should be notified in case of build failure.
+
+* Once the developer is notified about the error, he then fixes it and again commits the code to GitHub. After this Jenkins again pulls the code from GitHub and prepares a fresh build.
+
+Similarly, Jenkins can solve the problem of the application going down after the release, by notifying the concerned team, via email.
+
+### example email:
+![email](images/emailexample.png)
+
 ### List of Jenkins Jobs for this SDN project
 
 - PollSCM trigger jobs for auto builds whenever new commit merged in remote repositories
@@ -221,132 +216,4 @@ The complete set up is ready in current SDN controller application testing.
 - Acceptance testing jobs for GitHub applications 
 - Integrations testing jobs for GitHub applications 
 
-### SDN deployments for ApplicationPattern
-
-We have two environments and Here found different processes to deploy the applications in test bed and production.
-
-   1. Application Deployment in Test Bed
-   2. Application Deployment in Production: 
-
-Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tree/develop/doc/TestingApplications/Infrastructure/Tools) should installed and available Java, docker, Jenkins setup, Nodejs, NPM, Newman, Newman reporter htmlextra package and GIT. Then only a successful pipeline deployment and testing is done in both testbed and production environment.
-
- #### Application Deployment in Test Bed
-
-#### Automated Pipeline Steps
-- Create pipeline jobs with required configuration
-- Pipeline Stages 
-- CI/CD Pipeline Flow
-- Declarative pipeline script
-- Verify the applications are up and running
-- Run the Automation testsuites
- 
-##### Create pipeline jobs with all necessary configurations
-- Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitering the pipeline 
-- Then develop and add the pipeline script to current pipeline job
-- Apply and save the configurations
-
-##### Pipeline Stages
-        
-- Source stage 
-- Docker build stage 
-- Publish Docker image 
-- Deploy application as a container.(TestLab) 
-- Save docker image in local server.
-- Testing stage(Acceptance tests in TestLab and Integration tests in Production) 
-- Approve build for production if everything ok in testing stage 
-
-##### CI/CD Pipeline Flow
-   
-![cicdflow](images/cicdflow.jpg)
-
-##### Application deployment using pipeline scripts
-
-In testbed, should follow all stages like clone, build, deploy and test the applications.   Once everything is fine, we will save the docker imageas tar file format in WebApp server.
-
-Pipeline Configuration : 
-        
-    pipeline {
-      stage ('source stage') - clone the repository in this stage
-      stage ('setup and image build') - clean the old container and build new image
-      stage('Run Docker container') - expose the port and run the container from image
-      stage('save Docker image') - save the docker images
-    }
-    
- ##### Verify the applications are up and running
-Once pipeline script executed and the applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers. Go to the browser and check with the Ip address with port XXXx port mentioned in docker file.
-Verify the application swagger is up and running.
-
-    http://<serverIp>:<port>/docs/
-    ex: http://125.4.5.11:1234/docs/
-
-![RO](images/Ro.png) 
-
-##### Run the Automation testsuites 
-Automation testsuites running once after the application deployment.
- - [Acceptance Testing](../../../AcceptanceTesting/Overview/Overview.md)
-
-#### Application Deployment in Production: 
-Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
-      
-Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containization tool and deploy the applications.
-
-#### Pipeline configuration:
-Here how we configure Pipeline job in testbed environment, in the same way we have to configure and install all necessary tools in Jenkins server of production.
-
-#### Automated Pipeline Steps
-- Create pipeline jobs with required configuration
-- Pipeline Stages 
-- CI/CD Pipeline Flow
-- Declarative pipeline script
-- Verify the applications are up and running
-- Run the Automation testsuites
- 
-##### Create pipeline jobs with required configuration
-- Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitering the pipeline 
-- Then develop and add the pipeline script to current pipeline job
-- Apply and save the configurations
-
-##### Pipeline Stages 
-- Take the copy of image into production server.
-- Load the released docker image
-- Run Docker container using image
-- Testing stage(Integration tests in Production) 
-##### CI/CD Pipeline Flow
-![pipeline](./Images/cicdflow.jpg)
-
-##### Automated pipeline scripts
-**Manual : Copy tar file into server**
-
-##### Pipeline Configuration  
-Basic scripting is provided and based on requirements we can use groovy scripts to write the pipeline scripts. Basic format provided here and required scripts and steps added as per requirement.
-
-    pipeline {
-      stage ('load the docker image'){
-      load the image using docker load command
-      } 
-      stage ('Run Docker container using image') {
-      create container from image using docker run command
-      }
-      stage ('notification') {
-         send email with all details
-         }
-    }
-    
- #### Verify the applications are up and running
-   
-Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers and Go to the browser and check with the Ip address with port XXXx port mentioned in docker file. Verify the application swagger is up and running.
-    
-    http://<serverIp>:<port>/docs/
-    ex: http://10.0.2.4:1234/docs/
-
-![RO](images/ro.png) 
-
-#### Run the Automation testsuites 
-Automation testsuites running imediately after the application deployment.Integration Testing run in production/preprod environment 
-
- - [Integration Testing](../../../IntegrationTesting/Overview/Overview.md)
- 
- ### Summary: 
- With the dockrized jenkins solution , continous integration and continuos delivery/deploy happening in current SDN environment.
+### [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/Overview.md)

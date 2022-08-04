@@ -40,3 +40,7 @@ Take clone from the github of current testcases
 As part of pipeline configuration once setup and run the test suites, we can also configure the workspace. Means after executing the suites, the results are available in a server path of **/var/lib/jenkins/workspace/RO_Testcases/newman**
     
     http://serverip:port/view/Applications/job/Registry_Office/2/
+
+#### Email Notification
+
+Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
