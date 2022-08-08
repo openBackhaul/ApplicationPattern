@@ -155,7 +155,7 @@ In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenki
 
 ![Jenkinsplugins](Images/availableplugin.png)
 
-* The "Available" tab gives a list of plugins which are available for downloading. In the Filter tab type, type the "Git Plugin". select the plugin and Click on the "install without restart". 
+* The "Available" tab show us a list of plugins which are available for downloading. In Filter tab and enter the "Git Plugin" and select the plugin and Click on the "install without restart". 
 We can also click on "Download now and install after restart" button in which the git plugin is installed after restart.
 
 ![Jenkinsrestsrt](Images/install%20without%20restart.jpg)
