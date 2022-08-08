@@ -42,3 +42,6 @@ git add <filenames> |staged/add the changes |
 Reference:
 
 *[Refer this link to know more about commands](https://docs.github.com/en/get-started/using-git/about-git )
+
+
+[<- Back to Docker](../Docker/Docker.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Jenkins](../Jenkins/Jenkins.md)
