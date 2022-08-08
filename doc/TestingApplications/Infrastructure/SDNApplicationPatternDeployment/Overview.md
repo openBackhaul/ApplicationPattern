@@ -26,7 +26,7 @@
 ### Overview:
 Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
 
-![AllApplications](Images/Applications.png)
+![Overview](Images/sdn%20application%20deployment.PNG)
 
 To test the application pattern we are using the CI/CD methodology which includes continuous integration and continuous delivery/continuous deployment. CI means the name itself explains us, developer makes the changes continuosly and do continous build, tests until requirement fullfilled, CI will make this process easier and it automatically integrates the changes into current repository and test the applications. CD is like continuous delivery/continuous deployment an automated delivery process which includes testing and delivery the SW. Once everything is fine in automation testing, continous deployments perfomed in production environments.
 
@@ -136,8 +136,6 @@ Here how we configure Pipeline job in testbed environment, in the same way we ha
 - Load the released docker image
 - Run Docker container using image
 - Testing stage(Integration tests in Production) 
-##### CI/CD Pipeline Flow
-![pipeline](./Images/cicdflow.jpg)
 
 ##### Automated pipeline scripts
 **Manual : Copy tar file into server**
@@ -166,10 +164,15 @@ Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed usi
 
 ![RO](Images/ro.png) 
 
+Example structure of Applications deployed on docker engine:
+
+![Allapplications in siglepage](Images/AllApplicationsexample.PNG)
+
 #### Run the Automation testsuites 
 Automation testsuites running imediately after the application deployment.Integration Testing run in production/preprod environment 
 
  - [Integration Testing](../../../IntegrationTesting/Overview/Overview.md)
+
  
 #### Email Notification
 
