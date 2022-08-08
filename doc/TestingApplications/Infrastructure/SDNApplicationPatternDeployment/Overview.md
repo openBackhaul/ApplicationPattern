@@ -81,7 +81,7 @@ Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tr
 
 #### CI/CD Pipeline Flow
    
-![cicdflow](images/cicdflow.jpg)
+![cicdflow](Images/cicdflow.jpg)
 
 #### Automated pipeline scripts
 
@@ -103,7 +103,7 @@ Verify the application swagger is up and running.
     http://<serverIp>:<port>/docs/
     ex: http://125.4.5.11:1234/docs/
 
-![RO](images/Ro.png) 
+![RO](Images/Ro.png) 
 
 #### Run the Automation testsuites 
 Automation testsuites running once after the application deployment.
