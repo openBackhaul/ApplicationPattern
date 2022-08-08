@@ -164,7 +164,7 @@ Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed usi
     http://<serverIp>:<port>/docs/
     ex: http://10.0.2.4:1234/docs/
 
-![RO](images/ro.png) 
+![RO](Images/ro.png) 
 
 #### Run the Automation testsuites 
 Automation testsuites running imediately after the application deployment.Integration Testing run in production/preprod environment 
