@@ -1,0 +1,68 @@
+profile-instances:
+
+  - profile-name: 'ActionProfile'
+    uuid: '*-action-p-1000' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
+    capability:
+      operation-name: '/v1/start-application-in-generic-representation'
+      label: 'Inform about Application'
+      display-in-new-browser-window: false
+    configuration:
+      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-2002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+
+  - profile-name: 'ActionProfile'
+    uuid: '*-action-p-1001' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      label: 'Release History'
+      display-in-new-browser-window: false
+    configuration:
+      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port][/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-op-s-2004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+
+  - profile-name: 'ActionProfile'
+    uuid: '*-action-p-1002' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      label: 'API Documentation'
+      display-in-new-browser-window: true
+    configuration:
+      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-0-0-1-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]/docs'
+
+  - profile-name: 'ActionProfile'
+    uuid: '*-action-p-10??' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ?? by SequenceNumber
+    capability:
+      operation-name: ## TODO: Add generic representation operation that shall result in a new button and potentially new input fields
+      label: ## TODO: Add label of the new button
+      input-value-list:
+        - field-name: ## TODO: Potentially add label of a field for providing input to the request that gets called by pushing the button
+          unit: ## TODO: Potentially add unit that shall be represented aside the input field
+        ## TODO: Potentially add further input fields
+      display-in-new-browser-window: ## TODO: Set on true, if result of pushing the button has to be represented in a new browser window
+    configuration:
+      request: ## TODO: Add URL that shall be addressed, as soon as button gets pushed
+
+  ## TODO: Potentially add further instances of ActionProfile
+
+
+  - profile-name: 'IntegerProfile'
+    uuid: '*-integer-p-10??' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ?? by SequenceNumber
+    capability:
+      integer-name: ## TODO: Add name of the Integer attribute
+      unit: ## TODO: Potentially add unit of the Integer attribute
+      minimum: ## TODO: Potentially add minimum value that is to be accepted, while configuration
+      maximum: ## TODO: Potentially add maximum value that is to be accepted, while configuration
+    configuration:
+      integer-value: ## TODO: Add current value of the attribute
+
+  ## TODO: Potentially add further instances of IntegerProfile
+
+
+  - profile-name: 'StringProfile'
+    uuid: '*-string-p-10??' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ?? by SequenceNumber
+    capability:
+      string-name: ## TODO: Add name of the String attribute
+      enumeration: ## TODO: Potentially add a set of allowed values in cornered brackets
+      pattern: ## TODO: Potentially add a regex for validating configuration values
+    configuration:
+      string-value: ## TODO: Add current value of the attribute
+
+  ## TODO: Potentially add further instances of StringProfile

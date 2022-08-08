@@ -81,7 +81,7 @@ forwardings:
         uuid: op-s-2004
       - server-name: /v1/start-application-in-generic-representation
         uuid: op-s-3000
-      ## All service requests to be complemented
+      ## TODO: All service requests to be complemented
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
         uuid: op-c-0040
@@ -120,13 +120,13 @@ forwardings:
       - client-name: AdministratorAdministration://v1/approve-oam-request
         uuid: op-c-0060
 
-## Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
+## TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
 
-## Forwardings for transferring data to NewRelease
+## TODO: Add Forwardings for transferring data to NewRelease
 
-## Forwardings for creating INDIVIDUAL subscriptions to NewRelease
+## TODO: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease
 
-## Forwardings for ending INDIVIDUAL subscriptions to OldRelease
+## TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
     uuid: op-fc-0105
@@ -237,7 +237,7 @@ forwardings:
         uuid: op-s-0011
       - server-name: /v1/bequeath-your-data-and-die
         uuid: op-s-1000
-      ## All INDIVIDUAL service requests, which are updating an LTP, to be complemented
+      ## TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
         uuid: op-c-0071
@@ -255,7 +255,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## All INDIVIDUAL service requests, which are deleting an LTP, to be complemented
+      ## TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
         uuid: op-c-0072
@@ -273,7 +273,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## All INDIVIDUAL service requests, which are updating an FC, to be complemented
+      ## TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
         uuid: op-c-0073
@@ -291,7 +291,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented
+      ## TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
         uuid: op-c-0074
@@ -311,7 +311,7 @@ forwardings:
     initiating-requests:
       - server-name: /v1/end-subscription
         uuid: op-s-0004
-      ## All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented
+      ## TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: op-c-0075
@@ -401,4 +401,4 @@ forwardings:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: op-c-0075
 
-  ## INDIVIDUAL Forwardings
+  ## TODO: Potential INDIVIDUAL Forwardings to be added

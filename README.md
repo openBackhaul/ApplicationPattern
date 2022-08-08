@@ -3,13 +3,14 @@
 - Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
 
 ### Documentation
-- to be provided
+- [ApplicationPattern Guidelines](./doc/Main.md)
 
 ### Services
 - [ApplicationPattern+services](./ApplicationPattern+services.yaml)
 
 ### Profiles
 - [ApplicationPattern+profiles](./ApplicationPattern+profiles.yaml)
+- [ApplicationPattern+profileInstances](./ApplicationPattern+profileInstances.yaml)
 
 ### Forwardings
 - [ApplicationPattern+forwardings](./ApplicationPattern+forwardings.yaml)
@@ -17,14 +18,14 @@
 ### Open API specification (Swagger)
 - [ApplicationPattern](./ApplicationPattern.yaml)
 
-### Load File (JSON)
+### CONFIGfile (JSON)
 - [ApplicationPattern+data](./ApplicationPattern+data.json)
 
 ### Test Cases (Postman Export)
 - to be provided
 
 ### NodeJS Implementation
-- to be provided
+- [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
 
 ### Publication
 - No official publication planned
@@ -36,3 +37,4 @@
 - [ApplicationPattern/issues](../../issues)
 
 ### Comments
+./.

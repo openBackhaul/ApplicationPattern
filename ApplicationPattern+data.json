@@ -831,7 +831,7 @@
 									"operation-client-interface-configuration": {
 										"operation-name": "/v1/record-service-request",
 										"operation-key": "Operation key not yet provided.",
-										"detailed-logging-is-on": "false"
+										"detailed-logging-is-on": false
 									},
 									"operation-client-interface-status": {
 										"operational-state": "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
