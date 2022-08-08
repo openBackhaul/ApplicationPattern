@@ -1,6 +1,6 @@
-# Jenkins
+## Jenkins
 
-**Concepts**
+## Concepts
 This chapter gives us more understanding about the jenkins used as CI tool in SDN Application Pattern.
 * Overview
 * Why jenkins as CI tool
@@ -18,11 +18,11 @@ This chapter gives us more understanding about the jenkins used as CI tool in SD
 * SDN ApplicationPattern Deployment
 
 
-#### Overview 
+### Overview 
 Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It is used to implement CI/CD workflows, called pipelines.
-#### Why jenkins as CI tool
+### Why jenkins as CI tool
 Jenkins is a software that allows continuous integration. Jenkins will be installed on a server where the central build will take place. It will be used to build, test and deploy the software projects continuosly which makes easier to developers to deliver the Software modules.
-#### workflow: 
+### workflow: 
 Here's how Jenkins elements are put together and interact.
 
 - Developers commit the changes into repository 
@@ -145,27 +145,27 @@ For example now we are trying to integrate the git plugin in jenkins and find th
 
 In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenkins option on the left hand side of the screen.
 
-![JenkinsHome](images/jenkins_home.png)
+![JenkinsHome](Images/jenkins_home.png)
 
 * click on the Manage Plugins option.
 
-![JenkinsPlugins](images/clickmanageplugins.png)
+![JenkinsPlugins](Images/clickmanageplugins.png)
 
 * click on the "Available tab".
 
-![Jenkinsplugins](images/availableplugin.png)
+![Jenkinsplugins](Images/availableplugin.png)
 
 * The "Available" tab gives a list of plugins which are available for downloading. In the Filter tab type, type the "Git Plugin". select the plugin and Click on the "install without restart". 
 We can also click on "Download now and install after restart" button in which the git plugin is installed after restart.
 
-![Jenkinsrestsrt](images/install%20without%20restart.jpg)
+![Jenkinsrestsrt](Images/install%20without%20restart.jpg)
 
 
-![InstallPage](images/installingimage.jpg)
+![InstallPage](Images/installingimage.jpg)
 
 * To check Git plugin installed then go to "Installed" tab and check.
 
-![InstallPage](images/Gitplugin.png)
+![InstallPage](Images/Gitplugin.png)
 
 The procedure is same for all other required plugin installation.
 
@@ -178,7 +178,7 @@ If any plugins we required to upgrade or downgrade first, we download plugins fr
 
 To upload plugins to Jenkins Goto, Manage Jenkins==>manage plugins==> under advance section ==>under deploy plugin click on choose file then upload earlier download plugin.
 
-![deployimage](images/deployplugin.png)
+![deployimage](Images/deployplugin.png)
 
 ### Configure master-slave configuration for deploying application 
 
@@ -190,7 +190,7 @@ The complete set up is ready in current SDN controller application testing.
 
 ### Email Notification configuration
 To get Notified us about the build status and testing results to the team, jenkins provided email feature. We can configure this to all jobs.
-![emailnotification](images/Mailnotification.png)
+![emailnotification](Images/Mailnotification.png)
 
 Jenkins has a service of Email
 Notifications to handle below situations.
@@ -204,7 +204,7 @@ Notifications to handle below situations.
 Similarly, Jenkins can solve the problem of the application going down after the release, by notifying the concerned team, via email.
 
 ### example email:
-![email](images/emailexample.png)
+![email](Images/emailexample.png)
 
 ### List of Jenkins Jobs for this SDN project
 
@@ -216,4 +216,5 @@ Similarly, Jenkins can solve the problem of the application going down after the
 - Acceptance testing jobs for GitHub applications 
 - Integrations testing jobs for GitHub applications 
 
-### [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/Overview.md)
+### SDN ApplicationPattern Deployment
+Please refer this to understand more about how we deploy the applications using this CICD flow ( [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/Overview.md) )

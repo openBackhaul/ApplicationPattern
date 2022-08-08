@@ -1,18 +1,10 @@
-# Git, Github and Plug-ins
+## Git, Github and Plug-ins
 
-**Concepts**
-
-TODO: Please, describe the general targets, concepts, principles and rules for applying Git, Github and Plug-ins in the Microwave SDN Laboratory.
-Please, regard and (if possible and reasonable) reference existing documentation from the [Preparation](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/PreparingSpecifying/PreparingSpecifying.md) sections.
-Please, be frugal with picture and graphics that might out-date soon.
-
-
-### Git,GitHub and plugins
-
-### Table of contents
+## Concepts
 * Overview
 * More about git,github 
 * Usefull Command line commands
+* Reference
 
 #### Overview
 Git is a free and open source distributed version control system and easy to learn. Github is used more efficiently to manage git repositories on centralized server. 
@@ -30,7 +22,7 @@ Git makes it easy to use by users:
 
 #### Command line git commands:
 
-|Commands &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| description|
+|Commands | description|
 |---------|-------------|
 |git clone <RepositoryURL> | copy a remote repository into local machine|
 |git pull | get the changes made in remote repository by the team members|
@@ -47,6 +39,6 @@ git add <filenames> |staged/add the changes |
 |git log | get the details about commits that made on branch/repository|
 
 
-Reference link:
+Reference:
 
 *[Refer this link to know more about commands](https://docs.github.com/en/get-started/using-git/about-git )

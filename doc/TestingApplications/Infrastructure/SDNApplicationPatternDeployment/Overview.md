@@ -1,35 +1,59 @@
-### SDN deployments for ApplicationPattern
+## SDN deployments for ApplicationPattern
 
 **Concepts**
-* SDN deployments for ApplicationPattern
-    - Application Deployment in Test Bed
-        - Create pipeline jobs with required configuration
-        - Pipeline Stages
-        - CI/CD Pipeline Flow
-        - Automated pipeline scripts
-        - Verify the applications are up and running
-        - Run the Automation testsuites
-          - Acceptance Testing
-        - Email Notification
-    - Application Deployment in Production
-        - Create pipeline jobs with required configuration
-        - Pipeline Stages
-        - CI/CD Pipeline Flow
-        - Automated pipeline scripts
-        - Verify the applications are up and running
-        - Run the Automation testsuites
-          - Integration Testing
-        - Email Notification
 
-### SDN deployments for ApplicationPattern
+- Overview
+- Application Deployment in Test Bed
+    - Create pipeline jobs with required configuration
+    - Pipeline Stages
+    - CI/CD Pipeline Flow
+    - Automated pipeline scripts
+    - Verify the applications are up and running
+    - Run the Automation testsuites
+      - Acceptance Testing
+    - Email Notification
+- Application Deployment in Production
+  - Create pipeline jobs with required configuration
+  - Pipeline Stages
+  - CI/CD Pipeline Flow
+  - Automated pipeline scripts
+  - Verify the applications are up and running
+  - Run the Automation testsuites
+    - Integration Testing
+  - Email Notification
+
+## SDN deployments for ApplicationPattern
+### Overview:
+Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
+
+![AllApplications](Images/Applications.png)
+
+To test the application pattern we are using the CI/CD methodology which includes continuous integration and continuous delivery/continuous deployment. CI means the name itself explains us, developer makes the changes continuosly and do continous build, tests until requirement fullfilled, CI will make this process easier and it automatically integrates the changes into current repository and test the applications. CD is like continuous delivery/continuous deployment an automated delivery process which includes testing and delivery the SW. Once everything is fine in automation testing, continous deployments perfomed in production environments.
+
+To Achieve the automated testing and delivery process we required SDN pipeline dockerized environment setup using mentioned tools and further concepts gives us how NodeJS applications deploy as a container through Jenkins and running automated test suites for every commit in GitHub develop branch.
+
 We have two environments and Here found different processes to deploy the applications in test bed and production.
 
    1. Application Deployment in Test Bed
-   2. Application Deployment in Production: 
+   2. Application Deployment in Production:
+
+In current setup, we are using two servers one for jenkins and another used for application deployments.
+
+**[GitHub](../Tools/Git/Git.md)** :  used as Source code management versioning tool
+
+**[Jenkins](../Tools/Jenkins/Jenkins.md)** :  used as CI tool 
+
+**[Docker](../Tools/Docker/Docker.md)** :  used for deploying an application which involves application clone, build images and deploy as a container.
+
+**[DockerVolume](../Tools/Docker/Docker.md)** : used to achieve applications Data Persistence storage 
+
+**[Newman and htmlextra reporter](../Tools/Newman/Newman.md)**:  used for running the automated testing process for every applications
+
+**[Highavailability](../Tools/Scripts/Scripts.md)** : used to moniter applications status
 
 Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tree/develop/doc/TestingApplications/Infrastructure/Tools) should installed and available Java, docker, Jenkins setup, Nodejs, NPM, Newman, Newman reporter htmlextra package and GIT. Then only a successful pipeline deployment and testing is done in both testbed and production environment.
 
- #### Application Deployment in Test Bed
+### Application Deployment in Test Bed
 
 #### Automated Pipeline Steps
 - Create pipeline jobs with required configuration
@@ -39,13 +63,13 @@ Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tr
 - Verify the applications are up and running
 - Run the Automation testsuites
  
-##### Create pipeline jobs with all necessary configurations
+#### Create pipeline jobs with all necessary configurations
 - Goto DashBoard and select and create new item with pipeline job
 - Once job created and Configure the job with all details that required like PollSCM time interval to perform monitering the pipeline 
 - Then develop and add the pipeline script to current pipeline job
 - Apply and save the configurations
 
-##### Pipeline Stages
+#### Pipeline Stages
         
 - Source stage 
 - Docker build stage 
@@ -55,11 +79,11 @@ Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tr
 - Testing stage(Acceptance tests in TestLab and Integration tests in Production) 
 - Approve build for production if everything ok in testing stage 
 
-##### CI/CD Pipeline Flow
+#### CI/CD Pipeline Flow
    
 ![cicdflow](images/cicdflow.jpg)
 
-##### Application deployment using pipeline scripts
+#### Automated pipeline scripts
 
 In testbed, should follow all stages like clone, build, deploy and test the applications.   Once everything is fine, we will save the docker imageas tar file format in WebApp server.
 
@@ -72,7 +96,7 @@ Pipeline Configuration :
       stage('save Docker image') - save the docker images
     }
     
- ##### Verify the applications are up and running
+#### Verify the applications are up and running
 Once pipeline script executed and the applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers. Go to the browser and check with the Ip address with port XXXx port mentioned in docker file.
 Verify the application swagger is up and running.
 
@@ -81,11 +105,11 @@ Verify the application swagger is up and running.
 
 ![RO](images/Ro.png) 
 
-##### Run the Automation testsuites 
+#### Run the Automation testsuites 
 Automation testsuites running once after the application deployment.
  - [Acceptance Testing](../../../AcceptanceTesting/Overview/Overview.md)
 
-#### Application Deployment in Production: 
+### Application Deployment in Production: 
 Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
       
 Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containization tool and deploy the applications.
@@ -133,7 +157,7 @@ Basic scripting is provided and based on requirements we can use groovy scripts 
          }
     }
     
- #### Verify the applications are up and running
+#### Verify the applications are up and running
    
 Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers and Go to the browser and check with the Ip address with port XXXx port mentioned in docker file. Verify the application swagger is up and running.
     
@@ -151,5 +175,5 @@ Automation testsuites running imediately after the application deployment.Integr
 
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
  
- ### Summary: 
+### Summary: 
  With the dockrized jenkins solution , continous integration and continuos delivery/deploy happening in current SDN environment.

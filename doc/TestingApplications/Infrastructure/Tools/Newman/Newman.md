@@ -1,11 +1,6 @@
-# Newman and Packages
-
-
-TODO: Please, describe the general targets, concepts, principles and rules for applying Newman and its packages in the Microwave SDN Laboratory.
-Please, be frugal with picture and graphics that might out-date soon.
-
-#### Newman packages and Newman reporter htmlextra package
-#### Table of contents
+## Newman and Packages
+### Newman packages and Newman reporter htmlextra package
+### Concepts
 * Overview
 * Installation
     - Prerequisites
@@ -54,7 +49,7 @@ The newman run command allows you to specify a collection to be run. we can easi
 
     $ newman run examples/sample-collection.json -d data.json
 
-#### Basic options
+##### Basic options
 newman -h, --help	Output usage information
 
 newman -v, --version	Output the version number
@@ -66,9 +61,13 @@ Based on requirement, add the options to newman and run the collections.
 References:
 
 * [NodeJsinstallation on Redhat](https://linuxconfig.org/how-to-install-node-js-on-redhat-8-linux)
-*[NPM installation](https://linuxconfig.org/how-to-install-npm-on-redhat-8)
-*[NodeJs installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
-*[Newman installation](https://www.npmjs.com/package/newman)
-*[Newman-reporter-htmlextra](https://www.npmjs.com/package/newman-reporter-htmlextra)
+
+* [NPM installation](https://linuxconfig.org/how-to-install-npm-on-redhat-8)
+
+* [NodeJs installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
+
+* [Newman installation](https://www.npmjs.com/package/newman)
+
+* [Newman-reporter-htmlextra](https://www.npmjs.com/package/newman-reporter-htmlextra)
 
     

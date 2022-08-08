@@ -1,6 +1,6 @@
-# Docker
+## Docker
 
-# Table of contents
+## Table of contents
 
    * Overview
    * Advantages of Docker
@@ -8,7 +8,6 @@
         - Docker Images
         - Docker file
         - Docker conatiner
-    
    * Install docker
    * Docker Usefull commands
    * Docker Volumes
@@ -16,14 +15,11 @@
         - Data persistance achieved with docker volumes
         - Docker Volume commands
    * Reference links
-   
-TODO: Please, describe the general targets, concepts, principles and rules for applying Docker in the Microwave SDN Laboratory.
-Please, be frugal with picture and graphics that might out-date soon.
 
-#### Overview 
+### Overview 
   Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. it is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker containization is very friendly in building and deploying the applications and below are advantages over docker.
 
-#### Advantages of Docker : 
+### Advantages of Docker : 
 * lighter weight process
 * Easy and faster configuration
 * Infrastructure independent
@@ -31,15 +27,15 @@ Please, be frugal with picture and graphics that might out-date soon.
 * Container versioning
 * Container reuse
    
-![Introduction](image.png)
+![Introduction](./Images/Dockerbasic1.png)
 
-#### Docker objects :
+### Docker objects :
 
-###### DockerImage: 
+#### DockerImage: 
 A Docker Image is a read-only file with a bunch of instructions. When these instructions are executed, it creates a Docker container.
-###### DockerFile: 
+#### DockerFile: 
 Dockerfile is a simple text file that consists of instructions to build Docker images. DockerFile automates the process of Docker image creation.
-###### Docker container: 
+#### Docker container: 
 A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
 #### Install Docker :  
@@ -89,12 +85,12 @@ Start docker service and check the status using below commands for ubuntu and rh
 |docker volume |  Manage volumes| 
 
 
-#### Docker Volumes
-##### Overview
+### Docker Volumes
+#### Overview
 
 The Docker interface is simple and users can easily create and implement applications into their containers or carry out version management, copy, share, and modify, just like managing ordinary code. However, containers often need to use data beyond their container or share data between containers. to achieve this we need the data persistance with all across applicationpattern.
 
-##### Data persistance achieved with docker volumes 
+#### Data persistance achieved with docker volumes 
 Docker volumes is a better solution is to work with persistent data in a container where data should be backed up and shared.
 
 By using volumes  we will not lose the data stored and even if we restart/crashes the conatiners data lost will not happen. Docker volumes are dependent on Docker’s file system and are the preferred method of persisting data for Docker containers and services. When a container is started, Docker loads the read-only image layer, adds a read-write layer on top of the image stack, and mounts volumes onto the container filesystem.
@@ -113,7 +109,9 @@ By using volumes  we will not lose the data stored and even if we restart/crashe
 
 To create and deploy the containers in a docker engine , we are following the procedure as below.
 
-![SDN dockerized Application Pattern](image.png)
+Please find the example flow below:
+
+![SDNApplications](Images/NewDockertynyapplicationpattern.PNG)
 
 ##### Prerequisite :
 ###### Context :
@@ -140,11 +138,8 @@ While running the applications as container, the created volumes will be maintai
         sudo docker run -d -p <port>:<port> --name <imagename> -v <volumename>:<pathtomount><localmountedpath>
         ex : sudo docker run -d -p <1234>:<1234> --name registry-office-image -v registry-office:/home/openbackhaul/registryOffice/database /home/registry-office
         
-![container run](image.png)
-
-
-
-
+#### Dockerized SDN Application 
+![SDN dockerized Application Pattern](Images/exmpleROdockerimage.PNG)
 
 
 #### Reference links :
