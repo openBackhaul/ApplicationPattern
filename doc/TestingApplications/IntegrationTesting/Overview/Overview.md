@@ -44,4 +44,4 @@ As part of pipeline configuration once setup and run the test suites, we can als
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
 
-[<- Back to AcceptanceTesting](../../AcceptanceTesting/Overview/Overview.md) - - - [Back to Testing Applications](../../../TestingApplications.md)
+[<- Back to AcceptanceTesting](../../AcceptanceTesting/Overview/Overview.md) - - - [Back to Testing Applications](../../TestingApplications.md)

@@ -162,7 +162,7 @@ Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed usi
     http://<serverIp>:<port>/docs/
     ex: http://10.0.2.4:1234/docs/
 
-![RO](Images/ro.png) 
+![RO](Images/Ro.png) 
 
 Example structure of Applications deployed on docker engine:
 
