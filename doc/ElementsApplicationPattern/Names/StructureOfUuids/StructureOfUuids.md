@@ -7,18 +7,17 @@ Harmonizing UUIDs across all applications helps reading and navigating through t
 
 
 **UUIDs are composed from the following information:**  
-[ApplicationID]-[ReleaseNumber]-[LayerID]-[ObjectType]-[ApiSegment][ApplicationNumber][SequenceNumber]  
 
-**ApplicationID**  
-Official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar).  
-(Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
+![UUID Structure](./pictures/uuid-structure.png)
+
+**OwnApplicationID**  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
+It is composed from the official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar) and the official release number of the specification of the application that contains the data object, dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1).  
+A hyphen is also used between abbreviation of the application name and release number.  
+Examples: ro-1-0-0, tar-1-0-1
 
-**ReleaseNumber**  
-Official release number of the specification of the application that contains the data object.  
-Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1).  
-
-If someone would find it more convinient, UUIDs in ServiceList and ForwardingList could abstract ApplicationID and ReleaseNumber, but latest OAS, CONFIGfile and test cases must contain complete UUIDs.
+(Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
+If someone would find it more convinient, - UUIDs could be abstracted from OwnApplicationID inside ServiceList and ForwardingList, but OAS, CONFIGfile and test cases must contain the complete UUIDs.  
 
 **LayerID**  
 Currently the following layers are defined:  
@@ -28,9 +27,9 @@ Currently the following layers are defined:
 - meth = Method  
 - prot = Protocol  
 
-If the ObjectType identifies an instance of a Profile (p), the LayerID is used for identifying the type of Profile.  
+If the ObjectType identifies an instance of Profile (p), the LayerID is used for identifying the type of Profile.  
 In principle, the ApplicationOwner is free in defining Profiles and choosing the LayerID, because instances of Profile just exist within the application itself.  
-If an already existing Profile definition is re-used, it is recommended to re-use the same LayerID, too.  
+If an already existing Profile definition would be re-used, would be recommended to re-use the same LayerID, too.  
 The following LayerIDs are already in use for Profiles:  
 - integer = For storing a single Integer  
 - string = For storing a single String  
@@ -45,56 +44,37 @@ Within the respective layers the following types of objects are defined:
 - link = Link (actual forwarding outside applications)  
 - p = Profile  
 
-_The consequence definitions for ApiSegment, ApplicationNumber and SequenceNumber apply for Clients, Servers and Profiles._  
-_Similar rules for ForwardingDomain, ForwardingConstruct and Link will be added during writing the guidelines for elaborating the ForwardingList._  
-
 **ApiSegment**  
 The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
 - Own Management vs. Offered Services  
 - Basic to all applications vs. Individual to this application  
 
 This results in four categories:  
-- 0 = Management, which is available at this application, but all other applications, too  
-- 1 = Management, which is individual to this application  
-- 2 = Services, which have to be provided by all applications  
-- 3 = Services, which are individual to this application  
+- bm = Basic Management, which is available at this application, but all other applications, too  
+- im = Individual Management, which is individual to this application  
+- bs = Basic Services, which have to be provided by all applications  
+- is = Individual Services, which are individual to this application  
 
-(Now, it's clear why (almost) all numbers within the UUIDs inside the ApplicationPattern are starting either with 0 or 2.)  
+(Now, it's clear why (almost) all UUIDs inside the ApplicationPattern are containing either bm or bs.)  
+UUIDs of Profile, ForwardingDomain and Link don't identify an ApiSegment.  
 
-Profiles always relate to Management, which is individual to this application (1).  
-
-**ApplicationNumber**  
-This application identifier relates to the application that is connected by the described interface object.  
-Counting is hexadecimal.  
-
-If the ObjectType indicates a server (s) or a Profile (p):  
-- 0 = The ApplicationNumber can just relate to the application itself.  
-
-If the ObjectType indicates a client (c), the ApplicationNumber identifies a client to connect to the following application:  
-- 00 = OldRelease of the same application  
-- 01 = NewRelease of the same application  
-- 02 = RegistryOffice  
-- 03 = TypeApprovalRegister  
-- 04 = ExecutionAndTraceLog  
-- 05 = OamLog  
-- 06 = AdministratorAdministration  
-- 07 = ApplicationLayerTopology  
-- 08 = OperationKeyManagement  
-- 09 - 2f = _reserved for further applications of the TinyApplicationController_  
-- 30 = CurrentController  
-- 31 = MicroWaveDeviceInventory  
-- 32 - ff = _future applications_  
+**TargetApplicationID**  
+This application identifier relates to the application that is connected by the described client interface object.  
+It is exclusively used with ObjectType c (Client).  
+It is composed from the official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar) and the official release number of the specification of the application that is connected by the described client interface object.  
+Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1) inside the release number.  
+A hyphen also to be used between abbreviation of the application name and release number.  
 
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
-Counting is hexadecimal.  
-If the ObjectType indicates a server (s) or a Profile (p), the SequenceNumber has two digits.  
-If the ObjectType indicates a client (c), the SequenceNumber has just one digit.  
-If the defined numbers of digits would not suffice in some case (e.g. provided servers or clients towards one application) additional digits must be added to all UUIDs inside the same application.  
+It has three digits.  
+Counting is decimal.  
 
 **Examples**  
-- ro-1-0-0-op-s-0004 = OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0  
-- ol-1-0-0-op-c-002a = OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice (0**02**a) inside the OamLog release 1.0.0  
-- ol-1-0-0-http-c-0070 = HttpClient that is addressing the ApplicationLayerTopology (0**07**0) inside the OamLog release 1.0.0  
-- aa-1-0-0-op-fc-0005 = ForwardingConstruct on the OperationLayer inside the AdministratorAdministration release 1.0.0  
-- eatl-1-0-1-integer-p-1000 = Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1  
+| UUID | Object description |
+| ---- | ------------------ |
+| ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
+| ol-1-0-0-op-c-bm-ro-1-0-0-010 | OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0 |  
+| ol-1-0-0-http-c-bm-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
+| aa-1-0-0-op-fc-bm-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
+| eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
