@@ -32,7 +32,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-001
     consequent-requests:
       - client-name: OldRelease://v1/bequeath-your-data-and-die
-        uuid: xx-1-0-0-op-c-bm-xx-0-0-1-000
+        uuid: xx-1-0-0-op-c-bm-or-1-0-0-000
 
   - forwarding-name: ServiceRequestCausesLoggingRequest
     uuid: xx-1-0-0-op-fc-bm-002
@@ -202,7 +202,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-009
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-all-ltps-and-fcs
-        uuid: xx-1-0-0-http-c-bm-op-1-0-0-000
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-000
 
   - forwarding-name: ServiceRequestCausesLtpUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-006
@@ -240,7 +240,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-001
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-001
 
   - forwarding-name: ServiceRequestCausesLtpDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-007
@@ -258,7 +258,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-002
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-002
 
   - forwarding-name: ServiceRequestCausesFcUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-008
@@ -276,7 +276,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-003
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-003
 
   - forwarding-name: ServiceRequestCausesFcPortUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-009
@@ -294,7 +294,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-004
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-004
 
   - forwarding-name: ServiceRequestCausesFcPortDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-010
@@ -314,7 +314,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-005
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-005
 
   - forwarding-name: OamRequestCausesLtpUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-011
@@ -331,7 +331,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-001
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-001
 
   - forwarding-name: OamRequestCausesLtpDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-012
@@ -348,7 +348,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-002
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-002
 
   - forwarding-name: OamRequestCausesFcUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-013
@@ -365,7 +365,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-003
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-003
 
   - forwarding-name: OamRequestCausesFcPortUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-014
@@ -382,7 +382,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-004
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-004
 
   - forwarding-name: OamRequestCausesFcPortDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-015
@@ -399,6 +399,6 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: xx-1-0-0-op-c-bm-op-1-0-0-005
+        uuid: xx-1-0-0-op-c-bm-alt-1-0-0-005
 
   ## TODO: Potential INDIVIDUAL Forwardings to be added

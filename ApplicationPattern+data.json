@@ -7,7 +7,7 @@
 			"userName": " *** your name *** ",
 			"authorizationCode": " *** your key *** ",
 			"core-model-1-4:control-construct": {
-				"uuid": " >>> e.g. ro-0-0-1 = also prefix to all other uuids <<< ",
+				"uuid": " >>> e.g. ro-1-0-0 = also prefix to all other uuids <<< ",
 				"profile-collection": {
 					"profile": [
 					]
@@ -494,12 +494,12 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-op-c-bm-old-1-0-0-000",
+						"uuid": "xx-1-0-0-op-c-bm-or-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
 						],
 						"server-ltp": [
-							"xx-1-0-0-http-c-bm-old-1-0-0-000"
+							"xx-1-0-0-http-c-bm-or-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -519,13 +519,13 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-http-c-bm-old-1-0-0-000",
+						"uuid": "xx-1-0-0-http-c-bm-or-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-op-c-bm-old-1-0-0-000"
+							"xx-1-0-0-op-c-bm-or-1-0-0-000"
 						],
 						"server-ltp": [
-							"xx-1-0-0-tcp-c-bm-old-1-0-0-000"
+							"xx-1-0-0-tcp-c-bm-or-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -543,10 +543,10 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-tcp-c-bm-old-1-0-0-000",
+						"uuid": "xx-1-0-0-tcp-c-bm-or-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-http-c-bm-old-1-0-0-000"
+							"xx-1-0-0-http-c-bm-or-1-0-0-000"
 						],
 						"server-ltp": [
 						],
@@ -568,12 +568,12 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-http-c-bm-new-1-0-0-000",
+						"uuid": "xx-1-0-0-http-c-bm-nr-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
 						],
 						"server-ltp": [
-							"xx-1-0-0-tcp-c-bm-new-1-0-0-000"
+							"xx-1-0-0-tcp-c-bm-nr-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -591,10 +591,10 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-tcp-c-bm-new-1-0-0-000",
+						"uuid": "xx-1-0-0-tcp-c-bm-nr-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-http-c-bm-new-1-0-0-000"
+							"xx-1-0-0-http-c-bm-nr-1-0-0-000"
 						],
 						"server-ltp": [
 						],
@@ -768,12 +768,12 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-http-c-bs-tar-1-0-0-000",
+						"uuid": "xx-1-0-0-http-c-is-tar-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
 						],
 						"server-ltp": [
-							"xx-1-0-0-tcp-c-bs-tar-1-0-0-000"
+							"xx-1-0-0-tcp-c-is-tar-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -791,10 +791,10 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-tcp-c-bs-tar-1-0-0-000",
+						"uuid": "xx-1-0-0-tcp-c-is-tar-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-http-c-bs-tar-1-0-0-000"
+							"xx-1-0-0-http-c-is-tar-1-0-0-000"
 						],
 						"server-ltp": [
 						],
@@ -1243,13 +1243,12 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-http-c-bs-okm-1-0-0-000",
+						"uuid": "xx-1-0-0-http-c-is-okm-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-op-c-bs-okm-1-0-0-000"
 						],
 						"server-ltp": [
-							"xx-1-0-0-tcp-c-bs-okm-1-0-0-000"
+							"xx-1-0-0-tcp-c-is-okm-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -1267,10 +1266,10 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-tcp-c-bs-okm-1-0-0-000",
+						"uuid": "xx-1-0-0-tcp-c-is-okm-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-http-c-bs-okm-1-0-0-000"
+							"xx-1-0-0-http-c-is-okm-1-0-0-000"
 						],
 						"server-ltp": [
 						],
@@ -1292,12 +1291,12 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-http-c-bs-cc-1-0-0-000",
+						"uuid": "xx-1-0-0-http-c-is-cc-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
 						],
 						"server-ltp": [
-							"xx-1-0-0-tcp-c-bs-cc-1-0-0-000"
+							"xx-1-0-0-tcp-c-is-cc-1-0-0-000"
 						],
 						"layer-protocol": [
 							{
@@ -1315,10 +1314,10 @@
 						]
 					},
 					{
-						"uuid": "xx-1-0-0-tcp-c-bs-cc-1-0-0-000",
+						"uuid": "xx-1-0-0-tcp-c-is-cc-1-0-0-000",
 						"ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
 						"client-ltp": [
-							"xx-1-0-0-http-c-bs-cc-1-0-0-000"
+							"xx-1-0-0-http-c-is-cc-1-0-0-000"
 						],
 						"server-ltp": [
 						],
@@ -1395,7 +1394,7 @@
 									{
 										"local-id": "200",
 										"port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-										"logical-termination-point": "xx-1-0-0-op-c-bm-old-1-0-0-000"
+										"logical-termination-point": "xx-1-0-0-op-c-bm-or-1-0-0-000"
 									}
 								]
 							},
