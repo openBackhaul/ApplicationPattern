@@ -160,8 +160,8 @@ paths:
                         old-application-release-number:
                           type: string
                           description: >
-                            'Old release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-or-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            'Old release number = current release number of the application requested to bequeath its data and die
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         new-application-release-number:
                           type: string
                           description: >
