@@ -1,7 +1,7 @@
 forwardings:
 
   - forwarding-name: PromptForRegisteringCausesRegistrationRequest
-    uuid: xx-1-0-0-op-fc-000
+    uuid: xx-1-0-0-op-fc-bm-000
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -20,7 +20,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-ro-1-0-0-000
 
   - forwarding-name: PromptForEmbeddingCausesRequestForBequeathingData
-    uuid: xx-1-0-0-op-fc-001
+    uuid: xx-1-0-0-op-fc-bm-001
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -35,7 +35,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-xx-0-0-1-000
 
   - forwarding-name: ServiceRequestCausesLoggingRequest
-    uuid: xx-1-0-0-op-fc-002
+    uuid: xx-1-0-0-op-fc-bm-002
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -87,7 +87,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-eatl-1-0-0-000
 
   - forwarding-name: OamRequestCausesLoggingRequest
-    uuid: xx-1-0-0-op-fc-003
+    uuid: xx-1-0-0-op-fc-bm-003
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -104,7 +104,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-ol-1-0-0-000
 
   - forwarding-name: OamRequestCausesInquiryForAuthentication
-    uuid: xx-1-0-0-op-fc-004
+    uuid: xx-1-0-0-op-fc-bm-004
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -129,7 +129,7 @@ forwardings:
 ## TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
-    uuid: xx-1-0-0-op-fc-0105
+    uuid: xx-1-0-0-op-fc-bm-105
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -148,7 +148,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-ro-1-0-0-001
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease
-    uuid: xx-1-0-0-op-fc-0106
+    uuid: xx-1-0-0-op-fc-bm-106
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -167,7 +167,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-ro-1-0-0-002
 
   - forwarding-name: PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation
-    uuid: xx-1-0-0-op-fc-0107
+    uuid: xx-1-0-0-op-fc-bm-107
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -186,7 +186,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-ro-1-0-0-003
 
   - forwarding-name: PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT
-    uuid: xx-1-0-0-op-fc-005
+    uuid: xx-1-0-0-op-fc-bm-005
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -205,7 +205,7 @@ forwardings:
         uuid: xx-1-0-0-http-c-bm-op-1-0-0-000
 
   - forwarding-name: ServiceRequestCausesLtpUpdateRequest
-    uuid: xx-1-0-0-op-fc-006
+    uuid: xx-1-0-0-op-fc-bm-006
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -243,7 +243,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-001
 
   - forwarding-name: ServiceRequestCausesLtpDeletionRequest
-    uuid: xx-1-0-0-op-fc-007
+    uuid: xx-1-0-0-op-fc-bm-007
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -261,7 +261,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-002
 
   - forwarding-name: ServiceRequestCausesFcUpdateRequest
-    uuid: xx-1-0-0-op-fc-008
+    uuid: xx-1-0-0-op-fc-bm-008
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -279,7 +279,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-003
 
   - forwarding-name: ServiceRequestCausesFcPortUpdateRequest
-    uuid: xx-1-0-0-op-fc-009
+    uuid: xx-1-0-0-op-fc-bm-009
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -297,7 +297,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-004
 
   - forwarding-name: ServiceRequestCausesFcPortDeletionRequest
-    uuid: xx-1-0-0-op-fc-010
+    uuid: xx-1-0-0-op-fc-bm-010
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -317,7 +317,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-005
 
   - forwarding-name: OamRequestCausesLtpUpdateRequest
-    uuid: xx-1-0-0-op-fc-011
+    uuid: xx-1-0-0-op-fc-bm-011
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -334,7 +334,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-001
 
   - forwarding-name: OamRequestCausesLtpDeletionRequest
-    uuid: xx-1-0-0-op-fc-012
+    uuid: xx-1-0-0-op-fc-bm-012
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -351,7 +351,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-002
 
   - forwarding-name: OamRequestCausesFcUpdateRequest
-    uuid: xx-1-0-0-op-fc-013
+    uuid: xx-1-0-0-op-fc-bm-013
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -368,7 +368,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-003
 
   - forwarding-name: OamRequestCausesFcPortUpdateRequest
-    uuid: xx-1-0-0-op-fc-014
+    uuid: xx-1-0-0-op-fc-bm-014
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
@@ -385,7 +385,7 @@ forwardings:
         uuid: xx-1-0-0-op-c-bm-op-1-0-0-004
 
   - forwarding-name: OamRequestCausesFcPortDeletionRequest
-    uuid: xx-1-0-0-op-fc-015
+    uuid: xx-1-0-0-op-fc-bm-015
     forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:

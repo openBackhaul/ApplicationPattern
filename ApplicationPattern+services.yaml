@@ -45,11 +45,11 @@ servers:
   http-server:
     own-application-name: ## TODO: Add OwnApplicationName
     own-release-number: ## TODO: Add OwnReleaseNumber (e.g. 1.0.0)
-    uuid: xx-1-0-0-http-s-0000
+    uuid: xx-1-0-0-http-s-bm-000
   tpc-server:
     own-ip-address: ## TODO: Add OwnIpAddress
     own-tcp-port: ## TODO: Add OwnTcpPort
-    uuid: xx-1-0-0-tcp-s-0000
+    uuid: xx-1-0-0-tcp-s-bm-000
 
 
 
@@ -58,16 +58,16 @@ clients:
   - http-client:
       application-name: OldRelease
       release-number: ## TODO: Add Number of Release to be substituted (e.g. 1.0.0)
-      uuid: xx-1-0-0-http-c-bm-xx-0-0-1-000
+      uuid: xx-1-0-0-http-c-bm-old-1-0-0-000
     tcp-client:
       ip-address: ## TODO: Add IpAddress of Release to be substituted
       tcp-port: ## TODO: Add TcpPort of Release to be substituted
-      uuid: xx-1-0-0-tcp-c-bm-xx-0-0-1-000
+      uuid: xx-1-0-0-tcp-c-bm-old-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/bequeath-your-data-and-die
-            uuid: xx-1-0-0-op-c-bm-xx-0-0-1-000
+            uuid: xx-1-0-0-op-c-bm-old-1-0-0-000
         individual:
       service:
         basic:
@@ -76,11 +76,11 @@ clients:
   - http-client:
       application-name: NewRelease
       release-number: ## TODO: Add Number of substituting Release (e.g. 1.0.1)
-      uuid: xx-1-0-0-http-c-bm-xx-1-0-0-000
+      uuid: xx-1-0-0-http-c-bm-new-1-0-0-000
     tcp-client:
       ip-address: ## TODO: Add IpAddress of substituting Release
       tcp-port: ## TODO: Add TcpPort of substituting Release
-      uuid: xx-1-0-0-tcp-c-bm-xx-1-0-0-000
+      uuid: xx-1-0-0-tcp-c-bm-new-1-0-0-000
     operation-clients:
       own-oam:
         basic:
