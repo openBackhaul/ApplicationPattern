@@ -1,46 +1,22 @@
-## Jenkins
 
-## Concepts
-This chapter gives us more understanding about the Jenkins used as CI tool in SDN Application Pattern.
-* Overview
-* Why Jenkins as CI tool
-* Workflow
-* Installation and Environment Setup
-    - Prerequisites
-    - Jenkins-installation-steps
-    - Enabled firewall support for XXXX(default 8080) port
-    - Install all required plugins
-        - Installing it through our Jenkins dashboard
-        - Download and install manually
-    - Configure master-slave configuration
-* Email Notification configuration
-* Jenkins Jobs for SDN project
-* SDN ApplicationPattern Deployment
+## Install Jenkins and Environment Setup:
+**Concepts**
+
+* ### [Prerequisites](#prerequisites)
+* ### [Jenkins-installation-steps](#Jenkins-installation-steps)
+* ### [Enabled firewall support for XXXX(default 8080) port](#enabled-firewall-support-for-xxxxdefault-8080-port)
+* ### [Install all required plugins](#install-all-required-plugins)
+* ### [Installing it through our Jenkins dashboard](#installing-it-through-our-jenkins-dashboard)
+* ### [Download and install manually](#download-and-install-manually)
+* ### [Configure master-slave configuration](#configure-master-slave-configuration)
+&nbsp;
 
 
-### Overview 
-Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It is used to implement CI/CD workflows, called pipelines.
-### Why Jenkins as CI tool
-Jenkins is a software that allows continuous integration. Jenkins will be installed on a server where the central build will take place. It will be used to build, test and deploy the software projects continuously which makes easier to developers to deliver the Software modules.
-### workflow: 
-Here's how Jenkins elements are put together and interact.
 
-- Developers commit the changes into repository 
-- The Jenkins CI server checks the repository at regular intervals and pulls new changes from repository
-- Jenkins server trigger automatically to create a build with the changes made and run it through testing. 
-- If build fails, Jenkins will send a notification to developers with errors and job details sothat they can work on failures.
-- If build is successful, trigger next step as testing the automated tests, once everything is fine, the build/changes are ready to deploy.
-- If the code is error-free and automated test suites passed, the deployment team will be notified with the build details for deploying into the production server.
-      
-The main advantage of Jenkins is having 1000+ plugin's to ease our work. If we use different tools/features based on requirement, then need to install plugins. For example Git, Maven 2 project, HTML publisher, docker, JMeter etc. 
-     
-The whole process is eliminated the manual intervention and designed to ensure the fast flow of reliable code from the development team to the production environment, enabling Continuous Delivery (CD) and Continuous Deployment.
-
-### Install Jenkins and Environment Setup:
-#### Prerequisites:
+### Prerequisites:
 Before installing the jenkins, it is recommend to check whether the java installed or not. Based on OS, choose the installation commands.
 
-#### Install Java:
+### Install Java:
      apt install default-jre for ubuntu
      apt install default-jdk for ubuntu
      
@@ -91,7 +67,9 @@ Now Jenkins is up and running on XXXX port.
     Firewall-cmd - -list-all
     Firewall-cmd - -add-port=XXXX/tcp - -permanent
 
-Once we done the installation and firewall setup, the Jenkins is running on  **http://\<server-Ip\>:\<port\>**
+Once we done the installation and firewall setup, the Jenkins is running on  
+    
+    http:<server-Ip>:<port>
 
 **Unlock Jenkins** :
 
@@ -133,12 +111,12 @@ There are two methods for installing plugins in Jenkins:
 * Downloading the plugin from Jenkins website and installing it
 manually.
 
-#### Plugin manager
+### Plugin manager
 The Plugin Manager allows us to manage to enable and disable the plugins and to edit a plugin's details and options. It is also useful for quickly enabling/disabling multiple plugins. 
 
 ![](Images/pluginmanager.png)
 
-#### Installing it through our Jenkins dashboard
+### Installing it through our Jenkins dashboard
 To install plugins first login into Jenkins under Jenkins Dashboard left side we have manage Jenkins options click on that then select manage plugins and under available section search for required plugin and select it then click on install without restart.
 
 For example now we are trying to integrate the git plugin in Jenkins and find the steps below.
@@ -188,36 +166,4 @@ Open Jenkins Dashboard==>Click on Manage Jenkins==>Click on Manage Nodes and Clo
 
 The complete set up is ready in current SDN controller application testing.
 
-### Email Notification configuration
-To get Notified us about the build status and testing results to the team, Jenkins provided email feature. We can configure this to all jobs.
-![emailnotification](Images/Mailnotification.png)
-
-Jenkins has a service of Email
-Notifications to handle below situations.
-
-* If the build is not successful then the team of developers is notified about the status of the build. This can be done with the help of an Email plugin in Jenkins. 
-
-* Using the email plugin, can configure the email details of the responsible person who should be notified in case of build failure.
-
-* Once the developer is notified about the error, he then fixes it and again commits the code to GitHub. After this Jenkins again pulls the code from GitHub and prepares a fresh build.
-
-Similarly, Jenkins can solve the problem of the application going down after the release, by notifying the concerned team, via email.
-
-### example email:
-![email](Images/emailexample.png)
-
-### List of Jenkins Jobs for this SDN project
-
-- PollSCM trigger jobs for auto builds whenever new commit merged in remote repositories
-- Mediator upgrade and test suites testing
-- Automated sanity test suites
-- Controller Jobs
-- Dockerized pipeline Jobs for Application Deployments
-- Acceptance testing jobs for GitHub applications 
-- Integrations testing jobs for GitHub applications 
-
-### SDN ApplicationPattern Deployment
-Please refer this to understand more about how we deploy the applications using this CICD flow ( [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/TableOfContents.md) )
-
-
-[<- Back to git](../Git/Git.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Newman](../Newman/Newman.md)
+<- [Back to Introduction of Jenkins](./Introduction.md) --- [head to main TestingApplications](../../../TestingApplications.md) ---> [EmailNotificationConfiguration](EmailNotificationConfiguration.md)
