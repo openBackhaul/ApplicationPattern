@@ -1,17 +1,3 @@
-## Acceptance Testing 
-
-## Concepts
-- Overview
-- Configure Pipeline job for running Acceptance test cases
-    - source stage
-    - Setup to run postman collection file
-    - Run the test suites using newman
-    - Results available
-    - Email Notification
-
-### Overview
-Acceptance testing, is a quality assurance (QA) process and this technique performed to determine whether the software system has met the user/business requirement specifications. It evaluate the quality of software. Acceptance Testing run in testbed environment and if everything is ok from acceptance testing then approve the build to production environment to deploy.
-
 ### Configure Pipeline job for running Acceptance test cases
 Once Application deployed and automatically acceptance testing performed.
 - source stage
@@ -45,4 +31,4 @@ As part of pipeline configuration once setup and run the test suites, we can als
 
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
-[<- Back to SDNApplicationPatternDeployment](../SDNApplicationPatternDeployment/Overview.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - [Ahead to SDN Testing ->](../../IntegrationTesting/Overview/Overview.md)
+[<- Back to ConceptsAndOverview](./ConceptsAndOverview.md) - - - [Back to main Testing Applications](../../TestingApplications.md)

@@ -1,17 +1,4 @@
-### Integration Testing
-### Concepts
-- Overview
-- Configure Pipeline job for running Integration test cases
-    - source stage
-    - Setup to run postman collection file
-    - Run the test suites using newman
-    - Results available
-    - Email Notification
-    
-#### Overview: 
-Integration Testing is a finalized testing of software product. Normally software products are devided into different modules and here SDN applications are also developed as individual services. This testing verifies that  software modules are integrated logically and tested as a group. The purpose of this level of testing is to expose defects in the interaction level and checks the proper service/data communications happen among modules. 
-
-#### Configure Pipeline job for running Integration test cases
+### Configure Pipeline job for running Integration test cases
     
 - source stage
 - Setup to run postman collection file
@@ -22,7 +9,7 @@ Integration Testing is a finalized testing of software product. Normally softwar
 ![IntegrationFlow](./../Images/IntegrationFlow.PNG)
 
 #### Source stage : 
-Take clone from the github of current testcases
+Take clone from the github of current testcases.
 
 #### Setup to run postman collection file : 
 - Update the file RegistryOffice_0.0.1_tsi.date.time+data.no.json with "typeOfTesting": "Integration"
@@ -41,7 +28,6 @@ As part of pipeline configuration once setup and run the test suites, we can als
 
 #### Email Notification
 
-Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
+Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline job URL's.
 
-
-[<- Back to AcceptanceTesting](../../AcceptanceTesting/Overview/Overview.md) - - - [Back to Testing Applications](../../TestingApplications.md)
+[<- Back to ConceptsAndOverview](./ConceptsAndOverview.md) - - - [Back to main Testing Applications](../../TestingApplications.md)

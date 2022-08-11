@@ -1,22 +1,8 @@
-
-## Install Jenkins and Environment Setup:
-**Concepts**
-
-* ### [Prerequisites](#prerequisites)
-* ### [Jenkins-installation-steps](#Jenkins-installation-steps)
-* ### [Enabled firewall support for XXXX(default 8080) port](#enabled-firewall-support-for-xxxxdefault-8080-port)
-* ### [Install all required plugins](#install-all-required-plugins)
-* ### [Installing it through our Jenkins dashboard](#installing-it-through-our-jenkins-dashboard)
-* ### [Download and install manually](#download-and-install-manually)
-* ### [Configure master-slave configuration](#configure-master-slave-configuration)
-&nbsp;
-
-
-
+## Installation and Environment Setup
 ### Prerequisites:
 Before installing the jenkins, it is recommend to check whether the java installed or not. Based on OS, choose the installation commands.
 
-### Install Java:
+#### Install Java:
      apt install default-jre for ubuntu
      apt install default-jdk for ubuntu
      
@@ -32,7 +18,7 @@ Referral links:
 * [Install Jenkins on ubuntu steps](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04)
 * [Install Jenkins on rhel steps](https://www.tecmint.com/install-java-on-rhel-8/)
 
-**Jenkins-installation-steps:** 
+### Jenkins-installation-steps
 
 It is recommend to update the local repository server using "**apt update**" and  install the jenkins.
 
@@ -60,7 +46,7 @@ If everything went well, the beginning of the status output shows that the servi
 
 Once Jenkins is up and running, let’s adjust our firewall rules so that we can reach it from a web browser to complete the initial setup. 
 
-**Enabled firewall support for XXXX(default 8080) port:**
+### Enabled firewall support for XXXX(default 8080) port
 
 Now Jenkins is up and running on XXXX port.
 
@@ -116,7 +102,7 @@ The Plugin Manager allows us to manage to enable and disable the plugins and to 
 
 ![](Images/pluginmanager.png)
 
-### Installing it through our Jenkins dashboard
+#### Installing it through our Jenkins dashboard
 To install plugins first login into Jenkins under Jenkins Dashboard left side we have manage Jenkins options click on that then select manage plugins and under available section search for required plugin and select it then click on install without restart.
 
 For example now we are trying to integrate the git plugin in Jenkins and find the steps below.
@@ -148,9 +134,9 @@ We can also click on "Download now and install after restart" button in which th
 The procedure is same for all other required plugin installation.
 
 
-#### Downloading the plugin from Jenkins website and installing it manually.
+#### Download the plugin from Jenkins website and installing it manually.
 
-If any plugins we required to upgrade or downgrade first, we download plugins from official plugins site in our local then upload it to Jenkins. Refersite for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
+If any plugins we required to upgrade or downgrade first, we download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
 
 **Note**: download plugins with .hpi extension. 
 
@@ -166,4 +152,4 @@ Open Jenkins Dashboard==>Click on Manage Jenkins==>Click on Manage Nodes and Clo
 
 The complete set up is ready in current SDN controller application testing.
 
-<- [Back to Introduction of Jenkins](./Introduction.md) --- [head to main TestingApplications](../../../TestingApplications.md) ---> [EmailNotificationConfiguration](EmailNotificationConfiguration.md)
+<- [Back to Jenkinsworkflow](./Jenkinsworkflow.md) - - - [head to main TestingApplications](../../../TestingApplications.md) - - -> [EmailNotificationConfiguration](EmailNotificationConfiguration.md)

@@ -9,4 +9,6 @@
 - Integrations testing jobs for GitHub applications 
 
 ### SDN ApplicationPattern Deployment
-Please refer this to understand more about how we deploy the applications using this CICD flow ( [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/TableOfContents.md ) ) using Jenkins, Git and Docker's etc.
+Please refer this to understand more about how we deploy the applications using this CICD flow ( [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/Concepts.md ) ) using Jenkins, Git and Docker's etc.
+
+<- [Back to Email Notification Configuration](./EmailNotificationConfiguration.md) --- [Back to main TestingApplications](../../../TestingApplications.md) ---> [a head to GIT](../Newman/Newman.md)

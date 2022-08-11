@@ -1,5 +1,5 @@
 
-### **Command line git commands**
+## GIT Commandline Commands
 
 |Commands | description|
 |---------|-------------|
@@ -18,9 +18,9 @@ git add <filenames> |staged/add the changes |
 |git log | get the details about commits that made on branch/repository|
 
 
-### **Reference**:
+## Reference
 
-*[Refer this offitial URL to know more about git commands](https://docs.github.com/en/get-started/using-git/about-git )
+[**Refer this official URL to know more about git commands**](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 
 [<- Back to GitOverview](./GitOverview.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Jenkins](../Jenkins/Introduction.md)
