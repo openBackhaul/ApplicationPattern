@@ -1,5 +1,5 @@
 
-## Application Deployment in Production: 
+## Application Deployment in Production 
 Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
       
 Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containization tool and deploy the applications.
@@ -61,11 +61,11 @@ Example structure of Applications deployed on docker engine:
 #### Run the Automation testsuites 
 Automation testsuites running imediately after the application deployment.Integration Testing run in production/preprod environment 
 
- - [**Integration Testing**](../../../IntegrationTesting/Overview/Overview.md)
+ - [**Integration Testing**](../../IntegrationTesting/Overview/ConceptsAndOverview.md)
 
  
 #### Email Notification
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
 
-[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to Testing->](../../AcceptanceTesting/Overview/Overview.md)
+[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - ahead to [AcceptanceTesting](../../AcceptanceTesting/Overview/OverviewAndConcepts.md) ->

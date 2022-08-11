@@ -50,11 +50,9 @@ Verify the application swagger is up and running.
     ex: http://125.4.5.11:1234/docs/
 
 ![RO](Images/Ro.png) 
-
 #### Run the Automation testsuites 
 Automation testsuites running once after the application deployment.
-- #### [Acceptance Testing](../../../AcceptanceTesting/Overview/Overview.md)       
-
+- #### [Acceptance Testing](../../AcceptanceTesting/Overview/OverviewAndConcepts.md)
 
 
 #### Email Notification

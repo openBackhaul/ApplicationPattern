@@ -19,9 +19,9 @@ In current setup, we are using two servers one for jenkins and another used for 
 
 **[Jenkins](../Tools/Jenkins/Introduction.md)** :  used as CI tool 
 
-**[Docker](../Tools/Docker/Docker.md)** :  used for deploying an application which involves application clone, build images and deploy as a container.
+**[Docker](../Tools/Docker/ConceptsAndOverview.md)** :  used for deploying an application which involves application clone, build images and deploy as a container.
 
-**[DockerVolume](../Tools/Docker/Docker.md#docker-volumes)** : used to achieve applications Data Persistence storage 
+**[DockerVolume](../Tools/Docker/DockerVolumes.md)** : used to achieve applications Data Persistence storage 
 
 **[Newman and htmlextra reporter](../Tools/Newman/Newman.md)**:  used for running the automated testing process for every applications
 

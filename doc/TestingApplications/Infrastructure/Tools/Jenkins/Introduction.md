@@ -3,8 +3,8 @@
 ## Concepts
 This chapter gives us more understanding about the Jenkins used as CI tool in SDN Application Pattern.
 * [Overview](#overview)
-* [Why Jenkins as CI tool](#why-jenkins-as-ci-tool)
-* [Workflow](#workflow)
+* [Why Jenkins as CI tool](./Jenkinsworkflow.md#why-jenkins-as-ci-tool)
+* [Workflow](./Jenkinsworkflow.md#workflow)
 * [Installation and Environment Setup](./InstallationAndEnvironmentSetup.md#installation-and-environment-setup)
     * [Prerequisites](./InstallationAndEnvironmentSetup.md#prerequisites)
     * [Jenkins-installation-steps](./InstallationAndEnvironmentSetup.md#Jenkins-installation-steps)

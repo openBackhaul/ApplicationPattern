@@ -11,4 +11,4 @@
 ### SDN ApplicationPattern Deployment
 Please refer this to understand more about how we deploy the applications using this CICD flow ( [SDN ApplicationPattern Deployment](../../SDNApplicationPatternDeployment/Concepts.md ) ) using Jenkins, Git and Docker's etc.
 
-<- [Back to Email Notification Configuration](./EmailNotificationConfiguration.md) --- [Back to main TestingApplications](../../../TestingApplications.md) ---> [a head to GIT](../Newman/Newman.md)
+<- [Back to Email Notification Configuration](./EmailNotificationConfiguration.md) --- [Back to main TestingApplications](../../../TestingApplications.md) ---> [a head to Newman](../Newman/Newman.md)

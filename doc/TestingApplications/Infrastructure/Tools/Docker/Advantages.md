@@ -1,6 +1,3 @@
-## Overview 
-  Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. it is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker containization is very friendly in building and deploying the applications and below are advantages over docker.
-
 ## Advantages of Docker : 
 * lighter weight process
 * Easy and faster configuration

@@ -3,8 +3,8 @@
 ## Concepts
 * [Overview](#overview)
 * [More about git,github](#more-about-gitgithub)
-* [Usefull Command line commands](#usefull-command-line-commands)
-* [Reference](#reference)
+* [Usefull Command line commands](./GitCommands.md#usefull-command-line-commands)
+* [Reference](./GitCommands.md#reference)
 
 ### Overview
 Git is a free and open source distributed version control system and easy to learn. Github is used more efficiently to manage git repositories on centralized server. 
