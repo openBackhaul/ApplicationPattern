@@ -1,4 +1,4 @@
-# LOADfile
+# Concept of CONFIGfile
 
 ### Individualization
 - Find template here 
