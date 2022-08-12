@@ -91,7 +91,7 @@ The OpenApiSpecification represents the detailed specification of the REST API o
 The CONFIGfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
 **Concepts**
-* [CONFIGfile](./LoadFile/LoadFile.md)
+* [CONFIGfile](./Configfile/Configfile.md)
 
 
 ## TestCases
