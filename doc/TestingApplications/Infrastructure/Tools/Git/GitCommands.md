@@ -1,5 +1,5 @@
 
-## GIT Commandline Commands
+## GIT Command line Commands
 
 |Commands | description|
 |---------|-------------|
@@ -10,7 +10,7 @@ git add <filenames> |staged/add the changes |
 |git stash | to remove the local changes made in local clone|
 |git checkout -b&nbsp; <localbranch> <remotebranch> | to take local branch from remote branch|
 |git branch -r &nbsp; | list the branches|
-|git commit | to commit the chnages in local repository/branch|
+|git commit | to commit the changes in local repository/branch|
 |git push | push the changes into remote repository|
 |git branch -D <branch name> | to remove any branch from local|
 |git revert | revert the commits very smoothly |

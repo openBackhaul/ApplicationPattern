@@ -1,5 +1,5 @@
 
-## Docker Usefull commands : 
+## Docker Useful commands : 
 
 | Command   |     Description |
 | -----------    | ----------- |
@@ -10,7 +10,7 @@
 |docker cp	 |       Copy files/folders between a container and the local filesystem | 
 |docker diff	 |     Inspect changes to files or directories on a container’s filesystem | 
 |docker images | 	  List images | 
-|docker ps    |     list the conatainers | 
+|docker ps    |     list the containers | 
 |docker inspect | Return low-level information on Docker objects|
 |docker kill | Kill one or more running containers| 
 |docker load  | Load an image from a tar archive or STDIN| 

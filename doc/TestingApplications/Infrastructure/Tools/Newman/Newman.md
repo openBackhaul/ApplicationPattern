@@ -54,13 +54,13 @@ Based on requirement, add the options to newman and run the collections.
 
 ### References:
 
-* [NodeJsinstallation on Redhat](https://linuxconfig.org/how-to-install-node-js-on-redhat-8-linux)
+* [NodeJs Installation on Redhat](https://linuxconfig.org/how-to-install-node-js-on-redhat-8-linux)
 
-* [NPM installation](https://linuxconfig.org/how-to-install-npm-on-redhat-8)
+* [NPM Installation](https://linuxconfig.org/how-to-install-npm-on-redhat-8)
 
-* [NodeJs installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
+* [NodeJs Installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
 
-* [Newman installation](https://www.npmjs.com/package/newman)
+* [Newman Installation](https://www.npmjs.com/package/newman)
 
 * [Newman-reporter-htmlextra](https://www.npmjs.com/package/newman-reporter-htmlextra)
 

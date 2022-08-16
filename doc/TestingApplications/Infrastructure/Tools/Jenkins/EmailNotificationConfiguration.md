@@ -1,6 +1,6 @@
 ## Email Notification configuration
 To get Notified us about the build status and testing results to the team, Jenkins provided email feature. We can configure this to all jobs.
-![emailnotification](Images/Mailnotification.png)
+![Email Notification](Images/Mailnotification.png)
 
 Jenkins has a service of Email
 Notifications to handle below situations.

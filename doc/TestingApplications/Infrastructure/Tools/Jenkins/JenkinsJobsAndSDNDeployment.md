@@ -4,7 +4,7 @@
 - Mediator upgrade and test suites testing
 - Automated sanity test suites
 - Controller Jobs
-- Dockerized pipeline Jobs for Application Deployments
+- Dockerize pipeline Jobs for Application Deployments
 - Acceptance testing jobs for GitHub applications 
 - Integrations testing jobs for GitHub applications 
 

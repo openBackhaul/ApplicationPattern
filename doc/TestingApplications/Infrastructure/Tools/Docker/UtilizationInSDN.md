@@ -7,7 +7,7 @@ Please find the example flow below:
 ![SDNApplications](Images/NewDockertynyapplicationpattern.PNG)
 
 #### Context :
-We are creating containers for the applications which are having database in the form of json file. This file will be modified based on certain actions. And this data needs to be persisted. So, to persist the data/getbacked up, we are creating persistent volume for every application in the docker environment. 
+We are creating containers for the applications which are having database in the form of json file. This file will be modified based on certain actions. And this data needs to be persisted. So, to persist the data/get backed up, we are creating persistent volume for every application in the docker environment. 
 	
 #### Steps :
 * Create a docker volume and then use this volume while running the container.
@@ -31,7 +31,7 @@ While running the applications as container, the created volumes will be maintai
         ex : sudo docker run -d -p <1234>:<1234> --name registry-office-image -v registry-office:/home/openbackhaul/registryOffice/database /home/registry-office
         
 #### Dockerized SDN Application with RegistryOffice example
-![SDN dockerized Application Pattern](Images/exmpleROdockerimage.PNG)
+![SDN dockerize Application Pattern](Images/exmpleROdockerimage.PNG)
 
 
 #### Reference links :
@@ -41,7 +41,7 @@ While running the applications as container, the created volumes will be maintai
 
 [Basics of Docker](https://docs.docker.com/engine/ )
 
-[Docker Adoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
+[Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
 
 [Docker volumes reference](https://docs.docker.com/storage/volumes/)
 

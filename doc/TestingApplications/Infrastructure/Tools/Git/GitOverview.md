@@ -3,7 +3,7 @@
 ## Concepts
 * [Overview](#overview)
 * [More about git,github](#more-about-gitgithub)
-* [Usefull Command line commands](./GitCommands.md#usefull-command-line-commands)
+* [Useful Command line commands](./GitCommands.md#usefull-command-line-commands)
 * [Reference](./GitCommands.md#reference)
 
 ### Overview
@@ -18,7 +18,7 @@ Git makes it easy to use by users:
 
 ### More about git,github
 
- [ Please refer this more details about installation process, configuration,work flow in SDN and other indetail explanation](./../../../../PreparingSpecifying/Introduction2Git/Introduction2Git.md)
+ [ Please refer this more details about installation process, configuration,work flow in SDN and other in detail explanation](./../../../../PreparingSpecifying/Introduction2Git/Introduction2Git.md)
 
 
 

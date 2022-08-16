@@ -2,7 +2,7 @@
 ## Application Deployment in Production 
 Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
       
-Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containization tool and deploy the applications.
+Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containerization tool and deploy the applications.
 
 ### Pipeline configuration:
 Here how we configure Pipeline job in testbed environment, in the same way we have to configure and install all necessary tools in Jenkins server of production.
@@ -17,7 +17,7 @@ Here how we configure Pipeline job in testbed environment, in the same way we ha
  
 #### Create pipeline jobs with required configuration
 - Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitering the pipeline 
+- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitoring the pipeline 
 - Then develop and add the pipeline script to current pipeline job
 - Apply and save the configurations
 
@@ -47,7 +47,7 @@ Basic scripting is provided and based on requirements we can use groovy scripts 
     
 #### Verify the applications are up and running
    
-Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers and Go to the browser and check with the Ip address with port XXXx port mentioned in docker file. Verify the application swagger is up and running.
+Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers and Go to the browser and check with the Ip address with port XXXx port mentioned in docker file. Verify the application swagger is up and running.
     
     http://<serverIp>:<port>/docs/
     ex: http://10.0.2.4:1234/docs/

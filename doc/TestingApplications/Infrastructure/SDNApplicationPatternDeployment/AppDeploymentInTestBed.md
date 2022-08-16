@@ -11,7 +11,7 @@
  
 #### Create pipeline jobs with all necessary configurations
 - Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitering the pipeline 
+- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitoring the pipeline 
 - Then develop and add the pipeline script to current pipeline job
 - Apply and save the configurations
 
@@ -31,7 +31,7 @@
 
 #### Automated pipeline scripts
 
-In testbed, should follow all stages like clone, build, deploy and test the applications.   Once everything is fine, we will save the docker imageas tar file format in WebApp server.
+In testbed, should follow all stages like clone, build, deploy and test the applications.   Once everything is fine, we will save the docker images tar file format in WebApp server.
 
 Pipeline Configuration : 
         
@@ -43,7 +43,7 @@ Pipeline Configuration :
     }
     
 #### Verify the applications are up and running
-Once pipeline script executed and the applications(ex: RO,TAR,EATL etc) deployed using the dockrized containers. Go to the browser and check with the Ip address with port XXXx port mentioned in docker file.
+Once pipeline script executed and the applications(ex: RO, TAR, EATL etc) deployed using the dockerize containers. Go to the browser and check with the Ip address with port XXXx port mentioned in docker file.
 Verify the application swagger is up and running.
 
     http://<serverIp>:<port>/docs/

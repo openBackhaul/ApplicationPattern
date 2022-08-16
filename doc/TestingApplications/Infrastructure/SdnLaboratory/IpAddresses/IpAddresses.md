@@ -2,7 +2,7 @@
 
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
-| Cathegory | Abbr. | Component | Release | IP | TCP |
+| Category | Abbr. | Component | Release | IP | TCP |
 |---|---|---|---|---|---|
 | Controller |  |  |  |  |  |
 |  | C | OpenDaylight | 1.0.0 | 10.118.125.157 | 8443

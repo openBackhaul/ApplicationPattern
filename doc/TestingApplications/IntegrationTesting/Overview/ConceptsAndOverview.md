@@ -11,4 +11,4 @@
 ### Overview: 
 Integration Testing is a finalized testing of software product. Normally software products are devided into different modules and here SDN applications are also developed as individual services. This testing verifies that  software modules are integrated logically and tested as a group. The purpose of this level of testing is to expose defects in the interaction level and checks the proper service/data communications happen among modules. 
 
-[<- Back to AcceptanceTesting](../../AcceptanceTesting/Overview/Overview.md) - - - [Back to main Testing Applications](../../TestingApplications.md) --- [A head to Pipelinconfiguration of Integration Testing](./pipelineconfiguration.md)
+[<- Back to AcceptanceTesting](../../AcceptanceTesting/Overview/Overview.md) - - - [Back to main Testing Applications](../../TestingApplications.md) --- [A head to Pipeline Configuration of Integration Testing](./pipelineconfiguration.md)

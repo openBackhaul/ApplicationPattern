@@ -31,4 +31,4 @@
 
 
 
-[Ahead to -> SDN Labaratory Overview](./Infrastructure/SdnLaboratory/Overview/Overview.md)
+[Ahead to -> SDN Laboratory Overview](./Infrastructure/SdnLaboratory/Overview/Overview.md)
