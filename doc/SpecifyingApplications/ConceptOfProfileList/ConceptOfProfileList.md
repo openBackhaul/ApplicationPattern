@@ -16,7 +16,7 @@ Unused definitions need to be deleted from the application specific copy of the 
 Additional definitions can be added, if needed.  
 
 
-### Concept of ProfileInstanceList 
+### Concept of ProfileInstanceList
 
 The ProfileInstanceList is a compact notation of the instances of Profiles that are required to define the configuration of the application.  
 It provides full focus on the values that shall be used right after instantiation.  
@@ -30,7 +30,15 @@ Unused forms need to be deleted from the application specific copy of the templa
 Additional instances can be described for additional definitions of Profiles, if needed.
 
 
-### Profiles and ProfileInstances  
+### Commenting
+
+The template of the ProfileList and the ProfileInstanceList is prepared in such a way that comments (## TODO:) have to be replaced by changes that are individual to the application under specification.  
+If this initial concept would be followed, the ProfileList and the ProfileInstanceList would be finalized as soon as all "## TODO:" would either be replaced or deleted.  
+If someone would find it helpful to add his thoughts into the ProfileList or the ProfileInstanceList, he would be free to add own comments, but these comments should not start with "TODO:" after finalizing the respective list.  
+If someone would decide to add comments into the ProfileList or the ProfileInstanceList, it would be strongly recommended to properly indent the additional lines.
+
+
+### Profiles and ProfileInstances
 
 ![Profiles and Instances](./pictures/ProfileAndInstance.png)  
 

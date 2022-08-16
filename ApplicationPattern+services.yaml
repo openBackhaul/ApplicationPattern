@@ -4,52 +4,52 @@ servers:
     own-oam:
       basic:
         - service-name: /v1/register-yourself
-          uuid: op-s-0000
+          uuid: xx-1-0-0-op-s-bm-000
         - service-name: /v1/embed-yourself
-          uuid: op-s-0001
+          uuid: xx-1-0-0-op-s-bm-001
         - service-name: /v1/redirect-service-request-information
-          uuid: op-s-0002
+          uuid: xx-1-0-0-op-s-bm-002
         - service-name: /v1/redirect-oam-request-information
-          uuid: op-s-0003
+          uuid: xx-1-0-0-op-s-bm-003
         - service-name: /v1/end-subscription
-          uuid: op-s-0004
+          uuid: xx-1-0-0-op-s-bm-004
         - service-name: /v1/inquire-oam-request-approvals
-          uuid: op-s-0005
+          uuid: xx-1-0-0-op-s-bm-005
         - service-name: /v1/update-client
-          uuid: op-s-0007
+          uuid: xx-1-0-0-op-s-bm-007
         - service-name: /v1/list-ltps-and-fcs
-          uuid: op-s-0008
+          uuid: xx-1-0-0-op-s-bm-008
         - service-name: /v1/redirect-topology-change-information
-          uuid: op-s-0009
+          uuid: xx-1-0-0-op-s-bm-009
         - service-name: /v1/update-operation-key
-          uuid: op-s-0010
+          uuid: xx-1-0-0-op-s-bm-010
         - service-name: /v1/update-operation-client
-          uuid: op-s-0011
+          uuid: xx-1-0-0-op-s-bm-011
       individual:
         - service-name: /v1/bequeath-your-data-and-die
-          uuid: op-s-1000
+          uuid: xx-1-0-0-op-s-im-000
     service:
       basic:
         - service-name: /v1/inform-about-application
-          uuid: op-s-2001
+          uuid: xx-1-0-0-op-s-bs-001
         - service-name: /v1/inform-about-application-in-generic-representation
-          uuid: op-s-2002
+          uuid: xx-1-0-0-op-s-bs-002
         - service-name: /v1/inform-about-release-history
-          uuid: op-s-2003
+          uuid: xx-1-0-0-op-s-bs-003
         - service-name: /v1/inform-about-release-history-in-generic-representation
-          uuid: op-s-2004
+          uuid: xx-1-0-0-op-s-bs-004
       individual:
         - service-name: /v1/start-application-in-generic-representation
-          uuid: op-s-3000
-        ## Services specific to this application
+          uuid: xx-1-0-0-op-s-is-000
+        ## TODO: Add Services specific to this application
   http-server:
-    own-application-name: ## OwnApplicationName
-    own-release-number: ## OwnReleaseNumber (e.g. 1.0.0)
-    uuid: http-s-0000
+    own-application-name: ## TODO: Add OwnApplicationName
+    own-release-number: ## TODO: Add OwnReleaseNumber (e.g. 1.0.0)
+    uuid: xx-1-0-0-http-s-bm-000
   tpc-server:
-    own-ip-address: ## OwnIpAddress
-    own-tcp-port: ## OwnTcpPort
-    uuid: tcp-s-0000
+    own-ip-address: ## TODO: Add OwnIpAddress
+    own-tcp-port: ## TODO: Add OwnTcpPort
+    uuid: xx-1-0-0-tcp-s-bm-000
 
 
 
@@ -57,17 +57,17 @@ clients:
 
   - http-client:
       application-name: OldRelease
-      release-number: ## Number of Release to be substituted (e.g. 1.0.0)
-      uuid: http-c-0000
+      release-number: ## TODO: Add Number of Release to be substituted (e.g. 1.0.0)
+      uuid: xx-1-0-0-http-c-bm-or-1-0-0-000
     tcp-client:
-      ip-address: ## IpAddress of Release to be substituted
-      tcp-port: ## TcpPort of Release to be substituted
-      uuid: tcp-c-0000
+      ip-address: ## TODO: Add IpAddress of Release to be substituted
+      tcp-port: ## TODO: Add TcpPort of Release to be substituted
+      uuid: xx-1-0-0-tcp-c-bm-or-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/bequeath-your-data-and-die
-            uuid: op-c-0000
+            uuid: xx-1-0-0-op-c-bm-or-1-0-0-000
         individual:
       service:
         basic:
@@ -75,17 +75,17 @@ clients:
 
   - http-client:
       application-name: NewRelease
-      release-number: ## Number of substituting Release (e.g. 1.0.1)
-      uuid: http-c-0010
+      release-number: ## TODO: Add Number of substituting Release (e.g. 1.0.1)
+      uuid: xx-1-0-0-http-c-bm-nr-1-0-0-000
     tcp-client:
-      ip-address: ## IpAddress of substituting Release
-      tcp-port: ## TcpPort of substituting Release
-      uuid: tcp-c-0010
+      ip-address: ## TODO: Add IpAddress of substituting Release
+      tcp-port: ## TODO: Add TcpPort of substituting Release
+      uuid: xx-1-0-0-tcp-c-bm-nr-1-0-0-000
     operation-clients:
       own-oam:
         basic:
         individual:
-          ## Services required for handing-over configuration or data during update
+          ## TODO: Add Services required for handing-over configuration or data during update
       service:
         basic:
         individual:
@@ -93,169 +93,169 @@ clients:
   - http-client:
       application-name: RegistryOffice
       release-number: 1.0.0
-      uuid: http-c-0020
+      uuid: xx-1-0-0-http-c-bm-ro-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1000
-      uuid: tcp-c-0020
+      uuid: xx-1-0-0-tcp-c-bm-ro-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/register-application
-            uuid: op-c-0020
+            uuid: xx-1-0-0-op-c-bm-ro-1-0-0-000
           - service-name: /v1/relay-server-replacement
-            uuid: op-c-0021
+            uuid: xx-1-0-0-op-c-bm-ro-1-0-0-001
           - service-name: /v1/deregister-application
-            uuid: op-c-0022
+            uuid: xx-1-0-0-op-c-bm-ro-1-0-0-002
           - service-name: /v1/relay-operation-update
-            uuid: op-c-0023
+            uuid: xx-1-0-0-op-c-bm-ro-1-0-0-003
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: TypeApprovalRegister
       release-number: 1.0.0
-      uuid: http-c-2030
+      uuid: xx-1-0-0-http-c-is-tar-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1001
-      uuid: tcp-c-2030
+      uuid: xx-1-0-0-tcp-c-is-tar-1-0-0-000
     operation-clients:
       own-oam:
         basic:
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: ExecutionAndTraceLog
       release-number: 1.0.0
-      uuid: http-c-0040
+      uuid: xx-1-0-0-http-c-bm-eatl-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1002
-      uuid: tcp-c-0040
+      uuid: xx-1-0-0-tcp-c-bm-eatl-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/record-service-request
-            uuid: op-c-0040
+            uuid: xx-1-0-0-op-c-bm-eatl-1-0-0-000
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: OamLog
       release-number: 1.0.0
-      uuid: http-c-0050
+      uuid: xx-1-0-0-http-c-bm-ol-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1003
-      uuid: tcp-c-0050
+      uuid: xx-1-0-0-tcp-c-bm-ol-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/record-oam-request
-            uuid: op-c-0050
+            uuid: xx-1-0-0-op-c-bm-ol-1-0-0-000
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: AdministratorAdministration
       release-number: 1.0.0
-      uuid: http-c-0060
+      uuid: xx-1-0-0-http-c-bm-aa-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1004
-      uuid: tcp-c-0060
+      uuid: xx-1-0-0-tcp-c-bm-aa-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/approve-oam-request
-            uuid: op-c-0060
+            uuid: xx-1-0-0-op-c-bm-aa-1-0-0-000
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: ApplicationLayerTopology
       release-number: 1.0.0
-      uuid: http-c-0070
+      uuid: xx-1-0-0-http-c-bm-alt-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1005
-      uuid: tcp-c-0070
+      uuid: xx-1-0-0-tcp-c-bm-alt-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/update-all-ltps-and-fcs
-            uuid: op-c-0070
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-000
           - service-name: /v1/update-ltp
-            uuid: op-c-0071
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-001
           - service-name: /v1/delete-ltp-and-dependents
-            uuid: op-c-0072
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-002
           - service-name: /v1/update-fc
-            uuid: op-c-0073
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-003
           - service-name: /v1/update-fc-port
-            uuid: op-c-0074
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-004
           - service-name: /v1/delete-fc-port
-            uuid: op-c-0075
+            uuid: xx-1-0-0-op-c-bm-alt-1-0-0-005
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
       application-name: OperationKeyManagement
       release-number: 1.0.0
-      uuid: http-c-2080
+      uuid: xx-1-0-0-http-c-is-okm-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1006
-      uuid: tcp-c-2080
+      uuid: xx-1-0-0-tcp-c-is-okm-1-0-0-000
     operation-clients:
       own-oam:
         basic:
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application
 
   - http-client:
-      application-name: ## Name of application to be addressed
-      release-number: ## Release number of application to be addressed
-      uuid: ## UUID of the HttpClient
+      application-name: ## TODO: Add Name of application to be addressed
+      release-number: ## TODO: Add Release number of application to be addressed
+      uuid: ## TODO: Add UUID of the HttpClient
     tcp-client:
-      ip-address: ## IP address of application to be addressed
-      tcp-port: ## TCP port of application to be addressed
-      uuid: ## UUID of the TcpClient
+      ip-address: ## TODO: Add IP address of application to be addressed
+      tcp-port: ## TODO: Add TCP port of application to be addressed
+      uuid: ## TODO: Add UUID of the TcpClient
     operation-clients:
       own-oam:
         basic:
         individual:
       service:
         basic:
-          ## Clients specific to this application, but addressing all other applications
+          ## TODO: Add Clients specific to this application, but addressing all other applications
         individual:
-          ## Clients specific to this application
+          ## TODO: Add Clients specific to this application

@@ -1,7 +1,7 @@
 profiles:
 
   - profile-name: 'ActionProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-action-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-action-p-[0-9]{3}$'
     capability:
       operation-name: string
       label: string
@@ -13,7 +13,7 @@ profiles:
       request: string
 
   - profile-name: 'IntegerProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-[0-9]{3}$'
     capability:
       integer-name: string
       unit: string
@@ -23,7 +23,7 @@ profiles:
       integer-value: integer
 
   - profile-name: 'StringProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-[0-9]{3}$'
     capability:
       string-name: string
       enumeration: array
@@ -31,4 +31,4 @@ profiles:
     configuration:
       string-value: string
 
-## Add further Profile definitions, if required
+## TODO: Add further Profile definitions, if required

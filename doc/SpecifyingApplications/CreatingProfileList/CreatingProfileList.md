@@ -2,7 +2,7 @@
 
 This is a step by step cookbook for creating the ProfileList.  
 
-**Please, read the background information about the [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
+**Please, read the background information about the [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
 
 
 ### File Handling
@@ -15,7 +15,7 @@ This is a step by step cookbook for creating the ProfileList.
 
 * The ActionProfile is needed for representing the application in the GenericRepresentation, which is obligatory. Consequently, the ActionProfile is assumed to be kept in the ProfileList.  
 * Remove unnecessary Profile definitions from the template.  
-* Add required Profile definitions according to the specifications made in [Concept of Profiles](../ConceptOfProfiles/ConceptOfProfiles.md) and [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) at the end of the file.  
+* Add required Profile definitions according to the specifications made in [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) at the end of the file.  
 * Re-using already existing definitions of Profiles from ProfileLists of other applications is very much recommended.  
 * Define patterns for String attributes, wherever reasonable (Potentially [this documentation](https://user.phil.hhu.de/~seyffarth/classes/python2020/09-01%20Regular%20Expressions%20schreiben.html) might be helpful. [Test the Regex](https://regex101.com/).).  
 * Put attributes, which are invariant during runtime of the application into a capability section.  
