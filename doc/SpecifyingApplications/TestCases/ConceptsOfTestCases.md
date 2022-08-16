@@ -8,15 +8,15 @@ The collection contains sub-folders like UserInput, functions(), ServiceLayer, O
 
 ### UserInput
 
-Here the data from the input load-file is extracted and stored for using it in proceeding testcases.
-
-*Reference:* [*Load File*](../LoadFile/LoadFile.md)
+Here the data from the input [load-file](../ConceptOfConfigFile/ConceptOfConfigFile.md) is extracted and stored for using it in proceeding testcases.
 
 ### functions()
 
 In this folder, any common re-usable functions could be defined.
 
 #### Some keywords used for defining the requests *(for reference)*
+
+Every testing scenario of a service contains a set of requests each having a specific purpose like preparation, testing, clearance. Based on the purpose, a specific keyword is used for the requests.
 
 |**Prefix keyword**|**Purpose of test scripts**|
 | :---- | :---- |
@@ -74,7 +74,7 @@ The following scenarios are defined for Acceptance testcases of *Service Layer* 
 | |**Test cases**|**Description**|
 |:----|:----|:----|
 |Response header|Life-cycle-state propagated?|Testing if the life-cycle present in the response header is adopting to the changes|
-|Response body|Response body completeness|Testing if the retrieved attributes for completeness against schema and also checking the values are correct against the load file.  *Reference:* [*Schema Generation*](./Yaml2JsonSchema.md)|
+|Response body|Response body completeness|Testing if the retrieved attributes for completeness against the generated [JSON schema](./JsonSchemaFromSpecification.md) and also checking the values are correct against the load file.|
 | |Vs oam put|Testing if the newly configured values are correctly getting retrieved in the services|
 |Request body|attribute completeness|Testing if the server is accepting the service request only if it has all the required attributes present|
 | |Attribute checked?|Testing if the server is accepting the service request only if each of the attributes is complying the specification (for each attribute)|
@@ -100,4 +100,4 @@ The following scenarios are defined for Acceptance testcases of *Oam Layer* APIs
 
 This folder acts as an exit point indicator for each service.
 
-[<-- Back to Specifying Applications](../SpecifyingApplications.md) - - - [Ahead to Testing the server -->](./Testing.md)
+[<-- Back to Specifying Applications](../SpecifyingApplications.md) - - - [Ahead to Testing the server -->](./ExecutingTestSuite.md)

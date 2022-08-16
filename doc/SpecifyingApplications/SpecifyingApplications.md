@@ -93,24 +93,26 @@ The CONFIGfile describes the data structure inside the application and on the di
 **Concepts**
 * [CONFIGfile](./ConceptOfConfigFile/ConceptOfConfigFile.md)
 
-
 ## TestCases
-
 TestCases are written in Postman as collections of small scripts.  
 A set of testcases is defined for each individual request and it mainly focuses on
 * determining if the functionality of the service is working as expected.  
 * revealing errors or defects of the implementation.  
 
-**pre-requisites**
-
-- [Installing postman](../PreparingSpecifying/InstallingPostman/InstallingPostman.md)
-- [Creating postman account](../PreparingSpecifying/OwnPostmanAccount/OwnPostmanAccount.md)
-- [Creating application specific workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/) *(optional)*
-
 **Concepts**
-* [Starting with postman collections](./TestCases/postmanCollection.md)
-* [TestCases](./TestCases/TestCases.md)
+* [Specifying Testcases](./TestCases/SpecifyingTestcases.md)
+* [Concepts of Testcases](./TestCases/ConceptsOfTestCases.md)
 
+**Step-by-Step Guidelines**
+* [Creating Testsuite](./TestCases/CreatingTestSuite.md)
+* [Generating Json schema from Specification](./TestCases/JsonSchemaFromSpecification.md)
+* [Running the Testcases](./TestCases/ExecutingTestSuite.md)
+
+**Documentation**
+* [Creating workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/)
+* [Version control in postman](https://learning.postman.com/docs/collaborating-in-postman/version-control/)
+* [Importing and exporting collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
+* [Documenting API](https://learning.postman.com/docs/publishing-your-api/documenting-your-api/)
 
 ### Publishing
 
