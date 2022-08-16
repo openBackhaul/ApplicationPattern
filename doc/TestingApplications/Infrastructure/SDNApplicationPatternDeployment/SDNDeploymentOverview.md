@@ -25,7 +25,7 @@ In current setup, we are using two servers one for jenkins and another used for 
 
 **[Newman and htmlextra reporter](../Tools/Newman/Newman.md)**:  used for running the automated testing process for every applications
 
-**[Highavailability](../Tools/Scripts/Scripts.md)** : used to moniter applications status
+**[Highavailability](../Tools/Scripts/Scripts.md)** : used to monitor applications status
 
 Note: All [required tools](https://github.com/openBackhaul/ApplicationPattern/tree/develop/doc/TestingApplications/Infrastructure/Tools) should installed and available Java, docker, Jenkins setup, Nodejs, NPM, Newman, Newman reporter htmlextra package and GIT. Then only a successful pipeline deployment and testing is done in both testbed and production environment.
 

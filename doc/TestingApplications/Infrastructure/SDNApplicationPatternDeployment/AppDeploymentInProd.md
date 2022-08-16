@@ -59,7 +59,7 @@ Example structure of Applications deployed on docker engine:
 ![Allapplications in siglepage](Images/AllApplicationsexample.PNG)
 
 #### Run the Automation testsuites 
-Automation testsuites running imediately after the application deployment.Integration Testing run in production/preprod environment 
+Automation testsuites running immediately after the application deployment.Integration Testing run in production/preprod environment 
 
  - [**Integration Testing**](../../IntegrationTesting/Overview/ConceptsAndOverview.md)
 
