@@ -67,4 +67,4 @@ Based on requirement, add the options to newman and run the collections.
     
 
 
-[<- Back to git](../Jenkins/Introduction.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to Scripts](../Scripts/Scripts.md)
+[<- Back to git](../Jenkins/Introduction.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to Scripts ->](../Scripts/Scripts.md)

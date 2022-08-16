@@ -3,10 +3,10 @@
 ### Overview and General Concepts of the SDN Laboratory
 Software Defined Networking (SDN) that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we have some general concepts like Controllers, Mediators, NEs and SDN Applications.
 
-Before going the concepts into SDN labaratory refer [Introduction](../../../../Introduction/Introduction.md) here and Below are the key concepts for SDN labaratory
+Before going the concepts into SDN labaratory refer [Introduction](../../../../Introduction/Introduction.md) here and Below are the key concepts for SDN labaratory.
 
 ### Controller
-The SDN Controller is the single point of contact for the applications to provide real-time information about status, configuration and topology for constant optimization and automation of the network. The SDN Controller offers a REST based interface at its northbound side towards the Applications at its northbound. The Applications can request the real-time network status and can provision the configurations at the network elements over the standard REST based interface. At the south side, the SDN controller will manage the underlying network elements through standardized netconf based requests.
+The SDN Controller is the single point of contact for the applications to provide real-time information about status,configuration and topology for constant optimization and automation of the network. The SDN Controller offers a REST based interface at its northbound side towards the Applications at its northbound. The Applications can request the real-time network status and can provision the configurations at the network elements over the standard REST based interface. At the south side, the SDN controller will manage the underlying network elements through standardized netconf based requests.
 
 ![northsouthcontroller](./Images/Capture.PNG)
 
