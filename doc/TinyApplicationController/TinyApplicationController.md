@@ -12,7 +12,11 @@ It administrates the list of registered applications.
     * E.g. if a new application calls the register-application service, its application information is registered and related details are transported into the registry office. After successful registration the RO sends the registered application information to the TypeApprovalRegistry for type approval. 
     * On the other hand, a successful deregistration leads to the RO sending the deregistered application information to other applications that subscribed for the deregistration notification.  
 
-* Other applications can use the RO notification services (e.g. */v1/notify-approval*) to subscribe for notifications about approval or registration status. If an applicationd has dependencies to other applications it needs to know if these applications services are available and can be used or not.
+* Other applications can use the RO notification services (e.g. */v1/notify-approval*) to subscribe for notifications about approval or registration status. If an application has dependencies to other applications it needs to know if these applications services are available and can be used or not.
+
+The graphic shows the interactions of the RegistryOffice with the other TAC applications for adding a new application to the ApplicationLayer.  
+![TAC_newApp](https://user-images.githubusercontent.com/57349523/185092676-bbfb167b-3430-466c-a03f-7e5a8156c01e.jpg)
+
 
 ![colorline_blue](https://user-images.githubusercontent.com/57349523/154715704-2e1a7c51-17c2-47af-a46a-85bd613f4a53.jpg)
 
@@ -35,26 +39,36 @@ in the type approval register.
 ### ExecutionAndTraceLog
 ExecutionAndTraceLog is logging all service activities.
 
-
 **What is the purpose of ExecutionAndTraceLog (EATL)?**  
+The EATL logs information about all service requests. It provides services to e.g. retrieve the following information:  
+* a list of all service records
+* a list of all service records beloning to the same flow
+* a list of unsuccessful service requests
 
 **How does EATL help to troubleshoot a failure/successful end to end flow?**  
-
+With the provided services the complete communication flow between applications can be made availably for analysis. Each service request record includes detailed information about the executed requests, such as user, originator, application name and release, operation name, response code and the timestamp. It also includes the x-correlator and trace-indicator, which help to group requests associated with each other. E.g. by first requesting the list of unsuccessful requests, problematic requests can be identified. By then retrieving all service request records beloning to the same flow as the problem request further analysis is possible.
 
 ![colorline_blue](https://user-images.githubusercontent.com/57349523/154715704-2e1a7c51-17c2-47af-a46a-85bd613f4a53.jpg)
 
 ### OamLog
-OamLog is logging all administrative activities
+OamLog is logging all administrative activities.
 
 **What is the purpose of OamLog (OL)?**  
+The OamLog application is in charge of logging all OaM (i.e. the administrative) requests. Each OaM request record captures information about the application, the method (e.g. PUT), the request information like ressource, body, response code or timestamp, as well as the user, who issued the request.  
+It provides services to e.g. obtain 
+- a list of recorded OaM requests
+- a list of OaM request records beloning to the same application
+
 
 ### AdministratorAdministration
 AdministratorAdministration is authenticating OaM requests
 
 **What is the purpose of AdministratorAdministration (AA)?**  
+All OaM requests need to be authenticated. The AA offers a service to check this authentication. Upon valid authentication, the OaM request is approved.  
+All applications are also offering a service for inquiring about OaM request approvals, for which the executed operation is the approval service of the AA.
 
 **What type of services will be authenthicated using AA?**  
-
+All OaM services, as these are offering administration functionality. Non-OaM services do not need to be authenticated.
 
 
 ![colorline_blue](https://user-images.githubusercontent.com/57349523/154715704-2e1a7c51-17c2-47af-a46a-85bd613f4a53.jpg)
@@ -86,9 +100,10 @@ By sending their control construct information to the ALT the ALT is able to sto
 OperationKeyManagement keeps operation keys in synch
 
 **What is the purpose of OperationKeyManagement (OKM)?**  
+The OKM keeps a list of applications that are part of the operationKey management. Applications can be added or removed by the *regard-application* or *disregard-application* services. Also a list of all applications on the management list can be requested from the OKM. 
 
 **How are operation keys frequently updated using the OKM application?**   
-
+The *regard-updated-link* service offered by the OKM initiates the OperationKey update.
 
 ![colorline_blue](https://user-images.githubusercontent.com/57349523/154715704-2e1a7c51-17c2-47af-a46a-85bd613f4a53.jpg)
 
@@ -96,7 +111,7 @@ OperationKeyManagement keeps operation keys in synch
 
 Some of the basic services offer configuring the client side with one of the applications in the TinyApplicationController.
 
-| Catgory | Basic Service | Related Application |
+| Category | Basic Service | Related Application |
 | --- | --- | --- |
 | own oam / basic | /v1/embed-yourself |  | 
 | own oam / basic | /v1/end-subscription |  | 
