@@ -8,5 +8,4 @@
    * logged to the OAMLog application. Please refer [logging](../ConceptOfLogDirection/ConceptOfLogDirection.md) section for further details.
 
 
-[<- Back to Code Collaboration](CodeCollaboration.md)  - - - [Up to Integrating load file](IntegratingLoadFile.md) 
 

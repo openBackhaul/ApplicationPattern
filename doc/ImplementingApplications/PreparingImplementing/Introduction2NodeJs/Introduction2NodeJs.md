@@ -26,4 +26,3 @@ This allows Node.js to handle thousands of concurrent connections with a single 
 **Node.js is lightweight, fast and scalable**
 * Node.js allows you to build fast, scalable API Proxy capable of handling a huge number of simultaneous requests with high throughput.  
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)

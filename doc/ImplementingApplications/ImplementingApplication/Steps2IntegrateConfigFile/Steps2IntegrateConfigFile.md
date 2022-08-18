@@ -16,7 +16,6 @@ To do so ,
   ```
 
 
-  
-[<- Back to Stub Generation](StubGeneration.md)  - - - [Up to Integrating basic services](IntegratingBasicServices.md)
+
 
 

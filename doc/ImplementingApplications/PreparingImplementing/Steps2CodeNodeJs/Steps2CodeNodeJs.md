@@ -57,4 +57,4 @@ Step-by-step guide to utilize some basic features provided by VSCode to ease the
   ![JavaScriptFileExtention](./Images/UnusedCode.png)
 * This can be deleted directly to keep the code clean.
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)
+

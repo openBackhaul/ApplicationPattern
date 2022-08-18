@@ -29,4 +29,3 @@ Unused JavaScript code, such the else block of an if statement that is always tr
 This provides developer a clear view to remove unused code.
 
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)

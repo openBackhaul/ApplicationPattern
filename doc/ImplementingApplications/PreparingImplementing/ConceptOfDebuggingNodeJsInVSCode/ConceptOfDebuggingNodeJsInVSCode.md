@@ -16,5 +16,3 @@ Sometimes you want to just log a message or value when code hits a certain locat
 #### Hit count breakpoints
 The 'hit count condition' controls how many times a breakpoint needs to be hit before it will 'break' execution. 
 
-
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)

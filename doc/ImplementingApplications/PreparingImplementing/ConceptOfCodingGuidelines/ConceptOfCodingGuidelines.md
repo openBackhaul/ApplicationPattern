@@ -46,5 +46,4 @@ Coding conventions improves code readability and makes the code maintenance easi
     ☐ utilize the modules inside the application pattern instead of defining your own functions
 
 
-[<- Back to Development Environmental setup](DevelopmentEnvironmentalSetup.md) - - - [Up to Code Collaboration](CodeCollaboration.md) 
 

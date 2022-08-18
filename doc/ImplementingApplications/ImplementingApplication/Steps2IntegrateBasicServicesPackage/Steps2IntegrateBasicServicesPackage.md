@@ -16,4 +16,3 @@ To integrate the BasicServices package,
 4. The downloaded packages will be available in the "node_modules/onf-core-model-ap-bs/`
 
  
-[<- Back to Integrating load file](IntegratingLoadFile.md)   - - - [Up to How to model an Individual service](HowToModelAnIndividualService.md)

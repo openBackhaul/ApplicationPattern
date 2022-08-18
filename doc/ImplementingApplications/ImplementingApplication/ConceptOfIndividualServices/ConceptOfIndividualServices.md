@@ -13,5 +13,3 @@
 
 
 
-[<- Back to Code Collaboration](CodeCollaboration.md)  - - - [Up to Integrating load file](IntegratingLoadFile.md) 
-

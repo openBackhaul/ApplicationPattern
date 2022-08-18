@@ -15,4 +15,3 @@ VS Code has an integrated terminal which you can use to run shell commands. You 
   ![RunningNodeJSApplication](./Images/RunningNodeJSApplication.png) 
 
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)

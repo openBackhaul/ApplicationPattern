@@ -8,4 +8,3 @@ The integrated terminal can use various shells installed on your machine, with t
 Node.js applications can be run directly from the integrated terminal and avoid switching out of VS Code while running command-line tools.
 Multiple terminals can be launched which provides option to run multiple Node.js application from a single VSCode window 
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)

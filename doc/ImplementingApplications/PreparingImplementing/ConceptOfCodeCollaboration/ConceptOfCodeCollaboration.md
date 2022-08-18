@@ -18,5 +18,4 @@ In the application development process , a team develop solutions for the open A
 * If review request is not approved and requires correction , then review comments should be resolved in the same pull request or in a different pull request.
 
 
-[<- Back to Development Environmental setup](DevelopmentEnvironmentalSetup.md) - - - [Up to Code Collaboration](CodeCollaboration.md) 
 

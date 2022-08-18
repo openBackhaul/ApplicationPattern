@@ -49,4 +49,4 @@ Node.js applications can be debugged in 3 different approaches in VSCode. JavaSc
   * Stop `Shift+F5`
 
 
-[Up to Preparing for implementing Applications](../PreparingImplementing.md) - - - [Ahead to Introduction to NPM ->](../Introduction2Npm/Introduction2Npm.md)
+
