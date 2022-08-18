@@ -2,7 +2,7 @@
 
 In the application development process , a team develop solutions for the open API Specification provided by the application owner. This may involve teams of people, new features , and unexpected challenges. A good process that involves a review phase is required for effective code collaboration.
 
-  ![CodeCollaborationFlow](./Images/CodeCollaborationFlow.PNG) 
+  ![CodeCollaborationFlow](./Images/CodeCollaborationFlow.png) 
 
 * In every repository in the openbackhaul GitHub repository, the following two branches will be available to record the progress of the project, 
   *  main branch : is the main working branch created when ApplicationOwner/PlatformOwner pushed file for the first time into the repository.
