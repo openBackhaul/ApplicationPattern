@@ -30,6 +30,5 @@ The OAM services are of HTTP methods GET/PUT/DELETE as its focusing on a modifyi
 The OAM service requests are authenticated by the AA Microservice.
 All the OAM service requests should log the OAM request to the OL Microservice.
 
-[<- Back to Associating specification and load file](./AssociatingSpecificationAndLoadFile.md) - - - [Up to Implementation and Collaboration](./../../ImplementationAndCodeCollaboration/ImplementationAndCodeCollaboration.md)
 
 
