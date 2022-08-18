@@ -92,4 +92,4 @@ Consistently using the same style throughout your code makes it easier to read. 
 * [Automatic Code Style and Formatting](./Steps2AutomateCodeFormating/Steps2AutomateCodeFormating.md)
 
 
-[<- Back to Introduction](../Introduction/Introduction.md) - - - [Up to Main](../Main.md) - - - [Ahead to Specifying ->](../SpecifyingApplications/SpecifyingApplications.md)
+[<- Back to Introduction](../ImplementingApplications.md) - - - [Up to Main](../Main.md) - - - [Ahead to Implementation ->](../ImplementingApplication/ImplementingApplications.md)
