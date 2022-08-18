@@ -20,5 +20,4 @@ The generated server-side stub will have the following folders and files. Detail
 
 
 
-[<- Back to Code Collaboration](CodeCollaboration.md)  - - - [Up to Integrating load file](IntegratingLoadFile.md) 
 
