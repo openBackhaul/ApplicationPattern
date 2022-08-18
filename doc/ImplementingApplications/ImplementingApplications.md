@@ -1,5 +1,6 @@
 # Implementing Applications
-* [Getting Started](GettingStarted/GettingStarted.md)
+* [Preparing Implementation](./PreparingImplementing/PreparingImplementing.md)
+* [Implementing Application](./ImplementingApplication/ImplementingApplications.md)
 * [Documentation of the Implementation of the ApplicationPattern](./ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
 * [General Design Principles](../ElementsApplicationPattern/ElementsApplicationPattern.md)
 
