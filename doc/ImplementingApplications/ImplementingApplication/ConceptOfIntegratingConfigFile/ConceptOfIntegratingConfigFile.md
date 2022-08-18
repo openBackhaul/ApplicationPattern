@@ -7,5 +7,4 @@
   * manipulated using the OAM Services of the application
 
 
-[<- Back to Code Collaboration](CodeCollaboration.md)  - - - [Up to Integrating load file](IntegratingLoadFile.md) 
 
