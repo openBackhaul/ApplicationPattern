@@ -21,7 +21,7 @@ OAM services are used to view and edit the entities of the CONFIGFile.
 
 #### Logging :
 
-* All OAM services shall be logged to the OAMLog application , please refer the [Steps to integrate logging application](./Steps2IntegrateLoggingApplication/Steps2IntegrateLoggingApplication.md)  for details.
+* All OAM services shall be logged to the OAMLog application , please refer the [Steps to integrate logging application](../Steps2IntegrateLoggingApplication/Steps2IntegrateLoggingApplication.md)  for details.
 
 #### Processing Request
 * In the controller/ folder, in files related to OAMService , in each method , there will be call to a function in the service/ folder. To this function the request url should be passed. This request url will have the complete path of the resource to be accessed.

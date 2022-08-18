@@ -34,7 +34,7 @@ All methods in this file require this changes.
 
 #### Logging :
 
-* All Individual services shall be logged to the EATL application , please refer the [Steps to integrate logging application](./Steps2IntegrateLoggingApplication/Steps2IntegrateLoggingApplication.md)  for details.
+* All Individual services shall be logged to the EATL application , please refer the [Steps to integrate logging application](../Steps2IntegrateLoggingApplication/Steps2IntegrateLoggingApplication.md)  for details.
 
 #### Processing Request
 * In the controller/ folder, in the IndividualServices.js , in each method , there will be call to a function in the service/individualServicesService.js. To this function the request url should be passed. This request url will have the complete path of the resource to be accessed.
