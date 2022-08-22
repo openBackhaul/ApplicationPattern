@@ -30,19 +30,8 @@ While running the applications as container, the created volumes will be maintai
         sudo docker run -d -p <port>:<port> --name <imagename> -v <volumename>:<pathtomount><localmountedpath>
         ex : sudo docker run -d -p <1234>:<1234> --name registry-office-image -v registry-office:/home/openbackhaul/registryOffice/database /home/registry-office
         
-#### Dockerized SDN Application with RegistryOffice example
+#### Dockerize SDN Application with RegistryOffice example
 ![SDN dockerize Application Pattern](Images/exmpleROdockerimage.PNG)
 
 
-#### Reference links :
- [Docker Installation Process of RHEL](https://linuxconfig.org/how-to-install-docker-in-rhel-8)
- 
-[Docker Installation Process onUbuntu]( https://phoenixnap.com/kb/install-docker-on-ubuntu-20-04)
-
-[Basics of Docker](https://docs.docker.com/engine/ )
-
-[Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
-
-[Docker volumes reference](https://docs.docker.com/storage/volumes/)
-
-[<- Back to DockerVolumes](./DockerVolumes.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to GIT ->](../Git/GitOverview.md)
+[<- Back to DockerVolumes](./DockerVolumes.md) - - - [Back to Testing Applications](../../../TestingApplications.md)

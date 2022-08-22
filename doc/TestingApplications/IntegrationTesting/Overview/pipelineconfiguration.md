@@ -9,7 +9,7 @@
 ![IntegrationFlow](./../Images/IntegrationFlow.PNG)
 
 #### Source stage : 
-Take clone from the github of current testcases.
+Take clone from the github of current repository.
 
 #### Setup to run postman collection file : 
 - Update the file RegistryOffice_0.0.1_tsi.date.time+data.no.json with "typeOfTesting": "Integration"
@@ -30,4 +30,4 @@ As part of pipeline configuration once setup and run the test suites, we can als
 
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline job URL's.
 
-[<- Back to ConceptsAndOverview](./ConceptsAndOverview.md) - - - [Back to main Testing Applications](../../TestingApplications.md)
+[Back to main Testing Applications](../../TestingApplications.md)

@@ -6,7 +6,7 @@ Good collaboration processes and detailed guidelines are required for efficientl
 All ApplicationOwners need an own GitHub account and local installations of Git and VSCode from beginning on.  
 GitHub is a cloud based versioning system for sharing code in open source projects.  
 Git is for keeping local data in synch with GitHub.  
-Visual Studio Code is an advanced editor, which is very well integrating Git into its grafical user interface.  
+Visual Studio Code is an advanced editor, which is very well integrating Git into its graphical user interface.  
 Both, Git and VisualStudioCode are available for Linux, Windows and Mac.
 
 **Concepts**
@@ -57,8 +57,8 @@ All ApplicationOwners need an own Postman account.
 ### OpenAPI specification (Swagger) and YAML
 
 Automated code generation requires syntactically well defined specifications.  
-OpenAPI Specification (formerly Swagger Specification) has been choosen for describing REST APIs.  
-Indent based YAML format has been choosen for formatting the OAS coding.  
+OpenAPI Specification (formerly Swagger Specification) has been chosen for describing REST APIs.  
+Indent based YAML format has been chosen for formatting the OAS coding.  
 Mastering OpenAPI Specification 3.0 in YAML is a precondition.  
 
 **Documentation**

@@ -17,10 +17,4 @@ git add <filenames> |staged/add the changes |
 |git reset | discard the commits which are no need|
 |git log | get the details about commits that made on branch/repository|
 
-
-## Reference
-
-[**Refer this official URL to know more about git commands**](https://docs.github.com/en/get-started/using-git/about-git ) 
-
-
-[<- Back to GitOverview](./GitOverview.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Jenkins ->](../Jenkins/Introduction.md)
+[Back to Testing Applications](../../../TestingApplications.md)

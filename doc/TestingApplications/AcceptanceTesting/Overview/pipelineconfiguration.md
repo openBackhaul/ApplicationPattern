@@ -1,6 +1,7 @@
-### Configure Pipeline job for running Acceptance test cases
+### Acceptance Testing
+**Configure Pipeline job for running Acceptance test cases**
 Once Application deployed and automatically acceptance testing performed.
-- source stage
+- Source stage
 - Setup to run postman collection file
 - Run Acceptance test cases
 - Results available
@@ -31,4 +32,4 @@ As part of pipeline configuration once setup and run the test suites, we can als
 
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
-[<- Back to ConceptsAndOverview](./ConceptsAndOverview.md) - - - [Back to main Testing Applications ->](../../TestingApplications.md) - - - [A head to Integration Testing](../../IntegrationTesting/Overview/ConceptsAndOverview.md)
+[Back to main Testing Applications ->](../../TestingApplications.md)

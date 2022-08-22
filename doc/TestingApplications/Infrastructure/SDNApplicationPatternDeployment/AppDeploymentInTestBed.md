@@ -58,4 +58,4 @@ Automation testsuites running once after the application deployment.
 #### Email Notification
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's
 
-[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to -> SDNApplicationDeploymentInProd](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)
+[Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)

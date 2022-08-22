@@ -1,6 +1,4 @@
-### Why Jenkins as CI tool
-Jenkins is a software that allows continuous integration. Jenkins will be installed on a server where the central build will take place. It will be used to build, test and deploy the software projects continuously which makes easier to developers to deliver the Software modules.
-### Workflow: 
+### Jenkins Workflow
 Here's how Jenkins elements are put together and interact.
 
 - Developers commit the changes into repository 
@@ -15,4 +13,4 @@ The main advantage of Jenkins is having 1000+ plugin's to ease our work. If we u
 The whole process is eliminated the manual intervention and designed to ensure the fast flow of reliable code from the development team to the production environment, enabling Continuous Delivery (CD) and Continuous Deployment.
 
 
-[<-Back to Overview](./Introduction.md) - - - [back to main TestingApplications](../../../TestingApplications.md) - - - [a head to Installation and Environment Setup ->](./InstallationAndEnvironmentSetup.md)
+[Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to Jenkins Installation ->](./JenkinsInstallation.md)
