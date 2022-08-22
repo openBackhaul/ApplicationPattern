@@ -40,7 +40,7 @@ So, code collaboration can be managed through VSCode with the support of the Git
 
 **Concepts**
 * [Workflow for contributing](./WorkflowForContributing/WorkflowForContributing.md)
-$$$$$$* [Workflow for collaborating code](./ConceptOfCodeCollaboration/ConceptOfCodeCollaboration.md)
+* [Workflow for collaborating code](./ConceptOfCodeCollaboration/ConceptOfCodeCollaboration.md)
 * [Formulating Commit and Merge Request Messages](./FormulatingCommitMessages/FormulatingCommitMessages.md)
 * [Managing Conflicts](./ConflictManagement/ConflictManagement.md)
 * [Avoiding Conflicts](./AvoidingConflicts/AvoidingConflicts.md)
