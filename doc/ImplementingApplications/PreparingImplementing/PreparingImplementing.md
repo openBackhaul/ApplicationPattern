@@ -1,3 +1,6 @@
+# To be deleted  
+
+
 # Preparing for Implementing Applications
 
 ## Visual Studio Code(VSCode)
