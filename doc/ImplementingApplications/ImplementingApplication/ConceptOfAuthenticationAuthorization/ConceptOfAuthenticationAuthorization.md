@@ -8,7 +8,7 @@ In all the approved applications of ApplicationPattern ,
  ![BasicAuth](Images/BasicAuth.png)
 * Every OAM service request is authorized by using BasicAuth. 
 * Usually, an administrator shall access the OAM services by using a username and password. 
-* When an application receives an OAM request , the BasicAuth will be validated with the help of one of the Tiny Application Controller called “AdministratorAdministration”(AA). 
+* When an application receives an OAM request , the BasicAuth will be validated with the help of one of the applications in Tiny Application Controller called “AdministratorAdministration”(AA). 
 * This AA application exposes a service called “approve-oam-request”. All the approved applications in the ApplicationPattern shall access this request in AA to validate the incoming OAM requests. 
 * Based on the validation results , OAM services can either processed further or rejected with 401 unauthorized response code.
 

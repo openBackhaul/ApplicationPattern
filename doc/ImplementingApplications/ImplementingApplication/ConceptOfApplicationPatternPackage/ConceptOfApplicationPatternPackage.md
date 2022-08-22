@@ -14,7 +14,7 @@ This library provides APIs,
 
 ## Application Pattern Modules
 
-ApplicationPattern modules consists of the followin sub-modules
+ApplicationPattern modules consists of the following sub-modules
 
 ### DatabaseDriver
 This module consists of functionalities using which the CONFIGfile  shall be manipulated.
