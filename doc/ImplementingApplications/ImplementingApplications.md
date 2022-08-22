@@ -54,7 +54,7 @@ In the generated server side stub , initial dependencies and setup needs to be c
 **Concepts**
 * [Integrating Configuration file](./ImplementingApplication/ConceptOfIntegratingConfigFile/ConceptOfIntegratingConfigFile.md)
 * [Application pattern package](./ImplementingApplication/ConceptOfApplicationPatternPackage/ConceptOfApplicationPatternPackage.md)
-* [old reference -> Modules of the ApplicationPattern Implementation](./ImplementingApplication/ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
+* [old reference -> Modules of the ApplicationPattern Implementation](./ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
 * [Authorization](./ImplementingApplication/ConceptOfAuthenticationAuthorization/ConceptOfAuthenticationAuthorization.md)
 * [Directing Logs and Traces](./ImplementingApplication/ConceptOfLogDirection/ConceptOfLogDirection.md)
 
