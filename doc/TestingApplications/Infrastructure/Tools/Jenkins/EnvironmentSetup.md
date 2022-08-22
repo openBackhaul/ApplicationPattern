@@ -37,4 +37,4 @@ Then click on the **start Using Jenkins** to open the Jenkins Dashboard.
 
 ![jenkinsready](Images/jenkinsready.png)
 
-[<-Back to Environment SetUp](./EnvironmentSetup.md) - - - [head to main TestingApplications](../../../TestingApplications.md) - - - [PluginInstallation ->](./PluginInstallation.md)
+[<-Back to Environment SetUp](./EnvironmentSetup.md) - - - [Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to PluginInstallation ->](./PluginInstallation.md)

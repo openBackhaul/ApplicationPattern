@@ -61,11 +61,11 @@ Example structure of Applications deployed on docker engine:
 #### Run the Automation testsuites 
 Automation testsuites running immediately after the application deployment.Integration Testing run in production/preprod environment 
 
- - [**Integration Testing**](../../IntegrationTesting/Overview/ConceptsAndOverview.md)
+ - [**Integration Testing**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
 
  
 #### Email Notification
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
 
-[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to main Testing Applications](../../../TestingApplications.md)
+[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to Testing Applications ->](../../../TestingApplications.md)

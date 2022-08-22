@@ -52,13 +52,13 @@ The procedure is same for all other required plugin installation.
 
 #### Download the plugin from Jenkins website and installing it manually.
 
-If any plugins we required to upgrade or downgrade first, we download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
+If any plugins we required to upgrade or downgrade first, we can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](../../../TestingApplications.md).
 
-**Note**: download plugins with .hpi extension. 
+**Note**: download plugins with .hpi extension only.
 
 To upload plugins to Jenkins Goto, Manage Jenkins==>manage plugins==> under advance section ==>under deploy plugin click on choose file then upload earlier download plugin.
 
 ![deployimage](Images/deployplugin.png)
 
 
-[<-Back to EnvironmentSetup](./EnvironmentSetup.md) - - - [head to main TestingApplications](../../../TestingApplications.md) - - - [a head to MasterSlaveConfiguration->](./MasterSlaveConfiguration.md)
+[<-Back to EnvironmentSetup](./EnvironmentSetup.md) - - - [Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to MasterSlaveConfiguration->](./MasterSlaveConfiguration.md)

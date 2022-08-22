@@ -6,4 +6,4 @@ Open Jenkins Dashboard==>Click on Manage Jenkins==>Click on Manage Nodes and Clo
 
 The complete set up is ready in current SDN controller application testing.
 
-[<-Back to MasterSlaveConfiguration](./MasterSlaveConfiguration.md) - - - [head to main TestingApplications](../../../TestingApplications.md) - - - [a head to EmailNotificationConfiguration->](./EmailNotificationConfiguration.md)
+[<-Back to PluginInstallation](./PluginInstallation.md) - - - [Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to EmailNotificationConfiguration->](./EmailNotificationConfiguration.md)

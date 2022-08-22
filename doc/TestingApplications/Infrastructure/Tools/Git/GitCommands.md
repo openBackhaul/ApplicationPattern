@@ -17,4 +17,4 @@ git add <filenames> |staged/add the changes |
 |git reset | discard the commits which are no need|
 |git log | get the details about commits that made on branch/repository|
 
-[Back to Testing Applications](../../../TestingApplications.md)
+[<- Back to Testing Applications](../../../TestingApplications.md)

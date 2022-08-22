@@ -14,4 +14,4 @@ Dockerfile is a simple text file that consists of instructions to build Docker i
 ### Docker container
 A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
-[Back to Testing Applications](../../../TestingApplications.md) - - [Ahead to Docker Installation](./Installation.md)
+[<- Back to Testing Applications](../../../TestingApplications.md) - - [Ahead to Docker Installation](./Installation.md)

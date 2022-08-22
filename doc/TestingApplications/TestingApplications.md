@@ -28,6 +28,7 @@ Jenkins is a software that allows continuous integration. Jenkins will be instal
 
 **Documents**
 * [Installation of Jenkins](https://www.jenkins.io/doc/book/installing/)
+* [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/)
 ### Git, Github
 It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage git repositories on centralized server. 
 Git makes it easy to use by users:
@@ -42,7 +43,7 @@ Git makes it easy to use by users:
 
  **Documents**
 * [More About GIT](https://docs.github.com/en/get-started/using-git/about-git )
-* [More about GIT commands**](https://docs.github.com/en/get-started/using-git/about-git ) 
+* [More about GIT commands](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 ### Docker
 Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying the applications and below are advantages over docker.
@@ -102,4 +103,4 @@ Integration Testing is a finalized testing of software product. Normally softwar
 **Step-by-Step Guidelines**
 * [Automated Pipeline Flow](./IntegrationTesting/Overview/pipelineconfiguration.md)
 
-[Ahead to -> SDN Laboratory Overview](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
+[<- Back to Specifying](../SpecifyingApplications/SpecifyingApplications.md) - - - [Up to Main](../Main.md) - - - [Ahead to TinyApplicationController ->](../TinyApplicationController/TinyApplicationController.md)

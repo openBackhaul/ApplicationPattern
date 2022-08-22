@@ -50,12 +50,12 @@ Verify the application swagger is up and running.
     ex: http://125.4.5.11:1234/docs/
 
 ![RO](Images/Ro.png) 
-#### Run the Automation testsuites 
+#### Run the Automation Testsuites 
 Automation testsuites running once after the application deployment.
-- #### [Acceptance Testing](../../AcceptanceTesting/Overview/OverviewAndConcepts.md)
+- #### [Acceptance Testing](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
 
 
 #### Email Notification
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's
 
-[Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)
+[<- Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)

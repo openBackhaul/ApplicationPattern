@@ -32,4 +32,4 @@ As part of pipeline configuration once setup and run the test suites, we can als
 
 Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
 
-[Back to main Testing Applications ->](../../TestingApplications.md)
+[<- Back to main Testing Applications ->](../../TestingApplications.md)
