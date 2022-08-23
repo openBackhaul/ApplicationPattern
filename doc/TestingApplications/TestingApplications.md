@@ -1,7 +1,7 @@
 # Testing Applications
 ## Infrastructure
 ### SDN Laboratory
-Software Defined Networking (SDN) that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we have some general concepts like Controllers, Mediators, Network Elements and SDN Applications.
+Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we have some general concepts like Controllers, Mediators, Network Elements and SDN Applications.
 
 **Concepts**
 * [SDN Introduction](../Introduction/Introduction.md)
@@ -30,8 +30,8 @@ Jenkins is a software that allows continuous integration. Jenkins will be instal
 **Documents**
 * [Installation of Jenkins](https://www.jenkins.io/doc/book/installing/)
 * [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/)
-### Git, Github
-It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage git repositories on centralized server. 
+### Git, GitHub
+It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
 Git makes it easy to use by users:
 - Keep track of code history
 - Collaborate on code as a team
@@ -39,12 +39,12 @@ Git makes it easy to use by users:
 - Deploy code to staging or production
 
 **Step-by-Step Guidelines**
-* [More about Git, Git hub Installation and Workflow](../PreparingSpecifying/PreparingSpecifying.md#github-git-and-visual-studio-code)
+* [More about Git, GitHub Installation and Workflow](../PreparingSpecifying/PreparingSpecifying.md#github-git-and-visual-studio-code)
 * [Frequently used Git Adhoc Commands](./Infrastructure/Tools/Git/GitCommands.md)
 
  **Documents**
-* [More About GIT](https://docs.github.com/en/get-started/using-git/about-git )
-* [More about GIT commands](https://docs.github.com/en/get-started/using-git/about-git ) 
+* [More About Git](https://docs.github.com/en/get-started/using-git/about-git )
+* [More about Git commands](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 ### Docker
 Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying the applications and below are advantages over docker.
@@ -85,9 +85,8 @@ Newman is a command-line collection runner for Postman. It allows us to run and 
 ## SDN Application Pattern Deployment
  Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
 
-![Overview](./Infrastructure/SDNApplicationPatternDeployment/Images/sdn%20application%20deployment.PNG)
-
-To test the application pattern we are using CI/CD methodology which includes continuous integration and continuous delivery/continuous deployment. CI means the name itself explains us, developer makes the changes continuously and do continuos build, tests until requirement fulfilled, CI will make this process easier and it automatically integrates the changes into current repository and test the applications. CD is like continuous delivery/continuous deployment an automated delivery process which includes testing and delivery the SW. Once everything is fine in automation testing, continuos deployments performed in production environments.
+**Concepts**
+* [WorkFlow]()
 
 **Step-by-Step Guidelines**
 * [Application Deployment in Test Bed](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInTestBed.md)
