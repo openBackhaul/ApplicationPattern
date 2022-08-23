@@ -263,7 +263,7 @@ function getUnconfigurableHttpClientForwardingAutomationInputAsync(httpClientCon
             let forwardingAutomation;
             let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
             let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody;
+            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
 
             if (httpClientConfigurationStatus) {
                 if (httpClientConfigurationStatus.updated) {
@@ -318,7 +318,7 @@ function getUnconfigurableTcpClientForwardingAutomationInputAsync(tcpClientConfi
             let forwardingAutomation;
             let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
             let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody;
+            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
 
             if (tcpClientConfigurationStatus) {
                 if (tcpClientConfigurationStatus.updated) {
@@ -382,7 +382,7 @@ function getUnconfigurableOperationClientForwardingAutomationInputListAsync(oper
             let forwardingAutomation;
             let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
             let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody;
+            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
 
             if (operationClientConfigurationStatusList) {
                 for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
