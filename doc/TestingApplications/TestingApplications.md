@@ -7,10 +7,11 @@ Software Defined Networking (SDN) that uses open protocols to provide centralize
 * [SDN Introduction](../Introduction/Introduction.md)
 * [General Concepts](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
 
-### [Fake IP Addresses](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
+### Fake IP Addresses
+* [Fake IP Addresses](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
 
 ## Tools
-To Achieve automated testing and delivery process, required SDN pipeline dockerize environment setup using below mentioned tools and further concepts gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit in GitHub develop branch.
+To achieve automated testing and delivery process, requires SDN pipeline dockerize environment setup using below mentioned tools and further concepts, which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit in GitHub develop branch.
 ### Jenkins
 Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It is used to implement CI/CD workflows, called pipelines.
 
@@ -78,7 +79,8 @@ Newman is a command-line collection runner for Postman. It allows us to run and 
 * [NodeJs Installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
 * [Newman Installation](https://www.npmjs.com/package/newman)
 * [Newman-reporter-htmlextra Installation](https://www.npmjs.com/package/newman-reporter-htmlextra)
-### [HAScripts](./Infrastructure/Tools/Scripts/Scripts.md)
+### HAScripts
+* [High Availability](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
  Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
