@@ -382,14 +382,15 @@ function getUnconfigurableOperationClientForwardingAutomationInputListAsync(oper
             let forwardingAutomation;
             let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
             let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
 
             if (operationClientConfigurationStatusList) {
                 for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
                     let operationClientConfigurationStatus = operationClientConfigurationStatusList[i];
                     if (operationClientConfigurationStatus.updated) {
                         let operationClientUuid = operationClientConfigurationStatus.uuid;
-                        serviceRequestCausesLtpDeletionRequestRequestBody.uuid = operationClientUuid;
+                        let serviceRequestCausesLtpDeletionRequestRequestBody = {
+                            uuid: operationClientUuid
+                        }
                         serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
                                         .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
                         forwardingAutomation = new forwardingConstructAutomationInput(
