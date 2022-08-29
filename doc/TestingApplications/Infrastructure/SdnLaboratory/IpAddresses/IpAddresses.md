@@ -5,26 +5,26 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 | Cathegory | Abbr. | Component | Release | IP | TCP |
 |---|---|---|---|---|---|
 | Controller |  |  |  |  |  |
-|  | C | OpenDaylight | 1.0.0 | 10.118.125.157 | 8443
+|  | C | OpenDaylight | 1.0.0 | 1.1.1.1 | 1001
 | Mediator |  |  |  |  |  |
-|  | xMIM | xMediatorInstanceManager | 1.0.0 | 10.118.132.1 | 99999
-|  | EMIM | EricssonMediatorInstanceManager | 1.0.0 | 10.118.132.2 | 99999
-|  | HMIM | HuaweiMediatorInstanceManager | 1.0.0 | 10.118.132.3 | 99999
-|  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 10.118.132.4 | 99999
-|  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 10.118.132.5 | 99999
+|  | xMIM | xMediatorInstanceManager | 1.0.0 | 1.1.2.1 | 2001
+|  | EMIM | EricssonMediatorInstanceManager | 1.0.0 | 1.1.2.2 | 2002
+|  | HMIM | HuaweiMediatorInstanceManager | 1.0.0 | 1.1.2.3 | 2003
+|  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
+|  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TAC |  |  |  |  |  |
-|  | RO | RegistryOffice | 1.0.0 | 10.118.125.157 | 1000
-|  | TAR | TypeApprovalRegister | 1.0.0 | 10.118.125.157 | 1001
-|  | EaTL | ExecutionAndTraceLog | 1.0.0 | 10.118.125.157 | 1002
-|  | OL | OamLog | 1.0.0 | 10.118.125.157 | 1003
-|  | AA | AdministratorAdministration | 1.0.0 | 10.118.125.157 | 1004
-|  | ALT | ApplicationLayerTopology | 1.0.0 | 10.118.125.157 | 1005
-|  | OKM | OperationKeyManagement | 1.0.0 | 10.118.125.157 | 1006
+|  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
+|  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
+|  | EaTL | ExecutionAndTraceLog | 1.0.0 | 1.1.3.3 | 3003
+|  | OL | OamLog | 1.0.0 | 1.1.3.4 | 3004
+|  | AA | AdministratorAdministration | 1.0.0 | 1.1.3.5 | 3005
+|  | ALT | ApplicationLayerTopology | 1.0.0 | 1.1.3.6 | 3006
+|  | OKM | OperationKeyManagement | 1.0.0 | 1.1.3.7 | 3007
 | Application |  |  |  |  |  |
-|  | CC | CurrentController | 1.0.0 | 10.118.125.157 | 2000
-|  | RESO | Resolver | 1.0.0 | 10.118.125.157 | 2001
-|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 10.118.125.157 | 2002
-|  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 10.118.125.157 | 2003
-|  | MATR | MacAddressTableRecorder | 1.0.0 | 10.118.125.157 | 2004
-|  | MM | MediatorManager | 1.0.0 | 10.118.125.157 | 2005
-|  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 10.118.125.157 | 2006
+|  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001
+|  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002
+|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 1.1.4.3 | 4003
+|  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 1.1.4.4 | 4004
+|  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005
+|  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006
+|  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007
