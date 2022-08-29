@@ -12,7 +12,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * The release number ...
   * has to follow the definitions in [Structure of Release Numbers](../../ElementsApplicationPattern/Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
   * has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
-* IP address and TCP port will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
+* The CONFIGfile contains all data that is necessary to establish the connections, which are required for properly operating the application. TCP/IP addresses, operation names and application release number might depend on the environment (e.g. SDN test laboratory or live network) in which the application gets instantiated in. As a consequence the CONFIGfile has to be adapted to the environment before instantiation. This adaption shall be automated. For supporting the automation, fake IP addresses have to be put into the ServiceList during specification. Fake IP addresses will be replaced by environmental specific addresses during the creation of docker image. New IP addresses and TCP ports will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
 
 
 ### Operation Servers
@@ -53,7 +53,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * It is recommended to update the HTTP and TCP Clients in the ServiceList before adding the OperationClients.
 * **Do not delete the HTTP and TCP Clients with UUIDs containing numbers lower than 2300**. These Clients are required for embedding the application into the microservice management environment.
 * The HTTP and TCP Clients holding the OperationClients listed during the brainstorming shall be added. Take care for correct application names and latest release numbers.
-* Ask the platform owner for latest IP addresses and TCP ports.
+* Please, find the latest [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md), which have to be applied here, for later replacement.
 * It would be helpful, if the sequence of HTTP and TCP Clients would be the same across all applications. So please, take a look into the definition of the ApplicationNumber in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and put the HTTP and TCP Clients into the same order.
 * As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and contain "http-c-"/"tcp-c-" to indicate that they are identifying an HTTP, respectively TCP Client. In most cases it makes sense to just copy the UUIDs from existing ServiceLists or CONFIGfiles.
 
