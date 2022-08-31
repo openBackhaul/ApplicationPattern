@@ -9,7 +9,7 @@
  * @copyright   Telefónica Germany GmbH & Co. OHG
  * @module FileOperation
  **/
-
+const JSONDriver = require('./JSONDriver');
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
 global.databasePath;
@@ -24,12 +24,20 @@ exports.readFromDatabaseAsync = function (oamPath) {
         try {
             if (fileSystem.existsSync(databasePath)) {
                 await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (coreModelJsonObject.length > 0) {
-                        resolve(getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath));
+                    if (error) {
+                        console.log(error);
+                    } else if (coreModelJsonObject.length > 0) {
+                        try {
+                            resolve(getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath));
+                        } catch (error) {
+                            console.log("retry mechanism read");
+                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
+                            console.log(error);
+                        }
                     }
                 });
-            }else{
-                console.log("path not exists "+databasePath);
+            } else {
+                console.log("path not exists " + databasePath);
             }
         } catch (error) {
             console.log(error);
@@ -57,8 +65,16 @@ exports.writeToDatabaseAsync = function (oamPath, valueToBeUpdated, isAList) {
         try {
             if (fileSystem.existsSync(databasePath)) {
                 await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (coreModelJsonObject.length > 0) {
-                        resolve(putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeUpdated, isAList));
+                    if (error) {
+                        console.log(error);
+                    } else if (coreModelJsonObject.length > 0) {
+                        try {
+                            resolve(putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeUpdated, isAList));
+                        } catch (error) {
+                            console.log("retry mechanism write");
+                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
+                            console.log(error);
+                        }
                     }
                 });
             }
@@ -88,8 +104,15 @@ exports.deletefromDatabaseAsync = function (oamPath, valueToBeDeleted, isAList) 
         try {
             if (fileSystem.existsSync(databasePath)) {
                 await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (coreModelJsonObject.length > 0) {
-                        resolve(deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeDeleted, isAList));
+                    if (error) {
+                        console.log(error);
+                    } else if (coreModelJsonObject.length > 0) {
+                        try {
+                            resolve(deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeDeleted, isAList));
+                        } catch (error) {
+                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
+                            console.log(error);
+                        }
                     }
                 });
             }
