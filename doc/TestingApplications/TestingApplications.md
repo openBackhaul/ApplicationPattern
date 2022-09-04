@@ -13,23 +13,29 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 ## Tools
 To achieve automated testing and delivery process, requires SDN pipeline dockerize environment setup using below mentioned tools and further concepts, which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit in GitHub develop branch.
 ### Jenkins
-Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It is used to implement CI/CD workflows, called pipelines.
+Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It helps us in automate the software activities like building, testing and deploying and used to implement CI/CD workflows, called pipelines. It is important popular tool for CI.
 
 #### Why Jenkins as CI tool
 Jenkins is a software that allows continuous integration. Jenkins will be installed on a server where the central build will take place. It will be used to build, test and deploy the software projects continuously which makes easier to developers to deliver the Software modules.
 
-**Step-by-Step Guidelines**
+**Concepts**
 * [Jenkins Workflow](./Infrastructure/Tools/Jenkins/Jenkinsworkflow.md)
+* [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
+* [Email Notifications](./Infrastructure/Tools/Jenkins/EmailNotificationConfiguration.md)
+
+**Step-by-Step Guidelines**
 * [Jenkins Installation](./Infrastructure/Tools/Jenkins/JenkinsInstallation.md)
 * [Environment SetUp](./Infrastructure/Tools/Jenkins/EnvironmentSetup.md)
-* [Install all required plugins](./Infrastructure/Tools/Jenkins/PluginInstallation.md)
+* [Install required plugins](./Infrastructure/Tools/Jenkins/PluginInstallation.md)
+* [ManageUsers and Access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
 * [Configure master-slave configuration](./Infrastructure/Tools/Jenkins/MasterSlaveConfiguration.md)
-* [Email Notification configuration](./EmailNotificationConfiguration.md)
-* [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
 
 **Documents**
 * [Installation of Jenkins](https://www.jenkins.io/doc/book/installing/)
-* [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/)
+* [Download Newplugins](https://updates.jenkins-ci.org/download/plugins/)
+* [Role based strategy](https://plugins.jenkins.io/role-strategy/)
+* [create-users and manage-permissions](https://www.guru99.com/create-users-manage-permissions.html)
+
 ### Git, GitHub
 It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
 Git makes it easy to use by users:
@@ -38,25 +44,29 @@ Git makes it easy to use by users:
 - See who made which changes
 - Deploy code to staging or production
 
-**Step-by-Step Guidelines**
-* [More about Git, GitHub Installation and Workflow](../PreparingSpecifying/PreparingSpecifying.md#github-git-and-visual-studio-code)
+**Concepts**
+* [Introduction to Git and GitHub](../PreparingSpecifying/Introduction2Git/Introduction2Git.md)
+* [Workflow for contributing](../PreparingSpecifying/WorkflowForContributing/WorkflowForContributing.md)
 * [Frequently used Git Adhoc Commands](./Infrastructure/Tools/Git/GitCommands.md)
 
+**Step-by-Step Guidelines**
+* [Creating an own GitHub account](../PreparingSpecifying/OwnGitHubAccount/OwnGitHubAccount.md)
+* [Installing Git](../PreparingSpecifying/InstallingGit/InstallingGit.md)
+
  **Documents**
-* [More About Git](https://docs.github.com/en/get-started/using-git/about-git )
 * [More about Git commands](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 ### Docker
-Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying the applications and below are advantages over docker.
+Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying applications.
 
 **Concepts**
 * [Advantages of Docker](./Infrastructure/Tools/Docker/DockerIntroduction.md#advantages-of-docker)
 * [Docker objects](./Infrastructure/Tools/Docker/DockerIntroduction.md#docker-objects)
+* [Docker adhoc commands](./Infrastructure/Tools/Docker/DockerUsefulCommands.md)
+* [Docker Volumes](./Infrastructure/Tools/Docker/DockerVolumes.md)
 
 **Step-by-Step Guidelines**
 * [Docker Installation](./Infrastructure/Tools/Docker/Installation.md)
-* [Docker adhoc commands](./Infrastructure/Tools/Docker/DockerUsefulCommands.md)
-* [Docker Volumes](./Infrastructure/Tools/Docker/DockerVolumes.md)
 * [Docker Usage in Microwave SDN Laboratory](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
 * [Example Application RegistryOffice](./Infrastructure/Tools/Docker/UtilizationInSDN.md#dockerized-sdn-application-with-registryoffice-example)
 
@@ -80,13 +90,13 @@ Newman is a command-line collection runner for Postman. It allows us to run and 
 * [Newman Installation](https://www.npmjs.com/package/newman)
 * [Newman-reporter-htmlextra Installation](https://www.npmjs.com/package/newman-reporter-htmlextra)
 ### HAScripts
+**Concepts**
 * [High Availability](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
- Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
-
+ Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently.
 **Concepts**
-* [WorkFlow]()
+* [WorkFlow](./Infrastructure/SDNApplicationPatternDeployment/WorkFlow.md)
 
 **Step-by-Step Guidelines**
 * [Application Deployment in Test Bed](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInTestBed.md)

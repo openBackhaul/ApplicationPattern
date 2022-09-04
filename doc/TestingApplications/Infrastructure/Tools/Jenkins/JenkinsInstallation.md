@@ -1,36 +1,39 @@
 ## Jenkins Installation
 ### Prerequisites
-Before installing the jenkins, it is recommend to check whether the java installed or not. Based on OS, choose the installation commands.
+Before installing the jenkins, it is recommend to check whether Java software installed or not. Based on type of OS, choose the installation commands.
 
 #### Install Java
-     apt install default-jre for ubuntu
-     apt install default-jdk for ubuntu
+     "apt-get update"
+     "apt install default-jre" for ubuntu
+     "apt install default-jdk" for ubuntu
      
-     dnf update for rhel
-     dnf install java-1.8.0-openjdk-devel #install JDK 8
-     dnf install java-11-openjdk-devel #install JDK 11
+     "dnf update" for rhel
+     "dnf install java-1.8.0-openjdk-devel"
+     #install JDK 8
+     "dnf install java-11-openjdk-devel"
+     #install JDK 11
 
     Check the version to verify whether installed or not.
-     java –version
-     javac –version
+     "java –version"
+     "javac –version"
 
 **Documents**
 * [Install Java on ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04)
 * [Install Java on rhel](https://www.tecmint.com/install-java-on-rhel-8/)
 
-### Jenkins-installation-steps
+### Jenkins-Installation-steps
 It is recommend to update the local repository server using "**apt update**" and  install the jenkins.
 
-    apt install Jenkins for ubuntu
-    yum install Jenkins for redhat
+    "apt-get install jenkins" for ubuntu
+    "yum install Jenkins" for redhat
     
-  **Start Jenkins:** : Let’s start Jenkins by using systemctl
+  **Start Jenkins:** : Let’s start Jenkins by using systemctl commands
   
-        systemctl start jenkins
+        "systemctl start jenkins"
         
-  **Status Jenkins:** : Check the status using below command
+  **Status Jenkins:** : Check status using below command
   
-        systemctl status jenkins
+        "systemctl status jenkins"
         
 If everything went well, the beginning of the status output shows that the service is active and configured to start at boot: 
 

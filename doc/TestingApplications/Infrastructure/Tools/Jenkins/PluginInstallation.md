@@ -1,17 +1,12 @@
 ### Install all required plugins
   In Jenkins by default, we install all required plugins while installing Jenkins. If required any other plugins, we can install manually after configuring Jenkins by the below procedure. 
 
-Example required plugins: 
- GitHub integrated plugin
- Docker plugin 
- JUnit Plugin 
-Pipeline Utility Steps and etc.
+Example required plugins:  GitHub integrated plugin,  Docker plugin, JUnit Plugin, Pipeline Utility Steps and etc.
 
 There are two methods for installing plugins in Jenkins:
 
 * Installing it through our Jenkins dashboard
-* Downloading the plugin from Jenkins website and installing it
-manually.
+* Downloading the plugin from Jenkins website and installing it manually.
 
 ### Plugin manager
 The Plugin Manager allows us to manage to enable and disable the plugins and to edit a plugin's details and options. It is also useful for quickly enabling/disabling multiple plugins. 
@@ -29,7 +24,7 @@ In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenki
 
 * click on the Manage Plugins option.
 
-![JenkinsPlugins](Images/clickmanageplugins.png)
+![JenkinsPlugins](Images/manageplugins.png)
 
 * click on the "Available tab".
 

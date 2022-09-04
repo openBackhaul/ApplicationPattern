@@ -14,9 +14,10 @@
 - Once job created and Configure the job with all details that required like PollSCM time interval to perform monitoring the pipeline 
 - Then develop and add the pipeline script to current pipeline job
 - Apply and save the configurations
+![selecttype](../Tools/Jenkins/Images/SelectJobType.PNG)
+![CofigurePipeline](./Images/JenkinsPipeline.PNG)
 
 #### Pipeline Stages
-        
 - Source stage 
 - Docker build stage 
 - Publish Docker image 
@@ -49,7 +50,7 @@ Verify the application swagger is up and running.
     http://<serverIp>:<port>/docs/
     ex: http://125.4.5.11:1234/docs/
 
-![RO](Images/Ro.png) 
+![Example RO](Images/Ro.png) 
 #### Run the Automation Testsuites 
 Automation testsuites running once after the application deployment.
 - #### [Acceptance Testing](../../AcceptanceTesting/Overview/pipelineconfiguration.md)

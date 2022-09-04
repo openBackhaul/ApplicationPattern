@@ -1,6 +1,7 @@
 ## Fake IP Addresses  
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
+Below is the list of IP address:
 | Category | Abbr. | Component | Release | IP | TCP |
 |---|---|---|---|---|---|
 | Controller |  |  |  |  |  |
@@ -27,6 +28,11 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 10.118.125.157 | 2004
 |  | MM | MediatorManager | 1.0.0 | 10.118.125.157 | 2005
 |  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 10.118.125.157 | 2006
+
+
+To Achieve this, have a script where it automate the process to update the ip address and ports before creating the docker image for the source code.
+
+< Pending activity: Yet to Update the script Details and how to run>
 
 
 [<- Back to Overview](../Overview/OverviewandGeneralConcepts.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - [Ahead to Docker ->](../../Tools/Docker/ConceptsAndOverview.md)

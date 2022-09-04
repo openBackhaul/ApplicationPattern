@@ -19,7 +19,6 @@ Take clone from the github of current testcases
 -  Finally, make sure that the application swagger loadfile should be updated with proper application pattern URL's
 
 #### Run the test suites using newman
-        
         ex: newman run RegistryOffice_0.0.1_tsi.date.time+testcases.1.postman_collection -d RegistryOffice_0.0.1_tsi.date.time+data.no.json -r htmlextra,cli --reporter-htmlextra-logs
 
 #### Results available

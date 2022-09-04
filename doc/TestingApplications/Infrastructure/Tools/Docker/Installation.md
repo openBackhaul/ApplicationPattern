@@ -1,5 +1,5 @@
 ## Installation  
-It is recommend to check before installing the docker whether the docker is already available or not by using "docker --version".
+It is recommend to check before installing docker software whether docker is already available or not by using "docker --version".
 
 if the response is empty, install the docker using below commands.
     
