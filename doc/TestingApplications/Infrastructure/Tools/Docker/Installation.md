@@ -18,4 +18,8 @@ Start docker service and check the status using below commands for ubuntu and rh
 * "systemctl is-active docker"
 * "systemctl is-enabled docker"
 
-[<- Back to Advantages](./DockerIntroduction.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Docker Useful Commands ->](./DockerUsefulCommands.md)
+Once docker installed and we can see the complete related information in path of /var/lib/docker.
+
+![dockerpath](./Images/dockerpathonserver.PNG)
+
+[<- Back to Volumes](./DockerVolumes.md) - - - [Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to Docker Container Example ->](./UtilizationInSDN.md)

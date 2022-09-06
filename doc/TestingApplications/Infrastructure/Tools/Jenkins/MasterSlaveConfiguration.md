@@ -6,7 +6,7 @@
 
 **Jenkins slaves** takes the instructions/commands from master and execute the jobs.
 
-To configure the slave nodes, Open Jenkins Dashboard==>Click on Manage Jenkins==>Click on Manage Nodes and Clouds==>New node.
+To configure the slave nodes, Open Jenkins Dashboard=>Click on Manage Jenkins=>Click on Manage Nodes and Clouds=>New node.
 
 Enter the Nodename and select create.
  ![image](./Images/Addslave.PNG)
@@ -19,4 +19,4 @@ Based on our requirement add the data and save the configuration as below.
 
 Once configured the server with node details and home directory updated for all required nodes then the complete set up is ready in current SDN controller application testing.
 
-[<-Back to PluginInstallation](./PluginInstallation.md) - - - [Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to EmailNotificationConfiguration->](./EmailNotificationConfiguration.md)
+[<-Back to PluginInstallation](./PluginInstallation.md) - - - [Back to main TestingApplications](../../../TestingApplications.md)

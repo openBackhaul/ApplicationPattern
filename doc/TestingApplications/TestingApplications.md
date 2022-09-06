@@ -11,30 +11,26 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 * [Fake IP Addresses](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
 
 ## Tools
-To achieve automated testing and delivery process, requires SDN pipeline dockerize environment setup using below mentioned tools and further concepts, which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit in GitHub develop branch.
+To achieve automated testing and delivery process, requires a SDN pipeline dockerize environment setup using below mentioned tools,which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
 ### Jenkins
-Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software DevOps tool written in the Java programming language. It helps us in automate the software activities like building, testing and deploying and used to implement CI/CD workflows, called pipelines. It is important popular tool for CI.
-
-#### Why Jenkins as CI tool
-Jenkins is a software that allows continuous integration. Jenkins will be installed on a server where the central build will take place. It will be used to build, test and deploy the software projects continuously which makes easier to developers to deliver the Software modules.
+Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software tool written in Java programming language. It helps to automate the software activities like building, testing, deploying and used to implement CI/CD workflows, called pipelines which makes easier to developers to deliver the Software modules. It is the leading tool for CI.
 
 **Concepts**
 * [Jenkins Workflow](./Infrastructure/Tools/Jenkins/Jenkinsworkflow.md)
-* [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
 * [Email Notifications](./Infrastructure/Tools/Jenkins/EmailNotificationConfiguration.md)
 
 **Step-by-Step Guidelines**
 * [Jenkins Installation](./Infrastructure/Tools/Jenkins/JenkinsInstallation.md)
 * [Environment SetUp](./Infrastructure/Tools/Jenkins/EnvironmentSetup.md)
 * [Install required plugins](./Infrastructure/Tools/Jenkins/PluginInstallation.md)
-* [ManageUsers and Access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
+* [Manage Users and Access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
 * [Configure master-slave configuration](./Infrastructure/Tools/Jenkins/MasterSlaveConfiguration.md)
+* [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
 
 **Documents**
 * [Installation of Jenkins](https://www.jenkins.io/doc/book/installing/)
-* [Download Newplugins](https://updates.jenkins-ci.org/download/plugins/)
+* [Download New Plugins](https://updates.jenkins-ci.org/download/plugins/)
 * [Role based strategy](https://plugins.jenkins.io/role-strategy/)
-* [create-users and manage-permissions](https://www.guru99.com/create-users-manage-permissions.html)
 
 ### Git, GitHub
 It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
@@ -69,6 +65,7 @@ Docker is an open source platform that enables developers to build, deploy, run,
 * [Docker Installation](./Infrastructure/Tools/Docker/Installation.md)
 * [Docker Usage in Microwave SDN Laboratory](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
 * [Example Application RegistryOffice](./Infrastructure/Tools/Docker/UtilizationInSDN.md#dockerized-sdn-application-with-registryoffice-example)
+* [How to debug container using Adhoc commands](./Infrastructure/Tools/Docker/DebuggingContainer.md)
 
 **Documents**
 * [Docker Installation Process for RHEL](https://linuxconfig.org/how-to-install-docker-in-rhel-8)
@@ -90,8 +87,10 @@ Newman is a command-line collection runner for Postman. It allows us to run and 
 * [Newman Installation](https://www.npmjs.com/package/newman)
 * [Newman-reporter-htmlextra Installation](https://www.npmjs.com/package/newman-reporter-htmlextra)
 ### HAScripts
-**Concepts**
-* [High Availability](./Infrastructure/Tools/Scripts/Scripts.md)
+HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. current architecture  have multiple instances of Applications running and if one of them crashes, we still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
+
+**Step-by-Step Guidelines**
+* [Process of HA Script and Usage](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
  Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently.

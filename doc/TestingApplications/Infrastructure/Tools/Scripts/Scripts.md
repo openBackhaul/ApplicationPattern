@@ -1,16 +1,30 @@
 ## Scripts
-
 ### **High Availability Script[HA]**
+### Prerequisite 
+To start the HA script. required "lsof", docker tools to be installed and  update latest docker images are available in the local registry.
 
-HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. current architecture  have multiple instances of Applications running and if one of them crashes, we still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
+Below steps are used to install **lsof** for ubuntu
 
-### Prerequisite :
-Install "lsof" command , as this program uses it to check application's availability
-Install docker , as the monitored applications run as a container in the docker engine
-Have all the TinyApplicationController's latest docker image available in the local registry
+        "apt update" - Update the repo with latest softwares
+        "apt install lsof" - On Ubuntu
+        "lsof -v" - Check the version 
 
-Usage: Using below command start the script in background which will monitor all applications which are running on 
-Script should be initiated in the background './ScriptName &'
+
+        "dnf info lsof" for RHEL
+        "dnf install lsof" for RHEL
+        "lsof -v" for RHEL to check version
+
+### Usage: 
+Using below command start the script in background which will monitor all applications whether they are running or not and related log file also created and logged the messages. this HAscript if any running containers/applications exited/crashed then automatically restarted the container.
+
+      ./HAscript.sh &
+    WebApp@WebApp:~/HAscripts$ ls
+    HAscript.sh  TACHans.log
+
+
+
+
+
 
 
 
