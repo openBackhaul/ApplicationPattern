@@ -1,6 +1,6 @@
 ### Acceptance Testing
 **Configure Pipeline job for running Acceptance test cases**
-Once Application deployed and automatically acceptance testing performed.
+Once Application deployed and automatically acceptance testing performed. For this pipeline script written and contains below stages.
 - Source stage
 - Setup to run postman collection file
 - Run Acceptance test cases

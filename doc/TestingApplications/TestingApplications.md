@@ -8,7 +8,12 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 * [General Concepts](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
 
 ### Fake IP Addresses
-* [Fake IP Addresses](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
+**Concepts**
+* [Overview](./Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md)
+
+**Step-by-Step Guidelines**
+* [Update Configuration](./Infrastructure/SdnLaboratory/IpAddresses/updateconfiguration.md)
+
 
 ## Tools
 To achieve automated testing and delivery process, requires a SDN pipeline dockerize environment setup using below mentioned tools,which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
