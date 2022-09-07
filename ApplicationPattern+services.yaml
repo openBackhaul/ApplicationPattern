@@ -47,7 +47,7 @@ servers:
     own-application-name: ## TODO: Add OwnApplicationName
     own-release-number: ## TODO: Add OwnReleaseNumber (e.g. 1.0.0)
     uuid: xx-1-0-0-http-s-bm-000
-  tpc-server:
+  tcp-server:
     own-ip-address: ## TODO: Add OwnIpAddress
     own-tcp-port: ## TODO: Add OwnTcpPort
     uuid: xx-1-0-0-tcp-s-bm-000
