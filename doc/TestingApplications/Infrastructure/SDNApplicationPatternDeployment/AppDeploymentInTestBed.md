@@ -32,7 +32,7 @@
 
 #### Automated pipeline scripts
 
-In testbed, should follow all stages like clone, build, deploy and test the applications.   Once everything is fine, we will save the docker images tar file format in WebApp server.
+Follow all stages like clone, build, deploy and test the applications in Testbed.  Once everything is fine, we will save the docker images as tar file in WebApp server.
 
 Pipeline Configuration : 
         
@@ -44,8 +44,7 @@ Pipeline Configuration :
     }
     
 #### Verify the applications are up and running
-Once pipeline script executed and the applications(ex: RO, TAR, EATL etc) deployed using the dockerize containers. Go to the browser and check with the Ip address with port XXXx port mentioned in docker file.
-Verify the application swagger is up and running.
+Once Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers, Go to the browser and check the Ip address with port XXXx which exposed in docker file. Verify whether application swagger is up and running.
 
     http://<serverIp>:<port>/docs/
     ex: http://125.4.5.11:1234/docs/
@@ -57,6 +56,6 @@ Automation testsuites running once after the application deployment.
 
 
 #### Email Notification
-Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's
+Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
 
 [<- Back to Testing Applications](../../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)

@@ -107,13 +107,13 @@ HighAvailability is an ability to monitor/operate the services continuously with
 * [Application Deployment in Production](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInProd.md)
 
 ## Acceptance Testing
-Acceptance testing is a quality assurance (QA) process and this technique performed to determine whether software system has met the user/business requirement specifications. It evaluate the quality of software. Acceptance Testing run in testbed environment and if everything is ok from acceptance testing then approve the build to production environment to deploy.
+Acceptance testing is a quality assurance (QA) process and this technique performed to determine whether software system has met user/business requirement specifications. It evaluates quality of software. Acceptance Testing run in testbed environment and if everything is ok from acceptance testing then approve the build to production environment to deploy.
 
 **Step-by-Step Guidelines**
 * [Automated Pipeline Flow](./AcceptanceTesting/Overview/pipelineconfiguration.md) 
 
 ## Integration Testing
-Integration Testing is a finalized testing of software product. Normally software products are divided into different modules and here SDN applications are also developed as individual services. This testing verifies that  software modules are integrated logically and tested as a group. The purpose of this level of testing is to expose defects in the interaction level and checks the proper service/data communications happen among modules/Applications.
+Integration Testing is finalized testing of software product. Normally software products are divided into different modules and here SDN applications are also developed as individual services. This testing verifies that  software modules are integrated logically and tested as a group. The purpose of this level of testing is to expose defects in the interaction level and checks the proper service/data communications happen among modules/Applications.
 
 **Step-by-Step Guidelines**
 * [Automated Pipeline Flow](./IntegrationTesting/Overview/pipelineconfiguration.md)
