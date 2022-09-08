@@ -10,9 +10,9 @@ It provides full focus on composing a complete and well-structured set of servic
 
 * The application name must be identical with the one stated in the repository.
 * The release number ...
-  * has to follow the definitions in  [Structure of Release Numbers](../StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
+  * has to follow the definitions in [Structure of Release Numbers](../../ElementsApplicationPattern/Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
   * has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
-* IP address and TCP port will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
+* The CONFIGfile contains all data that is necessary to establish the connections, which are required for properly operating the application. TCP/IP addresses, operation names and application release number might depend on the environment (e.g. SDN test laboratory or live network) in which the application gets instantiated in. As a consequence the CONFIGfile has to be adapted to the environment before instantiation. This adaption shall be automated. For supporting the automation, fake IP addresses have to be put into the ServiceList during specification. Fake IP addresses will be replaced by environmental specific addresses during the creation of docker image. New IP addresses and TCP ports will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
 
 
 ### Operation Servers
@@ -24,13 +24,13 @@ It provides full focus on composing a complete and well-structured set of servic
   * potentially required inversions (e.g. ending subscriptions, de-activation of some automation) or restoring the original state,
   * parameters or functionality, which need to be pre-configured at this application,
   * data that shall be available as a data base dump.
-* While defining the individual services, think carefully about sub-structuring and other aspects discussed in [Structuring of Services](../StructureOfServices/StructureOfServices.md).
-* While naming the individual services, be as descriptive as possible and follow the recommendations made in [Structuring of Service Names](../StructureOfServiceNames/StructureOfServiceNames.md).
+* While defining the individual services, think carefully about sub-structuring and other aspects discussed in [Structuring of Services](../../ElementsApplicationPattern/Functions/StructureOfServices/StructureOfServices.md).
+* While naming the individual services, be as descriptive as possible and follow the recommendations made in [Structuring of Service Names](../../ElementsApplicationPattern/Names/StructureOfServiceNames/StructureOfServiceNames.md).
 * The order of the services shall support understanding the purpose of the individual service while reading through the API description.
   * Reflecting the expected sequence of appliance of the services might be helpful.
   * Grouping services, which are either doing similar stuff or are for inverting some condition, might also ease understanding.
 * Sleep over, double check the definitions and probably discuss them with a colleague.
-* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and contain "op-s-" to indicate that they are identifying an OperationServer. The consequent number shall start counting at 3001. It must be unique within the scope of the individual application, but it does not necessarily need to be sequential.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and contain "op-s-" to indicate that they are identifying an OperationServer. The consequent number shall start counting at 3001. It must be unique within the scope of the individual application, but it does not necessarily need to be sequential.
 
 
 ### Planning Clients
@@ -53,9 +53,9 @@ It provides full focus on composing a complete and well-structured set of servic
 * It is recommended to update the HTTP and TCP Clients in the ServiceList before adding the OperationClients.
 * **Do not delete the HTTP and TCP Clients with UUIDs containing numbers lower than 2300**. These Clients are required for embedding the application into the microservice management environment.
 * The HTTP and TCP Clients holding the OperationClients listed during the brainstorming shall be added. Take care for correct application names and latest release numbers.
-* Ask the platform owner for latest IP addresses and TCP ports.
-* It would be helpful, if the sequence of HTTP and TCP Clients would be the same across all applications. So please, take a look into the definition of the ApplicationNumber in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and put the HTTP and TCP Clients into the same order.
-* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and contain "http-c-"/"tcp-c-" to indicate that they are identifying an HTTP, respectively TCP Client. In most cases it makes sense to just copy the UUIDs from existing ServiceLists or CONFIGfiles.
+* Please, find the latest [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md), which have to be applied here, for later replacement.
+* It would be helpful, if the sequence of HTTP and TCP Clients would be the same across all applications. So please, take a look into the definition of the ApplicationNumber in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and put the HTTP and TCP Clients into the same order.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and contain "http-c-"/"tcp-c-" to indicate that they are identifying an HTTP, respectively TCP Client. In most cases it makes sense to just copy the UUIDs from existing ServiceLists or CONFIGfiles.
 
 
 ### Operation Clients
@@ -69,7 +69,7 @@ It provides full focus on composing a complete and well-structured set of servic
 * The order of the services shall support understanding the purpose of the individual service.
   * Reflecting the expected sequence of appliance of the services might be helpful.
   * Grouping services, which are either doing similar stuff or are for inverting some condition, might also ease understanding.
-* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../StructureOfUuids/StructureOfUuids.md) and contain "op-c-" to indicate that they are identifying an OperationClient. The consequent number of an individual service shall start with 3. The next two digits have to be identical with the second and third digit of the UUID of the HTTP Client. The last digit is for counting, but it does not necessarily need to be sequential.
+* As a last step, assign the UUIDs. They shall follow the specifications made in [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md) and contain "op-c-" to indicate that they are identifying an OperationClient. The consequent number of an individual service shall start with 3. The next two digits have to be identical with the second and third digit of the UUID of the HTTP Client. The last digit is for counting, but it does not necessarily need to be sequential.
 
 
 ### Commenting

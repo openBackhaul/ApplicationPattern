@@ -1,4 +1,4 @@
-# Application Pattern Documentation
+# ApplicationPattern Modules Documentation
 
 **Purpose**
 
