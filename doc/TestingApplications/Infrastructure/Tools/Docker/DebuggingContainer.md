@@ -48,7 +48,6 @@ Based on this information, able to get the data related to images, logs path, st
         Your server is listening on port xxxx (http://localhost:xxxx)
         Swagger-ui is available on http://localhost:XXXX/docs ..... etc
 
-* Stats the container information using "docker stats <container_id>" it will give live stream of resource usage, then we can see how much memory used. 
+* Stats the container information using "docker stats <container_id>" it will give live stream of resource usage, then we can see how much memory used.
 
-
-[<- Back to Docker Usage](./UtilizationInSDN.md)) - - - [Back to Testing Applications](../../../TestingApplications.md)
+[<- Back to Docker Usage](./UtilizationInSDN.md) - - - [Back to Testing Applications](../../../TestingApplications.md)

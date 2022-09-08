@@ -18,11 +18,11 @@ Steps to create and configure the jobs
 
 ### Below are the list of Jobs in current SDN project
 
-- PollSCM trigger jobs for auto builds whenever new commits merged in remote repositories
-- Automated Mediator upgrade and readonly data testing using free style jobs
-- Automated scheduled/cron sanity testing using free style jobs
-- Automated Controller upgrade
-- Dockerize pipeline Jobs for Application Deployments
-- Acceptance and Integration testing jobs for GitHub applications
+- PollSCM trigger jobs for auto builds whenever new commits merged in remote repositories.
+- Automated Mediator upgrade and readonly data testing using free style jobs.
+- Automated scheduled/cron sanity testing using free style jobs.
+- Automated Controller upgrade.
+- Dockerize pipeline Jobs for Application Deployments.
+- Acceptance and Integration testing jobs for GitHub applications.
 
-[<-Back to Email Notification Configuration](./EmailNotificationConfiguration.md) - - - [Back to main TestingApplications](../../../TestingApplications.md)
+[<-Back to MasterSlave configuration](./MasterSlaveConfiguration.md) - - - [Back to main TestingApplications](../../../TestingApplications.md)
