@@ -2,7 +2,7 @@
 ## Application Deployment in Production 
 Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
       
-Here, we are not having connection directly between testbed and production, so **manually copy the images into production** server. Once copied, run the pipeline job in jenkins using docker containerization tool and deploy the applications.
+Here, we are not having connection directly between testbed and production, so **manually copying images into production server**. Once copied, run the pipeline job in jenkins using docker containerization tool and deploy the applications.
 
 ### Pipeline configuration:
 Here how we configure Pipeline job in testbed environment, in the same way we have to configure and install all necessary tools in Jenkins server of production.
@@ -47,7 +47,7 @@ Basic scripting is provided and based on requirements we can use groovy scripts 
     
 #### Verify the applications are up and running
    
-Once pipeline script executed and Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers and Go to the browser and check with the Ip address with port XXXx port mentioned in docker file. Verify the application swagger is up and running.
+Once Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers, Go to the browser and check the Ip address with port XXXx which exposed in docker file. Verify whether application swagger is up and running.
     
     http://<serverIp>:<port>/docs/
     ex: http://10.0.2.4:1234/docs/
@@ -59,13 +59,13 @@ Example structure of Applications deployed on docker engine:
 ![Allapplications in siglepage](Images/AllApplicationsexample.PNG)
 
 #### Run the Automation testsuites 
-Automation testsuites running immediately after the application deployment.Integration Testing run in production/preprod environment 
+Automation testsuites running immediately after application deployment.Integration Testing job configured to run in preprod environment 
 
  - [**Integration Testing**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
 
  
 #### Email Notification
-Once test suite execution is completed, then notification is sent to users. The notification contains execution reports and pipeline URL's.
+Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
 
 
 [<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to Testing Applications ->](../../../TestingApplications.md)
