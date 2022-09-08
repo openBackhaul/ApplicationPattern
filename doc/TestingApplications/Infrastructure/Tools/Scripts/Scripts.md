@@ -22,10 +22,4 @@ Using below command start the script in background which will monitor all applic
     HAscript.sh  TACHans.log
 
 
-
-
-
-
-
-
-[<- Back to Newman](../Newman/Newman.md) - - - [Back to main Testing Applications](../../../TestingApplications.md) - - - [Ahead to SDN Application Pattern Deployment->](../../SDNApplicationPatternDeployment/Concepts.md)
+[<-Back to main Testing Applications](../../../TestingApplications.md) 

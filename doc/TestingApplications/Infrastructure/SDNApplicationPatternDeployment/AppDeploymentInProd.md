@@ -68,4 +68,4 @@ Automation testsuites running immediately after application deployment.Integrati
 Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
 
 
-[<- Back to SDNApplicationDeploymentInTestBed](../SDNApplicationPatternDeployment/AppDeploymentInTestBed.md) - - - [Back to Testing Applications ->](../../../TestingApplications.md)
+[<- Back to SDNApplicationDeploymentInTestBed](./AppDeploymentInTestBed.md) - - - [Back to main Testing Applications ->](../../TestingApplications.md)
