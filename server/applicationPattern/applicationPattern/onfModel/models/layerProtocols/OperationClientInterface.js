@@ -69,7 +69,7 @@ class OperationClientInterface extends layerProtocol {
             static lifeCycleStateEnum = {
                 EXPERIMENTAL: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
                 OPERATIONAL: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL",
-                DEPRICATED: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRICATED",
+                DEPRECATED: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED",
                 OBSOLETE: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE",
                 UNKNOWN: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN",
                 NOT_YET_DEFINED: "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
