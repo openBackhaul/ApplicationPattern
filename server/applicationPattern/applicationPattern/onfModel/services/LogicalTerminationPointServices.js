@@ -67,6 +67,48 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
+ * @description This function finds an application by name and updates the http,
+ * operation and tcp client if require.
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus} or null if the application is not found
+ **/
+ exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+
+        let logicalTerminationPointConfigurationStatus = null;
+
+        try {
+
+            let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
+            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
+
+            let isApplicationExists = await httpClientInterface.isApplicationExists(
+                applicationName
+            );
+
+            if (isApplicationExists) {
+                logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
+                    applicationName,
+                    releaseNumber,
+                    remoteIPv4Address,
+                    remotePort,
+                    operationNameList
+                );
+            }
+
+            resolve(logicalTerminationPointConfigurationStatus)
+
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of 

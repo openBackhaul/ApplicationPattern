@@ -1,10 +1,13 @@
 'use strict';
 
+const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const LogicalTerminatinPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const layerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
 
+const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
+const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
 const ForwardingConfigurationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructConfigurationServices');
 const ForwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const prepareForwardingConfiguration = require('./services/PrepareForwardingConfiguration');
@@ -449,6 +452,12 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
       let applicationPort = body["oam-approval-port"];
       let oamApprovalOperation = body["oam-approval-operation"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesInquiryForAuthentication');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The oam-approval-application ${applicationName} was not found.`));
+        return;
+      }
+
       /****************************************************************************************
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
@@ -464,7 +473,7 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
         applicationPort,
         operationList
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminatinPointConfigurationInput
       );
 
@@ -577,6 +586,12 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
       let applicationPort = body["oam-log-port"];
       let oamLogOperation = body["oam-log-operation"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesLoggingRequest');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The oam-log-application ${applicationName} was not found.`));
+        return;
+      }
+
       /****************************************************************************************
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
@@ -592,7 +607,7 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
         applicationPort,
         operationList
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminatinPointConfigurationInput
       );
 
@@ -666,6 +681,12 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
       let applicationPort = body["service-log-port"];
       let serviceLogOperation = body["service-log-operation"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('ServiceRequestCausesLoggingRequest');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The service-log-application ${applicationName} was not found.`));
+        return;
+      }
+
       /****************************************************************************************
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
@@ -681,7 +702,7 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
         applicationPort,
         operationList
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminatinPointConfigurationInput
       );
 
@@ -1147,4 +1168,30 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
       reject();
     }
   });
+}
+
+async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forwardingName) {
+  const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+  if (forwardingConstruct === undefined) {
+    return null;
+  }
+  
+  let fcPortOutputDirectionLogicalTerminationPointList = [];
+  const fcPortList = forwardingConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+  for (const fcPort of fcPortList) {
+    const portDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
+    if (FcPort.portDirectionEnum.OUTPUT === portDirection) {
+      fcPortOutputDirectionLogicalTerminationPointList.push(fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]);
+    }
+  }
+
+  if (fcPortOutputDirectionLogicalTerminationPointList.length !== 1) {
+    return null;
+  }
+
+  const opLtpUuid = fcPortOutputDirectionLogicalTerminationPointList[0];
+  const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(opLtpUuid);
+  const httpClientLtpUuid = httpLtpUuidList[0];
+  const applicationName = await httpClientInterface.getApplicationNameAsync(httpClientLtpUuid);
+  return applicationName === undefined ? { applicationName: null, httpClientLtpUuid } : { applicationName, httpClientLtpUuid };
 }
