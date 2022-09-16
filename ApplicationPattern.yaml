@@ -2263,6 +2263,40 @@ paths:
                                                 type: string
                                               life-cycle-state:
                                                 type: string
+                                  - description: 'elasticsearch client'
+                                    type: object
+                                    required:
+                                      - local-id
+                                      - layer-protocol-name
+                                      - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
+                                    properties:
+                                      local-id:
+                                        type: string
+                                      layer-protocol-name:
+                                        type: string
+                                      elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
+                                        type: object
+                                        required:
+                                          - elasticsearch-client-interface-configuration
+                                          - elasticsearch-client-interface-status
+                                        properties:
+                                          elasticsearch-client-interface-configuration:
+                                            type: object
+                                            required:
+                                              - index-alias
+                                            properties:
+                                              index-alias:
+                                                type: string
+                                          elasticsearch-client-interface-status:
+                                            type: object
+                                            required:
+                                              - operational-state
+                                              - life-cycle-state
+                                            properties:
+                                              operational-state:
+                                                type: string
+                                              life-cycle-state:
+                                                type: string
                                   - description: 'http client'
                                     type: object
                                     required:
@@ -5222,6 +5256,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-server-interface-1-0:operation-server-interface-pac:
@@ -5270,6 +5305,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-server-interface-1-0:http-server-interface-pac:
@@ -5337,6 +5373,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-server-interface-1-0:tcp-server-interface-pac:
@@ -5377,6 +5414,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-client-interface-1-0:operation-client-interface-pac:
@@ -5418,6 +5456,367 @@ paths:
                                                   - 'operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
                                                   - 'operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
                                                   - 'operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                                  - description: 'elasticsearch client'
+                                    type: object
+                                    required:
+                                      - local-id
+                                      - layer-protocol-name
+                                      - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
+                                    properties:
+                                      local-id:
+                                        type: string
+                                      layer-protocol-name:
+                                        type: string
+                                        enum:
+                                          - 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                          - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                      elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
+                                        type: object
+                                        required:
+                                          - elasticsearch-client-interface-configuration
+                                          - elasticsearch-client-interface-status
+                                        properties:
+                                          elasticsearch-client-interface-configuration:
+                                            type: object
+                                            required:
+                                              - auth
+                                              - index-alias
+                                            properties:
+                                              auth:
+                                                type: object
+                                                minProperties: 1
+                                                additionalProperties: false
+                                                properties:
+                                                  api-key:
+                                                    type: string
+                                                    description: 'base64EncodedKey'
+                                              index-alias:
+                                                type: string
+                                              service-records-policy:
+                                                type: object
+                                                required:
+                                                  - service-records-policy-name
+                                                  - phases
+                                                properties:
+                                                  service-records-policy-name:
+                                                    type: string
+                                                  master-timeout:
+                                                    type: string
+                                                  timeout:
+                                                    type: string
+                                                  description:
+                                                    type: string
+                                                  project:
+                                                    type: object
+                                                    properties:
+                                                      name:
+                                                        type: string
+                                                      department:
+                                                        type: string
+                                                  phases:
+                                                    type: object
+                                                    properties:
+                                                      hot:
+                                                        type: object
+                                                        properties:
+                                                          min-age:
+                                                            type: string
+                                                          actions:
+                                                            type: object
+                                                            properties:
+                                                              forcemerge:
+                                                                type: object
+                                                                required:
+                                                                  - max-num-segments
+                                                                properties:
+                                                                  max-num-segments:
+                                                                    type: integer
+                                                                  index-codec:
+                                                                    type: string
+                                                              readonly:
+                                                                type: object
+                                                              rollover:
+                                                                type: object
+                                                                minProperties: 1
+                                                                additionalProperties: false
+                                                                properties:
+                                                                  max-age:
+                                                                    type: string
+                                                                  max-docs:
+                                                                    type: integer
+                                                                  max-size:
+                                                                    type: string
+                                                                  max-primary-shard-size:
+                                                                    type: string
+                                                                  max-primary-shard-docs:
+                                                                    type: integer
+                                                                  min-age:
+                                                                    type: string
+                                                                  min-docs:
+                                                                    type: integer
+                                                                  min-size:
+                                                                    type: string
+                                                                  min-primary-shard-size:
+                                                                    type: string
+                                                                  min-primary-shard-docs:
+                                                                    type: integer
+                                                              searchable-snapshot:
+                                                                type: object
+                                                                required:
+                                                                  - snapshot-repository
+                                                                properties:
+                                                                  snapshot-repository:
+                                                                    type: string
+                                                                  force-merge-index:
+                                                                    type: boolean
+                                                              set-priority:
+                                                                type: object
+                                                                required:
+                                                                  - priority
+                                                                properties:
+                                                                  priority:
+                                                                    type: integer
+                                                              shrink:
+                                                                type: object
+                                                                properties:
+                                                                  number-of-shards:
+                                                                    type: integer
+                                                                  max-primary-shard-size:
+                                                                    type: string
+                                                              unfollow:
+                                                                type: object
+                                                      warm:
+                                                        type: object
+                                                        properties:
+                                                          min-age:
+                                                            type: string
+                                                          actions:
+                                                            type: object
+                                                            properties:
+                                                              allocate:
+                                                                type: object
+                                                                minProperties: 1
+                                                                additionalProperties: false
+                                                                properties:
+                                                                  number-of-replicas:
+                                                                    type: integer
+                                                                  total-shards-per-node:
+                                                                    type: integer
+                                                                  include:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                  exclude:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                  require:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                      storage:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'high'
+                                                              forcemerge:
+                                                                type: object
+                                                                required:
+                                                                  - max-num-segments
+                                                                properties:
+                                                                  max-num-segments:
+                                                                    type: integer
+                                                                  index-codec:
+                                                                    type: string
+                                                              migrate:
+                                                                type: object
+                                                                properties:
+                                                                  enabled:
+                                                                    type: boolean
+                                                              readonly:
+                                                                type: object
+                                                              set-priority:
+                                                                type: object
+                                                                required:
+                                                                  - priority
+                                                                properties:
+                                                                  priority:
+                                                                    type: integer
+                                                              shrink:
+                                                                type: object
+                                                                properties:
+                                                                  number-of-shards:
+                                                                    type: integer
+                                                                  max-primary-shard-size:
+                                                                    type: string
+                                                              unfollow:
+                                                                type: object
+                                                      cold:
+                                                        type: object
+                                                        properties:
+                                                          min-age:
+                                                            type: string
+                                                          actions:
+                                                            type: object
+                                                            properties:
+                                                              allocate:
+                                                                type: object
+                                                                minProperties: 1
+                                                                additionalProperties: false
+                                                                properties:
+                                                                  number-of-replicas:
+                                                                    type: integer
+                                                                  total-shards-per-node:
+                                                                    type: integer
+                                                                  include:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                  exclude:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                  require:
+                                                                    type: object
+                                                                    properties:
+                                                                      box-type:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'hot'
+                                                                          - 'warm'
+                                                                          - 'cold'
+                                                                          - 'frozen'
+                                                                          - 'delete'
+                                                                      storage:
+                                                                        type: string
+                                                                        enum:
+                                                                          - 'high'
+                                                              migrate:
+                                                                type: object
+                                                                properties:
+                                                                  enabled:
+                                                                    type: boolean
+                                                              readonly:
+                                                                type: object
+                                                              searchable-snapshot:
+                                                                type: object
+                                                                required:
+                                                                  - snapshot-repository
+                                                                properties:
+                                                                  snapshot-repository:
+                                                                    type: string
+                                                                  force-merge-index:
+                                                                    type: boolean
+                                                              set-priority:
+                                                                type: object
+                                                                required:
+                                                                  - priority
+                                                                properties:
+                                                                  priority:
+                                                                    type: integer
+                                                              unfollow:
+                                                                type: object
+                                                      frozen:
+                                                        type: object
+                                                        properties:
+                                                          min-age:
+                                                            type: string
+                                                          actions:
+                                                            type: object
+                                                            properties:
+                                                              searchable-snapshot:
+                                                                type: object
+                                                                required:
+                                                                  - snapshot-repository
+                                                                properties:
+                                                                  snapshot-repository:
+                                                                    type: string
+                                                                  force-merge-index:
+                                                                    type: boolean
+                                                              unfollow:
+                                                                type: object
+                                                      delete:
+                                                        type: object
+                                                        properties:
+                                                          min-age:
+                                                            type: string
+                                                          actions:
+                                                            type: object
+                                                            required:
+                                                              - delete
+                                                            properties:
+                                                              delete:
+                                                                type: object
+                                                                properties:
+                                                                  delete-searchable-snapshot:
+                                                                    type: boolean
+                                                              wait-for-snapshot:
+                                                                type: object
+                                                                required:
+                                                                  - policy
+                                                                properties:
+                                                                  policy:
+                                                                    type: string
+                                          elasticsearch-client-interface-status:
+                                            type: object
+                                            required:
+                                              - operational-state
+                                              - life-cycle-state
+                                            properties:
+                                              operational-state:
+                                                type: string
+                                                enum:
+                                                  - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                                                  - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                                                  - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                                              life-cycle-state:
+                                                type: string
+                                                enum:
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                                                  - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
                                   - description: 'http client'
                                     type: object
                                     required:
@@ -5434,6 +5833,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-client-interface-1-0:http-client-interface-pac:
@@ -5472,6 +5872,7 @@ paths:
                                           - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-client-interface-1-0:tcp-client-interface-pac:
@@ -6046,6 +6447,940 @@ paths:
       responses:
         '204':
           description: 'Integer value configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/auth/api-key:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+    get:
+      operationId: getElasticsearchClientApiKey
+      summary: 'Returns API key'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'API key provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:api-key
+                properties:
+                  elasticsearch-client-interface-1-0:api-key:
+                    type: string
+                    example: 'YWRtaW46MTIzNDU2'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientApiKey
+      summary: 'Configures API key'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:api-key
+              properties:
+                elasticsearch-client-interface-1-0:api-key:
+                  type: string
+      responses:
+        '204':
+          description: 'API key configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/index-alias:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+    get:
+      operationId: getElasticsearchClientIndexAlias
+      summary: 'Returns index alias'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Index alias provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:index-alias
+                properties:
+                  elasticsearch-client-interface-1-0:index-alias:
+                    type: string
+                    example: 'eatl_service_records'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientIndexAlias
+      summary: 'Configures index alias'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:index-alias
+              properties:
+                elasticsearch-client-interface-1-0:index-alias:
+                  type: string
+      responses:
+        '204':
+          description: 'Index alias configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/service-records-policy:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+    get:
+      operationId: getElasticsearchClientServiceRecordsPolicy
+      summary: 'Returns service records policy'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Service records policy provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:service-records-policy
+                properties:
+                  elasticsearch-client-interface-1-0:service-records-policy:
+                    type: object
+                    required:
+                      - service-records-policy-name
+                      - phases
+                    properties:
+                      service-records-policy-name:
+                        type: string
+                      master-timeout:
+                        type: string
+                      timeout:
+                        type: string
+                      description:
+                        type: string
+                      project:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          department:
+                            type: string
+                      phases:
+                        type: object
+                        properties:
+                          hot:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  forcemerge:
+                                    type: object
+                                    required:
+                                      - max-num-segments
+                                    properties:
+                                      max-num-segments:
+                                        type: integer
+                                      index-codec:
+                                        type: string
+                                  readonly:
+                                    type: object
+                                  rollover:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      max-age:
+                                        type: string
+                                      max-docs:
+                                        type: integer
+                                      max-size:
+                                        type: string
+                                      max-primary-shard-size:
+                                        type: string
+                                      max-primary-shard-docs:
+                                        type: integer
+                                      min-age:
+                                        type: string
+                                      min-docs:
+                                        type: integer
+                                      min-size:
+                                        type: string
+                                      min-primary-shard-size:
+                                        type: string
+                                      min-primary-shard-docs:
+                                        type: integer
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  shrink:
+                                    type: object
+                                    properties:
+                                      number-of-shards:
+                                        type: integer
+                                      max-primary-shard-size:
+                                        type: string
+                                  unfollow:
+                                    type: object
+                          warm:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  allocate:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      number-of-replicas:
+                                        type: integer
+                                      total-shards-per-node:
+                                        type: integer
+                                      include:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      exclude:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      require:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                          storage:
+                                            type: string
+                                            enum:
+                                              - 'high'
+                                  forcemerge:
+                                    type: object
+                                    required:
+                                      - max-num-segments
+                                    properties:
+                                      max-num-segments:
+                                        type: integer
+                                      index-codec:
+                                        type: string
+                                  migrate:
+                                    type: object
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  readonly:
+                                    type: object
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  shrink:
+                                    type: object
+                                    properties:
+                                      number-of-shards:
+                                        type: integer
+                                      max-primary-shard-size:
+                                        type: string
+                                  unfollow:
+                                    type: object
+                          cold:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  allocate:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      number-of-replicas:
+                                        type: integer
+                                      total-shards-per-node:
+                                        type: integer
+                                      include:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      exclude:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      require:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                          storage:
+                                            type: string
+                                            enum:
+                                              - 'high'
+                                  migrate:
+                                    type: object
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  readonly:
+                                    type: object
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  unfollow:
+                                    type: object
+                          frozen:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  unfollow:
+                                    type: object
+                          delete:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                required:
+                                  - delete
+                                properties:
+                                  delete:
+                                    type: object
+                                    properties:
+                                      delete-searchable-snapshot:
+                                        type: boolean
+                                  wait-for-snapshot:
+                                    type: object
+                                    required:
+                                      - policy
+                                    properties:
+                                      policy:
+                                        type: string
+                    example:
+                      service-records-policy-name: 'eatl_service_records_policy'
+                      phases:
+                        hot:
+                          min-age: '30s'
+                          actions:
+                            rollover:
+                              max-age: '5d'
+                        delete:
+                          min-age: '5d'
+                          actions:
+                            delete:
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientServiceRecordsPolicy
+      summary: 'Configures service records policy'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:service-records-policy
+              properties:
+                elasticsearch-client-interface-1-0:service-records-policy:
+                  type: object
+                  required:
+                    - service-records-policy-name
+                    - phases
+                  properties:
+                    service-records-policy-name:
+                      type: string
+                    master-timeout:
+                      type: string
+                    timeout:
+                      type: string
+                    description:
+                      type: string
+                    project:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        department:
+                          type: string
+                    phases:
+                      type: object
+                      properties:
+                        hot:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                forcemerge:
+                                  type: object
+                                  required:
+                                    - max-num-segments
+                                  properties:
+                                    max-num-segments:
+                                      type: integer
+                                    index-codec:
+                                      type: string
+                                readonly:
+                                  type: object
+                                rollover:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    max-age:
+                                      type: string
+                                    max-docs:
+                                      type: integer
+                                    max-size:
+                                      type: string
+                                    max-primary-shard-size:
+                                      type: string
+                                    max-primary-shard-docs:
+                                      type: integer
+                                    min-age:
+                                      type: string
+                                    min-docs:
+                                      type: integer
+                                    min-size:
+                                      type: string
+                                    min-primary-shard-size:
+                                      type: string
+                                    min-primary-shard-docs:
+                                      type: integer
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                shrink:
+                                  type: object
+                                  properties:
+                                    number-of-shards:
+                                      type: integer
+                                    max-primary-shard-size:
+                                      type: string
+                                unfollow:
+                                  type: object
+                        warm:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                allocate:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    number-of-replicas:
+                                      type: integer
+                                    total-shards-per-node:
+                                      type: integer
+                                    include:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    exclude:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    require:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                        storage:
+                                          type: string
+                                          enum:
+                                            - 'high'
+                                forcemerge:
+                                  type: object
+                                  required:
+                                    - max-num-segments
+                                  properties:
+                                    max-num-segments:
+                                      type: integer
+                                    index-codec:
+                                      type: string
+                                migrate:
+                                  type: object
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                                readonly:
+                                  type: object
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                shrink:
+                                  type: object
+                                  properties:
+                                    number-of-shards:
+                                      type: integer
+                                    max-primary-shard-size:
+                                      type: string
+                                unfollow:
+                                  type: object
+                        cold:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                allocate:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    number-of-replicas:
+                                      type: integer
+                                    total-shards-per-node:
+                                      type: integer
+                                    include:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    exclude:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    require:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                        storage:
+                                          type: string
+                                          enum:
+                                            - 'high'
+                                migrate:
+                                  type: object
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                                readonly:
+                                  type: object
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                unfollow:
+                                  type: object
+                        frozen:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                unfollow:
+                                  type: object
+                        delete:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              required:
+                                - delete
+                              properties:
+                                delete:
+                                  type: object
+                                  properties:
+                                    delete-searchable-snapshot:
+                                      type: boolean
+                                wait-for-snapshot:
+                                  type: object
+                                  required:
+                                    - policy
+                                  properties:
+                                    policy:
+                                      type: string
+                  example:
+                    service-records-policy-name: 'eatl_service_records_policy'
+                    phases:
+                      hot:
+                        min-age: '30s'
+                        actions:
+                          rollover:
+                            max-age: '5d'
+                      delete:
+                        min-age: '5d'
+                        actions:
+                          delete:
+                            delete-searchable-snapshot: true
+      responses:
+        '204':
+          description: 'Service records policy configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/operational-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+    get:
+      operationId: getElasticsearchClientOperationalState
+      summary: 'Returns operational state of the connection towards Elasticsearch'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operational state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:operational-state
+                properties:
+                  elasticsearch-client-interface-1-0:operational-state:
+                    type: string
+                    enum:
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/life-cycle-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+    get:
+      operationId: getElasticsearchClientLifeCycleState
+      summary: 'Returns life cycle state of the connection towards Elasticsearch'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Life cycle state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:life-cycle-state
+                properties:
+                  elasticsearch-client-interface-1-0:life-cycle-state:
+                    type: string
+                    enum:
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
