@@ -90,10 +90,10 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
           relayOperationUpdateOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -146,8 +146,8 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-      
-      let logicalTerminationPointconfigurationStatus ;
+
+      let logicalTerminationPointconfigurationStatus;
 
 
       /****************************************************************************************
@@ -158,7 +158,7 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
         subscriberApplication,
         subscriberReleaseNumber,
         subscriptionOperation
-        );
+      );
       let forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
         unConfigureForwardingConstructAsync(
           operationServerName,
@@ -212,9 +212,9 @@ exports.informAboutApplication = function (user, originator, xCorrelator, traceI
         let key = entry[0];
         let value = entry[1];
         if (key != onfAttributes.HTTP_SERVER.RELEASE_LIST) {
-          if(key === onfAttributes.HTTP_SERVER.RELEASE_NUMBER) {
+          if (key === onfAttributes.HTTP_SERVER.RELEASE_NUMBER) {
             applicationInformation['application-release-number'] = value;
-          }  else {
+          } else {
             applicationInformation[key] = value;
           }
         }
@@ -483,10 +483,10 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
           oamApprovalOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -532,6 +532,21 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
        ****************************************************************************************/
       let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
       let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
+      let logicalterminationpoint = controlConstruct['logical-termination-point']
+
+      for (let i = 0; i < logicalterminationpoint.length; i++) {
+        let layerprotocol = logicalterminationpoint[i]['layer-protocol']
+        for (let j = 0; j < layerprotocol.length; j++) {
+          let operationclientinterfacepac = layerprotocol[j]["operation-client-interface-1-0:operation-client-interface-pac"]
+          if (operationclientinterfacepac !== undefined) {
+            let detailedloggingison = operationclientinterfacepac['operation-client-interface-configuration']
+            if (detailedloggingison !== undefined) {
+              delete detailedloggingison['detailed-logging-is-on'];
+            }
+          }
+        }
+      }
+
       let controlConstructResponse = {
         "core-model-1-4:control-construct": controlConstruct
       };
@@ -611,10 +626,10 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
           oamLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -700,10 +715,10 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
           serviceLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -804,10 +819,10 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
           fcPortDeletionTopologyOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -893,10 +908,10 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
           registerOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -945,7 +960,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       let oldApplicationReleaseNumber = body["old-application-release-number"];
       let newApplicationReleaseNumber = body["new-application-release-number"];
       let newApplicationAddress = body["new-application-address"];
-      let newApplicationPort = body["new-application-port"]; 
+      let newApplicationPort = body["new-application-port"];
 
       /****************************************************************************************
        * perform bussiness logic
@@ -954,34 +969,34 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       let isOldApplicationExists = false;
 
       let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, oldApplicationReleaseNumber);
-      if(httpClientUuid){
+      if (httpClientUuid) {
         isOldApplicationExists = true;
       }
 
-      if(isOldApplicationExists){
+      if (isOldApplicationExists) {
         /****************************************************************************************
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
 
-      let operationList = [];
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
-        applicationName,
-        newApplicationReleaseNumber,
-        newApplicationAddress,
-        newApplicationPort,
-        operationList
-      );
-      logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
-      );
+        let operationList = [];
+        let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+          applicationName,
+          newApplicationReleaseNumber,
+          newApplicationAddress,
+          newApplicationPort,
+          operationList
+        );
+        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+          logicalTerminatinPointConfigurationInput
+        );
       }
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
       let forwardingAutomationInputList = await prepareForwardingAutomation.updateClient(
-        logicalTerminationPointConfigurationStatus,undefined,
+        logicalTerminationPointConfigurationStatus, undefined,
         applicationName
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
