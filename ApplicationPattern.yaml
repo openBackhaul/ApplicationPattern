@@ -5064,13 +5064,9 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     action-profile-1-0:action-profile-pac:
                                       type: object
                                       required:
@@ -5120,13 +5116,9 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     integer-profile-1-0:integer-profile-pac:
                                       type: object
                                       required:
@@ -5165,13 +5157,9 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     string-profile-1-0:string-profile-pac:
                                       type: object
                                       required:
