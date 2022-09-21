@@ -179,7 +179,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * Choose a meaningful LayerID.  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "mi" (management, which is individual to this application).  
 * The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **Further Stereotypes**  
