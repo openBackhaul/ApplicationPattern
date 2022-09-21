@@ -30,7 +30,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "action".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "mi" (management, which is individual to this application).  
 * The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **OperationName**  
@@ -72,7 +71,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "file".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "im" (management, which is individual to this application).  
 * The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **FileIdentifier**  
@@ -89,12 +87,12 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 **UserName**  
 * This field is not mandatory.  
-* If access to the file shall be protected by user name and password, some value should be adeded here.  
+* If access to the file shall be protected by user name and password, some value should be added here.  
 * Maybe, the application's name is a good choice.  
 
 **Password**  
 * This field is not mandatory.  
-* If access to the file shall be protected by user name and password, some value should be adeded here.  
+* If access to the file shall be protected by user name and password, some value should be added here.  
 
 **Operations**  
 * This field allows restricting the access rights of the application to the file.
@@ -115,7 +113,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "integer".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "mi" (management, which is individual to this application).  
 * The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **IntegerName**  
@@ -150,7 +147,6 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "string".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "mi" (management, which is individual to this application).  
 * The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **StringName**  

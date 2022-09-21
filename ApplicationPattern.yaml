@@ -5079,7 +5079,7 @@ paths:
                                           required:
                                             - operation-name
                                             - label
-                                            - new-browser-window
+                                            - display-in-new-browser-window
                                           properties:
                                             operation-name:
                                               type: string
@@ -6074,7 +6074,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([a-z]+)-p-10([0-9,a-f]{2})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([a-z]+)-p-([0-9,a-f]{3})$'
           example: 'ro-1-0-0-action-p-000'
     get:
       operationId: getProfileInstance
@@ -6098,13 +6098,13 @@ paths:
                       - description: 'action profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - action-profile-1-0:action-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
@@ -6122,7 +6122,7 @@ paths:
                                 required:
                                   - operation-name
                                   - label
-                                  - new-browser-window
+                                  - display-in-new-browser-window
                                 properties:
                                   operation-name:
                                     type: string
@@ -6151,13 +6151,13 @@ paths:
                       - description: 'file profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - file-profile-1-0:file-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
@@ -6201,13 +6201,13 @@ paths:
                       - description: 'integer profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - integer-profile-1-0:integer-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
@@ -6243,13 +6243,13 @@ paths:
                       - description: 'string profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - string-profile-1-0:string-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
@@ -6277,7 +6277,7 @@ paths:
                                   string-value:
                                     type: string
               example:
-              - core-model-1-4:profile:
+                core-model-1-4:profile:
                   uuid: 'ro-1-0-0-action-p-000'
                   profile-name: 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                   action-profile-1-0:action-profile-pac:
@@ -6290,17 +6290,6 @@ paths:
                       display-in-new-browser-window: false
                     action-profile-configuration:
                       request: 'https://10.118.125.157:1000/v1/inform-about-application-in-generic-representation'
-              - core-model-1-4:profile:
-                  uuid: 'ro-1-0-0-integer-p-000'
-                  profile-name: 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                  integer-profile-1-0:integer-profile-pac:
-                    integer-profile-capability:
-                      integer-name: 'maximumNumberOfEntries'
-                      unit: 'records'
-                      minimum: 0
-                      maximum: 1000000
-                    integer-profile-configuration:
-                      integer-value: 1000000
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
