@@ -12,6 +12,17 @@ profiles:
     configuration:
       request: string
 
+  - profile-name: 'FileProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
+    capability:
+      file-identifier: string
+	    file-description: string
+    configuration:
+      file-path: string
+	    user-name: string
+	    password: string
+	    operation: string
+    
   - profile-name: 'IntegerProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-[0-9]{3}$'
     capability:
@@ -30,5 +41,6 @@ profiles:
       pattern: string
     configuration:
       string-value: string
+
 
 ## TODO: Add further Profile definitions, if required

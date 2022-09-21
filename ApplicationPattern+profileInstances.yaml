@@ -42,6 +42,20 @@ profile-instances:
 
   ## TODO: Potentially add further instances of ActionProfile
 
+	  
+  - profile-name: 'FileProfile'
+    uuid: '*-file-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
+    capability:
+      file-identifier: ## TODO: Add invariant identifier of the referenced file
+	    file-description: ## TODO: Add a description of the content of the referenced file
+    configuration:
+      file-path: ## TODO: Add file name, like e.g. '../application-data/application-data.json'
+	    user-name: ## TODO: If file protected, add user-name
+	    password: ## TODO: If file protected, add password
+	    operation: ## TODO: Choose from read/write/off
+
+  ## TODO: Potentially add further instances of FileProfile
+
 
   - profile-name: 'IntegerProfile'
     uuid: '*-integer-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
@@ -64,5 +78,6 @@ profile-instances:
       pattern: ## TODO: Potentially add a regex for validating configuration values
     configuration:
       string-value: ## TODO: Add current value of the attribute
-
+	  
   ## TODO: Potentially add further instances of StringProfile
+
