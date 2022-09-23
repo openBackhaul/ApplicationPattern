@@ -42,7 +42,7 @@ profile-instances:
 
   ## TODO: Potentially add further instances of ActionProfile
 
-	  
+
   - profile-name: 'FileProfile'
     uuid: '*-file-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
     capability:
@@ -78,6 +78,6 @@ profile-instances:
       pattern: ## TODO: Potentially add a regex for validating configuration values
     configuration:
       string-value: ## TODO: Add current value of the attribute
-	  
+
   ## TODO: Potentially add further instances of StringProfile
 
