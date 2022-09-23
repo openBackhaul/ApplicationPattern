@@ -37,7 +37,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall be target of the handover process
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 new-application-release:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -587,7 +587,7 @@ paths:
                   type: string
                   description: >
                     'If body provided, name of RegistryOffice application
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 registry-office-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -874,7 +874,7 @@ paths:
                   type: string
                   description: >
                     'Name of RegistryOffice application
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 registry-office-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1158,7 +1158,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the service requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-eatl-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-eatl-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 service-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1399,7 +1399,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the OaM requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ol-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-ol-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1630,7 +1630,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that no longer wants to receive notifications
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 subscriber-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1723,13 +1723,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall approve the OaM requests
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-approval-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-approval-operation:
                   type: string
                   minLength: 6
@@ -1975,7 +1975,7 @@ paths:
                   type: string
                   description: >
                     'Name of the application that has updated connection data
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 old-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -2311,21 +2311,16 @@ paths:
                                       http-client-interface-1-0:http-client-interface-pac:
                                         type: object
                                         required:
-                                          - http-client-interface-capability
                                           - http-client-interface-configuration
                                         properties:
-                                          http-client-interface-capability:
-                                            type: object
-                                            required:
-                                              - application-name
-                                            properties:
-                                              application-name:
-                                                type: string
                                           http-client-interface-configuration:
                                             type: object
                                             required:
+                                              - application-name
                                               - release-number
                                             properties:
+                                              application-name:
+                                                type: string
                                               release-number:
                                                 type: string
                                   - description: 'tcp client'
@@ -2549,7 +2544,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall document the application layer topology
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-alt-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-alt-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 topology-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -2882,21 +2877,16 @@ paths:
                                             http-client-interface-1-0:http-client-interface-pac:
                                               type: object
                                               required:
-                                                - http-client-interface-capability
                                                 - http-client-interface-configuration
                                               properties:
-                                                http-client-interface-capability:
-                                                  type: object
-                                                  required:
-                                                    - application-name
-                                                  properties:
-                                                    application-name:
-                                                      type: string
                                                 http-client-interface-configuration:
                                                   type: object
                                                   required:
+                                                    - application-name
                                                     - release-number
                                                   properties:
+                                                    application-name:
+                                                      type: string
                                                     release-number:
                                                       type: string
                                         - description: 'tcp client'
@@ -3269,21 +3259,16 @@ paths:
                                   http-client-interface-1-0:http-client-interface-pac:
                                     type: object
                                     required:
-                                      - http-client-interface-capability
                                       - http-client-interface-configuration
                                     properties:
-                                      http-client-interface-capability:
-                                        type: object
-                                        required:
-                                          - application-name
-                                        properties:
-                                          application-name:
-                                            type: string
                                       http-client-interface-configuration:
                                         type: object
                                         required:
+                                          - application-name
                                           - release-number
                                         properties:
+                                          application-name:
+                                            type: string
                                           release-number:
                                             type: string
                               - description: 'tcp client'
@@ -3896,21 +3881,16 @@ paths:
                                   http-client-interface-1-0:http-client-interface-pac:
                                     type: object
                                     required:
-                                      - http-client-interface-capability
                                       - http-client-interface-configuration
                                     properties:
-                                      http-client-interface-capability:
-                                        type: object
-                                        required:
-                                          - application-name
-                                        properties:
-                                          application-name:
-                                            type: string
                                       http-client-interface-configuration:
                                         type: object
                                         required:
+                                          - application-name
                                           - release-number
                                         properties:
+                                          application-name:
+                                            type: string
                                           release-number:
                                             type: string
                               - description: 'tcp client'
@@ -4453,7 +4433,7 @@ paths:
                   type: string
                   description: >
                     'Name of the application that has an updated operation
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -5064,13 +5044,10 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     action-profile-1-0:action-profile-pac:
                                       type: object
                                       required:
@@ -5082,7 +5059,7 @@ paths:
                                           required:
                                             - operation-name
                                             - label
-                                            - new-browser-window
+                                            - display-in-new-browser-window
                                           properties:
                                             operation-name:
                                               type: string
@@ -5108,6 +5085,56 @@ paths:
                                           properties:
                                             request:
                                               type: string
+                                - description: 'file profile'
+                                  type: object
+                                  required:
+                                    - uuid
+                                    - profile-name
+                                    - file-profile-1-0:file-profile-pac
+                                  properties:
+                                    uuid:
+                                      type: string
+                                    profile-name:
+                                      type: string
+                                      enum:
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
+                                    file-profile-1-0:file-profile-pac:
+                                      type: object
+                                      required:
+                                        - file-profile-capability
+                                        - file-profile-configuration
+                                      properties:
+                                        file-profile-capability:
+                                          type: object
+                                          required:
+                                            - file-identifier
+                                            - file-description
+                                          properties:
+                                            file-identifier:
+                                              type: string
+                                            file-description:
+                                              type: string
+                                        file-profile-configuration:
+                                          type: object
+                                          required:
+                                            - file-path
+                                          properties:
+                                            file-path:
+                                              type: string
+                                            user-name:
+                                              type: string
+                                            password:
+                                              type: string
+                                            operation:
+                                              type: string
+                                              enum:
+                                              - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                                              - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                                              - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                                              - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
                                 - description: 'integer profile'
                                   type: object
                                   required:
@@ -5120,13 +5147,10 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     integer-profile-1-0:integer-profile-pac:
                                       type: object
                                       required:
@@ -5165,13 +5189,10 @@ paths:
                                     profile-name:
                                       type: string
                                       enum:
-                                        - 'admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE'
-                                        - 'service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE'
-                                        - 'oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE'
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     string-profile-1-0:string-profile-pac:
                                       type: object
                                       required:
@@ -5839,21 +5860,16 @@ paths:
                                       http-client-interface-1-0:http-client-interface-pac:
                                         type: object
                                         required:
-                                          - http-client-interface-capability
                                           - http-client-interface-configuration
                                         properties:
-                                          http-client-interface-capability:
-                                            type: object
-                                            required:
-                                              - application-name
-                                            properties:
-                                              application-name:
-                                                type: string
                                           http-client-interface-configuration:
                                             type: object
                                             required:
+                                              - application-name
                                               - release-number
                                             properties:
+                                              application-name:
+                                                type: string
                                               release-number:
                                                 type: string
                                   - description: 'tcp client'
@@ -5926,9 +5942,8 @@ paths:
                               - local-id: '0'
                                 layer-protocol-name: 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                 http-client-interface-1-0:http-client-interface-pac:
-                                  http-client-interface-capability:
-                                    application-name: 'RegistryOffice'
                                   http-client-interface-configuration:
+                                    application-name: 'RegistryOffice'
                                     release-number: '1.0.0'
                       forwarding-domain:
                         type: array
@@ -6033,7 +6048,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([a-z]+)-p-10([0-9,a-f]{2})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([a-z]+)-p-([0-9,a-f]{3})$'
           example: 'ro-1-0-0-action-p-000'
     get:
       operationId: getProfileInstance
@@ -6057,16 +6072,17 @@ paths:
                       - description: 'action profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - action-profile-1-0:action-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           action-profile-1-0:action-profile-pac:
@@ -6080,7 +6096,7 @@ paths:
                                 required:
                                   - operation-name
                                   - label
-                                  - new-browser-window
+                                  - display-in-new-browser-window
                                 properties:
                                   operation-name:
                                     type: string
@@ -6106,19 +6122,70 @@ paths:
                                 properties:
                                   request:
                                     type: string
-                      - description: 'integer profile'
+                      - description: 'file profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
-                          - integer-profile-1-0:integer-profile-pac
+                          - uuid
+                          - profile-name
+                          - file-profile-1-0:file-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                              - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
+                          file-profile-1-0:file-profile-pac:
+                            type: object
+                            required:
+                              - file-profile-capability
+                              - file-profile-configuration
+                            properties:
+                              file-profile-capability:
+                                type: object
+                                required:
+                                  - file-identifier
+                                  - file-description
+                                properties:
+                                  file-identifier:
+                                    type: string
+                                  file-description:
+                                    type: string
+                              file-profile-configuration:
+                                type: object
+                                required:
+                                  - file-path
+                                properties:
+                                  file-path:
+                                    type: string
+                                  user-name:
+                                    type: string
+                                  password:
+                                    type: string
+                                  operation:
+                                    type: string
+                                    enum:
+                                      - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                                      - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                                      - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                                      - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                      - description: 'integer profile'
+                        type: object
+                        required:
+                          - uuid
+                          - profile-name
+                          - integer-profile-1-0:integer-profile-pac
+                        properties:
+                          uuid:
+                            type: string
+                          profile-name:
+                            type: string
+                            enum:
+                              - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           integer-profile-1-0:integer-profile-pac:
@@ -6150,16 +6217,17 @@ paths:
                       - description: 'string profile'
                         type: object
                         required:
-                          - core-model-1-4:uuid
-                          - core-model-1-4:profile-name
+                          - uuid
+                          - profile-name
                           - string-profile-1-0:string-profile-pac
                         properties:
-                          core-model-1-4:uuid:
+                          uuid:
                             type: string
-                          core-model-1-4:profile-name:
+                          profile-name:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           string-profile-1-0:string-profile-pac:
@@ -6183,7 +6251,7 @@ paths:
                                   string-value:
                                     type: string
               example:
-              - core-model-1-4:profile:
+                core-model-1-4:profile:
                   uuid: 'ro-1-0-0-action-p-000'
                   profile-name: 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                   action-profile-1-0:action-profile-pac:
@@ -6196,17 +6264,6 @@ paths:
                       display-in-new-browser-window: false
                     action-profile-configuration:
                       request: 'https://10.118.125.157:1000/v1/inform-about-application-in-generic-representation'
-              - core-model-1-4:profile:
-                  uuid: 'ro-1-0-0-integer-p-000'
-                  profile-name: 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                  integer-profile-1-0:integer-profile-pac:
-                    integer-profile-capability:
-                      integer-name: 'maximumNumberOfEntries'
-                      unit: 'records'
-                      minimum: 0
-                      maximum: 1000000
-                    integer-profile-configuration:
-                      integer-value: 1000000
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -6219,6 +6276,7 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
+
 
   /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/integer-name:
     parameters:
@@ -6460,6 +6518,400 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-identifier:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFileIdentifier
+      summary: 'Returns the identifier of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File identifier provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-identifier
+                properties:
+                  file-profile-1-0:file-identifier:
+                    type: string
+                    example: 'applicationData'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-description:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFileDescription
+      summary: 'Returns the description of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File description provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-description
+                properties:
+                  file-profile-1-0:file-description:
+                    type: string
+                    example: 'Holds administrator-names, user-names, authorization codes and allowed-methods.'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-path:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFilePath
+      summary: 'Returns the path of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File path provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-path
+                properties:
+                  file-profile-1-0:file-path:
+                    type: string
+                    example: '../application-data/application-data.json'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileFilePath
+      summary: 'Configures path of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:file-path
+              properties:
+                file-profile-1-0:file-path:
+                  type: string
+                  example: '../application-data/application-data.json'
+      responses:
+        '204':
+          description: 'File path configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/user-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfileUserName
+      summary: 'Returns the user name for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'User name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:user-name
+                properties:
+                  file-profile-1-0:user-name:
+                    type: string
+                    example: 'firstname.surname'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileUserName
+      summary: 'Configures the user name for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:user-name
+              properties:
+                file-profile-1-0:user-name:
+                  type: string
+                  example: 'firstname.surname'
+      responses:
+        '204':
+          description: 'User name configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/password:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfilePassword
+      summary: 'Returns the password for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Password provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:password
+                properties:
+                  file-profile-1-0:password:
+                    type: string
+                    example: 'stupid_phrase'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfilePassword
+      summary: 'Configures the password for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:password
+              properties:
+                file-profile-1-0:password:
+                  type: string
+                  example: 'stupid_phrase'
+      responses:
+        '204':
+          description: 'Password configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/operation:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-1-0-0-file-p-000'
+    get:
+      operationId: getFileProfileOperation
+      summary: 'Returns the allowed operation on the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operation provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:operation
+                properties:
+                  file-profile-1-0:operation:
+                    type: string
+                    enum:
+                      - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                      - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                      - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                      - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                    example: 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileOperation
+      summary: 'Configures the allowed operation on the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:operation
+              properties:
+                file-profile-1-0:operation:
+                  type: string
+                  enum:
+                    - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                    - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                    - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                    - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                  example: 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+      responses:
+        '204':
+          description: 'Operation configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/auth/api-key:
     parameters:
       - in: path
@@ -6467,8 +6919,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-1-0-0-es-c-im-000'
     get:
       operationId: getElasticsearchClientApiKey
       summary: 'Returns API key'
@@ -6541,8 +6993,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-1-0-0-es-c-im-000'
     get:
       operationId: getElasticsearchClientIndexAlias
       summary: 'Returns index alias'
@@ -6615,8 +7067,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-1-0-0-es-c-im-000'
     get:
       operationId: getElasticsearchClientServiceRecordsPolicy
       summary: 'Returns service records policy'
@@ -7307,8 +7759,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-1-0-0-es-c-im-000'
     get:
       operationId: getElasticsearchClientOperationalState
       summary: 'Returns operational state of the connection towards Elasticsearch'
@@ -7352,8 +7804,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'ro-1-0-0-op-c-bm-or-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-1-0-0-es-c-im-000'
     get:
       operationId: getElasticsearchClientLifeCycleState
       summary: 'Returns life cycle state of the connection towards Elasticsearch'
@@ -8658,7 +9110,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name:
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name:
     parameters:
       - in: path
         name: uuid
@@ -8687,6 +9139,41 @@ paths:
                   http-client-interface-1-0:application-name:
                     type: string
                     example: 'OldRelease'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putHttpClientApplicationName
+      summary: 'Configures name of application to be addressed'
+      tags:
+        - HttpClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - http-client-interface-1-0:application-name
+              properties:
+                http-client-interface-1-0:application-name:
+                  type: string
+                  minLength: 3
+                  example: 'NewApplication'
+      responses:
+        '204':
+          description: 'Name of addressed application configured'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8982,7 +9469,7 @@ components:
         example: 'Resolver'
       description: >
         'Identification for the system consuming the API, as defined in
-         [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+         [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
     x-correlator:
       name: x-correlator
       in: header

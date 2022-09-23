@@ -30,9 +30,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "action".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "1" (management, which is individual to this application).  
-* The ApplicationNumber shall be set on "0" (the application itself).  
-* The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **OperationName**  
 * Fill in the path of the request that shall transport the information about labels, input values and consequent requests in its response body to the GenericRepresentation.  
@@ -60,6 +58,48 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).  
 
 
+### Instances of FileProfile  
+
+* Whenever your application is supposed to use one or several files for storing data, a corresponding number of instances of FileProfile is required.  
+* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Finally, just delete the form that waits for completion.  
+
+**ProfileName**  
+* The ProfileName shall be set on "FileProfile".  
+
+**UUID**  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
+* The LayerID shall be set on "file".  
+* The ObjectType shall be set on "p" (Profile).  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+
+**FileIdentifier**  
+* Document an invariant identifier of the file.  
+* If the application uses just one file for storing its data, 'applicationData' might be a good choice.  
+
+**FileDescription**  
+* Document the content of the file.  
+* Even if the exact format of the information is to be defined by the implementer, the information could be listed here.  
+
+**file-path**  
+* The content of this field is actually determined by the implementer.  
+* Maybe, '../application-data/application-data.json' is a good choice for being a default value.  
+
+**UserName**  
+* This field is not mandatory.  
+* If access to the file shall be protected by user name and password, some value should be added here.  
+* Maybe, the application's name is a good choice.  
+
+**Password**  
+* This field is not mandatory.  
+* If access to the file shall be protected by user name and password, some value should be added here.  
+
+**Operations**  
+* This field allows restricting the access rights of the application to the file.
+* Values are to be chosen from 'read', 'write' or 'off'.
+* In case of updating an existing application, it is recommended to configure 'off' for supporting harmfree handover of the already existing data file during the embedding process.
+
+
 ### Instances of IntegerProfile  
 
 * Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of IntegerProfile is required.  
@@ -73,9 +113,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "integer".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "1" (management, which is individual to this application).  
-* The ApplicationNumber shall be set on "0" (the application itself).  
-* The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **IntegerName**  
 * Document the attribute's name.  
@@ -109,9 +147,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * The LayerID shall be set on "string".  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "1" (management, which is individual to this application).  
-* The ApplicationNumber shall be set on "0" (the application itself).  
-* The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **StringName**  
 * Document the attribute's name.  
@@ -143,9 +179,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * Choose a meaningful LayerID.  
 * The ObjectType shall be set on "p" (Profile).  
-* The ApiSegment shall be set on "1" (management, which is individual to this application).  
-* The ApplicationNumber shall be set on "0" (the application itself).  
-* The SequenceNumber shall start at "00" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
 
 **Further Stereotypes**  
 * Add the stereotypes of your profile definition.  

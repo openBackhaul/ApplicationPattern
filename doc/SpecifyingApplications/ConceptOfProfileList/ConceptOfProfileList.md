@@ -23,7 +23,7 @@ It provides full focus on the values that shall be used right after instantiatio
 The ProfileInstanceList is preparing for writing the profile section of the CONFIGfile of the applications. 
 
 The template of the ProfileInstanceList contains the instances of ActionProfile, which are necessary for the basic functions in generic representation.  
-Further on, it contains forms for creating additional instances of IntegerProfile, StringProfile or ActionProfile.  
+Further on, it contains forms for creating additional instances of FileProfile, IntegerProfile, StringProfile or ActionProfile.  
 These forms shall provide guidance while filling in concrete values.
 Unused forms need to be deleted from the application specific copy of the template.  
 

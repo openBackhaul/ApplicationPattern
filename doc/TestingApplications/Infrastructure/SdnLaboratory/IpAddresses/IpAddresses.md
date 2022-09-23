@@ -28,4 +28,4 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006
 |  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007
-|  | L2LT | LinkId2LTP | 1.0.0 | 1.1.4.8 | 4008
+|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008
