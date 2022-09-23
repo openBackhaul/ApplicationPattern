@@ -48,6 +48,18 @@ Re-using already existing Profile definitions is very much recommended.
 Re-using is not just easier and faster during elaborating OpenApiSpecification and CONFIGfile, also program code is already available.  
 The templates of the ProfileList and the ProfileInstanceList already contain the following definitions.
 
+**ActionProfile**  
+The ActionProfile is for defining a potential next step in the workflow that shall be represented in the GenericRepresentation.  
+It is describing the label of a button that shall be shown and the request, which is to be sent, in case the button has been pushed.  
+Even input fields for values, which need to be sent in the body of this request, can be defined.  
+The ActionProfile is the most complex, but also the by far most often used Profile.  
+It occurs several times in all existing applications.  
+
+**FileProfile**  
+The FileProfile contains the information, which is required for connecting with a file that holds application data.  
+Aside identifying and describing the referenced file, it makes file path, access credentials and allowed operations available for configuration.  
+The FileProfile is used whenever the application uses one or several files for storing internal data.  
+
 **IntegerProfile**  
 The IntegerProfile is for storing a single Integer value.  
 In addition to the bare value, the Profile also allows to define unit, minimum and maximum values.  
@@ -60,9 +72,3 @@ In addition to the bare string, the Profile also allows to define an array of le
 It has been used in some applications.  
 E.g. it is holding the operational mode of the OperationKeyManagement application.  
 
-**ActionProfile**  
-The ActionProfile is for defining a potential next step in the workflow that shall be represented in the GenericRepresentation.  
-It is describing the label of a button that shall be shown and the request, which is to be sent, in case the button has been pushed.  
-Even input fields for values, which need to be sent in the body of this request, can be defined.  
-The ActionProfile is the most complex, but also the by far most often used Profile.  
-It occurs several times in all existing applications.  

@@ -21,19 +21,21 @@ If someone would find it more convinient, - UUIDs could be abstracted from OwnAp
 
 **LayerID**  
 Currently the following layers are defined:  
-- op = Operation  
+- es = ElasticSearch  
 - http = HTTP  
-- tcp = TCP/IP  
 - meth = Method  
+- op = Operation  
 - prot = Protocol  
+- tcp = TCP/IP  
 
 If the ObjectType identifies an instance of Profile (p), the LayerID is used for identifying the type of Profile.  
 In principle, the ApplicationOwner is free in defining Profiles and choosing the LayerID, because instances of Profile just exist within the application itself.  
 If an already existing Profile definition would be re-used, would be recommended to re-use the same LayerID, too.  
 The following LayerIDs are already in use for Profiles:  
+- action = For describing the consequent action in a generic representation  
+- file = For storing information required for connecting to a file that is holding application data  
 - integer = For storing a single Integer  
 - string = For storing a single String  
-- action = For describing the consequent action in a generic representation  
 
 **ObjectType**  
 Within the respective layers the following types of objects are defined:  
@@ -60,7 +62,7 @@ UUIDs of Profile, ForwardingDomain and Link don't identify an ApiSegment.
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
-It is exclusively used with ObjectType c (Client).  
+It is **exclusively used with the combination of LayerID op (Operation) and ObjectType c (Client)**.  
 It is composed from the official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar) and the official release number of the specification of the application that is connected by the described client interface object.  
 Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1) inside the release number.  
 A hyphen also to be used between abbreviation of the application name and release number.  
@@ -75,6 +77,7 @@ Counting is decimal.
 | ---- | ------------------ |
 | ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
 | ol-1-0-0-op-c-bm-ro-1-0-0-010 | OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0 |  
+| eatl-2-0-0-es-c-im-000 | ElasticSearchClient for connecting ExecutionAndTraceLog release 2.0.0 with its database |  
 | ol-1-0-0-http-c-bm-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
 | aa-1-0-0-op-fc-bm-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
