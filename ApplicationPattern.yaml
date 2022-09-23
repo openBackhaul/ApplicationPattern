@@ -9169,7 +9169,7 @@ paths:
               properties:
                 http-client-interface-1-0:application-name:
                   type: string
-                  minLength: 2
+                  minLength: 3
                   example: 'NewApplication'
       responses:
         '204':
