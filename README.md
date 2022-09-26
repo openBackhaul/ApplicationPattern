@@ -5,24 +5,25 @@
 ### Documentation
 - [ApplicationPattern Guidelines](./doc/Main.md)
 
-### Services
+### ServiceList
 - [ApplicationPattern+services](./ApplicationPattern+services.yaml)
 
-### Profiles
+### ProfileList and ProfileInstanceList
 - [ApplicationPattern+profiles](./ApplicationPattern+profiles.yaml)
 - [ApplicationPattern+profileInstances](./ApplicationPattern+profileInstances.yaml)
 
-### Forwardings
+### ForwardingList
 - [ApplicationPattern+forwardings](./ApplicationPattern+forwardings.yaml)
 
 ### Open API specification (Swagger)
 - [ApplicationPattern](./ApplicationPattern.yaml)
 
 ### CONFIGfile (JSON)
-- [ApplicationPattern+data](./ApplicationPattern+data.json)
-
-### Test Cases (Postman Export)
 - to be provided
+
+### Test Cases (Postman Export) and DATAfile
+- to be provided
+- [ApplicationPattern+data](./ApplicationPattern+data.json)
 
 ### NodeJS Implementation
 - [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
@@ -30,7 +31,7 @@
 ### Publication
 - No official publication planned
 
-### Aspired Model Classification
+### Aspired Classification
 - Live Network
 
 ### Open Issue List
