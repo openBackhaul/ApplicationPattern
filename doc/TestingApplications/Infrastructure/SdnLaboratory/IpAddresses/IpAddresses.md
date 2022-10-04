@@ -20,6 +20,13 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | AA | AdministratorAdministration | 1.0.0 | 1.1.3.5 | 3005
 |  | ALT | ApplicationLayerTopology | 1.0.0 | 1.1.3.6 | 3006
 |  | OKM | OperationKeyManagement | 1.0.0 | 1.1.3.7 | 3007
+|  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008
+|  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009
+|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010
+|  | OL | OamLog | 2.0.0 | 1.1.3.11 | 3011
+|  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012
+|  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013
+|  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014
 | Application |  |  |  |  |  |
 |  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001
 |  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002
