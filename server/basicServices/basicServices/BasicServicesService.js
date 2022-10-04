@@ -532,14 +532,14 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
        ****************************************************************************************/
       let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
       let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
-      let logicalterminationpoint = controlConstruct['logical-termination-point']
-
+      let logicalterminationpoint = controlConstruct[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]
+     
       for (let i = 0; i < logicalterminationpoint.length; i++) {
-        let layerprotocol = logicalterminationpoint[i]['layer-protocol']
+        let layerprotocol = logicalterminationpoint[i][onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL]
         for (let j = 0; j < layerprotocol.length; j++) {
-          let operationclientinterfacepac = layerprotocol[j]["operation-client-interface-1-0:operation-client-interface-pac"]
+          let operationclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC]
           if (operationclientinterfacepac !== undefined) {
-            let detailedloggingison = operationclientinterfacepac['operation-client-interface-configuration']
+            let detailedloggingison = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
             if (detailedloggingison !== undefined) {
               delete detailedloggingison['detailed-logging-is-on'];
             }
