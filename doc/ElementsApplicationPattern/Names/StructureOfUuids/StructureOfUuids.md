@@ -48,7 +48,7 @@ Within the respective layers the following types of objects are defined:
 
 **ApiSegment**  
 The services provided by the application (OperationServers) are categorized according to the following two aspects:  
-- Own Management vs. Offered Services  
+- **Own** Management vs. Offered Services  
 - Basic to all applications vs. Individual to this application  
 
 This results in four categories:  
