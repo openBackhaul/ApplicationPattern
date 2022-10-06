@@ -47,18 +47,36 @@ Within the respective layers the following types of objects are defined:
 - p = Profile  
 
 **ApiSegment**  
-The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
-- Own Management vs. Offered Services  
+The ApiSegment is contained in the UUIDs of Servers, Clients and FCs.
+Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
+
+The **OperationServers** are categorized according to the following two aspects:  
+- Own Management (receiving advice) vs. Offered Services (providing support)  
 - Basic to all applications vs. Individual to this application  
 
 This results in four categories:  
-- bm = Basic Management, which is available at this application, but all other applications, too  
-- im = Individual Management, which is individual to this application  
-- bs = Basic Services, which have to be provided by all applications  
-- is = Individual Services, which are individual to this application  
+- bm = Basic Management: Operation, which is available at this application, but all other applications, too  
+- im = Individual Management: Operation, which is individual for managing this application  
+- bs = Basic Service: Offering a service, which must be provided by all applications  
+- is = Individual Service: Offering a services, which is individual to this application  
 
-(Now, it's clear why (almost) all UUIDs inside the ApplicationPattern are containing either bm or bs.)  
-UUIDs of Profile, ForwardingDomain and Link don't identify an ApiSegment.  
+After categorizing all OperationServers, **HttpServer** and **TcpServer** are inheriting the highest category (e.g. bm) represented in the group of supported OperationServers.  
+
+The **OperationClients** are categorized according to the following two aspects:  
+- Executed Management (giving advice) vs. Consumed Services (receiving support)  
+- Basic to all applications vs. Individual to this application  
+
+This results in four categories:  
+- bm = Basic Management: All applications have this client for executing management
+- im = Individual Management: Only this application has this client for executing some management at the addressed application  
+- bs = Basic Services: All applications are consuming this service from the same application
+- is = Individual Services: Consuming this service is individual to this application
+
+After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (e.g. bm) represented in the group of supported OperationClients.  
+
+**FCs** are inheriting the ApiSegment from the connected OperationClients.
+
+UUIDs of Profile, ForwardingDomain and Link don't contain an ApiSegment.  
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
