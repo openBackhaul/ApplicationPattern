@@ -47,7 +47,7 @@ Within the respective layers the following types of objects are defined:
 - p = Profile  
 
 **ApiSegment**  
-The API (REST interface) of the application is sub-structured in regards to the following two aspects:  
+The services provided by the application (OperationServers) are categorized according to the following two aspects:  
 - Own Management vs. Offered Services  
 - Basic to all applications vs. Individual to this application  
 
@@ -57,7 +57,11 @@ This results in four categories:
 - bs = Basic Services, which have to be provided by all applications  
 - is = Individual Services, which are individual to this application  
 
-(Now, it's clear why (almost) all UUIDs inside the ApplicationPattern are containing either bm or bs.)  
+After categorizing all OperationServers, HttpServer and TcpServer are inheriting the highest category represented in the groupe of supported OperationServers.  
+
+Same concept applies on OperationClients, HttpClients and TcpClients.  
+FCs are also inheriting their cathegory from the connected OperationClients and OperationServers.
+
 UUIDs of Profile, ForwardingDomain and Link don't identify an ApiSegment.  
 
 **TargetApplicationID**  
