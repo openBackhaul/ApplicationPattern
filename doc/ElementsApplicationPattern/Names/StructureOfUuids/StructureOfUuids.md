@@ -68,9 +68,9 @@ The **OperationClients** are categorized according to the following two aspects:
 
 This results in four categories:  
 - bm = Basic Management: All applications have this client for executing management
-- im = Individual Management: Only this application has this Client for executing some management at the addressed application  
+- im = Individual Management: Only this application has this client for executing some management at the addressed application  
 - bs = Basic Services: All applications are consuming this service from the same application
-- is = Individual Services: Consumuling this service is individual to this application
+- is = Individual Services: Consuming this service is individual to this application
 
 After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (e.g. bm) represented in the group of supported OperationClients.  
 
