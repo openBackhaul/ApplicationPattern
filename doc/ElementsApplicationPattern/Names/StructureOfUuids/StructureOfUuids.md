@@ -57,7 +57,7 @@ This results in four categories:
 - bs = Basic Services, which have to be provided by all applications  
 - is = Individual Services, which are individual to this application  
 
-After categorizing all OperationServers, HttpServer and TcpServer are inheriting the highest category represented in the groupe of supported OperationServers.  
+After categorizing all OperationServers, HttpServer and TcpServer are inheriting the highest category represented in the group of supported OperationServers.  
 
 Same concept applies on OperationClients, HttpClients and TcpClients.  
 FCs are also inheriting their cathegory from the connected OperationClients and OperationServers.
