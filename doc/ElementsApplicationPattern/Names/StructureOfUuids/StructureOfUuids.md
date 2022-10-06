@@ -64,13 +64,13 @@ After categorizing all OperationServers, **HttpServer** and **TcpServer** are in
 
 The **OperationClients** are categorized according to the following two aspects:  
 - Executed Management (giving advice) vs. Consumed Services (receiving support)  
-- Addressing Basically all applications vs. Individually that application  
+- Basic to all applications vs. Individual to this application  
 
 This results in four categories:  
-- bm = Basic Management: Client for executing the same management on all applications
-- im = Individual Management: Client for some management, which is individual to the addressed application  
-- bs = Basic Services: Client for consuming a service that must provided by all applications  
-- is = Individual Services: Client for consuming a service that is individual to the addressed application  
+- bm = Basic Management: All applications have this client for executing management
+- im = Individual Management: Only this application has this Client for executing some management at the addressed application  
+- bs = Basic Services: All applications are consuming this service from the same application
+- is = Individual Services: Consumuling this service is individual to this application
 
 After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (e.g. bm) represented in the group of supported OperationClients.  
 
