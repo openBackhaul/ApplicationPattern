@@ -44,6 +44,9 @@ To understand the requirement, it is necessary to know in advance the applicatio
 
 The server-side code is generated from the API specification
 
+**Concepts**
+* [Server stub](./ConceptOfGeneratingServerStub/ConceptOfGeneratingServerStub.md)
+
 **Step-by-Step Guidelines**
 * [Server stub generation](./Steps2GenerateServerStub/Steps2GenerateServerStub.md)
 
