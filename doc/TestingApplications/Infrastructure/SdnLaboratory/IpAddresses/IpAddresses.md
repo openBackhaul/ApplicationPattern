@@ -34,6 +34,8 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 
 The following fake TCP/IP addresses have no longer to be used while writing new specifications.
 
+| Cathegory | Abbr. | Component | Release | IP | TCP |
+|---|---|---|---|---|---|
 | TAC |  |  |  |  |  |
 |  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
 |  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
