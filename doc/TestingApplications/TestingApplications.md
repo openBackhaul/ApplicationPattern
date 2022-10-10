@@ -10,7 +10,7 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 ### Fake Addresses
 **Concepts**
 * [Fake IP Addresses](./Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md)
-* [Fake Index Alias](./Infrastructure/SdnLaboratory/FakeAddresses/IndexAliases.md)
+* [Fake Index Aliases](./Infrastructure/SdnLaboratory/FakeAddresses/IndexAliases.md)
 
 **Step-by-Step Guidelines**
 * [Update Configuration](./Infrastructure/SdnLaboratory/IpAddresses/updateconfiguration.md)
