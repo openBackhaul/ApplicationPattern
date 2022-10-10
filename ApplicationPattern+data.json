@@ -7,7 +7,7 @@
 			"userName": " *** your name *** ",
 			"authorizationCode": " *** your key *** ",
 			"core-model-1-4:control-construct": {
-				"uuid": " >>> e.g. ro-1-0-0 = also prefix to all other uuids <<< ",
+				"uuid": " >>> e.g. xx-1-0-0 = also prefix to all other uuids <<< ",
 				"profile-collection": {
 					"profile": [
 					]
