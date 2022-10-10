@@ -12,7 +12,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | HMIM | HuaweiMediatorInstanceManager | 1.0.0 | 1.1.2.3 | 2003
 |  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
-| TAC |  |  |  |  |  |
+| TinyApplicationController |  |  |  |  |  |
 |  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
 |  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
 |  | EaTL | ExecutionAndTraceLog | 1.0.0 | 1.1.3.3 | 3003
@@ -27,6 +27,8 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014
+| DataBases |  |  |  |  |  |
+|  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
 |  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001
 |  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002

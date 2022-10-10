@@ -80,9 +80,10 @@ UUIDs of Profile, ForwardingDomain and Link don't contain an ApiSegment.
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
-It is **exclusively used with the combination of LayerID op (Operation) and ObjectType c (Client)**.  
+It is **exclusively used with ObjectType c (Client)**.  
 It is composed from the official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar) and the official release number of the specification of the application that is connected by the described client interface object.  
 Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1) inside the release number.  
+ElasticSearch would be identified by es-1-0-0.
 A hyphen also to be used between abbreviation of the application name and release number.  
 
 **SequenceNumber**  
@@ -95,7 +96,7 @@ Counting is decimal.
 | ---- | ------------------ |
 | ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
 | ol-1-0-0-op-c-bm-ro-1-0-0-010 | OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0 |  
-| eatl-2-0-0-es-c-im-000 | ElasticSearchClient for connecting ExecutionAndTraceLog release 2.0.0 with its database |  
+| eatl-2-0-0-es-c-is-es-1-0-0-000 | ElasticSearchClient for connecting ExecutionAndTraceLog release 2.0.0 with its database |  
 | ol-1-0-0-http-c-bm-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
 | aa-1-0-0-op-fc-bm-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
