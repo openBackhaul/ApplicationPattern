@@ -1,4 +1,4 @@
-# Fake IP Addresses  
+# Up-to-date Fake IP Addresses  
 
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
@@ -13,13 +13,6 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TAC |  |  |  |  |  |
-|  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
-|  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
-|  | EaTL | ExecutionAndTraceLog | 1.0.0 | 1.1.3.3 | 3003
-|  | OL | OamLog | 1.0.0 | 1.1.3.4 | 3004
-|  | AA | AdministratorAdministration | 1.0.0 | 1.1.3.5 | 3005
-|  | ALT | ApplicationLayerTopology | 1.0.0 | 1.1.3.6 | 3006
-|  | OKM | OperationKeyManagement | 1.0.0 | 1.1.3.7 | 3007
 |  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008
 |  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009
 |  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010
@@ -36,3 +29,18 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006
 |  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008
+
+# Historical Fake IP Addresses  
+
+The following fake TCP/IP addresses have no longer to be used while writing new specifications.
+
+| Cathegory | Abbr. | Component | Release | IP | TCP |
+|---|---|---|---|---|---|
+| TAC |  |  |  |  |  |
+|  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
+|  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
+|  | EaTL | ExecutionAndTraceLog | 1.0.0 | 1.1.3.3 | 3003
+|  | OL | OamLog | 1.0.0 | 1.1.3.4 | 3004
+|  | AA | AdministratorAdministration | 1.0.0 | 1.1.3.5 | 3005
+|  | ALT | ApplicationLayerTopology | 1.0.0 | 1.1.3.6 | 3006
+|  | OKM | OperationKeyManagement | 1.0.0 | 1.1.3.7 | 3007
