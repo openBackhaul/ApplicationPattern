@@ -138,16 +138,16 @@ clients:
   - http-client:
       application-name: ExecutionAndTraceLog
       release-number: 2.0.0
-      uuid: xx-1-0-0-http-c-bm-eatl-2-0-0-000
+      uuid: xx-1-0-0-http-c-bs-eatl-2-0-0-000
     tcp-client:
       ip-address: 1.1.3.10
       tcp-port: 3010
-      uuid: xx-1-0-0-tcp-c-bm-eatl-2-0-0-000
+      uuid: xx-1-0-0-tcp-c-bs-eatl-2-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/record-service-request
-            uuid: xx-1-0-0-op-c-bm-eatl-2-0-0-000
+            uuid: xx-1-0-0-op-c-bs-eatl-2-0-0-000
         individual:
       service:
         basic:
@@ -158,16 +158,16 @@ clients:
   - http-client:
       application-name: OamLog
       release-number: 2.0.0
-      uuid: xx-1-0-0-http-c-bm-ol-2-0-0-000
+      uuid: xx-1-0-0-http-c-bs-ol-2-0-0-000
     tcp-client:
       ip-address: 1.1.3.11
       tcp-port: 3011
-      uuid: xx-1-0-0-tcp-c-bm-ol-2-0-0-000
+      uuid: xx-1-0-0-tcp-c-bs-ol-2-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/record-oam-request
-            uuid: xx-1-0-0-op-c-bm-ol-2-0-0-000
+            uuid: xx-1-0-0-op-c-bs-ol-2-0-0-000
         individual:
       service:
         basic:
@@ -178,16 +178,16 @@ clients:
   - http-client:
       application-name: AdministratorAdministration
       release-number: 2.0.0
-      uuid: xx-1-0-0-http-c-bm-aa-2-0-0-000
+      uuid: xx-1-0-0-http-c-bs-aa-2-0-0-000
     tcp-client:
       ip-address: 1.1.3.12
       tcp-port: 3012
-      uuid: xx-1-0-0-tcp-c-bm-aa-2-0-0-000
+      uuid: xx-1-0-0-tcp-c-bs-aa-2-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/approve-oam-request
-            uuid: xx-1-0-0-op-c-bm-aa-2-0-0-000
+            uuid: xx-1-0-0-op-c-bs-aa-2-0-0-000
         individual:
       service:
         basic:

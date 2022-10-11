@@ -84,7 +84,7 @@ forwardings:
       ## TODO: All service requests to be complemented
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
-        uuid: xx-1-0-0-op-c-bm-eatl-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-eatl-2-0-0-000
 
   - forwarding-name: OamRequestCausesLoggingRequest
     uuid: xx-1-0-0-op-fc-bm-003
@@ -101,7 +101,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: OamLog://v1/record-oam-request
-        uuid: xx-1-0-0-op-c-bm-ol-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-ol-2-0-0-000
 
   - forwarding-name: OamRequestCausesInquiryForAuthentication
     uuid: xx-1-0-0-op-fc-bm-004
@@ -118,7 +118,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: AdministratorAdministration://v1/approve-oam-request
-        uuid: xx-1-0-0-op-c-bm-aa-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-aa-2-0-0-000
 
 ## TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
 
