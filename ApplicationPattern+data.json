@@ -1704,36 +1704,6 @@
                 ]
               },
               {
-                "uuid": "xx-1-0-0-op-fc-bm-005",
-                "name": [
-                  {
-                    "value-name": "ForwardingKind",
-                    "value": "core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET"
-                  },
-                  {
-                    "value-name": "ForwardingName",
-                    "value": "PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT"
-                  }
-                ],
-                "fc-port": [
-                  {
-                    "local-id": "000",
-                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                    "logical-termination-point": "xx-1-0-0-op-s-bm-009"
-                  },
-                  {
-                    "local-id": "100",
-                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                    "logical-termination-point": "xx-1-0-0-op-s-bm-009"
-                  },
-                  {
-                    "local-id": "200",
-                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                    "logical-termination-point": "xx-1-0-0-op-c-bm-alt-2-0-0-000"
-                  }
-                ]
-              },
-              {
                 "uuid": "xx-1-0-0-op-fc-bm-006",
                 "name": [
                   {
