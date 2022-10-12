@@ -16,6 +16,7 @@ The server interfaces provide information about the application itself:
 
 The client interfaces provide information about the consumed services, their application and transport details:  
 - The OperationClient interface provides information about the consumed services. The major property of this interface is the name of the consumed service and the operation key using which we can authorize the service.  
+- The ElasticsearchClient allows configuring the connection towards a database for storing the application's data.
 - The HttpClient represents the details of a client application whose APIs are consumed. HttpClient acts as a server to the OperationClient. There is a one-to-many mapping between HttpClient to OperationClient.  
 - The TcpClient stores information about the IPv4 address and port at which a serving application can be reached. There is a one-to-one mapping between a HttpClient and a TcpClient.  
 
