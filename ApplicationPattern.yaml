@@ -476,12 +476,12 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/label'
                         request:
                           type: string
                           description: >
                             'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
                         input-value-list:
                           type: array
                           uniqueItems: true
@@ -504,7 +504,7 @@ paths:
                           type: boolean
                           description: >
                             'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
                       - label: 'Inform about Application'
                         request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
@@ -4687,12 +4687,12 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-capability/label or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
                             'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-configuration/request or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
                         input-value-list:
                           type: array
                           uniqueItems: true
@@ -4715,7 +4715,7 @@ paths:
                           type: boolean
                           description: >
                             'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
                       - label: 'Release History'
                         request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
