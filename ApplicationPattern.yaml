@@ -436,8 +436,6 @@ paths:
                 properties:
                   response-value-list:
                     type: array
-                    minItems: 1
-                    maxItems: 1
                     items:
                       type: object
                       required:
@@ -447,24 +445,25 @@ paths:
                       properties:
                         field-name:
                           type: string
-                          enum:
-                            - 'applicationName'
+                          description: >
+                            'Field name
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
                         value:
                           type: string
                           description: >
-                            'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            'Field value
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
                         datatype:
                           type: string
-                          enum:
-                            - 'string'
+                          description: >
+                            'Field datatype
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
                     example:
                       - field-name: 'applicationName'
                         value: 'OwnApplicationName'
                         datatype: 'string'
                   consequent-action-list:
                     type: array
-                    uniqueItems: true
                     items:
                       type: object
                       required:
@@ -476,15 +475,14 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/label'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
                         request:
                           type: string
                           description: >
                             'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
                         input-value-list:
                           type: array
-                          uniqueItems: true
                           items:
                             type: object
                             required:
@@ -504,7 +502,7 @@ paths:
                           type: boolean
                           description: >
                             'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
                       - label: 'Inform about Application'
                         request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
@@ -4616,9 +4614,6 @@ paths:
                 properties:
                   response-value-list:
                     type: array
-                    uniqueItems: true
-                    minItems: 6
-                    maxItems: 6
                     items:
                       type: object
                       required:
@@ -4628,32 +4623,19 @@ paths:
                       properties:
                         field-name:
                           type: string
-                          enum:
-                            - applicationName
-                            - releaseNumber
-                            - applicationPurpose
-                            - dataUpdatePeriod
-                            - ownerName
-                            - ownerEmailAddress
+                          description: >
+                            'Field name
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
                         value:
                           type: string
                           description: >
-                            'from either
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]
-                            or
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
+                            'Field value
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
                         datatype:
                           type: string
-                          enum:
-                            - 'string'
+                          description: >
+                            'Field datatype
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
                     example:
                       - field-name: 'applicationName'
                         value: 'OwnApplicationName'
@@ -4675,7 +4657,6 @@ paths:
                         datatype: 'string'
                   consequent-action-list:
                     type: array
-                    uniqueItems: true
                     items:
                       type: object
                       required:
@@ -4687,15 +4668,14 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-capability/label or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
                         request:
                           type: string
                           description: >
                             'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-configuration/request or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
                         input-value-list:
                           type: array
-                          uniqueItems: true
                           items:
                             type: object
                             required:
@@ -4715,7 +4695,7 @@ paths:
                           type: boolean
                           description: >
                             'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-001/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window or /core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-002/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
                     example:
                       - label: 'Release History'
                         request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
@@ -4864,7 +4844,6 @@ paths:
                 properties:
                   response-value-list:
                     type: array
-                    uniqueItems: true
                     items:
                       type: object
                       required:
@@ -4875,24 +4854,24 @@ paths:
                         field-name:
                           type: string
                           description: >
-                            'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-number]'
+                            'Field name
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
                         value:
                           type: string
                           description: >
-                            'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-date]
-                             - 
-                            [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/changes]'
+                            'Field value
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
                         datatype:
                           type: string
-                          enum:
-                            - 'string'
+                          description: >
+                            'Field datatype
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
                     example:
                       - field-name: '1.0.0'
                         value: '20.11.2010 - Initial version.'
                         datatype: 'string'
                   consequent-action-list:
                     type: array
-                    uniqueItems: true
                     items:
                       type: object
                       required:
@@ -4904,7 +4883,7 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
                         request:
                           type: string
                           description: >
@@ -4912,7 +4891,6 @@ paths:
                             from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
                         input-value-list:
                           type: array
-                          uniqueItems: true
                           items:
                             type: object
                             required:
@@ -5034,6 +5012,7 @@ paths:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     action-profile-1-0:action-profile-pac:
                                       type: object
@@ -5072,6 +5051,51 @@ paths:
                                           properties:
                                             request:
                                               type: string
+                                - description: 'generic response profile'
+                                  type: object
+                                  required:
+                                    - uuid
+                                    - profile-name
+                                    - response-profile-1-0:response-profile-pac
+                                  properties:
+                                    uuid:
+                                      type: string
+                                    profile-name:
+                                      type: string
+                                      enum:
+                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
+                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
+                                    response-profile-1-0:response-profile-pac:
+                                      type: object
+                                      required:
+                                        - response-profile-capability
+                                        - response-profile-configuration
+                                      properties:
+                                        response-profile-capability:
+                                          type: object
+                                          required:
+                                            - operation-name
+                                            - field-name
+                                            - datatype
+                                          properties:
+                                            operation-name:
+                                              type: string
+                                            field-name:
+                                              type: string
+                                            description:
+                                              type: string
+                                            datatype:
+                                              type: string
+                                        response-profile-configuration:
+                                          type: object
+                                          required:
+                                            - value
+                                          properties:
+                                            value:
+                                              type: string
                                 - description: 'file profile'
                                   type: object
                                   required:
@@ -5087,6 +5111,7 @@ paths:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     file-profile-1-0:file-profile-pac:
                                       type: object
@@ -5137,6 +5162,7 @@ paths:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     integer-profile-1-0:integer-profile-pac:
                                       type: object
@@ -5179,6 +5205,7 @@ paths:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     string-profile-1-0:string-profile-pac:
                                       type: object
@@ -6071,6 +6098,7 @@ paths:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           action-profile-1-0:action-profile-pac:
                             type: object
@@ -6109,6 +6137,51 @@ paths:
                                 properties:
                                   request:
                                     type: string
+                      - description: 'generic response profile'
+                        type: object
+                        required:
+                          - uuid
+                          - profile-name
+                          - response-profile-1-0:response-profile-pac
+                        properties:
+                          uuid:
+                            type: string
+                          profile-name:
+                            type: string
+                            enum:
+                              - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
+                              - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
+                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
+                          response-profile-1-0:response-profile-pac:
+                            type: object
+                            required:
+                              - response-profile-capability
+                              - response-profile-configuration
+                            properties:
+                              response-profile-capability:
+                                type: object
+                                required:
+                                  - operation-name
+                                  - field-name
+                                  - datatype
+                                properties:
+                                  operation-name:
+                                    type: string
+                                  field-name:
+                                    type: string
+                                  description:
+                                    type: string
+                                  datatype:
+                                    type: string
+                              response-profile-configuration:
+                                type: object
+                                required:
+                                  - value
+                                properties:
+                                  value:
+                                    type: string
                       - description: 'file profile'
                         type: object
                         required:
@@ -6124,6 +6197,7 @@ paths:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           file-profile-1-0:file-profile-pac:
                             type: object
@@ -6174,6 +6248,7 @@ paths:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           integer-profile-1-0:integer-profile-pac:
                             type: object
@@ -6216,6 +6291,7 @@ paths:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           string-profile-1-0:string-profile-pac:
                             type: object
@@ -8071,6 +8147,246 @@ paths:
                 action-profile-1-0:request:
                   type: string
                   example: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+      responses:
+        '204':
+          description: 'Request path configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/response-profile-1-0:response-profile-pac/response-profile-capability/operation-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-response-p-([0-9]{3})$'
+          example: 'ro-2-0-0-response-p-000'
+    get:
+      operationId: getGenericResponseProfileOperationName
+      summary: 'Returns the name of the Operation'
+      tags:
+        - GenericResponseProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operation name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response-profile-1-0:operation-name
+                properties:
+                  response-profile-1-0:operation-name:
+                    type: string
+                    example: '/v1/start-application-in-generic-representation'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/response-profile-1-0:response-profile-pac/response-profile-capability/field-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-response-p-([0-9]{3})$'
+          example: 'ro-2-0-0-response-p-000'
+    get:
+      operationId: getGenericResponseProfileFieldName
+      summary: 'Returns the name of the Field'
+      tags:
+        - GenericResponseProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Field name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response-profile-1-0:field-name
+                properties:
+                  response-profile-1-0:field-name:
+                    type: string
+                    example: 'applicationName'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/response-profile-1-0:response-profile-pac/response-profile-capability/description:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-response-p-([0-9]{3})$'
+          example: 'ro-2-0-0-response-p-000'
+    get:
+      operationId: getGenericResponseProfileDescription
+      summary: 'Returns the Description of the Field'
+      tags:
+        - GenericResponseProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Description of the field provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response-profile-1-0:description
+                properties:
+                  response-profile-1-0:description:
+                    type: string
+                    example: 'Name of this application'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/response-profile-1-0:response-profile-pac/response-profile-capability/datatype:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-response-p-([0-9]{3})$'
+          example: 'ro-2-0-0-response-p-000'
+    get:
+      operationId: getGenericResponseProfileDatatype
+      summary: 'Returns the Datatype of the Field'
+      tags:
+        - GenericResponseProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Datatype of the field provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response-profile-1-0:datatype
+                properties:
+                  response-profile-1-0:datatype:
+                    type: string
+                    example: 'string'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/response-profile-1-0:response-profile-pac/response-profile-configuration/value:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-response-p-([0-9]{3})$'
+          example: 'ro-2-0-0-response-p-000'
+    get:
+      operationId: getGenericResponseProfileValue
+      summary: 'Returns the Value of the Field'
+      tags:
+        - GenericResponseProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Value of the field provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response-profile-1-0:value
+                properties:
+                  response-profile-1-0:value:
+                    type: string
+                    example: 'ownApplicationName'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putGenericResponseProfileValue
+      summary: 'Configures the Value of the Field'
+      tags:
+        - ActionProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - response-profile-1-0:value
+              properties:
+                response-profile-1-0:value:
+                  type: string
+                  example: 'ownApplicationName'
       responses:
         '204':
           description: 'Request path configured'

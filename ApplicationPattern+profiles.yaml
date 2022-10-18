@@ -12,6 +12,16 @@ profiles:
     configuration:
       request: string
 
+  - profile-name: 'GenericResponseProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'
+    capability:
+      operation-name: string
+      field-name: string
+      description: string
+      datatype: string
+    configuration:
+      value: string
+
   - profile-name: 'FileProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
     capability:

@@ -7,7 +7,7 @@ profile-instances:
       label: 'Inform about Application'
       display-in-new-browser-window: false
     configuration:
-      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+      request: 'from https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address] : from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port] from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
 
   - profile-name: 'ActionProfile'
     uuid: '*-action-p-001' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -16,7 +16,7 @@ profile-instances:
       label: 'Release History'
       display-in-new-browser-window: false
     configuration:
-      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+      request: 'from https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address] : from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port] from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
 
   - profile-name: 'ActionProfile'
     uuid: '*-action-p-002' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -25,7 +25,7 @@ profile-instances:
       label: 'API Documentation'
       display-in-new-browser-window: true
     configuration:
-      request: 'https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]/docs'
+      request: 'from https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address] : from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]/docs'
 
   - profile-name: 'ActionProfile'
     uuid: '*-action-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
@@ -41,6 +41,99 @@ profile-instances:
       request: ## TODO: Add URL that shall be addressed, as soon as button gets pushed
 
   ## TODO: Potentially add further instances of ActionProfile
+
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-000'
+    capability:
+      operation-name: '/v1/start-application-in-generic-representation'
+      field-name: 'applicationName'
+      description: 'Own application name'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-001'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'applicationName'
+      description: 'Name of this application'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-002'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'releaseNumber'
+      description: 'Number of this release'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-003'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'applicationPurpose'
+      description: 'Purpose of this application'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-004'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'dataUpdatePeriod'
+      description: 'Period of updating the data inside this application'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-005'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'ownerName'
+      description: 'Name of the ApplicationOwner'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-006'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      field-name: 'ownerEmailAddress'
+      description: 'Email address of the ApplicationOwner'
+      datatype: 'string'
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-007'
+    capability:
+      operation-name: '/v1/inform-about-release-history-in-generic-representation'
+      field-name: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number]'
+      description: 'Release number'
+      datatype: string
+    configuration:
+      value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-date] - from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes]'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '*-response-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
+    capability:
+      operation-name: ## TODO: Add generic representation operation that shall provide this response
+      field-name: ## TODO: Add name of the field as it shall be respresented in the GUI
+      description: ## TODO: Add some description for your own reference
+      datatype: ## TODO: Add the datatype of the value
+    configuration:
+      value: ## TODO: Add the current value of the field
+
+  ## TODO: Potentially add further instances of GenericResponseProfile
 
 
   - profile-name: 'FileProfile'
