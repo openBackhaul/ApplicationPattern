@@ -445,7 +445,8 @@
               "xx-1-0-0-op-s-is-000"
             ],
             "server-ltp": [
-              "xx-1-0-0-tcp-s-bm-000"
+              "xx-1-0-0-tcp-s-bm-000",
+              "xx-1-0-0-tcp-s-bm-001"
             ],
             "layer-protocol": [
               {
@@ -485,10 +486,37 @@
                 "layer-protocol-name": "tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
                 "tcp-server-interface-1-0:tcp-server-interface-pac": {
                   "tcp-server-interface-configuration": {
+                    "description": "Without TLS layer",
+                    "protocol": "http",
                     "local-address": {
                       "ipv-4-address": " >>> ownIpAddress and Port (below) <<< "
                     },
-                    "local-port": 1001
+                    "local-port": 3008
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "uuid": "xx-1-0-0-tcp-s-bm-001",
+            "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
+            "client-ltp": [
+              "xx-1-0-0-http-s-bm-000"
+            ],
+            "server-ltp": [
+            ],
+            "layer-protocol": [
+              {
+                "local-id": "0",
+                "layer-protocol-name": "tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
+                "tcp-server-interface-1-0:tcp-server-interface-pac": {
+                  "tcp-server-interface-configuration": {
+                    "description": "With TLS layer",
+                    "protocol": "https",
+                    "local-address": {
+                      "ipv-4-address": " >>> ownIpAddress and Port (below) <<< "
+                    },
+                    "local-port": 3208
                   }
                 }
               }

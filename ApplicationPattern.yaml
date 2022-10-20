@@ -2220,9 +2220,15 @@ paths:
                                           tcp-server-interface-configuration:
                                             type: object
                                             required:
+                                              - description
+                                              - protocol
                                               - local-address
                                               - local-port
                                             properties:
+                                              description:
+                                                type: string
+                                              protocol:
+                                                type: string
                                               local-address:
                                                 type: object
                                                 minProperties: 1
@@ -2768,9 +2774,15 @@ paths:
                                           tcp-server-interface-configuration:
                                             type: object
                                             required:
+                                              - description
+                                              - protocol
                                               - local-address
                                               - local-port
                                             properties:
+                                              description:
+                                                type: string
+                                              protocol:
+                                                type: string
                                               local-address:
                                                 type: object
                                                 minProperties: 1
@@ -3184,9 +3196,15 @@ paths:
                                       tcp-server-interface-configuration:
                                         type: object
                                         required:
+                                          - description
+                                          - protocol
                                           - local-address
                                           - local-port
                                         properties:
+                                          description:
+                                            type: string
+                                          protocol:
+                                            type: string
                                           local-address:
                                             type: object
                                             minProperties: 1
@@ -3806,9 +3824,15 @@ paths:
                                       tcp-server-interface-configuration:
                                         type: object
                                         required:
+                                          - description
+                                          - protocol
                                           - local-address
                                           - local-port
                                         properties:
+                                          description:
+                                            type: string
+                                          protocol:
+                                            type: string
                                           local-address:
                                             type: object
                                             minProperties: 1
@@ -5392,9 +5416,15 @@ paths:
                                           tcp-server-interface-configuration:
                                             type: object
                                             required:
+                                              - description
+                                              - protocol
                                               - local-address
                                               - local-port
                                             properties:
+                                              description:
+                                                type: string
+                                              protocol:
+                                                type: string
                                               local-address:
                                                 type: object
                                                 minProperties: 1
@@ -8605,6 +8635,160 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/description:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          example: 'ro-2-0-0-tcp-s-bm-000'
+    get:
+      operationId: getTcpServerDescription
+      summary: 'Returns Description of TcpServer'
+      tags:
+        - TcpServer
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Description provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - tcp-server-interface-1-0:description
+                properties:
+                  tcp-server-interface-1-0:description:
+                    type: string
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putTcpServerDescription
+      summary: 'Documents Description of TcpServer'
+      tags:
+        - TcpServer
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tcp-server-interface-1-0:description
+              properties:
+                tcp-server-interface-1-0:description:
+                  type: string
+      responses:
+        '204':
+          description: 'Local port documented'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'  
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          example: 'ro-2-0-0-tcp-s-bm-000'
+    get:
+      operationId: getTcpServerProtocol
+      summary: 'Returns Protocol of TcpServer'
+      tags:
+        - TcpServer
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Protocol provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - tcp-server-interface-1-0:protocol
+                properties:
+                  tcp-server-interface-1-0:protocol:
+                    type: string
+                    enum:
+                      - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP'
+                      - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTPS'
+                      - 'tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putTcpServerProtocol
+      summary: 'Documents Protocol of TcpServer'
+      tags:
+        - TcpServer
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tcp-server-interface-1-0:protocol
+              properties:
+                tcp-server-interface-1-0:protocol:
+                  type: string
+                  enum:
+                    - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP'
+                    - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTPS'
+                    - 'tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
+      responses:
+        '204':
+          description: 'Local port documented'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'  
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address: 
     parameters:
       - in: path
