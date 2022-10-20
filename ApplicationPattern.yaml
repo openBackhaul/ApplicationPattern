@@ -5071,7 +5071,28 @@ paths:
                                             - request
                                           properties:
                                             request:
-                                              type: string
+                                              type: object
+                                              required:
+                                                - protocol
+                                                - address
+                                                - port
+                                                - operation
+                                              properties:
+                                                protocol:
+                                                  type: string
+                                                address:
+                                                  type: object
+                                                  minProperties: 1
+                                                  maxProperties: 1
+                                                  properties:
+                                                    ipv-4-address:
+                                                      type: string
+                                                    domain-name:
+                                                      type: string
+                                                port:
+                                                  type: integer
+                                                operation:
+                                                  type: string
                                 - description: 'file profile'
                                   type: object
                                   required:
@@ -6108,7 +6129,28 @@ paths:
                                   - request
                                 properties:
                                   request:
-                                    type: string
+                                    type: object
+                                    required:
+                                      - protocol
+                                      - address
+                                      - port
+                                      - operation
+                                    properties:
+                                      protocol:
+                                        type: string
+                                      address:
+                                        type: object
+                                        minProperties: 1
+                                        maxProperties: 1
+                                        properties:
+                                          ipv-4-address:
+                                            type: string
+                                          domain-name:
+                                            type: string
+                                      port:
+                                        type: integer
+                                      operation:
+                                        type: string
                       - description: 'file profile'
                         type: object
                         required:
@@ -6250,7 +6292,12 @@ paths:
                           unit: 'Unit at input field'
                       display-in-new-browser-window: false
                     action-profile-configuration:
-                      request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                      request:
+                        protocol: 'http'
+                        address:
+                          ipv-4-address: 1.1.3.8
+                        port: 3008
+                        operation: '/v1/inform-about-application-in-generic-representation'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8038,8 +8085,35 @@ paths:
                   - action-profile-1-0:request
                 properties:
                   action-profile-1-0:request:
-                    type: string
-                    example: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                    type: object
+                    required:
+                      - protocol
+                      - address
+                      - port
+                      - operation
+                    properties:
+                      protocol:
+                        type: string
+                      address:
+                        type: object
+                        minProperties: 1
+                        maxProperties: 1
+                        properties:
+                          ipv-4-address:
+                            type: string
+                          domain-name:
+                            type: string
+                      port:
+                        type: integer
+                      operation:
+                        type: string
+                    example:
+                      action-profile-1-0:request:
+                        protocol: 'http'
+                        address:
+                          ipv-4-address: 1.1.3.8
+                        port: 3008
+                        operation: '/v1/inform-about-application-in-generic-representation'     
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
