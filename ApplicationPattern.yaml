@@ -475,7 +475,7 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
@@ -4668,7 +4668,7 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
@@ -4883,7 +4883,7 @@ paths:
                           type: string
                           description: >
                             'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label'
+                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
                         request:
                           type: string
                           description: >
@@ -8355,7 +8355,7 @@ paths:
                 properties:
                   response-profile-1-0:value:
                     type: string
-                    example: 'ownApplicationName'
+                    example: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8372,7 +8372,7 @@ paths:
       operationId: putGenericResponseProfileValue
       summary: 'Configures the Value of the Field'
       tags:
-        - ActionProfile
+        - GenericResponseProfile
       security:
         - basicAuth: []
       requestBody:
@@ -8386,7 +8386,7 @@ paths:
               properties:
                 response-profile-1-0:value:
                   type: string
-                  example: 'ownApplicationName'
+                  example: 'to [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
       responses:
         '204':
           description: 'Request path configured'

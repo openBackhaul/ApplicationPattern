@@ -44,7 +44,7 @@ profile-instances:
 
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-000'
+    uuid: '*-response-p-000' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/start-application-in-generic-representation'
       field-name: 'applicationName'
@@ -54,7 +54,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-001'
+    uuid: '*-response-p-001' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'applicationName'
@@ -64,7 +64,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-002'
+    uuid: '*-response-p-002'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'releaseNumber'
@@ -74,7 +74,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-003'
+    uuid: '*-response-p-003'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'applicationPurpose'
@@ -84,7 +84,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-004'
+    uuid: '*-response-p-004'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'dataUpdatePeriod'
@@ -94,7 +94,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-005'
+    uuid: '*-response-p-005' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'ownerName'
@@ -104,7 +104,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-006'
+    uuid: '*-response-p-006' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       field-name: 'ownerEmailAddress'
@@ -114,7 +114,7 @@ profile-instances:
       value: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: '*-response-p-007'
+    uuid: '*-response-p-007' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-release-history-in-generic-representation'
       field-name: 'from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number]'
