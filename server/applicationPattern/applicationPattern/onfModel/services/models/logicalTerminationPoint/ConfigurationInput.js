@@ -21,7 +21,7 @@ class ConfigurationInput {
      * @param {String} releaseNumber : release of the client application
      * @param {String} remoteIPv4Address : name of the client application
      * @param {String} remotePort : release of the client application
-     * @param {String} operationNameList : release of the client application
+     * @param {Map} operationNameList : map of the client operation names (key) with UUIDs (value)
      * @return {Promise} object {ConfigurationInput}
      **/
     constructor(applicationName, releaseNumber, remoteIPv4Address, remotePort, operationNameList) {

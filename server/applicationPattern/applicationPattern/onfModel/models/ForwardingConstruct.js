@@ -89,6 +89,32 @@ class ForwardingConstruct {
     }
 
     /**
+     * @description This function gets the fc-port instance that matches the port direction argument from its corresponding
+     * core-model-1-4:control-construct/forwarding-domain/forwarding-construct
+     * @param {String} forwardingConstructUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-fc-\d{4}$'
+     * @param {String} portDirection : port direction enum
+     * @returns {promise} list of FcPorts with given direction
+    **/
+    static async getFcPortListWithDirectionAsync(forwardingConstructUuid, fcPortDirection) {
+        return new Promise(async function (resolve, reject) {
+            let fcPortListResult = [];
+            try {
+                let fcPortList = await ForwardingConstruct.getFcPortListAsync(forwardingConstructUuid);
+                for (let i = 0; i < fcPortList.length; i++) {
+                    let _fcPort = fcPortList[i];
+                    let _fcPortDirection = _fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
+                    if(_fcPortDirection === fcPortDirection){
+                        fcPortListResult.push(_fcPort);
+                    }
+                }
+                resolve(fcPortListResult);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
      * @description This function gets the fc-port instance that matches the localId argument from its corresponding 
      * core-model-1-4:control-construct/forwarding-domain/forwarding-construct
      * @param {String} forwardingConstructUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-fc-\d{4}$'

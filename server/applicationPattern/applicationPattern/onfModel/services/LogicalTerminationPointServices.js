@@ -620,42 +620,37 @@ function updateOperationClientInterface(operationClientUuid, operationName) {
  * @description This function creates or updates a operation client interfaces for the provided input operation name list.
  * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
- * @param {list} operationClientNameList : list of operation names
+ * @param {Map} operationClientNameList : list of (new) operation names (keys) with their UUIDs (values)
  * @return {Promise} object {configurationStatusList}
  **/
 function createOrUpdateOperationClientInterface(httpClientUuid, operationClientNameList) {
     return new Promise(async function (resolve, reject) {
         let configurationStatusList = [];
         try {
-            for (let i = 0; i < operationClientNameList.length; i++) {
-                let configurationStatus
-                let operationClientName = operationClientNameList[i];
-                let operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(
-                    httpClientUuid,
-                    operationClientName
-                );
-                if (operationClientUuid == undefined) {
-                    let operationClientUuidOfPreviousVersion = await getPreviousVersionOfTheOperationClientIfExists(
+            for (let operationClientNameItem of operationClientNameList) {
+                let configurationStatus;
+                let operationClientNewName = operationClientNameItem[0];
+                let operationClientUuid = operationClientNameItem[1];
+                if (operationClientUuid === undefined) {
+                    configurationStatus = await createOperationClientInterface(
                         httpClientUuid,
-                        operationClientName
+                        operationClientNewName
                     );
-                    if (operationClientUuidOfPreviousVersion == undefined) {
-                        configurationStatus = await createOperationClientInterface(
-                            httpClientUuid,
-                            operationClientName
+                } else {
+                    let operationClientOldName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+                    console.log(operationClientOldName);
+                    if (operationClientOldName !== operationClientNewName) {
+                        configurationStatus = await updateOperationClientInterface(
+                            operationClientUuid,
+                            operationClientNewName
                         );
                     } else {
-                        configurationStatus = await updateOperationClientInterface(
-                            operationClientUuidOfPreviousVersion,
-                            operationClientName
+                        configurationStatus = new ConfigurationStatus(
+                            operationClientUuid,
+                            '',
+                            false
                         );
                     }
-                } else {
-                    configurationStatus = new ConfigurationStatus(
-                        operationClientUuid,
-                        '',
-                        false
-                    );
                 }
                 configurationStatusList.push(configurationStatus);
             }

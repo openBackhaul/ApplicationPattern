@@ -526,3 +526,43 @@
       }    
      });
  }
+
+ /**
+  * @description This method should be able to tell, if there is already an existing
+  * operation client interface and we want to update the name or we should create a new one.
+  * Based on the context (Forwarding Domain Name) this method extracts output FC ports. If there is
+  * more than one output port, it filters the correct one based on the application name/release number
+  * combination (each output port should point to a different application).
+  * @param {String} forwardingName context where we should look for the output ports
+  * @param {String} applicationName client application name
+  * @param {String} releaseNumber client application release number
+  */
+ exports.resolveClientOperationUuidFromForwardingNameAsync = function(forwardingName, applicationName, releaseNumber) {
+   return new Promise(async function (resolve, reject) {
+     let operationClientUuid = null;
+     try {
+       let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+       const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+       if (forwardingConstruct === undefined) {
+         resolve(operationClientUuid);
+       }
+       let outputFcPorts = await ForwardingConstruct.getFcPortListWithDirectionAsync(
+         forwardingConstruct.uuid,
+         FcPort.portDirectionEnum.OUTPUT
+       );
+       if (outputFcPorts.length === 1) {
+         operationClientUuid = outputFcPorts[0]["logical-termination-point"];
+         resolve(operationClientUuid);
+       }
+       for (let outputFcPort of outputFcPorts) {
+         operationClientUuid = outputFcPort["logical-termination-point"];
+         let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+         if (serverLtpList.includes(httpClientUuid)) {
+           resolve(operationClientUuid);
+         }
+       }
+     } catch(error) {
+       reject(error);
+     }
+   });
+  }
