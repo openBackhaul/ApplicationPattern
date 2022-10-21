@@ -48,10 +48,16 @@ servers:
     own-release-number: ## TODO: Add OwnReleaseNumber (e.g. 1.0.0)
     uuid: xx-1-0-0-http-s-bm-000
   tcp-server:
-    own-ip-address: ## TODO: Add OwnIpAddress
-    own-tcp-port: ## TODO: Add OwnTcpPort
-    uuid: xx-1-0-0-tcp-s-bm-000
-
+    - description: Without TLS layer
+      protocol:  http
+      own-ip-address: ## TODO: Add OwnIpAddress
+      own-tcp-port: ## TODO: Add OwnTcpPort
+      uuid: xx-1-0-0-tcp-s-bm-000
+    - description: With TLS layer
+      protocol:  https
+      own-ip-address: ## TODO: Add OwnIpAddress
+      own-tcp-port: ## TODO: Add OwnTcpPort
+      uuid: xx-1-0-0-tcp-s-bm-001
 
 
 clients:
