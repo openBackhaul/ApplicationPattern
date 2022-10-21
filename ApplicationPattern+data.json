@@ -86,7 +86,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/start-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "applicationName"
+                    "static-field-name": "applicationName"
                   },
                   "description": "Own application name",
                   "datatype": "string"
@@ -105,7 +105,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "applicationName"
+                    "static-field-name": "applicationName"
                   },
                   "description": "Name of this application",
                   "datatype": "string"
@@ -124,7 +124,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "releaseNumber"
+                    "static-field-name": "releaseNumber"
                   },
                   "description": "Number of this release",
                   "datatype": "string"
@@ -143,7 +143,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "applicationPurpose"
+                    "static-field-name": "applicationPurpose"
                   },
                   "description": "Purpose of this application",
                   "datatype": "string"
@@ -162,7 +162,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "dataUpdatePeriod"
+                    "static-field-name": "dataUpdatePeriod"
                   },
                   "description": "Period of updating the data inside this application",
                   "datatype": "string"
@@ -181,7 +181,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "ownerName"
+                    "static-field-name": "ownerName"
                   },
                   "description": "Name of the ApplicationOwner",
                   "datatype": "string"
@@ -200,7 +200,7 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-application-in-generic-representation",
                   "field-name": {
-                    "concrete-field-name": "ownerEmailAddress"
+                    "static-field-name": "ownerEmailAddress"
                   },
                   "description": "Email address of the ApplicationOwner",
                   "datatype": "string"

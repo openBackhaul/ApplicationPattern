@@ -122,7 +122,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 **FieldName**  
 * Fill in the name of the field that shall represent the response value.
 
-**FieldName**  
+**Description**  
 * This attribute is just for documenting the meaning of the defined field.  
 * It is explanatory only and will not be passed to the application that is consuming the *-in-generic-representation request.  
 

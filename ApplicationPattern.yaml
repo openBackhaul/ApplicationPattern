@@ -5087,8 +5087,9 @@ paths:
                                               type: object
                                               minProperties: 1
                                               maxProperties: 1
+                                              additionalProperties: false
                                               properties:
-                                                concrete-field-name:
+                                                static-field-name:
                                                   type: string
                                                 field-name-reference:
                                                   type: string
@@ -5105,8 +5106,9 @@ paths:
                                               type: object
                                               minProperties: 1
                                               maxProperties: 1
+                                              additionalProperties: false
                                               properties:
-                                                concrete-value:
+                                                static-value:
                                                   type: string
                                                 value-reference:
                                                   type: string
@@ -6187,8 +6189,9 @@ paths:
                                     type: object
                                     minProperties: 1
                                     maxProperties: 1
+                                    additionalProperties: false
                                     properties:
-                                      concrete-field-name:
+                                      static-field-name:
                                         type: string
                                       field-name-reference:
                                         type: string
@@ -6205,8 +6208,9 @@ paths:
                                     type: object
                                     minProperties: 1
                                     maxProperties: 1
+                                    additionalProperties: false
                                     properties:
-                                      concrete-value:
+                                      static-value:
                                         type: string
                                       value-reference:
                                         type: string
@@ -8262,13 +8266,14 @@ paths:
                     type: object
                     minProperties: 1
                     maxProperties: 1
+                    additionalProperties: false
                     properties:
-                      concrete-field-name:
+                      static-field-name:
                         type: string
                       field-name-reference:
                         type: string
                     example: 
-                      concrete-field-name: 'applicationName'
+                      static-field-name: 'applicationName'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8393,8 +8398,9 @@ paths:
                     type: object
                     minProperties: 1
                     maxProperties: 1
+                    additionalProperties: false
                     properties:
-                      concrete-value:
+                      static-value:
                         type: string
                       value-reference:
                         type: string
@@ -8432,8 +8438,9 @@ paths:
                   type: object
                   minProperties: 1
                   maxProperties: 1
+                  additionalProperties: false
                   properties:
-                    concrete-value:
+                    static-value:
                       type: string
                     value-reference:
                       type: string

@@ -16,12 +16,12 @@ profiles:
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'
     capability:
       operation-name: string
-      concrete-field-name: string
+      static-field-name: string
       field-name-reference: string
       description: string
       datatype: string
     configuration:
-      concrete-value: string
+      static-value: string
       value-reference: string
 
   - profile-name: 'FileProfile'

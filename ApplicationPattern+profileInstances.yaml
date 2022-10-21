@@ -47,7 +47,7 @@ profile-instances:
     uuid: '*-response-p-000' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/start-application-in-generic-representation'
-      concrete-field-name: 'applicationName'
+      static-field-name: 'applicationName'
       description: 'Own application name'
       datatype: 'string'
     configuration:
@@ -57,7 +57,7 @@ profile-instances:
     uuid: '*-response-p-001' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'applicationName'
+      static-field-name: 'applicationName'
       description: 'Name of this application'
       datatype: 'string'
     configuration:
@@ -67,7 +67,7 @@ profile-instances:
     uuid: '*-response-p-002'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'releaseNumber'
+      static-field-name: 'releaseNumber'
       description: 'Number of this release'
       datatype: 'string'
     configuration:
@@ -77,7 +77,7 @@ profile-instances:
     uuid: '*-response-p-003'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'applicationPurpose'
+      static-field-name: 'applicationPurpose'
       description: 'Purpose of this application'
       datatype: 'string'
     configuration:
@@ -87,7 +87,7 @@ profile-instances:
     uuid: '*-response-p-004'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'dataUpdatePeriod'
+      static-field-name: 'dataUpdatePeriod'
       description: 'Period of updating the data inside this application'
       datatype: 'string'
     configuration:
@@ -97,7 +97,7 @@ profile-instances:
     uuid: '*-response-p-005' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'ownerName'
+      static-field-name: 'ownerName'
       description: 'Name of the ApplicationOwner'
       datatype: 'string'
     configuration:
@@ -107,7 +107,7 @@ profile-instances:
     uuid: '*-response-p-006' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
-      concrete-field-name: 'ownerEmailAddress'
+      static-field-name: 'ownerEmailAddress'
       description: 'Email address of the ApplicationOwner'
       datatype: 'string'
     configuration:
@@ -127,13 +127,13 @@ profile-instances:
     uuid: '*-response-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
     capability:
       operation-name: ## TODO: Add generic representation operation that shall provide this response
-      concrete-field-name: ## TODO: Add the concrete name of the field as it shall be respresented in the GUI EXOR a reference from which the name of the field shall be taken. ...
-      field-name-reference: ## TODO: ... Delete either the concrete-field-name or the field-name-reference attribute from the Instance of GenericResponseProfile.
+      static-field-name: ## TODO: Add the concrete name of the field as it shall be respresented in the GUI EXOR a reference from which the name of the field shall be taken. ...
+      field-name-reference: ## TODO: ... Delete either the static-field-name or the field-name-reference attribute from the Instance of GenericResponseProfile.
       description: ## TODO: Add some description for your own reference
       datatype: ## TODO: Add the datatype of the value
     configuration:
-      concrete-value: ## TODO: Add the current, concrete value of the field EXOR a reference from which the field shall be filled. ...
-      value-reference: ## TODO: ... Delete either the concrete-value or the reference attribute from the Instance of GenericResponseProfile.
+      static-value: ## TODO: Add the current, concrete value of the field EXOR a reference from which the field shall be filled. ...
+      value-reference: ## TODO: ... Delete either the static-value or the reference attribute from the Instance of GenericResponseProfile.
 
   ## TODO: Potentially add further instances of GenericResponseProfile (e.g. to represent further release in the history)
 
