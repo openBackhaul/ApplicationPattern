@@ -60,6 +60,12 @@ The FileProfile contains the information, which is required for connecting with 
 Aside identifying and describing the referenced file, it makes file path, access credentials and allowed operations available for configuration.  
 The FileProfile is used whenever the application uses one or several files for storing internal data.  
 
+**GenericResponseProfile** 
+The GenericResponseProfile contains one out of potentially several response values of an *-in-generic-representation request.
+The operation-name attribute works like a filter on the responses, which have to be put into an *-in-generic-representation request.
+The name of the field and its datatype a are invariant, but the value is configurable.
+The GenericResponseProfile occurs several times in all existing applications.  
+
 **IntegerProfile**  
 The IntegerProfile is for storing a single Integer value.  
 In addition to the bare value, the Profile also allows to define unit, minimum and maximum values.  

@@ -11,7 +11,7 @@ Most relevant types of connections documented in the CONFIGfile of the applicati
 
 The server interfaces provide information about the application itself:  
 - The HttpServer provides the current application name, release number, owner, and the revision history. There will be only one HttpServer instance per application.  
-- The TcpServer represents the current IPv4 address and port of the application. There will be only one TcpServer instance per application.  
+- The TcpServer represents the current IPv4 address and port of the application. There will be at least one TcpServer instance per application. If application shall be reachable from within and outside the virtual privat cloud (name space behind TLS layer termination), two TcpServers are required for http and https.  
 - The services exposed by the application will be represented as OperationServer. If a application exposes four services, then for each service, there will be a OperationServer instance available in the LTP list. The OperationServer consists of the name, operation key to validate the authorization and the lifecycle state of the service.  
 
 The client interfaces provide information about the consumed services, their application and transport details:  
