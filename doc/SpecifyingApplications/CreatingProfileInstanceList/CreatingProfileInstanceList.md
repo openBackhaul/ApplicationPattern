@@ -131,7 +131,7 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * Chose from 'string', 'integer', 'boolean'.  
 
 **Value**  
-* Fill in the value, which shall be represetend in the field.  
+* Fill in the value, which shall be represeted in the field.  
 * The value has to be transported as a string, but might be interpreted according to the Datatype at the receiving side.  
 
 
