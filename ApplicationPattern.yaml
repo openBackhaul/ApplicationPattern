@@ -5096,7 +5096,7 @@ paths:
                                                 port-reference:
                                                   type: string
                                                 operation-reference:
-                                              type: string
+                                                  type: string
                                 - description: 'generic response profile'
                                   type: object
                                   required:
@@ -6226,7 +6226,7 @@ paths:
                                       port-reference:
                                         type: string
                                       operation-reference:
-                                    type: string
+                                        type: string
                       - description: 'generic response profile'
                         type: object
                         required:
