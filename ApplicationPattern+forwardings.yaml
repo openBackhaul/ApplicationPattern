@@ -79,6 +79,8 @@ forwardings:
         uuid: xx-1-0-0-op-s-bs-003
       - server-name: /v1/inform-about-release-history-in-generic-representation
         uuid: xx-1-0-0-op-s-bs-004
+      - server-name: /docs
+        uuid: xx-1-0-0-op-s-bs-005
       - server-name: /v1/start-application-in-generic-representation
         uuid: xx-1-0-0-op-s-is-000
       ## TODO: All service requests to be complemented

@@ -5074,6 +5074,28 @@ paths:
                                             - request
                                           properties:
                                             request:
+                                              type: object
+                                              required:
+                                                - protocol-reference
+                                                - address
+                                                - port-reference
+                                                - operation-reference
+                                              properties:
+                                                protocol-reference:
+                                                  type: string
+                                                address:
+                                                  type: object
+                                                  minProperties: 1
+                                                  maxProperties: 1
+                                                  additionalProperties: false
+                                                  properties:
+                                                    ipv-4-address-reference:
+                                                      type: string
+                                                    domain-name-reference:
+                                                      type: string
+                                                port-reference:
+                                                  type: string
+                                                operation-reference:
                                               type: string
                                 - description: 'generic response profile'
                                   type: object
@@ -6182,6 +6204,28 @@ paths:
                                   - request
                                 properties:
                                   request:
+                                    type: object
+                                    required:
+                                      - protocol-reference
+                                      - address
+                                      - port-reference
+                                      - operation-reference
+                                    properties:
+                                      protocol-reference:
+                                        type: string
+                                      address:
+                                        type: object
+                                        minProperties: 1
+                                        maxProperties: 1
+                                        additionalProperties: false
+                                        properties:
+                                          ipv-4-address-reference:
+                                            type: string
+                                          domain-name-reference:
+                                            type: string
+                                      port-reference:
+                                        type: string
+                                      operation-reference:
                                     type: string
                       - description: 'generic response profile'
                         type: object
@@ -6388,7 +6432,12 @@ paths:
                           unit: 'Unit at input field'
                       display-in-new-browser-window: false
                     action-profile-configuration:
-                      request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                      request:
+                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                        address:
+                          ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
+                        port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
+                        operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8176,8 +8225,36 @@ paths:
                   - action-profile-1-0:request
                 properties:
                   action-profile-1-0:request:
-                    type: string
-                    example: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                    type: object
+                    required:
+                      - protocol-reference
+                      - address
+                      - port-reference
+                      - operation-reference
+                    properties:
+                      protocol-reference:
+                        type: string
+                      address:
+                        type: object
+                        minProperties: 1
+                        maxProperties: 1
+                        additionalProperties: false
+                        properties:
+                          ipv-4-address-reference:
+                            type: string
+                          domain-name-reference:
+                            type: string
+                      port-reference:
+                        type: string
+                      operation-reference:
+                        type: string
+                    example:
+                      action-profile-1-0:request:
+                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                        address:
+                          ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
+                        port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
+                        operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8207,8 +8284,36 @@ paths:
                 - action-profile-1-0:request
               properties:
                 action-profile-1-0:request:
-                  type: string
-                  example: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                  type: object
+                  required:
+                    - protocol-reference
+                    - address
+                    - port-reference
+                    - operation-reference
+                  properties:
+                    protocol-reference:
+                      type: string
+                    address:
+                      type: object
+                      minProperties: 1
+                      maxProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ipv-4-address-reference:
+                          type: string
+                        domain-name-reference:
+                          type: string
+                    port-reference:
+                      type: string
+                    operation-reference:
+                      type: string
+                  example:
+                    action-profile-1-0:request:
+                      protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                      address:
+                        ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
+                      port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
+                      operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
       responses:
         '204':
           description: 'Request path configured'
