@@ -8642,7 +8642,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerDescription
@@ -8695,7 +8695,7 @@ paths:
                   type: string
       responses:
         '204':
-          description: 'Local port documented'
+          description: 'Description documented'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8715,7 +8715,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerProtocol
@@ -8776,7 +8776,7 @@ paths:
                     - 'tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
       responses:
         '204':
-          description: 'Local port documented'
+          description: 'Protocol documented'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8796,7 +8796,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalAddress
@@ -8889,7 +8889,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalPort
