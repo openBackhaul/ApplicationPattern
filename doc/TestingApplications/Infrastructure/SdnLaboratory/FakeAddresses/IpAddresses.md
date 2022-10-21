@@ -2,9 +2,9 @@
 
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
-| Cathegory | Abbr. | Component | Release | IP | TCP |
-|---|---|---|---|---|---|
-| Controller |  |  |  |  |  |
+| Cathegory | Abbr. | Component | Release | IP_1 | TCP_1 | IP_2 | TCP_2 |
+|---|---|---|---|---|---|---|---|
+| Controller |  |  |  |  |  |  |  |
 |  | C | OpenDaylight | 1.0.0 | 1.1.1.1 | 1001
 | Mediator |  |  |  |  |  |
 |  | xMIM | xMediatorInstanceManager | 1.0.0 | 1.1.2.1 | 2001
@@ -13,24 +13,24 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
-|  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008
-|  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009
-|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010
-|  | OL | OamLog | 2.0.0 | 1.1.3.11 | 3011
-|  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012
-|  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013
-|  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014
+|  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008 | 1.2.3.8 | 3208
+|  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009 | 1.2.3.9 | 3209
+|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010 | 1.2.3.10 | 3210
+|  | OL | OamLog | 2.0.0 | 1.1.3.11 | 3011 | 1.2.3.11 | 3211
+|  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
+|  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
+|  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
-|  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001
-|  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002
-|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 1.1.4.3 | 4003
-|  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 1.1.4.4 | 4004
-|  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005
-|  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006
-|  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007
-|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008
+|  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001 | 1.2.4.1 | 4201
+|  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002 | 1.2.4.2 | 4202
+|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 1.1.4.3 | 4003 | 1.2.4.3 | 4203
+|  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 1.1.4.4 | 4004 | 1.2.4.4 | 4204
+|  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
+|  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
+|  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
+|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
 
 # Historical Fake IP Addresses  
 
