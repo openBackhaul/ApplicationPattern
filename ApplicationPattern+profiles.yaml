@@ -10,11 +10,11 @@ profiles:
           unit: string
       display-in-new-browser-window: boolean
     configuration:
-      protocol: string
-      ipv-4-address: string
-      domain-name: string
-      port: string
-      operation: string
+      protocol-reference: string
+      ipv-4-address-reference: string
+      domain-name-reference: string
+      port-reference: string
+      operation-reference: string
 
   - profile-name: 'FileProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
