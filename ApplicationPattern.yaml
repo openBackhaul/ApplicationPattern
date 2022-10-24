@@ -4383,8 +4383,6 @@ paths:
       summary: 'Starts application in generic representation'
       tags:
         - BasicServices
-      security:
-        - apiKeyAuth: []
       responses:
         '200':
           description: 'Start mask provided'
