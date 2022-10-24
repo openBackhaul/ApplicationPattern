@@ -409,147 +409,6 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
 
-  /v1/start-application-in-generic-representation:
-    parameters:
-      - $ref: '#/components/parameters/user'
-      - $ref: '#/components/parameters/originator'
-      - $ref: '#/components/parameters/x-correlator'
-      - $ref: '#/components/parameters/trace-indicator'
-      - $ref: '#/components/parameters/customer-journey'
-    post:
-      operationId: startApplicationInGenericRepresentation
-      summary: 'Starts application in generic representation'
-      tags:
-        - IndividualServices
-      security:
-        - apiKeyAuth: []
-      responses:
-        '200':
-          description: 'Start mask provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - response-value-list
-                  - consequent-action-list
-                properties:
-                  response-value-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - field-name
-                        - value
-                        - datatype
-                      properties:
-                        field-name:
-                          type: string
-                          description: >
-                            'Field name
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
-                        value:
-                          type: string
-                          description: >
-                            'Field value
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
-                        datatype:
-                          type: string
-                          description: >
-                            'Field datatype
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
-                    example:
-                      - field-name: 'applicationName'
-                        value: 'OwnApplicationName'
-                        datatype: 'string'
-                  consequent-action-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - label
-                        - request
-                        - display-in-new-browser-window
-                      properties:
-                        label:
-                          type: string
-                          description: >
-                            'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
-                        request:
-                          type: string
-                          description: >
-                            'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
-                        input-value-list:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                              - field-name
-                            properties:
-                              field-name:
-                                type: string
-                                description: >
-                                  'Name of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
-                              unit:
-                                type: string
-                                description: >
-                                  'Unit of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
-                        display-in-new-browser-window:
-                          type: boolean
-                          description: >
-                            'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
-                    example:
-                      - label: 'Inform about Application'
-                        request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
-                        display-in-new-browser-window: false
-          headers:
-            x-correlator:
-              schema: 
-                type: string
-                example: '550e8400-e29b-11d4-a716-446655440000'
-              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-            exec-time:
-              schema:
-                type: integer
-                example: 1100
-              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-            backend-time:
-              schema:
-                type: integer
-                example: 850
-              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-            life-cycle-state:
-              schema:
-                type: string
-                enum:
-                  - 'EXPERIMENTAL'
-                  - 'OPERATIONAL'
-                  - 'DEPRECATED'
-                  - 'OBSOLETE'
-                  - 'UNKNOWN'
-                  - 'NOT_YET_DEFINED'
-                example: 'EXPERIMENTAL'
-              description: >
-                  'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-is-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
-        '400':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-
 ########################################################################################################################
 #   Service Layer - Basic Part - Following paths must be copied into every application
 ########################################################################################################################
@@ -4512,6 +4371,76 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
 
+  /v1/start-application-in-generic-representation:
+    parameters:
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/originator'
+      - $ref: '#/components/parameters/x-correlator'
+      - $ref: '#/components/parameters/trace-indicator'
+      - $ref: '#/components/parameters/customer-journey'
+    post:
+      operationId: startApplicationInGenericRepresentation
+      summary: 'Starts application in generic representation'
+      tags:
+        - BasicServices
+      responses:
+        '200':
+          description: 'Start mask provided'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericRepresentation'
+                example:
+                  response-value-list:
+                  - field-name: 'applicationName'
+                    value: 'OwnApplicationName'
+                    datatype: 'string'
+                  consequent-action-list:
+                  - label: 'Inform about Application'
+                    request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                    display-in-new-browser-window: false
+          headers:
+            x-correlator:
+              schema: 
+                type: string
+                example: '550e8400-e29b-11d4-a716-446655440000'
+              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+            exec-time:
+              schema:
+                type: integer
+                example: 1100
+              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+            backend-time:
+              schema:
+                type: integer
+                example: 850
+              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+                example: 'EXPERIMENTAL'
+              description: >
+                  'Life cycle state of the consumed service
+                  find in [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredServiceRequests'
   /v1/inform-about-application:
     parameters:
       - $ref: '#/components/parameters/user'
@@ -4631,102 +4560,34 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - response-value-list
-                  - consequent-action-list
-                properties:
+                $ref: '#/components/schemas/genericRepresentation'
+                example:
                   response-value-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - field-name
-                        - value
-                        - datatype
-                      properties:
-                        field-name:
-                          type: string
-                          description: >
-                            'Field name
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
-                        value:
-                          type: string
-                          description: >
-                            'Field value
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
-                        datatype:
-                          type: string
-                          description: >
-                            'Field datatype
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
-                    example:
-                      - field-name: 'applicationName'
-                        value: 'OwnApplicationName'
-                        datatype: 'string'
-                      - field-name: 'releaseNumber'
-                        value: '1.0.0'
-                        datatype: 'string'
-                      - field-name: 'applicationPurpose'
-                        value: 'Brief description of the purpose of the application.'
-                        datatype: 'string'
-                      - field-name: 'dataUpdatePeriod'
-                        value: 'real-time'
-                        datatype: 'string'
-                      - field-name: 'ownerName'
-                        value: 'Thorsten Heinze'
-                        datatype: 'string'
-                      - field-name: 'ownerEmailAddress'
-                        value: 'Thorsten.Heinze@telefonica.com'
-                        datatype: 'string'
+                  - field-name: 'applicationName'
+                    value: 'OwnApplicationName'
+                    datatype: 'string'
+                  - field-name: 'releaseNumber'
+                    value: '1.0.0'
+                    datatype: 'string'
+                  - field-name: 'applicationPurpose'
+                    value: 'Brief description of the purpose of the application.'
+                    datatype: 'string'
+                  - field-name: 'dataUpdatePeriod'
+                    value: 'real-time'
+                    datatype: 'string'
+                  - field-name: 'ownerName'
+                    value: 'Thorsten Heinze'
+                    datatype: 'string'
+                  - field-name: 'ownerEmailAddress'
+                    value: 'Thorsten.Heinze@telefonica.com'
+                    datatype: 'string'
                   consequent-action-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - label
-                        - request
-                        - display-in-new-browser-window
-                      properties:
-                        label:
-                          type: string
-                          description: >
-                            'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
-                        request:
-                          type: string
-                          description: >
-                            'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
-                        input-value-list:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                              - field-name
-                            properties:
-                              field-name:
-                                type: string
-                                description: >
-                                  'Name of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
-                              unit:
-                                type: string
-                                description: >
-                                  'Unit of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
-                        display-in-new-browser-window:
-                          type: boolean
-                          description: >
-                            'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
-                    example:
-                      - label: 'Release History'
-                        request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
-                        display-in-new-browser-window: false
-                      - label: 'API Documentation'
-                        request: 'https://1.1.4.1:4001/docs'
-                        display-in-new-browser-window: true
+                  - label: 'Release History'
+                    request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
+                    display-in-new-browser-window: false
+                  - label: 'API Documentation'
+                    request: 'https://1.1.4.1:4001/docs'
+                    display-in-new-browser-window: true
           headers:
             x-correlator:
               schema: 
@@ -4861,80 +4722,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - response-value-list
-                  - consequent-action-list
-                properties:
+                $ref: '#/components/schemas/genericRepresentation'
+                example:
                   response-value-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - field-name
-                        - value
-                        - datatype
-                      properties:
-                        field-name:
-                          type: string
-                          description: >
-                            'Field name
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
-                        value:
-                          type: string
-                          description: >
-                            'Field value
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
-                        datatype:
-                          type: string
-                          description: >
-                            'Field datatype
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
-                    example:
-                      - field-name: '1.0.0'
-                        value: '20.11.2010 - Initial version.'
-                        datatype: 'string'
+                  - field-name: '1.0.0'
+                    value: '20.11.2010 - Initial version.'
+                    datatype: 'string'
                   consequent-action-list:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - label
-                        - request
-                        - display-in-new-browser-window
-                      properties:
-                        label:
-                          type: string
-                          description: >
-                            'Label that shall be presented on the button
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
-                        request:
-                          type: string
-                          description: >
-                            'Request that shall be called, when button gets pressed
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
-                        input-value-list:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                              - field-name
-                            properties:
-                              field-name:
-                                type: string
-                                description: >
-                                  'Name of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
-                              unit:
-                                type: string
-                                description: >
-                                  'Unit of an input value required for executing the Request
-                                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
-                        display-in-new-browser-window:
-                          type: boolean
-                          description: >
-                            'True in case Request shall be represented in a new browser window
-                            from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
           headers:
             x-correlator:
               schema: 
@@ -9122,7 +8916,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[0-1]$'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerDescription
@@ -9195,7 +8989,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[0-1]$'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerProtocol
@@ -9276,7 +9070,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[0-1]$'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalAddress
@@ -9369,7 +9163,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[1-0]'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[0-1]$'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalPort
@@ -10191,6 +9985,77 @@ components:
           format: int32
         message:
           type: string
+    genericRepresentation:
+      type: object
+      required:
+        - response-value-list
+        - consequent-action-list
+      properties:
+        response-value-list:
+          type: array
+          items:
+            type: object
+            required:
+              - field-name
+              - value
+              - datatype
+            properties:
+              field-name:
+                type: string
+                description: >
+                  'Field name
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
+              value:
+                type: string
+                description: >
+                  'Field value
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
+              datatype:
+                type: string
+                description: >
+                  'Field datatype
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
+        consequent-action-list:
+          type: array
+          items:
+            type: object
+            required:
+              - label
+              - request
+              - display-in-new-browser-window
+            properties:
+              label:
+                type: string
+                description: >
+                  'Label that shall be presented on the button
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+              request:
+                type: string
+                description: >
+                  'Request that shall be called, when button gets pressed
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+              input-value-list:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - field-name
+                  properties:
+                    field-name:
+                      type: string
+                      description: >
+                        'Name of an input value required for executing the Request
+                        from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
+                    unit:
+                      type: string
+                      description: >
+                        'Unit of an input value required for executing the Request
+                        from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
+              display-in-new-browser-window:
+                type: boolean
+                description: >
+                  'True in case Request shall be represented in a new browser window
+                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

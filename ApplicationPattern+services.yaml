@@ -31,6 +31,8 @@ servers:
           uuid: xx-1-0-0-op-s-im-000
     service:
       basic:
+        - service-name: /v1/start-application-in-generic-representation
+          uuid: xx-1-0-0-op-s-bs-000
         - service-name: /v1/inform-about-application
           uuid: xx-1-0-0-op-s-bs-001
         - service-name: /v1/inform-about-application-in-generic-representation
@@ -42,8 +44,6 @@ servers:
         - service-name: /docs
           uuid: xx-1-0-0-op-s-bs-005
       individual:
-        - service-name: /v1/start-application-in-generic-representation
-          uuid: xx-1-0-0-op-s-is-000
         ## TODO: Add Services specific to this application
   http-server:
     own-application-name: ## TODO: Add OwnApplicationName
