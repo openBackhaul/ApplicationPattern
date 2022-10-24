@@ -1970,266 +1970,7 @@ paths:
                         type: array
                         uniqueItems: true
                         items:
-                          type: object
-                          required:
-                            - uuid
-                            - ltp-direction
-                            - client-ltp
-                            - server-ltp
-                            - layer-protocol
-                          properties:
-                            uuid:
-                              type: string
-                            ltp-direction:
-                              type: string
-                            client-ltp:
-                              type: array
-                              uniqueItems: true
-                              items:
-                                type: string
-                            server-ltp:
-                              type: array
-                              uniqueItems: true
-                              items:
-                                type: string
-                            layer-protocol:
-                              type: array
-                              minItems: 1
-                              maxItems: 1
-                              items:
-                                oneOf:
-                                  - description: 'operation server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - operation-server-interface-1-0:operation-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      operation-server-interface-1-0:operation-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - operation-server-interface-capability
-                                          - operation-server-interface-configuration
-                                        properties:
-                                          operation-server-interface-capability:
-                                            type: object
-                                            required:
-                                              - operation-name
-                                            properties:
-                                              operation-name:
-                                                type: string
-                                          operation-server-interface-configuration:
-                                            type: object
-                                            required:
-                                              - life-cycle-state
-                                            properties:
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'http server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - http-server-interface-1-0:http-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      http-server-interface-1-0:http-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - http-server-interface-capability
-                                        properties:
-                                          http-server-interface-capability:
-                                            type: object
-                                            required:
-                                              - application-name
-                                              - release-number
-                                              - data-update-period
-                                            properties:
-                                              application-name:
-                                                type: string
-                                              release-number:
-                                                type: string
-                                              data-update-period:
-                                                type: string
-                                  - description: 'tcp server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - tcp-server-interface-1-0:tcp-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      tcp-server-interface-1-0:tcp-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - tcp-server-interface-configuration
-                                        properties:
-                                          tcp-server-interface-configuration:
-                                            type: object
-                                            required:
-                                              - description
-                                              - protocol
-                                              - local-address
-                                              - local-port
-                                            properties:
-                                              description:
-                                                type: string
-                                              protocol:
-                                                type: string
-                                              local-address:
-                                                type: object
-                                                minProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ipv-4-address:
-                                                    type: string
-                                                  domain-name:
-                                                    type: string
-                                              local-port:
-                                                type: integer
-                                  - description: 'operation client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - operation-client-interface-1-0:operation-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      operation-client-interface-1-0:operation-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - operation-client-interface-configuration
-                                          - operation-client-interface-status
-                                        properties:
-                                          operation-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - operation-name
-                                            properties:
-                                              operation-name:
-                                                type: string
-                                          operation-client-interface-status:
-                                            type: object
-                                            required:
-                                              - operational-state
-                                              - life-cycle-state
-                                            properties:
-                                              operational-state:
-                                                type: string
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'elasticsearch client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - elasticsearch-client-interface-configuration
-                                          - elasticsearch-client-interface-status
-                                        properties:
-                                          elasticsearch-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - index-alias
-                                            properties:
-                                              index-alias:
-                                                type: string
-                                          elasticsearch-client-interface-status:
-                                            type: object
-                                            required:
-                                              - operational-state
-                                              - life-cycle-state
-                                            properties:
-                                              operational-state:
-                                                type: string
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'http client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - http-client-interface-1-0:http-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      http-client-interface-1-0:http-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - http-client-interface-configuration
-                                        properties:
-                                          http-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - application-name
-                                              - release-number
-                                            properties:
-                                              application-name:
-                                                type: string
-                                              release-number:
-                                                type: string
-                                  - description: 'tcp client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - tcp-client-interface-1-0:tcp-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      tcp-client-interface-1-0:tcp-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - tcp-client-interface-configuration
-                                        properties:
-                                          tcp-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - remote-address
-                                              - remote-port
-                                            properties:
-                                              remote-address:
-                                                type: object
-                                                minProperties: 1
-                                                maxProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ip-address:
-                                                    type: object
-                                                    minProperties: 1
-                                                    additionalProperties: false
-                                                    properties:
-                                                      ipv-4-address:
-                                                        type: string
-                                                  domain-name:
-                                                    type: string
-                                              remote-port:
-                                                type: integer
+                          $ref: '#/components/schemas/logicalTerminationPoint'
                         example:
                           - uuid: 'ro-2-0-0-op-s-bm-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
@@ -2260,51 +2001,7 @@ paths:
                         minItems: 1
                         maxItems: 1
                         items:
-                          type: object
-                          required:
-                            - uuid
-                            - forwarding-construct
-                          properties:
-                            uuid:
-                              type: string
-                            forwarding-construct:
-                              type: array
-                              items:
-                                type: object
-                                required:
-                                  - uuid
-                                  - name
-                                  - fc-port
-                                properties:
-                                  uuid:
-                                    type: string
-                                  name:
-                                    type: array
-                                    items:
-                                      type: object
-                                      required:
-                                        - value-name
-                                        - value
-                                      properties:
-                                        value-name:
-                                          type: string
-                                        value:
-                                          type: string
-                                  fc-port:
-                                    type: array
-                                    items:
-                                      type: object
-                                      required:
-                                        - local-id
-                                        - port-direction
-                                        - logical-termination-point
-                                      properties:
-                                        local-id:
-                                          type: string
-                                        port-direction:
-                                          type: string
-                                        logical-termination-point:
-                                          type: string
+                          $ref: '#/components/schemas/forwardingDomain'
                         example:
                           - uuid: 'ro-2-0-0-op-fd-000'
                             forwarding-construct:
@@ -2524,266 +2221,7 @@ paths:
                         type: array
                         uniqueItems: true
                         items:
-                          type: object
-                          required:
-                            - uuid
-                            - ltp-direction
-                            - client-ltp
-                            - server-ltp
-                            - layer-protocol
-                          properties:
-                            uuid:
-                              type: string
-                            ltp-direction:
-                              type: string
-                            client-ltp:
-                              type: array
-                              uniqueItems: true
-                              items:
-                                type: string
-                            server-ltp:
-                              type: array
-                              uniqueItems: true
-                              items:
-                                type: string
-                            layer-protocol:
-                              type: array
-                              minItems: 1
-                              maxItems: 1
-                              items:
-                                oneOf:
-                                  - description: 'operation server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - operation-server-interface-1-0:operation-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      operation-server-interface-1-0:operation-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - operation-server-interface-capability
-                                          - operation-server-interface-configuration
-                                        properties:
-                                          operation-server-interface-capability:
-                                            type: object
-                                            required:
-                                              - operation-name
-                                            properties:
-                                              operation-name:
-                                                type: string
-                                          operation-server-interface-configuration:
-                                            type: object
-                                            required:
-                                              - life-cycle-state
-                                            properties:
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'http server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - http-server-interface-1-0:http-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      http-server-interface-1-0:http-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - http-server-interface-capability
-                                        properties:
-                                          http-server-interface-capability:
-                                            type: object
-                                            required:
-                                              - application-name
-                                              - release-number
-                                              - data-update-period
-                                            properties:
-                                              application-name:
-                                                type: string
-                                              release-number:
-                                                type: string
-                                              data-update-period:
-                                                type: string
-                                  - description: 'tcp server'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - tcp-server-interface-1-0:tcp-server-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      tcp-server-interface-1-0:tcp-server-interface-pac:
-                                        type: object
-                                        required:
-                                          - tcp-server-interface-configuration
-                                        properties:
-                                          tcp-server-interface-configuration:
-                                            type: object
-                                            required:
-                                              - description
-                                              - protocol
-                                              - local-address
-                                              - local-port
-                                            properties:
-                                              description:
-                                                type: string
-                                              protocol:
-                                                type: string
-                                              local-address:
-                                                type: object
-                                                minProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ipv-4-address:
-                                                    type: string
-                                                  domain-name:
-                                                    type: string
-                                              local-port:
-                                                type: integer
-                                  - description: 'operation client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - operation-client-interface-1-0:operation-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      operation-client-interface-1-0:operation-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - operation-client-interface-configuration
-                                          - operation-client-interface-status
-                                        properties:
-                                          operation-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - operation-name
-                                            properties:
-                                              operation-name:
-                                                type: string
-                                          operation-client-interface-status:
-                                            type: object
-                                            required:
-                                              - operational-state
-                                              - life-cycle-state
-                                            properties:
-                                              operational-state:
-                                                type: string
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'elasticsearch client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - elasticsearch-client-interface-configuration
-                                          - elasticsearch-client-interface-status
-                                        properties:
-                                          elasticsearch-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - index-alias
-                                            properties:
-                                              index-alias:
-                                                type: string
-                                          elasticsearch-client-interface-status:
-                                            type: object
-                                            required:
-                                              - operational-state
-                                              - life-cycle-state
-                                            properties:
-                                              operational-state:
-                                                type: string
-                                              life-cycle-state:
-                                                type: string
-                                  - description: 'http client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - http-client-interface-1-0:http-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      http-client-interface-1-0:http-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - http-client-interface-configuration
-                                        properties:
-                                          http-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - application-name
-                                              - release-number
-                                            properties:
-                                              application-name:
-                                                type: string
-                                              release-number:
-                                                type: string
-                                  - description: 'tcp client'
-                                    type: object
-                                    required:
-                                      - local-id
-                                      - layer-protocol-name
-                                      - tcp-client-interface-1-0:tcp-client-interface-pac
-                                    properties:
-                                      local-id:
-                                        type: string
-                                      layer-protocol-name:
-                                        type: string
-                                      tcp-client-interface-1-0:tcp-client-interface-pac:
-                                        type: object
-                                        required:
-                                          - tcp-client-interface-configuration
-                                        properties:
-                                          tcp-client-interface-configuration:
-                                            type: object
-                                            required:
-                                              - remote-address
-                                              - remote-port
-                                            properties:
-                                              remote-address:
-                                                type: object
-                                                minProperties: 1
-                                                maxProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ip-address:
-                                                    type: object
-                                                    minProperties: 1
-                                                    additionalProperties: false
-                                                    properties:
-                                                      ipv-4-address:
-                                                        type: string
-                                                  domain-name:
-                                                    type: string
-                                              remote-port:
-                                                type: integer
+                          $ref: '#/components/schemas/logicalTerminationPoint'
                         example:
                           - uuid: 'ro-2-0-0-op-s-bm-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
@@ -2814,51 +2252,7 @@ paths:
                         minItems: 1
                         maxItems: 1
                         items:
-                          type: object
-                          required:
-                            - uuid
-                            - forwarding-construct
-                          properties:
-                            uuid:
-                              type: string
-                            forwarding-construct:
-                              type: array
-                              items:
-                                type: object
-                                required:
-                                  - uuid
-                                  - name
-                                  - fc-port
-                                properties:
-                                  uuid:
-                                    type: string
-                                  name:
-                                    type: array
-                                    items:
-                                      type: object
-                                      required:
-                                        - value-name
-                                        - value
-                                      properties:
-                                        value-name:
-                                          type: string
-                                        value:
-                                          type: string
-                                  fc-port:
-                                    type: array
-                                    items:
-                                      type: object
-                                      required:
-                                        - local-id
-                                        - port-direction
-                                        - logical-termination-point
-                                      properties:
-                                        local-id:
-                                          type: string
-                                        port-direction:
-                                          type: string
-                                        logical-termination-point:
-                                          type: string
+                          $ref: '#/components/schemas/forwardingDomain'
                         example:
                           - uuid: 'ro-2-0-0-op-fd-000'
                             forwarding-construct:
@@ -2946,232 +2340,7 @@ paths:
                 content:
                   application/json:
                     schema:
-                      type: object
-                      required:
-                        - uuid
-                        - ltp-direction
-                        - client-ltp
-                        - server-ltp
-                        - layer-protocol
-                      properties:
-                        uuid:
-                          type: string
-                        ltp-direction:
-                          type: string
-                        client-ltp:
-                          type: array
-                          uniqueItems: true
-                          items:
-                            type: string
-                        server-ltp:
-                          type: array
-                          uniqueItems: true
-                          items:
-                            type: string
-                        layer-protocol:
-                          type: array
-                          minItems: 1
-                          maxItems: 1
-                          items:
-                            oneOf:
-                              - description: 'operation server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - operation-server-interface-1-0:operation-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  operation-server-interface-1-0:operation-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - operation-server-interface-capability
-                                      - operation-server-interface-configuration
-                                    properties:
-                                      operation-server-interface-capability:
-                                        type: object
-                                        required:
-                                          - operation-name
-                                        properties:
-                                          operation-name:
-                                            type: string
-                                      operation-server-interface-configuration:
-                                        type: object
-                                        required:
-                                          - life-cycle-state
-                                        properties:
-                                          life-cycle-state:
-                                            type: string
-                              - description: 'http server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - http-server-interface-1-0:http-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  http-server-interface-1-0:http-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - http-server-interface-capability
-                                    properties:
-                                      http-server-interface-capability:
-                                        type: object
-                                        required:
-                                          - application-name
-                                          - release-number
-                                          - data-update-period
-                                        properties:
-                                          application-name:
-                                            type: string
-                                          release-number:
-                                            type: string
-                                          data-update-period:
-                                            type: string
-                              - description: 'tcp server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - tcp-server-interface-1-0:tcp-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  tcp-server-interface-1-0:tcp-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - tcp-server-interface-configuration
-                                    properties:
-                                      tcp-server-interface-configuration:
-                                        type: object
-                                        required:
-                                          - description
-                                          - protocol
-                                          - local-address
-                                          - local-port
-                                        properties:
-                                          description:
-                                            type: string
-                                          protocol:
-                                            type: string
-                                          local-address:
-                                            type: object
-                                            minProperties: 1
-                                            additionalProperties: false
-                                            properties:
-                                              ipv-4-address:
-                                                type: string
-                                              domain-name:
-                                                type: string
-                                          local-port:
-                                            type: integer
-                              - description: 'operation client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - operation-client-interface-1-0:operation-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  operation-client-interface-1-0:operation-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - operation-client-interface-configuration
-                                      - operation-client-interface-status
-                                    properties:
-                                      operation-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - operation-name
-                                        properties:
-                                          operation-name:
-                                            type: string
-                                      operation-client-interface-status:
-                                        type: object
-                                        required:
-                                          - operational-state
-                                          - life-cycle-state
-                                        properties:
-                                          operational-state:
-                                            type: string
-                                          life-cycle-state:
-                                            type: string
-                              - description: 'http client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - http-client-interface-1-0:http-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  http-client-interface-1-0:http-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - http-client-interface-configuration
-                                    properties:
-                                      http-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - application-name
-                                          - release-number
-                                        properties:
-                                          application-name:
-                                            type: string
-                                          release-number:
-                                            type: string
-                              - description: 'tcp client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - tcp-client-interface-1-0:tcp-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  tcp-client-interface-1-0:tcp-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - tcp-client-interface-configuration
-                                    properties:
-                                      tcp-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - remote-address
-                                          - remote-port
-                                        properties:
-                                          remote-address:
-                                            type: object
-                                            minProperties: 1
-                                            maxProperties: 1
-                                            additionalProperties: false
-                                            properties:
-                                              ip-address:
-                                                type: object
-                                                minProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ipv-4-address:
-                                                    type: string
-                                              domain-name:
-                                                type: string
-                                          remote-port:
-                                            type: integer
+                      $ref: '#/components/schemas/logicalTerminationPoint'
                       example:
                         uuid: 'ro-2-0-0-op-s-bm-002'
                         ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
@@ -3574,232 +2743,7 @@ paths:
                 content:
                   application/json:
                     schema:
-                      type: object
-                      required:
-                        - uuid
-                        - ltp-direction
-                        - client-ltp
-                        - server-ltp
-                        - layer-protocol
-                      properties:
-                        uuid:
-                          type: string
-                        ltp-direction:
-                          type: string
-                        client-ltp:
-                          type: array
-                          uniqueItems: true
-                          items:
-                            type: string
-                        server-ltp:
-                          type: array
-                          uniqueItems: true
-                          items:
-                            type: string
-                        layer-protocol:
-                          type: array
-                          minItems: 1
-                          maxItems: 1
-                          items:
-                            oneOf:
-                              - description: 'operation server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - operation-server-interface-1-0:operation-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  operation-server-interface-1-0:operation-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - operation-server-interface-capability
-                                      - operation-server-interface-configuration
-                                    properties:
-                                      operation-server-interface-capability:
-                                        type: object
-                                        required:
-                                          - operation-name
-                                        properties:
-                                          operation-name:
-                                            type: string
-                                      operation-server-interface-configuration:
-                                        type: object
-                                        required:
-                                          - life-cycle-state
-                                        properties:
-                                          life-cycle-state:
-                                            type: string
-                              - description: 'http server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - http-server-interface-1-0:http-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  http-server-interface-1-0:http-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - http-server-interface-capability
-                                    properties:
-                                      http-server-interface-capability:
-                                        type: object
-                                        required:
-                                          - application-name
-                                          - release-number
-                                          - data-update-period
-                                        properties:
-                                          application-name:
-                                            type: string
-                                          release-number:
-                                            type: string
-                                          data-update-period:
-                                            type: string
-                              - description: 'tcp server'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - tcp-server-interface-1-0:tcp-server-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  tcp-server-interface-1-0:tcp-server-interface-pac:
-                                    type: object
-                                    required:
-                                      - tcp-server-interface-configuration
-                                    properties:
-                                      tcp-server-interface-configuration:
-                                        type: object
-                                        required:
-                                          - description
-                                          - protocol
-                                          - local-address
-                                          - local-port
-                                        properties:
-                                          description:
-                                            type: string
-                                          protocol:
-                                            type: string
-                                          local-address:
-                                            type: object
-                                            minProperties: 1
-                                            additionalProperties: false
-                                            properties:
-                                              ipv-4-address:
-                                                type: string
-                                              domain-name:
-                                                type: string
-                                          local-port:
-                                            type: integer
-                              - description: 'operation client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - operation-client-interface-1-0:operation-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  operation-client-interface-1-0:operation-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - operation-client-interface-configuration
-                                      - operation-client-interface-status
-                                    properties:
-                                      operation-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - operation-name
-                                        properties:
-                                          operation-name:
-                                            type: string
-                                      operation-client-interface-status:
-                                        type: object
-                                        required:
-                                          - operational-state
-                                          - life-cycle-state
-                                        properties:
-                                          operational-state:
-                                            type: string
-                                          life-cycle-state:
-                                            type: string
-                              - description: 'http client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - http-client-interface-1-0:http-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  http-client-interface-1-0:http-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - http-client-interface-configuration
-                                    properties:
-                                      http-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - application-name
-                                          - release-number
-                                        properties:
-                                          application-name:
-                                            type: string
-                                          release-number:
-                                            type: string
-                              - description: 'tcp client'
-                                type: object
-                                required:
-                                  - local-id
-                                  - layer-protocol-name
-                                  - tcp-client-interface-1-0:tcp-client-interface-pac
-                                properties:
-                                  local-id:
-                                    type: string
-                                  layer-protocol-name:
-                                    type: string
-                                  tcp-client-interface-1-0:tcp-client-interface-pac:
-                                    type: object
-                                    required:
-                                      - tcp-client-interface-configuration
-                                    properties:
-                                      tcp-client-interface-configuration:
-                                        type: object
-                                        required:
-                                          - remote-address
-                                          - remote-port
-                                        properties:
-                                          remote-address:
-                                            type: object
-                                            minProperties: 1
-                                            maxProperties: 1
-                                            additionalProperties: false
-                                            properties:
-                                              ip-address:
-                                                type: object
-                                                minProperties: 1
-                                                additionalProperties: false
-                                                properties:
-                                                  ipv-4-address:
-                                                    type: string
-                                              domain-name:
-                                                type: string
-                                          remote-port:
-                                            type: integer
+                      $ref: '#/components/schemas/logicalTerminationPoint'
                       example:
                         uuid: 'ro-2-0-0-op-s-bm-002'
                         ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
@@ -10056,6 +9000,313 @@ components:
                 description: >
                   'True in case Request shall be represented in a new browser window
                   from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+    logicalTerminationPoint:
+      type: object
+      required:
+        - uuid
+        - ltp-direction
+        - client-ltp
+        - server-ltp
+        - layer-protocol
+      properties:
+        uuid:
+          type: string
+        ltp-direction:
+          type: string
+        client-ltp:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        server-ltp:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        layer-protocol:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            oneOf:
+              - description: 'operation server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - operation-server-interface-1-0:operation-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  operation-server-interface-1-0:operation-server-interface-pac:
+                    type: object
+                    required:
+                      - operation-server-interface-capability
+                      - operation-server-interface-configuration
+                    properties:
+                      operation-server-interface-capability:
+                        type: object
+                        required:
+                          - operation-name
+                        properties:
+                          operation-name:
+                            type: string
+                      operation-server-interface-configuration:
+                        type: object
+                        required:
+                          - life-cycle-state
+                        properties:
+                          life-cycle-state:
+                            type: string
+              - description: 'http server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - http-server-interface-1-0:http-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  http-server-interface-1-0:http-server-interface-pac:
+                    type: object
+                    required:
+                      - http-server-interface-capability
+                    properties:
+                      http-server-interface-capability:
+                        type: object
+                        required:
+                          - application-name
+                          - release-number
+                          - data-update-period
+                        properties:
+                          application-name:
+                            type: string
+                          release-number:
+                            type: string
+                          data-update-period:
+                            type: string
+              - description: 'tcp server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - tcp-server-interface-1-0:tcp-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  tcp-server-interface-1-0:tcp-server-interface-pac:
+                    type: object
+                    required:
+                      - tcp-server-interface-configuration
+                    properties:
+                      tcp-server-interface-configuration:
+                        type: object
+                        required:
+                          - description
+                          - protocol
+                          - local-address
+                          - local-port
+                        properties:
+                          description:
+                            type: string
+                          protocol:
+                            type: string
+                          local-address:
+                            type: object
+                            minProperties: 1
+                            additionalProperties: false
+                            properties:
+                              ipv-4-address:
+                                type: string
+                              domain-name:
+                                type: string
+                          local-port:
+                            type: integer
+              - description: 'operation client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - operation-client-interface-1-0:operation-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  operation-client-interface-1-0:operation-client-interface-pac:
+                    type: object
+                    required:
+                      - operation-client-interface-configuration
+                      - operation-client-interface-status
+                    properties:
+                      operation-client-interface-configuration:
+                        type: object
+                        required:
+                          - operation-name
+                        properties:
+                          operation-name:
+                            type: string
+                      operation-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'elasticsearch client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
+                    type: object
+                    required:
+                      - elasticsearch-client-interface-configuration
+                      - elasticsearch-client-interface-status
+                    properties:
+                      elasticsearch-client-interface-configuration:
+                        type: object
+                        required:
+                          - index-alias
+                        properties:
+                          index-alias:
+                            type: string
+                      elasticsearch-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'http client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - http-client-interface-1-0:http-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  http-client-interface-1-0:http-client-interface-pac:
+                    type: object
+                    required:
+                      - http-client-interface-configuration
+                    properties:
+                      http-client-interface-configuration:
+                        type: object
+                        required:
+                          - application-name
+                          - release-number
+                        properties:
+                          application-name:
+                            type: string
+                          release-number:
+                            type: string
+              - description: 'tcp client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - tcp-client-interface-1-0:tcp-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  tcp-client-interface-1-0:tcp-client-interface-pac:
+                    type: object
+                    required:
+                      - tcp-client-interface-configuration
+                    properties:
+                      tcp-client-interface-configuration:
+                        type: object
+                        required:
+                          - remote-address
+                          - remote-port
+                        properties:
+                          remote-address:
+                            type: object
+                            minProperties: 1
+                            maxProperties: 1
+                            additionalProperties: false
+                            properties:
+                              ip-address:
+                                type: object
+                                minProperties: 1
+                                additionalProperties: false
+                                properties:
+                                  ipv-4-address:
+                                    type: string
+                              domain-name:
+                                type: string
+                          remote-port:
+                            type: integer
+    forwardingDomain:
+      type: object
+      required:
+        - uuid
+        - forwarding-construct
+      properties:
+        uuid:
+          type: string
+        forwarding-construct:
+          type: array
+          items:
+            type: object
+            required:
+              - uuid
+              - name
+              - fc-port
+            properties:
+              uuid:
+                type: string
+              name:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - value-name
+                    - value
+                  properties:
+                    value-name:
+                      type: string
+                    value:
+                      type: string
+              fc-port:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - local-id
+                    - port-direction
+                    - logical-termination-point
+                  properties:
+                    local-id:
+                      type: string
+                    port-direction:
+                      type: string
+                    logical-termination-point:
+                      type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
