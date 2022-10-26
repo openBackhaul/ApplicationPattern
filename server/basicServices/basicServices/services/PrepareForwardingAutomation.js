@@ -328,7 +328,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                 for (let i = 0; i < operationServerUuidList.length; i++) {
                     let operationServerUuid = operationServerUuidList[i];
                     let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
-                    if (lifeCycleState == operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRICATED) {
+                    if (lifeCycleState == operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED) {
                         let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);

@@ -1,7 +1,7 @@
 profiles:
 
   - profile-name: 'ActionProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-action-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-action-p-[0-9]{3}$'
     capability:
       operation-name: string
       label: string
@@ -10,10 +10,37 @@ profiles:
           unit: string
       display-in-new-browser-window: boolean
     configuration:
-      request: string
+      protocol-reference: string
+      ipv-4-address-reference: string
+      domain-name-reference: string
+      port-reference: string
+      operation-reference: string
 
+  - profile-name: 'GenericResponseProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'
+    capability:
+      operation-name: string
+      static-field-name: string
+      field-name-reference: string
+      description: string
+      datatype: string
+    configuration:
+      static-value: string
+      value-reference: string
+
+  - profile-name: 'FileProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
+    capability:
+      file-identifier: string
+      file-description: string
+    configuration:
+      file-path: string
+      user-name: string
+      password: string
+      operation: string
+    
   - profile-name: 'IntegerProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-[0-9]{3}$'
     capability:
       integer-name: string
       unit: string
@@ -23,12 +50,13 @@ profiles:
       integer-value: integer
 
   - profile-name: 'StringProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-10[0-9]{2}$'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-[0-9]{3}$'
     capability:
       string-name: string
       enumeration: array
       pattern: string
     configuration:
       string-value: string
+
 
 ## TODO: Add further Profile definitions, if required

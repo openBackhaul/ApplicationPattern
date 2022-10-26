@@ -40,7 +40,7 @@ class OperationServerInterface extends layerProtocol {
             static lifeCycleStateEnum = {
                 EXPERIMENTAL: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
                 OPERATIONAL: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL",
-                DEPRICATED: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRICATED",
+                DEPRECATED: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED",
                 OBSOLETE: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE",
                 UNKNOWN: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN",
                 NOT_YET_DEFINED: "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"

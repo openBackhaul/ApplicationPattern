@@ -22,7 +22,7 @@ This is a step by step cookbook for creating the ServiceList.
 ### HTTP and TCP Server
 
 * Add the official name and the official release number of the application.
-* Add fake IP address and TCP port from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/IpAddresses/IpAddresses.md).
+* Add fake IP address and TCP port from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md).
 
 
 ### OperationServers
@@ -36,6 +36,12 @@ This is a step by step cookbook for creating the ServiceList.
   * Fill in a name of the service according to [structure of service names](../../ElementsApplicationPattern/Names/StructureOfServiceNames/StructureOfServiceNames.md).
   * Put them into a reasonable order.
   * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).
+
+
+### ElasticSearch
+
+* If connecting a database would be required, add official [Fake Index Alias from the List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IndexAliases.md).  
+* Otherwise, just delete the ElasticSearch Client from the ServiceList.
 
 
 ### OldRelease
