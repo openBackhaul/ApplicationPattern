@@ -51,12 +51,12 @@ servers:
     uuid: xx-1-0-0-http-s-bm-000
   tcp-server:
     - description: Without TLS layer
-      protocol:  http
+      local-protocol: http
       own-ip-address: ## TODO: Add OwnIpAddress
       own-tcp-port: ## TODO: Add OwnTcpPort
       uuid: xx-1-0-0-tcp-s-bm-000
     - description: With TLS layer
-      protocol:  https
+      local-protocol: https
       own-ip-address: ## TODO: Add OwnIpAddress
       own-tcp-port: ## TODO: Add OwnTcpPort
       uuid: xx-1-0-0-tcp-s-bm-001
@@ -69,7 +69,7 @@ clients:
       release-number: 1.0.0
       uuid: xx-1-0-0-http-c-is-es-1-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.15
       tcp-port: 3015
       uuid: xx-1-0-0-tcp-c-is-es-1-0-0-000
@@ -82,7 +82,7 @@ clients:
       release-number: ## TODO: Add Number of Release to be substituted (e.g. 1.0.0)
       uuid: xx-1-0-0-http-c-bm-or-1-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: ## TODO: Add IpAddress of Release to be substituted
       tcp-port: ## TODO: Add TcpPort of Release to be substituted
       uuid: xx-1-0-0-tcp-c-bm-or-1-0-0-000
@@ -101,7 +101,7 @@ clients:
       release-number: ## TODO: Add Number of substituting Release (e.g. 1.0.1)
       uuid: xx-1-0-0-http-c-bm-nr-1-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: ## TODO: Add IpAddress of substituting Release
       tcp-port: ## TODO: Add TcpPort of substituting Release
       uuid: xx-1-0-0-tcp-c-bm-nr-1-0-0-000
@@ -119,7 +119,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-bm-ro-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.8
       tcp-port: 3008
       uuid: xx-1-0-0-tcp-c-bm-ro-2-0-0-000
@@ -146,7 +146,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-is-tar-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.9
       tcp-port: 3009
       uuid: xx-1-0-0-tcp-c-is-tar-2-0-0-000
@@ -165,7 +165,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-bs-eatl-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.10
       tcp-port: 3010
       uuid: xx-1-0-0-tcp-c-bs-eatl-2-0-0-000
@@ -186,7 +186,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-bs-ol-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.11
       tcp-port: 3011
       uuid: xx-1-0-0-tcp-c-bs-ol-2-0-0-000
@@ -207,7 +207,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-bs-aa-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.12
       tcp-port: 3012
       uuid: xx-1-0-0-tcp-c-bs-aa-2-0-0-000
@@ -228,7 +228,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-bm-alt-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.13
       tcp-port: 3013
       uuid: xx-1-0-0-tcp-c-bm-alt-2-0-0-000
@@ -259,7 +259,7 @@ clients:
       release-number: 2.0.0
       uuid: xx-1-0-0-http-c-is-okm-2-0-0-000
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: 1.1.3.14
       tcp-port: 3014
       uuid: xx-1-0-0-tcp-c-is-okm-2-0-0-000
@@ -278,7 +278,7 @@ clients:
       release-number: ## TODO: Add Release number of application to be addressed
       uuid: ## TODO: Add UUID of the HttpClient
     tcp-client:
-      protocol:  http
+      remote-protocol: http
       ip-address: ## TODO: Add IP address of application to be addressed
       tcp-port: ## TODO: Add TCP port of application to be addressed
       uuid: ## TODO: Add UUID of the TcpClient

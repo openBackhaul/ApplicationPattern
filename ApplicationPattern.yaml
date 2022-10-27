@@ -141,14 +141,14 @@ paths:
         # individual callbacks to be added here 
 
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
-          [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -262,14 +262,14 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease:
-          [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -337,14 +337,14 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation:
-          [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -617,14 +617,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRegisteringCausesRegistrationRequest:
-          https://{$request.body#registry-office-address/ip-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#registry-office-protocol}://{$request.body#registry-office-address/ip-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -945,14 +945,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForEmbeddingCausesRequestForBequeathingData:
-          [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-or-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-or-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1198,14 +1198,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLoggingRequest:
-          https://{$request.body#service-log-address/ip-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#service-log-protocol}://{$request.body#service-log-address/ip-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1449,14 +1449,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesLoggingRequest:
-          https://{$request.body#oam-log-address/ip-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#oam-log-protocol}://{$request.body#oam-log-address/ip-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1783,14 +1783,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesInquiryForAuthentication:
-          https://{$request.body#oam-approval-address/ip-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#oam-approval-protocol}://{$request.body#oam-approval-address/ip-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2446,15 +2446,15 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}':
             description: 'To be activated whenever a service request causes the creation or change of an LTP'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2518,15 +2518,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}':
             description: 'To be activated whenever a service request causes an LTP being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2584,15 +2584,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}':
             description: 'To be activated whenever a service request causes the creation or change of an FC port'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2691,15 +2691,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}':
             description: 'To be activated whenever a service request causes an FC port being updated'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2779,15 +2779,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}':
             description: 'To be activated whenever a service request causes an FC port being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2849,15 +2849,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}':
             description: 'To be activated whenever an OaM request causes the creation or change of an LTP'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2921,15 +2921,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}':
             description: 'To be activated whenever an OaM request causes an LTP being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2987,15 +2987,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}':
             description: 'To be activated whenever an OaM request causes the creation or change of an FC port'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -3094,15 +3094,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}':
             description: 'To be activated whenever an OaM request causes an FC port being updated'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -3182,15 +3182,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}':
             description: 'To be activated whenever an OaM request causes an FC port being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
