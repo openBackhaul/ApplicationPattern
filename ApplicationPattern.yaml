@@ -30,6 +30,7 @@ paths:
               required:
                 - new-application-name
                 - new-application-release
+                - new-application-protocol
                 - new-application-address
                 - new-application-port
               properties:
@@ -44,6 +45,14 @@ paths:
                   description: >
                     'Release of application that shall be target of the handover process
                     find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                new-application-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used for addressing the application that shall be target of the handover process
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 new-application-address:
                   type: object
                   minProperties: 1
@@ -77,6 +86,7 @@ paths:
               example:
                 new-application-name: 'NewApplicationName'
                 new-application-release: '2.0.0'
+                new-application-protocol: 'HTTP'
                 new-application-address:
                   ip-address:
                     ipv-4-address: '1.1.3.8'
@@ -131,14 +141,14 @@ paths:
         # individual callbacks to be added here 
 
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -149,6 +159,7 @@ paths:
                         - application-name
                         - old-application-release-number
                         - new-application-release-number
+                        - new-application-protocol
                         - new-application-address
                         - new-application-port
                       properties:
@@ -167,6 +178,11 @@ paths:
                           description: >
                             'Future release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                        new-application-protocol:
+                          type: string
+                          description: >
+                            'Future protocol to be used
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                         new-application-address:
                           type: object
                           minProperties: 1
@@ -197,6 +213,7 @@ paths:
                         application-name: 'RegistryOffice'
                         old-application-release-number: '1.0.0'
                         new-application-release-number: '2.0.0'
+                        new-application-protocol: 'HTTP'
                         new-application-address:
                           ip-address:
                             ipv-4-address: '1.1.3.8'
@@ -245,14 +262,14 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -320,14 +337,14 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -442,6 +459,7 @@ paths:
                     - registry-office-application
                     - registry-office-application-release-number
                     - registration-operation
+                    - registry-office-protocol
                     - registry-office-address
                     - registry-office-port
                   properties:
@@ -462,6 +480,14 @@ paths:
                       description: >
                         'If body provided, operation for registering
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    registry-office-protocol:
+                      type: string
+                      enum:
+                      - 'HTTP'
+                      - 'HTTPS'
+                      description: >
+                        'If body provided, protocol for addressing the RegistryOffice application
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                     registry-office-address:
                       type: object
                       minProperties: 1
@@ -492,6 +518,14 @@ paths:
                       description: >
                         'If body provided, port of RegistryOffice application
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    own-protocol:
+                      type: string
+                      enum:
+                      - 'HTTP'
+                      - 'HTTPS'
+                      description: >
+                        'If provided, own protocol, which has to be documented in the TcpServer (but not be directly used for formulating the callback)
+                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
                     own-address:
                       type: object
                       minProperties: 1
@@ -526,10 +560,12 @@ paths:
               registry-office-application: 'RegistryOffice'
               registry-office-application-release-number: '2.0.0'
               registration-operation: '/v1/register-application'
+              registry-office-protocol: 'HTTP'
               registry-office-address:
                 ip-address:
                   ipv-4-address: '1.1.3.8'
               registry-office-port: 3008
+              own-protocol: 'HTTP'
               own-address:
                 ip-address:
                   ipv-4-address: '1.1.4.1'
@@ -581,14 +617,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForRegisteringCausesRegistrationRequest:
-          https://{$request.body#registry-office-address/ip-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#registry-office-protocol}://{$request.body#registry-office-address/ip-address/ipv-4-address or $request.body#registry-office-address/domain-name}:{$request.body#registry-office-port}{$request.body#registration-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -600,6 +636,7 @@ paths:
                         - application-release-number
                         - embedding-operation
                         - client-update-operation
+                        - application-protocol
                         - application-address
                         - application-port
                       properties:
@@ -623,6 +660,11 @@ paths:
                           description: >
                             'Name of service for broadcasting server changes
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                        application-protocol:
+                          type: string
+                          description: >
+                            'Own protocol (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
                         application-address:
                           type: object
                           minProperties: 1
@@ -654,6 +696,7 @@ paths:
                         application-release-number: '1.0.0'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
+                        application-protocol: 'HTTP'
                         application-address:
                           ip-address:
                             ipv-4-address: '1.1.4.1'
@@ -727,8 +770,10 @@ paths:
                 - relay-server-replacement-operation
                 - relay-operation-update-operation
                 - deregistration-operation
+                - registry-office-protocol
                 - registry-office-address
                 - registry-office-port
+                - old-release-protocol
                 - old-release-address
                 - old-release-port
               properties:
@@ -761,6 +806,14 @@ paths:
                   description: >
                     'Operation for deregistering from the application layer
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                registry-office-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol for addressing RegistryOffice application
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 registry-office-address:
                   type: object
                   minProperties: 1
@@ -791,6 +844,14 @@ paths:
                   description: >
                     'Port of RegistryOffice application
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                old-release-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol for addressing the currently running old release of the same application
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 old-release-address:
                   type: object
                   minProperties: 1
@@ -827,10 +888,12 @@ paths:
                 relay-server-replacement-operation: '/v1/relay-server-replacement'
                 relay-operation-update-operation: '/v1/relay-operation-update'
                 deregistration-operation: '/v1/deregister-application'
+                registry-office-protocol: 'HTTP'
                 registry-office-address:
                   ip-address:
                     ipv-4-address: '1.1.3.8'
                 registry-office-port: 3008
+                old-release-protocol: 'HTTP'
                 old-release-address:
                   ip-address:
                     ipv-4-address: '1.1.3.1'
@@ -882,14 +945,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForEmbeddingCausesRequestForBequeathingData:
-          https://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-or-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-or-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -899,6 +962,7 @@ paths:
                       required:
                         - new-application-name
                         - new-application-release
+                        - new-application-protocol
                         - new-application-address
                         - new-application-port
                       properties:
@@ -912,6 +976,11 @@ paths:
                           description: >
                             'Own release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                        new-application-protocol:
+                          type: string
+                          description: >
+                            'Protocol expected by this application
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
                         new-application-address:
                           type: object
                           minProperties: 1
@@ -941,6 +1010,7 @@ paths:
                       example:
                         new-application-name: 'OwnApplicationName'
                         new-application-release: '2.0.0'
+                        new-application-protocol: 'HTTP'
                         new-application-address:
                           ip-address:
                             ipv-4-address: '1.1.4.1'
@@ -1013,6 +1083,7 @@ paths:
                 - service-log-application
                 - service-log-application-release-number
                 - service-log-operation
+                - service-log-protocol
                 - service-log-address
                 - service-log-port
               properties:
@@ -1033,6 +1104,14 @@ paths:
                   description: >
                     'Operation for recording the service requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-eatl-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                service-log-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used for addressing the application that shall record the service requests
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-eatl-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 service-log-address:
                   type: object
                   minProperties: 1
@@ -1067,6 +1146,7 @@ paths:
                 service-log-application: 'ExecutionAndTraceLog'
                 service-log-application-release-number: '2.0.0'
                 service-log-operation: '/v1/record-service-request'
+                service-log-protocol: 'HTTP'
                 service-log-address:
                   ip-address:
                     ipv-4-address: '1.1.3.10'
@@ -1118,14 +1198,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLoggingRequest:
-          https://{$request.body#service-log-address/ip-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#service-log-protocol}://{$request.body#service-log-address/ip-address/ipv-4-address or $request.body#service-log-address/domain-name}:{$request.body#service-log-port}{$request.body#service-log-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1254,6 +1334,7 @@ paths:
                 - oam-log-application
                 - oam-log-application-release-number
                 - oam-log-operation
+                - oam-log-protocol
                 - oam-log-address
                 - oam-log-port
               properties:
@@ -1274,6 +1355,14 @@ paths:
                   description: >
                     'Operation for recording the OaM requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-ol-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                oam-log-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used for addressing the application that shall record the OaM requests
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-ol-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 oam-log-address:
                   type: object
                   minProperties: 1
@@ -1308,6 +1397,7 @@ paths:
                 oam-log-application: 'OamLog'
                 oam-log-application-release-number: '2.0.0'
                 oam-log-operation: '/v1/record-oam-request'
+                oam-log-protocol: 'HTTP'
                 oam-log-address:
                   ip-address:
                     ipv-4-address: '1.1.3.11'
@@ -1359,14 +1449,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesLoggingRequest:
-          https://{$request.body#oam-log-address/ip-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#oam-log-protocol}://{$request.body#oam-log-address/ip-address/ipv-4-address or $request.body#oam-log-address/domain-name}:{$request.body#oam-log-port}{$request.body#oam-log-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1578,6 +1668,7 @@ paths:
                 - oam-approval-application
                 - oam-approval-application-release-number
                 - oam-approval-operation
+                - oam-approval-protocol
                 - oam-approval-address
                 - oam-approval-port
               properties:
@@ -1598,6 +1689,14 @@ paths:
                   description: >
                     'Operation for approving the OaM requests
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-aa-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                oam-approval-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used for addressing the application that shall approve the OaM requests
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 oam-approval-address:
                   type: object
                   minProperties: 1
@@ -1632,6 +1731,7 @@ paths:
                 oam-approval-application: 'AdministratorAdministration'
                 oam-approval-application-release-number: '2.0.0'
                 oam-approval-operation: '/v1/approve-oam-request'
+                oam-approval-protocol: 'HTTP'
                 oam-approval-address:
                   ip-address:
                     ipv-4-address: '1.1.3.12'
@@ -1683,14 +1783,14 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         OamRequestCausesInquiryForAuthentication:
-          https://{$request.body#oam-approval-address/ip-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}:
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
+          '{$request.body#oam-approval-protocol}://{$request.body#oam-approval-address/ip-address/ipv-4-address or $request.body#oam-approval-address/domain-name}:{$request.body#oam-approval-port}{$request.body#oam-approval-operation}':
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -1830,6 +1930,7 @@ paths:
                 - application-name
                 - old-application-release-number
                 - new-application-release-number
+                - new-application-protocol
                 - new-application-address
                 - new-application-port
               properties:
@@ -1850,6 +1951,14 @@ paths:
                   description: >
                     'Future release number of the application that has updated connection data
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                new-application-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used in future for addressing the application that has updated connection data
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 new-application-address:
                   type: object
                   minProperties: 1
@@ -1884,6 +1993,7 @@ paths:
                 application-name: 'RegistryOffice'
                 old-application-release-number: '1.0.0'
                 new-application-release-number: '2.0.0'
+                new-application-protocol: 'HTTP'
                 new-application-address:
                   ip-address:
                     ipv-4-address: '1.1.3.8'
@@ -2102,6 +2212,7 @@ paths:
                 - topology-operation-fc-update
                 - topology-operation-fc-port-update
                 - topology-operation-fc-port-deletion
+                - topology-application-protocol
                 - topology-application-address
                 - topology-application-port
               properties:
@@ -2152,6 +2263,14 @@ paths:
                   description: >
                     'Operation for deleting an FC port
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-005/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                topology-application-protocol:
+                  type: string
+                  enum:
+                  - 'HTTP'
+                  - 'HTTPS'
+                  description: >
+                    'Protocol to be used for addresing the application that shall document the application layer topology
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 topology-application-address:
                   type: object
                   minProperties: 1
@@ -2191,6 +2310,7 @@ paths:
                 topology-operation-fc-update: '/v1/update-fc'
                 topology-operation-fc-port-update: '/v1/update-fc-port'
                 topology-operation-fc-port-deletion: '/v1/delete-fc-port'
+                topology-application-protocol: 'HTTP'
                 topology-application-address:
                   ip-address:
                     ipv-4-address: '1.1.3.13'
@@ -2326,15 +2446,15 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         ServiceRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}':
             description: 'To be activated whenever a service request causes the creation or change of an LTP'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2398,15 +2518,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}':
             description: 'To be activated whenever a service request causes an LTP being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2464,15 +2584,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}':
             description: 'To be activated whenever a service request causes the creation or change of an FC port'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2571,15 +2691,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}':
             description: 'To be activated whenever a service request causes an FC port being updated'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2659,15 +2779,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         ServiceRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}':
             description: 'To be activated whenever a service request causes an FC port being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2729,15 +2849,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-update}':
             description: 'To be activated whenever an OaM request causes the creation or change of an LTP'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2801,15 +2921,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesLtpDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-ltp-deletion}':
             description: 'To be activated whenever an OaM request causes an LTP being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2867,15 +2987,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-update}':
             description: 'To be activated whenever an OaM request causes the creation or change of an FC port'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -2974,15 +3094,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortUpdateRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-update}':
             description: 'To be activated whenever an OaM request causes an FC port being updated'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -3062,15 +3182,15 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         OamRequestCausesFcPortDeletionRequest:
-          https://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}:
+          '{$request.body#topology-application-protocol}://{$request.body#topology-application-address/ip-address/ipv-4-address or $request.body#topology-application-address/domain-name}:{$request.body#topology-application-port}{$request.body#topology-operation-fc-port-deletion}':
             description: 'To be activated whenever an OaM request causes an FC port being deleted'
-            parameters:
-              - $ref: '#/components/parameters/user'
-              - $ref: '#/components/parameters/originator'
-              - $ref: '#/components/parameters/x-correlator'
-              - $ref: '#/components/parameters/trace-indicator'
-              - $ref: '#/components/parameters/customer-journey'
             post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
               requestBody:
                 required: true
                 content:
@@ -4220,13 +4340,13 @@ paths:
                                             type: object
                                             required:
                                               - description
-                                              - protocol
+                                              - local-protocol
                                               - local-address
                                               - local-port
                                             properties:
                                               description:
                                                 type: string
-                                              protocol:
+                                              local-protocol:
                                                 type: string
                                               local-address:
                                                 type: object
@@ -4719,9 +4839,12 @@ paths:
                                           tcp-client-interface-configuration:
                                             type: object
                                             required:
+                                              - remote-protocol
                                               - remote-address
                                               - remote-port
                                             properties:
+                                              remote-protocol:
+                                                type: string
                                               remote-address:
                                                 type: object
                                                 minProperties: 1
@@ -5171,7 +5294,7 @@ paths:
                       display-in-new-browser-window: false
                     action-profile-configuration:
                       request:
-                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
                         address:
                           ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
                         port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
@@ -6988,7 +7111,7 @@ paths:
                         type: string
                     example:
                       action-profile-1-0:request:
-                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
                         address:
                           ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
                         port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
@@ -7047,7 +7170,7 @@ paths:
                       type: string
                   example:
                     action-profile-1-0:request:
-                      protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol'
+                      protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
                       address:
                         ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
                       port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
@@ -7926,7 +8049,7 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'  
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/protocol:
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol:
     parameters:
       - in: path
         name: uuid
@@ -7936,7 +8059,7 @@ paths:
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-bm-00[0-1]$'
           example: 'ro-2-0-0-tcp-s-bm-000'
     get:
-      operationId: getTcpServerProtocol
+      operationId: getTcpServerLocalProtocol
       summary: 'Returns Protocol of TcpServer'
       tags:
         - TcpServer
@@ -7944,15 +8067,15 @@ paths:
         - basicAuth: []
       responses:
         '200':
-          description: 'Protocol provided'
+          description: 'Local protocol provided'
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - tcp-server-interface-1-0:protocol
+                  - tcp-server-interface-1-0:local-protocol
                 properties:
-                  tcp-server-interface-1-0:protocol:
+                  tcp-server-interface-1-0:local-protocol:
                     type: string
                     enum:
                       - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP'
@@ -7971,7 +8094,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
     put:
-      operationId: putTcpServerProtocol
+      operationId: putTcpServerLocalProtocol
       summary: 'Documents Protocol of TcpServer'
       tags:
         - TcpServer
@@ -7984,9 +8107,9 @@ paths:
             schema:
               type: object
               required:
-                - tcp-server-interface-1-0:protocol
+                - tcp-server-interface-1-0:local-protocol
               properties:
-                tcp-server-interface-1-0:protocol:
+                tcp-server-interface-1-0:local-protocol:
                   type: string
                   enum:
                     - 'tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP'
@@ -7994,7 +8117,7 @@ paths:
                     - 'tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
       responses:
         '204':
-          description: 'Protocol documented'
+          description: 'Local protocol documented'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8652,6 +8775,87 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'  
 
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          example: 'ro-2-0-0-tcp-c-bm-or-1-0-0-000'
+    get:
+      operationId: getTcpClientRemoteProtocol
+      summary: 'Returns protocol for addressing remote side'
+      tags:
+        - TcpClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Protocol for addressing remote side provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - tcp-client-interface-1-0:remote-protocol
+                properties:
+                  tcp-client-interface-1-0:remote-protocol:
+                    type: string
+                    enum:
+                      - 'tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP'
+                      - 'tcp-client-interface-1-0:PROTOCOL_TYPE_HTTPS'
+                      - 'tcp-client-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putTcpClientRemoteProtocol
+      summary: 'Configures protocol for addressing remote side'
+      tags:
+        - TcpClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tcp-client-interface-1-0:remote-protocol
+              properties:
+                tcp-client-interface-1-0:remote-protocol:
+                  type: string
+                  enum:
+                    - 'tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP'
+                    - 'tcp-client-interface-1-0:PROTOCOL_TYPE_HTTPS'
+                    - 'tcp-client-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED'
+      responses:
+        '204':
+          description: 'Protocol for addressing remote side configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'  
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address:
     parameters:
       - in: path
@@ -9109,13 +9313,13 @@ components:
                         type: object
                         required:
                           - description
-                          - protocol
+                          - local-protocol
                           - local-address
                           - local-port
                         properties:
                           description:
                             type: string
-                          protocol:
+                          local-protocol:
                             type: string
                           local-address:
                             type: object
@@ -9241,9 +9445,12 @@ components:
                       tcp-client-interface-configuration:
                         type: object
                         required:
+                          - remote-protocol
                           - remote-address
                           - remote-port
                         properties:
+                          remote-protocol:
+                            type: string
                           remote-address:
                             type: object
                             minProperties: 1
