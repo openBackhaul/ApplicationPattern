@@ -67,6 +67,6 @@ As soon as you created a pull request, follow these steps:
 3. Resolve the errors mentioned above. Warnings can be adressed but are not necessary for the action to suceed.
 4. Commit your changes.
 5. The check will run again and should be successful, if you would have fixed all the errors. If it fails, check the errors again.
-6. If you resolved all errors: :sparkles:Congratulations!:sparkles: all your files are now following the yaml rules.
+6. If you resolved all errors: :sparkles:Congratulations,:sparkles: all your files are now following the yaml rules.
 
 In the optimal case, the yaml linter will not fail in the first place because you have already linted your files before commiting. However thats not always the case so this additional step helps to fully assure, that every yaml file merged is correct and well formed.
