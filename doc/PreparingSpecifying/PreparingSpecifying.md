@@ -30,6 +30,7 @@ Git is available for Linux, Windows and Mac.
 **Step-by-Step Guidelines**
 * [Creating an own GitHub account](./OwnGitHubAccount/OwnGitHubAccount.md)
 * [Installing Git](./InstallingGit/InstallingGit.md)
+* [Activating YAML validation on your respository](./AddYamlLinter/Adding%20Yaml%20linter%20to%20GitHub.md)
 
 
 ### Code Collaboration
