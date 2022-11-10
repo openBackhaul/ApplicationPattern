@@ -521,15 +521,7 @@ paths:
                       description: >
                         'If body provided, port of RegistryOffice application
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
-                    own-protocol:
-                      type: string
-                      enum:
-                      - 'HTTP'
-                      - 'HTTPS'
-                      description: >
-                        'If provided, own protocol, which has to be documented in the TcpServer (but not be directly used for formulating the callback)
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
-                    own-address:
+                    http-address:
                       type: object
                       minProperties: 1
                       maxProperties: 1
@@ -544,21 +536,57 @@ paths:
                               type: string
                               pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                               description: >
-                                'If provided, own IPv4 address, which has to be documented in the TcpServer (but not be directly used for formulating the callback)
-                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                                find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
+                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                         domain-name:
                           type: string
                           pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                           description: >
-                            'If provided, own domain name, which has to be documented in the TcpServer (but not be directly used for formulating the callback)
-                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
-                    own-port:
+                            'If provided, own domain name, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                            find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
+                    http-port:
                       type: integer
                       minimum: 0
                       maximum: 65535
                       description: >
-                        'If provided, own TCP port, which has to be documented in the TcpServer (but not be directly used for formulating the callback)
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                        'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                        find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                    https-address:
+                      type: object
+                      minProperties: 1
+                      maxProperties: 1
+                      additionalProperties: false
+                      properties:
+                        ip-address:
+                          type: object
+                          minProperties: 1
+                          additionalProperties: false
+                          properties:
+                            ipv-4-address:
+                              type: string
+                              pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                              description: >
+                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                                find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
+                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                        domain-name:
+                          type: string
+                          pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
+                          description: >
+                            'If provided, own domain name, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                            find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
+                    https-port:
+                      type: integer
+                      minimum: 0
+                      maximum: 65535
+                      description: >
+                        'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
+                        find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
             example:
               registry-office-application: 'RegistryOffice'
               registry-office-application-release-number: '2.0.0'
@@ -568,11 +596,10 @@ paths:
                 ip-address:
                   ipv-4-address: '1.1.3.8'
               registry-office-port: 3008
-              own-protocol: 'HTTP'
-              own-address:
+              http-address:
                 ip-address:
                   ipv-4-address: '1.1.4.1'
-              own-port: 4001
+              http-port: 4001
       responses:
         '204':
           description: 'Will register at the RegistryOffice'
@@ -639,6 +666,7 @@ paths:
                         - application-release-number
                         - embedding-operation
                         - client-update-operation
+                        - operation-client-update-operation
                         - application-protocol
                         - application-address
                         - application-port
@@ -663,6 +691,11 @@ paths:
                           description: >
                             'Name of service for broadcasting server changes
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                        operation-client-update-operation:
+                          type: string
+                          description: >
+                            'Name of service for broadcasting replacements of operations by backward compatible substitutes
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         application-protocol:
                           type: string
                           description: >
@@ -699,6 +732,7 @@ paths:
                         application-release-number: '1.0.0'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
+                        operation-client-update-operation: '/v1/update-operation-client'
                         application-protocol: 'HTTP'
                         application-address:
                           ip-address:
@@ -736,8 +770,6 @@ paths:
                         example: 'EXPERIMENTAL'
                       description: 'Life cycle state of the consumed service'
                 '400':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '401':
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 '403':
                   $ref: '#/components/responses/responseForErroredServiceRequests'
@@ -3497,8 +3529,6 @@ paths:
                   'Life cycle state of the consumed service
                   find in [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '401':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '403':
           $ref: '#/components/responses/responseForErroredServiceRequests'
