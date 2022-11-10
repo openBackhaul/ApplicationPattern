@@ -1,7 +1,4 @@
 ## Coding Guidelines
-_This chapter is a very well composition of best practice.
-It is recommended to be applied in all aspects, which are not explicitly ruled differently in any other document of this guideline._
-
 Coding conventions improves code readability and makes the code maintenance easier
 
 ## 1. Code Quality 
