@@ -757,6 +757,7 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
  * no response value expected for this operation
  **/
 exports.redirectTopologyChangeInformation = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+  let response = {};  
   return new Promise(async function (resolve, reject) {
     try {
 
@@ -841,9 +842,22 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
         customerJourney
       );
 
-      resolve();
+      let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
+      let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
+      let controlConstructResponse = {
+        "core-model-1-4:control-construct": controlConstruct
+      };
+     /****************************************************************************************
+       * Setting 'application/json' response body
+       ****************************************************************************************/
+      response['application/json'] = controlConstructResponse;
     } catch (error) {
       reject(error);
+    }
+    if (Object.keys(response).length > 0) {
+      resolve(response[Object.keys(response)[0]]);
+    } else {
+      resolve();
     }
   });
 }
