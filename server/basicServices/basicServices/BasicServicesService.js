@@ -1149,12 +1149,11 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
        * perform bussiness logic
        ****************************************************************************************/
       let isUpdated;
-      let layerProtocolName = await layerProtocol.getLayerProtocolName(operationUuid);
-      if (layerProtocolName == layerProtocol.layerProtocolNameEnum.OPERATION_SERVER) {
+      if (operationServerInterface.isOperationServer(operationUuid)) {
         if (oldOperationKey == await operationServerInterface.getOperationKeyAsync(operationUuid)) {
           isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
         }
-      } else {
+      } else if (operationClientInterface.isOperationClient(operationUuid)) {
         if (oldOperationKey == await operationClientInterface.getOperationKeyAsync(operationUuid)) {
           isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
         }
