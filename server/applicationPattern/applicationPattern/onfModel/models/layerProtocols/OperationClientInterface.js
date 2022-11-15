@@ -331,7 +331,14 @@ class OperationClientInterface extends layerProtocol {
         });
     }
 
-
-
+    /**
+     * @description Determines if given UUID belongs to a client operation.
+     * @param {String} operationUuid UUID to be checked
+     * @returns {boolean} true if UUID belongs to a client operation
+     */
+    static isOperationClient(operationUuid) {
+        let splitted = operationUuid.split("-");
+        return "c" === splitted[5];
+    }
 }
 module.exports = OperationClientInterface;
