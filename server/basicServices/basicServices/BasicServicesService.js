@@ -25,6 +25,8 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
+
 
 /**
  * Embed yourself into the MBH SDN application layer
@@ -842,10 +844,34 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
         customerJourney
       );
 
-      let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
-      let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
-      let controlConstructResponse = {
-        "core-model-1-4:control-construct": controlConstruct
+  let forwrdingContructResponse = await controlConstruct.getForwardingDomainListAsync()
+  let serverclientinterfacepac;
+  let logicalterminationpoint = await fileOperation.readFromDatabaseAsync(
+    onfPaths.LOGICAL_TERMINATION_POINT
+  );
+  for (let i = 0; i < logicalterminationpoint.length; i++) {
+    let layerprotocol = logicalterminationpoint[i][onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL]
+    for (let j = 0; j < layerprotocol.length; j++) {
+   let layerProtocalName = layerprotocol[j]['layer-protocol-name']
+   if(layerProtocalName == 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'){
+    let operationclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC]
+    let clientconfiguration = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+  if(clientconfiguration  !== undefined){
+   delete clientconfiguration['operation-key'];
+   }
+  }
+   else if(layerProtocalName == 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'){
+   serverclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC]
+        let serverconfiguration = serverclientinterfacepac[onfAttributes. OPERATION_SERVER.CONFIGURATION]
+       if(serverconfiguration  !== undefined){
+       delete serverconfiguration['operation-key'];
+       }
+       }
+      }
+    }
+
+     let controlConstructResponse = {
+        "core-model-1-4:control-construct ":forwrdingContructResponse," logical-termination-point": logicalterminationpoint
       };
      /****************************************************************************************
        * Setting 'application/json' response body
