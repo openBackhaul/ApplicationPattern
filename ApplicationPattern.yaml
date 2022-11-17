@@ -3925,10 +3925,9 @@ paths:
                                       type: string
                                       enum:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     action-profile-1-0:action-profile-pac:
                                       type: object
                                       required:
@@ -4001,10 +4000,9 @@ paths:
                                       type: string
                                       enum:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     response-profile-1-0:response-profile-pac:
                                       type: object
                                       required:
@@ -4062,10 +4060,9 @@ paths:
                                       type: string
                                       enum:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     file-profile-1-0:file-profile-pac:
                                       type: object
                                       required:
@@ -4113,10 +4110,9 @@ paths:
                                       type: string
                                       enum:
                                         - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                                         - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                                         - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                                     integer-profile-1-0:integer-profile-pac:
                                       type: object
                                       required:
@@ -4143,43 +4139,6 @@ paths:
                                           properties:
                                             integer-value:
                                               type: integer
-                                - description: 'string profile'
-                                  type: object
-                                  required:
-                                    - uuid
-                                    - profile-name
-                                    - string-profile-1-0:string-profile-pac
-                                  properties:
-                                    uuid:
-                                      type: string
-                                    profile-name:
-                                      type: string
-                                      enum:
-                                        - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
-                                        - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
-                                        - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                                        - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                                        - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                                    string-profile-1-0:string-profile-pac:
-                                      type: object
-                                      required:
-                                        - string-profile-capability
-                                        - string-profile-configuration
-                                      properties:
-                                        string-profile-capability:
-                                          type: object
-                                          required:
-                                            - string-name
-                                          properties:
-                                            string-name:
-                                              type: string
-                                        string-profile-configuration:
-                                          type: object
-                                          required:
-                                            - string-value
-                                          properties:
-                                            string-value:
-                                              type: string
                             example:
                               - uuid: 'ro-2-0-0-integer-p-000'
                                 profile-name: 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
@@ -5058,10 +5017,9 @@ paths:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           action-profile-1-0:action-profile-pac:
                             type: object
                             required:
@@ -5134,10 +5092,9 @@ paths:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           response-profile-1-0:response-profile-pac:
                             type: object
                             required:
@@ -5195,10 +5152,9 @@ paths:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           file-profile-1-0:file-profile-pac:
                             type: object
                             required:
@@ -5246,10 +5202,9 @@ paths:
                             type: string
                             enum:
                               - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
+                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
                               - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
                               - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
                           integer-profile-1-0:integer-profile-pac:
                             type: object
                             required:
@@ -5276,43 +5231,6 @@ paths:
                                 properties:
                                   integer-value:
                                     type: integer
-                      - description: 'string profile'
-                        type: object
-                        required:
-                          - uuid
-                          - profile-name
-                          - string-profile-1-0:string-profile-pac
-                        properties:
-                          uuid:
-                            type: string
-                          profile-name:
-                            type: string
-                            enum:
-                              - 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE'
-                              - 'file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE'
-                              - 'integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE'
-                              - 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE'
-                              - 'string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE'
-                          string-profile-1-0:string-profile-pac:
-                            type: object
-                            required:
-                              - string-profile-capability
-                              - string-profile-configuration
-                            properties:
-                              string-profile-capability:
-                                type: object
-                                required:
-                                  - string-name
-                                properties:
-                                  string-name:
-                                    type: string
-                              string-profile-configuration:
-                                type: object
-                                required:
-                                  - string-value
-                                properties:
-                                  string-value:
-                                    type: string
               example:
                 core-model-1-4:profile:
                   uuid: 'ro-2-0-0-action-p-000'
@@ -5345,1574 +5263,6 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
-
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/integer-name:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-          example: 'ro-2-0-0-integer-p-000'
-    get:
-      operationId: getIntegerProfileIntegerName
-      summary: 'Returns the name of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Integer name provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - integer-profile-1-0:integer-name
-                properties:
-                  integer-profile-1-0:integer-name:
-                    type: string
-                    example: 'maximumNumberOfEntries'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/unit:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-          example: 'ro-2-0-0-integer-p-000'
-    get:
-      operationId: getIntegerProfileUnit
-      summary: 'Returns the unit of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Integer unit provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - integer-profile-1-0:unit
-                properties:
-                  integer-profile-1-0:unit:
-                    type: string
-                    example: 'records'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/minimum:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-          example: 'ro-2-0-0-integer-p-000'
-    get:
-      operationId: getIntegerProfileMinimum
-      summary: 'Returns the minimum value of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Minimum value provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - integer-profile-1-0:minimum
-                properties:
-                  integer-profile-1-0:minimum:
-                    type: integer
-                    example: 0
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/maximum:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-          example: 'ro-2-0-0-integer-p-000'
-    get:
-      operationId: getIntegerProfileMaximum
-      summary: 'Returns the maximum value of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Maximum value provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - integer-profile-1-0:maximum
-                properties:
-                  integer-profile-1-0:maximum:
-                    type: integer
-                    example: 1000000
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-configuration/integer-value:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-          example: 'ro-2-0-0-integer-p-000'
-    get:
-      operationId: getIntegerProfileIntegerValue
-      summary: 'Returns the configured value of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Integer value provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - integer-profile-1-0:integer-value
-                properties:
-                  integer-profile-1-0:integer-value:
-                    type: integer
-                    example: 1000000
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putIntegerProfileIntegerValue
-      summary: 'Configures value of the Integer'
-      tags:
-        - IntegerProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - integer-profile-1-0:integer-value
-              properties:
-                integer-profile-1-0:integer-value:
-                  type: integer
-                  example: 1000000
-      responses:
-        '204':
-          description: 'Integer value configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-identifier:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfileFileIdentifier
-      summary: 'Returns the identifier of the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'File identifier provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:file-identifier
-                properties:
-                  file-profile-1-0:file-identifier:
-                    type: string
-                    example: 'applicationData'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-description:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfileFileDescription
-      summary: 'Returns the description of the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'File description provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:file-description
-                properties:
-                  file-profile-1-0:file-description:
-                    type: string
-                    example: 'Holds administrator-names, user-names, authorization codes and allowed-methods.'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-path:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfileFilePath
-      summary: 'Returns the path of the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'File path provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:file-path
-                properties:
-                  file-profile-1-0:file-path:
-                    type: string
-                    example: '../application-data/application-data.json'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfileFilePath
-      summary: 'Configures path of the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:file-path
-              properties:
-                file-profile-1-0:file-path:
-                  type: string
-                  example: '../application-data/application-data.json'
-      responses:
-        '204':
-          description: 'File path configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/user-name:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfileUserName
-      summary: 'Returns the user name for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'User name provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:user-name
-                properties:
-                  file-profile-1-0:user-name:
-                    type: string
-                    example: 'firstname.surname'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfileUserName
-      summary: 'Configures the user name for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:user-name
-              properties:
-                file-profile-1-0:user-name:
-                  type: string
-                  example: 'firstname.surname'
-      responses:
-        '204':
-          description: 'User name configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/password:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfilePassword
-      summary: 'Returns the password for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Password provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:password
-                properties:
-                  file-profile-1-0:password:
-                    type: string
-                    example: 'stupid_phrase'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfilePassword
-      summary: 'Configures the password for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:password
-              properties:
-                file-profile-1-0:password:
-                  type: string
-                  example: 'stupid_phrase'
-      responses:
-        '204':
-          description: 'Password configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/operation:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-0-file-p-000'
-    get:
-      operationId: getFileProfileOperation
-      summary: 'Returns the allowed operation on the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Operation provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:operation
-                properties:
-                  file-profile-1-0:operation:
-                    type: string
-                    enum:
-                      - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
-                      - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
-                      - 'file-profile-1-0:OPERATION_TYPE_OFF'
-                      - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
-                    example: 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfileOperation
-      summary: 'Configures the allowed operation on the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:operation
-              properties:
-                file-profile-1-0:operation:
-                  type: string
-                  enum:
-                    - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
-                    - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
-                    - 'file-profile-1-0:OPERATION_TYPE_OFF'
-                    - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
-                  example: 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
-      responses:
-        '204':
-          description: 'Operation configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-
-
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/auth/api-key:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
-    get:
-      operationId: getElasticsearchClientApiKey
-      summary: 'Returns API key'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'API key provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - elasticsearch-client-interface-1-0:api-key
-                properties:
-                  elasticsearch-client-interface-1-0:api-key:
-                    type: string
-                    example: 'YWRtaW46MTIzNDU2'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putElasticsearchClientApiKey
-      summary: 'Configures API key'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - elasticsearch-client-interface-1-0:api-key
-              properties:
-                elasticsearch-client-interface-1-0:api-key:
-                  type: string
-      responses:
-        '204':
-          description: 'API key configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/index-alias:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
-    get:
-      operationId: getElasticsearchClientIndexAlias
-      summary: 'Returns index alias'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Index alias provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - elasticsearch-client-interface-1-0:index-alias
-                properties:
-                  elasticsearch-client-interface-1-0:index-alias:
-                    type: string
-                    example: 'eatl_service_records'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putElasticsearchClientIndexAlias
-      summary: 'Configures index alias'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - elasticsearch-client-interface-1-0:index-alias
-              properties:
-                elasticsearch-client-interface-1-0:index-alias:
-                  type: string
-      responses:
-        '204':
-          description: 'Index alias configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/service-records-policy:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
-    get:
-      operationId: getElasticsearchClientServiceRecordsPolicy
-      summary: 'Returns service records policy'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Service records policy provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - elasticsearch-client-interface-1-0:service-records-policy
-                properties:
-                  elasticsearch-client-interface-1-0:service-records-policy:
-                    type: object
-                    required:
-                      - service-records-policy-name
-                      - phases
-                    properties:
-                      service-records-policy-name:
-                        type: string
-                      master-timeout:
-                        type: string
-                      timeout:
-                        type: string
-                      description:
-                        type: string
-                      project:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                          department:
-                            type: string
-                      phases:
-                        type: object
-                        properties:
-                          hot:
-                            type: object
-                            properties:
-                              min-age:
-                                type: string
-                              actions:
-                                type: object
-                                properties:
-                                  forcemerge:
-                                    type: object
-                                    required:
-                                      - max-num-segments
-                                    properties:
-                                      max-num-segments:
-                                        type: integer
-                                      index-codec:
-                                        type: string
-                                  readonly:
-                                    type: object
-                                  rollover:
-                                    type: object
-                                    minProperties: 1
-                                    additionalProperties: false
-                                    properties:
-                                      max-age:
-                                        type: string
-                                      max-docs:
-                                        type: integer
-                                      max-size:
-                                        type: string
-                                      max-primary-shard-size:
-                                        type: string
-                                      max-primary-shard-docs:
-                                        type: integer
-                                      min-age:
-                                        type: string
-                                      min-docs:
-                                        type: integer
-                                      min-size:
-                                        type: string
-                                      min-primary-shard-size:
-                                        type: string
-                                      min-primary-shard-docs:
-                                        type: integer
-                                  searchable-snapshot:
-                                    type: object
-                                    required:
-                                      - snapshot-repository
-                                    properties:
-                                      snapshot-repository:
-                                        type: string
-                                      force-merge-index:
-                                        type: boolean
-                                  set-priority:
-                                    type: object
-                                    required:
-                                      - priority
-                                    properties:
-                                      priority:
-                                        type: integer
-                                  shrink:
-                                    type: object
-                                    properties:
-                                      number-of-shards:
-                                        type: integer
-                                      max-primary-shard-size:
-                                        type: string
-                                  unfollow:
-                                    type: object
-                          warm:
-                            type: object
-                            properties:
-                              min-age:
-                                type: string
-                              actions:
-                                type: object
-                                properties:
-                                  allocate:
-                                    type: object
-                                    minProperties: 1
-                                    additionalProperties: false
-                                    properties:
-                                      number-of-replicas:
-                                        type: integer
-                                      total-shards-per-node:
-                                        type: integer
-                                      include:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                      exclude:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                      require:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                          storage:
-                                            type: string
-                                            enum:
-                                              - 'high'
-                                  forcemerge:
-                                    type: object
-                                    required:
-                                      - max-num-segments
-                                    properties:
-                                      max-num-segments:
-                                        type: integer
-                                      index-codec:
-                                        type: string
-                                  migrate:
-                                    type: object
-                                    properties:
-                                      enabled:
-                                        type: boolean
-                                  readonly:
-                                    type: object
-                                  set-priority:
-                                    type: object
-                                    required:
-                                      - priority
-                                    properties:
-                                      priority:
-                                        type: integer
-                                  shrink:
-                                    type: object
-                                    properties:
-                                      number-of-shards:
-                                        type: integer
-                                      max-primary-shard-size:
-                                        type: string
-                                  unfollow:
-                                    type: object
-                          cold:
-                            type: object
-                            properties:
-                              min-age:
-                                type: string
-                              actions:
-                                type: object
-                                properties:
-                                  allocate:
-                                    type: object
-                                    minProperties: 1
-                                    additionalProperties: false
-                                    properties:
-                                      number-of-replicas:
-                                        type: integer
-                                      total-shards-per-node:
-                                        type: integer
-                                      include:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                      exclude:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                      require:
-                                        type: object
-                                        properties:
-                                          box-type:
-                                            type: string
-                                            enum:
-                                              - 'hot'
-                                              - 'warm'
-                                              - 'cold'
-                                              - 'frozen'
-                                              - 'delete'
-                                          storage:
-                                            type: string
-                                            enum:
-                                              - 'high'
-                                  migrate:
-                                    type: object
-                                    properties:
-                                      enabled:
-                                        type: boolean
-                                  readonly:
-                                    type: object
-                                  searchable-snapshot:
-                                    type: object
-                                    required:
-                                      - snapshot-repository
-                                    properties:
-                                      snapshot-repository:
-                                        type: string
-                                      force-merge-index:
-                                        type: boolean
-                                  set-priority:
-                                    type: object
-                                    required:
-                                      - priority
-                                    properties:
-                                      priority:
-                                        type: integer
-                                  unfollow:
-                                    type: object
-                          frozen:
-                            type: object
-                            properties:
-                              min-age:
-                                type: string
-                              actions:
-                                type: object
-                                properties:
-                                  searchable-snapshot:
-                                    type: object
-                                    required:
-                                      - snapshot-repository
-                                    properties:
-                                      snapshot-repository:
-                                        type: string
-                                      force-merge-index:
-                                        type: boolean
-                                  unfollow:
-                                    type: object
-                          delete:
-                            type: object
-                            properties:
-                              min-age:
-                                type: string
-                              actions:
-                                type: object
-                                required:
-                                  - delete
-                                properties:
-                                  delete:
-                                    type: object
-                                    properties:
-                                      delete-searchable-snapshot:
-                                        type: boolean
-                                  wait-for-snapshot:
-                                    type: object
-                                    required:
-                                      - policy
-                                    properties:
-                                      policy:
-                                        type: string
-                    example:
-                      service-records-policy-name: 'eatl_service_records_policy'
-                      phases:
-                        hot:
-                          min-age: '30s'
-                          actions:
-                            rollover:
-                              max-age: '5d'
-                        delete:
-                          min-age: '5d'
-                          actions:
-                            delete:
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putElasticsearchClientServiceRecordsPolicy
-      summary: 'Configures service records policy'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - elasticsearch-client-interface-1-0:service-records-policy
-              properties:
-                elasticsearch-client-interface-1-0:service-records-policy:
-                  type: object
-                  required:
-                    - service-records-policy-name
-                    - phases
-                  properties:
-                    service-records-policy-name:
-                      type: string
-                    master-timeout:
-                      type: string
-                    timeout:
-                      type: string
-                    description:
-                      type: string
-                    project:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        department:
-                          type: string
-                    phases:
-                      type: object
-                      properties:
-                        hot:
-                          type: object
-                          properties:
-                            min-age:
-                              type: string
-                            actions:
-                              type: object
-                              properties:
-                                forcemerge:
-                                  type: object
-                                  required:
-                                    - max-num-segments
-                                  properties:
-                                    max-num-segments:
-                                      type: integer
-                                    index-codec:
-                                      type: string
-                                readonly:
-                                  type: object
-                                rollover:
-                                  type: object
-                                  minProperties: 1
-                                  additionalProperties: false
-                                  properties:
-                                    max-age:
-                                      type: string
-                                    max-docs:
-                                      type: integer
-                                    max-size:
-                                      type: string
-                                    max-primary-shard-size:
-                                      type: string
-                                    max-primary-shard-docs:
-                                      type: integer
-                                    min-age:
-                                      type: string
-                                    min-docs:
-                                      type: integer
-                                    min-size:
-                                      type: string
-                                    min-primary-shard-size:
-                                      type: string
-                                    min-primary-shard-docs:
-                                      type: integer
-                                searchable-snapshot:
-                                  type: object
-                                  required:
-                                    - snapshot-repository
-                                  properties:
-                                    snapshot-repository:
-                                      type: string
-                                    force-merge-index:
-                                      type: boolean
-                                set-priority:
-                                  type: object
-                                  required:
-                                    - priority
-                                  properties:
-                                    priority:
-                                      type: integer
-                                shrink:
-                                  type: object
-                                  properties:
-                                    number-of-shards:
-                                      type: integer
-                                    max-primary-shard-size:
-                                      type: string
-                                unfollow:
-                                  type: object
-                        warm:
-                          type: object
-                          properties:
-                            min-age:
-                              type: string
-                            actions:
-                              type: object
-                              properties:
-                                allocate:
-                                  type: object
-                                  minProperties: 1
-                                  additionalProperties: false
-                                  properties:
-                                    number-of-replicas:
-                                      type: integer
-                                    total-shards-per-node:
-                                      type: integer
-                                    include:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                    exclude:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                    require:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                        storage:
-                                          type: string
-                                          enum:
-                                            - 'high'
-                                forcemerge:
-                                  type: object
-                                  required:
-                                    - max-num-segments
-                                  properties:
-                                    max-num-segments:
-                                      type: integer
-                                    index-codec:
-                                      type: string
-                                migrate:
-                                  type: object
-                                  properties:
-                                    enabled:
-                                      type: boolean
-                                readonly:
-                                  type: object
-                                set-priority:
-                                  type: object
-                                  required:
-                                    - priority
-                                  properties:
-                                    priority:
-                                      type: integer
-                                shrink:
-                                  type: object
-                                  properties:
-                                    number-of-shards:
-                                      type: integer
-                                    max-primary-shard-size:
-                                      type: string
-                                unfollow:
-                                  type: object
-                        cold:
-                          type: object
-                          properties:
-                            min-age:
-                              type: string
-                            actions:
-                              type: object
-                              properties:
-                                allocate:
-                                  type: object
-                                  minProperties: 1
-                                  additionalProperties: false
-                                  properties:
-                                    number-of-replicas:
-                                      type: integer
-                                    total-shards-per-node:
-                                      type: integer
-                                    include:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                    exclude:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                    require:
-                                      type: object
-                                      properties:
-                                        box-type:
-                                          type: string
-                                          enum:
-                                            - 'hot'
-                                            - 'warm'
-                                            - 'cold'
-                                            - 'frozen'
-                                            - 'delete'
-                                        storage:
-                                          type: string
-                                          enum:
-                                            - 'high'
-                                migrate:
-                                  type: object
-                                  properties:
-                                    enabled:
-                                      type: boolean
-                                readonly:
-                                  type: object
-                                searchable-snapshot:
-                                  type: object
-                                  required:
-                                    - snapshot-repository
-                                  properties:
-                                    snapshot-repository:
-                                      type: string
-                                    force-merge-index:
-                                      type: boolean
-                                set-priority:
-                                  type: object
-                                  required:
-                                    - priority
-                                  properties:
-                                    priority:
-                                      type: integer
-                                unfollow:
-                                  type: object
-                        frozen:
-                          type: object
-                          properties:
-                            min-age:
-                              type: string
-                            actions:
-                              type: object
-                              properties:
-                                searchable-snapshot:
-                                  type: object
-                                  required:
-                                    - snapshot-repository
-                                  properties:
-                                    snapshot-repository:
-                                      type: string
-                                    force-merge-index:
-                                      type: boolean
-                                unfollow:
-                                  type: object
-                        delete:
-                          type: object
-                          properties:
-                            min-age:
-                              type: string
-                            actions:
-                              type: object
-                              required:
-                                - delete
-                              properties:
-                                delete:
-                                  type: object
-                                  properties:
-                                    delete-searchable-snapshot:
-                                      type: boolean
-                                wait-for-snapshot:
-                                  type: object
-                                  required:
-                                    - policy
-                                  properties:
-                                    policy:
-                                      type: string
-                  example:
-                    service-records-policy-name: 'eatl_service_records_policy'
-                    phases:
-                      hot:
-                        min-age: '30s'
-                        actions:
-                          rollover:
-                            max-age: '5d'
-                      delete:
-                        min-age: '5d'
-                        actions:
-                          delete:
-                            delete-searchable-snapshot: true
-      responses:
-        '204':
-          description: 'Service records policy configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/operational-state:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
-    get:
-      operationId: getElasticsearchClientOperationalState
-      summary: 'Returns operational state of the connection towards Elasticsearch'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Operational state provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - elasticsearch-client-interface-1-0:operational-state
-                properties:
-                  elasticsearch-client-interface-1-0:operational-state:
-                    type: string
-                    enum:
-                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
-                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
-                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
-                    example: 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/life-cycle-state:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
-    get:
-      operationId: getElasticsearchClientLifeCycleState
-      summary: 'Returns life cycle state of the connection towards Elasticsearch'
-      tags:
-        - ElasticsearchClient
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Life cycle state provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - elasticsearch-client-interface-1-0:life-cycle-state
-                properties:
-                  elasticsearch-client-interface-1-0:life-cycle-state:
-                    type: string
-                    enum:
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
-                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
-                    example: 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
 
 ########################################################################################################################
 #   OAM Layer - Basic Part - Following paths must be copied into every application
@@ -7478,6 +5828,639 @@ paths:
       responses:
         '204':
           description: 'Request path configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-identifier:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFileIdentifier
+      summary: 'Returns the identifier of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File identifier provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-identifier
+                properties:
+                  file-profile-1-0:file-identifier:
+                    type: string
+                    example: 'applicationData'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-description:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFileDescription
+      summary: 'Returns the description of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File description provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-description
+                properties:
+                  file-profile-1-0:file-description:
+                    type: string
+                    example: 'Holds administrator-names, user-names, authorization codes and allowed-methods.'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-path:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfileFilePath
+      summary: 'Returns the path of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'File path provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:file-path
+                properties:
+                  file-profile-1-0:file-path:
+                    type: string
+                    example: '../application-data/application-data.json'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileFilePath
+      summary: 'Configures path of the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:file-path
+              properties:
+                file-profile-1-0:file-path:
+                  type: string
+                  example: '../application-data/application-data.json'
+      responses:
+        '204':
+          description: 'File path configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/user-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfileUserName
+      summary: 'Returns the user name for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'User name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:user-name
+                properties:
+                  file-profile-1-0:user-name:
+                    type: string
+                    example: 'firstname.surname'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileUserName
+      summary: 'Configures the user name for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:user-name
+              properties:
+                file-profile-1-0:user-name:
+                  type: string
+                  example: 'firstname.surname'
+      responses:
+        '204':
+          description: 'User name configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/password:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfilePassword
+      summary: 'Returns the password for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Password provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:password
+                properties:
+                  file-profile-1-0:password:
+                    type: string
+                    example: 'stupid_phrase'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfilePassword
+      summary: 'Configures the password for acccessing the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:password
+              properties:
+                file-profile-1-0:password:
+                  type: string
+                  example: 'stupid_phrase'
+      responses:
+        '204':
+          description: 'Password configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/operation:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
+          example: 'ro-2-0-0-file-p-000'
+    get:
+      operationId: getFileProfileOperation
+      summary: 'Returns the allowed operation on the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operation provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file-profile-1-0:operation
+                properties:
+                  file-profile-1-0:operation:
+                    type: string
+                    enum:
+                      - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                      - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                      - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                      - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                    example: 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putFileProfileOperation
+      summary: 'Configures the allowed operation on the file'
+      tags:
+        - FileProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file-profile-1-0:operation
+              properties:
+                file-profile-1-0:operation:
+                  type: string
+                  enum:
+                    - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                    - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                    - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                    - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                  example: 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+      responses:
+        '204':
+          description: 'Operation configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/integer-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-0-integer-p-000'
+    get:
+      operationId: getIntegerProfileIntegerName
+      summary: 'Returns the name of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Integer name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:integer-name
+                properties:
+                  integer-profile-1-0:integer-name:
+                    type: string
+                    example: 'maximumNumberOfEntries'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/unit:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-0-integer-p-000'
+    get:
+      operationId: getIntegerProfileUnit
+      summary: 'Returns the unit of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Integer unit provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:unit
+                properties:
+                  integer-profile-1-0:unit:
+                    type: string
+                    example: 'records'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/minimum:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-0-integer-p-000'
+    get:
+      operationId: getIntegerProfileMinimum
+      summary: 'Returns the minimum value of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Minimum value provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:minimum
+                properties:
+                  integer-profile-1-0:minimum:
+                    type: integer
+                    example: 0
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/maximum:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-0-integer-p-000'
+    get:
+      operationId: getIntegerProfileMaximum
+      summary: 'Returns the maximum value of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Maximum value provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:maximum
+                properties:
+                  integer-profile-1-0:maximum:
+                    type: integer
+                    example: 1000000
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-configuration/integer-value:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-0-integer-p-000'
+    get:
+      operationId: getIntegerProfileIntegerValue
+      summary: 'Returns the configured value of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Integer value provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:integer-value
+                properties:
+                  integer-profile-1-0:integer-value:
+                    type: integer
+                    example: 1000000
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putIntegerProfileIntegerValue
+      summary: 'Configures value of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - integer-profile-1-0:integer-value
+              properties:
+                integer-profile-1-0:integer-value:
+                  type: integer
+                  example: 1000000
+      responses:
+        '204':
+          description: 'Integer value configured'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -8642,6 +7625,940 @@ paths:
       responses:
         '204':
           description: 'Operation key configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/auth/api-key:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-2-0-0-es-c-im-000'
+    get:
+      operationId: getElasticsearchClientApiKey
+      summary: 'Returns API key'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'API key provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:api-key
+                properties:
+                  elasticsearch-client-interface-1-0:api-key:
+                    type: string
+                    example: 'YWRtaW46MTIzNDU2'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientApiKey
+      summary: 'Configures API key'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:api-key
+              properties:
+                elasticsearch-client-interface-1-0:api-key:
+                  type: string
+      responses:
+        '204':
+          description: 'API key configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/index-alias:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-2-0-0-es-c-im-000'
+    get:
+      operationId: getElasticsearchClientIndexAlias
+      summary: 'Returns index alias'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Index alias provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:index-alias
+                properties:
+                  elasticsearch-client-interface-1-0:index-alias:
+                    type: string
+                    example: 'eatl_service_records'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientIndexAlias
+      summary: 'Configures index alias'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:index-alias
+              properties:
+                elasticsearch-client-interface-1-0:index-alias:
+                  type: string
+      responses:
+        '204':
+          description: 'Index alias configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/service-records-policy:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-2-0-0-es-c-im-000'
+    get:
+      operationId: getElasticsearchClientServiceRecordsPolicy
+      summary: 'Returns service records policy'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Service records policy provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:service-records-policy
+                properties:
+                  elasticsearch-client-interface-1-0:service-records-policy:
+                    type: object
+                    required:
+                      - service-records-policy-name
+                      - phases
+                    properties:
+                      service-records-policy-name:
+                        type: string
+                      master-timeout:
+                        type: string
+                      timeout:
+                        type: string
+                      description:
+                        type: string
+                      project:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          department:
+                            type: string
+                      phases:
+                        type: object
+                        properties:
+                          hot:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  forcemerge:
+                                    type: object
+                                    required:
+                                      - max-num-segments
+                                    properties:
+                                      max-num-segments:
+                                        type: integer
+                                      index-codec:
+                                        type: string
+                                  readonly:
+                                    type: object
+                                  rollover:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      max-age:
+                                        type: string
+                                      max-docs:
+                                        type: integer
+                                      max-size:
+                                        type: string
+                                      max-primary-shard-size:
+                                        type: string
+                                      max-primary-shard-docs:
+                                        type: integer
+                                      min-age:
+                                        type: string
+                                      min-docs:
+                                        type: integer
+                                      min-size:
+                                        type: string
+                                      min-primary-shard-size:
+                                        type: string
+                                      min-primary-shard-docs:
+                                        type: integer
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  shrink:
+                                    type: object
+                                    properties:
+                                      number-of-shards:
+                                        type: integer
+                                      max-primary-shard-size:
+                                        type: string
+                                  unfollow:
+                                    type: object
+                          warm:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  allocate:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      number-of-replicas:
+                                        type: integer
+                                      total-shards-per-node:
+                                        type: integer
+                                      include:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      exclude:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      require:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                          storage:
+                                            type: string
+                                            enum:
+                                              - 'high'
+                                  forcemerge:
+                                    type: object
+                                    required:
+                                      - max-num-segments
+                                    properties:
+                                      max-num-segments:
+                                        type: integer
+                                      index-codec:
+                                        type: string
+                                  migrate:
+                                    type: object
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  readonly:
+                                    type: object
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  shrink:
+                                    type: object
+                                    properties:
+                                      number-of-shards:
+                                        type: integer
+                                      max-primary-shard-size:
+                                        type: string
+                                  unfollow:
+                                    type: object
+                          cold:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  allocate:
+                                    type: object
+                                    minProperties: 1
+                                    additionalProperties: false
+                                    properties:
+                                      number-of-replicas:
+                                        type: integer
+                                      total-shards-per-node:
+                                        type: integer
+                                      include:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      exclude:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                      require:
+                                        type: object
+                                        properties:
+                                          box-type:
+                                            type: string
+                                            enum:
+                                              - 'hot'
+                                              - 'warm'
+                                              - 'cold'
+                                              - 'frozen'
+                                              - 'delete'
+                                          storage:
+                                            type: string
+                                            enum:
+                                              - 'high'
+                                  migrate:
+                                    type: object
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  readonly:
+                                    type: object
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  set-priority:
+                                    type: object
+                                    required:
+                                      - priority
+                                    properties:
+                                      priority:
+                                        type: integer
+                                  unfollow:
+                                    type: object
+                          frozen:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                properties:
+                                  searchable-snapshot:
+                                    type: object
+                                    required:
+                                      - snapshot-repository
+                                    properties:
+                                      snapshot-repository:
+                                        type: string
+                                      force-merge-index:
+                                        type: boolean
+                                  unfollow:
+                                    type: object
+                          delete:
+                            type: object
+                            properties:
+                              min-age:
+                                type: string
+                              actions:
+                                type: object
+                                required:
+                                  - delete
+                                properties:
+                                  delete:
+                                    type: object
+                                    properties:
+                                      delete-searchable-snapshot:
+                                        type: boolean
+                                  wait-for-snapshot:
+                                    type: object
+                                    required:
+                                      - policy
+                                    properties:
+                                      policy:
+                                        type: string
+                    example:
+                      service-records-policy-name: 'eatl_service_records_policy'
+                      phases:
+                        hot:
+                          min-age: '30s'
+                          actions:
+                            rollover:
+                              max-age: '5d'
+                        delete:
+                          min-age: '5d'
+                          actions:
+                            delete:
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putElasticsearchClientServiceRecordsPolicy
+      summary: 'Configures service records policy'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - elasticsearch-client-interface-1-0:service-records-policy
+              properties:
+                elasticsearch-client-interface-1-0:service-records-policy:
+                  type: object
+                  required:
+                    - service-records-policy-name
+                    - phases
+                  properties:
+                    service-records-policy-name:
+                      type: string
+                    master-timeout:
+                      type: string
+                    timeout:
+                      type: string
+                    description:
+                      type: string
+                    project:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        department:
+                          type: string
+                    phases:
+                      type: object
+                      properties:
+                        hot:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                forcemerge:
+                                  type: object
+                                  required:
+                                    - max-num-segments
+                                  properties:
+                                    max-num-segments:
+                                      type: integer
+                                    index-codec:
+                                      type: string
+                                readonly:
+                                  type: object
+                                rollover:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    max-age:
+                                      type: string
+                                    max-docs:
+                                      type: integer
+                                    max-size:
+                                      type: string
+                                    max-primary-shard-size:
+                                      type: string
+                                    max-primary-shard-docs:
+                                      type: integer
+                                    min-age:
+                                      type: string
+                                    min-docs:
+                                      type: integer
+                                    min-size:
+                                      type: string
+                                    min-primary-shard-size:
+                                      type: string
+                                    min-primary-shard-docs:
+                                      type: integer
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                shrink:
+                                  type: object
+                                  properties:
+                                    number-of-shards:
+                                      type: integer
+                                    max-primary-shard-size:
+                                      type: string
+                                unfollow:
+                                  type: object
+                        warm:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                allocate:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    number-of-replicas:
+                                      type: integer
+                                    total-shards-per-node:
+                                      type: integer
+                                    include:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    exclude:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    require:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                        storage:
+                                          type: string
+                                          enum:
+                                            - 'high'
+                                forcemerge:
+                                  type: object
+                                  required:
+                                    - max-num-segments
+                                  properties:
+                                    max-num-segments:
+                                      type: integer
+                                    index-codec:
+                                      type: string
+                                migrate:
+                                  type: object
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                                readonly:
+                                  type: object
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                shrink:
+                                  type: object
+                                  properties:
+                                    number-of-shards:
+                                      type: integer
+                                    max-primary-shard-size:
+                                      type: string
+                                unfollow:
+                                  type: object
+                        cold:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                allocate:
+                                  type: object
+                                  minProperties: 1
+                                  additionalProperties: false
+                                  properties:
+                                    number-of-replicas:
+                                      type: integer
+                                    total-shards-per-node:
+                                      type: integer
+                                    include:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    exclude:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                    require:
+                                      type: object
+                                      properties:
+                                        box-type:
+                                          type: string
+                                          enum:
+                                            - 'hot'
+                                            - 'warm'
+                                            - 'cold'
+                                            - 'frozen'
+                                            - 'delete'
+                                        storage:
+                                          type: string
+                                          enum:
+                                            - 'high'
+                                migrate:
+                                  type: object
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                                readonly:
+                                  type: object
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                set-priority:
+                                  type: object
+                                  required:
+                                    - priority
+                                  properties:
+                                    priority:
+                                      type: integer
+                                unfollow:
+                                  type: object
+                        frozen:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              properties:
+                                searchable-snapshot:
+                                  type: object
+                                  required:
+                                    - snapshot-repository
+                                  properties:
+                                    snapshot-repository:
+                                      type: string
+                                    force-merge-index:
+                                      type: boolean
+                                unfollow:
+                                  type: object
+                        delete:
+                          type: object
+                          properties:
+                            min-age:
+                              type: string
+                            actions:
+                              type: object
+                              required:
+                                - delete
+                              properties:
+                                delete:
+                                  type: object
+                                  properties:
+                                    delete-searchable-snapshot:
+                                      type: boolean
+                                wait-for-snapshot:
+                                  type: object
+                                  required:
+                                    - policy
+                                  properties:
+                                    policy:
+                                      type: string
+                  example:
+                    service-records-policy-name: 'eatl_service_records_policy'
+                    phases:
+                      hot:
+                        min-age: '30s'
+                        actions:
+                          rollover:
+                            max-age: '5d'
+                      delete:
+                        min-age: '5d'
+                        actions:
+                          delete:
+                            delete-searchable-snapshot: true
+      responses:
+        '204':
+          description: 'Service records policy configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/operational-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-2-0-0-es-c-im-000'
+    get:
+      operationId: getElasticsearchClientOperationalState
+      summary: 'Returns operational state of the connection towards Elasticsearch'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operational state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:operational-state
+                properties:
+                  elasticsearch-client-interface-1-0:operational-state:
+                    type: string
+                    enum:
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                      - 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/life-cycle-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
+          example: 'ro-2-0-0-es-c-im-000'
+    get:
+      operationId: getElasticsearchClientLifeCycleState
+      summary: 'Returns life cycle state of the connection towards Elasticsearch'
+      tags:
+        - ElasticsearchClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Life cycle state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - elasticsearch-client-interface-1-0:life-cycle-state
+                properties:
+                  elasticsearch-client-interface-1-0:life-cycle-state:
+                    type: string
+                    enum:
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                      - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
