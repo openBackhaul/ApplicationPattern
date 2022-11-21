@@ -1,0 +1,4 @@
+{
+    "fake-to-original-iP-mapping-file-path": "./input/fakeToOriginalIPMapping.json",
+    "target-oam-config-file-path": "./database/load.json"
+}

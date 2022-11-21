@@ -1,0 +1,83 @@
+{
+    "fake-to-original-iP-mapping": [{
+            "category": "TinyApplicationController",
+            "abbreviation" : "RO",
+            "component": "RegistryOffice",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.1",
+            "fake-tcp-port": 3001,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3001
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "TAR",
+            "component": "TypeApprovalRegister",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.2",
+            "fake-tcp-port": 3002,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3002
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "EATL",
+            "component": "ExecutionAndTraceLog",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.3",
+            "fake-tcp-port": 3003,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3003
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "OL",
+            "component": "OamLog",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.4",
+            "fake-tcp-port": 3004,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3004
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "AA",
+            "component": "AdministratorAdministration",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.5",
+            "fake-tcp-port": 3005,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3005
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "ALT",
+            "component": "ApplicationLayerTopology",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.6",
+            "fake-tcp-port": 3006,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3006
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "OKM",
+            "component": "OperationKeyManagement",
+            "release": "0.0.1",
+            "fake-tcp-ip": "1.1.3.7",
+            "fake-tcp-port": 3007,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3007
+        },
+        {
+            "category": "TinyApplicationController",
+            "abbreviation" : "OKM",
+            "component": "OperationKeyManagement",
+            "release": "0.0.2",
+            "fake-tcp-ip": "1.1.3.8",
+            "fake-tcp-port": 3008,
+            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-port": 3008
+        }
+    ]
+}
