@@ -1,6 +1,6 @@
 
 This script needs to be executed , 
-   - before generating a docker image for any application
+   - before generating a docker image for any application in the SDN ApplicationLayer
    - with proper information in the mapping file as per the test and prod environment
 
 It updates the TcpClient/TcpServer address and port details based on the information provided in the input mapping file.
