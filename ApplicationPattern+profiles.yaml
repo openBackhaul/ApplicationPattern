@@ -10,7 +10,23 @@ profiles:
           unit: string
       display-in-new-browser-window: boolean
     configuration:
-      request: string
+      protocol-reference: string
+      ipv-4-address-reference: string
+      domain-name-reference: string
+      port-reference: string
+      operation-reference: string
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'
+    capability:
+      operation-name: string
+      static-field-name: string
+      field-name-reference: string
+      description: string
+      datatype: string
+    configuration:
+      static-value: string
+      value-reference: string
 
   - profile-name: 'FileProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'

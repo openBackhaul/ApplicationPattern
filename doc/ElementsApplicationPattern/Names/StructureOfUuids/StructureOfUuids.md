@@ -35,6 +35,7 @@ The following LayerIDs are already in use for Profiles:
 - action = For describing the consequent action in a generic representation  
 - file = For storing information required for connecting to a file that is holding application data  
 - integer = For storing a single Integer  
+- response = For describing some response in a generic representation  
 - string = For storing a single String  
 
 **ObjectType**  
