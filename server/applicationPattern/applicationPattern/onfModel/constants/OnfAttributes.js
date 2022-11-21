@@ -156,7 +156,8 @@ const LAYER_PROTOCOL = {
     TCP_SERVER_INTERFACE_PAC: "tcp-server-interface-1-0:tcp-server-interface-pac",
     OPERATION_CLIENT_INTERFACE_PAC: "operation-client-interface-1-0:operation-client-interface-pac",
     HTTP_CLIENT_INTERFACE_PAC: "http-client-interface-1-0:http-client-interface-pac",
-    TCP_CLIENT_INTERFACE_PAC: "tcp-client-interface-1-0:tcp-client-interface-pac"
+    TCP_CLIENT_INTERFACE_PAC: "tcp-client-interface-1-0:tcp-client-interface-pac",
+    ES_CLIENT_INTERFACE_PAC: "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac"
 };
 
 const HTTP_SERVER = {
@@ -214,6 +215,13 @@ const TCP_CLIENT = {
     REMOTE_PROTOCOL: "remote-protocol"
 }
 
+const ES_CLIENT = {
+    CONFIGURATION: "elasticsearch-client-interface-configuration",
+    AUTH: "auth",
+    API_KEY: "api-key",
+    INDEX_ALIAS: "index-alias"
+}
+
 /******************************************
  ********forwarding-domain**************
  *****************************************/
@@ -251,6 +259,7 @@ module.exports = {
     LAYER_PROTOCOL,
     HTTP_SERVER,
     HTTP_CLIENT,
+    ES_CLIENT,
     OPERATION_SERVER,
     OPERATION_CLIENT,
     TCP_SERVER,
