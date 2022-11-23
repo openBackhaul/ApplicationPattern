@@ -573,9 +573,11 @@ function createOperationClientInterface(httpClientUuid, operationName) {
                 operationClientLogicalTerminationPoint
             );
             if (isCreated) {
+                let existingLtps = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
+                existingLtps.push(operationClientUuid)
                 await logicalTerminationPoint.setClientLtpListAsync(
                     httpClientUuid,
-                    [operationClientUuid]
+                    existingLtps
                 );
             }
             configurationStatus = new ConfigurationStatus(
