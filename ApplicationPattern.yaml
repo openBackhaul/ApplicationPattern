@@ -48,8 +48,8 @@ paths:
                 new-application-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used for addressing the application that shall be target of the handover process
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -138,7 +138,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
 
-        # individual callbacks to be added here 
+        # individual callbacks to be added here
 
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
           url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
@@ -486,8 +486,8 @@ paths:
                     registry-office-protocol:
                       type: string
                       enum:
-                      - 'HTTP'
-                      - 'HTTPS'
+                        - 'HTTP'
+                        - 'HTTPS'
                       description: >
                         'If body provided, protocol for addressing the RegistryOffice application
                         update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -844,8 +844,8 @@ paths:
                 registry-office-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol for addressing RegistryOffice application
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -882,8 +882,8 @@ paths:
                 old-release-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol for addressing the currently running old release of the same application
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -1142,8 +1142,8 @@ paths:
                 service-log-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used for addressing the application that shall record the service requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-eatl-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -1393,8 +1393,8 @@ paths:
                 oam-log-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used for addressing the application that shall record the OaM requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-ol-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -1511,7 +1511,7 @@ paths:
                         application-name:
                           type: string
                           description: >
-                            'Own application name 
+                            'Own application name
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         release-number:
                           type: string
@@ -1727,8 +1727,8 @@ paths:
                 oam-approval-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used for addressing the application that shall approve the OaM requests
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bs-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -1850,7 +1850,7 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         Authorization:
                           type: string
-                          description: > 
+                          description: >
                             'Authorization code of the administrator addressing the OaM request to this application from [parameters::Authorization]'
                         method:
                           type: string
@@ -1878,7 +1878,7 @@ paths:
                       schema:
                         type: object
                         required:
-                        - oam-request-is-approved
+                          - oam-request-is-approved
                         properties:
                           oam-request-is-approved:
                             type: boolean
@@ -1989,8 +1989,8 @@ paths:
                 new-application-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used in future for addressing the application that has updated connection data
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -2301,8 +2301,8 @@ paths:
                 topology-application-protocol:
                   type: string
                   enum:
-                  - 'HTTP'
-                  - 'HTTPS'
+                    - 'HTTP'
+                    - 'HTTPS'
                   description: >
                     'Protocol to be used for addresing the application that shall document the application layer topology
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-bm-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
@@ -3491,13 +3491,13 @@ paths:
                 $ref: '#/components/schemas/genericRepresentation'
                 example:
                   response-value-list:
-                  - field-name: 'applicationName'
-                    value: 'OwnApplicationName'
-                    datatype: 'string'
+                    - field-name: 'applicationName'
+                      value: 'OwnApplicationName'
+                      datatype: 'string'
                   consequent-action-list:
-                  - label: 'Inform about Application'
-                    request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
-                    display-in-new-browser-window: false
+                    - label: 'Inform about Application'
+                      request: 'https://1.1.4.1:4001/v1/inform-about-application-in-generic-representation'
+                      display-in-new-browser-window: false
           headers:
             x-correlator:
               schema:
@@ -3660,31 +3660,31 @@ paths:
                 $ref: '#/components/schemas/genericRepresentation'
                 example:
                   response-value-list:
-                  - field-name: 'applicationName'
-                    value: 'OwnApplicationName'
-                    datatype: 'string'
-                  - field-name: 'releaseNumber'
-                    value: '1.0.0'
-                    datatype: 'string'
-                  - field-name: 'applicationPurpose'
-                    value: 'Brief description of the purpose of the application.'
-                    datatype: 'string'
-                  - field-name: 'dataUpdatePeriod'
-                    value: 'real-time'
-                    datatype: 'string'
-                  - field-name: 'ownerName'
-                    value: 'Thorsten Heinze'
-                    datatype: 'string'
-                  - field-name: 'ownerEmailAddress'
-                    value: 'Thorsten.Heinze@telefonica.com'
-                    datatype: 'string'
+                    - field-name: 'applicationName'
+                      value: 'OwnApplicationName'
+                      datatype: 'string'
+                    - field-name: 'releaseNumber'
+                      value: '1.0.0'
+                      datatype: 'string'
+                    - field-name: 'applicationPurpose'
+                      value: 'Brief description of the purpose of the application.'
+                      datatype: 'string'
+                    - field-name: 'dataUpdatePeriod'
+                      value: 'real-time'
+                      datatype: 'string'
+                    - field-name: 'ownerName'
+                      value: 'Thorsten Heinze'
+                      datatype: 'string'
+                    - field-name: 'ownerEmailAddress'
+                      value: 'Thorsten.Heinze@telefonica.com'
+                      datatype: 'string'
                   consequent-action-list:
-                  - label: 'Release History'
-                    request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
-                    display-in-new-browser-window: false
-                  - label: 'API Documentation'
-                    request: 'https://1.1.4.1:4001/docs'
-                    display-in-new-browser-window: true
+                    - label: 'Release History'
+                      request: 'https://1.1.4.1:4001/v1/inform-about-release-history-in-generic-representation'
+                      display-in-new-browser-window: false
+                    - label: 'API Documentation'
+                      request: 'https://1.1.4.1:4001/docs'
+                      display-in-new-browser-window: true
           headers:
             x-correlator:
               schema:
@@ -3822,9 +3822,9 @@ paths:
                 $ref: '#/components/schemas/genericRepresentation'
                 example:
                   response-value-list:
-                  - field-name: '1.0.0'
-                    value: '20.11.2010 - Initial version.'
-                    datatype: 'string'
+                    - field-name: '1.0.0'
+                      value: '20.11.2010 - Initial version.'
+                      datatype: 'string'
                   consequent-action-list:
           headers:
             x-correlator:
@@ -4096,10 +4096,10 @@ paths:
                                             operation:
                                               type: string
                                               enum:
-                                              - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
-                                              - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
-                                              - 'file-profile-1-0:OPERATION_TYPE_OFF'
-                                              - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
+                                                - 'file-profile-1-0:OPERATION_TYPE_READ_ONLY'
+                                                - 'file-profile-1-0:OPERATION_TYPE_READ_WRITE'
+                                                - 'file-profile-1-0:OPERATION_TYPE_OFF'
+                                                - 'file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED'
                                 - description: 'integer profile'
                                   type: object
                                   required:
@@ -4339,9 +4339,9 @@ paths:
                                                 items:
                                                   type: object
                                                   required:
-                                                  - release-number
-                                                  - release-date
-                                                  - changes
+                                                    - release-number
+                                                    - release-date
+                                                    - changes
                                                   properties:
                                                     release-number:
                                                       type: string
@@ -5741,7 +5741,7 @@ paths:
                         type: string
                       field-name-reference:
                         type: string
-                    example: 
+                    example:
                       static-field-name: 'applicationName'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
@@ -5873,7 +5873,7 @@ paths:
                         type: string
                       value-reference:
                         type: string
-                    example: 
+                    example:
                       value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
@@ -7273,9 +7273,9 @@ paths:
                     items:
                       type: object
                       required:
-                      - release-number
-                      - release-date
-                      - changes
+                        - release-number
+                        - release-date
+                        - changes
                       properties:
                         release-number:
                           type: string
@@ -7372,7 +7372,7 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
+          $ref: '#/components/responses/responseForErroredOamRequests'
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol:
     parameters:
       - in: path
@@ -7453,8 +7453,8 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
-  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address: 
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address:
     parameters:
       - in: path
         name: uuid
@@ -7623,7 +7623,7 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
+          $ref: '#/components/responses/responseForErroredOamRequests'
 
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name:
     parameters:
@@ -9007,16 +9007,16 @@ paths:
       requestBody:
         required: true
         content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - http-client-interface-1-0:release-number
-                properties:
-                  http-client-interface-1-0:release-number:
-                    type: string
-                    pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
-                    example: '1.0.0'
+          application/json:
+            schema:
+              type: object
+              required:
+                - http-client-interface-1-0:release-number
+              properties:
+                http-client-interface-1-0:release-number:
+                  type: string
+                  pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
+                  example: '1.0.0'
       responses:
         '204':
           description: 'Release number configured'
@@ -9031,7 +9031,7 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
+          $ref: '#/components/responses/responseForErroredOamRequests'
 
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol:
     parameters:
@@ -9113,7 +9113,7 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
+          $ref: '#/components/responses/responseForErroredOamRequests'
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address:
     parameters:
       - in: path
@@ -9218,7 +9218,7 @@ paths:
         '500':
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
-          $ref: '#/components/responses/responseForErroredOamRequests'  
+          $ref: '#/components/responses/responseForErroredOamRequests'
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port:
     parameters:
       - in: path
