@@ -100,6 +100,41 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 * In case of updating an existing application, it is recommended to configure 'off' for supporting harmfree handover of the already existing data file during the embedding process.
 
 
+### Further Instances of GenericResponseProfile  
+
+* Check your ServiceList for services that are implementing the concept of generic representation.  
+* If you would need to add further instances of GenericResponseProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept.  
+* Copy/paste and alter additional instances of GenericResponseProfile for configuring the responses given by the *-in-generic-representation requests.  
+* Finally, just delete the form that waits for completion.  
+
+**ProfileName**  
+* The ProfileName shall be set on "GenericResponseProfile".  
+
+**UUID**  
+* The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
+* The LayerID shall be set on "response".  
+* The ObjectType shall be set on "p" (Profile).  
+* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+
+**OperationName**  
+* Fill in the path of the request that shall contain provide the response.  
+
+**FieldName**  
+* Fill in the name of the field that shall represent the response value.
+
+**Description**  
+* This attribute is just for documenting the meaning of the defined field.  
+* It is explanatory only and will not be passed to the application that is consuming the *-in-generic-representation request.  
+
+**Datatype**  
+* Fill in the datatype of the response value.  
+* Chose from 'string', 'integer', 'boolean'.  
+
+**Value**  
+* Fill in the value, which shall be represented in the field.  
+* The value has to be transported as a string, but might be interpreted according to the Datatype at the receiving side.  
+
+
 ### Instances of IntegerProfile  
 
 * Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of IntegerProfile is required.  
