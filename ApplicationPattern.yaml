@@ -5508,7 +5508,7 @@ paths:
                 required:
                   - action-profile-1-0:consequent-operation-reference
                 properties:
-                  consequent-operation-reference:
+                  action-profile-1-0:consequent-operation-reference:
                     type: string
                     example: '/core-model-1-4:control-construct/logical-termination-point=ro-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
         '400':
@@ -5539,7 +5539,7 @@ paths:
               required:
                 - action-profile-1-0:consequent-operation-reference
               properties:
-                consequent-operation-reference:
+                action-profile-1-0:consequent-operation-reference:
                   type: string
                   example: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
       responses:
