@@ -16,3 +16,5 @@ jobs:
             rules:
               line-length: disable
               document-start: disable
+            ignore: |
+              server/
