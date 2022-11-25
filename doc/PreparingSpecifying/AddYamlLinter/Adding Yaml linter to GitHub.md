@@ -10,6 +10,8 @@ The linter follows the yamllint [default rules](https://yamllint.readthedocs.io/
     Default value is 80 character per line, but that is not useful in this context due to long URLs.
 - _document-start: disable_
     Default value is warning if no three dashes (---) at the start of the document is included. This is used for parsers which combine multiple files. However this will rarely happen in our context and probably leads to more confusion, so its disabled.
+- _truthy: ignore: .github/_
+    Yamllint fails on GitHub workflow config files, as the trigger 'on' violates the truthy rule.
 
 A full list of rules and further explanation can be found [here](https://yamllint.readthedocs.io/en/stable/rules.html).
 
@@ -17,15 +19,16 @@ A full list of rules and further explanation can be found [here](https://yamllin
 
 1. Find or create the `.github` folder in the root directory.
 2. In that folder, add a new folder named `workflows` (if not already existing).
-3. Add a new file named `yaml-lint.yaml` with following content:
+3. Add a new file named `linter.yaml` with following content:
 
     ```yaml
-    name: Yaml Lint
+    name: Linter
     on:
       pull_request:
         branches: [develop]
     jobs:
-      lintAllTheThings:
+      yaml:
+        name: YAML
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v2
@@ -38,6 +41,11 @@ A full list of rules and further explanation can be found [here](https://yamllin
                 rules:
                   line-length: disable
                   document-start: disable
+                  truthy:
+                    ignore: |
+                      .github/
+                ignore: |
+                  server/
     ```
 
     This will add a GitHub action to your repository which runs every time a pull request on the develop branch is created or edited. The workflow first checks out the repository code and then runs the yaml linter. This checks all the yaml files in the repository for errors following the given rules. If the run fails, the errors needs to be adressed (see following chapter). If the run was successful, you can proceed as always.

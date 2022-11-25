@@ -1,9 +1,10 @@
-name: Yaml Lint
+name: Linter
 on:
   pull_request:
     branches: [develop]
 jobs:
-  lintAllTheThings:
+  yaml:
+    name: YAML
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,3 +17,8 @@ jobs:
             rules:
               line-length: disable
               document-start: disable
+              truthy:
+                ignore: |
+                  .github/
+            ignore: |
+              server/
