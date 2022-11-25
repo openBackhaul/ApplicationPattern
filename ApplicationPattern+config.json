@@ -22,14 +22,7 @@
                   "display-in-new-browser-window": false
                 },
                 "action-profile-configuration": {
-                  "request": {
-                    "protocol-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol",
-                    "address": {
-                      "ipv-4-address-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address"
-                    },
-                    "port-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port",
-                    "operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
-                  }
+                  "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
                 }
               }
             },
@@ -45,14 +38,7 @@
                   "display-in-new-browser-window": false
                 },
                 "action-profile-configuration": {
-                  "request": {
-                    "protocol-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol",
-                    "address": {
-                      "ipv-4-address-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address"
-                    },
-                    "port-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port",
-                    "operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
-                  }
+                  "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
                 }
               }
             },
@@ -68,14 +54,7 @@
                   "display-in-new-browser-window": true
                 },
                 "action-profile-configuration": {
-                  "request": {
-                    "protocol-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol",
-                    "address": {
-                      "ipv-4-address-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address"
-                    },
-                    "port-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port",
-                    "operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
-                  }
+                  "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
                 }
               }
             },
