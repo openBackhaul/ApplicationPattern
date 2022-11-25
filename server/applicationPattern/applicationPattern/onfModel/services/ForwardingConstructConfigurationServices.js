@@ -534,17 +534,16 @@
   * more than one output port, it filters the correct one based on the application name/release number
   * combination (each output port should point to a different application).
   * @param {String} forwardingName context where we should look for the output ports
-  * @param {String} applicationName client application name
-  * @param {String} releaseNumber client application release number
+  * @param {String} httpClientUuid http client UUID
+  * @returns {promise} operation client UUID
   */
- exports.resolveClientOperationUuidFromForwardingNameAsync = function(forwardingName, applicationName, releaseNumber) {
+ exports.resolveClientOperationUuidFromForwardingNameAsync = function(forwardingName, httpClientUuid) {
    return new Promise(async function (resolve, reject) {
      let operationClientUuid = null;
      try {
-       let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
        const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
        if (forwardingConstruct === undefined) {
-         resolve(operationClientUuid);
+         return resolve(operationClientUuid);
        }
        let outputFcPorts = await ForwardingConstruct.getFcPortListWithDirectionAsync(
          forwardingConstruct.uuid,
@@ -552,13 +551,13 @@
        );
        if (outputFcPorts.length === 1) {
          operationClientUuid = outputFcPorts[0]["logical-termination-point"];
-         resolve(operationClientUuid);
+         return resolve(operationClientUuid);
        }
        for (let outputFcPort of outputFcPorts) {
-         operationClientUuid = outputFcPort["logical-termination-point"];
-         let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+         let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(outputFcPort["logical-termination-point"]);
          if (serverLtpList.includes(httpClientUuid)) {
-           resolve(operationClientUuid);
+           operationClientUuid = outputFcPort["logical-termination-point"];
+           return resolve(operationClientUuid);
          }
        }
      } catch(error) {

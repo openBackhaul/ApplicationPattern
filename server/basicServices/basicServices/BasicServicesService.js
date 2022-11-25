@@ -1,7 +1,7 @@
 'use strict';
 
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
-const LogicalTerminatinPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
+const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const layerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
@@ -29,6 +29,7 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping')
 
 /**
  * Embed yourself into the MBH SDN application layer
@@ -61,36 +62,22 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
        * configure logical-termination-point
        ****************************************************************************************/
 
-      let deregisterOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease",
-        applicationName,
-        releaseNumber
-      );
-      let relayServerReplacementOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement",
-        applicationName,
-        releaseNumber
-      );
-      let relayOperationUpdateOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(deregisterOperation, deregisterOperationClientUuid);
-      operationList.set(relayServerReplacementOperation, relayServerReplacementOperationClientUuid);
-      operationList.set(relayOperationUpdateOperation, relayOperationUpdateOperationClientUuid);
+      operationList.set("deregistration-operation", deregisterOperation);
+      operationList.set("relay-server-replacement-operation", relayServerReplacementOperation);
+      operationList.set("relay-operation-update-operation", relayOperationUpdateOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -479,24 +466,20 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-      let oamApprovalOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "OamRequestCausesInquiryForAuthentication",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(oamApprovalOperation, oamApprovalOperationClientUuid);
+      operationList.set("oam-approval-operation", oamApprovalOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -633,24 +616,20 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-      let oamLogOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "OamRequestCausesLoggingRequest",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(oamLogOperation, oamLogOperationClientUuid);
+      operationList.set("oam-log-operation", oamLogOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -733,24 +712,20 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-      let serviceLogOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesLoggingRequest",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(serviceLogOperation, serviceLogOperationClientUuid);
+      operationList.set("service-log-operation", serviceLogOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -832,55 +807,25 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-
-      let applicationUpdateTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT",
-        applicationName,
-        releaseNumber
-      );
-      let ltpUpdateTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesLtpUpdateRequest",
-        applicationName,
-        releaseNumber
-      );
-      let ltpDeletionTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesLtpDeletionRequest",
-        applicationName,
-        releaseNumber
-      );
-      let fcUpdateTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesFcUpdateRequest",
-        applicationName,
-        releaseNumber
-      );
-      let fcPortUpdateTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesFcPortUpdateRequest",
-        applicationName,
-        releaseNumber
-      );
-      let fcPortDeletionTopologyOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "ServiceRequestCausesFcPortDeletionRequest",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(applicationUpdateTopologyOperation, applicationUpdateTopologyOperationClientUuid);
-      operationList.set(ltpUpdateTopologyOperation, ltpUpdateTopologyOperationClientUuid);
-      operationList.set(ltpDeletionTopologyOperation, ltpDeletionTopologyOperationClientUuid);
-      operationList.set(fcUpdateTopologyOperation, fcUpdateTopologyOperationClientUuid);
-      operationList.set(fcPortUpdateTopologyOperation, fcPortUpdateTopologyOperationClientUuid);
-      operationList.set(fcPortDeletionTopologyOperation, fcPortDeletionTopologyOperationClientUuid);
+      operationList.set("topology-operation-application-update", applicationUpdateTopologyOperation);
+      operationList.set("topology-operation-ltp-update", ltpUpdateTopologyOperation);
+      operationList.set("topology-operation-ltp-deletion", ltpDeletionTopologyOperation);
+      operationList.set("topology-operation-fc-update", fcUpdateTopologyOperation);
+      operationList.set("topology-operation-fc-port-update", fcPortUpdateTopologyOperation);
+      operationList.set("topology-operation-fc-port-deletion", fcPortDeletionTopologyOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -962,25 +907,20 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
        * Prepare logicalTerminatinPointConfigurationInput object to 
        * configure logical-termination-point
        ****************************************************************************************/
-
-      let registerOperationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
-        "PromptForRegisteringCausesRegistrationRequest",
-        applicationName,
-        releaseNumber
-      );
-
       let operationList = new Map();
-      operationList.set(registerOperation, registerOperationClientUuid);
+      operationList.set("registration-operation", registerOperation);
 
-      let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
         applicationAddress,
         applicationPort,
-        operationList
+        operationServerName,
+        operationList,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
       );
       let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-        logicalTerminatinPointConfigurationInput
+        logicalTerminationPointConfigurationInput
       );
 
 
@@ -1070,7 +1010,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
        ****************************************************************************************/
 
         let operationList = [];
-        let logicalTerminatinPointConfigurationInput = new LogicalTerminatinPointConfigurationInput(
+        let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
           applicationName,
           newApplicationReleaseNumber,
           newApplicationAddress,
@@ -1261,14 +1201,14 @@ async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forw
   }
 
   let fcPortOutputDirectionLogicalTerminationPointList =
-    await ForwardingConstruct.getFcPortsWithDirectionAsync(forwardingConstruct.uuid, FcPort.portDirectionEnum.OUTPUT);
+    await ForwardingConstruct.getFcPortListWithDirectionAsync(forwardingConstruct.uuid, FcPort.portDirectionEnum.OUTPUT);
 
   if (fcPortOutputDirectionLogicalTerminationPointList.length !== 1) {
     return null;
   }
 
   const opLtpUuid = fcPortOutputDirectionLogicalTerminationPointList[0];
-  const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(opLtpUuid);
+  const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(opLtpUuid["logical-termination-point"]);
   const httpClientLtpUuid = httpLtpUuidList[0];
   const applicationName = await httpClientInterface.getApplicationNameAsync(httpClientLtpUuid);
   return applicationName === undefined ? { applicationName: null, httpClientLtpUuid } : { applicationName, httpClientLtpUuid };
