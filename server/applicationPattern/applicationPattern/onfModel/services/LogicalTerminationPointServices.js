@@ -17,8 +17,10 @@ const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerm
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of 
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
@@ -67,6 +69,7 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function finds an application by name and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
@@ -109,6 +112,7 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
@@ -231,6 +235,7 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function creates logical-termination-point for the provided values. 
  * @param {String} applicationName : name of the client application
  * @param {String} releaseNumber : release of the client application
@@ -280,6 +285,7 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function configures the existing logical-termination-point to the latest values. 
  * Also incase if the tcp,operation client are not available it will be created.
  * @param {String} applicationName : name of the client application
@@ -331,6 +337,7 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
 
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function creates a http client interface.
  * @param {String} applicationName name of the client application
  * @param {String} releaseNumber release of the client application
@@ -365,6 +372,7 @@ function createHttpClientInterface(applicationName, releaseNumber) {
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function updates the http client uuid.
  * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
@@ -520,6 +528,7 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort) 
 }
 
 /**
+ * @deprecated will be removed
  * @description This function created a operation client interface.
  * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
@@ -548,6 +557,7 @@ function getPreviousVersionOfTheOperationClientIfExists(httpClientUuid, operatio
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function created a operation client interface.
  * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
@@ -619,6 +629,7 @@ function updateOperationClientInterface(operationClientUuid, operationName) {
 }
 
 /**
+ * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function creates or updates a operation client interfaces for the provided input operation name list.
  * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'

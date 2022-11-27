@@ -118,10 +118,12 @@ class OperationClientInterface extends layerProtocol {
             try {
                 let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
                     operationClientUuid);
-                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
-                let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-                operationName = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
+                if (logicalTerminationPoint !== undefined) {
+                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+                    operationName = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
+                }
                 resolve(operationName);
             } catch (error) {
                 reject(error);

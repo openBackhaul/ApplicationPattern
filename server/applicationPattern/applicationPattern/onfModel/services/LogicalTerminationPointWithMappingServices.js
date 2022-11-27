@@ -467,7 +467,6 @@ function createOrUpdateTcpClientInterface(httpClientUuid, remoteIpV4Address, rem
         }
     });
 }
- 
 /**
  * @description This function creates a tcp client interface.
  * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
@@ -600,7 +599,6 @@ function createOperationClientInterface(httpClientUuid, operationName, operation
         }
     });
 }
- 
 /**
  * @description This function updates a operation client interface.
  * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string
@@ -625,7 +623,6 @@ function updateOperationClientInterface(operationClientUuid, operationName) {
         }
     });
 }
- 
 /**
  * @description This function creates or updates a operation client interfaces for the provided input operation name list.
  * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string
