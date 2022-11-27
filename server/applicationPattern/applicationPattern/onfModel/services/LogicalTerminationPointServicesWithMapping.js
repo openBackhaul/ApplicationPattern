@@ -2,8 +2,8 @@
  * This module provides functionalities to
  *      - manipulate the /core-model-1-4:control-construct/logical-termination-point
  *      - create tcp, http, operation client instance groups for new applications
- *      - update or configure parameters of the tcp, http, operation client instance groups for an existing applications 
- *      - delete the tcp, http, operation client instance groups of an unwanted applications 
+ *      - update or configure parameters of the tcp, http, operation client instance groups for an existing applications
+ *      - delete the tcp, http, operation client instance groups of an unwanted applications
  **/
 
 'use strict';
@@ -15,52 +15,34 @@ const httpClientInterface = require('../models/layerProtocols/HttpClientInterfac
 const operationClientInterface = require('../models/layerProtocols/OperationClientInterface');
 const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerminationPoint/ConfigurationStatus');
 const ConfigurationStatus = require('./models/ConfigurationStatus');
+const ForwardingConfigurationService = require('../services/ForwardingConstructConfigurationServices');
 
 /**
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
- * @deprecated use LogicalTerminationPointServicesWithMapping
- * @param {String} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
+ *
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
  **/
 exports.createOrUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName
             );
-
             if (!isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             } else {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -70,39 +52,24 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 /**
  * @description This function finds an application by name and updates the http,
  * operation and tcp client if require.
- * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus} or null if the application is not found
  **/
- exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
+exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus = null;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName
             );
-
             if (isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -112,48 +79,30 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 /**
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
- * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
 exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
             let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName,
                 releaseNumber
             );
-
             if (!isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             } else {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -232,22 +181,26 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
 }
 
 /**
- * @description This function creates logical-termination-point for the provided values. 
- * @param {String} applicationName : name of the client application
- * @param {String} releaseNumber : release of the client application
- * @param {String} remoteIPv4Address : name of the client application
- * @param {String} remotePort : release of the client application
- * @param {String} operationNameList : release of the client application
+ * @description This function creates logical-termination-point for the provided values.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
-function createLogicalTerminationPointInstanceGroupAsync(applicationName, releaseNumber, remoteIPv4Address,
-    remotePort, operationNameList) {
+function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
 
         let logicalTerminationPointConfigurationStatus;
         let httpClientConfigurationStatus;
         let tcpClientConfigurationStatus;
         let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
+        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationList = logicalTerminationPointConfigurationInput.operationList;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
         try {
 
@@ -263,7 +216,9 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
                 );
                 operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                     httpClientConfigurationStatus.uuid,
-                    operationNameList
+                    operationServerName,
+                    operationList,
+                    operationsMapping
                 );
             }
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
@@ -281,23 +236,27 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
 }
 
 /**
- * @description This function configures the existing logical-termination-point to the latest values. 
+ * @description This function configures the existing logical-termination-point to the latest values.
  * Also incase if the tcp,operation client are not available it will be created.
- * @param {String} applicationName : name of the client application
- * @param {String} releaseNumber : release of the client application
- * @param {String} remoteIPv4Address : name of the client application
- * @param {String} remotePort : release of the client application
- * @param {String} operationNameList : release of the client application
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
-function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releaseNumber, remoteIPv4Address,
-    remotePort, operationNameList) {
+function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
 
         let logicalTerminationPointConfigurationStatus;
         let httpClientConfigurationStatus;
         let tcpClientConfigurationStatus;
         let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
+        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationList = logicalTerminationPointConfigurationInput.operationList;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
         try {
 
@@ -315,7 +274,9 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
             );
             operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                 httpClientUuid,
-                operationNameList
+                operationServerName,
+                operationList,
+                operationsMapping
             );
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
@@ -329,7 +290,6 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
         }
     });
 }
-
 
 /**
  * @description This function creates a http client interface.
@@ -367,7 +327,7 @@ function createHttpClientInterface(applicationName, releaseNumber) {
 
 /**
  * @description This function updates the http client uuid.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} releaseNumber : release of the client application
  * @return {Promise} object {configurationStatus}
@@ -397,7 +357,7 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber) {
 
 /**
  * @description This function creates or updates a tcp client interface.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -431,7 +391,7 @@ function createOrUpdateTcpClientInterface(httpClientUuid, remoteIpV4Address, rem
 
 /**
  * @description This function creates a tcp client interface.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -474,7 +434,7 @@ function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort)
 
 /**
  * @description This function updates a tcp client interface.
- * @param {String} tcpClientUuid :uuid of the tcp-client, the value should be a valid string 
+ * @param {String} tcpClientUuid :uuid of the tcp-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-tcp-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -522,35 +482,7 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort) 
 
 /**
  * @description This function created a operation client interface.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
- * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
- * @param {String} operationName : name of the operation
- * @return {Promise} string {uuid}
- **/
-function getPreviousVersionOfTheOperationClientIfExists(httpClientUuid, operationName) {
-    return new Promise(async function (resolve, reject) {
-        let operationClientUuidOfPreviousVersion;
-        try {
-            operationName = operationName.split("/")[2];
-            let operationClientUuidList = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
-            for (let i = 0; i < operationClientUuidList.length; i++) {
-                let operationClientUuid = operationClientUuidList[i];
-                let existingOperationClientName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
-                let existingOperationName = existingOperationClientName.split("/")[2];
-                if (existingOperationName == operationName) {
-                    operationClientUuidOfPreviousVersion = operationClientUuid;
-                }
-            }
-            resolve(operationClientUuidOfPreviousVersion);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
- * @description This function created a operation client interface.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} operationName : name of the operation
  * @return {Promise} object {configurationStatus}
@@ -594,7 +526,7 @@ function createOperationClientInterface(httpClientUuid, operationName) {
 
 /**
  * @description This function updates a operation client interface.
- * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string 
+ * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-op-c-\d+$'
  * @param {String} operationName : name of the operation
  * @return {Promise} object {configurationStatus}
@@ -619,44 +551,45 @@ function updateOperationClientInterface(operationClientUuid, operationName) {
 
 /**
  * @description This function creates or updates a operation client interfaces for the provided input operation name list.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
- * @param {list} operationClientNameList : list of operation names
+ * @param {String} operationServerName : caller operation
+ * @param {Map} operationList : map of the client operation attributes (key) with client operation names (value)
+ * @param {Object} operationsMapping : map of hardcoded context values for operations
  * @return {Promise} object {configurationStatusList}
  **/
-function createOrUpdateOperationClientInterface(httpClientUuid, operationClientNameList) {
+function createOrUpdateOperationClientInterface(httpClientUuid, operationServerName, operationList, operationsMapping) {
     return new Promise(async function (resolve, reject) {
         let configurationStatusList = [];
         try {
-            for (let i = 0; i < operationClientNameList.length; i++) {
-                let configurationStatus
-                let operationClientName = operationClientNameList[i];
-                let operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(
-                    httpClientUuid,
-                    operationClientName
+            for (let operationItem of operationList) {
+                let configurationStatus;
+                let operationClientNewName = operationItem[1];
+                let operationAttribute = operationItem[0];
+                let value = operationsMapping[operationServerName][operationAttribute];
+                let operationClientUuid = await ForwardingConfigurationService.resolveClientOperationUuidFromForwardingNameAsync(
+                    value["forwarding-domain"],
+                    httpClientUuid
                 );
-                if (operationClientUuid == undefined) {
-                    let operationClientUuidOfPreviousVersion = await getPreviousVersionOfTheOperationClientIfExists(
+                if (operationClientUuid === undefined) {
+                    configurationStatus = await createOperationClientInterface(
                         httpClientUuid,
-                        operationClientName
+                        operationClientNewName
                     );
-                    if (operationClientUuidOfPreviousVersion == undefined) {
-                        configurationStatus = await createOperationClientInterface(
-                            httpClientUuid,
-                            operationClientName
+                } else {
+                    let operationClientOldName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+                    if (operationClientOldName !== operationClientNewName) {
+                        configurationStatus = await updateOperationClientInterface(
+                            operationClientUuid,
+                            operationClientNewName
                         );
                     } else {
-                        configurationStatus = await updateOperationClientInterface(
-                            operationClientUuidOfPreviousVersion,
-                            operationClientName
+                        configurationStatus = new ConfigurationStatus(
+                            operationClientUuid,
+                            '',
+                            false
                         );
                     }
-                } else {
-                    configurationStatus = new ConfigurationStatus(
-                        operationClientUuid,
-                        '',
-                        false
-                    );
                 }
                 configurationStatusList.push(configurationStatus);
             }

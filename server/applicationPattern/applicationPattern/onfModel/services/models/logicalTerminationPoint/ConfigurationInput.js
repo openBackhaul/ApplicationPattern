@@ -7,15 +7,16 @@
 
 'use strict';
 
+/**
+ * @deprecated use ConfigurationInputWithMapping
+ */
 class ConfigurationInput {
 
     applicationName;
     releaseNumber;
     remoteIPv4Address;
     remotePort;
-    operationServerName;
-    operationList;
-    operationsMapping;
+    operationNameList;
 
     /**
      * @constructor creates a ConfigurationInput  object for the provided values. 
@@ -23,27 +24,15 @@ class ConfigurationInput {
      * @param {String} releaseNumber : release of the client application
      * @param {String} remoteIPv4Address : name of the client application
      * @param {String} remotePort : release of the client application
-     * @param {String} operationServerName : caller operation
-     * @param {Map} operationList : map of the client operation attributes (key) with client operation names (value)
-     * @param {Object} operationsMapping : map of hardcoded context values for operations
+     * @param {String} operationNameList : release of the client application
      * @return {Promise} object {ConfigurationInput}
      **/
-    constructor(
-        applicationName,
-        releaseNumber,
-        remoteIPv4Address,
-        remotePort,
-        operationServerName,
-        operationList,
-        operationsMapping
-    ) {
+    constructor(applicationName, releaseNumber, remoteIPv4Address, remotePort, operationNameList) {
         this.applicationName = applicationName;
         this.releaseNumber = releaseNumber;
         this.remoteIPv4Address = remoteIPv4Address;
         this.remotePort = remotePort;
-        this.operationServerName = operationServerName;
-        this.operationList = operationList;
-        this.operationsMapping = operationsMapping;
+        this.operationNameList = operationNameList;
     }
 
     validateInput() {
