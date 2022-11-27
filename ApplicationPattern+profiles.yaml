@@ -10,11 +10,7 @@ profiles:
           unit: string
       display-in-new-browser-window: boolean
     configuration:
-      protocol-reference: string
-      ipv-4-address-reference: string
-      domain-name-reference: string
-      port-reference: string
-      operation-reference: string
+      consequent-operation-reference: string
 
   - profile-name: 'GenericResponseProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'

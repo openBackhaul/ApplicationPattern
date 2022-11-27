@@ -3962,32 +3962,10 @@ paths:
                                         action-profile-configuration:
                                           type: object
                                           required:
-                                            - request
+                                            - consequent-operation-reference
                                           properties:
-                                            request:
-                                              type: object
-                                              required:
-                                                - protocol-reference
-                                                - address
-                                                - port-reference
-                                                - operation-reference
-                                              properties:
-                                                protocol-reference:
-                                                  type: string
-                                                address:
-                                                  type: object
-                                                  minProperties: 1
-                                                  maxProperties: 1
-                                                  additionalProperties: false
-                                                  properties:
-                                                    ipv-4-address-reference:
-                                                      type: string
-                                                    domain-name-reference:
-                                                      type: string
-                                                port-reference:
-                                                  type: string
-                                                operation-reference:
-                                                  type: string
+                                            consequent-operation-reference:
+                                              type: string
                                 - description: 'generic response profile'
                                   type: object
                                   required:
@@ -5099,32 +5077,10 @@ paths:
                               action-profile-configuration:
                                 type: object
                                 required:
-                                  - request
+                                  - consequent-operation-reference
                                 properties:
-                                  request:
-                                    type: object
-                                    required:
-                                      - protocol-reference
-                                      - address
-                                      - port-reference
-                                      - operation-reference
-                                    properties:
-                                      protocol-reference:
-                                        type: string
-                                      address:
-                                        type: object
-                                        minProperties: 1
-                                        maxProperties: 1
-                                        additionalProperties: false
-                                        properties:
-                                          ipv-4-address-reference:
-                                            type: string
-                                          domain-name-reference:
-                                            type: string
-                                      port-reference:
-                                        type: string
-                                      operation-reference:
-                                        type: string
+                                  consequent-operation-reference:
+                                    type: string
                       - description: 'generic response profile'
                         type: object
                         required:
@@ -5334,12 +5290,7 @@ paths:
                           unit: 'Unit at input field'
                       display-in-new-browser-window: false
                     action-profile-configuration:
-                      request:
-                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
-                        address:
-                          ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
-                        port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
-                        operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+                      consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -5352,7 +5303,6 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
-
 
 ########################################################################################################################
 #   OAM Layer - Basic Part - Following paths must be copied, if respective class is applied in the application
@@ -5532,7 +5482,7 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/action-profile-1-0:action-profile-pac/action-profile-configuration/request:
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/action-profile-1-0:action-profile-pac/action-profile-configuration/consequent-operation-reference:
     parameters:
       - in: path
         name: uuid
@@ -5542,53 +5492,25 @@ paths:
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-action-p-([0-9]{3})$'
           example: 'ro-2-0-0-action-p-000'
     get:
-      operationId: getActionProfileRequest
-      summary: 'Returns the configured path of the Request'
+      operationId: getActionProfileConsequentOperationReference
+      summary: 'Returns the reference on the consequent operation'
       tags:
         - ActionProfile
       security:
         - basicAuth: []
       responses:
         '200':
-          description: 'Request path provided'
+          description: 'Reference on the consequent operation provided'
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - action-profile-1-0:request
+                  - action-profile-1-0:consequent-operation-reference
                 properties:
-                  action-profile-1-0:request:
-                    type: object
-                    required:
-                      - protocol-reference
-                      - address
-                      - port-reference
-                      - operation-reference
-                    properties:
-                      protocol-reference:
-                        type: string
-                      address:
-                        type: object
-                        minProperties: 1
-                        maxProperties: 1
-                        additionalProperties: false
-                        properties:
-                          ipv-4-address-reference:
-                            type: string
-                          domain-name-reference:
-                            type: string
-                      port-reference:
-                        type: string
-                      operation-reference:
-                        type: string
-                    example:
-                      action-profile-1-0:request:
-                        protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
-                        address:
-                          ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
-                        port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
-                        operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+                  action-profile-1-0:consequent-operation-reference:
+                    type: string
+                    example: '/core-model-1-4:control-construct/logical-termination-point=ro-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -5602,8 +5524,8 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
     put:
-      operationId: putActionProfileRequest
-      summary: 'Configures path of the Request'
+      operationId: putActionProfileConsequentOperationReference
+      summary: 'Configures the reference on the consequent operation'
       tags:
         - ActionProfile
       security:
@@ -5615,42 +5537,14 @@ paths:
             schema:
               type: object
               required:
-                - action-profile-1-0:request
+                - action-profile-1-0:consequent-operation-reference
               properties:
-                action-profile-1-0:request:
-                  type: object
-                  required:
-                    - protocol-reference
-                    - address
-                    - port-reference
-                    - operation-reference
-                  properties:
-                    protocol-reference:
-                      type: string
-                    address:
-                      type: object
-                      minProperties: 1
-                      maxProperties: 1
-                      additionalProperties: false
-                      properties:
-                        ipv-4-address-reference:
-                          type: string
-                        domain-name-reference:
-                          type: string
-                    port-reference:
-                      type: string
-                    operation-reference:
-                      type: string
-                  example:
-                    action-profile-1-0:request:
-                      protocol-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol'
-                      address:
-                        ipv-4-address-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address'
-                      port-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-001/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
-                      operation-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+                action-profile-1-0:consequent-operation-reference:
+                  type: string
+                  example: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
       responses:
         '204':
-          description: 'Request path configured'
+          description: 'Reference on the consequent operation configured'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -9439,7 +9333,15 @@ components:
                 type: string
                 description: >
                   'Request that shall be called, when button gets pressed
-                  from [/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/request]'
+                  from
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol}]
+                  ://
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address}
+                  or
+                  {/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name}]
+                  :
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-bm-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port}]
+                  [{/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/consequent-operation-reference}]'
               input-value-list:
                 type: array
                 items:
