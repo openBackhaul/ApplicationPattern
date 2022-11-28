@@ -196,7 +196,8 @@ class OperationClientInterface extends layerProtocol {
                 let httpClientUuid = httpClientUuidList[0];
                 let tcpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
                 let tcpClientUuid = tcpClientUuidList[0];
-                let remoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
+                let tcpClientRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
+                let remoteAddress = await getConfiguredRemoteAddress(tcpClientRemoteAddress);
                 let remotePort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
                 tcpIpAddressAndPort = remoteAddress + ":" + remotePort;
                 resolve(tcpIpAddressAndPort);
@@ -330,8 +331,29 @@ class OperationClientInterface extends layerProtocol {
             }
         });
     }
-
-
-
 }
+
+/**
+ * @description This function returns the remote address configured .
+ * @param {String} remoteAddress : remote address of the tcp client .
+ * @returns {promise} string {remoteAddress}
+ **/
+function getConfiguredRemoteAddress(remoteAddress) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            if ("domain-name" in remoteAddress) {
+                remoteAddress = remoteAddress["domain-name"];
+            } else {
+                remoteAddress = remoteAddress[
+                    onfAttributes.TCP_CLIENT.IP_ADDRESS][
+                    onfAttributes.TCP_CLIENT.IPV_4_ADDRESS
+                ];
+            }
+            resolve(remoteAddress);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = OperationClientInterface;
