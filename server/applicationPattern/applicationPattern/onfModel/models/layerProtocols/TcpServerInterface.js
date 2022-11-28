@@ -51,9 +51,9 @@ class TcpServerInterface extends layerProtocol {
          */
         constructor(localAddress, localPort) {
             this.tcpServerInterfaceConfiguration = new TcpServerInterfacePac
-            .TcpServerInterfaceConfiguration(
-                localAddress, 
-                localPort);
+                .TcpServerInterfaceConfiguration(
+                    localAddress,
+                    localPort);
         }
     }
 
@@ -63,12 +63,12 @@ class TcpServerInterface extends layerProtocol {
      * @param {string} localPort tcp server port where the application is running .
      */
     constructor(localAddress, localPort) {
-        super(0, 
+        super(0,
             TcpServerInterface.TcpServerInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.TCP_SERVER_INTERFACE_PAC] = new TcpServerInterface
-        .TcpServerInterfacePac(
-            localAddress, 
-            localPort);
+            .TcpServerInterfacePac(
+                localAddress,
+                localPort);
     }
 
     /**
@@ -77,7 +77,7 @@ class TcpServerInterface extends layerProtocol {
      **/
     static getLocalAddress() {
         return new Promise(async function (resolve, reject) {
-            let localIpV4Address;
+            let localAddress = {};
             try {
                 let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
                     layerProtocol.layerProtocolNameEnum.TCP_SERVER);
@@ -85,9 +85,8 @@ class TcpServerInterface extends layerProtocol {
                 let _layerProtocol = logicalTerminationPoint["layer-protocol"][0];
                 let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                 let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
-                let localAddress = tcpServerConfiguration["local-address"];
-                localIpV4Address = localAddress["ipv-4-address"];
-                resolve(localIpV4Address);
+                localAddress = await getConfiguredLocalAddress(tcpServerConfiguration["local-address"]);
+                resolve(localAddress);
             } catch (error) {
                 reject(error);
             }
@@ -115,5 +114,97 @@ class TcpServerInterface extends layerProtocol {
             }
         });
     }
+
+    /**
+     * @description This function modifies the tcp-server local-address.
+     * @param {String} tcpServerUuid : tcp-server uuid to set tcp-server instance.
+     * @param {String} localAddress : localAddress that needs to be modified.
+     * @returns {promise} boolean {true|false}
+     **/
+    static setLocalAddressAsync(tcpServerUuid, localAddress) {
+        return new Promise(async function (resolve, reject) {
+            let isUpdated = false;
+            try {
+                let addressToBeDeleted = await fileOperation.readFromDatabaseAsync(
+                    onfPaths.TCP_CLIENT_LOCAL_ADDRESS.replace(
+                        "{uuid}", tcpServerUuid)
+                );
+                let addressPaths = await getPaths(tcpServerUuid, localAddress, addressToBeDeleted);
+                let localAddressPath = addressPaths[0];
+                let pathToBeDeleted = addressPaths[1];
+                if (pathToBeDeleted != undefined) {
+                    await fileOperation.deletefromDatabaseAsync(
+                        pathToBeDeleted,
+                        addressToBeDeleted,
+                        false
+                    );
+                }
+                isUpdated = await fileOperation.writeToDatabaseAsync(
+                    localAddressPath,
+                    localAddress,
+                    false);
+                resolve(isUpdated);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
 }
+
+/**
+ * @description This function returns the local address configured .
+ * @param {String} localAddress : local address of the tcp server .
+ * @returns {promise} string {undefined | address}
+ **/
+function getConfiguredLocalAddress(localAddress) {
+    return new Promise(async function (resolve, reject) {
+        let address = {};
+        try {
+            if (!("domain-name" in localAddress)) {
+                address["ip-address"] = localAddress;
+            } else {
+                address = localAddress;
+            }
+            resolve(address);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function returns the remote address configured .
+ * @param {String} tcpClientUuid : tcp-client uuid of the tcp-client instance
+ * @param {String} addressToBeDeleted : tcp-client address to be deleted.
+ * @param {String} remoteAddress : remote address of the tcp client .
+ * @returns {promise} list {paths}
+ **/
+function getPaths(tcpServerUuid, localAddress, addressToBeDeleted) {
+    return new Promise(async function (resolve, reject) {
+        let paths = [];
+        let localAddressPath;
+        let pathOfAddressToBeDeleted;
+        try {
+            if ("domain-name" in localAddress) {
+                localAddressPath = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
+                    "{uuid}", tcpServerUuid);
+                if (!("domain-name" in addressToBeDeleted))
+                    pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
+                        "{uuid}", tcpServerUuid);
+            } else {
+                localAddressPath = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
+                    "{uuid}", tcpServerUuid);
+                if ("domain-name" in addressToBeDeleted)
+                    pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
+                        "{uuid}", tcpServerUuid);
+            }
+            paths.push(localAddressPath, pathOfAddressToBeDeleted)
+            resolve(paths);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = TcpServerInterface;
