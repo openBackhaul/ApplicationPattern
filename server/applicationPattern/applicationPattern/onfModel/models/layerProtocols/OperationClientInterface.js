@@ -16,6 +16,7 @@ const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const httpClientInterface = require('../../models/layerProtocols/HttpClientInterface');
 
 /**  
  * @extends layerProtocol
@@ -256,6 +257,7 @@ class OperationClientInterface extends layerProtocol {
 
 
     /**
+     * @deprecated Works only with old UUIDs, use generateOperationClientUuidAsync
      * @description This function generates the next operation client uuid for the given http client uuid and operation name.
      * @param {String} httpClientUuid : uuid of the http client logical termination point,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-http-client-\d+$'
@@ -296,6 +298,33 @@ class OperationClientInterface extends layerProtocol {
                             1);
                 }
 
+                resolve(operationClientUuid);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
+     * @description This function generates operation client uuid for the given http client uuid, api segment and sequence.
+     * @param {String} httpClientUuid : uuid of the http client logical termination point,the value should be a valid string
+     * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
+     * @param {String} apiSegment : API segment part of client UUID
+     * @param {String} sequence : Sequence part of client UUID
+     * @returns {promise} string {uuid}
+     **/
+    static generateOperationClientUuidAsync(httpClientUuid, apiSegment, sequence) {
+        return new Promise(async function (resolve, reject) {
+            let operationClientUuid = undefined;
+            try {
+                let appUuid = await controlConstruct.getUuidAsync();
+                let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+                let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
+                let releaseNumberUuidFormat = releaseNumber.replaceAll(".", "-");
+
+                let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
+                operationClientUuid = appUuid + "-op-c-" + apiSegment + "-" +
+                applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
                 resolve(operationClientUuid);
             } catch (error) {
                 reject(error);
