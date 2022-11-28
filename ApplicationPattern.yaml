@@ -9483,8 +9483,6 @@ components:
                             type: string
                           local-address:
                             type: object
-                            minProperties: 1
-                            additionalProperties: false
                             properties:
                               ipv-4-address:
                                 type: string
@@ -9613,14 +9611,9 @@ components:
                             type: string
                           remote-address:
                             type: object
-                            minProperties: 1
-                            maxProperties: 1
-                            additionalProperties: false
                             properties:
                               ip-address:
                                 type: object
-                                minProperties: 1
-                                additionalProperties: false
                                 properties:
                                   ipv-4-address:
                                     type: string
