@@ -341,7 +341,8 @@ class OperationClientInterface extends layerProtocol {
 function getConfiguredRemoteAddress(remoteAddress) {
     return new Promise(async function (resolve, reject) {
         try {
-            if ("domain-name" in remoteAddress) {
+            let domainName = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
+            if (domainName in remoteAddress) {
                 remoteAddress = remoteAddress["domain-name"];
             } else {
                 remoteAddress = remoteAddress[
