@@ -160,9 +160,10 @@ class TcpServerInterface extends layerProtocol {
 function getConfiguredLocalAddress(localAddress) {
     return new Promise(async function (resolve, reject) {
         let address = {};
+        let domainName = onfAttributes.TCP_SERVER.DOMAIN_NAME
         try {
-            if (!("domain-name" in localAddress)) {
-                address["ip-address"] = localAddress;
+            if (!(domainName in localAddress)) {
+                address[onfAttributes.TCP_SERVER.IP_ADDRESS] = localAddress;
             } else {
                 address = localAddress;
             }
@@ -185,17 +186,18 @@ function getPaths(tcpServerUuid, localAddress, addressToBeDeleted) {
         let paths = [];
         let localAddressPath;
         let pathOfAddressToBeDeleted;
+        let domainName = onfAttributes.TCP_SERVER.DOMAIN_NAME;
         try {
-            if ("domain-name" in localAddress) {
+            if (domainName in localAddress) {
                 localAddressPath = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
                     "{uuid}", tcpServerUuid);
-                if (!("domain-name" in addressToBeDeleted))
+                if (!(domainName in addressToBeDeleted))
                     pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
                         "{uuid}", tcpServerUuid);
             } else {
                 localAddressPath = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
                     "{uuid}", tcpServerUuid);
-                if ("domain-name" in addressToBeDeleted)
+                if (domainName in addressToBeDeleted)
                     pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
                         "{uuid}", tcpServerUuid);
             }

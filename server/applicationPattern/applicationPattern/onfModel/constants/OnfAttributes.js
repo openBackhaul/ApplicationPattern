@@ -162,6 +162,8 @@ const TCP_SERVER = {
     CAPABILITY: "tcp-server-interface-capability",
     CONFIGURATION: "tcp-server-interface-configuration",
     IPV_4_ADDRESS: "ipv-4-address",
+    IP_ADDRESS: "ip-address",
+    DOMAIN_NAME: "domain-name",
     LOCAL_PORT: "local-port"
 };
 
