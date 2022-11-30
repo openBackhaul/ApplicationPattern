@@ -31,7 +31,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
 |  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
-
+|  | ALA | AutomatedLinkAcceptance | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 # Historical Fake IP Addresses  
 
 The following fake TCP/IP addresses have no longer to be used while writing new specifications.
