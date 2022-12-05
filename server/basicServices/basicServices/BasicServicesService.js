@@ -768,7 +768,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
        ****************************************************************************************/
       let applicationName = body["topology-application"];
       let releaseNumber = body["topology-application-release-number"];
-      let applicationAddress = body["topology-application-address"];
+      let applicationAddress = body["topology-application-address"]['ip-address']['ipv-4-address']
       let applicationPort = body["topology-application-port"];
       let applicationUpdateTopologyOperation = body["topology-operation-application-update"];
       let ltpUpdateTopologyOperation = body["topology-operation-ltp-update"];
@@ -846,6 +846,9 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
 
   let forwrdingContructResponse = await controlConstruct.getForwardingDomainListAsync()
   let serverclientinterfacepac;
+  let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
+  let controlConstructcompleteResponse = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
+  let controluuid = controlConstructcompleteResponse['uuid']
   let logicalterminationpoint = await fileOperation.readFromDatabaseAsync(
     onfPaths.LOGICAL_TERMINATION_POINT
   );
@@ -870,8 +873,12 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
       }
     }
 
-     let controlConstructResponse = {
-        "core-model-1-4:control-construct ":forwrdingContructResponse," logical-termination-point": logicalterminationpoint
+    let controlConstructResponse = {
+      "core-model-1-4:control-construct":{
+        "uuid" : controluuid,
+        "logical-termination-point": logicalterminationpoint,          
+        "forwarding-domain" : forwrdingContructResponse
+       }
       };
      /****************************************************************************************
        * Setting 'application/json' response body
