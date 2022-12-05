@@ -22,6 +22,10 @@ const APPLICATION_PROFILE_PAC = PROFILE + "={profileUuid}/application-profile-1-
 const APPLICATION_PROFILE_CONFIGURATION = APPLICATION_PROFILE_PAC + "/application-profile-configuration";
 const APPLICATION_PROFILE_APPROVAL_STATUS = APPLICATION_PROFILE_CONFIGURATION + "/approval-status";
 
+const RESPONSE_PROFILE_PAC = PROFILE + "={profileUuid}/response-profile-1-0:application-profile-pac";
+const RESPONSE_PROFILE_CONFIGURATION = RESPONSE_PROFILE_PAC + "/response-profile-configuration";
+const RESPONSE_PROFILE_VALUE_REFERENCE = RESPONSE_PROFILE_CONFIGURATION + "/value/value-reference";
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -34,6 +38,7 @@ const SERVER_LTP = LOGICAL_TERMINATION_POINT + "={uuid}/server-ltp";
 const HTTP_CLIENT_INTERFACE_PAC = LAYER_PROTOCOL + "/http-client-interface-1-0:http-client-interface-pac";
 const HTTP_CLIENT_INTERFACE_CONFIGURATION = HTTP_CLIENT_INTERFACE_PAC + "/http-client-interface-configuration";
 const HTTP_CLIENT_RELEASE_NUMBER = HTTP_CLIENT_INTERFACE_CONFIGURATION + "/release-number";
+const HTTP_CLIENT_APPLICATION_NAME = HTTP_CLIENT_INTERFACE_CONFIGURATION + "/application-name";
 
 const OPERATION_SERVER_INTERFACE_PAC = LAYER_PROTOCOL + "/operation-server-interface-1-0:operation-server-interface-pac";
 const OPERATION_SERVER_INTERFACE_CONFIGURATION = OPERATION_SERVER_INTERFACE_PAC + "/operation-server-interface-configuration";
@@ -75,6 +80,7 @@ module.exports = {
     APPLICATION_PROFILE_PAC,
     APPLICATION_PROFILE_CONFIGURATION,
     APPLICATION_PROFILE_APPROVAL_STATUS,
+    RESPONSE_PROFILE_VALUE_REFERENCE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     CLIENT_LTP,
@@ -82,6 +88,7 @@ module.exports = {
     HTTP_CLIENT_INTERFACE_PAC,
     HTTP_CLIENT_INTERFACE_CONFIGURATION,
     HTTP_CLIENT_RELEASE_NUMBER,
+    HTTP_CLIENT_APPLICATION_NAME,
     OPERATION_SERVER_INTERFACE_PAC,
     OPERATION_SERVER_INTERFACE_CONFIGURATION,
     OPERATION_SERVER_OPERATION_KEY,

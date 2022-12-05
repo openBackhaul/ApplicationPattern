@@ -102,6 +102,19 @@ const OAM_RECORD_PROFILE = {
     TIMESTAMP: "timestamp"
 };
 
+const RESPONSE_PROFILE = {
+    PAC: "response-profile-1-0:response-profile-pac",
+    CAPABILITY: "response-profile-capability",
+    CONFIGURATION: "response-profile-configuration",
+    OPERATION_NAME: "operation-name",
+    FIELD_NAME: "field-name",
+    FIELD_NAME_REFERENCE: "field-name-reference",
+    DESCRIPTION: "description",
+    DATATYPE: "datatype",
+    VALUE: "value",
+    VALUE_REFERENCE: "value-reference"
+}
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -207,6 +220,7 @@ module.exports = {
     INTEGER_PROFILE,
     SERVICE_RECORD_PROFILE,
     OAM_RECORD_PROFILE,
+    RESPONSE_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,
