@@ -235,7 +235,6 @@ class HttpClientInterface extends layerProtocol {
     }
 
     /**
-     * @deprecated Works only with old UUIDs, use generateHttpClientUuidAsync
      * @description This function returns the next available uuid for the http-client-interface.
      * @returns {promise} string {nextHttpClientUuid}
      **/
@@ -259,76 +258,6 @@ class HttpClientInterface extends layerProtocol {
                         (parseInt(uuidNumber) + 10);
                 }
                 resolve(nextHttpClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    /**
-     * @description This function updates API segment for the http-client-interface
-     * and every place in database that is touched by this renaming.
-     * @param {String} httpClientUuid : http client unique identifier for the new application.
-     * It should be a valid string in the pattern '-\d+-\d+-\d+-http-c-\d+$'
-     * @param {String} apiSegment: new API segment to be replaced in given httpClientUuid
-     * @returns {promise} {httpClientUuid}
-     **/
-    static updateApiSegment(httpClientUuid, apiSegment) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let httpClientUuidSeparated = httpClientUuid.split("-");
-                httpClientUuidSeparated[6] = apiSegment;
-                let updatedHttpClientUuid = httpClientUuidSeparated.join("-");
-                // find all operation clients associated with this http client UUID
-                // and change their server ltp list to point to new http client UUID
-                let operationClients = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
-                for (let operation of operationClients) {
-                    await logicalTerminationPoint.setServerLtpListAsync(operation, [updatedHttpClientUuid]);
-                }
-                // find tcp client associated with this http client UUID
-                // and change its client ltp list to point to new http client UUID
-                let tcpClient = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-                await logicalTerminationPoint.setClientLtpListAsync(tcpClient[0], [updatedHttpClientUuid]);
-                // change tcp client UUID as well
-                let updatedTcpClientUuid = updatedHttpClientUuid.replace("http", "tcp");
-                let tcpClientUuidPath = onfPaths.LOGICAL_TERMINATION_POINT_UUID.replace(
-                    "{uuid}", tcpClient[0]);
-                await fileOperation.writeToDatabaseAsync(
-                    tcpClientUuidPath,
-                    updatedTcpClientUuid,
-                    false);
-                // change tcp reference for this http client UUID
-                await logicalTerminationPoint.setServerLtpListAsync(httpClientUuid, [updatedTcpClientUuid]);
-                // change http client UUID
-                let httpClientUuidPath = onfPaths.LOGICAL_TERMINATION_POINT_UUID.replace(
-                    "{uuid}", httpClientUuid);
-                await fileOperation.writeToDatabaseAsync(
-                    httpClientUuidPath,
-                    updatedHttpClientUuid,
-                    false);
-                resolve(updatedHttpClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    /**
-     * @description This function returns the uuid for the http-client-interface.
-     * @param {String} applicationName: caller application name
-     * @param {String} releaseNumber: caller release number
-     * @param {String} apiSegment: API segment that should be part of UUID
-     * @returns {promise} string {nextHttpClientUuid}
-     **/
-    static generateHttpClientUuidAsync(applicationName, releaseNumber, apiSegment) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let appUuid = await controlConstruct.getUuidAsync();
-                let releaseNumberUuidFormat = releaseNumber.replaceAll(".", "-");
-                let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
-                let httpClientUuid = appUuid + "-http-c-" + apiSegment + "-" +
-                    applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-000";
-                resolve(httpClientUuid);
             } catch (error) {
                 reject(error);
             }
