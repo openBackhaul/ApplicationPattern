@@ -362,8 +362,6 @@ class OperationClientInterface extends layerProtocol {
             }
         });
     }
-}
-
 
     /**
      * @description Determines if given UUID belongs to a client operation.
@@ -374,6 +372,7 @@ class OperationClientInterface extends layerProtocol {
         let splitted = operationUuid.split("-");
         return "c" === splitted[5];
     }
+}
 
 /**
  * @description This function returns the remote address configured .
