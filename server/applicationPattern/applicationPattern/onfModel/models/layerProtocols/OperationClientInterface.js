@@ -16,6 +16,7 @@ const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const httpClientInterface = require('../../models/layerProtocols/HttpClientInterface');
 
 /**  
  * @extends layerProtocol
@@ -117,10 +118,12 @@ class OperationClientInterface extends layerProtocol {
             try {
                 let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
                     operationClientUuid);
-                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
-                let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-                operationName = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
+                if (logicalTerminationPoint !== undefined) {
+                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+                    operationName = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
+                }
                 resolve(operationName);
             } catch (error) {
                 reject(error);
@@ -257,6 +260,7 @@ class OperationClientInterface extends layerProtocol {
 
 
     /**
+     * @deprecated Works only with old UUIDs, use generateOperationClientUuidAsync
      * @description This function generates the next operation client uuid for the given http client uuid and operation name.
      * @param {String} httpClientUuid : uuid of the http client logical termination point,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-http-client-\d+$'
@@ -305,6 +309,33 @@ class OperationClientInterface extends layerProtocol {
     }
 
     /**
+     * @description This function generates operation client uuid for the given http client uuid, api segment and sequence.
+     * @param {String} httpClientUuid : uuid of the http client logical termination point,the value should be a valid string
+     * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
+     * @param {String} apiSegment : API segment part of client UUID
+     * @param {String} sequence : Sequence part of client UUID
+     * @returns {promise} string {uuid}
+     **/
+    static generateOperationClientUuidAsync(httpClientUuid, apiSegment, sequence) {
+        return new Promise(async function (resolve, reject) {
+            let operationClientUuid = undefined;
+            try {
+                let appUuid = await controlConstruct.getUuidAsync();
+                let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+                let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
+                let releaseNumberUuidFormat = releaseNumber.replaceAll(".", "-");
+
+                let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
+                operationClientUuid = appUuid + "-op-c-" + apiSegment + "-" +
+                applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
+                resolve(operationClientUuid);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
      * @description This function creates a new operation-client-interface .
      * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-http-client-\d+$'
@@ -333,6 +364,17 @@ class OperationClientInterface extends layerProtocol {
     }
 }
 
+
+    /**
+     * @description Determines if given UUID belongs to a client operation.
+     * @param {String} operationUuid UUID to be checked
+     * @returns {boolean} true if UUID belongs to a client operation
+     */
+    static isOperationClient(operationUuid) {
+        let splitted = operationUuid.split("-");
+        return "c" === splitted[5];
+    }
+
 /**
  * @description This function returns the remote address configured .
  * @param {String} remoteAddress : remote address of the tcp client .
@@ -355,6 +397,7 @@ function getConfiguredRemoteAddress(remoteAddress) {
             reject(error);
         }
     });
+
 }
 
 module.exports = OperationClientInterface;

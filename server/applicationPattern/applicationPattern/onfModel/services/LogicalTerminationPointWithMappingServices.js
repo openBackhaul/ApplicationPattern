@@ -2,8 +2,8 @@
  * This module provides functionalities to
  *      - manipulate the /core-model-1-4:control-construct/logical-termination-point
  *      - create tcp, http, operation client instance groups for new applications
- *      - update or configure parameters of the tcp, http, operation client instance groups for an existing applications 
- *      - delete the tcp, http, operation client instance groups of an unwanted applications 
+ *      - update or configure parameters of the tcp, http, operation client instance groups for an existing applications
+ *      - delete the tcp, http, operation client instance groups of an unwanted applications
  **/
 
 'use strict';
@@ -17,51 +17,31 @@ const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerm
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
- * @deprecated use LogicalTerminationPointServicesWithMapping
- * @param {String} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
+ *
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
  **/
 exports.createOrUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName
             );
-
             if (!isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             } else {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -69,42 +49,26 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function finds an application by name and updates the http,
  * operation and tcp client if require.
- * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus} or null if the application is not found
  **/
- exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
+exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus = null;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName
             );
-
             if (isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -112,51 +76,32 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
- * @param {object} logicalTerminationPointConfigurationInput : is an instance of 
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
 exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
-
         let logicalTerminationPointConfigurationStatus;
-
         try {
-
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
             let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-            let remotePort = logicalTerminationPointConfigurationInput.remotePort;
-            let operationNameList = logicalTerminationPointConfigurationInput.operationNameList;
-
             let isApplicationExists = await httpClientInterface.isApplicationExists(
                 applicationName,
                 releaseNumber
             );
-
             if (!isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             } else {
                 logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
-                    applicationName,
-                    releaseNumber,
-                    remoteIPv4Address,
-                    remotePort,
-                    operationNameList
+                    logicalTerminationPointConfigurationInput
                 );
             }
-
             resolve(logicalTerminationPointConfigurationStatus)
-
         } catch (error) {
             reject(error);
         }
@@ -235,17 +180,12 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
 }
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
- * @description This function creates logical-termination-point for the provided values. 
- * @param {String} applicationName : name of the client application
- * @param {String} releaseNumber : release of the client application
- * @param {String} remoteIPv4Address : name of the client application
- * @param {String} remotePort : release of the client application
- * @param {String} operationNameList : release of the client application
+ * @description This function creates logical-termination-point for the provided values.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
-function createLogicalTerminationPointInstanceGroupAsync(applicationName, releaseNumber, remoteIPv4Address,
-    remotePort, operationNameList) {
+function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
 
         let logicalTerminationPointConfigurationStatus;
@@ -253,11 +193,24 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
         let tcpClientConfigurationStatus;
         let operationClientConfigurationStatusList = [];
 
-        try {
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
+        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
+        try {
+            let apiSegment = determineInitialApiSegmentOfHttpClient(
+                operationServerName,
+                operationNamesByAttributes,
+                operationsMapping
+            );
             httpClientConfigurationStatus = await createHttpClientInterface(
                 applicationName,
-                releaseNumber
+                releaseNumber,
+                apiSegment
             );
             if (httpClientConfigurationStatus.updated) {
                 tcpClientConfigurationStatus = await createOrUpdateTcpClientInterface(
@@ -267,7 +220,9 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
                 );
                 operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                     httpClientConfigurationStatus.uuid,
-                    operationNameList
+                    operationServerName,
+                    operationNamesByAttributes,
+                    operationsMapping
                 );
             }
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
@@ -285,18 +240,13 @@ function createLogicalTerminationPointInstanceGroupAsync(applicationName, releas
 }
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
- * @description This function configures the existing logical-termination-point to the latest values. 
+ * @description This function configures the existing logical-termination-point to the latest values.
  * Also incase if the tcp,operation client are not available it will be created.
- * @param {String} applicationName : name of the client application
- * @param {String} releaseNumber : release of the client application
- * @param {String} remoteIPv4Address : name of the client application
- * @param {String} remotePort : release of the client application
- * @param {String} operationNameList : release of the client application
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
-function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releaseNumber, remoteIPv4Address,
-    remotePort, operationNameList) {
+function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
 
         let logicalTerminationPointConfigurationStatus;
@@ -304,14 +254,17 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
         let tcpClientConfigurationStatus;
         let operationClientConfigurationStatusList = [];
 
-        try {
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
+        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
+        try {
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName
-            );
-            httpClientConfigurationStatus = await updateHttpClientInterface(
-                httpClientUuid,
-                releaseNumber
             );
             tcpClientConfigurationStatus = await createOrUpdateTcpClientInterface(
                 httpClientUuid,
@@ -320,8 +273,18 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
             );
             operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                 httpClientUuid,
-                operationNameList
+                operationServerName,
+                operationNamesByAttributes,
+                operationsMapping
             );
+            let clientList = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
+            let apiSegment = determineApiSegmentOfHttpClient(clientList);
+            console.log(apiSegment);
+            httpClientConfigurationStatus = await updateHttpClientInterface(
+                httpClientUuid,
+                releaseNumber,
+                apiSegment
+            )
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
                 httpClientConfigurationStatus,
@@ -335,21 +298,82 @@ function updateLogicalTerminationPointInstanceGroupAsync(applicationName, releas
     });
 }
 
+function initializeApiSegmentsMap() {
+    let operationApiSegments = new Map();
+    operationApiSegments.set("bm", 0);
+    operationApiSegments.set("im", 0);
+    operationApiSegments.set("bs", 0);
+    operationApiSegments.set("is", 0);
+    return operationApiSegments;
+}
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
+ * @description Extracts API segment out of each operation within the caller
+ * operation. In final step, the map is sorted and the most used API segment is returned.
+ * This should be used prior creating http client.
+ * @param {string} operationServerName : caller operation
+ * @param {Map} operationNamesByAttributes : http client operations map
+ * @param {Object} operationMapping : map of hardcoded context values for operations
+ * @returns {string} : most used API segment
+ **/
+function determineInitialApiSegmentOfHttpClient(operationServerName, operationNamesByAttributes, operationMapping) {
+    let operationApiSegments = initializeApiSegmentsMap();
+    for (let operation of operationNamesByAttributes) {
+        let operationAttribute = operation[0];
+        let segment = operationMapping[operationServerName][operationAttribute]["api-segment"];
+        let count = operationApiSegments.get(segment) + 1;
+        operationApiSegments.set(segment, count);
+    }
+    return sortApiSegments(operationApiSegments);
+}
+
+/**
+ * @description Given the http client operations list, it extracts the
+ * API segment out of each operation and keeps the count in a map. In
+ * final step, the map is sorted and the most used API segment is returned.
+ * This should be used to update http client.
+ * @param {List} clientList : http client operations list
+ * @returns {string} : most used API segment
+ **/
+ function determineApiSegmentOfHttpClient(clientList) {
+    let operationApiSegments = initializeApiSegmentsMap();
+    for (let operationUuid of clientList) {
+        let operationUuidSplitted = operationUuid.split("-");
+        let segment = operationUuidSplitted[6];
+        let count = operationApiSegments.get(segment) + 1;
+        operationApiSegments.set(segment, count);
+    }
+    return sortApiSegments(operationApiSegments);
+}
+
+function sortApiSegments(operationApiSegments) {
+    let operationApiSegmentsSorted = ["bm", 0];
+    operationApiSegments.forEach((value, key) => {
+        if (value > operationApiSegmentsSorted[1]) {
+            operationApiSegmentsSorted = [key, value];
+        }
+    });
+    return operationApiSegmentsSorted[0];
+}
+
+/**
  * @description This function creates a http client interface.
  * @param {String} applicationName name of the client application
  * @param {String} releaseNumber release of the client application
+ * @param {String} apiSegment calculated API segment based on API segments of operation clients
  * @return {Promise} object {configurationStatus}
  **/
-function createHttpClientInterface(applicationName, releaseNumber) {
+function createHttpClientInterface(applicationName, releaseNumber, apiSegment) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         try {
             let serverLtp = [];
             let clientLtp = [];
-            let httpClientUuid = await httpClientInterface.generateNextUuidAsync();
+            let httpClientUuid = await httpClientInterface.generateHttpClientUuidAsync(
+                applicationName,
+                releaseNumber,
+                apiSegment
+            );
             let httpClientLogicalTerminationPoint = httpClientInterface.
             createHttpClientInterface(
                 httpClientUuid,
@@ -372,29 +396,37 @@ function createHttpClientInterface(applicationName, releaseNumber) {
 }
 
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function updates the http client uuid.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} releaseNumber : release of the client application
+ * @param {String} apiSegment calculated API segment based on API segments of operation clients
  * @return {Promise} object {configurationStatus}
  **/
-function updateHttpClientInterface(httpClientUuid, releaseNumber) {
+function updateHttpClientInterface(httpClientUuid, releaseNumber, apiSegment) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
+        let updatedHttpClientUuid = httpClientUuid;
         try {
-            let isUpdated = false;
+            let isUpdatedReleaseNumber = false;
             let existingReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
             if (existingReleaseNumber != releaseNumber) {
-                isUpdated = await httpClientInterface.setReleaseNumberAsync(
+                isUpdatedReleaseNumber = await httpClientInterface.setReleaseNumberAsync(
                     httpClientUuid,
                     releaseNumber
                 );
             }
+            let isUpdatedUuid = false;
+            let httpClientUuidSeparated = httpClientUuid.split("-");
+            let oldApiSegment = httpClientUuidSeparated[6];
+            if (oldApiSegment !== apiSegment) {
+                updatedHttpClientUuid = await httpClientInterface.updateApiSegment(httpClientUuid, apiSegment);
+                isUpdatedUuid = true;
+            }
             configurationStatus = new ConfigurationStatus(
-                httpClientUuid,
+                updatedHttpClientUuid,
                 '',
-                isUpdated);
+                isUpdatedReleaseNumber || isUpdatedUuid );
             resolve(configurationStatus);
         } catch (error) {
             reject(error);
@@ -404,7 +436,7 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber) {
 
 /**
  * @description This function creates or updates a tcp client interface.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -435,10 +467,9 @@ function createOrUpdateTcpClientInterface(httpClientUuid, remoteIpV4Address, rem
         }
     });
 }
-
 /**
  * @description This function creates a tcp client interface.
- * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -481,7 +512,7 @@ function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort)
 
 /**
  * @description This function updates a tcp client interface.
- * @param {String} tcpClientUuid :uuid of the tcp-client, the value should be a valid string 
+ * @param {String} tcpClientUuid :uuid of the tcp-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-tcp-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
@@ -528,51 +559,17 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort) 
 }
 
 /**
- * @deprecated will be removed
  * @description This function created a operation client interface.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
- * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
- * @param {String} operationName : name of the operation
- * @return {Promise} string {uuid}
- **/
-function getPreviousVersionOfTheOperationClientIfExists(httpClientUuid, operationName) {
-    return new Promise(async function (resolve, reject) {
-        let operationClientUuidOfPreviousVersion;
-        try {
-            operationName = operationName.split("/")[2];
-            let operationClientUuidList = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
-            for (let i = 0; i < operationClientUuidList.length; i++) {
-                let operationClientUuid = operationClientUuidList[i];
-                let existingOperationClientName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
-                let existingOperationName = existingOperationClientName.split("/")[2];
-                if (existingOperationName == operationName) {
-                    operationClientUuidOfPreviousVersion = operationClientUuid;
-                }
-            }
-            resolve(operationClientUuidOfPreviousVersion);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
- * @deprecated use LogicalTerminationPointServicesWithMapping
- * @description This function created a operation client interface.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} operationName : name of the operation
  * @return {Promise} object {configurationStatus}
  **/
-function createOperationClientInterface(httpClientUuid, operationName) {
+function createOperationClientInterface(httpClientUuid, operationName, operationClientUuid) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         let isCreated;
         try {
-            let operationClientUuid = await operationClientInterface.generateNextUuidAsync(
-                httpClientUuid,
-                operationName
-            );
             let operationClientLogicalTerminationPoint = await operationClientInterface.
             createOperationClientInterface(
                 httpClientUuid,
@@ -602,10 +599,9 @@ function createOperationClientInterface(httpClientUuid, operationName) {
         }
     });
 }
-
 /**
  * @description This function updates a operation client interface.
- * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string 
+ * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-op-c-\d+$'
  * @param {String} operationName : name of the operation
  * @return {Promise} object {configurationStatus}
@@ -627,42 +623,41 @@ function updateOperationClientInterface(operationClientUuid, operationName) {
         }
     });
 }
-
 /**
- * @deprecated use LogicalTerminationPointServicesWithMapping
  * @description This function creates or updates a operation client interfaces for the provided input operation name list.
- * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string 
+ * @param {String} httpClientUuid : uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
- * @param {list} operationClientNameList : list of operation names
+ * @param {String} operationServerName : caller operation
+ * @param {Map} operationNamesByAttributes : map of the client operation attributes (key) with client operation names (value)
+ * @param {Object} operationsMapping : map of hardcoded context values for operations
  * @return {Promise} object {configurationStatusList}
  **/
-function createOrUpdateOperationClientInterface(httpClientUuid, operationClientNameList) {
+function createOrUpdateOperationClientInterface(httpClientUuid, operationServerName, operationNamesByAttributes, operationsMapping) {
     return new Promise(async function (resolve, reject) {
         let configurationStatusList = [];
         try {
-            for (let i = 0; i < operationClientNameList.length; i++) {
-                let configurationStatus
-                let operationClientName = operationClientNameList[i];
-                let operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(
+            for (let operationItem of operationNamesByAttributes) {
+                let configurationStatus;
+                let operationClientNewName = operationItem[1];
+                let operationAttribute = operationItem[0];
+                let value = operationsMapping[operationServerName][operationAttribute];
+                let operationClientUuid = await operationClientInterface.generateOperationClientUuidAsync(
                     httpClientUuid,
-                    operationClientName
+                    value["api-segment"],
+                    value["sequence"]
                 );
-                if (operationClientUuid == undefined) {
-                    let operationClientUuidOfPreviousVersion = await getPreviousVersionOfTheOperationClientIfExists(
+                let operationClientOldName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+                if (operationClientOldName === undefined) {
+                    configurationStatus = await createOperationClientInterface(
                         httpClientUuid,
-                        operationClientName
+                        operationClientNewName,
+                        operationClientUuid
                     );
-                    if (operationClientUuidOfPreviousVersion == undefined) {
-                        configurationStatus = await createOperationClientInterface(
-                            httpClientUuid,
-                            operationClientName
-                        );
-                    } else {
-                        configurationStatus = await updateOperationClientInterface(
-                            operationClientUuidOfPreviousVersion,
-                            operationClientName
-                        );
-                    }
+                } else if (operationClientOldName !== operationClientNewName) {
+                    configurationStatus = await updateOperationClientInterface(
+                        operationClientUuid,
+                        operationClientNewName
+                    );
                 } else {
                     configurationStatus = new ConfigurationStatus(
                         operationClientUuid,
