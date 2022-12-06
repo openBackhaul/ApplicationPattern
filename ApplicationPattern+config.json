@@ -686,6 +686,7 @@
                     "owner-email-address": " >>> ownerEmailAddress <<< ",
                     "release-list": [
                       {
+                        "local-id": "0",
                         "release-number": " >>> e.g. 0.0.1 <<< ",
                         "release-date": " >>> e.g. 19.05.2022 <<< ",
                         "changes": " >>> e.g. Initial version. <<< "

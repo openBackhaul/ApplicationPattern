@@ -4317,10 +4317,13 @@ paths:
                                                 items:
                                                   type: object
                                                   required:
+                                                    - local-id
                                                     - release-number
                                                     - release-date
                                                     - changes
                                                   properties:
+                                                    local-id:
+                                                      type: string
                                                     release-number:
                                                       type: string
                                                     release-date:
@@ -7167,10 +7170,13 @@ paths:
                     items:
                       type: object
                       required:
+                        - local-id
                         - release-number
                         - release-date
                         - changes
                       properties:
+                        local-id:
+                          type: string
                         release-number:
                           type: string
                         release-date:
@@ -7178,7 +7184,8 @@ paths:
                         changes:
                           type: string
                     example:
-                      - release-number: '1.0.0'
+                      - local-id: 0
+                        release-number: '1.0.0'
                         release-date: '20.11.2010'
                         changes: 'Initial version.'
         '400':
