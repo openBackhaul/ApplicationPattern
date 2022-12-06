@@ -240,7 +240,7 @@ function getPaths(tcpClientUuid, remoteAddress, addressToBeDeleted) {
         let pathOfAddressToBeDeleted;
         let domainName = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
         try {
-            if (domainName in remoteAddress) {
+            if (domainName === remoteAddress) {
                 remoteAddressPath = onfPaths.TCP_CLIENT_DOMAIN_NAME.replace(
                     "{uuid}", tcpClientUuid);
                 if (!(domainName in addressToBeDeleted))
