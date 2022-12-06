@@ -2,7 +2,7 @@
 
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
-| Cathegory | Abbr. | Component | Release | IP_1 | TCP_1 | IP_2 | TCP_2 |
+| Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
 | Controller |  |  |  |  |  |  |  |
 |  | C | OpenDaylight | 1.0.0 | 1.1.1.1 | 1001
@@ -32,6 +32,9 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
 |  | ALA | AutomatedLinkAcceptance | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
+
+\*) IP_1 + TCP_1 = address from **within** the GCP VPC (HTTP).  
+\*\*) IP_2 + TCP_2 = address from **outside** the GCP VPC (HTTP**S**).
 
 # Historical Fake IP Addresses  
 
