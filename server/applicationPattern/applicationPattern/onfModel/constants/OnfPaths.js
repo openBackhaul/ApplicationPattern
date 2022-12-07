@@ -22,9 +22,21 @@ const APPLICATION_PROFILE_PAC = PROFILE + "={profileUuid}/application-profile-1-
 const APPLICATION_PROFILE_CONFIGURATION = APPLICATION_PROFILE_PAC + "/application-profile-configuration";
 const APPLICATION_PROFILE_APPROVAL_STATUS = APPLICATION_PROFILE_CONFIGURATION + "/approval-status";
 
-const RESPONSE_PROFILE_PAC = PROFILE + "={profileUuid}/response-profile-1-0:application-profile-pac";
+const RESPONSE_PROFILE_PAC = PROFILE + "={profileUuid}/response-profile-1-0:response-profile-pac";
 const RESPONSE_PROFILE_CONFIGURATION = RESPONSE_PROFILE_PAC + "/response-profile-configuration";
 const RESPONSE_PROFILE_VALUE_REFERENCE = RESPONSE_PROFILE_CONFIGURATION + "/value/value-reference";
+
+const ACTION_PROFILE_PAC = PROFILE + "={profileUuid}/action-profile-1-0:action-profile-pac";
+const ACTION_PROFILE_CONFIGURATION = ACTION_PROFILE_PAC + "/action-profile-configuration";
+const ACTION_PROFILE_CONSEQUENT_OPERATION_REFERENCE = ACTION_PROFILE_CONFIGURATION + "/consequent-operation-reference";
+
+const FILE_PROFILE_PAC = PROFILE + "={profileUuid}/file-profile-1-0:file-profile-pac";
+const FILE_PROFILE_CONFIGURATION = FILE_PROFILE_PAC + "/file-profile-configuration";
+const FILE_PROFILE_FILE_PATH = FILE_PROFILE_CONFIGURATION + "/file-path";
+const FILE_PROFILE_USER_NAME = FILE_PROFILE_CONFIGURATION + "/user-name";
+const FILE_PROFILE_PASSWORD = FILE_PROFILE_CONFIGURATION + "/password";
+const FILE_PROFILE_OPERATION = FILE_PROFILE_CONFIGURATION + "/operation";
+
 
 /******************************************
  ********logical-termination-point*********
@@ -82,6 +94,15 @@ module.exports = {
     APPLICATION_PROFILE_CONFIGURATION,
     APPLICATION_PROFILE_APPROVAL_STATUS,
     RESPONSE_PROFILE_VALUE_REFERENCE,
+    ACTION_PROFILE_PAC,
+    ACTION_PROFILE_CONFIGURATION,
+    ACTION_PROFILE_CONSEQUENT_OPERATION_REFERENCE,
+    FILE_PROFILE_PAC,
+    FILE_PROFILE_CONFIGURATION,
+    FILE_PROFILE_FILE_PATH,
+    FILE_PROFILE_USER_NAME,
+    FILE_PROFILE_PASSWORD,
+    FILE_PROFILE_OPERATION,
     LOGICAL_TERMINATION_POINT,
     LOGICAL_TERMINATION_POINT_UUID,
     LAYER_PROTOCOL,
