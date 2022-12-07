@@ -262,5 +262,15 @@ class OperationServerInterface extends layerProtocol {
             }
         });
     }
+
+    /**
+     * @description Determines if given UUID belongs to a server operation.
+     * @param {String} operationUuid UUID to be checked
+     * @returns {boolean} true if UUID belongs to a server operation
+     */
+    static isOperationServer(operationUuid) {
+        let splitted = operationUuid.split("-");
+        return "s" === splitted[5];
+    }
 }
 module.exports = OperationServerInterface;

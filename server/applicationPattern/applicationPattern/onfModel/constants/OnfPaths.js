@@ -22,11 +22,16 @@ const APPLICATION_PROFILE_PAC = PROFILE + "={profileUuid}/application-profile-1-
 const APPLICATION_PROFILE_CONFIGURATION = APPLICATION_PROFILE_PAC + "/application-profile-configuration";
 const APPLICATION_PROFILE_APPROVAL_STATUS = APPLICATION_PROFILE_CONFIGURATION + "/approval-status";
 
+const RESPONSE_PROFILE_PAC = PROFILE + "={profileUuid}/response-profile-1-0:application-profile-pac";
+const RESPONSE_PROFILE_CONFIGURATION = RESPONSE_PROFILE_PAC + "/response-profile-configuration";
+const RESPONSE_PROFILE_VALUE_REFERENCE = RESPONSE_PROFILE_CONFIGURATION + "/value/value-reference";
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
 
 const LOGICAL_TERMINATION_POINT = CONTROL_CONSTRUCT + "/logical-termination-point";
+const LOGICAL_TERMINATION_POINT_UUID = LOGICAL_TERMINATION_POINT + "={uuid}/uuid";
 const LAYER_PROTOCOL = LOGICAL_TERMINATION_POINT + "={uuid}/layer-protocol=0";
 const CLIENT_LTP = LOGICAL_TERMINATION_POINT + "={uuid}/client-ltp";
 const SERVER_LTP = LOGICAL_TERMINATION_POINT + "={uuid}/server-ltp";
@@ -34,6 +39,7 @@ const SERVER_LTP = LOGICAL_TERMINATION_POINT + "={uuid}/server-ltp";
 const HTTP_CLIENT_INTERFACE_PAC = LAYER_PROTOCOL + "/http-client-interface-1-0:http-client-interface-pac";
 const HTTP_CLIENT_INTERFACE_CONFIGURATION = HTTP_CLIENT_INTERFACE_PAC + "/http-client-interface-configuration";
 const HTTP_CLIENT_RELEASE_NUMBER = HTTP_CLIENT_INTERFACE_CONFIGURATION + "/release-number";
+const HTTP_CLIENT_APPLICATION_NAME = HTTP_CLIENT_INTERFACE_CONFIGURATION + "/application-name";
 
 const OPERATION_SERVER_INTERFACE_PAC = LAYER_PROTOCOL + "/operation-server-interface-1-0:operation-server-interface-pac";
 const OPERATION_SERVER_INTERFACE_CONFIGURATION = OPERATION_SERVER_INTERFACE_PAC + "/operation-server-interface-configuration";
@@ -47,7 +53,16 @@ const OPERATION_CLIENT_OPERATION_KEY = OPERATION_CLIENT_INTERFACE_CONFIGURATION 
 const TCP_CLIENT_INTERFACE_PAC = LAYER_PROTOCOL + "/tcp-client-interface-1-0:tcp-client-interface-pac";
 const TCP_CLIENT_INTERFACE_CONFIGURATION = TCP_CLIENT_INTERFACE_PAC + "/tcp-client-interface-configuration";
 const TCP_CLIENT_REMOTE_ADDRESS = TCP_CLIENT_INTERFACE_CONFIGURATION + "/remote-address/ip-address/ipv-4-address";
+const TCP_CLIENT_ADDRESS = TCP_CLIENT_INTERFACE_CONFIGURATION + "/remote-address";
+const TCP_CLIENT_IP_ADDRESS = TCP_CLIENT_INTERFACE_CONFIGURATION + "/remote-address/ip-address";
+const TCP_CLIENT_DOMAIN_NAME = TCP_CLIENT_INTERFACE_CONFIGURATION + "/remote-address/domain-name";
 const TCP_CLIENT_REMOTE_PORT = TCP_CLIENT_INTERFACE_CONFIGURATION + "/remote-port";
+
+const TCP_SERVER_INTERFACE_PAC = LAYER_PROTOCOL + "/tcp-server-interface-1-0:tcp-server-interface-pac";
+const TCP_SERVER_INTERFACE_CONFIGURATION = TCP_SERVER_INTERFACE_PAC + "/tcp-server-interface-configuration";
+const TCP_SERVER_IP_ADDRESS = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address/ipv-4-address";
+const TCP_SERVER_DOMAIN_NAME = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address/domain-name";
+const TCP_SERVER_LOCAL_ADDRESS = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address";
 
 /******************************************
  ********forwarding-domain**************
@@ -66,13 +81,16 @@ module.exports = {
     APPLICATION_PROFILE_PAC,
     APPLICATION_PROFILE_CONFIGURATION,
     APPLICATION_PROFILE_APPROVAL_STATUS,
+    RESPONSE_PROFILE_VALUE_REFERENCE,
     LOGICAL_TERMINATION_POINT,
+    LOGICAL_TERMINATION_POINT_UUID,
     LAYER_PROTOCOL,
     CLIENT_LTP,
     SERVER_LTP,
     HTTP_CLIENT_INTERFACE_PAC,
     HTTP_CLIENT_INTERFACE_CONFIGURATION,
     HTTP_CLIENT_RELEASE_NUMBER,
+    HTTP_CLIENT_APPLICATION_NAME,
     OPERATION_SERVER_INTERFACE_PAC,
     OPERATION_SERVER_INTERFACE_CONFIGURATION,
     OPERATION_SERVER_OPERATION_KEY,
@@ -83,7 +101,15 @@ module.exports = {
     TCP_CLIENT_INTERFACE_PAC,
     TCP_CLIENT_INTERFACE_CONFIGURATION,
     TCP_CLIENT_REMOTE_ADDRESS,
+    TCP_CLIENT_IP_ADDRESS,
+    TCP_CLIENT_ADDRESS,
+    TCP_CLIENT_DOMAIN_NAME,
     TCP_CLIENT_REMOTE_PORT,
+    TCP_SERVER_INTERFACE_PAC,
+    TCP_SERVER_INTERFACE_CONFIGURATION,
+    TCP_SERVER_IP_ADDRESS,
+    TCP_SERVER_DOMAIN_NAME,
+    TCP_SERVER_LOCAL_ADDRESS,
     FORWARDING_DOMAIN,
     FORWARDING_CONSTRUCT,
     FC_PORT,

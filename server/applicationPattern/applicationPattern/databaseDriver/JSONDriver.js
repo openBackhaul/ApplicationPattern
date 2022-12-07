@@ -72,7 +72,7 @@ exports.writeToDatabaseAsync = function (oamPath, valueToBeUpdated, isAList) {
                             resolve(putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeUpdated, isAList));
                         } catch (error) {
                             console.log("retry mechanism write");
-                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
+                            setTimeout(() => JSONDriver.writeToDatabaseAsync(oamPath, valueToBeUpdated, isAList), 1000);
                             console.log(error);
                         }
                     }
@@ -110,7 +110,7 @@ exports.deletefromDatabaseAsync = function (oamPath, valueToBeDeleted, isAList) 
                         try {
                             resolve(deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeDeleted, isAList));
                         } catch (error) {
-                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
+                            setTimeout(() => JSONDriver.deletefromDatabaseAsync(oamPath, valueToBeDeleted, isAList), 1000);
                             console.log(error);
                         }
                     }
@@ -254,7 +254,7 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, oamPath, valueToB
                         }
                     } else {
                         if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
                             writeToFile(coreModelJsonObject);
                         } else {
                             coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];

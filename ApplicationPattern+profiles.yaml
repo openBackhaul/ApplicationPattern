@@ -10,7 +10,30 @@ profiles:
           unit: string
       display-in-new-browser-window: boolean
     configuration:
-      request: string
+      consequent-operation-reference: string
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-response-p-[0-9]{3}$'
+    capability:
+      operation-name: string
+      static-field-name: string
+      field-name-reference: string
+      description: string
+      datatype: string
+    configuration:
+      static-value: string
+      value-reference: string
+
+  - profile-name: 'FileProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
+    capability:
+      file-identifier: string
+      file-description: string
+    configuration:
+      file-path: string
+      user-name: string
+      password: string
+      operation: string
 
   - profile-name: 'IntegerProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-[0-9]{3}$'
@@ -30,5 +53,6 @@ profiles:
       pattern: string
     configuration:
       string-value: string
+
 
 ## TODO: Add further Profile definitions, if required
