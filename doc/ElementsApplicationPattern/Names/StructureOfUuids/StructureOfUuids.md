@@ -61,7 +61,7 @@ This results in four categories:
 - bs = Basic Service: Offering a service, which must be provided by all applications  
 - is = Individual Service: Offering a services, which is individual to this application  
 
-After categorizing all OperationServers, **HttpServer** and **TcpServer** are inheriting the highest category (e.g. bm) represented in the group of supported OperationServers.  
+After categorizing all OperationServers, **HttpServer** and **TcpServer** are inheriting the highest category (top-down: bm > im > bs > is) represented in the group of supported OperationServers.  
 
 The **OperationClients** are categorized according to the following two aspects:  
 - Executed Management (giving advice) vs. Consumed Services (receiving support)  
@@ -73,7 +73,7 @@ This results in four categories:
 - bs = Basic Services: All applications are consuming this service from the same application
 - is = Individual Services: Consuming this service is individual to this application
 
-After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (e.g. bm) represented in the group of supported OperationClients.  
+After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (top-down: bm > im > bs > is) represented in the group of supported OperationClients.  
 
 **FCs** are inheriting the ApiSegment from the connected OperationClients.
 
