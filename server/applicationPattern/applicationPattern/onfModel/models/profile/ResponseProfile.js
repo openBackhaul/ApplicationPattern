@@ -20,8 +20,8 @@ const fileOperation = require('../../../databaseDriver/JSONDriver');
 class ResponseProfile extends profile {
     /**
      * ResponseProfilePac class holds the following properties,
-     * 1. ResponseProfileCapability - class that holds the application name and release number.
-     * 2. ResponseProfileConfiguration - class that holds the application approval status.
+     * 1. ResponseProfileCapability - class that holds the operationName, fieldNameReference, description, datatype.
+     * 2. ResponseProfileConfiguration - class that holds the valueReference.
      */
     static ResponseProfilePac = class ResponseProfilePac {
         static profileName = profile.profileNameEnum.RESPONSE_PROFILE;
@@ -35,10 +35,10 @@ class ResponseProfile extends profile {
             datatype;
             /**
              * constructor 
-             * @param {string} operationName name of the client application.
-             * @param {string} fieldName release number of the client application.
-             * @param {string} description name of the client application.
-             * @param {string} datatype release number of the client application.
+             * @param {string} operationName name of the Operation
+             * @param {string} fieldName name of the field.
+             * @param {string} description description.
+             * @param {string} datatype datatype.
              * This constructor will instantiate the ResponseProfileCapability class
              */
             constructor(operationName, fieldNameReference, description, datatype) {
@@ -55,7 +55,7 @@ class ResponseProfile extends profile {
             valueReference;
             /**
              * constructor 
-             * @param {string} valueReference approval status of the application.
+             * @param {string} valueReference value to be referred.
              * This constructor will instantiate the ResponseProfileConfiguration class
              */
             constructor(valueReference) {
@@ -67,11 +67,11 @@ class ResponseProfile extends profile {
 
         /**
          * constructor 
-         * @param {string} operationName name of the client application.
-         * @param {string} fieldName release number of the client application.
-         * @param {string} description name of the client application.
-         * @param {string} datatype release number of the client application.
-         * @param {string} valueReference approval status of the application.
+         * @param {string} operationName name of the Operation
+         * @param {string} fieldName name of the field.
+         * @param {string} description description.
+         * @param {string} datatype datatype.
+         * @param {string} valueReference value to be referred.
          * This constructor will instantiate the ResponseProfilePac class
          */
         constructor(operationName, fieldNameReference, description, datatype, valueReference) {
@@ -90,11 +90,11 @@ class ResponseProfile extends profile {
     /**
      * constructor 
      * @param {string} uuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
-     * @param {string} operationName name of the client application.
-     * @param {string} fieldName release number of the client application.
-     * @param {string} description name of the client application.
-     * @param {string} datatype release number of the client application.
-     * @param {string} valueReference approval status of the application.
+     * @param {string} operationName name of the Operation
+     * @param {string} fieldName name of the field.
+     * @param {string} description description.
+     * @param {string} datatype datatype.
+     * @param {string} valueReference value to be referred.
      * This constructor will instantiate the ResponseProfile class
      */
     constructor(uuid, operationName, fieldNameReference, description, datatype, valueReference) {
@@ -334,11 +334,11 @@ class ResponseProfile extends profile {
 
     /**
      * @description This function creates a new application profile.
-     * @param {string} operationName name of the client application.
-     * @param {string} fieldName release number of the client application.
-     * @param {string} description name of the client application.
-     * @param {string} datatype release number of the client application.
-     * @param {string} valueReference approval status of the application.
+     * @param {string} operationName name of the Operation
+     * @param {string} fieldName name of the field.
+     * @param {string} description description.
+     * @param {string} datatype datatype.
+     * @param {string} valueReference value to be reffered.
      * @returns {promise} object {ResponseProfile}
      **/
     static async createProfileAsync(operationName, fieldNameReference, description, datatype, valueReference) {
