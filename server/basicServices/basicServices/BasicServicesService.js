@@ -28,6 +28,8 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
+
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping')
 
 /**
@@ -784,6 +786,7 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
  * no response value expected for this operation
  **/
 exports.redirectTopologyChangeInformation = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+  let response = {};  
   return new Promise(async function (resolve, reject) {
     try {
 
@@ -792,7 +795,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
        ****************************************************************************************/
       let applicationName = body["topology-application"];
       let releaseNumber = body["topology-application-release-number"];
-      let applicationAddress = body["topology-application-address"];
+      let applicationAddress = body["topology-application-address"]['ip-address']['ipv-4-address']
       let applicationPort = body["topology-application-port"];
       let applicationUpdateTopologyOperation = body["topology-operation-application-update"];
       let ltpUpdateTopologyOperation = body["topology-operation-ltp-update"];
@@ -869,9 +872,53 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
         customerJourney
       );
 
-      resolve();
+  let forwrdingContructResponse = await controlConstruct.getForwardingDomainListAsync()
+  let serverclientinterfacepac;
+  let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
+  let controlConstructcompleteResponse = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
+  let controluuid = controlConstructcompleteResponse['uuid']
+  let logicalterminationpoint = await fileOperation.readFromDatabaseAsync(
+    onfPaths.LOGICAL_TERMINATION_POINT
+  );
+  for (let i = 0; i < logicalterminationpoint.length; i++) {
+    let layerprotocol = logicalterminationpoint[i][onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL]
+    for (let j = 0; j < layerprotocol.length; j++) {
+   let layerProtocalName = layerprotocol[j]['layer-protocol-name']
+   if(layerProtocalName == 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'){
+    let operationclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC]
+    let clientconfiguration = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+  if(clientconfiguration  !== undefined){
+   delete clientconfiguration['operation-key'];
+   }
+  }
+   else if(layerProtocalName == 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'){
+   serverclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC]
+        let serverconfiguration = serverclientinterfacepac[onfAttributes. OPERATION_SERVER.CONFIGURATION]
+       if(serverconfiguration  !== undefined){
+       delete serverconfiguration['operation-key'];
+       }
+       }
+      }
+    }
+
+    let controlConstructResponse = {
+      "core-model-1-4:control-construct":{
+        "uuid" : controluuid,
+        "logical-termination-point": logicalterminationpoint,          
+        "forwarding-domain" : forwrdingContructResponse
+       }
+      };
+     /****************************************************************************************
+       * Setting 'application/json' response body
+       ****************************************************************************************/
+      response['application/json'] = controlConstructResponse;
     } catch (error) {
       reject(error);
+    }
+    if (Object.keys(response).length > 0) {
+      resolve(response[Object.keys(response)[0]]);
+    } else {
+      resolve();
     }
   });
 }
