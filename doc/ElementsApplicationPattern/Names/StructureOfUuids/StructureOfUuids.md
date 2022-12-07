@@ -48,7 +48,7 @@ Within the respective layers the following types of objects are defined:
 - p = Profile  
 
 **ApiSegment**  
-The ApiSegment is contained in the UUIDs of Servers, Clients and FCs.
+The ApiSegment is contained in the UUIDs of OperationServers, OperationClients and FCs.
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
 The **OperationServers** are categorized according to the following two aspects:  
@@ -61,7 +61,7 @@ This results in four categories:
 - bs = Basic Service: Offering a service, which must be provided by all applications  
 - is = Individual Service: Offering a services, which is individual to this application  
 
-After categorizing all OperationServers, **HttpServer** and **TcpServer** are inheriting the highest category (top-down: bm > im > bs > is) represented in the group of supported OperationServers.  
+UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.  
 
 The **OperationClients** are categorized according to the following two aspects:  
 - Executed Management (giving advice) vs. Consumed Services (receiving support)  
@@ -73,11 +73,11 @@ This results in four categories:
 - bs = Basic Services: All applications are consuming this service from the same application
 - is = Individual Services: Consuming this service is individual to this application
 
-After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (top-down: bm > im > bs > is) represented in the group of supported OperationClients.  
+UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.  
 
 **FCs** are inheriting the ApiSegment from the connected OperationClients.
 
-UUIDs of Profile, ForwardingDomain and Link don't contain an ApiSegment.  
+UUIDs of **Profile**, **FD** and **Link** don't contain an ApiSegment.  
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  

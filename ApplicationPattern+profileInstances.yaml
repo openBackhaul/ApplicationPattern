@@ -51,7 +51,7 @@ profile-instances:
       description: 'Own application name'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-001' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -61,7 +61,7 @@ profile-instances:
       description: 'Name of this application'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-002'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -71,7 +71,7 @@ profile-instances:
       description: 'Number of this release'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-003'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -81,7 +81,7 @@ profile-instances:
       description: 'Purpose of this application'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-004'  ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -91,7 +91,7 @@ profile-instances:
       description: 'Period of updating the data inside this application'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-005' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -101,7 +101,7 @@ profile-instances:
       description: 'Name of the ApplicationOwner'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-006' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
@@ -111,17 +111,17 @@ profile-instances:
       description: 'Email address of the ApplicationOwner'
       datatype: 'string'
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-007' ## TODO: Replace "*" by ApplicationID and ReleaseNumber
     capability:
       operation-name: '/v1/inform-about-release-history-in-generic-representation'
-      field-name-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number'
+      field-name-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number'
       description: 'Represents the first entry in the list of releases'
       datatype: string
     configuration:
-      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes'
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes'
 
   - profile-name: 'GenericResponseProfile'
     uuid: '*-response-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
