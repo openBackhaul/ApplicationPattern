@@ -7200,7 +7200,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-00[0-1]$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
           example: 'ro-2-0-0-tcp-s-000'
     get:
       operationId: getTcpServerDescription
@@ -7273,7 +7273,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-00[0-1]$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
           example: 'ro-2-0-0-tcp-s-000'
     get:
       operationId: getTcpServerLocalProtocol
@@ -7354,7 +7354,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-00[0-1]$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
           example: 'ro-2-0-0-tcp-s-000'
     get:
       operationId: getTcpServerLocalAddress
@@ -7447,7 +7447,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-00[0-1]$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
           example: 'ro-2-0-0-tcp-s-000'
     get:
       operationId: getTcpServerLocalPort
@@ -8780,7 +8780,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
           example: 'ro-2-0-0-http-c-or-1-0-0-000'
     get:
       operationId: getHttpClientApplicationName
@@ -8856,7 +8856,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
           example: 'ro-2-0-0-http-c-or-1-0-0-000'
     get:
       operationId: getHttpClientReleaseNumber
@@ -8933,7 +8933,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
           example: 'ro-2-0-0-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemoteProtocol
@@ -9014,7 +9014,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
           example: 'ro-2-0-0-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemoteAddress
@@ -9119,7 +9119,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
           example: 'ro-2-0-0-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemotePort
