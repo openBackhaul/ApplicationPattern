@@ -2241,7 +2241,6 @@ paths:
               required:
                 - topology-application
                 - topology-application-release-number
-                - topology-operation-application-update
                 - topology-operation-ltp-update
                 - topology-operation-ltp-deletion
                 - topology-operation-fc-update
@@ -2262,12 +2261,6 @@ paths:
                   description: >
                     'Release of application that shall document the application layer topology
                     update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-bm-alt-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                topology-operation-application-update:
-                  type: string
-                  minLength: 6
-                  description: >
-                    'Operation for updating the entire information about an application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-update:
                   type: string
                   minLength: 6
@@ -2339,7 +2332,6 @@ paths:
               example:
                 topology-application: 'ApplicationLayerTopology'
                 topology-application-release-number: '2.0.0'
-                topology-operation-application-update: '/v1/update-all-ltps-and-fcs'
                 topology-operation-ltp-update: '/v1/update-ltp'
                 topology-operation-ltp-deletion: '/v1/delete-ltp-and-dependents'
                 topology-operation-fc-update: '/v1/update-fc'
