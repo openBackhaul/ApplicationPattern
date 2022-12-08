@@ -61,6 +61,30 @@ const ADMIN_PROFILE = {
     ALLOWED_METHODS: "allowed-methods"
 };
 
+const ACTION_PROFILE = {
+    PAC: "action-profile-1-0:action-profile-pac",
+    CAPABILITY: "action-profile-capability",
+    CONFIGURATION: "action-profile-configuration",
+    OPERATION_NAME: "operation-name",
+    LABEL: "label",
+    INPUT_VALUE_LIST: "input-value-list",
+    DISPLAY_IN_NEW_BROWSER_WINDOW: "display-in-new-browser-window",
+    CONSEQUENT_OPERATION_LIST: "consequent-operation-reference"
+};
+
+const RESPONSE_PROFILE = {
+    PAC: "response-profile-1-0:response-profile-pac",
+    CAPABILITY: "response-profile-capability",
+    CONFIGURATION: "response-profile-configuration",
+    OPERATION_NAME: "operation-name",
+    FIELD_NAME: "field-name",
+    DESCRIPTION: "description",
+    DATATYPE: "datatype",
+    VALUE: "value",
+    VALUE_REFERENCE: "value-reference",
+    STATIC_FIELD_NAME: "static-field-name",
+    FILED_NAME_REFERENCE: "field-name-reference"
+};
 const INTEGER_PROFILE = {
     PAC: "integer-profile-1-0:integer-profile-pac",
     CAPABILITY: "integer-profile-capability",
@@ -201,6 +225,8 @@ module.exports = {
     PROFILE,
     APPLICATION_PROFILE,
     ADMIN_PROFILE,
+    ACTION_PROFILE,
+    RESPONSE_PROFILE,
     INTEGER_PROFILE,
     SERVICE_RECORD_PROFILE,
     OAM_RECORD_PROFILE,

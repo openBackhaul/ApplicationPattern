@@ -7,8 +7,9 @@
 class ConsequentAction {
 
   static label;
-  static request;
+  static consequentOperationReference;
   static displayInNewBrowserWindow;
+  static inputValueList;
 
   /**
    * @constructor 
@@ -17,8 +18,9 @@ class ConsequentAction {
    **/
   constructor(label, request, displayInNewBrowserWindow) {
     this.label = label;
-    this.request = request;
+    this.consequentOperationReference = consequentOperationReference;
     this.displayInNewBrowserWindow = displayInNewBrowserWindow;
+    this.inputValueList= inputValueList;
   }
 
 }
