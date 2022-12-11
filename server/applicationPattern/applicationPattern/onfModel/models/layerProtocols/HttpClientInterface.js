@@ -324,7 +324,7 @@ class HttpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             try {
                 let appUuid = await controlConstruct.getUuidAsync();
-                let releaseNumberUuidFormat = releaseNumber.replaceAll(".", "-");
+                let releaseNumberUuidFormat = releaseNumber.replace(/\./g, "-");
                 let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
                 let httpClientUuid = appUuid + "-http-c-" + apiSegment + "-" +
                     applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-000";

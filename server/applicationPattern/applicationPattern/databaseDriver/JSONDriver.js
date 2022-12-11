@@ -254,7 +254,11 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, oamPath, valueToB
                         }
                     } else {
                         if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
+                            if(Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])){
+                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
+                            }else{
+                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
+                            }                            
                             writeToFile(coreModelJsonObject);
                         } else {
                             coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
