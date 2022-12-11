@@ -15,6 +15,7 @@ const httpClientInterface = require('../models/layerProtocols/HttpClientInterfac
 const operationClientInterface = require('../models/layerProtocols/OperationClientInterface');
 const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerminationPoint/ConfigurationStatus');
 const ConfigurationStatus = require('./models/ConfigurationStatus');
+const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
 
 /**
  * @description This function find a application in the same or different release and updates the http,
@@ -195,8 +196,7 @@ function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
 
         let applicationName = logicalTerminationPointConfigurationInput.applicationName;
         let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
         let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
         let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
@@ -215,8 +215,7 @@ function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
             if (httpClientConfigurationStatus.updated) {
                 tcpClientConfigurationStatus = await createOrUpdateTcpClientInterface(
                     httpClientConfigurationStatus.uuid,
-                    remoteIPv4Address,
-                    remotePort
+                    tcpList
                 );
                 operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                     httpClientConfigurationStatus.uuid,
@@ -251,13 +250,12 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
 
         let logicalTerminationPointConfigurationStatus;
         let httpClientConfigurationStatus;
-        let tcpClientConfigurationStatus;
+        let tcpClientConfigurationStatusList = [];
         let operationClientConfigurationStatusList = [];
 
         let applicationName = logicalTerminationPointConfigurationInput.applicationName;
         let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-        let remoteIPv4Address = logicalTerminationPointConfigurationInput.remoteIPv4Address;
-        let remotePort = logicalTerminationPointConfigurationInput.remotePort;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
         let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
         let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
@@ -266,10 +264,9 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName
             );
-            tcpClientConfigurationStatus = await createOrUpdateTcpClientInterface(
+            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
                 httpClientUuid,
-                remoteIPv4Address,
-                remotePort
+                tcpList
             );
             operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                 httpClientUuid,
@@ -288,7 +285,7 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
                 httpClientConfigurationStatus,
-                tcpClientConfigurationStatus
+                tcpClientConfigurationStatusList
             );
 
             resolve(logicalTerminationPointConfigurationStatus);
@@ -335,7 +332,7 @@ function determineInitialApiSegmentOfHttpClient(operationServerName, operationNa
  * @param {List} clientList : http client operations list
  * @returns {string} : most used API segment
  **/
- function determineApiSegmentOfHttpClient(clientList) {
+function determineApiSegmentOfHttpClient(clientList) {
     let operationApiSegments = initializeApiSegmentsMap();
     for (let operationUuid of clientList) {
         let operationUuidSplitted = operationUuid.split("-");
@@ -426,7 +423,7 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber, apiSegment) {
             configurationStatus = new ConfigurationStatus(
                 updatedHttpClientUuid,
                 '',
-                isUpdatedReleaseNumber || isUpdatedUuid );
+                isUpdatedReleaseNumber || isUpdatedUuid);
             resolve(configurationStatus);
         } catch (error) {
             reject(error);
@@ -442,26 +439,52 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber, apiSegment) {
  * @param {String} remotePort where the application is running
  * @return {Promise} object {configurationStatus}
  **/
-function createOrUpdateTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort) {
+function createOrUpdateTcpClientInterface(httpClientUuid, tcpList) {
     return new Promise(async function (resolve, reject) {
-        let configurationStatus;
+        let configurationStatusList = [];
         try {
-            let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-            if (serverLtpList != undefined && serverLtpList.length > 0) {
-                let tcpClientUuid = serverLtpList[0];
-                configurationStatus = await updateTcpClientInterface(
-                    tcpClientUuid,
-                    remoteIpV4Address,
-                    remotePort
-                );
-            } else {
-                configurationStatus = await createTcpClientInterface(
-                    httpClientUuid,
-                    remoteIpV4Address,
-                    remotePort
-                );
+            for (let i = 0; i < tcpList.length; i++) {
+                let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+                let tcpInfo = tcpList[i];
+                let remoteProtocol = tcpInfo.protocol;
+                let remotePort = tcpInfo.port;
+                let remoteIpV4Address = tcpInfo.address;
+                if(serverLtpList != undefined && serverLtpList.length <= 0){
+                    let configurationStatus = await createTcpClientInterface(
+                        httpClientUuid,
+                        remoteIpV4Address,
+                        remotePort,
+                        remoteProtocol
+                    );
+                    configurationStatusList.push(configurationStatus);
+                } else {
+                    let isInstanceUpdated = false;
+                    for (let j = 0; j < serverLtpList.length; j++) {
+                        let tcpInstanceProtocol = await TcpClientInterface.getRemoteProtocolAsync(serverLtpList[j]);
+                        if (tcpInstanceProtocol == remoteProtocol) {
+                            let tcpClientUuid = serverLtpList[j];
+                            let configurationStatus = await updateTcpClientInterface(
+                                tcpClientUuid,
+                                remoteIpV4Address,
+                                remotePort,
+                                remoteProtocol
+                            );
+                            configurationStatusList.push(configurationStatus);
+                            isInstanceUpdated = true;
+                        } 
+                    }
+                    if(!isInstanceUpdated){
+                        let configurationStatus = await createTcpClientInterface(
+                            httpClientUuid,
+                            remoteIpV4Address,
+                            remotePort,
+                            remoteProtocol
+                        );
+                        configurationStatusList.push(configurationStatus);
+                    }
+                }
             }
-            resolve(configurationStatus);
+            resolve(configurationStatusList);
         } catch (error) {
             reject(error);
         }
@@ -473,29 +496,33 @@ function createOrUpdateTcpClientInterface(httpClientUuid, remoteIpV4Address, rem
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} remoteIpV4Address where the application is installed
  * @param {String} remotePort where the application is running
+ * @param {String} protocol of the rest client
  * @return {Promise} object {configurationStatus}
  **/
-function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort) {
+function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort, protocol) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         try {
             let tcpClientUuid = tcpClientInterface.generateNextUuid(
-                httpClientUuid
+                httpClientUuid, protocol
             );
             let tcpClientLogicalTerminationPoint = await tcpClientInterface.
             createTcpClientInterfaceAsync(
                 httpClientUuid,
                 tcpClientUuid,
                 remoteIpV4Address,
-                remotePort
+                remotePort,
+                protocol
             );
             let isCreated = await controlConstruct.addLogicalTerminationPointAsync(
                 tcpClientLogicalTerminationPoint
             );
             if (isCreated) {
+                let serverUuidExisingList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+                serverUuidExisingList.push(tcpClientUuid);
                 await logicalTerminationPoint.setServerLtpListAsync(
                     httpClientUuid,
-                    [tcpClientUuid]
+                    serverUuidExisingList
                 );
             }
             configurationStatus = new ConfigurationStatus(
@@ -518,17 +545,21 @@ function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort)
  * @param {String} remotePort where the application is running
  * @return {Promise} object {configurationStatus}
  **/
-function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort) {
+function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort, remoteProtocol) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         let isUpdated = false;
         let isIpV4AddressUpdated = false;
         let isPortUpdated = false;
+        let isProtocolUpdated = false;
         try {
             let _remoteIpV4Address = await tcpClientInterface.getRemoteAddressAsync(
                 tcpClientUuid
             );
             let _remotePort = await tcpClientInterface.getRemotePortAsync(
+                tcpClientUuid
+            );
+            let _remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(
                 tcpClientUuid
             );
             if (remoteIpV4Address != _remoteIpV4Address) {
@@ -543,7 +574,13 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort) 
                     remotePort
                 );
             }
-            if (isIpV4AddressUpdated || isPortUpdated) {
+            if (remoteProtocol != _remoteProtocol) {
+                isProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(
+                    tcpClientUuid,
+                    remoteProtocol
+                );
+            }
+            if (isIpV4AddressUpdated || isPortUpdated || isProtocolUpdated) {
                 isUpdated = true;
             }
             configurationStatus = new ConfigurationStatus(

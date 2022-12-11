@@ -210,7 +210,8 @@ const TCP_CLIENT = {
     IP_ADDRESS: "ip-address",
     IPV_4_ADDRESS: "ipv-4-address",
     DOMAIN_NAME: "domain-name",
-    REMOTE_PORT: "remote-port"
+    REMOTE_PORT: "remote-port",
+    REMOTE_PROTOCOL: "remote-protocol"
 }
 
 /******************************************

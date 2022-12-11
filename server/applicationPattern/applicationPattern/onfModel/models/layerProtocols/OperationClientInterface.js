@@ -323,7 +323,7 @@ class OperationClientInterface extends layerProtocol {
                 let appUuid = await controlConstruct.getUuidAsync();
                 let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
                 let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
-                let releaseNumberUuidFormat = releaseNumber.replaceAll(".", "-");
+                let releaseNumberUuidFormat = releaseNumber.replace(/\./g, "-");
 
                 let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
                 operationClientUuid = appUuid + "-op-c-" + apiSegment + "-" +

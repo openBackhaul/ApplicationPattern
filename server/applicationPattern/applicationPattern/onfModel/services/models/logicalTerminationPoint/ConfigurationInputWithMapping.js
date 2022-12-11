@@ -11,8 +11,7 @@ class ConfigurationInputWithMapping {
 
     applicationName;
     releaseNumber;
-    remoteIPv4Address;
-    remotePort;
+    tcpList;
     operationServerName;
     operationNamesByAttributes;
     operationsMapping;
@@ -21,8 +20,7 @@ class ConfigurationInputWithMapping {
      * @constructor creates a ConfigurationInputWithMapping object for the provided values.
      * @param {String} applicationName : name of the client application
      * @param {String} releaseNumber : release of the client application
-     * @param {String} remoteIPv4Address : remote ipv4 address of the client application
-     * @param {String} remotePort : remote port of the client application
+     * @param {String} tcpList : remote ipv4 address of the client application
      * @param {String} operationServerName : caller operation
      * @param {Map} operationNamesByAttributes : map of the client operation attribute (key) with client operation name (value)
      * @param {Object} operationsMapping : map of hardcoded context values for operations
@@ -31,16 +29,14 @@ class ConfigurationInputWithMapping {
     constructor(
         applicationName,
         releaseNumber,
-        remoteIPv4Address,
-        remotePort,
+        tcpList,
         operationServerName,
         operationNamesByAttributes,
         operationsMapping
     ) {
         this.applicationName = applicationName;
         this.releaseNumber = releaseNumber;
-        this.remoteIPv4Address = remoteIPv4Address;
-        this.remotePort = remotePort;
+        this.tcpList = tcpList;
         this.operationServerName = operationServerName;
         this.operationNamesByAttributes = operationNamesByAttributes;
         this.operationsMapping = operationsMapping;
