@@ -120,7 +120,7 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
 
         let logicalTerminationPointConfigurationStatus;
         let httpClientConfigurationStatus;
-        let tcpClientConfigurationStatus;
+        let tcpClientConfigurationStatusList = [];
         let operationClientConfigurationStatusList = [];
         try {
             let httpClientUuid;
@@ -134,14 +134,17 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
                 let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(
                     httpClientUuid);
                 if (serverLtpList != undefined && serverLtpList.length > 0) {
-                    tcpClientUuid = serverLtpList[0];
-                    if (tcpClientUuid) {
-                        let isDeleted = await controlConstruct.deleteLogicalTerminationPointAsync(
-                            tcpClientUuid);
-                        tcpClientConfigurationStatus = new ConfigurationStatus(
-                            tcpClientUuid,
-                            '',
-                            isDeleted);
+                    for (let i = 0; i < serverLtpList.length; i++) {
+                        tcpClientUuid = serverLtpList[i];
+                        if (tcpClientUuid) {
+                            let isDeleted = await controlConstruct.deleteLogicalTerminationPointAsync(
+                                tcpClientUuid);
+                            let tcpClientConfigurationStatus = new ConfigurationStatus(
+                                tcpClientUuid,
+                                '',
+                                isDeleted);
+                            tcpClientConfigurationStatusList.push(tcpClientConfigurationStatus);
+                        }
                     }
                 }
                 let clientLtpList = await logicalTerminationPoint.getClientLtpListAsync(
@@ -171,7 +174,7 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
                 httpClientConfigurationStatus,
-                tcpClientConfigurationStatus
+                tcpClientConfigurationStatusList
             );
             resolve(logicalTerminationPointConfigurationStatus);
         } catch (error) {
@@ -449,7 +452,7 @@ function createOrUpdateTcpClientInterface(httpClientUuid, tcpList) {
                 let remoteProtocol = tcpInfo.protocol;
                 let remotePort = tcpInfo.port;
                 let remoteIpV4Address = tcpInfo.address;
-                if(serverLtpList != undefined && serverLtpList.length <= 0){
+                if (serverLtpList != undefined && serverLtpList.length <= 0) {
                     let configurationStatus = await createTcpClientInterface(
                         httpClientUuid,
                         remoteIpV4Address,
@@ -471,9 +474,9 @@ function createOrUpdateTcpClientInterface(httpClientUuid, tcpList) {
                             );
                             configurationStatusList.push(configurationStatus);
                             isInstanceUpdated = true;
-                        } 
+                        }
                     }
-                    if(!isInstanceUpdated){
+                    if (!isInstanceUpdated) {
                         let configurationStatus = await createTcpClientInterface(
                             httpClientUuid,
                             remoteIpV4Address,
