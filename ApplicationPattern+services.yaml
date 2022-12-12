@@ -74,7 +74,7 @@ clients:
       tcp-port: 3015
       uuid: xx-1-0-0-tcp-c-es-1-0-0-000
     elasticsearch-client:
-      uuid: xx-1-0-0-es-c-is-es-1-0-0-000
+      uuid: xx-1-0-0-es-c-es-1-0-0-000
       index-alias: ## TODO: Add IndexAlias
 
   - http-client:
