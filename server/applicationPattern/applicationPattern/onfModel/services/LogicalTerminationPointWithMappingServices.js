@@ -205,15 +205,9 @@ function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
         try {
-            let apiSegment = determineInitialApiSegmentOfHttpClient(
-                operationServerName,
-                operationNamesByAttributes,
-                operationsMapping
-            );
             httpClientConfigurationStatus = await createHttpClientInterface(
                 applicationName,
-                releaseNumber,
-                apiSegment
+                releaseNumber
             );
             if (httpClientConfigurationStatus.updated) {
                 tcpClientConfigurationStatus = await createOrUpdateTcpClientInterface(
@@ -277,13 +271,9 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
                 operationNamesByAttributes,
                 operationsMapping
             );
-            let clientList = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
-            let apiSegment = determineApiSegmentOfHttpClient(clientList);
-            console.log(apiSegment);
             httpClientConfigurationStatus = await updateHttpClientInterface(
                 httpClientUuid,
                 releaseNumber,
-                apiSegment
             )
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
@@ -298,72 +288,14 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
     });
 }
 
-function initializeApiSegmentsMap() {
-    let operationApiSegments = new Map();
-    operationApiSegments.set("bm", 0);
-    operationApiSegments.set("im", 0);
-    operationApiSegments.set("bs", 0);
-    operationApiSegments.set("is", 0);
-    return operationApiSegments;
-}
-
-/**
- * @description Extracts API segment out of each operation within the caller
- * operation. In final step, the map is sorted and the most used API segment is returned.
- * This should be used prior creating http client.
- * @param {string} operationServerName : caller operation
- * @param {Map} operationNamesByAttributes : http client operations map
- * @param {Object} operationMapping : map of hardcoded context values for operations
- * @returns {string} : most used API segment
- **/
-function determineInitialApiSegmentOfHttpClient(operationServerName, operationNamesByAttributes, operationMapping) {
-    let operationApiSegments = initializeApiSegmentsMap();
-    for (let operation of operationNamesByAttributes) {
-        let operationAttribute = operation[0];
-        let segment = operationMapping[operationServerName][operationAttribute]["api-segment"];
-        let count = operationApiSegments.get(segment) + 1;
-        operationApiSegments.set(segment, count);
-    }
-    return sortApiSegments(operationApiSegments);
-}
-
-/**
- * @description Given the http client operations list, it extracts the
- * API segment out of each operation and keeps the count in a map. In
- * final step, the map is sorted and the most used API segment is returned.
- * This should be used to update http client.
- * @param {List} clientList : http client operations list
- * @returns {string} : most used API segment
- **/
-function determineApiSegmentOfHttpClient(clientList) {
-    let operationApiSegments = initializeApiSegmentsMap();
-    for (let operationUuid of clientList) {
-        let operationUuidSplitted = operationUuid.split("-");
-        let segment = operationUuidSplitted[6];
-        let count = operationApiSegments.get(segment) + 1;
-        operationApiSegments.set(segment, count);
-    }
-    return sortApiSegments(operationApiSegments);
-}
-
-function sortApiSegments(operationApiSegments) {
-    let operationApiSegmentsSorted = ["bm", 0];
-    operationApiSegments.forEach((value, key) => {
-        if (value > operationApiSegmentsSorted[1]) {
-            operationApiSegmentsSorted = [key, value];
-        }
-    });
-    return operationApiSegmentsSorted[0];
-}
 
 /**
  * @description This function creates a http client interface.
  * @param {String} applicationName name of the client application
  * @param {String} releaseNumber release of the client application
- * @param {String} apiSegment calculated API segment based on API segments of operation clients
  * @return {Promise} object {configurationStatus}
  **/
-function createHttpClientInterface(applicationName, releaseNumber, apiSegment) {
+function createHttpClientInterface(applicationName, releaseNumber) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         try {
@@ -371,8 +303,7 @@ function createHttpClientInterface(applicationName, releaseNumber, apiSegment) {
             let clientLtp = [];
             let httpClientUuid = await httpClientInterface.generateHttpClientUuidAsync(
                 applicationName,
-                releaseNumber,
-                apiSegment
+                releaseNumber
             );
             let httpClientLogicalTerminationPoint = httpClientInterface.
             createHttpClientInterface(
@@ -400,13 +331,11 @@ function createHttpClientInterface(applicationName, releaseNumber, apiSegment) {
  * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
  * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
  * @param {String} releaseNumber : release of the client application
- * @param {String} apiSegment calculated API segment based on API segments of operation clients
  * @return {Promise} object {configurationStatus}
  **/
-function updateHttpClientInterface(httpClientUuid, releaseNumber, apiSegment) {
+function updateHttpClientInterface(httpClientUuid, releaseNumber) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
-        let updatedHttpClientUuid = httpClientUuid;
         try {
             let isUpdatedReleaseNumber = false;
             let existingReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
@@ -416,17 +345,10 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber, apiSegment) {
                     releaseNumber
                 );
             }
-            let isUpdatedUuid = false;
-            let httpClientUuidSeparated = httpClientUuid.split("-");
-            let oldApiSegment = httpClientUuidSeparated[6];
-            if (oldApiSegment !== apiSegment) {
-                updatedHttpClientUuid = await httpClientInterface.updateApiSegment(httpClientUuid, apiSegment);
-                isUpdatedUuid = true;
-            }
             configurationStatus = new ConfigurationStatus(
-                updatedHttpClientUuid,
+                httpClientUuid,
                 '',
-                isUpdatedReleaseNumber || isUpdatedUuid);
+                isUpdatedReleaseNumber);
             resolve(configurationStatus);
         } catch (error) {
             reject(error);
