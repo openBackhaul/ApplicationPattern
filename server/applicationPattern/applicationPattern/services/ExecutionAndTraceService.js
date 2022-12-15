@@ -44,7 +44,8 @@ const FcPort = require('../onfModel/models/FcPort');
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
-            if (response !== undefined && response.status === 200) {
+            let responseCodeValue = response.status.toString();
+            if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);
             }
             console.log(`recordServiceRequestFromClient - record service request from client with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
@@ -86,7 +87,8 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
-            if (response !== undefined && response.status === 200) {
+            let responseCodeValue = response.status.toString();
+            if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);
             }
             console.log(`recordServiceRequest - record service request with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
