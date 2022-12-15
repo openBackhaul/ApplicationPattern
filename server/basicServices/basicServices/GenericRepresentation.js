@@ -1,112 +1,129 @@
-
-
-
+/**
+ * This class provides methods to get consequent action list and response profile list. 
+ **/
 'use strict';
 
 
-const consequentAction = require('../../applicationPattern/rest/server/responseBody/ConsequentAction');
-const responseValue = require('../../applicationPattern/rest/server/responseBody/ResponseValue');
-const onfPaths = require('../onfModel/constants/OnfPaths');
-const fileOperation = require('../databaseDriver/JSONDriver');
-const onfAttributes = require('../onfModel/constants/OnfAttributes');
-const profile = require('../onfModel/models/ProfileCollection')
+const consequentAction = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ConsequentAction');
+const responseValue = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ResponseValue');
+const ActionProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/ActionProfile');
+const responseProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/responseProfile');
+const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
+const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
+const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 
-class GenericRepresentation {
-    static async  getActionListForApplication(operationName) {
-        return new Promise(async function (resolve, reject) {
-            try {
-
-                let displayInnewBrowserWindow;
-                let Label;
-                let ConsequentOperationReference;
-                let consequentActionList = [];
-                let profilesList = await profile.getProfileListAsync();
-                if (profilesList != undefined && profilesList.length != 0) {
-                    for (let i = 0; i < profilesList.length; i++) {
-                        let profileInstance = profilesList[i];
-                        let profileInstanceName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                        if (profileInstanceName === 'action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE') {
-                            let profileOperationname = profileInstance[onfAttributes.ACTION_PROFILE.PAC][onfAttributes.ACTION_PROFILE.CAPABILITY][onfAttributes.ACTION_PROFILE.OPERATION_NAME]
-                            if (profileOperationname === operationName) {
-                                Label = profileInstance[onfAttributes.ACTION_PROFILE.PAC][onfAttributes.ACTION_PROFILE.CAPABILITY][onfAttributes.ACTION_PROFILE.LABEL]
-                                displayInnewBrowserWindow = profileInstance[onfAttributes.ACTION_PROFILE.PAC][onfAttributes.ACTION_PROFILE.CAPABILITY][onfAttributes.ACTION_PROFILE.DISPLAY_IN_NEW_BROWSER_WINDOW]
-                                let operationReference = profileInstance[onfAttributes.ACTION_PROFILE.PAC][onfAttributes.ACTION_PROFILE.CONFIGURATION][onfAttributes.ACTION_PROFILE.CONSEQUENT_OPERATION_LIST]
-                                ConsequentOperationReference = await fileOperation.readFromDatabaseAsync(operationReference);
-                                let inputlist = profileInstance[onfAttributes.ACTION_PROFILE.PAC][onfAttributes.ACTION_PROFILE.CAPABILITY][onfAttributes.ACTION_PROFILE.INPUT_VALUE_LIST]
-        
-                                let consequentActionForListRegisteredApplication = new consequentAction(
-                                    Label,
-                                    ConsequentOperationReference,
-                                    displayInnewBrowserWindow,
-                                    inputlist
-
-                                );
-                                consequentActionList.push(consequentActionForListRegisteredApplication);
-
-                            }
-
-                        }
-                    }
-                    resolve(consequentActionList);
+/**
+ * @description This function returns the consequent action list for the provided operation name.
+ * @param {String} operationName : operation Name
+ * @returns {promise} list {consequentActionList}
+ **/
+exports.getConsequentActionList = function (operationName) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let consequentActionList = [];
+            let consequentActionProfile = {};
+            let actionProfileUuidList = await ActionProfile.getActionProfileUuidsList();
+            for (let i = 0; i < actionProfileUuidList.length; i++) {
+                let uuid = actionProfileUuidList[i];
+                let actionProfileOperationName = await ActionProfile.getOperationName(uuid);
+                if (operationName === actionProfileOperationName) {
+                    let actionProfile = await ActionProfile.getActionProfile(uuid);
+                    let consequentOperationReference = await ActionProfile.getConsequentOperationReference(uuid);
+                    let operationName = await fileOperation.readFromDatabaseAsync(consequentOperationReference);
+                    let request = await formulateRequest(operationName);
+                    consequentActionProfile = new consequentAction(
+                        actionProfile.label,
+                        request,
+                        actionProfile.displayInNewBrowserWindow,
+                        actionProfile.inputlist
+                    );
+                    consequentActionList.push(consequentActionProfile);
                 }
-
-            } catch (error) {
-                console.log(error);
             }
+            resolve(consequentActionList);
+        } catch (error) {
+            console.log(error);
+        }
 
-        });
-    }
+    });
+}
 
-    static async  getResponseListForApplication(operationName) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let responseValueList = [];
-                let valueReference;
-                let applicationName;
-                let datatypevalue;
-
-                let profilesList = await profile.getProfileListAsync();
-                if (profilesList != undefined && profilesList.length != 0) {
-                    for (let i = 0; i < profilesList.length; i++) {
-                        let profileInstance = profilesList[i];
-                        let profileInstanceName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                        if (profileInstanceName === 'response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE') {
-                            let profileOperationname = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC][onfAttributes.RESPONSE_PROFILE.CAPABILITY][onfAttributes.RESPONSE_PROFILE.OPERATION_NAME]
-                            if (profileOperationname === operationName) {
-                                let fieldName = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC][onfAttributes.RESPONSE_PROFILE.CAPABILITY][onfAttributes.RESPONSE_PROFILE.FIELD_NAME]
-                                datatypevalue = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC][onfAttributes.RESPONSE_PROFILE.CAPABILITY][onfAttributes.RESPONSE_PROFILE.DATATYPE]
-                                if (fieldName[onfAttributes.RESPONSE_PROFILE.FILED_NAME_REFERENCE] !== undefined) {
-                                    var valueofapplication = fieldName[onfAttributes.RESPONSE_PROFILE.FILED_NAME_REFERENCE]
-                                    applicationName = await fileOperation.readFromDatabaseAsync(valueofapplication);
-                                }
-                                else if (fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME]) {
-                                    applicationName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME]
-                                }
-                                let valuelist = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC][onfAttributes.RESPONSE_PROFILE.CONFIGURATION][onfAttributes.RESPONSE_PROFILE.VALUE]
-                                if (valuelist[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE]) {
-                                    var valueofapplication = valuelist[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE]
-                                    valueReference = await fileOperation.readFromDatabaseAsync(valueofapplication);
-                                }
-
-                                let valueofres = new responseValue(
-                                    applicationName,
-                                    valueReference,
-                                    datatypevalue
-                                );
-                                responseValueList.push(valueofres);
-                            }
-
-                        }
-
-                    }
-                    resolve(responseValueList)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-
-        });
-    }
+/**
+ * @description This function returns the formulated request for the provided operation name.
+ * @param {String} operationName : operation Name
+ * @returns {promise} String {request}
+ * TODO : enhance the method to formulate the request after decision is made.
+ **/
+function formulateRequest(operationName) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let request = operationName;
+            resolve(request);
+        } catch (error) {
+            reject(error);
+        }
+    });
 
 }
-module.exports = GenericRepresentation;
+
+/**
+ * @description This function returns the response value list for the provided operation name.
+ * @param {String} operationName : operation Name
+ * @returns {promise} list {responseValueList}
+ **/
+exports.getResponseValueList = function (operationName) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let responseValueList = [];
+            let valueReference;
+            let applicationName;
+            let datatypevalue;
+
+            let profilesList = await profileCollection.getProfileListAsync();
+            if (profilesList != undefined && profilesList.length != 0) {
+                for (let i = 0; i < profilesList.length; i++) {
+                    let profileInstance = profilesList[i];
+                    let uuid = profileInstance["uuid"];
+                    let profileInstanceName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
+                    if (profileInstanceName === profile.profileNameEnum.RESPONSE_PROFILE) {
+                        let profileOperationName = await responseProfile.getOperationNameAsync(uuid);
+                        if (operationName === profileOperationName) {
+                            let ResponseProfilePac = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC];
+                            let ResponseProfileCapability = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CAPABILITY];
+                            let ResponseProfileConfiguration = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
+                            let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
+                            let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
+                            let fieldNameReference = await responseProfile.getFieldNameReferenceAsync(profileInstance);
+                            datatypevalue = await responseProfile.getDataType(uuid);
+                            if (fieldNameReference !== undefined) {
+                                applicationName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
+                            } else {
+                                applicationName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
+                            }
+                            let valuelist = await responseProfile.getValueReferenceAsync(uuid);
+                            if (valuelist) {
+                                valueReference = await fileOperation.readFromDatabaseAsync(valuelist);
+                            } else {
+                                valueReference = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
+                            }
+
+                            let response = new responseValue(
+                                applicationName,
+                                valueReference,
+                                datatypevalue
+                            );
+                            responseValueList.push(response);
+                        }
+
+                    }
+
+                }
+                resolve(responseValueList)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    });
+}

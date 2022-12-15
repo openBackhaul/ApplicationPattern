@@ -135,7 +135,9 @@ const RESPONSE_PROFILE = {
     DESCRIPTION: "description",
     DATATYPE: "datatype",
     VALUE: "value",
-    VALUE_REFERENCE: "value-reference"
+    VALUE_REFERENCE: "value-reference",
+    STATIC_VALUE: "static-value",
+    STATIC_FIELD_NAME: "static-field-name"
 }
 
 /******************************************
