@@ -13,7 +13,7 @@ This is a step by step cookbook for creating the ProfileList.
 
 ### Definitions
 
-* The ActionProfile is needed for representing the application in the GenericRepresentation, which is obligatory. Consequently, the ActionProfile is assumed to be kept in the ProfileList.  
+* The ActionProfile and the GenericResponseProfile are needed for representing the application in the GenericRepresentation, which is obligatory. Consequently, the ActionProfile and the GenericResponseProfile are assumed to be kept in the ProfileList.  
 * Remove unnecessary Profile definitions from the template.  
 * Add required Profile definitions according to the specifications made in [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and [Concept of the ProfileList](../ConceptOfProfileList/ConceptOfProfileList.md) at the end of the file.  
 * Re-using already existing definitions of Profiles from ProfileLists of other applications is very much recommended.  

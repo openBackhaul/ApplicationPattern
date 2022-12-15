@@ -69,22 +69,21 @@ const ACTION_PROFILE = {
     LABEL: "label",
     INPUT_VALUE_LIST: "input-value-list",
     DISPLAY_IN_NEW_BROWSER_WINDOW: "display-in-new-browser-window",
-    CONSEQUENT_OPERATION_LIST: "consequent-operation-reference"
+    CONSEQUENT_OPERATION_REFERENCE: "consequent-operation-reference"
 };
 
-const RESPONSE_PROFILE = {
-    PAC: "response-profile-1-0:response-profile-pac",
-    CAPABILITY: "response-profile-capability",
-    CONFIGURATION: "response-profile-configuration",
-    OPERATION_NAME: "operation-name",
-    FIELD_NAME: "field-name",
-    DESCRIPTION: "description",
-    DATATYPE: "datatype",
-    VALUE: "value",
-    VALUE_REFERENCE: "value-reference",
-    STATIC_FIELD_NAME: "static-field-name",
-    FILED_NAME_REFERENCE: "field-name-reference"
+const FILE_PROFILE = {
+    PAC: "file-profile-1-0:file-profile-pac",
+    CAPABILITY: "file-profile-capability",
+    CONFIGURATION: "file-profile-configuration",
+    FILE_IDENTIFIER: "file-identifier",
+    FILE_DESCRIPTION: "file-description",
+    FILE_PATH: "file-path",
+    USER_NAME: "user-name",
+    PASSWORD: "password",
+    OPERATION: "operation"
 };
+
 const INTEGER_PROFILE = {
     PAC: "integer-profile-1-0:integer-profile-pac",
     CAPABILITY: "integer-profile-capability",
@@ -126,6 +125,19 @@ const OAM_RECORD_PROFILE = {
     TIMESTAMP: "timestamp"
 };
 
+const RESPONSE_PROFILE = {
+    PAC: "response-profile-1-0:response-profile-pac",
+    CAPABILITY: "response-profile-capability",
+    CONFIGURATION: "response-profile-configuration",
+    OPERATION_NAME: "operation-name",
+    FIELD_NAME: "field-name",
+    FIELD_NAME_REFERENCE: "field-name-reference",
+    DESCRIPTION: "description",
+    DATATYPE: "datatype",
+    VALUE: "value",
+    VALUE_REFERENCE: "value-reference"
+}
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -144,7 +156,8 @@ const LAYER_PROTOCOL = {
     TCP_SERVER_INTERFACE_PAC: "tcp-server-interface-1-0:tcp-server-interface-pac",
     OPERATION_CLIENT_INTERFACE_PAC: "operation-client-interface-1-0:operation-client-interface-pac",
     HTTP_CLIENT_INTERFACE_PAC: "http-client-interface-1-0:http-client-interface-pac",
-    TCP_CLIENT_INTERFACE_PAC: "tcp-client-interface-1-0:tcp-client-interface-pac"
+    TCP_CLIENT_INTERFACE_PAC: "tcp-client-interface-1-0:tcp-client-interface-pac",
+    ES_CLIENT_INTERFACE_PAC: "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac"
 };
 
 const HTTP_SERVER = {
@@ -186,6 +199,8 @@ const TCP_SERVER = {
     CAPABILITY: "tcp-server-interface-capability",
     CONFIGURATION: "tcp-server-interface-configuration",
     IPV_4_ADDRESS: "ipv-4-address",
+    IP_ADDRESS: "ip-address",
+    DOMAIN_NAME: "domain-name",
     LOCAL_PORT: "local-port"
 };
 
@@ -195,7 +210,16 @@ const TCP_CLIENT = {
     REMOTE_ADDRESS: "remote-address",
     IP_ADDRESS: "ip-address",
     IPV_4_ADDRESS: "ipv-4-address",
-    REMOTE_PORT: "remote-port"
+    DOMAIN_NAME: "domain-name",
+    REMOTE_PORT: "remote-port",
+    REMOTE_PROTOCOL: "remote-protocol"
+}
+
+const ES_CLIENT = {
+    CONFIGURATION: "elasticsearch-client-interface-configuration",
+    AUTH: "auth",
+    API_KEY: "api-key",
+    INDEX_ALIAS: "index-alias"
 }
 
 /******************************************
@@ -226,14 +250,16 @@ module.exports = {
     APPLICATION_PROFILE,
     ADMIN_PROFILE,
     ACTION_PROFILE,
-    RESPONSE_PROFILE,
+    FILE_PROFILE,
     INTEGER_PROFILE,
     SERVICE_RECORD_PROFILE,
     OAM_RECORD_PROFILE,
+    RESPONSE_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,
     HTTP_CLIENT,
+    ES_CLIENT,
     OPERATION_SERVER,
     OPERATION_CLIENT,
     TCP_SERVER,

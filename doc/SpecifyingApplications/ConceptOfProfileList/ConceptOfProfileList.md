@@ -22,8 +22,8 @@ The ProfileInstanceList is a compact notation of the instances of Profiles that 
 It provides full focus on the values that shall be used right after instantiation.  
 The ProfileInstanceList is preparing for writing the profile section of the CONFIGfile of the applications. 
 
-The template of the ProfileInstanceList contains the instances of ActionProfile, which are necessary for the basic functions in generic representation.  
-Further on, it contains forms for creating additional instances of IntegerProfile, StringProfile or ActionProfile.  
+The template of the ProfileInstanceList contains the instances of ActionProfile and GenericResponseProfile, which are necessary for the basic functions in generic representation.  
+Further on, it contains forms for creating additional instances of ActionProfile, FileProfile, GenericResponseProfile, IntegerProfile and StringProfile.
 These forms shall provide guidance while filling in concrete values.
 Unused forms need to be deleted from the application specific copy of the template.  
 
