@@ -18,6 +18,8 @@ It administrates the list of registered applications.
 The graphic shows the interactions of the RegistryOffice with the other applications of the TinyApplicationController for adding a new application to the ApplicationLayer.  
 ![TAC_newApp](https://user-images.githubusercontent.com/57349523/185092676-bbfb167b-3430-466c-a03f-7e5a8156c01e.jpg)
 
+A description of a sample implementation of version 1.0.0 of the specification can be found [here](./RegistryOffice.md).
+
 
 ### TypeApprovalRegister
 The TypeApprovalRegister (TAR) stores already granted approvals.  
