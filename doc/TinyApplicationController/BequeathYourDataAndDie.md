@@ -23,7 +23,7 @@ When the old version receives the request , to further communicate with the prop
 the remote address and port of the "newRelease" will be noted by the old version and so the new release number.
 So in the load file of the old release , the http-client-interface and tcp-client-interface will be edited.
 
-![](./images/BequeathYourDataAndDie/Picture3.JPG)
+![](./images/BequeathYourDataAndDie/Picture3.jpg)
 
 ## Forwardings:
 
@@ -38,46 +38,46 @@ Apart from the above forwardings , the following callbacks will be initiated to 
 To make the new application aware about the current TypeApproval Application , this forwarding initiated the v1/inquire-application-type-approval request to the new version and transfers the application information and transport details. 
  > Old application identifies the correct instance by using the "RegistrationCausesInquiryForApplicationTypeApproval" forwardingName
 
-![](./images/BequeathYourDataAndDie/Picture5.JPG)
+![](./images/BequeathYourDataAndDie/Picture5.jpg)
 
 **PromptForBequeathingDataCausesNewApplicationBeingRequestedToDocumentSubscriptionsForDeregistrationNotifications :**
 
 This forwarding is to transfer the information about the applications subscribed for deregistration notification. 
 > The subscribed application information will be identified by the "DeregistrationNotification" forwardingName.
 
-![](./images/BequeathYourDataAndDie/Picture6.JPG)
+![](./images/BequeathYourDataAndDie/Picture6.jpg)
 
 **PromptForBequeathingDataCausesNewApplicationBeingRequestedToDocumentSubscriptionsForApprovalNotifications:**
 
 This forwarding is to transfer the information about the applications subscribed for approval notification. 
 > The subscribed application information will be identified by the "ApprovalNotification" forwardingName.
 
-![](./images/BequeathYourDataAndDie/Picture7.JPG)
+![](./images/BequeathYourDataAndDie/Picture7.jpg)
 
 **PromptForBequeathingDataCausesNewApplicationBeingRequestedToDocumentSubscriptionsForWithdrawnApprovalNotifications**
 
 This forwarding is to transfer the information about the applications subscribed for withdrawn approval notification. 
 > The subscribed application information will be identified by the "WithdrawnApprovalNotification" forwardingName.
 
-![](./images/BequeathYourDataAndDie/Picture8.JPG)
+![](./images/BequeathYourDataAndDie/Picture8.jpg)
 
 **PromptForBequeathingDataCausesTransferOfListOfAlreadyRegisteredApplications :**
 
 This forwarding is to transfer the information about the registered applications. Apart from the &quot;old&quot; and &quot;new&quot; release , all the other application information will be transferred as a part of this callback.
 
-![](./images/BequeathYourDataAndDie/Picture9.JPG)
+![](./images/BequeathYourDataAndDie/Picture9.jpg)
 
 **PromptForBequeathingDataCausesTARbeingRequestedToRedirectInfoAboutApprovalsToNewApplication :**
 
 This forwarding will initiate a request to the &quot;TypeApprovalRegistry&quot; application to redirect the application &quot;approval status change&quot; to the new version.
 
-![](./images/BequeathYourDataAndDie/Picture10.JPG)
+![](./images/BequeathYourDataAndDie/Picture10.jpg)
 
 **PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:**
 
 This forwarding will initiate a request to the &quot;old Registry office&quot;(that is, to its own) application to broadcast about the new release to all the approved application in the SDN MS environment.
 
-![](./images/BequeathYourDataAndDie/Picture11.JPG)
+![](./images/BequeathYourDataAndDie/Picture11.jpg)
 
 **PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease :**
 
@@ -86,5 +86,5 @@ And now , the new application is the active registry office.
 
 This forwarding will deregister the old Registry Office from the SDN MS environment.
 
-![](./images/BequeathYourDataAndDie/Picture12.JPG)
+![](./images/BequeathYourDataAndDie/Picture12.jpg)
 
