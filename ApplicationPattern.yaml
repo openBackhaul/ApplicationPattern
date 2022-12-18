@@ -1970,7 +1970,7 @@ paths:
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Future release number of the application that has updated connection data
-                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 new-protocol:
                   type: string
                   enum:
