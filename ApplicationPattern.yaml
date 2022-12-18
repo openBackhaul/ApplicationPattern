@@ -185,14 +185,9 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                         new-application-address:
                           type: object
-                          minProperties: 1
-                          maxProperties: 1
-                          additionalProperties: false
                           properties:
                             ip-address:
                               type: object
-                              minProperties: 1
-                              additionalProperties: false
                               properties:
                                 ipv-4-address:
                                   type: string
@@ -703,14 +698,9 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
                         application-address:
                           type: object
-                          minProperties: 1
-                          maxProperties: 1
-                          additionalProperties: false
                           properties:
                             ip-address:
                               type: object
-                              minProperties: 1
-                              additionalProperties: false
                               properties:
                                 ipv-4-address:
                                   type: string
@@ -1018,14 +1008,9 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
                         new-application-address:
                           type: object
-                          minProperties: 1
-                          maxProperties: 1
-                          additionalProperties: false
                           properties:
                             ip-address:
                               type: object
-                              minProperties: 1
-                              additionalProperties: false
                               properties:
                                 ipv-4-address:
                                   type: string
@@ -4361,6 +4346,7 @@ paths:
                                               local-address:
                                                 type: object
                                                 minProperties: 1
+                                                maxProperties: 1
                                                 additionalProperties: false
                                                 properties:
                                                   ipv-4-address:
@@ -7375,8 +7361,6 @@ paths:
                 properties:
                   tcp-server-interface-1-0:local-address:
                     type: object
-                    minProperties: 1
-                    additionalProperties: false
                     properties:
                       ipv-4-address:
                         type: string
@@ -7415,6 +7399,7 @@ paths:
                 tcp-server-interface-1-0:local-address:
                   type: object
                   minProperties: 1
+                  maxProperties: 1
                   additionalProperties: false
                   properties:
                     ipv-4-address:
@@ -9035,14 +9020,9 @@ paths:
                 properties:
                   tcp-client-interface-1-0:remote-address:
                     type: object
-                    minProperties: 1
-                    maxProperties: 1
-                    additionalProperties: false
                     properties:
                       ip-address:
                         type: object
-                        minProperties: 1
-                        additionalProperties: false
                         properties:
                           ipv-4-address:
                             type: string
