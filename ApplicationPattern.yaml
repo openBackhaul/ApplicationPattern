@@ -1936,6 +1936,10 @@ paths:
     post:
       operationId: updateClient
       summary: 'Allows updating connection data of a serving application'
+      description: >
+        'Initiates update of release number and TCP/IP address at existing HttpClients and TcpClients.
+        If new-release-number is different from old-release-number and if HttpClient with new-release-number already exists, 
+        HttpClient with old-release-number shall not be updated, but OperationClients shall be transferred to the HttpClient with the new-release-number.'
       tags:
         - BasicServices
       security:
