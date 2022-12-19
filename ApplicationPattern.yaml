@@ -38,13 +38,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall be target of the handover process
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 new-application-release:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall be target of the handover process
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 new-application-protocol:
                   type: string
                   enum:
@@ -52,7 +52,7 @@ paths:
                     - 'HTTPS'
                   description: >
                     'Protocol to be used for addressing the application that shall be target of the handover process
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 new-application-address:
                   type: object
                   minProperties: 1
@@ -69,20 +69,20 @@ paths:
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                           description: >
                             'IPv4 address of application that shall be target of the handover process
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of application that shall be target of the handover process
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 new-application-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall be target of the handover process
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 new-application-name: 'NewApplicationName'
                 new-application-release: '2.0.0'
@@ -465,19 +465,19 @@ paths:
                       type: string
                       description: >
                         'If body provided, name of RegistryOffice application
-                        find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                        find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                     registry-office-application-release-number:
                       type: string
                       pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                       description: >
                         'If body provided, release of RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                     registration-operation:
                       type: string
                       minLength: 6
                       description: >
                         'If body provided, operation for registering
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                     registry-office-protocol:
                       type: string
                       enum:
@@ -485,7 +485,7 @@ paths:
                         - 'HTTPS'
                       description: >
                         'If body provided, protocol for addressing the RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                     registry-office-address:
                       type: object
                       minProperties: 1
@@ -502,20 +502,20 @@ paths:
                               pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                               description: >
                                 'If body provided, IPv4 address of RegistryOffice application
-                                update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                         domain-name:
                           type: string
                           pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                           description: >
                             'If body provided, domain name of RegistryOffice application
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                     registry-office-port:
                       type: integer
                       minimum: 0
                       maximum: 65535
                       description: >
                         'If body provided, port of RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                     http-address:
                       type: object
                       minProperties: 1
@@ -806,31 +806,31 @@ paths:
                   type: string
                   description: >
                     'Name of RegistryOffice application
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 registry-office-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 relay-server-replacement-operation:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for requesting for broadcasting a new server address
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 relay-operation-update-operation:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for requesting for broadcasting a backward compatible replacement of an operation
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 deregistration-operation:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for deregistering from the application layer
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-ro-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 registry-office-protocol:
                   type: string
                   enum:
@@ -838,7 +838,7 @@ paths:
                     - 'HTTPS'
                   description: >
                     'Protocol for addressing RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 registry-office-address:
                   type: object
                   minProperties: 1
@@ -855,20 +855,20 @@ paths:
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                           description: >
                             'IPv4 address of RegistryOffice application
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of RegistryOffice application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 registry-office-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                 old-release-protocol:
                   type: string
                   enum:
@@ -876,7 +876,7 @@ paths:
                     - 'HTTPS'
                   description: >
                     'Protocol for addressing the currently running old release of the same application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 old-release-address:
                   type: object
                   minProperties: 1
@@ -893,20 +893,20 @@ paths:
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                           description: >
                             'IPv4 address of currently running old release of the same application
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of currently running old release of the same application
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 old-release-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of currently running old release of the same application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 registry-office-application: 'RegistryOffice'
                 registry-office-application-release-number: '2.0.0'
@@ -1708,7 +1708,7 @@ paths:
                   minLength: 6
                   description: >
                     'Operation for approving the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-aa-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-aa-2-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 oam-approval-protocol:
                   type: string
                   enum:
@@ -1733,20 +1733,20 @@ paths:
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                           description: >
                             'IPv4 address of application that shall approve the OaM requests
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of application that shall approve the OaM requests
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 oam-approval-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 oam-approval-application: 'AdministratorAdministration'
                 oam-approval-application-release-number: '2.0.0'
@@ -2243,43 +2243,43 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall document the application layer topology
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 topology-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall document the application layer topology
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 topology-operation-ltp-update:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for updating an LTP
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-deletion:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for deleting an LTP
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-update:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for updating an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-update:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for updating an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-004/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-004/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-deletion:
                   type: string
                   minLength: 6
                   description: >
                     'Operation for deleting an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-005/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-005/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-application-protocol:
                   type: string
                   enum:
@@ -2287,7 +2287,7 @@ paths:
                     - 'HTTPS'
                   description: >
                     'Protocol to be used for addresing the application that shall document the application layer topology
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                 topology-application-address:
                   type: object
                   minProperties: 1
@@ -2304,20 +2304,20 @@ paths:
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                           description: >
                             'IPv4 address of application that shall document the application layer topology
-                            update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                       description: >
                         'Domain name of application that shall document the application layer topology
-                        update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                 topology-application-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall document the application layer topology
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-alt-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 topology-application: 'ApplicationLayerTopology'
                 topology-application-release-number: '2.0.0'
