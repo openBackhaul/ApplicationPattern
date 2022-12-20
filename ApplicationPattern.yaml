@@ -157,33 +157,33 @@ paths:
                       type: object
                       required:
                         - application-name
-                        - old-application-release-number
-                        - new-application-release-number
-                        - new-application-protocol
-                        - new-application-address
-                        - new-application-port
+                        - old-release-number
+                        - new-release-number
+                        - new-protocol
+                        - new-address
+                        - new-port
                       properties:
                         application-name:
                           type: string
                           description: >
                             'Own application name
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
-                        old-application-release-number:
+                        old-release-number:
                           type: string
                           description: >
                             'Old release number = current release number of the application requested to bequeath its data and die
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
-                        new-application-release-number:
+                        new-release-number:
                           type: string
                           description: >
                             'Future release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                        new-application-protocol:
+                        new-protocol:
                           type: string
                           description: >
                             'Future protocol to be used
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
-                        new-application-address:
+                        new-address:
                           type: object
                           properties:
                             ip-address:
@@ -199,20 +199,20 @@ paths:
                               description: >
                                 'Future domain name
                                 from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                        new-application-port:
+                        new-port:
                           type: integer
                           description: >
                             'Future port
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         application-name: 'RegistryOffice'
-                        old-application-release-number: '1.0.0'
-                        new-application-release-number: '2.0.0'
-                        new-application-protocol: 'HTTP'
-                        new-application-address:
+                        old-release-number: '1.0.0'
+                        new-release-number: '2.0.0'
+                        new-protocol: 'HTTP'
+                        new-address:
                           ip-address:
                             ipv-4-address: '1.1.3.8'
-                        new-application-port: 3008
+                        new-port: 3008
               responses:
                 '204':
                   description: 'Will broadcast server replacement'
