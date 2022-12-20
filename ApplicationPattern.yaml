@@ -662,9 +662,7 @@ paths:
                         - embedding-operation
                         - client-update-operation
                         - operation-client-update-operation
-                        - application-protocol
-                        - application-address
-                        - application-port
+                        - tcp-server-list
                       properties:
                         application-name:
                           type: string
@@ -691,43 +689,58 @@ paths:
                           description: >
                             'Name of service for broadcasting replacements of operations by backward compatible substitutes
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        application-protocol:
-                          type: string
-                          description: >
-                            'Own protocol (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
-                        application-address:
-                          type: object
-                          properties:
-                            ip-address:
-                              type: object
-                              properties:
-                                ipv-4-address:
-                                  type: string
-                                  description: >
-                                    'Own IPv4 address (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                    from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
-                            domain-name:
-                              type: string
-                              description: >
-                                'Own domain name (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
-                        application-port:
-                          type: integer
-                          description: >
-                            'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                            from[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                        tcp-server-list:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                              - protocol
+                              - address
+                              - port
+                            properties:
+                              protocol:
+                                type: string
+                                description: >
+                                  'Own protocol (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                  from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
+                              address:
+                                type: object
+                                properties:
+                                  ip-address:
+                                    type: object
+                                    properties:
+                                      ipv-4-address:
+                                        type: string
+                                        description: >
+                                          'Own IPv4 address (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                          from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                                  domain-name:
+                                    type: string
+                                    description: >
+                                      'Own domain name (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                      from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
+                              port:
+                                type: integer
+                                description: >
+                                  'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                  from[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
                       example:
                         application-name: 'OwnApplicationName'
                         release-number: '1.0.0'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
                         operation-client-update-operation: '/v1/update-operation-client'
-                        application-protocol: 'HTTP'
-                        application-address:
-                          ip-address:
-                            ipv-4-address: '1.1.4.1'
-                        application-port: 4001
+                        tcp-server-list:
+                          - protocol: 'HTTP'
+                            address:
+                              ip-address:
+                                ipv-4-address: '1.1.3.2'
+                            port: 3002
+                          - protocol: 'HTTPS'
+                            address:
+                              ip-address:
+                                ipv-4-address: '1.2.3.2'
+                            port: 3002
               responses:
                 '204':
                   description: 'Application registered'
@@ -1839,16 +1852,6 @@ paths:
                             'Authorization code of the administrator addressing the OaM request to this application from [parameters::Authorization]'
                         method:
                           type: string
-                          enum:
-                            - 'CONNECT'
-                            - 'DELETE'
-                            - 'GET'
-                            - 'HEAD'
-                            - 'OPTIONS'
-                            - 'PATCH'
-                            - 'POST'
-                            - 'PUT'
-                            - 'TRACE'
                           description: 'Method applied in the OaM request, which is to be recorded'
                       example:
                         application-name: 'OwnApplicationName'
@@ -1938,7 +1941,7 @@ paths:
       summary: 'Allows updating connection data of a serving application'
       description: >
         'Initiates update of release number and TCP/IP address at existing HttpClients and TcpClients.
-        If new-release-number is different from old-release-number and if HttpClient with new-release-number already exists, 
+        If new-release-number is different from old-release-number and if HttpClient with new-release-number already exists,
         HttpClient with old-release-number shall not be updated, but OperationClients shall be transferred to the HttpClient with the new-release-number.'
       tags:
         - BasicServices
@@ -2739,10 +2742,6 @@ paths:
                               type: string
                             port-direction:
                               type: string
-                              enum:
-                                - 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                                - 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
-                                - 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
                             logical-termination-point:
                               type: string
                       example:
