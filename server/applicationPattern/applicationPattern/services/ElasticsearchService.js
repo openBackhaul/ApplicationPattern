@@ -20,8 +20,11 @@ const operationalStateEnum = {
  */
 class ElasticsearchService {
 
-    _client;
-    _apiKey;
+    _clients
+
+    constructor() {
+      this._clients = new Map();
+    }
 
     /**
      * @description This method MUST be called in order to use Elasticsearch client directly.
@@ -29,36 +32,44 @@ class ElasticsearchService {
      * with API key, URL and port found in config file. Before returning existing client, this
      * method also checks if the API key has not changed. If it had changed, closes the existing
      * client, creates a new one and returns it.
+     * @param {String} uuid optional, UUID of Elasticsearch client. If uuid parameter is missing, it
+     * assumes, there is exactly one Elasticsearch client configured in the config file.
      *
      * @returns Elasticsearch client
      */
-    async getClient() {
-      let newApiKey = await this.getApiKeyAsync();
-      if (!newApiKey && !this._apiKey && newApiKey !== this._apiKey) {
-        this._client.close();
-        this._apiKey = undefined;
+    async getClient(uuid) {
+      let esUuid = await ElasticsearchService.getElasticsearchClientUuid(uuid);
+      let newApiKey = await this.getApiKeyAsync(esUuid);
+      let client = this._clients.get(uuid);
+      if (client) {
+        let storedApiKey = client.apiKey;
+        if (newApiKey !== storedApiKey) {
+          client.client.close();
+          storedApiKey = undefined;
+        } else {
+          return client.client;
+        }
       }
-      if (this._apiKey === undefined) {
-        this._apiKey = newApiKey;
-        this._client = new Client(await this._configureClient());
-        this._client.on('response', (err, result) => {
-          if (err) {
-            console.error(err)
-          }
-        });
-      }
-      return this._client;
+      let storedApiKey = newApiKey;
+      client = new Client(await this._configureClient(uuid, storedApiKey));
+      client.on('response', (err, result) => {
+        if (err) {
+          console.error(err)
+        }
+      });
+      this._clients.set(uuid, { "client": client, "apiKey": storedApiKey });
+      return client;
     }
 
     /**
      * @returns configuration options for Elasticsearch client
      */
-    async _configureClient() {
-      let node = await this.getNodeAsync();
+    async _configureClient(uuid, apiKey) {
+      let node = await this.getNodeAsync(uuid);
         return {
             node: node,
             auth: {
-                apiKey: this._apiKey
+                apiKey: apiKey
             },
             tls: {
               // required if elasticsearch has a self-signed certificate
@@ -68,15 +79,39 @@ class ElasticsearchService {
     }
 
     /**
+     * @description Given uuid, it checks if it matches any Elasticsearch client LTP UUIDs
+     * from config file, returns an error, if it doesn't. If uuid parameter is missing, it
+     * assumes, there is exactly one Elasticsearch client configured in the config file.
+     * @param {String} uuid optional, UUID of Elasticsearch client
+     * @returns UUID of Elasticsearch client
+     */
+    static async getElasticsearchClientUuid(uuid) {
+      return new Promise(async function (resolve, reject) {
+        try {
+          let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
+          if (uuid !== undefined) {
+            return (uuids.includes(uuid)) ? resolve(uuid) : reject(new Error(`UUID ${uuid} does not match any Elasticsearch client LTP.`));
+          }
+          if (uuids.length > 1) {
+            return reject(new Error(`There is more than 1 Elasticsearch client LTP configured. Please specify UUID.`));
+          }
+          resolve(uuids[0]);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+
+    /**
      * @description Reads URL, port and remote protocol from TCP LTP of Elasticsearch client
+     * @param {String} uuid UUID of Elasticsearch client
      * @returns {Promise<String>} connection string in form: "<remote-protocol>://<address>:port"
      */
-    async getNodeAsync() {
+    async getNodeAsync(uuid) {
       return new Promise(async function (resolve, reject) {
         let node = undefined;
         try {
-          let uuid = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
-          let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(uuid[0]);
+          let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(uuid);
           let httpClient = await controlConstruct.getLogicalTerminationPointAsync(serverLtp[0]);
           let tcpClient = await logicalTerminationPoint.getServerLtpListAsync(httpClient.uuid);
           let address = await TcpClientInterface.getRemoteAddressAsync(tcpClient[0]);
@@ -90,12 +125,11 @@ class ElasticsearchService {
       });
     }
 
-    static async getEsClientConfig() {
+    static async getEsClientConfig(uuid) {
       return new Promise(async function (resolve, reject) {
         let clientConfig;
         try {
-          let uuid = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
-          let ltp = await controlConstruct.getLogicalTerminationPointAsync(uuid[0]);
+          let ltp = await controlConstruct.getLogicalTerminationPointAsync(uuid);
           let lp = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
           let esClientPac = lp[onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
           clientConfig = esClientPac[onfAttributes.ES_CLIENT.CONFIGURATION];
@@ -106,11 +140,11 @@ class ElasticsearchService {
       });
     }
 
-    async getApiKeyAsync() {
+    async getApiKeyAsync(uuid) {
       return new Promise(async function (resolve, reject) {
           let apiKey;
           try {
-            let esClientConfiguration = await ElasticsearchService.getEsClientConfig();
+            let esClientConfiguration = await ElasticsearchService.getEsClientConfig(uuid);
             let esClientAuth = esClientConfiguration[onfAttributes.ES_CLIENT.AUTH];
             apiKey = esClientAuth[onfAttributes.ES_CLIENT.API_KEY];
             resolve(apiKey);
@@ -120,11 +154,11 @@ class ElasticsearchService {
       });
     }
 
-    async getIndexAliasAsync() {
+    async getIndexAliasAsync(uuid) {
       return new Promise(async function (resolve, reject) {
         let indexAlias;
         try {
-          let esClientConfiguration = await ElasticsearchService.getEsClientConfig();
+          let esClientConfiguration = await ElasticsearchService.getEsClientConfig(uuid);
           indexAlias = esClientConfiguration[onfAttributes.ES_CLIENT.INDEX_ALIAS];
           resolve(indexAlias);
         } catch (error) {
@@ -136,11 +170,12 @@ class ElasticsearchService {
     /**
      * @description Creates/updates service records policy object in Elasticsearch instance
      * MUST be used to implement putElasticsearchClientServiceRecordsPolicy REST API method
+     * @param {String} uuid optional, UUID of Elasticsearch client
      * @param {Object} body service records policy
      * @returns result of the putLifecycle operation
      */
-    async putElasticsearchClientServiceRecordsPolicy(body) {
-      let client = await this.getClient();
+    async putElasticsearchClientServiceRecordsPolicy(uuid, body) {
+      let client = await this.getClient(uuid);
       let policyBody = body["elasticsearch-client-interface-1-0:service-records-policy"];
       let name = policyBody["service-records-policy-name"];
       let description = policyBody["description"];
@@ -165,11 +200,12 @@ class ElasticsearchService {
     /**
      * @description Fetches service records policy associated with configured index alias.
      * MUST be used to implement getElasticsearchClientServiceRecordsPolicy REST API method
+     * @param {String} uuid optional, UUID of Elasticsearch client
      * @returns {Promise<Object>} service records policy
      */
-    async getElasticsearchClientServiceRecordsPolicy() {
-      let indexAlias = await this.getIndexAliasAsync();
-      let client = await this.getClient();
+    async getElasticsearchClientServiceRecordsPolicy(uuid) {
+      let client = await this.getClient(uuid);
+      let indexAlias = await this.getIndexAliasAsync(uuid);
       let policy = await client.indices.getSettings({
         "index": indexAlias,
         "name": "index.lifecycle.name"
@@ -231,10 +267,11 @@ class ElasticsearchService {
     /**
      * @description Issues ping to Elasticsearch instance
      * MUST be used to implement getElasticsearchClientOperationalState REST API method
+     * @param {String} uuid optional, UUID of Elasticsearch client
      * @returns {Promise<String>} AVAILABLE if the ping returns with http status code 200, UNAVAILABLE if not
      */
-    async getElasticsearchClientOperationalState() {
-      let client = await this.getClient();
+    async getElasticsearchClientOperationalState(uuid) {
+      let client = await this.getClient(uuid);
       let result = await client.ping();
       return (result.statusCode === 200) ?
         operationalStateEnum.AVAILABLE : operationalStateEnum.UNAVAILABLE;
