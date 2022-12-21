@@ -56,8 +56,6 @@ In the generated server side stub , initial dependencies and setup needs to be c
 
 **Concepts**
 * [Integrating Configuration file](./ConceptOfIntegratingConfigFile/ConceptOfIntegratingConfigFile.md)
-* All UUIDs are invariant: UUIDs get created during instantiation of a logical object. They get deleted while deleting the object. They get never changed during existence of the object.
-* UUIDs have to be treated as fortuitous Strings: UUIDs shall not be parsed and interpreted for controlling the program flow, but taken as random Strings for identifying logical objects that hold attributes, which are containing the searched information. Navigating through the data tree has to be done based on the attributes' values.
 * [ApplicationPattern Modules Documentation](./ApplicationPatternDocumentation/ApplicationPatternDocumentation.md)
 * [Authorization](./ConceptOfAuthenticationAuthorization/ConceptOfAuthenticationAuthorization.md)
 * [Directing Logs and Traces](./ConceptOfLogDirection/ConceptOfLogDirection.md)
