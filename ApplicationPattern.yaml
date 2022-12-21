@@ -1879,7 +1879,7 @@ paths:
                               - 'METHOD_NOT_ALLOWED'
                               - 'UNKNOWN'
                             description: >
-                              'This attribute to be represented, if request::response::oam-request-is-approved==false.
+                              'This attribute to be represented, if response::oam-request-is-approved==false.
                               Reasons to be checked and indicated according to the sequence defined in the enumeration.'
                       examples:
                         True:
@@ -2561,7 +2561,7 @@ paths:
                         uuid: 'ro-2-0-0-op-s-bm-002'
               responses:
                 '204':
-                  description: 'LTP will be deleted'
+                  description: 'LTP and its dependents will be deleted'
                   headers:
                     x-correlator:
                       schema:
@@ -2818,7 +2818,7 @@ paths:
                         fc-port-local-id:
                           type: string
                       example:
-                        fc-uuid: 'ro-2-0-0-op-fc-bm-003000'
+                        fc-uuid: 'ro-2-0-0-op-fc-bm-003'
                         fc-port-local-id: '202'
               responses:
                 '204':
