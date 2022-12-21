@@ -8,6 +8,12 @@ const controlConstruct = require('../onfModel/models/ControlConstruct');
 const TcpClientInterface = require('../onfModel/models/layerProtocols/TcpClientInterface');
 const onfAttributes = require('../onfModel/constants/OnfAttributes');
 
+const operationalStateEnum = {
+  AVAILABLE: "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE",
+  UNAVAILABLE: "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE",
+  NOT_YET_DEFINED: "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED"
+};
+
 /**
  * @description This class represents Elasticsearch service running on server.
  * Exported is one instance of this class.
@@ -129,10 +135,11 @@ class ElasticsearchService {
 
     /**
      * @description Creates/updates service records policy object in Elasticsearch instance
+     * MUST be used to implement putElasticsearchClientServiceRecordsPolicy REST API method
      * @param {Object} body service records policy
      * @returns result of the putLifecycle operation
      */
-    async putServiceRecordsPolicy(body) {
+    async putElasticsearchClientServiceRecordsPolicy(body) {
       let client = await this.getClient();
       let policyBody = body["elasticsearch-client-interface-1-0:service-records-policy"];
       let name = policyBody["service-records-policy-name"];
@@ -157,9 +164,10 @@ class ElasticsearchService {
 
     /**
      * @description Fetches service records policy associated with configured index alias.
+     * MUST be used to implement getElasticsearchClientServiceRecordsPolicy REST API method
      * @returns {Promise<Object>} service records policy
      */
-    async getServiceRecordsPolicy() {
+    async getElasticsearchClientServiceRecordsPolicy() {
       let indexAlias = await this.getIndexAliasAsync();
       let client = await this.getClient();
       let policy = await client.indices.getSettings({
@@ -219,6 +227,18 @@ class ElasticsearchService {
       }
       return obj;
     };
+
+    /**
+     * @description Issues ping to Elasticsearch instance
+     * MUST be used to implement getElasticsearchClientOperationalState REST API method
+     * @returns {Promise<String>} AVAILABLE if the ping returns with http status code 200, UNAVAILABLE if not
+     */
+    async getElasticsearchClientOperationalState() {
+      let client = await this.getClient();
+      let result = await client.ping();
+      return (result.statusCode === 200) ?
+        operationalStateEnum.AVAILABLE : operationalStateEnum.UNAVAILABLE;
+    }
 }
 
 module.exports = new ElasticsearchService()
