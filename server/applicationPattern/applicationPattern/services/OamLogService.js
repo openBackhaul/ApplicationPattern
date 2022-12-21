@@ -51,7 +51,8 @@ exports.recordOamRequest = function (oamPath, requestBody, responseCode, authori
             let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
             httpRequestBody = formulateResponseBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
-            if (response !== undefined && response.status === 200) {
+            let responseCodeValue = response.status.toString();
+            if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);
             }
             console.log(`recordOamRequest - record OAM request with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
