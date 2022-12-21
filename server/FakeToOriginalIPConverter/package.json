@@ -1,0 +1,18 @@
+{
+  "name": "FakeToOriginalIPMappingTool",
+  "version": "1.0.0",
+  "description": "updated the load file with original IP address",
+  "main": "FakeToOriginalIPConverter.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node FakeToOriginalIPConverter.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "onf-core-model-ap": "1.0.1"
+  }
+}
