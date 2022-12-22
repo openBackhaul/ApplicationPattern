@@ -11,6 +11,7 @@
      'logical-termination-point': "uuid",
      'profile': "uuid",
      'layer-protocol': "local-id",
+     'release-list': "local-id",
      'response-value-list': "field-name",
      'consequent-action-list': "label",
      'forwarding-domain' : "uuid",

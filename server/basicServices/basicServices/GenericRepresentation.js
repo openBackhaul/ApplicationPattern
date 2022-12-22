@@ -76,9 +76,9 @@ exports.getResponseValueList = function (operationName) {
     return new Promise(async function (resolve, reject) {
         try {
             let responseValueList = [];
-            let valueReference;
-            let applicationName;
-            let datatypevalue;
+            let responseInstanceFieldName;
+            let responseInstanceValue;
+            let responseInstancedataTypeOfValue;
 
             let profilesList = await profileCollection.getProfileListAsync();
             if (profilesList != undefined && profilesList.length != 0) {
@@ -94,24 +94,23 @@ exports.getResponseValueList = function (operationName) {
                             let ResponseProfileConfiguration = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
                             let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
                             let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
-                            let fieldNameReference = await responseProfile.getFieldNameReferenceAsync(profileInstance);
-                            datatypevalue = await responseProfile.getDataType(uuid);
+                            let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
+                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];                            
                             if (fieldNameReference !== undefined) {
-                                applicationName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
+                                responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
                             } else {
-                                applicationName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
+                                responseInstanceFieldName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
                             }
-                            let valuelist = await responseProfile.getValueReferenceAsync(uuid);
-                            if (valuelist) {
-                                valueReference = await fileOperation.readFromDatabaseAsync(valuelist);
+                            if (valueReference) {
+                                responseInstanceValue = await fileOperation.readFromDatabaseAsync(valueReference);
                             } else {
-                                valueReference = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
+                                responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
                             }
-
+                            responseInstancedataTypeOfValue = typeof responseInstanceValue;
                             let response = new responseValue(
-                                applicationName,
-                                valueReference,
-                                datatypevalue
+                                responseInstanceFieldName,
+                                responseInstanceValue,
+                                responseInstancedataTypeOfValue
                             );
                             responseValueList.push(response);
                         }
