@@ -156,34 +156,40 @@ paths:
                     schema:
                       type: object
                       required:
-                        - application-name
-                        - old-release-number
-                        - new-release-number
-                        - new-protocol
-                        - new-address
-                        - new-port
+                        - current-application-name
+                        - current-release-number
+                        - future-application-name
+                        - future-release-number
+                        - future-protocol
+                        - future-address
+                        - future-port
                       properties:
-                        application-name:
+                        current-application-name:
                           type: string
                           description: >
                             'Own application name
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
-                        old-release-number:
+                        current-release-number:
                           type: string
                           description: >
                             'Old release number = current release number of the application requested to bequeath its data and die
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
-                        new-release-number:
+                        future-application-name:
+                          type: string
+                          description: >
+                            'Own application name
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                        future-release-number:
                           type: string
                           description: >
                             'Future release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                        new-protocol:
+                        future-protocol:
                           type: string
                           description: >
                             'Future protocol to be used
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
-                        new-address:
+                        future-address:
                           type: object
                           properties:
                             ip-address:
@@ -199,20 +205,21 @@ paths:
                               description: >
                                 'Future domain name
                                 from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                        new-port:
+                        future-port:
                           type: integer
                           description: >
                             'Future port
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
-                        application-name: 'RegistryOffice'
-                        old-release-number: '1.0.0'
-                        new-release-number: '2.0.0'
-                        new-protocol: 'HTTP'
-                        new-address:
+                        current-application-name: 'RegistryOffice'
+                        current-release-number: '1.0.0'
+                        future-application-name: 'RegistryOffice'
+                        future-release-number: '2.0.0'
+                        future-protocol: 'HTTP'
+                        future-address:
                           ip-address:
                             ipv-4-address: '1.1.3.8'
-                        new-port: 3008
+                        future-port: 3008
               responses:
                 '204':
                   description: 'Will broadcast server replacement'
@@ -1941,8 +1948,10 @@ paths:
       summary: 'Allows updating connection data of a serving application'
       description: >
         'Initiates update of release number and TCP/IP address at existing HttpClients and TcpClients.
-        If new-release-number is different from old-release-number and if HttpClient with new-release-number already exists,
-        HttpClient with old-release-number shall not be updated, but OperationClients shall be transferred to the HttpClient with the new-release-number.'
+        If combination of {future-application-name, future-release-number} is different from combination {current-application-name, current-release-number}
+        and if HttpClient with combination of {future-application-name, future-release-number} already exists,
+        HttpClient with combination {current-application-name, current-release-number} shall not be updated,
+        but OperationClients shall be transferred to the HttpClient with combination of {future-application-name, future-release-number}.'
       tags:
         - BasicServices
       security:
@@ -1954,31 +1963,37 @@ paths:
             schema:
               type: object
               required:
-                - application-name
-                - old-release-number
-                - new-release-number
-                - new-protocol
-                - new-address
-                - new-port
+                - current-application-name
+                - current-release-number
+                - future-application-name
+                - future-release-number
+                - future-protocol
+                - future-address
+                - future-port
               properties:
-                application-name:
+                current-application-name:
                   type: string
                   description: >
-                    'Name of the application that has updated connection data
+                    'Current name of the application that has updated connection data
                     find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
-                old-release-number:
+                current-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
-                    'Currently addressed release of the application that has updated connection data
+                    'Current release number of the application that has updated connection data
                     find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                new-release-number:
+                future-application-name:
+                  type: string
+                  description: >
+                    'Future name of the application that has updated connection data
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                future-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Future release number of the application that has updated connection data
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                new-protocol:
+                    update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                future-protocol:
                   type: string
                   enum:
                     - 'HTTP'
@@ -1986,7 +2001,7 @@ paths:
                   description: >
                     'Protocol to be used in future for addressing the application that has updated connection data
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
-                new-address:
+                future-address:
                   type: object
                   minProperties: 1
                   maxProperties: 1
@@ -2009,7 +2024,7 @@ paths:
                       description: >
                         'Future domain name of the application that has updated connection data
                         update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                new-port:
+                future-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
@@ -2017,14 +2032,15 @@ paths:
                     'Future port of the application that has updated connection data
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
-                application-name: 'RegistryOffice'
-                old-release-number: '1.0.0'
-                new-release-number: '2.0.0'
-                new-protocol: 'HTTP'
-                new-address:
+                current-application-name: 'RegistryOffice'
+                current-release-number: '1.0.0'
+                future-application-name:  'RegistryOffice'
+                future-release-number: '2.0.0'
+                future-protocol: 'HTTP'
+                future-address:
                   ip-address:
                     ipv-4-address: '1.1.3.8'
-                new-port: 3008
+                future-port: 3008
       responses:
         '204':
           description: 'Will update connection information'
