@@ -172,22 +172,22 @@ paths:
                         current-release-number:
                           type: string
                           description: >
-                            'Old release number = current release number of the application requested to bequeath its data and die
+                            'Own release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         future-application-name:
                           type: string
                           description: >
-                            'Own application name
+                            'Future name of the application that has updated connection data
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                         future-release-number:
                           type: string
                           description: >
-                            'Future release number
+                            'Future release number of the application that has updated connection data
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         future-protocol:
                           type: string
                           description: >
-                            'Future protocol to be used
+                            'Protocol to be used in future for addressing the application that has updated connection data
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                         future-address:
                           type: object
@@ -198,17 +198,17 @@ paths:
                                 ipv-4-address:
                                   type: string
                                   description: >
-                                    'Future IPv4 address
+                                    'Future IPv4 address of the application that has updated connection data
                                     from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                             domain-name:
                               type: string
                               description: >
-                                'Future domain name
+                                'Future domain name of the application that has updated connection data
                                 from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                         future-port:
                           type: integer
                           description: >
-                            'Future port
+                            'FuFuture port of the application that has updated connection data
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         current-application-name: 'RegistryOffice'
