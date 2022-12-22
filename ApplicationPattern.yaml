@@ -2034,7 +2034,7 @@ paths:
               example:
                 current-application-name: 'RegistryOffice'
                 current-release-number: '1.0.0'
-                future-application-name:  'RegistryOffice'
+                future-application-name: 'RegistryOffice'
                 future-release-number: '2.0.0'
                 future-protocol: 'HTTP'
                 future-address:
