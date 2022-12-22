@@ -7850,8 +7850,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'eatl-2-0-0-es-c-es-1-0-0-000'
     get:
       operationId: getElasticsearchClientApiKey
       summary: 'Returns API key'
@@ -7924,8 +7924,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'eatl-2-0-0-es-c-es-1-0-0-000'
     get:
       operationId: getElasticsearchClientIndexAlias
       summary: 'Returns index alias'
@@ -7998,8 +7998,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'eatl-2-0-0-es-c-es-1-0-0-000'
     get:
       operationId: getElasticsearchClientServiceRecordsPolicy
       summary: 'Returns service records policy'
@@ -8690,8 +8690,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'eatl-2-0-0-es-c-es-1-0-0-000'
     get:
       operationId: getElasticsearchClientOperationalState
       summary: 'Returns operational state of the connection towards Elasticsearch'
@@ -8735,8 +8735,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-im-([0-9]{3})$'
-          example: 'ro-2-0-0-es-c-im-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-es-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'eatl-2-0-0-es-c-es-1-0-0-000'
     get:
       operationId: getElasticsearchClientLifeCycleState
       summary: 'Returns life cycle state of the connection towards Elasticsearch'
