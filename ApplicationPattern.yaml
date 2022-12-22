@@ -208,7 +208,7 @@ paths:
                         future-port:
                           type: integer
                           description: >
-                            'FuFuture port of the application that has updated connection data
+                            'Future port of the application that has updated connection data
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         current-application-name: 'RegistryOffice'
