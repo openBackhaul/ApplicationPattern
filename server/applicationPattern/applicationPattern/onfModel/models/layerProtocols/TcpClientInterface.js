@@ -27,38 +27,18 @@ class TcpClientInterface extends layerProtocol {
         static TcpClientInterfaceConfiguration = class TcpClientInterfaceConfiguration {
             remoteAddress;
             remotePort;
-            static RemoteAddress = class RemoteAddress {
-                ipAddress;
-                static IpAddress = class IpAddress {
-                    ipv4Address;
-
-                    /**
-                     * constructor 
-                     * @param {string} ipv4Address tcp ipaddress where the application is hosted .
-                     */
-                    constructor(ipv4Address) {
-                        this.ipv4Address = ipv4Address;
-                    }
-                }
-
-                /**
-                 * constructor 
-                 * @param {string} ipAddress tcp ipaddress where the application is hosted .
-                 */
-                constructor(ipAddress) {
-                    this.ipAddress = new RemoteAddress.IpAddress(ipAddress);
-                }
-            };
+            remoteProtocol;
 
             /**
              * constructor 
              * @param {string} remoteAddress tcp ipaddress where the application is hosted .
              * @param {string} remotePort tcp port where the application is running .
+             * @param {string} remoteProtocol remoteProtocol where the application is running .
              */
-            constructor(remoteAddress, remotePort) {
-                this.remoteAddress = new TcpClientInterfaceConfiguration.RemoteAddress(
-                    remoteAddress);
+            constructor(remoteAddress, remotePort, remoteProtocol) {
+                this.remoteAddress = remoteAddress;
                 this.remotePort = remotePort;
+                this.remoteProtocol = remoteProtocol;
             }
         };
 
@@ -66,11 +46,13 @@ class TcpClientInterface extends layerProtocol {
          * constructor 
          * @param {string} remoteAddress tcp ipaddress where the application is hosted .
          * @param {string} remotePort tcp port where the application is running .
+         * @param {string} remoteProtocol remoteProtocol where the application is running .
          */
-        constructor(remoteAddress, remotePort) {
+        constructor(remoteAddress, remotePort, remoteProtocol) {
             this.tcpClientInterfaceConfiguration = new TcpClientInterfacePac.TcpClientInterfaceConfiguration(
                 remoteAddress,
-                remotePort);
+                remotePort,
+                remoteProtocol);
         }
     };
 
@@ -78,14 +60,16 @@ class TcpClientInterface extends layerProtocol {
      * constructor 
      * @param {string} remoteAddress tcp ipaddress where the application is hosted .
      * @param {string} remotePort tcp port where the application is running .
+     * @param {string} remoteProtocol remoteProtocol where the application is running .
      */
-    constructor(remoteAddress, remotePort) {
+    constructor(remoteAddress, remotePort, remoteProtocol) {
         super("0",
             TcpClientInterface.TcpClientInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC] = new TcpClientInterface
             .TcpClientInterfacePac(
                 remoteAddress,
-                remotePort);
+                remotePort,
+                remoteProtocol);
     }
 
     /**
@@ -96,7 +80,6 @@ class TcpClientInterface extends layerProtocol {
      **/
     static getRemoteAddressAsync(tcpClientUuid) {
         return new Promise(async function (resolve, reject) {
-            let remoteIpV4Address;
             try {
                 let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
                     tcpClientUuid);
@@ -107,11 +90,7 @@ class TcpClientInterface extends layerProtocol {
                 let tcpClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC];
                 let tcpClientConfiguration = tcpClientPac[onfAttributes.TCP_CLIENT.CONFIGURATION];
                 let remoteAddress = tcpClientConfiguration[onfAttributes.TCP_CLIENT.REMOTE_ADDRESS];
-                remoteIpV4Address = remoteAddress[
-                    onfAttributes.TCP_CLIENT.IP_ADDRESS][
-                    onfAttributes.TCP_CLIENT.IPV_4_ADDRESS
-                ];
-                resolve(remoteIpV4Address);
+                resolve(remoteAddress);
             } catch (error) {
                 reject(error);
             }
@@ -145,14 +124,44 @@ class TcpClientInterface extends layerProtocol {
     }
 
     /**
+     * @description This function returns the tcp port where the application is running .
+     * @param {String} tcpClientUuid : uuid of the tcp client ,the value should be a valid string 
+     * in the pattern '-\d+-\d+-\d+-tcp-client-\d+$'
+     * @returns {promise} string {undefined | remotePort}
+     **/
+    static getRemoteProtocolAsync(tcpClientUuid) {
+        return new Promise(async function (resolve, reject) {
+            let remoteProtocol;
+            try {
+                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
+                    tcpClientUuid);
+                let layerProtocol = logicalTerminationPoint[
+                    onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][
+                    0
+                ];
+                let tcpClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC];
+                let tcpClientConfiguration = tcpClientPac[onfAttributes.TCP_CLIENT.CONFIGURATION];
+                remoteProtocol = tcpClientConfiguration[onfAttributes.TCP_CLIENT.REMOTE_PROTOCOL];
+                resolve(remoteProtocol);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
      * @description This function generates the tcp-client uuid for the given http-client uuid.
      * @param {String} httpClientUuid uuid of the http-client-interface logical-termination-point.
+     * @param {String} remoteProtocol : remoteProtocol where the application is running.
      * @returns string {tcpClientUuid}
      **/
-    static generateNextUuid(httpClientUuid) {
+    static generateNextUuid(httpClientUuid, remoteProtocol) {
         let tcpClientUuid;
         try {
             tcpClientUuid = httpClientUuid.replace("http", "tcp");
+            if (remoteProtocol.toUpperCase() == "HTTPS") {
+                tcpClientUuid = tcpClientUuid.replace("000", "001");
+            }
             return tcpClientUuid;
         } catch (error) {
             return error;
@@ -166,15 +175,17 @@ class TcpClientInterface extends layerProtocol {
      * @param {String} tcpClientUuid : tcp-client uuid to create the new tcp-client instance.
      * @param {String} ipv4Address : ipaddress where the application is hosted.
      * @param {String} port : port where the application is running.
+     * @param {String} remoteProtocol : remoteProtocol where the application is running.
      * @returns {promise} object {TcpClientInterface}
      **/
-    static createTcpClientInterfaceAsync(httpClientUuid, tcpClientUuid, ipv4Address, port) {
+    static createTcpClientInterfaceAsync(httpClientUuid, tcpClientUuid, ipv4Address, port, remoteProtocol) {
         return new Promise(async function (resolve, reject) {
             let tcpClientLogicalTerminationPoint;
             try {
                 let tcpClientInterface = new TcpClientInterface(
                     ipv4Address,
-                    port);
+                    port,
+                    remoteProtocol);
                 tcpClientLogicalTerminationPoint = new logicalTerminationPoint(
                     tcpClientUuid,
                     logicalTerminationPoint.ltpDirectionEnum.SINK,
@@ -200,8 +211,20 @@ class TcpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             let isUpdated = false;
             try {
-                let remoteAddressPath = onfPaths.TCP_CLIENT_REMOTE_ADDRESS.replace(
-                    "{uuid}", tcpClientUuid);
+                let addressToBeDeleted = await fileOperation.readFromDatabaseAsync(
+                    onfPaths.TCP_CLIENT_ADDRESS.replace(
+                        "{uuid}", tcpClientUuid)
+                );
+                let addressPaths = await getPaths(tcpClientUuid, remoteAddress, addressToBeDeleted);
+                let remoteAddressPath = addressPaths[0];
+                let pathToBeDeleted = addressPaths[1];
+                if (pathToBeDeleted != undefined) {
+                    await fileOperation.deletefromDatabaseAsync(
+                        pathToBeDeleted,
+                        addressToBeDeleted,
+                        false
+                    );
+                }
                 isUpdated = await fileOperation.writeToDatabaseAsync(
                     remoteAddressPath,
                     remoteAddress,
@@ -236,5 +259,68 @@ class TcpClientInterface extends layerProtocol {
             }
         });
     }
+
+    /**
+     * @description This function modifies the tcp-client remote-port for the provided tcp client uuid.
+     * @param {String} tcpClientUuid : tcp-client uuid to create the new tcp-client instance, the value should be a valid string 
+     * in the pattern '-\d+-\d+-\d+-tcp-client-\d+$'
+     * @param {String} remotePort : remotePort that needs to be modified.
+     * @returns {promise} boolean {true|false}
+     **/
+    static setRemoteProtocolAsync(tcpClientUuid, remoteProtocol) {
+        return new Promise(async function (resolve, reject) {
+            let isUpdated = false;
+            try {
+                let remoteProtocolPath = onfPaths.TCP_CLIENT_REMOTE_PROTOCOL.replace(
+                    "{uuid}", tcpClientUuid);
+                isUpdated = await fileOperation.writeToDatabaseAsync(
+                    remoteProtocolPath,
+                    remoteProtocol,
+                    false);
+                resolve(isUpdated);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+
 }
+
+
+/**
+ * @description This function returns the remote address configured .
+ * @param {String} tcpClientUuid : tcp-client uuid of the tcp-client instance
+ * @param {String} addressToBeDeleted : tcp-client address to be deleted.
+ * @param {String} remoteAddress : remote address of the tcp client .
+ * @returns {promise} list {paths}
+ **/
+function getPaths(tcpClientUuid, remoteAddress, addressToBeDeleted) {
+    return new Promise(async function (resolve, reject) {
+        let paths = [];
+        let remoteAddressPath;
+        let pathOfAddressToBeDeleted;
+        let domainName = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
+        try {
+            if (domainName in remoteAddress) {
+                remoteAddressPath = onfPaths.TCP_CLIENT_DOMAIN_NAME.replace(
+                    "{uuid}", tcpClientUuid);
+                if (!(domainName in addressToBeDeleted))
+                    pathOfAddressToBeDeleted = onfPaths.TCP_CLIENT_IP_ADDRESS.replace(
+                        "{uuid}", tcpClientUuid);
+            } else {
+                remoteAddressPath = onfPaths.TCP_CLIENT_IP_ADDRESS.replace(
+                    "{uuid}", tcpClientUuid);
+                if (domainName in addressToBeDeleted)
+                    pathOfAddressToBeDeleted = onfPaths.TCP_CLIENT_DOMAIN_NAME.replace(
+                        "{uuid}", tcpClientUuid);
+            }
+            paths.push(remoteAddressPath, pathOfAddressToBeDeleted)
+            resolve(paths);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = TcpClientInterface;

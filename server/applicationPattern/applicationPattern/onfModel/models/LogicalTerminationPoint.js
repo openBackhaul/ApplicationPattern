@@ -97,23 +97,20 @@ class LogicalTerminationPoint {
     static setClientLtpListAsync(logicalTerminationPointUuid, clientUuidList) {
         return new Promise(async function (resolve, reject) {
             let isUpdated = false;
-            let _clientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(
-                logicalTerminationPointUuid);
+            let _clientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(logicalTerminationPointUuid);
+            let clientLtpPath = onfPaths.CLIENT_LTP.replace("{uuid}", logicalTerminationPointUuid);
             try {
-                for (let i = 0; i < clientUuidList.length; i++) {
-                    let isClientUuidExist = false;
-                    let clientUuid = clientUuidList[i];
-                    if (_clientUuidList != undefined && _clientUuidList.indexOf(clientUuid) > -1) {
-                        isClientUuidExist = true;
-                    }
-                    if (!isClientUuidExist) {
-                        let clientLtpPath = onfPaths.CLIENT_LTP.replace(
-                            "{uuid}", logicalTerminationPointUuid);
-                        isUpdated = await fileOperation.writeToDatabaseAsync(
-                            clientLtpPath,
-                            clientUuid,
-                            true);
-                    }
+                for (let toBeRemovedUuid of _clientUuidList) {
+                    await fileOperation.deletefromDatabaseAsync(
+                        clientLtpPath,
+                        toBeRemovedUuid,
+                        true);
+                }
+                for (let clientUuid of clientUuidList) {
+                    isUpdated = await fileOperation.writeToDatabaseAsync(
+                        clientLtpPath,
+                        clientUuid,
+                        true);
                 }
                 resolve(isUpdated);
             } catch (error) {
@@ -132,23 +129,20 @@ class LogicalTerminationPoint {
     static setServerLtpListAsync(logicalTerminationPointUuid, serverUuidList) {
         return new Promise(async function (resolve, reject) {
             let isUpdated = false;
-            let _serverUuidList = await LogicalTerminationPoint.getServerLtpListAsync(
-                logicalTerminationPointUuid);
+            let _serverUuidList = await LogicalTerminationPoint.getServerLtpListAsync(logicalTerminationPointUuid);
+            let serverLtpPath = onfPaths.SERVER_LTP.replace("{uuid}", logicalTerminationPointUuid);
             try {
-                for (let i = 0; i < serverUuidList.length; i++) {
-                    let isServerUuidExist = false;
-                    let serverUuid = serverUuidList[i];
-                    if (_serverUuidList != undefined && _serverUuidList.indexOf(serverUuid) > -1) {
-                        isServerUuidExist = true;
-                    }
-                    if (!isServerUuidExist) {
-                        let serverLtpPath = onfPaths.SERVER_LTP.replace(
-                            "{uuid}", logicalTerminationPointUuid);
-                        isUpdated = await fileOperation.writeToDatabaseAsync(
-                            serverLtpPath,
-                            serverUuid,
-                            true);
-                    }
+                for (let toBeRemovedUuid of _serverUuidList) {
+                    await fileOperation.deletefromDatabaseAsync(
+                        serverLtpPath,
+                        toBeRemovedUuid,
+                        true);
+                }
+                for (let serverUuid of serverUuidList) {
+                    isUpdated = await fileOperation.writeToDatabaseAsync(
+                        serverLtpPath,
+                        serverUuid,
+                        true);
                 }
                 resolve(isUpdated);
             } catch (error) {

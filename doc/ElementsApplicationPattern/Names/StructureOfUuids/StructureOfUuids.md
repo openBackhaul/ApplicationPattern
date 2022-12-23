@@ -48,7 +48,7 @@ Within the respective layers the following types of objects are defined:
 - p = Profile  
 
 **ApiSegment**  
-The ApiSegment is contained in the UUIDs of Servers, Clients and FCs.
+The ApiSegment is contained in the UUIDs of OperationServers, OperationClients and FCs.
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
 The **OperationServers** are categorized according to the following two aspects:  
@@ -61,7 +61,7 @@ This results in four categories:
 - bs = Basic Service: Offering a service, which must be provided by all applications  
 - is = Individual Service: Offering a services, which is individual to this application  
 
-After categorizing all OperationServers, **HttpServer** and **TcpServer** are inheriting the highest category (e.g. bm) represented in the group of supported OperationServers.  
+UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.  
 
 The **OperationClients** are categorized according to the following two aspects:  
 - Executed Management (giving advice) vs. Consumed Services (receiving support)  
@@ -73,11 +73,11 @@ This results in four categories:
 - bs = Basic Services: All applications are consuming this service from the same application
 - is = Individual Services: Consuming this service is individual to this application
 
-After categorizing all OperationClients, **HttpClient** and **TcpClient** are inheriting the highest category (e.g. bm) represented in the group of supported OperationClients.  
+UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.  
 
 **FCs** are inheriting the ApiSegment from the connected OperationClients.
 
-UUIDs of Profile, ForwardingDomain and Link don't contain an ApiSegment.  
+UUIDs of **Profile**, **FD** and **Link** don't contain an ApiSegment.  
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
@@ -97,7 +97,7 @@ Counting is decimal.
 | ---- | ------------------ |
 | ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
 | ol-1-0-0-op-c-bm-ro-1-0-0-010 | OperationClient (for /v1/relay-server-replacement) that is addressing the RegistryOffice release 1.0.0 inside the OamLog release 1.0.0 |  
-| eatl-2-0-0-es-c-is-es-1-0-0-000 | ElasticSearchClient for connecting ExecutionAndTraceLog release 2.0.0 with its database |  
-| ol-1-0-0-http-c-bm-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
-| aa-1-0-0-op-fc-bm-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
+| eatl-2-0-0-es-c-es-1-0-0-000 | ElasticSearchClient for connecting ExecutionAndTraceLog release 2.0.0 with its database |  
+| ol-1-0-0-http-c-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
+| aa-1-0-0-op-fc-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  

@@ -1,0 +1,293 @@
+servers:
+## TODO: Search and replace all "xx" in the uuid by the official abbreviation of the ApplicationName
+
+  operation-servers:
+    own-oam:
+      basic:
+        - service-name: /v1/register-yourself
+          uuid: xx-1-0-0-op-s-bm-000
+        - service-name: /v1/embed-yourself
+          uuid: xx-1-0-0-op-s-bm-001
+        - service-name: /v1/redirect-service-request-information
+          uuid: xx-1-0-0-op-s-bm-002
+        - service-name: /v1/redirect-oam-request-information
+          uuid: xx-1-0-0-op-s-bm-003
+        - service-name: /v1/end-subscription
+          uuid: xx-1-0-0-op-s-bm-004
+        - service-name: /v1/inquire-oam-request-approvals
+          uuid: xx-1-0-0-op-s-bm-005
+        - service-name: /v1/update-client
+          uuid: xx-1-0-0-op-s-bm-007
+        - service-name: /v1/list-ltps-and-fcs
+          uuid: xx-1-0-0-op-s-bm-008
+        - service-name: /v1/redirect-topology-change-information
+          uuid: xx-1-0-0-op-s-bm-009
+        - service-name: /v1/update-operation-key
+          uuid: xx-1-0-0-op-s-bm-010
+        - service-name: /v1/update-operation-client
+          uuid: xx-1-0-0-op-s-bm-011
+      individual:
+        - service-name: /v1/bequeath-your-data-and-die
+          uuid: xx-1-0-0-op-s-im-000
+    service:
+      basic:
+        - service-name: /v1/start-application-in-generic-representation
+          uuid: xx-1-0-0-op-s-bs-000
+        - service-name: /v1/inform-about-application
+          uuid: xx-1-0-0-op-s-bs-001
+        - service-name: /v1/inform-about-application-in-generic-representation
+          uuid: xx-1-0-0-op-s-bs-002
+        - service-name: /v1/inform-about-release-history
+          uuid: xx-1-0-0-op-s-bs-003
+        - service-name: /v1/inform-about-release-history-in-generic-representation
+          uuid: xx-1-0-0-op-s-bs-004
+        - service-name: /docs
+          uuid: xx-1-0-0-op-s-bs-005
+      individual:
+        ## TODO: Add Services specific to this application
+  http-server:
+    own-application-name: ## TODO: Add OwnApplicationName
+    own-release-number: ## TODO: Add OwnReleaseNumber (e.g. 1.0.0)
+    uuid: xx-1-0-0-http-s-000
+  tcp-server:
+    - description: Without TLS layer
+      local-protocol: http
+      own-ip-address: ## TODO: Add OwnIpAddress
+      own-tcp-port: ## TODO: Add OwnTcpPort
+      uuid: xx-1-0-0-tcp-s-000
+    - description: With TLS layer
+      local-protocol: https
+      own-ip-address: ## TODO: Add OwnIpAddress
+      own-tcp-port: ## TODO: Add OwnTcpPort
+      uuid: xx-1-0-0-tcp-s-001
+
+
+clients:
+
+  - http-client:
+      application-name: ElasticSearch
+      release-number: 1.0.0
+      uuid: xx-1-0-0-http-c-es-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.15
+      tcp-port: 3015
+      uuid: xx-1-0-0-tcp-c-es-1-0-0-000
+    elasticsearch-client:
+      uuid: xx-1-0-0-es-c-es-1-0-0-000
+      index-alias: ## TODO: Add IndexAlias
+
+  - http-client:
+      application-name: OldRelease
+      release-number: ## TODO: Add Number of Release to be substituted (e.g. 1.0.0)
+      uuid: xx-1-0-0-http-c-or-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: ## TODO: Add IpAddress of Release to be substituted
+      tcp-port: ## TODO: Add TcpPort of Release to be substituted
+      uuid: xx-1-0-0-tcp-c-or-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/bequeath-your-data-and-die
+            uuid: xx-1-0-0-op-c-bm-or-1-0-0-000
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: NewRelease
+      release-number: ## TODO: Add Number of substituting Release (e.g. 1.0.1)
+      uuid: xx-1-0-0-http-c-nr-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: ## TODO: Add IpAddress of substituting Release
+      tcp-port: ## TODO: Add TcpPort of substituting Release
+      uuid: xx-1-0-0-tcp-c-nr-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+          ## TODO: Add Services required for handing-over configuration or data during update
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: RegistryOffice
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-ro-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.8
+      tcp-port: 3008
+      uuid: xx-1-0-0-tcp-c-ro-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/register-application
+            uuid: xx-1-0-0-op-c-bm-ro-2-0-0-000
+          - service-name: /v1/relay-server-replacement
+            uuid: xx-1-0-0-op-c-bm-ro-2-0-0-001
+          - service-name: /v1/deregister-application
+            uuid: xx-1-0-0-op-c-bm-ro-2-0-0-002
+          - service-name: /v1/relay-operation-update
+            uuid: xx-1-0-0-op-c-bm-ro-2-0-0-003
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: TypeApprovalRegister
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-tar-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.9
+      tcp-port: 3009
+      uuid: xx-1-0-0-tcp-c-tar-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: ExecutionAndTraceLog
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-eatl-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.10
+      tcp-port: 3010
+      uuid: xx-1-0-0-tcp-c-eatl-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/record-service-request
+            uuid: xx-1-0-0-op-c-bs-eatl-2-0-0-000
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: OamLog
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-ol-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.11
+      tcp-port: 3011
+      uuid: xx-1-0-0-tcp-c-ol-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/record-oam-request
+            uuid: xx-1-0-0-op-c-bs-ol-2-0-0-000
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: AdministratorAdministration
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-aa-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.12
+      tcp-port: 3012
+      uuid: xx-1-0-0-tcp-c-aa-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/approve-oam-request
+            uuid: xx-1-0-0-op-c-bs-aa-2-0-0-000
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: ApplicationLayerTopology
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-alt-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.13
+      tcp-port: 3013
+      uuid: xx-1-0-0-tcp-c-alt-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - service-name: /v1/update-all-ltps-and-fcs
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-000
+          - service-name: /v1/update-ltp
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-001
+          - service-name: /v1/delete-ltp-and-dependents
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-002
+          - service-name: /v1/update-fc
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-003
+          - service-name: /v1/update-fc-port
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-004
+          - service-name: /v1/delete-fc-port
+            uuid: xx-1-0-0-op-c-bm-alt-2-0-0-005
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: OperationKeyManagement
+      release-number: 2.0.0
+      uuid: xx-1-0-0-http-c-okm-2-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.3.14
+      tcp-port: 3014
+      uuid: xx-1-0-0-tcp-c-okm-2-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application
+
+  - http-client:
+      application-name: ## TODO: Add Name of application to be addressed
+      release-number: ## TODO: Add Release number of application to be addressed
+      uuid: ## TODO: Add UUID of the HttpClient
+    tcp-client:
+      remote-protocol: http
+      ip-address: ## TODO: Add IP address of application to be addressed
+      tcp-port: ## TODO: Add TCP port of application to be addressed
+      uuid: ## TODO: Add UUID of the TcpClient
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          ## TODO: Add Clients specific to this application, but addressing all other applications
+        individual:
+          ## TODO: Add Clients specific to this application

@@ -74,8 +74,8 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             registrationApplicationRequestBody.applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
             registrationApplicationRequestBody.applicationAddress = await tcpServerInterface.getLocalAddress();
             registrationApplicationRequestBody.applicationPort = await tcpServerInterface.getLocalPort();
-            registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-0001");
-            registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-0007");
+            registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
+            registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,

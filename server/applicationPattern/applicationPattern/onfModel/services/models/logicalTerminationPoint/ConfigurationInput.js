@@ -7,6 +7,9 @@
 
 'use strict';
 
+/**
+ * @deprecated use ConfigurationInputWithMapping
+ */
 class ConfigurationInput {
 
     applicationName;
