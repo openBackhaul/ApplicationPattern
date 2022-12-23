@@ -31,6 +31,7 @@ const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriv
 const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping')
+const GenericRepresenatation = require("onf-core-model-ap/applicationPattern/services/GenericRepresentation")
 
 /**
  * Embed yourself into the MBH SDN application layer
@@ -254,73 +255,19 @@ exports.informAboutApplication = function (user, originator, xCorrelator, traceI
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns inline_response_200_5
  **/
-exports.informAboutApplicationInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+exports.informAboutApplicationInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney,Operation) {
   return new Promise(async function (resolve, reject) {
     let response = {};
-    try {
-      /****************************************************************************************
-       * Preparing consequent-action-list for response body
-       ****************************************************************************************/
-      let consequentActionList = [];
-      let protocol = "http";
+   try{
 
-      let localAddress = await tcpServerInterface.getLocalAddress();
-      let localPort = await tcpServerInterface.getLocalPort();
-      let baseUrl = protocol + "://" + localAddress + ":" + localPort
-
-      let controlConstructUuid = await fileOperation.readFromDatabaseAsync(onfPaths.CONTROL_CONSTRUCT_UUID);
-
-      let releaseHistoryOperationServerUuid = controlConstructUuid + "-op-s-2004";
-      let releaseHistoryOperationName = await operationServerInterface.getOperationNameAsync(
-        releaseHistoryOperationServerUuid);
-
-      let LabelForReleaseHistory = "Release History";
-      let requestForReleaseHistory = baseUrl + releaseHistoryOperationName;
-      let consequentActionForReleaseHistory = new consequentAction(
-        LabelForReleaseHistory,
-        requestForReleaseHistory,
-        false
-      );
-      consequentActionList.push(consequentActionForReleaseHistory);
-
-      let LabelForAPIDocumentation = "API Documentation";
-      let requestForAPIDocumentation = baseUrl + "/docs";
-      let consequentActionForAPIDocumentation = new consequentAction(
-        LabelForAPIDocumentation,
-        requestForAPIDocumentation,
-        true
-      );
-      consequentActionList.push(consequentActionForAPIDocumentation);
-
-      /****************************************************************************************
-       * Preparing response-value-list for response body
-       ****************************************************************************************/
-      let responseValueList = [];
-
-      let httpServerCapability = await httpServerInterface.getHttpServerCapabilityAsync();
-
-      Object.entries(httpServerCapability).map(entry => {
-        let key = onfAttributeFormatter.modifyKebabCaseToLowerCamelCase(entry[0]);
-        let value = entry[1];
-        if (key != "releaseList") {
-          let reponseValue = new responseValue(
-            key,
-            value,
-            typeof value
-          );
-          responseValueList.push(reponseValue);
-        }
-      });
-
-      /****************************************************************************************
-       * Setting 'application/json' response body
-       ****************************************************************************************/
-      response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
-        consequentActionList,
-        responseValueList
-      });
-
-    } catch (error) {
+  let consequentActionList = await GenericRepresenatation.getConsequentActionList(Operation)
+  let responseValueList = await GenericRepresenatation.getResponseValueList(Operation)
+ 
+  response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
+   consequentActionList,
+   responseValueList
+ });
+   }catch (error) {
       console.log(error);
     }
 
@@ -380,47 +327,19 @@ exports.informAboutReleaseHistory = function (user, originator, xCorrelator, tra
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns inline_response_200_7
  **/
-exports.informAboutReleaseHistoryInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+exports.informAboutReleaseHistoryInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney,Operation) {
   return new Promise(async function (resolve, reject) {
     let response = {};
-    try {
-      /****************************************************************************************
-       * Preparing consequent-action-list for response body
-       ****************************************************************************************/
-      let consequentActionList = [];
+   try{
 
-      /****************************************************************************************
-       * Preparing response-value-list for response body
-       ****************************************************************************************/
-      let responseValueList = [];
-      let releaseList = await httpServerInterface.getReleaseListAsync();
-
-      for (let i = 0; i < releaseList.length; i++) {
-
-        let release = releaseList[i];
-
-        let releaseNumber = release[onfAttributes.HTTP_SERVER.RELEASE_NUMBER];
-        let releaseDate = release[onfAttributes.HTTP_SERVER.RELEASE_DATE];
-        let changes = release[onfAttributes.HTTP_SERVER.CHANGES];
-        let releaseDateAndChanges = releaseDate + " - " + changes;
-
-        let reponseValue = new responseValue(
-          releaseNumber,
-          releaseDateAndChanges,
-          typeof releaseDateAndChanges
-        );
-
-        responseValueList.push(reponseValue);
-      }
-
-      /****************************************************************************************
-       * Setting 'application/json' response body
-       ****************************************************************************************/
-      response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
-        consequentActionList,
-        responseValueList
-      });
-    } catch (error) {
+  let consequentActionList = await GenericRepresenatation.getConsequentActionList(Operation)
+  let responseValueList = await GenericRepresenatation.getResponseValueList(Operation)
+ 
+  response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
+   consequentActionList,
+   responseValueList
+ });
+   } catch (error) {
       console.log(error);
     }
     if (Object.keys(response).length > 0) {
@@ -432,6 +351,29 @@ exports.informAboutReleaseHistoryInGenericRepresentation = function (user, origi
 
 }
 
+exports.startApplicationInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney,Operation) {
+  return new Promise(async function (resolve, reject) {
+
+    let response = {};
+try {
+    let consequentActionList = await GenericRepresenatation.getConsequentActionList(Operation)
+    let responseValueList = await GenericRepresenatation.getResponseValueList(Operation)
+    
+    response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
+  consequentActionList,
+  responseValueList
+});
+} catch (error) {
+console.log(error);
+}
+
+if (Object.keys(response).length > 0) {
+resolve(response[Object.keys(response)[0]]);
+} else {
+resolve();
+}
+  });
+}
 
 /**
  * Receives information about where to ask for approval of OaM requests

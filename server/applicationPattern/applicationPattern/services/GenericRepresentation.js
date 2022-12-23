@@ -36,7 +36,7 @@ exports.getConsequentActionList = function (operationName) {
                         actionProfile.label,
                         request,
                         actionProfile.displayInNewBrowserWindow,
-                        actionProfile.inputlist
+                        actionProfile.inputValueList
                     );
                     consequentActionList.push(consequentActionProfile);
                 }
