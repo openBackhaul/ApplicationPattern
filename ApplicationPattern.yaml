@@ -4481,10 +4481,6 @@ paths:
                                                 properties:
                                                   service-records-policy-name:
                                                     type: string
-                                                  master-timeout:
-                                                    type: string
-                                                  timeout:
-                                                    type: string
                                                   description:
                                                     type: string
                                                   project:
@@ -8025,10 +8021,6 @@ paths:
                     properties:
                       service-records-policy-name:
                         type: string
-                      master-timeout:
-                        type: string
-                      timeout:
-                        type: string
                       description:
                         type: string
                       project:
@@ -8363,10 +8355,6 @@ paths:
                     - phases
                   properties:
                     service-records-policy-name:
-                      type: string
-                    master-timeout:
-                      type: string
-                    timeout:
                       type: string
                     description:
                       type: string
