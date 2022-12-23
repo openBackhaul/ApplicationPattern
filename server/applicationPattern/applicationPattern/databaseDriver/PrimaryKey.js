@@ -17,5 +17,5 @@
      'forwarding-domain' : "uuid",
      'forwarding-construct': "uuid",
      'fc-port': "local-id",
-     'name':"value-name"
+     'name':"value-name",
  }
