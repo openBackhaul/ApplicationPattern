@@ -1,54 +1,30 @@
 # ApplicationPattern
 
-- Pattern for REST applications on top of the SDN Controller
-- Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
+### Location
+The ApplicationPattern is inherent part of all applications in the application layer.  
 
-### Documentation
+### Description
+The ApplicationPattern provides a basic set of operations that are common to all applications.  
 
-- [ApplicationPattern Guidelines](./doc/Main.md)
+In its service section:  
+- It facilitates the automated embedding and upgrade processes.  
+- It automates the registering at the RegistryOffice.  
+- It supports the centralized management functions for logging, tracing, OaM access management, inventory and service access management.  
+- And it assures availability of documentation about the application and its REST API.  
 
-### ServiceList
+In its OaM section:
+- It provides direct configuration of the applications' interfaces, internal connections and parameters of their individual algorithms.  
 
-- [ApplicationPattern+services](./ApplicationPattern+services.yaml)
+The ApplicationPattern is not just a specification.  
+Its implementation is publicly available and can be copied into every individual implementation of an application.  
 
-### ProfileList and ProfileInstanceList
+### Relevance
+The ApplicationPattern is base of the application layer running in the live network at Telefonica Germany.
 
-- [ApplicationPattern+profiles](./ApplicationPattern+profiles.yaml)
-- [ApplicationPattern+profileInstances](./ApplicationPattern+profileInstances.yaml)
-
-### ForwardingList
-
-- [ApplicationPattern+forwardings](./ApplicationPattern+forwardings.yaml)
-
-### Open API specification (Swagger)
-
-- [ApplicationPattern](./ApplicationPattern.yaml)
-
-### CONFIGfile (JSON)
-
-- to be provided
-
-### Test Cases (Postman Export) and DATAfile
-
-- [ApplicationPattern+testcases](./ApplicationPattern%2Btestcases.json)
-- [ApplicationPattern+data](./ApplicationPattern+data.json)
-
-### NodeJS Implementation
-
-- [ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1](./ApplicationPattern_0.0.2_tsi.211216.1425+nodejs.1.zip)
-
-### Publication
-
-- No official publication planned
-
-### Aspired Classification
-
-- Live Network
-
-### Open Issue List
-
-- [ApplicationPattern/issues](../../issues)
+### Resources
+- [Specification](./spec/)
+- [TestSuite](./testing/)
+- [Implementation](./server/)
 
 ### Comments
-
 ./.
