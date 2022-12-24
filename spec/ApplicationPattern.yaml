@@ -470,6 +470,7 @@ paths:
                   properties:
                     registry-office-application:
                       type: string
+                      minLength: 3
                       description: >
                         'If body provided, name of RegistryOffice application
                         find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ro-2-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
@@ -589,6 +590,19 @@ paths:
                         'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
                         find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
                         update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                    preceding-application-name:
+                      type: string
+                      minLength: 3
+                      description: >
+                        'If provided, the new application will address /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
+                        (/v1/bequeath-your-data-and-die will not be sent, if application-name in *-http-c-or-* == OldRelease)
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    preceding-release-number:
+                      type: string
+                      pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
+                      description: >
+                        'If application-name in *-http-c-or-* different from OldRelease, the new application will address /v1/bequeath-your-data-and-die at the preceding release after receiving /v1/embed-yourself
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
             example:
               registry-office-application: 'RegistryOffice'
               registry-office-application-release-number: '2.0.0'
@@ -600,8 +614,10 @@ paths:
               registry-office-port: 3008
               http-address:
                 ip-address:
-                  ipv-4-address: '1.1.4.1'
-              http-port: 4001
+                  ipv-4-address: '1.1.3.9'
+              http-port: 3009
+              preceding-application-name: 'TypeApprovalRegister'
+              preceding-release-number: '1.0.0'
       responses:
         '204':
           description: 'Will register at the RegistryOffice'
@@ -681,6 +697,18 @@ paths:
                           description: >
                             'Own release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                        preceding-application-name:
+                          type: string
+                          description: >
+                            'To be providede if application-name in *-http-c-or-* different from OldRelease
+                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                        preceding-release-number:
+                          type: string
+                          description: >
+                            'To be providede if application-name in *-http-c-or-* different from OldRelease
+                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         embedding-operation:
                           type: string
                           description: >
@@ -732,8 +760,10 @@ paths:
                                   'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
                                   from[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
                       example:
-                        application-name: 'OwnApplicationName'
-                        release-number: '1.0.0'
+                        application-name: 'TypeApprovalRegister'
+                        release-number: '2.0.0'
+                        preceding-application-name: 'TypeApprovalRegister'
+                        preceding-release-number: '1.0.0'
                         embedding-operation: '/v1/embed-yourself'
                         client-update-operation: '/v1/update-client'
                         operation-client-update-operation: '/v1/update-operation-client'
@@ -741,13 +771,13 @@ paths:
                           - protocol: 'HTTP'
                             address:
                               ip-address:
-                                ipv-4-address: '1.1.3.2'
-                            port: 3002
+                                ipv-4-address: '1.1.3.9'
+                            port: 3009
                           - protocol: 'HTTPS'
                             address:
                               ip-address:
-                                ipv-4-address: '1.2.3.2'
-                            port: 3002
+                                ipv-4-address: '1.2.3.9'
+                            port: 3209
               responses:
                 '204':
                   description: 'Application registered'
@@ -2279,13 +2309,13 @@ paths:
                   type: string
                   minLength: 6
                   description: >
-                    'Operation for deleting an LTP
+                    'Operation for deleting an LTP and its dependents like FC port and Link (if applicable)
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-update:
                   type: string
                   minLength: 6
                   description: >
-                    'Operation for updating an FC port
+                    'Operation for updating a ForwardingConstruct instance
                     update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bm-alt-2-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-update:
                   type: string
@@ -4480,10 +4510,6 @@ paths:
                                                   - phases
                                                 properties:
                                                   service-records-policy-name:
-                                                    type: string
-                                                  master-timeout:
-                                                    type: string
-                                                  timeout:
                                                     type: string
                                                   description:
                                                     type: string
@@ -8025,10 +8051,6 @@ paths:
                     properties:
                       service-records-policy-name:
                         type: string
-                      master-timeout:
-                        type: string
-                      timeout:
-                        type: string
                       description:
                         type: string
                       project:
@@ -8363,10 +8385,6 @@ paths:
                     - phases
                   properties:
                     service-records-policy-name:
-                      type: string
-                    master-timeout:
-                      type: string
-                    timeout:
                       type: string
                     description:
                       type: string
