@@ -298,7 +298,7 @@ function getPaths(tcpServerUuid, localAddress, addressToBeDeleted) {
                 localAddressPath = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
                     "{uuid}", tcpServerUuid);
                 if (!(domainName in addressToBeDeleted))
-                    pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_LOCAL_ADDRESS.replace(
+                    pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
                         "{uuid}", tcpServerUuid);
             } else {
                 localAddressPath = onfPaths.TCP_SERVER_LOCAL_ADDRESS.replace(
