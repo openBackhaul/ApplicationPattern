@@ -78,8 +78,8 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
             
             // formulate the tcp-server-list
-            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("http");
-            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("http");
+            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
+            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
             if(tcpHttpAddress!=undefined && tcpHttpPort!=undefined){
                 if("ipv-4-address" in tcpHttpAddress){
                     tcpHttpAddress = {
@@ -93,8 +93,8 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
                 }
                 tcpServerList.push(tcpServer);
             }
-            let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("https");
-            let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("https");
+            let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTPS");
+            let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTPS");
             if(tcpHttpsAddress!=undefined && tcpHttpsPort!=undefined){
                 if("ipv-4-address" in tcpHttpsAddress){
                     tcpHttpsAddress = {
