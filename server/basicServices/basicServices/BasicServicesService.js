@@ -30,7 +30,7 @@ const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/con
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 
-const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping')
+const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 
 /**
  * Embed yourself into the MBH SDN application layer
@@ -950,61 +950,129 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
 exports.registerYourself = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   return new Promise(async function (resolve, reject) {
     try {
-
-      /****************************************************************************************
-       * Setting up required local variables from the request body
-       ****************************************************************************************/
-      let applicationName = body["registry-office-application"];
-      let releaseNumber = body["registry-office-application-release-number"];
-      let applicationAddress = body["registry-office-address"];
-      let applicationPort = body["registry-office-port"];
-      let registerOperation = body["registration-operation"];
-
-      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
-      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
-        reject(new Error(`The registry-office-application ${applicationName} was not found.`));
-        return;
-      }
-
-      /****************************************************************************************
-       * Prepare logicalTerminationPointConfigurationInput object to
-       * configure logical-termination-point
-       ****************************************************************************************/
-      let operationNamesByAttributes = new Map();
-      operationNamesByAttributes.set("registration-operation", registerOperation);
-
-      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
-        applicationName,
-        releaseNumber,
-        applicationAddress,
-        applicationPort,
-        operationServerName,
-        operationNamesByAttributes,
-        basicServicesOperationsMapping.basicServicesOperationsMapping
-      );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-        logicalTerminationPointConfigurationInput
-      );
-
-
-      /****************************************************************************************
-       * Prepare attributes to configure forwarding-construct
-       ****************************************************************************************/
-
-      let forwardingConfigurationInputList = [];
+      let logicalTerminationPointconfigurationStatus;
       let forwardingConstructConfigurationStatus;
-      let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
+      if (body["registry-office-application"] != undefined) {
+        /****************************************************************************************
+         * Setting up required local variables from the request body
+         ****************************************************************************************/
 
-      if (operationClientConfigurationStatusList) {
-        forwardingConfigurationInputList = await prepareForwardingConfiguration.registerYourself(
-          operationClientConfigurationStatusList,
-          registerOperation
+        let registryOfficeApplicationName = body["registry-office-application"];
+        let registryOfficeReleaseNumber = body["registry-office-application-release-number"];
+        let registryOfficeRegisterOperation = body["registration-operation"];
+        let registryOfficeProtocol = body["registry-office-protocol"];
+        let registryOfficeAddress = body["registry-office-address"];
+        let registryOfficePort = body["registry-office-port"];
+
+        // getting values for optional attributes 
+        let httpAddress = body["http-address"];
+        let httpPort = body["http-port"];
+
+        let httpsAddress = body["https-address"];
+        let httpsPort = body["https-port"];
+
+        let oldApplicationName = body["preceding-application-name"];
+        let oldReleaseNumber = body["preceding-release-number"];
+
+        /****************************************************************************************
+         * Prepare logicalTerminationPointConfigurationInput object to
+         * configure logical-termination-point
+         ****************************************************************************************/
+        // update the registryOffice configuration
+        const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
+        if (appNameAndUuidFromForwarding?.applicationName !== registryOfficeApplicationName) {
+          reject(new Error(`The registry-office-application ${registryOfficeApplicationName} was not found.`));
+          return;
+        }
+        let operationNamesByAttributes = new Map();
+        operationNamesByAttributes.set("registration-operation", registryOfficeRegisterOperation);
+
+        let tcpObjectList = [];
+        let tcpObject = formulateTcpObject(registryOfficeProtocol, registryOfficeAddress, registryOfficePort);
+        tcpObjectList.push(tcpObject);
+
+        let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+          registryOfficeApplicationName,
+          registryOfficeReleaseNumber,
+          tcpObjectList,
+          operationServerName,
+          operationNamesByAttributes,
+          basicServicesOperationsMapping.basicServicesOperationsMapping
         );
-        forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
+
+        logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
+          logicalTerminatinPointConfigurationInput
+        );
+
+        // update tcp-server configuration if required
+        let tcpServerWithHttpUpdated = await updateTcpServerDetails("HTTP", httpAddress, httpPort);
+        if (tcpServerWithHttpUpdated.istcpServerUpdated) {
+          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpUpdated.tcpServerUuid, '', tcpServerWithHttpUpdated.istcpServerUpdated);
+          let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
+          tcpClientConfigurationStatusList.push(configurationStatus);
+        }
+
+        let tcpServerWithHttpsUpdated = await updateTcpServerDetails("HTTPS", httpsAddress, httpsPort);
+        if (tcpServerWithHttpsUpdated.istcpServerUpdated) {
+          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpUpdated.tcpServerUuid, '', tcpServerWithHttpUpdated.istcpServerUpdated);
+          let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
+          tcpClientConfigurationStatusList.push(configurationStatus);
+        }
+        
+        // update old release configuration
+        let isOldApplicationIsUpdated = false;
+        let httpUuidOfOldApplication;
+
+        if (oldApplicationName != undefined || oldReleaseNumber != undefined) {
+          let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+          let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
+          httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
+
+          if (httpUuidOfOldApplication != undefined) {
+            if (oldApplicationName != undefined) {
+              let configuredOldApplicationName = await httpClientInterface.getApplicationNameAsync(httpUuidOfOldApplication);
+              if (configuredOldApplicationName != oldApplicationName) {
+                isOldApplicationIsUpdated = await httpClientInterface.setApplicationNameAsync(httpUuidOfOldApplication, oldApplicationName);
+              }
+            }
+            if (oldReleaseNumber != undefined) {
+              let configuredOldApplicationReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpUuidOfOldApplication);
+              if (configuredOldApplicationReleaseNumber != oldReleaseNumber) {
+                isOldApplicationIsUpdated = await httpClientInterface.setReleaseNumberAsync(httpUuidOfOldApplication, oldReleaseNumber);
+              }
+            }
+            if (isOldApplicationIsUpdated) {
+              let configurationStatus = new ConfigurationStatus(httpUuidOfOldApplication, '', isOldApplicationIsUpdated);
+              let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
+              tcpClientConfigurationStatusList.push(configurationStatus);
+            }
+          }
+        }
+
+
+        /****************************************************************************************
+         * Prepare attributes to configure forwarding-construct
+         ****************************************************************************************/
+
+        let forwardingConfigurationInputList = [];
+        let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
+
+        if (operationClientConfigurationStatusList) {
+          forwardingConfigurationInputList = await prepareForwardingConfiguration.registerYourself(
+            operationClientConfigurationStatusList,
+            registryOfficeRegisterOperation
+          );
+          forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
           configureForwardingConstructAsync(
             operationServerName,
             forwardingConfigurationInputList
           );
+        }
+      } else {
+        customerJourney = traceIndicator;
+        traceIndicator = xCorrelator;
+        xCorrelator = originator;
+        user = body;
       }
 
       /****************************************************************************************
@@ -1280,4 +1348,50 @@ async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forw
   const httpClientLtpUuid = httpLtpUuidList[0];
   const applicationName = await httpClientInterface.getApplicationNameAsync(httpClientLtpUuid);
   return applicationName === undefined ? { applicationName: null, httpClientLtpUuid } : { applicationName, httpClientLtpUuid };
+}
+
+/**
+ * @description This function helps to formulate the tcpClient object in the format { protocol : "" , address : "" , port : ""}
+ * @return {Promise} return the formulated tcpClientObject
+ **/
+function formulateTcpObject(protocol, address, port) {
+  let tcpInfoObject;
+  try {
+    tcpInfoObject = {
+      "protocol": protocol,
+      "address": address,
+      "port": port
+    };
+  } catch (error) {
+    console.log("error in formulating tcp object");
+  }
+  return tcpInfoObject;
+}
+
+/**
+ * @description This function helps to get the APISegment of the operationClient uuid
+ * @return {Promise} returns the APISegment
+ **/
+async function updateTcpServerDetails(protocol, address, port) {
+  let updatedDetails = {};
+  let istcpServerUpdated = false;
+  let tcpServerUuid;
+  if (address != undefined || port != undefined) {
+    tcpServerUuid = await tcpServerInterface.getUuidOfTheProtocol(protocol);
+    if (address != undefined) {
+      let configuredAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
+      if (configuredAddress != address) {
+        istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address);
+      }
+    }
+    if (port != undefined) {
+      let configuredPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
+      if (configuredPort != port) {
+        istcpServerUpdated = await tcpServerInterface.setLocalPortAsync(tcpServerUuid, port);
+      }
+    }
+  }
+  updatedDetails.tcpServerUuid = tcpServerUuid;
+  updatedDetails.istcpServerUpdated = istcpServerUpdated;
+  return updatedDetails;
 }

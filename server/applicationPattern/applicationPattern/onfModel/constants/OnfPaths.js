@@ -76,6 +76,7 @@ const TCP_SERVER_INTERFACE_CONFIGURATION = TCP_SERVER_INTERFACE_PAC + "/tcp-serv
 const TCP_SERVER_IP_ADDRESS = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address/ipv-4-address";
 const TCP_SERVER_DOMAIN_NAME = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address/domain-name";
 const TCP_SERVER_LOCAL_ADDRESS = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address";
+const TCP_SERVER_LOCAL_PORT = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-port";
 
 /******************************************
  ********forwarding-domain**************
@@ -133,6 +134,7 @@ module.exports = {
     TCP_SERVER_IP_ADDRESS,
     TCP_SERVER_DOMAIN_NAME,
     TCP_SERVER_LOCAL_ADDRESS,
+    TCP_SERVER_LOCAL_PORT,
     FORWARDING_DOMAIN,
     FORWARDING_CONSTRUCT,
     FC_PORT,

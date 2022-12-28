@@ -70,12 +70,46 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             let registrationApplicationForwardingName = "PromptForRegisteringCausesRegistrationRequest";
             let registrationApplicationContext;
             let registrationApplicationRequestBody = {};
+            let tcpServerList = [];
             registrationApplicationRequestBody.applicationName = await httpServerInterface.getApplicationNameAsync();
-            registrationApplicationRequestBody.applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
-            registrationApplicationRequestBody.applicationAddress = await tcpServerInterface.getLocalAddress();
-            registrationApplicationRequestBody.applicationPort = await tcpServerInterface.getLocalPort();
+            registrationApplicationRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
             registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
             registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
+            registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
+            
+            // formulate the tcp-server-list
+            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("http");
+            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("http");
+            if(tcpHttpAddress!=undefined && tcpHttpPort!=undefined){
+                if("ipv-4-address" in tcpHttpAddress){
+                    tcpHttpAddress = {
+                        "ip-address": tcpHttpAddress
+                    } 
+                }
+                let tcpServer = {
+                    protocol : "HTTP",
+                    port : tcpHttpPort,
+                    address : tcpHttpAddress
+                }
+                tcpServerList.push(tcpServer);
+            }
+            let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("https");
+            let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("https");
+            if(tcpHttpsAddress!=undefined && tcpHttpsPort!=undefined){
+                if("ipv-4-address" in tcpHttpsAddress){
+                    tcpHttpsAddress = {
+                        "ip-address": tcpHttpsAddress
+                    } 
+                }
+                let tcpServer = {
+                    protocol : "HTTPS",
+                    port : tcpHttpsPort,
+                    address : tcpHttpsAddress
+                }
+                tcpServerList.push(tcpServer);
+            }
+
+            registrationApplicationRequestBody.tcpServerList = tcpServerList;
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
