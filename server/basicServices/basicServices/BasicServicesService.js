@@ -58,6 +58,12 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let relayOperationUpdateOperation = body["relay-operation-update-operation"];
       let relayServerReplacementOperation = body["relay-server-replacement-operation"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The registry-office-application ${applicationName} was not found.`));
+        return;
+      }
+
       /****************************************************************************************
        * Prepare logicalTerminationPointConfigurationInput object to
        * configure logical-termination-point
@@ -77,7 +83,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminationPointConfigurationInput
       );
 
@@ -804,6 +810,11 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
       let fcPortUpdateTopologyOperation = body["topology-operation-fc-port-update"];
       let fcPortDeletionTopologyOperation = body["topology-operation-fc-port-deletion"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesLtpUpdateRequest');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The topology-application ${applicationName} was not found.`));
+        return;
+      }
 
       /****************************************************************************************
        * Prepare logicalTerminationPointConfigurationInput object to
@@ -826,7 +837,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminationPointConfigurationInput
       );
 
@@ -949,6 +960,12 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
       let applicationPort = body["registry-office-port"];
       let registerOperation = body["registration-operation"];
 
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
+      if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+        reject(new Error(`The registry-office-application ${applicationName} was not found.`));
+        return;
+      }
+
       /****************************************************************************************
        * Prepare logicalTerminationPointConfigurationInput object to
        * configure logical-termination-point
@@ -965,7 +982,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
       );
-      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+      let logicalTerminationPointconfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
         logicalTerminationPointConfigurationInput
       );
 
