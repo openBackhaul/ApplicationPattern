@@ -26,6 +26,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
             let bequeathYourDataAndDieRequestBody = {};
             bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
             bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
+            bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
             bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
             bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
             bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
@@ -76,35 +77,35 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
             registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
             registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
-            
+
             // formulate the tcp-server-list
             let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
             let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
-            if(tcpHttpAddress!=undefined && tcpHttpPort!=undefined){
-                if("ipv-4-address" in tcpHttpAddress){
+            if (tcpHttpAddress != undefined && tcpHttpPort != undefined) {
+                if ("ipv-4-address" in tcpHttpAddress) {
                     tcpHttpAddress = {
                         "ip-address": tcpHttpAddress
-                    } 
+                    }
                 }
                 let tcpServer = {
-                    protocol : "HTTP",
-                    port : tcpHttpPort,
-                    address : tcpHttpAddress
+                    protocol: "HTTP",
+                    port: tcpHttpPort,
+                    address: tcpHttpAddress
                 }
                 tcpServerList.push(tcpServer);
             }
             let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTPS");
             let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTPS");
-            if(tcpHttpsAddress!=undefined && tcpHttpsPort!=undefined){
-                if("ipv-4-address" in tcpHttpsAddress){
+            if (tcpHttpsAddress != undefined && tcpHttpsPort != undefined) {
+                if ("ipv-4-address" in tcpHttpsAddress) {
                     tcpHttpsAddress = {
                         "ip-address": tcpHttpsAddress
-                    } 
+                    }
                 }
                 let tcpServer = {
-                    protocol : "HTTPS",
-                    port : tcpHttpsPort,
-                    address : tcpHttpsAddress
+                    protocol: "HTTPS",
+                    port: tcpHttpsPort,
+                    address: tcpHttpsAddress
                 }
                 tcpServerList.push(tcpServer);
             }
@@ -145,7 +146,7 @@ exports.endSubscription = function (logicalTerminationPointconfigurationStatus, 
         let forwardingConstructAutomationList = [];
         try {
 
-              /***********************************************************************************
+            /***********************************************************************************
              * forwardings for application layer topology 
              ************************************************************************************/
             let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
