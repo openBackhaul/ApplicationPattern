@@ -597,6 +597,7 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
        ****************************************************************************************/
       let applicationName = body["oam-log-application"];
       let releaseNumber = body["oam-log-application-release-number"];
+      let applicationProtocol = body["oam-log-protocol"];
       let applicationAddress = body["oam-log-address"];
       let applicationPort = body["oam-log-port"];
       let oamLogOperation = body["oam-log-operation"];
@@ -614,11 +615,14 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
       let operationNamesByAttributes = new Map();
       operationNamesByAttributes.set("oam-log-operation", oamLogOperation);
 
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(applicationProtocol, applicationAddress, applicationPort);
+      tcpObjectList.push(tcpObject);
+
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
-        applicationAddress,
-        applicationPort,
+        tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
