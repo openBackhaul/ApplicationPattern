@@ -697,6 +697,7 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
        ****************************************************************************************/
       let applicationName = body["service-log-application"];
       let releaseNumber = body["service-log-application-release-number"];
+      let applicationProtocol = body["service-log-protocol"];
       let applicationAddress = body["service-log-address"];
       let applicationPort = body["service-log-port"];
       let serviceLogOperation = body["service-log-operation"];
@@ -714,11 +715,14 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
       let operationNamesByAttributes = new Map();
       operationNamesByAttributes.set("service-log-operation", serviceLogOperation);
 
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(applicationProtocol, applicationAddress, applicationPort);
+      tcpObjectList.push(tcpObject);
+
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
-        applicationAddress,
-        applicationPort,
+        tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
