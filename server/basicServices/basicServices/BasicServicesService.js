@@ -785,9 +785,9 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
        ****************************************************************************************/
       let applicationName = body["topology-application"];
       let releaseNumber = body["topology-application-release-number"];
-      let applicationAddress = body["topology-application-address"]['ip-address']['ipv-4-address']
+      let applicationAddress = body["topology-application-address"];
       let applicationPort = body["topology-application-port"];
-      let applicationUpdateTopologyOperation = body["topology-operation-application-update"];
+      let applicationProtocol = body["topology-application-protocol"];
       let ltpUpdateTopologyOperation = body["topology-operation-ltp-update"];
       let ltpDeletionTopologyOperation = body["topology-operation-ltp-deletion"];
       let fcUpdateTopologyOperation = body["topology-operation-fc-update"];
@@ -805,18 +805,20 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
        * configure logical-termination-point
        ****************************************************************************************/
       let operationNamesByAttributes = new Map();
-      operationNamesByAttributes.set("topology-operation-application-update", applicationUpdateTopologyOperation);
       operationNamesByAttributes.set("topology-operation-ltp-update", ltpUpdateTopologyOperation);
       operationNamesByAttributes.set("topology-operation-ltp-deletion", ltpDeletionTopologyOperation);
       operationNamesByAttributes.set("topology-operation-fc-update", fcUpdateTopologyOperation);
       operationNamesByAttributes.set("topology-operation-fc-port-update", fcPortUpdateTopologyOperation);
       operationNamesByAttributes.set("topology-operation-fc-port-deletion", fcPortDeletionTopologyOperation);
 
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(applicationProtocol, applicationAddress, applicationPort);
+      tcpObjectList.push(tcpObject);
+
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
-        applicationAddress,
-        applicationPort,
+        tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
@@ -837,7 +839,6 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
       if (operationClientConfigurationStatusList) {
         forwardingConfigurationInputList = await prepareForwardingConfiguration.redirectTopologyChangeInformation(
           operationClientConfigurationStatusList,
-          applicationUpdateTopologyOperation,
           ltpUpdateTopologyOperation,
           ltpDeletionTopologyOperation,
           fcUpdateTopologyOperation,
