@@ -429,6 +429,7 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
        ****************************************************************************************/
       let applicationName = body["oam-approval-application"];
       let releaseNumber = body["oam-approval-application-release-number"];
+      let applicationProtocol = body["oam-approval-protocol"];
       let applicationAddress = body["oam-approval-address"];
       let applicationPort = body["oam-approval-port"];
       let oamApprovalOperation = body["oam-approval-operation"];
@@ -446,11 +447,14 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
       let operationNamesByAttributes = new Map();
       operationNamesByAttributes.set("oam-approval-operation", oamApprovalOperation);
 
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(applicationProtocol, applicationAddress, applicationPort);
+      tcpObjectList.push(tcpObject);
+
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
-        applicationAddress,
-        applicationPort,
+        tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
