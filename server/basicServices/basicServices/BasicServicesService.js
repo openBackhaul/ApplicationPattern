@@ -4,7 +4,7 @@ const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/on
 const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInputWithMapping');
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
-const layerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
+const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
 
 const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
@@ -16,13 +16,12 @@ const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfMod
 
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
+const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
-const consequentAction = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ConsequentAction');
-const responseValue = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ResponseValue');
 
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
@@ -53,11 +52,17 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
        ****************************************************************************************/
       let applicationName = body["registry-office-application"];
       let releaseNumber = body["registry-office-application-release-number"];
+      let applicationProtocol = body["registry-office-protocol"];
       let applicationAddress = body["registry-office-address"];
       let applicationPort = body["registry-office-port"];
       let deregisterOperation = body["deregistration-operation"];
       let relayOperationUpdateOperation = body["relay-operation-update-operation"];
       let relayServerReplacementOperation = body["relay-server-replacement-operation"];
+
+
+      let oldReleaseProtocol = body["old-release-protocol"];
+      let oldReleaseAddress = body["old-release-address"];
+      let oldReleasePort = body["old-release-port"];
 
       const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement');
       if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
@@ -75,11 +80,14 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       operationNamesByAttributes.set("relay-server-replacement-operation", relayServerReplacementOperation);
       operationNamesByAttributes.set("relay-operation-update-operation", relayOperationUpdateOperation);
 
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(applicationProtocol, applicationAddress, applicationPort);
+      tcpObjectList.push(tcpObject);
+
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         applicationName,
         releaseNumber,
-        applicationAddress,
-        applicationPort,
+        tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
         basicServicesOperationsMapping.basicServicesOperationsMapping
@@ -88,6 +96,35 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
         logicalTerminationPointConfigurationInput
       );
 
+      let isOldApplicationTcpClientUpdated = false;
+      let oldApplicationTcpClientUuid;
+      let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+      let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
+      let httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
+
+      if (httpUuidOfOldApplication != undefined) {
+        let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
+        if (tcpClientUuidList != undefined) {
+          oldApplicationTcpClientUuid = tcpClientUuidList[0];
+          let tcpClientProtocolOfOldApplication = await tcpClientInterface.getRemoteProtocolAsync(oldApplicationTcpClientUuid);
+          if (oldReleaseProtocol != tcpClientProtocolOfOldApplication) {
+            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteProtocolAsync(oldApplicationTcpClientUuid, oldReleaseProtocol);
+          }
+          let tcpClientAddressOfOldApplication = await tcpClientInterface.getRemoteAddressAsync(oldApplicationTcpClientUuid);
+          if (oldReleaseAddress != tcpClientAddressOfOldApplication) {
+            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteAddressAsync(oldApplicationTcpClientUuid, oldReleaseAddress);
+          }
+          let tcpClientPortOfOldApplication = await tcpClientInterface.getRemotePortAsync(oldApplicationTcpClientUuid);
+          if (oldReleasePort != tcpClientPortOfOldApplication) {
+            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemotePortAsync(oldApplicationTcpClientUuid, oldReleasePort);
+          }
+        }
+      }
+      if (isOldApplicationTcpClientUpdated) {
+        let configurationStatus = new ConfigurationStatus(oldApplicationTcpClientUuid, '', isOldApplicationTcpClientUpdated);
+        let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
+        tcpClientConfigurationStatusList.push(configurationStatus);
+      }
 
       /****************************************************************************************
        * Prepare attributes to configure forwarding-construct
@@ -486,16 +523,30 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
        ****************************************************************************************/
       let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
       let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
+      delete controlConstruct['profile-collection'];
       let logicalterminationpoint = controlConstruct[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]
 
       for (let i = 0; i < logicalterminationpoint.length; i++) {
         let layerprotocol = logicalterminationpoint[i][onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL]
         for (let j = 0; j < layerprotocol.length; j++) {
-          let operationclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC]
-          if (operationclientinterfacepac !== undefined) {
-            let detailedloggingison = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-            if (detailedloggingison !== undefined) {
-              delete detailedloggingison['detailed-logging-is-on'];
+          let layerProtocolInstance = layerprotocol[j];
+          let layerProtocolName = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
+          if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT) {
+            let operationclientinterfacepac = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+            if (operationclientinterfacepac !== undefined) {
+              let operationClientConfiguration = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION];
+              if (operationClientConfiguration !== undefined) {
+                delete operationClientConfiguration['detailed-logging-is-on'];
+                delete operationClientConfiguration['operation-key'];
+              }
+            }
+          } else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER) {
+            let operationServerinterfacepac = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+            if (operationServerinterfacepac !== undefined) {
+              let operationServerConfiguration = operationServerinterfacepac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
+              if (operationServerConfiguration !== undefined) {
+                delete operationServerConfiguration['operation-key'];
+              }
             }
           }
         }

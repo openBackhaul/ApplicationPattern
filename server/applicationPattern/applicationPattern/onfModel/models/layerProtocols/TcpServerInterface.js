@@ -155,6 +155,28 @@ class TcpServerInterface extends layerProtocol {
     }
 
     /**
+     * @description This function returns the protocol of the current application.
+     * @returns {promise} string {localProtocol}
+     **/
+    static getLocalProtocol() {
+        return new Promise(async function (resolve, reject) {
+            let localProtocol = {};
+            try {
+                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+                    layerProtocol.layerProtocolNameEnum.TCP_SERVER);
+                let logicalTerminationPoint = logicalTerminationPointList[0];
+                let _layerProtocol = logicalTerminationPoint["layer-protocol"][0];
+                let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
+                let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
+                localProtocol = tcpServerConfiguration["local-protocol"];
+                resolve(localProtocol);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
      * @description This function returns the IpV4 address of the current application.
      * @returns {promise} string {localAddress}
      **/
@@ -244,7 +266,7 @@ class TcpServerInterface extends layerProtocol {
             let isUpdated = false;
             try {
                 let localPortPath = onfPaths.TCP_SERVER_LOCAL_PORT.replace(
-                        "{uuid}", tcpServerUuid);
+                    "{uuid}", tcpServerUuid);
                 isUpdated = await fileOperation.writeToDatabaseAsync(
                     localPortPath,
                     localPort,
