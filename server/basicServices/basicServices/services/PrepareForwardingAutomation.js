@@ -254,26 +254,6 @@ exports.redirectTopologyChangeInformation = function (logicalTerminationPointcon
         let forwardingConstructAutomationList = [];
         try {
             /***********************************************************************************
-             * PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT 
-             * /v1/update-all-ltps-and-fcs
-             ************************************************************************************/
-            let updateAllLtpsAndFcsForwardingName = "PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT";
-            let updateAllLtpsAndFcsContext;
-            let updateAllLtpsAndFcsRequestBody = {};
-            let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
-            let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
-            controlConstruct = removeAttribute(
-                controlConstruct,
-                "operation-key");
-            updateAllLtpsAndFcsRequestBody["core-model-1-4:control-construct"] = controlConstruct;
-            let forwardingAutomation = new forwardingConstructAutomationInput(
-                updateAllLtpsAndFcsForwardingName,
-                updateAllLtpsAndFcsRequestBody,
-                updateAllLtpsAndFcsContext
-            );
-            forwardingConstructAutomationList.push(forwardingAutomation);
-
-            /***********************************************************************************
              * forwardings for application layer topology
              ************************************************************************************/
             let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(

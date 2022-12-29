@@ -321,13 +321,10 @@ class OperationClientInterface extends layerProtocol {
             let operationClientUuid = undefined;
             try {
                 let appUuid = await controlConstruct.getUuidAsync();
-                let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
-                let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
-                let releaseNumberUuidFormat = releaseNumber.replace(/\./g, "-");
-
-                let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
+                let applicationNameUuidFormat = httpClientUuid.split("-")[6];
+                let releaseNumberUuidFormat = httpClientUuid.split("-")[7] + "-" + httpClientUuid.split("-")[8] + "-" + httpClientUuid.split("-")[9];
                 operationClientUuid = appUuid + "-op-c-" + apiSegment + "-" +
-                applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
+                    applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
                 resolve(operationClientUuid);
             } catch (error) {
                 reject(error);
