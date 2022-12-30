@@ -12,6 +12,7 @@ const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriv
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
+const TcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 
 /**
  * @description This function returns the consequent action list for the provided operation name.
@@ -53,12 +54,18 @@ exports.getConsequentActionList = function (operationName) {
  * @description This function returns the formulated request for the provided operation name.
  * @param {String} operationName : operation Name
  * @returns {promise} String {request}
- * TODO : enhance the method to formulate the request after decision is made.
  **/
 function formulateRequest(operationName) {
     return new Promise(async function (resolve, reject) {
         try {
-            let request = operationName;
+            let protocol = "http";
+            let address = await TcpServerInterface.getLocalAddressOfTheProtocol(protocol);
+            let port = await TcpServerInterface.getLocalPortOfTheProtocol(protocol);
+            let ipaddressAndPort = await getConfiguredAddress(address) + ":" + port;
+            if (operationName.indexOf("/") != 0) {
+                operationName = "/" + operationName
+            }
+            let request = protocol + "://" + ipaddressAndPort + operationName;
             resolve(request);
         } catch (error) {
             reject(error);
@@ -66,6 +73,32 @@ function formulateRequest(operationName) {
     });
 
 }
+
+/**
+ * @description This function returns the address configured .
+ * @param {String} address : address of the tcp server .
+ * @returns {promise} string {address}
+ **/
+function getConfiguredAddress(address) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let domainName = onfAttributes.TCP_SERVER.DOMAIN_NAME;
+            if (domainName in address) {
+                address = address["domain-name"];
+            } else {
+                address = address[
+                    onfAttributes.TCP_SERVER.IP_ADDRESS][
+                    onfAttributes.TCP_SERVER.IPV_4_ADDRESS
+                ];
+            }
+            resolve(address);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+}
+
 
 /**
  * @description This function returns the response value list for the provided operation name.
@@ -95,7 +128,7 @@ exports.getResponseValueList = function (operationName) {
                             let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
                             let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
                             let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];                            
+                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
                             if (fieldNameReference !== undefined) {
                                 responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
                             } else {
