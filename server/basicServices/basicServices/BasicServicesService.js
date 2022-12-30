@@ -1314,7 +1314,6 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
        * get request body
        ****************************************************************************************/
       let operationUuid = body["operation-uuid"];
-      let oldOperationKey = body["old-operation-key"];
       let newOperationKey = body["new-operation-key"];
 
       /****************************************************************************************
@@ -1322,34 +1321,18 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
        ****************************************************************************************/
       let isUpdated;
       if (operationServerInterface.isOperationServer(operationUuid)) {
-        if (oldOperationKey == await operationServerInterface.getOperationKeyAsync(operationUuid)) {
+        if (newOperationKey != await operationServerInterface.getOperationKeyAsync(operationUuid)) {
           isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
-        if (oldOperationKey == await operationClientInterface.getOperationKeyAsync(operationUuid)) {
+        if (newOperationKey != await operationClientInterface.getOperationKeyAsync(operationUuid)) {
           isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
         }
       }
-      let configurationStatus = new ConfigurationStatus(operationUuid, undefined, isUpdated);
 
-      let logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
-        [configurationStatus]
-      );
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
-      let forwardingAutomationInputList = await prepareForwardingAutomation.updateOperationKey(
-        logicalTerminationPointConfigurationStatus,
-        undefined
-      );
-      ForwardingAutomationService.automateForwardingConstructAsync(
-        operationServerName,
-        forwardingAutomationInputList,
-        user,
-        xCorrelator,
-        traceIndicator,
-        customerJourney
-      );
 
       resolve();
 
