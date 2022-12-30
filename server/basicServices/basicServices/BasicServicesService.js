@@ -1157,40 +1157,62 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       /****************************************************************************************
        * get request body
        ****************************************************************************************/
-      let applicationName = body["application-name"];
-      let oldApplicationReleaseNumber = body["old-application-release-number"];
-      let newApplicationReleaseNumber = body["new-application-release-number"];
-      let newApplicationAddress = body["new-application-address"];
-      let newApplicationPort = body["new-application-port"];
+      let currentApplicationName = body["current-application-name"];
+      let currentReleaseNumber = body["current-release-number"];
+      let futureApplicationName = body["future-application-name"];
+      let futureReleaseNumber = body["future-release-number"];
+      let futureProtocol = body["future-protocol"];
+      let futureAddress = body["future-address"];
+      let futurePort = body["future-port"];
 
       /****************************************************************************************
-       * perform bussiness logic
+       * Prepare logicalTerminationPointConfigurationInput object to
+       * configure logical-termination-point
        ****************************************************************************************/
-      let logicalTerminationPointConfigurationStatus;
-      let isOldApplicationExists = false;
+      let operationNamesByAttributes = new Map();
 
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, oldApplicationReleaseNumber);
-      if (httpClientUuid) {
-        isOldApplicationExists = true;
-      }
+      let tcpObjectList = [];
+      let tcpObject = formulateTcpObject(futureProtocol, futureAddress, futurePort);
+      tcpObjectList.push(tcpObject);
 
-      if (isOldApplicationExists) {
-        /****************************************************************************************
-         * Prepare logicalTerminationPointConfigurationInput object to
-         * configure logical-termination-point
-         ****************************************************************************************/
+      let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+        futureApplicationName,
+        futureReleaseNumber,
+        tcpObjectList,
+        operationServerName,
+        operationNamesByAttributes,
+        basicServicesOperationsMapping.basicServicesOperationsMapping
+      );
+      let logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationAndReleaseInformationAsync(
+        logicalTerminationPointConfigurationInput
+      );
 
-        let operationNamesByAttributes = [];
-        let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
-          applicationName,
-          newApplicationReleaseNumber,
-          newApplicationAddress,
-          newApplicationPort,
-          operationNamesByAttributes
-        );
-        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-          logicalTerminationPointConfigurationInput
-        );
+      /*******************************************************************************************************
+       * bussiness logic to transfer the operation-client instances from current-release to future-release
+       *******************************************************************************************************/
+
+      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      if (httpClientUuidOfOldApplication) {
+        let clientLtpsOfOldApplication = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfOldApplication);
+        if (clientLtpsOfOldApplication != undefined && clientLtpsOfOldApplication.length > 0) {
+          await LogicalTerminationPoint.setClientLtpListAsync(
+            httpClientUuidOfOldApplication,
+            []
+          );
+          let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidAsync(futureApplicationName, futureReleaseNumber);
+          if (httpClientUuidOfnewApplication) {
+            let existingLtpsOfNewRelease = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfnewApplication);
+
+            for (let i = 0; i < clientLtpsOfOldApplication.length; i++) {
+              let operationClientLtpOfOldApplication = clientLtpsOfOldApplication[i];
+              existingLtpsOfNewRelease.push(operationClientLtpOfOldApplication);
+            }
+            await LogicalTerminationPoint.setClientLtpListAsync(
+              httpClientUuidOfnewApplication,
+              existingLtpsOfNewRelease
+            );
+          }
+        }
       }
 
       /****************************************************************************************
@@ -1198,7 +1220,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
        ****************************************************************************************/
       let forwardingAutomationInputList = await prepareForwardingAutomation.updateClient(
         logicalTerminationPointConfigurationStatus, undefined,
-        applicationName
+        futureApplicationName
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
         operationServerName,

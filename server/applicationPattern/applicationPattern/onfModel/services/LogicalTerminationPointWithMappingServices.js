@@ -25,6 +25,40 @@ const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface'
  *
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
  **/
+exports.createOrUpdateApplicationAndReleaseInformationAsync = function (logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+        let logicalTerminationPointConfigurationStatus;
+        try {
+            let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+            let isApplicationExists = await httpClientInterface.isApplicationExists(
+                applicationName,
+                releaseNumber
+            );
+            if (!isApplicationExists) {
+                logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
+                    logicalTerminationPointConfigurationInput
+                );
+            } else {
+                logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
+                    logicalTerminationPointConfigurationInput
+                );
+            }
+            resolve(logicalTerminationPointConfigurationStatus)
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function find a application in the same or different release and updates the http,
+ * operation and tcp client if require.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ *
+ * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
+ **/
 exports.createOrUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
         let logicalTerminationPointConfigurationStatus;
