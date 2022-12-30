@@ -10,6 +10,7 @@ const ActionProfile = require('onf-core-model-ap/applicationPattern/onfModel/mod
 const responseProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/responseProfile');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
+const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
 const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const TcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
@@ -58,14 +59,19 @@ exports.getConsequentActionList = function (operationName) {
 function formulateRequest(operationName) {
     return new Promise(async function (resolve, reject) {
         try {
-            let protocol = "http";
-            let address = await TcpServerInterface.getLocalAddressOfTheProtocol(protocol);
-            let port = await TcpServerInterface.getLocalPortOfTheProtocol(protocol);
-            let ipaddressAndPort = await getConfiguredAddress(address) + ":" + port;
-            if (operationName.indexOf("/") != 0) {
-                operationName = "/" + operationName
+            let protocol = "HTTP";
+            let tcpServerUuid = await TcpServerInterface.getUuidOfTheProtocol(protocol);
+            let tcpServerConfiguration = await fileOperation.readFromDatabaseAsync(
+                onfPaths.TCP_SERVER_INTERFACE_CONFIGURATION.replace(
+                    "{uuid}", tcpServerUuid)
+            ); 
+            let address = await getConfiguredAddress(tcpServerConfiguration["local-address"]);
+            let port = tcpServerConfiguration["local-port"];
+            let ipaddressAndPort = address + ":" + port;
+            if(operationName.indexOf("/") != 0) {
+                operationName = "/"+ operationName
             }
-            let request = protocol + "://" + ipaddressAndPort + operationName;
+            let request = (protocol.toLowerCase()) + "://" + ipaddressAndPort + operationName;
             resolve(request);
         } catch (error) {
             reject(error);
@@ -87,7 +93,6 @@ function getConfiguredAddress(address) {
                 address = address["domain-name"];
             } else {
                 address = address[
-                    onfAttributes.TCP_SERVER.IP_ADDRESS][
                     onfAttributes.TCP_SERVER.IPV_4_ADDRESS
                 ];
             }
@@ -128,7 +133,7 @@ exports.getResponseValueList = function (operationName) {
                             let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
                             let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
                             let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
+                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];                            
                             if (fieldNameReference !== undefined) {
                                 responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
                             } else {
