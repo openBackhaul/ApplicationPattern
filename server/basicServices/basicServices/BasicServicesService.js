@@ -1242,7 +1242,7 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
        * get request body
        ****************************************************************************************/
       let applicationName = body["application-name"];
-      let applicationReleaseNumber = body["application-release-number"];
+      let releaseNumber = body["release-number"];
       let oldOperationName = body["old-operation-name"];
       let newOperationName = body["new-operation-name"];
 
@@ -1251,7 +1251,7 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
        ****************************************************************************************/
       let isUpdated;
       let operationClientUuid
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, applicationReleaseNumber);
+      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
       if (httpClientUuid) {
         operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, oldOperationName);
         if (operationClientUuid) {
@@ -1261,26 +1261,27 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
         }
       }
 
-      let configurationStatus = new ConfigurationStatus(operationClientUuid, undefined, isUpdated);
+      if (isUpdated) {
+        let configurationStatus = new ConfigurationStatus(operationClientUuid, undefined, isUpdated);
 
-      let logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
-        [configurationStatus]
-      );
-      /****************************************************************************************
-       * Prepare attributes to automate forwarding-construct
-       ****************************************************************************************/
-      let forwardingAutomationInputList = await prepareForwardingAutomation.updateOperationClient(
-        logicalTerminationPointConfigurationStatus
-      );
-      ForwardingAutomationService.automateForwardingConstructAsync(
-        operationServerName,
-        forwardingAutomationInputList,
-        user,
-        xCorrelator,
-        traceIndicator,
-        customerJourney
-      );
-
+        let logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+          [configurationStatus]
+        );
+        /****************************************************************************************
+         * Prepare attributes to automate forwarding-construct
+         ****************************************************************************************/
+        let forwardingAutomationInputList = await prepareForwardingAutomation.updateOperationClient(
+          logicalTerminationPointConfigurationStatus
+        );
+        ForwardingAutomationService.automateForwardingConstructAsync(
+          operationServerName,
+          forwardingAutomationInputList,
+          user,
+          xCorrelator,
+          traceIndicator,
+          customerJourney
+        );
+      }
       resolve();
 
     } catch (error) {
