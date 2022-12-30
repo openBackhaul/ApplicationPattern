@@ -46,10 +46,10 @@ exports.getALTUnConfigureForwardingAutomationInputAsync = function (logicalTermi
         let forwardingConstructAutomationList = [];
         try {
 
-             /***********************************************************************************
+            /***********************************************************************************
              * logical-termination-point related forwarding automation
              ************************************************************************************/
-              let ltpforwardingConstructAutomationInputList = await getLTPUnconfigureForwardingAutomationInputListAsync(
+            let ltpforwardingConstructAutomationInputList = await getLTPUnconfigureForwardingAutomationInputListAsync(
                 logicalTerminationPointconfigurationStatus
             );
             if (ltpforwardingConstructAutomationInputList) {
@@ -104,7 +104,7 @@ function getLTPForwardingAutomationInputListAsync(logicalTerminationPointconfigu
                             let tcpClientForwardingAutomation = tcpClientForwardingAutomationList[i];
                             forwardingConstructAutomationList.push(tcpClientForwardingAutomation);
                         }
-                    }                   
+                    }
 
                     for (let i = 0; i < operationClientForwardingAutomationList.length; i++) {
                         let operationClientForwardingAutomation = operationClientForwardingAutomationList[i];
@@ -140,13 +140,13 @@ function getLTPUnconfigureForwardingAutomationInputListAsync(logicalTerminationP
                     if (httpClientForwardingAutomation) {
                         forwardingConstructAutomationList.push(httpClientForwardingAutomation);
                     }
-                    
+
                     if (tcpClientForwardingAutomationList) {
                         for (let i = 0; i < tcpClientForwardingAutomationList.length; i++) {
                             let tcpClientForwardingAutomation = tcpClientForwardingAutomationList[i];
                             forwardingConstructAutomationList.push(tcpClientForwardingAutomation);
                         }
-                    }  
+                    }
 
                     for (let i = 0; i < operationClientForwardingAutomationList.length; i++) {
                         let operationClientForwardingAutomation = operationClientForwardingAutomationList[i];
@@ -277,7 +277,7 @@ function getUnconfigurableHttpClientForwardingAutomationInputAsync(httpClientCon
                     let httpClientUuid = httpClientConfigurationStatus.uuid;
                     serviceRequestCausesLtpDeletionRequestRequestBody.uuid = httpClientUuid;
                     serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                                    .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
+                        .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
                     forwardingAutomation = new forwardingConstructAutomationInput(
                         serviceRequestCausesLtpDeletionRequestForwardingName,
                         serviceRequestCausesLtpDeletionRequestRequestBody,
@@ -299,22 +299,24 @@ function getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatus
             let serviceRequestCausesLtpUpdateRequestForwardingName = "ServiceRequestCausesLtpUpdateRequest";
             let serviceRequestCausesLtpUpdateRequestContext;
             let serviceRequestCausesLtpUpdateRequestRequestBody;
-            for(let i=0;i<tcpClientConfigurationStatusList.length;i++){
-                let tcpClientConfigurationStatus = tcpClientConfigurationStatusList[i];
-                if (tcpClientConfigurationStatus) {
-                    if (tcpClientConfigurationStatus.updated) {
-                        let tcpClientUuid = tcpClientConfigurationStatus.uuid;
-                        serviceRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
-                            tcpClientUuid);
-                        let forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesLtpUpdateRequestForwardingName,
-                            serviceRequestCausesLtpUpdateRequestRequestBody,
-                            serviceRequestCausesLtpUpdateRequestContext
-                        );
-                        forwardingAutomationList.push(forwardingAutomation);
+            if (tcpClientConfigurationStatusList) {
+                for (let i = 0; i < tcpClientConfigurationStatusList.length; i++) {
+                    let tcpClientConfigurationStatus = tcpClientConfigurationStatusList[i];
+                    if (tcpClientConfigurationStatus) {
+                        if (tcpClientConfigurationStatus.updated) {
+                            let tcpClientUuid = tcpClientConfigurationStatus.uuid;
+                            serviceRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
+                                tcpClientUuid);
+                            let forwardingAutomation = new forwardingConstructAutomationInput(
+                                serviceRequestCausesLtpUpdateRequestForwardingName,
+                                serviceRequestCausesLtpUpdateRequestRequestBody,
+                                serviceRequestCausesLtpUpdateRequestContext
+                            );
+                            forwardingAutomationList.push(forwardingAutomation);
+                        }
                     }
                 }
-            }            
+            }
             resolve(forwardingAutomationList);
         } catch (error) {
             reject(error);
@@ -329,13 +331,13 @@ function getUnconfigurableTcpClientForwardingAutomationInputAsync(tcpClientConfi
             let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
             let serviceRequestCausesLtpDeletionRequestContext;
             let serviceRequestCausesLtpDeletionRequestRequestBody = {};
-            for(let i=0;i <tcpClientConfigurationStatusList.length;i++){
+            for (let i = 0; i < tcpClientConfigurationStatusList.length; i++) {
                 let tcpClientConfigurationStatus = tcpClientConfigurationStatusList[i];
                 if (tcpClientConfigurationStatus.updated) {
                     let tcpClientUuid = tcpClientConfigurationStatus.uuid;
                     serviceRequestCausesLtpDeletionRequestRequestBody.uuid = tcpClientUuid;
                     serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                                    .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
+                        .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
                     let forwardingAutomation = new forwardingConstructAutomationInput(
                         serviceRequestCausesLtpDeletionRequestForwardingName,
                         serviceRequestCausesLtpDeletionRequestRequestBody,
@@ -403,7 +405,7 @@ function getUnconfigurableOperationClientForwardingAutomationInputListAsync(oper
                             uuid: operationClientUuid
                         }
                         serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                                        .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
+                            .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
                         forwardingAutomation = new forwardingConstructAutomationInput(
                             serviceRequestCausesLtpDeletionRequestForwardingName,
                             serviceRequestCausesLtpDeletionRequestRequestBody,
