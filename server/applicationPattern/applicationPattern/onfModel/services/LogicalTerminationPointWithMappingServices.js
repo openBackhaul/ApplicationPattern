@@ -40,7 +40,7 @@ exports.createOrUpdateApplicationAndReleaseInformationAsync = function (logicalT
                     logicalTerminationPointConfigurationInput
                 );
             } else {
-                logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupAsync(
+                logicalTerminationPointConfigurationStatus = await findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupAsync(
                     logicalTerminationPointConfigurationInput
                 );
             }
@@ -58,6 +58,8 @@ exports.createOrUpdateApplicationAndReleaseInformationAsync = function (logicalT
  * logicalTerminationPoint/ConfigurationInput class
  *
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
+ * !!!!!!!!!!!!!!!!!!!!!!!! Please dont delete or update this method, this is utilized by RegisterApplication service in 
+ * RegistryOffice to support creating multiple tcp-client instances !!!!!!!!!!!!!!!
  **/
 exports.createOrUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
@@ -300,6 +302,59 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
                 tcpList
             );
             operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
+                httpClientUuid,
+                operationServerName,
+                operationNamesByAttributes,
+                operationsMapping
+            );
+            httpClientConfigurationStatus = await updateHttpClientInterface(
+                httpClientUuid,
+                releaseNumber,
+            )
+            logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+                operationClientConfigurationStatusList,
+                httpClientConfigurationStatus,
+                tcpClientConfigurationStatusList
+            );
+
+            resolve(logicalTerminationPointConfigurationStatus);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function configures the existing logical-termination-point to the latest values.
+ * Also incase if the tcp,operation client are not available it will be created.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
+ **/
+function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+
+        let logicalTerminationPointConfigurationStatus;
+        let httpClientConfigurationStatus;
+        let tcpClientConfigurationStatusList = [];
+        let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
+
+        try {
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+                applicationName,releaseNumber
+            );
+            tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
+                httpClientUuid,
+                tcpList
+            );
+            operationClientConfigurationStatusList = await findAndUpdateOperationClientInterface(
                 httpClientUuid,
                 operationServerName,
                 operationNamesByAttributes,
