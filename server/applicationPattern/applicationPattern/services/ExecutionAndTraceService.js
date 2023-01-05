@@ -9,7 +9,7 @@ const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter
 
 const HttpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
 const operationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
-const forwardingDomain = require('../onfModel/models/ForwardingDomain'); 
+const forwardingDomain = require('../onfModel/models/ForwardingDomain');
 const FcPort = require('../onfModel/models/FcPort');
 
 
@@ -27,13 +27,14 @@ const FcPort = require('../onfModel/models/FcPort');
  * @param {object} responseBody  response body<br>
  * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
- exports.recordServiceRequestFromClient = function (serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, userName, originator,
+exports.recordServiceRequestFromClient = function (serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, userName, originator,
     operationName, responseCode, requestBody, responseBody) {
     return new Promise(async function (resolve, reject) {
         let httpRequestBody = {};
         try {
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+            let detailedLoggingIsOn = await operationClientInterface.getDetailedLoggingIsOnAsync(operationClientUuid);
             let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
             let timestamp = moment().format();
@@ -42,7 +43,7 @@ const FcPort = require('../onfModel/models/FcPort');
             let stringifiedRequestBody = JSON.stringify(requestBody);
             let stringifiedResponseBody = JSON.stringify(responseBody);
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
-                operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
+                operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
@@ -76,6 +77,7 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
         try {
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
+            let detailedLoggingIsOn = await operationClientInterface.getDetailedLoggingIsOnAsync(operationClientUuid);
             let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
             let timestamp = moment().format();
@@ -85,7 +87,7 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let stringifiedRequestBody = JSON.stringify(requestBody);
             let stringifiedResponseBody = JSON.stringify(responseBody);
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
-                operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody);
+                operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
             let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
@@ -116,22 +118,35 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
  * @returns {object} return the formulated responseBody<br>
  */
 function formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
-    operationName, responseCode, timestamp, stringifiedBody, stringifiedResponse) {
+    operationName, responseCode, timestamp, stringifiedBody, stringifiedResponse, detailedLoggingIsOn) {
     let httpRequestBody = {};
     try {
-        httpRequestBody = {
-            "x-correlator": xCorrelator,
-            "trace-indicator": traceIndicator,
-            "user": userName,
-            "originator": originator,
-            "application-name": applicationName,
-            "application-release-number": applicationReleaseNumber,
-            "operation-name": operationName,
-            "response-code": responseCode,
-            "timestamp": timestamp,
-            "stringified-body": stringifiedBody,
-            "stringified-response": stringifiedResponse
-        };
+        if (detailedLoggingIsOn != undefined && detailedLoggingIsOn == true) {
+            httpRequestBody = {
+                "x-correlator": xCorrelator,
+                "trace-indicator": traceIndicator,
+                "user": userName,
+                "originator": originator,
+                "application-name": applicationName,
+                "application-release-number": applicationReleaseNumber,
+                "operation-name": operationName,
+                "response-code": responseCode,
+                "timestamp": timestamp,
+                "stringified-body": stringifiedBody,
+                "stringified-response": stringifiedResponse
+            };
+        } else {
+            httpRequestBody = {
+                "x-correlator": xCorrelator,
+                "trace-indicator": traceIndicator,
+                "user": userName,
+                "originator": originator,
+                "application-name": applicationName,
+                "application-release-number": applicationReleaseNumber,
+                "operation-name": operationName,
+                "response-code": responseCode
+            };
+        }
         return httpRequestBody;
     } catch (error) {
         console.log(error);

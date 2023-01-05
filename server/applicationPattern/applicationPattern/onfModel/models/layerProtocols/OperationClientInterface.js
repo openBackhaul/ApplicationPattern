@@ -130,6 +130,31 @@ class OperationClientInterface extends layerProtocol {
             }
         });
     }
+    
+    /**
+     * @description This function returns the detailedLoggingIsOn attribute of the operation client.
+     * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
+     * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
+     * @returns {promise} string {detailedLoggingIsOn | undefined}
+     **/
+    static getDetailedLoggingIsOnAsync(operationClientUuid) {
+        return new Promise(async function (resolve, reject) {
+            let detailedLoggingIsOn;
+            try {
+                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
+                    operationClientUuid);
+                if (logicalTerminationPoint !== undefined) {
+                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+                    detailedLoggingIsOn = operationClientConfiguration["detailed-logging-is-on"];
+                }
+                resolve(detailedLoggingIsOn);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 
     /**
      * @description This function returns the operation key of the operation client.

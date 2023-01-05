@@ -17,6 +17,44 @@ const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerm
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
 
+
+/**
+ * @description This function find a application in the same or different release and updates the http,
+ * operation and tcp client if require.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ *
+ * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
+ * 
+ * !!!!!!!!!!!!!!!!!!!!!!!! Please dont delete or update this method, this is utilized by RegisterApplication service in 
+ * RegistryOffice to support creating multiple tcp-client instances !!!!!!!!!!!!!!!
+ **/
+exports.createOrUpdateApplicationInformationWithMultipleTcpClientAsync = function (logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+        let logicalTerminationPointConfigurationStatus;
+        try {
+            let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+            let isApplicationExists = await httpClientInterface.isApplicationExists(
+                applicationName,
+                releaseNumber
+            );
+            if (!isApplicationExists) {
+                logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
+                    logicalTerminationPointConfigurationInput
+                );
+            } else {
+                logicalTerminationPointConfigurationStatus = await updateLogicalTerminationPointInstanceGroupWithMultipleTcpClientAsync(
+                    logicalTerminationPointConfigurationInput
+                );
+            }
+            resolve(logicalTerminationPointConfigurationStatus)
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 /**
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
@@ -58,8 +96,6 @@ exports.createOrUpdateApplicationAndReleaseInformationAsync = function (logicalT
  * logicalTerminationPoint/ConfigurationInput class
  *
  * @return {Promise} object {logicalTerminationPoint/ConfigurationStatus}
- * !!!!!!!!!!!!!!!!!!!!!!!! Please dont delete or update this method, this is utilized by RegisterApplication service in 
- * RegistryOffice to support creating multiple tcp-client instances !!!!!!!!!!!!!!!
  **/
 exports.createOrUpdateApplicationInformationAsync = function (logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
@@ -331,6 +367,60 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
+function updateLogicalTerminationPointInstanceGroupWithMultipleTcpClientAsync(logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+
+        let logicalTerminationPointConfigurationStatus;
+        let httpClientConfigurationStatus;
+        let tcpClientConfigurationStatusList = [];
+        let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
+
+        try {
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+                applicationName,
+                releaseNumber
+            );
+            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
+                httpClientUuid,
+                tcpList
+            );
+            operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
+                httpClientUuid,
+                operationServerName,
+                operationNamesByAttributes,
+                operationsMapping
+            );
+            httpClientConfigurationStatus = await updateHttpClientInterface(
+                httpClientUuid,
+                releaseNumber,
+            )
+            logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+                operationClientConfigurationStatusList,
+                httpClientConfigurationStatus,
+                tcpClientConfigurationStatusList
+            );
+
+            resolve(logicalTerminationPointConfigurationStatus);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function configures the existing logical-termination-point to the latest values.
+ * Also incase if the tcp,operation client are not available it will be created.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
+ **/
 function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
     return new Promise(async function (resolve, reject) {
 
@@ -348,7 +438,7 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
 
         try {
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
-                applicationName,releaseNumber
+                applicationName, releaseNumber
             );
             tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
                 httpClientUuid,

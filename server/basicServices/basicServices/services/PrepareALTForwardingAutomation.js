@@ -3,6 +3,7 @@ const onfFormatter = require('onf-core-model-ap/applicationPattern/onfModel/util
 const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 const forwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
 const forwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
+const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
 
 exports.getALTForwardingAutomationInputAsync = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
     return new Promise(async function (resolve, reject) {
@@ -72,6 +73,28 @@ exports.getALTUnConfigureForwardingAutomationInputAsync = function (logicalTermi
                 }
             }
 
+            resolve(forwardingConstructAutomationList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+exports.getALTForwardingAutomationInputForOamRequestAsync = function (uuid) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConstructAutomationList = [];
+        try {
+            /***********************************************************************************
+             * logical-termination-point related forwarding automation
+             ************************************************************************************/
+            let ltpforwardingConstructAutomationInput = await getLtpForwardingAutomationInputForOAMRequestAsync(uuid);
+            let ltpforwardingConstructAutomationInputList = [ltpforwardingConstructAutomationInput];
+            if (ltpforwardingConstructAutomationInputList) {
+                for (let i = 0; i < ltpforwardingConstructAutomationInputList.length; i++) {
+                    let ltpforwardingConstructAutomationInput = ltpforwardingConstructAutomationInputList[i];
+                    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInput);
+                }
+            }
             resolve(forwardingConstructAutomationList);
         } catch (error) {
             reject(error);
@@ -517,6 +540,37 @@ function getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusL
                 }
             }
             resolve(forwardingConstructAutomationList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+function getLtpForwardingAutomationInputForOAMRequestAsync(uuid) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let forwardingAutomation;
+            let oamRequestCausesLtpUpdateRequestForwardingName = "OamRequestCausesLtpUpdateRequest";
+            let oamRequestCausesLtpUpdateRequestContext;
+            let oamRequestCausesLtpUpdateRequestRequestBody;
+
+            if (uuid) {
+                oamRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
+                    uuid);
+                let layerProtocolName = oamRequestCausesLtpUpdateRequestRequestBody["layer-protocol"][0]["layer-protocol-name"];
+                if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT ||
+                    layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER) {
+                    oamRequestCausesLtpUpdateRequestRequestBody = removeAttribute(
+                        oamRequestCausesLtpUpdateRequestRequestBody,
+                        "operation-key");
+                }
+                forwardingAutomation = new forwardingConstructAutomationInput(
+                    oamRequestCausesLtpUpdateRequestForwardingName,
+                    oamRequestCausesLtpUpdateRequestRequestBody,
+                    oamRequestCausesLtpUpdateRequestContext
+                );
+            }
+            resolve(forwardingAutomation);
         } catch (error) {
             reject(error);
         }
