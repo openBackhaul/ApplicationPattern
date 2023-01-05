@@ -30,7 +30,7 @@ const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriv
 const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
-const genericRepresentation = require('onf-core-model-ap-bs/basicServices/GenericRepresentation');
+const genericRepresentation = require('./GenericRepresentation');
 
 /**
  * Embed yourself into the MBH SDN application layer
