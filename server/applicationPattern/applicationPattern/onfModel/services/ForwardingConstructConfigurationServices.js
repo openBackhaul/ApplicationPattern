@@ -447,6 +447,7 @@
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
              let applicationName = await getApplicationNameAsync(operationClientUuid);
+             let releaseNumber = await getReleaseNumberAsync(operationClientUuid);
              let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
                  forwardingConstructUuid,
                  operationClientUuid
@@ -457,7 +458,8 @@
                  for(let i=0 ; i<fcPortLocalIdList.length ; i++) {
                      let operationClientUuidOfOutputFcPort = fcPortLocalIdList[i]["logical-termination-point"];
                      let applicationNameOfOutputFcPort = await getApplicationNameAsync(operationClientUuidOfOutputFcPort); 
-                     if(applicationName === applicationNameOfOutputFcPort) {
+                     let releaseNumberOfOutputFcPort = await getReleaseNumberAsync(operationClientUuidOfOutputFcPort);  
+                     if(applicationName === applicationNameOfOutputFcPort && releaseNumber === releaseNumberOfOutputFcPort) {
                          fcPortLocalId = fcPortLocalIdList[i]["local-id"];
                      }
                  } 
@@ -526,3 +528,20 @@
       }    
      });
  }
+
+ /**
+  * @description This function gets the application name of given operation client uuid
+  * @param {String} operationClientUuid operation client uuid 
+  **/
+ function getReleaseNumberAsync(operationClientUuid) {
+    return new Promise(async function (resolve, reject) {
+     try {   
+        let httpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+        let httpClientUuid = httpClientUuidList[0];
+        let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+        resolve(releaseNumber);
+     } catch(error) {
+        reject(error);
+     }    
+    });
+}
