@@ -41,7 +41,7 @@ Therefore go to *File* -> *Preferences* -> *Settings* and type proxy into the ap
 
 ### Clone the GitHub repository to VSCode
 
-Navigate to the [repository, which you would like to work with,](https://github.com/openBackhaul/Overview) in the browser to obtain the repository URL. Pressing the green “Code” button expands a clone menu from which the URL can be copied:  
+Navigate to the [repository, which you would like to work with,](https://github.com/openBackhaul?tab=repositories) in the browser to obtain the repository URL. Pressing the green “Code” button expands a clone menu from which the URL can be copied:  
 |![vsc_02](https://user-images.githubusercontent.com/57349523/152162626-7b471cb2-7957-45f4-a295-630fb64799b8.jpg)|
 |---|
 
@@ -52,6 +52,42 @@ With the URL now being available in the clipboard open VSCode and select the *�
 Press *“Clone from URL”* and select a location to which the repository will be downloaded (note that a folder of the repository's name will automatically be created).  
 |![vsc_03](https://user-images.githubusercontent.com/57349523/152162630-03b0bdbb-c44e-43a8-b954-72b9fba97f84.jpg)|
 |---|
+
+Change into the local folder to which the repository has been downloaded.  
+Change into the .git subfolder and open the config file.  
+Take care that an *"longpaths = true"* statement is added in the core section.  
+```
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+	longpaths = true
+[remote "origin"]
+	url = https://github.com/openBackhaul/Resolver.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "develop"]
+	remote = origin
+	merge = refs/heads/develop
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+```
+Save and close the config file.  
+
+Change back into the local folder to which the repository has been downloaded.  
+Create a .github subfolder aside the already existing .git subfolder.  
+Change into the .github subfolder.  
+Create a text file with name CODEOWNERS (no .txt extention!).  
+Open the CODEOWNERS file in an editor.  
+Add your own GitHub account name like this:  
+```
+* @your-github-account-name
+
+```
+Save and close the CODEOWNERS file.  
 
 Change to the **develop** branch by pressing the branch button in the bottom left corner and select the *develop* branch in the then appearing selection menu.  
 The resources of the selected branch will then be downloaded to the local directory and are shown in VSCode.  
