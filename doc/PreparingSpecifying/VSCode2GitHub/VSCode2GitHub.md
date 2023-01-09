@@ -77,18 +77,6 @@ Take care that an *"longpaths = true"* statement is added in the core section.
 ```
 Save and close the config file.  
 
-Change back into the local folder to which the repository has been downloaded.  
-Create a .github subfolder aside the already existing .git subfolder.  
-Change into the .github subfolder.  
-Create a text file with name CODEOWNERS (no .txt extention!).  
-Open the CODEOWNERS file in an editor.  
-Add your own GitHub account name like this:  
-```
-* @your-github-account-name
-
-```
-Save and close the CODEOWNERS file.  
-
 Change to the **develop** branch by pressing the branch button in the bottom left corner and select the *develop* branch in the then appearing selection menu.  
 The resources of the selected branch will then be downloaded to the local directory and are shown in VSCode.  
 |![vsc_06](https://user-images.githubusercontent.com/57349523/152162636-3587d64c-21d0-4d54-8869-700b293bc995.jpg)|
