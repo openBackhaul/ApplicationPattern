@@ -7409,10 +7409,11 @@ paths:
                     properties:
                       ipv-4-address:
                         type: string
-                        example: '1.1.4.1'
                       domain-name:
                         type: string
-                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+                example:
+                  tcp-server-interface-1-0:local-address:
+                    ipv-4-address: '1.1.4.1'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -9064,10 +9065,12 @@ paths:
                         properties:
                           ipv-4-address:
                             type: string
-                            example: '1.1.4.1'
                       domain-name:
                         type: string
-                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+                example:
+                  tcp-client-interface-1-0:remote-address:
+                    ip-address:
+                      ipv-4-address: '1.1.4.1'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
