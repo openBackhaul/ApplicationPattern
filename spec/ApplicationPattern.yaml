@@ -7409,10 +7409,11 @@ paths:
                     properties:
                       ipv-4-address:
                         type: string
-                        example: '1.1.4.1'
                       domain-name:
                         type: string
-                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+                example:
+                  tcp-server-interface-1-0:local-address:
+                    ipv-4-address: '1.1.4.1'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -7450,11 +7451,12 @@ paths:
                     ipv-4-address:
                       type: string
                       pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                      example: '1.1.4.1'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
-                      example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+              example:
+                tcp-server-interface-1-0:local-address:
+                  ipv-4-address: '1.1.4.1'
       responses:
         '204':
           description: 'Local IPv4 address documented'
@@ -7800,7 +7802,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-bm-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-bs-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
           example: 'ro-2-0-0-op-c-bs-eatl-2-0-0-000'
     get:
       operationId: getOperationClientDetailedLoggingIsOn
@@ -9063,10 +9065,12 @@ paths:
                         properties:
                           ipv-4-address:
                             type: string
-                            example: '1.1.4.1'
                       domain-name:
                         type: string
-                        example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+                example:
+                  tcp-client-interface-1-0:remote-address:
+                    ip-address:
+                      ipv-4-address: '1.1.4.1'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -9109,11 +9113,13 @@ paths:
                         ipv-4-address:
                           type: string
                           pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                          example: '1.1.4.1'
                     domain-name:
                       type: string
                       pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
-                      example: 'application-pattern.mw-domain.transport.ger.telefonica.com'
+              example:
+                tcp-client-interface-1-0:remote-address:
+                  ip-address:
+                    ipv-4-address: '1.1.4.1'
       responses:
         '204':
           description: 'Remote IPv4 address configured'
