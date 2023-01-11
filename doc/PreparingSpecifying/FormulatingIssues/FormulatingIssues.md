@@ -38,9 +38,10 @@ If you are at least Collaborator, it makes sense to address the Issue.
 Assign it to the ApplicationOwner, if changes to the specification are required.  
 Assign it to the ApplicationImplementer, if changes to the implementation are required.  
 
-If you are the CodeOwner:
+If you are the CodeOwner:  
 - Use labels for categorizing the kind of change required.  
 - Use milestones for scheduling the required change.  
+
 If you would be unsure about proper labels and milestones, visit one of the existing repositories (e.g. [ApplicationPattern](https://github.com/openBackhaul/ApplicationPattern/issues), [RegistryOffice](https://github.com/openBackhaul/RegistryOffice/issues) etc.) as a reference.
 
 
