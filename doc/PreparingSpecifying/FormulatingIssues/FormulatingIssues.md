@@ -1,48 +1,47 @@
 # Formulating Issues
 
-Development of documentation, specification and code shall be driven by issues (commits shall reference the respective issue).  
-These issues shall contain meaningful information and advice for completing the task, even by a third person.  
-Issues shall
-* be used not just for fixing existing problems, but also for defining next steps in the development.  
-* structure your thoughts, ideally together with others (**here is where the real collaboration happens!**).  
-* focus on ideas, problems and solutions.
+Development of documentation, specification and code shall be driven by Issues.  
+Issues shall be used not just for fixing existing problems, but also for defining next steps in the development.  
+Aligning thoughts with team members or users while formulating the Issues is much cheaper and faster than correcting code or formalized specifications.  
+Descriptions of Pull-requests shall [reference the respective Issue (or Issues)](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls).  
 
-### How to write issues
+Every Issue shall exclusively deal with a single subject.  
+If it would turn out that an existing Issue decomposes into multiple subjects (maybe even affecting multiple repositories), several new Issues shall be formulated and the original Issue shall be reduced to referencing all the new Issues (take care that references are made in such a way that they get automatically updated based on the status of the referenced Issue).  
 
-* !!! **one issue per issue** !!!: try to break down complex problems into multiple issues
-* **keep titles short and descriptive**
-* **start titles with a verb, e.g. with one of the following keywords**:
-  * Add
-  * Fix
-  * Merge
-  * Polish
-  * Refactor
-  * Release
-  * Remove
-  * Revert
-  * Update
-* **remain clear and concise**: keep messages short and to the point, use bullet points
-* format messages: use markdown syntax for headlines, bold text, lists, images, etc. (only use plain markdown syntax, no embedded html etc.)
-* avoid duplication: before creating a new issue assure that it is not already covered by an existing one; if duplicates are found close one (typically the less thorough one) and add missing information from it to the remaining one. The closing comment should contain a link to the remaining issue.
-* avoid speculation and opinion: E.g. for a bug describe it thorougly and include some investigation results, but do not speculate where the bug happens.
-* issue as user story: if possible consider to include one in the issue, especially beneficial to feature requests. (Example format: “As a [type of user] I want [my goal] so that [my reason].”
-* **use labels**: use labels to reflect the issue status or type (e.g. "bug" for bug issues, or "duplicate" to show that it is a duplicate issue.)
-* **close solved issues**: close issues once they are solved.
+Keep titles short and descriptive.  
+Avoid words that could be used in every title.  
+Avoid details about the location of the problem in the title.  
 
-### What to include into the message
+In first place, Issues have to be divided into the following two categories:  
+1) It's your repository; you formulate the Issue; you assign it to yourself. So, the Issue serves either as a reminder or a documentation of an idea.  
+2) You are not the CodeOwner and the requested change has to be processed by someone else.  
 
-|![issues_3](https://user-images.githubusercontent.com/57349523/155708237-833c98f0-73ad-4f61-a770-d3dfca0f5017.jpg)|
-|---|
+_In case of 1):_  
+No matter how you formulate the Issue, it will help you to structure and plan your activities.  
+It allows you to separate developing basic ideas from elaborating the concrete formulation (which is often suppressing your creativity by uncertainties about the exact syntax).  
+If you are expecting the Issue not to be executed at the same day, it is recommended to include a statement that puts it into context. This might be a description of an insufficiency or a wished result.  
+If you would already have an idea about how the situation could be fixed, this idea should be noted.  
+Frame conditions, requirements, even doubts about the first idea should be noted as bullet points.  
+You will be thankful for every note that helps you to shorten the time period for thinking yourself back into the subject again later.  
 
-* **context**: explain the condition that led to writing the issue
-* **problem or idea**: the context should lead to an idea or problem etc.
-* **solution or next step**: engage others here if necessary (e.g. request feedback, assign issue to someone else, etc),must-have, as this is where you move forward
-* **include all relevant information when creating the issue**: leave out all the irrelevant information
-* **reproduction steps**: in case of bugs or errors provide instructions (reduce steps only the bare minimum) on how to reproduce the problem.
-* **include the right people in the discussion**: apart from assigning the issue to the correct person, mention others to get feedback
-* **for issues with source code**
-	* *add project version*: important for context of the issue
-	* *add branch* to which the issue is related (e.g. on branch-1 the issue is still there, but not on branch-2, as it has been fixed there already)
-	* *code over text*: include relevant code snippet instead of explaining what it does.
+_In case of 2):_  
+Check, whether your point has already been covered in one of the already existing Issues (open and closed).  
+Please consider that from the CodeOwner's point of view everything is fine.  
+It's you who wishes a modification.  
+A clear and concise description obviously increases chances to get the wished change.  
+Avoid prescribing a concrete syntax for solving a problem in the title or as the exclusive content of the text.  
+Describe the currently wrong situation and/or how the situation could be better.  
+After being convinced from need for change, the CodeOwner is certainly open for a concrete **proposal** about where and how to fix the code.  
+Avoid speculations and opinions, but focus on problems, ideas and propose solutions.  
+
+If you are at least Collaborator, it makes sense to address the Issue.  
+Assign it to the ApplicationOwner, if changes to the specification are required.  
+Assign it to the ApplicationImplementer, if changes to the implementation are required.  
+
+If you are the CodeOwner:
+- Use labels for categorizing the kind of change required.  
+- Use milestones for scheduling the required change.  
+If you would be unsure about proper labels and milestones, visit one of the existing repositories (e.g. [ApplicationPattern](https://github.com/openBackhaul/ApplicationPattern/issues), [RegistryOffice](https://github.com/openBackhaul/RegistryOffice/issues) etc.) as a reference.
+
 
 [<- Back to Forking Workflow](../ForkingWorkflow/ForkingWorkflow.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Formulating Commit Messages ->](../FormulatingCommitMessages/FormulatingCommitMessages.md)
