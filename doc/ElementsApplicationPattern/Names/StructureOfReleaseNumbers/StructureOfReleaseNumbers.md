@@ -81,7 +81,7 @@ Patch and minor versions MUST be reset to 0 when major version is incremented.
 12. _[complement to the official rules]_  
 Since specification and implementation get merged into the same _main branch_ on GitHub at different points in time,  
 \- the tag that is identifying the specification of a release shall be composed from the _ReleaseNumber_ and "_spec" and  
-\- the tag that is identifying the implementation of a release shall be composed from the _ReleaseNumber_ and "_imp".  
+\- the tag that is identifying the implementation of a release shall be composed from the _ReleaseNumber_ and "_impl".  
 
 .  
 _Source:_  
