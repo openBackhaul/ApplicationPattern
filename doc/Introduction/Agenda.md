@@ -1,6 +1,6 @@
 # Agenda of an Introduction Session  
 
-Action items in the training for ApplicationOwners have changed.  
+Action items of the training for ApplicationOwners have changed.  
 Please, don't create an _Issue_ for contributing to the agenda of an introduction session, but for improving the documentation.  
 
 Is there a mistake in the training material?  
