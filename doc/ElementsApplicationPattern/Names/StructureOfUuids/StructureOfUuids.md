@@ -1,10 +1,12 @@
 # Structure of UUIDs  
 
-UUIDs are used for identifying the individual objects within the structure of the configuration data inside the applications.  
+UUIDs are used for identifying the logical objects within the structure of the configuration data inside the applications.  
 Example: If interfaces A and B are identified by UUIDs, it suffices to list the two UUIDs to express a connection between the two interfaces.  
-Obviously, UUIDs have to be unique within the network domain for expressing connections between interfaces at different applications.  
-Harmonizing UUIDs across all applications helps reading and navigating through the configuration data of the individual applications.  
+Obviously, UUIDs have to be unique within the network domain for unambiguously describing a connection between interfaces at different applications.  
 
+Uniqueness could have been assured by an algorithm for creating qualified random strings, but it has been decided to create UUIDs from information about the objects, which are to be identified.
+These harmonized UUIDs are supporting reading and navigating through the configuration data of the individual applications.  
+Unfortunately, it takes some training to properly put them together.
 
 **UUIDs are composed from the following information:**  
 
@@ -12,12 +14,11 @@ Harmonizing UUIDs across all applications helps reading and navigating through t
 
 **OwnApplicationID**  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
-It is composed from the official abbreviation of the application name composed from the uppercase letters of the application name (e.g. RO, TAR), but transferred into lowercase letters (e.g. ro, tar) and the official release number of the specification of the application that contains the data object, dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1).  
-A hyphen is also used between abbreviation of the application name and release number.  
+It is composed from the official abbreviation of the _ApplicationName_ composed from the uppercase letters of the _ApplicationName_ (e.g. RegistryOffice=>RO, TypeApprovalRegister=>TAR), but transferred into lowercase letters (e.g. RO=>ro, TAR=>tar) and the official _ReleaseNumber_ of the specification of the application that contains the data object, dots to be replaced by hyphens (e.g. 1.0.0=>1-0-0, 1.0.1=>1-0-1).  
+A hyphen is also used between abbreviation of the _ApplicationName_ and _ReleaseNumber_.  
 Examples: ro-1-0-0, tar-1-0-1
 
 (Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
-If someone would find it more convinient, - UUIDs could be abstracted from OwnApplicationID inside ServiceList and ForwardingList, but OAS, CONFIGfile and test cases must contain the complete UUIDs.  
 
 **LayerID**  
 Currently the following layers are defined:  
@@ -28,10 +29,10 @@ Currently the following layers are defined:
 - prot = Protocol  
 - tcp = TCP/IP  
 
-If the ObjectType identifies an instance of Profile (p), the LayerID is used for identifying the type of Profile.  
-In principle, the ApplicationOwner is free in defining Profiles and choosing the LayerID, because instances of Profile just exist within the application itself.  
-If an already existing Profile definition would be re-used, would be recommended to re-use the same LayerID, too.  
-The following LayerIDs are already in use for Profiles:  
+If the _ObjectType_ identifies an instance of _Profile_ (p), the _LayerID_ is used for identifying the type of _Profile_.  
+In principle, the _ApplicationOwner_ is free in defining _Profiles_ and choosing the _LayerID_, because instances of _Profile_ just exist within the application itself.  
+If an already existing _Profile_ definition would be re-used, it would be recommended to re-use the same _LayerID_, too.  
+The following _LayerIDs_ are already in use for _Profiles_:  
 - action = For describing the consequent action in a generic representation  
 - file = For storing information required for connecting to a file that is holding application data  
 - integer = For storing a single Integer  
@@ -40,15 +41,15 @@ The following LayerIDs are already in use for Profiles:
 
 **ObjectType**  
 Within the respective layers the following types of objects are defined:  
-- c = Client  
-- s = Server  
-- fd = ForwardingDomain (potential forwarding inside applications)  
-- fc = ForwardingConstruct (actual forwarding inside applications)  
-- link = Link (actual forwarding outside applications)  
-- p = Profile  
+- c = _Client_  
+- s = _Server_  
+- fd = _ForwardingDomain_ (potential forwarding inside applications)  
+- fc = _ForwardingConstruct_ (actual forwarding inside applications)  
+- link = _Link_ (actual forwarding outside applications)  
+- p = _Profile_  
 
 **ApiSegment**  
-The ApiSegment is contained in the UUIDs of OperationServers, OperationClients and FCs.
+The _ApiSegment_ is contained in the UUIDs of _OperationServers_, _OperationClients_ and _FCs_.  
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
 The **OperationServers** are categorized according to the following two aspects:  
