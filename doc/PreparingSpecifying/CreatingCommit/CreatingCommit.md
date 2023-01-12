@@ -48,8 +48,8 @@ This might not be given, in case you forgot to create a feature branch from the 
 
 ![vsc_12](https://user-images.githubusercontent.com/57349523/152162653-59a0e1d1-dd16-4f9c-bd88-3ccfae0c45cd.jpg)
 
-As you are failing to push your commit into _develop_ or _main_ branch, you can try saving your contribution by following the steps that are described beginning with _"Starting to actually work on the Issue"_ in [Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md)). In most cases, changes don't get lost.  
+As you are failing to push your commit into _develop_ or _main_ branch, you can try saving your contribution by following the steps that are described beginning with _"Starting to actually work on the Issue"_ in [Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md). In most cases, changes don't get lost.  
 
-If you are _Contributor_ (as the ApplicationOwner you certainly are) and properly created a feature branch before starting to make changes, the latest state of the feature branch will now be published in the original repository on GitHub.  
+If you are _Contributor_ (as the ApplicationOwner you certainly are) and properly created a feature branch before starting to make changes, the latest state of the feature branch is now publicly available on GitHub.  
 
 [<- Back to Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Completing an Issue ->](../CreatingMergeRequest/CreatingMergeRequest.md)
