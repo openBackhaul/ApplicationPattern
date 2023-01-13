@@ -1,17 +1,17 @@
 # Concept of the ServiceList
 
-The ServiceList is a compact notation for designing the service names and allocating the UUIDs.  
-It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
+The _ServiceList_ is a compact notation for designing the _OperationNames_ and allocating the UUIDs.  
+It provides full focus on composing a complete and well-structured set of _Operations_ before adding parameter and body details in the OpenApiSpecification.  
 
 **Be aware that the template must not be altered outside the zones indicated by comments starting with '##'.**   
 
 
 ### HTTP and TCP Server
 
-* The application name must be identical with the one stated in the repository.
+* The _ApplicationName_ must be identical with the one stated in the repository.
 * The release number ...
-  * has to follow the definitions in [Structure of Release Numbers](../../ElementsApplicationPattern/Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
-  * has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
+  * ... has to follow the definitions in [Structure of Release Numbers](../../ElementsApplicationPattern/Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md),
+  * ... has to identify the version resulting from the specification (if originally planned to fix some bugs and later decided to add functionality the release number has to be changed accordingly).
 * The CONFIGfile contains all data that is necessary to establish the connections, which are required for properly operating the application. TCP/IP addresses, operation names and application release number might depend on the environment (e.g. SDN test laboratory or live network) in which the application gets instantiated in. As a consequence the CONFIGfile has to be adapted to the environment before instantiation. This adaption shall be automated. For supporting the automation, fake IP addresses have to be put into the ServiceList during specification. Fake IP addresses will be replaced by environmental specific addresses during the creation of docker image. New IP addresses and TCP ports will be assigned by the platform owner. Please, request for an address and look it up at [Fake TCP/IP addresses](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md).
 
 
