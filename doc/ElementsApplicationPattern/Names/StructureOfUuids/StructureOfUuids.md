@@ -8,7 +8,8 @@ Uniqueness could have been assured by an algorithm for creating qualified random
 These harmonized UUIDs are supporting reading and navigating through the configuration data of the individual applications.  
 Unfortunately, it takes some training to properly put them together.
 
-**UUIDs are composed from the following information:**  
+
+## UUIDs are composed from the following information:  
 
 ![UUID Structure](./pictures/uuid-structure.png)
 
@@ -93,7 +94,9 @@ The SequenceNumber is just distinguishing objects of the same kind.
 It has three digits.  
 Counting is decimal.  
 
-**Examples**  
+
+## Examples:  
+
 | UUID | Object description |
 | ---- | ------------------ |
 | ro-1-0-0-op-s-bm-004 | OperationServer (for /v1/end-subscription) inside the RegistryOffice release 1.0.0 |  
