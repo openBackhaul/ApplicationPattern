@@ -16,6 +16,8 @@ Every piece of code needs to be maintained as long as it will be in use.
 Need for updating will in tendency be reduced to a single, relatively small place, if wisely substructured.  
 
 **Idempotent**  
+In general, executing the same request (applies on _Operations_ and _OaM_) with the same set of attributes again, shall just lead to the same state. There shall be no error messages, which would indicate that no change has been made. This shall apply in general. Few exceptions might occur (hypothetical example: /v1/create-additional-instance), but not contradict the general principle.  
+
 There are two different ways of leading.  
 1) You tell what to do  
 2) You tell the desired target state   
