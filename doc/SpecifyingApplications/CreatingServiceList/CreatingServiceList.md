@@ -6,26 +6,32 @@ This is a step by step cookbook for creating the  _ServiceList_.
 **Be aware that the template must not be altered outside the zones indicated by comments starting with '##'.**  
 
 
-### File Handling
+### Preparation  
+
+* If not yet existing, create an _Issue_ for elaborating the _ServiceList_.  
+* Open a local feature branch for elaborating the _ServiceList_.  
+
+
+### File Handling  
 
 * Assure that there is a copy of the latest [template for the  _ServiceList_](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern+services.yaml) in the _develop_ branch of your application's repository. The latest ApplicationPattern+services.yaml can be downloaded from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern/tree/develop/spec).  
 * Rename the file, by replacing "ApplicationPattern" by your application's name.  
 
 
-### General
+### General  
 
 * Re-using already implemented function at other applications is very much recommended.  
 * Information about existing applications can be found e.g. in the _GenericRepresentationApplication_.  
 * In case clarification about existing _Operations_ would be needed, the responsible _ApplicationOwner_ has to be addressed for complementing the documentation of his application.  
 
 
-### HttpServer and TcpServer
+### HttpServer and TcpServer  
 
 * Add the official _ApplicationName_ and _ReleaseNumber_ of the application.  
 * Add fake IP address and TCP port from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md).  
 
 
-### OperationServers
+### OperationServers  
 
 * Add _OperationServers_ that are specific to this application.  
   * Add the following two lines for every _OperationServer_ the application shall provide:  
@@ -38,19 +44,19 @@ This is a step by step cookbook for creating the  _ServiceList_.
   * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 
 
-### ElasticSearch
+### ElasticSearch  
 
 * If connecting a database would be required, add official [Fake Index Alias from the List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IndexAliases.md).  
 * Otherwise, just delete the _ElasticSearchClient_ from the _ServiceList_.  
 
 
-### OldRelease
+### OldRelease  
 
 * Add official _ReleaseNumber_ of the operational version of the application. In case of new application, put the same value as in _HttpServer_ above.  
 * Add fake IP address and TCP port of the operational version of the application. In case of new application, put the same value as in TcpServer above.  
 
 
-### NewRelease
+### NewRelease  
 
 * Add same value as in _HttpServer_ above as the substituting _ReleaseNumber_.  
 * Add fake IP address and TCP port from _TcpServer_ above as IP address and TCP port of the substituting release.  
@@ -65,7 +71,7 @@ This is a step by step cookbook for creating the  _ServiceList_.
   * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 
 
-### From RegistryOffice to OperationKeyManagement
+### From RegistryOffice to OperationKeyManagement  
 
 * If your application would address one or several applications of the _TinyApplicationController_,  
   * the following two lines for defining an _OperationClient_ have to be added into the individual service section of the affected applications of the _TinyApplicationController_:  
@@ -77,7 +83,7 @@ This is a step by step cookbook for creating the  _ServiceList_.
   * Fill in UUIDs according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).
 
 
-### Further OperationClients
+### Further OperationClients  
 
 * If further applications would have to be addressed, create additional entries into the clients list.  
 * Take the last entry as a template (and delete it, if no longer needed).  
@@ -95,6 +101,12 @@ This is a step by step cookbook for creating the  _ServiceList_.
   * Fill in a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md). 
 
 
-### Validation
+### Validation and Finalization  
 
-* Please, regard the test results of the YAML linting in the _Pull-Request_ and correct the syntax, if errors are indicated (warnings need not to be regarded). 
+* Double check your _ServiceList_.  
+* _Commit_ to your local feature branch.  
+* _Push_ your local feature branch to the remote repository.  
+* Create a _Pull-Request_.  
+* Please, regard the test results of the YAML linting in the _Pull-Request_. Correct the syntax of the _ServiceList_, if errors are indicated (warnings need not to be regarded), and _commit_ and _push_ again until the _ServiceList_ in the remote repository is successfully validated.  
+* Select a _Reviewer_ from the team.  
+* Assign the _Pull-Request_ to yourself.  
