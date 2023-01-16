@@ -52,7 +52,7 @@ class ElasticsearchService {
   async getClient(uuid) {
     let esUuid = await getElasticsearchClientUuidAsync(uuid);
     let newApiKey = await getApiKeyAsync(esUuid);
-    let client = this._clients.get(uuid);
+    let client = this._clients.get(esUuid);
     if (client) {
       let storedApiKey = client.apiKey;
       if (newApiKey !== storedApiKey) {
@@ -63,13 +63,13 @@ class ElasticsearchService {
       }
     }
     let storedApiKey = newApiKey;
-    client = new Client(await configureClientAsync(uuid, storedApiKey));
+    client = new Client(await configureClientAsync(esUuid, storedApiKey));
     client.on('response', (err, result) => {
       if (err) {
         console.error(`Elasticsearch error occurred: ${err}`);
       }
     });
-    this._clients.set(uuid, { client: client, apiKey: storedApiKey });
+    this._clients.set(esUuid, { client: client, apiKey: storedApiKey });
     return client;
   }
 
@@ -87,6 +87,7 @@ class ElasticsearchService {
       return (ping.statusCode === 200) ?
         operationalStateEnum.AVAILABLE : operationalStateEnum.UNAVAILABLE;
     } catch (error) {
+      console.log(error);
       return operationalStateEnum.UNAVAILABLE;
     }
   }
@@ -286,4 +287,4 @@ module.exports.createResultArray = function createResultArray(result) {
 }
 
 module.exports.getIndexAliasAsync = getIndexAliasAsync
-module.exports = new ElasticsearchService()
+module.exports.elasticsearchService = new ElasticsearchService()
