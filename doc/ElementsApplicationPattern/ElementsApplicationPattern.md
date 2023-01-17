@@ -12,7 +12,7 @@
 **Functions**
 * [Structure of Services](./Functions/StructureOfServices/StructureOfServices.md)
 * [Concept of Profiles](./Functions/ConceptOfProfiles/ConceptOfProfiles.md)
-* [Concepts of Forwarding](./Functions/ConceptsOfForwarding/ConceptsOfForwarding.md)
+* [Concepts of Internal Forwarding](./Functions/ConceptsOfForwarding/ConceptsOfForwarding.md)
 
 **Names and IDs**
 * [Structure of ApplicationNames](./Names/StructureOfApplicationNames/StructureOfApplicationNames.md)
