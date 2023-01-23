@@ -12,7 +12,10 @@
 **Functions**
 - [Structure of Services](./Functions/StructureOfServices/StructureOfServices.md)
 - [Concept of Profiles](./Functions/ConceptOfProfiles/ConceptOfProfiles.md)
-- [Concepts of Internal Forwarding](./Functions/ConceptsOfForwarding/ConceptsOfForwarding.md)
+- [Concepts of Internal Forwarding](./Functions/ConceptsOfInternalForwarding/ConceptsOfInternalForwarding.md)
+- [Structure of Internal Forwarding](./Functions/StructureOfInternalForwarding/StructureOfInternalForwarding.md)
+- [Types of Internal Forwarding](./Functions/TypesOfInternalForwardings/TypesOfInternalForwardings.md)
+- [Substructure of Management of Internal Forwarding](./Functions/SubstructureOfManagementOfInternalForwardings/SubstructureOfManagementOfInternalForwardings.md)
 - [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
 - [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
 - [Concept of OpenApiSpecification](./Functions/ConceptOfOas/ConceptOfOas.md)
