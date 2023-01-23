@@ -5794,8 +5794,9 @@ paths:
                         type: string
                       value-reference:
                         type: string
-                    example:
-                      value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+                example:
+                  response-profile-1-0:value:
+                    value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -5834,8 +5835,9 @@ paths:
                       type: string
                     value-reference:
                       type: string
-                  example:
-                    value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+            example:
+              response-profile-1-0:value:
+                value-reference: '/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
       responses:
         '204':
           description: 'Request path configured'
