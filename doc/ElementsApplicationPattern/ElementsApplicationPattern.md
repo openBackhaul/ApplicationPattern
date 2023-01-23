@@ -28,7 +28,7 @@
 - [Structure of ServiceNames](./Names/StructureOfServiceNames/StructureOfServiceNames.md)
 - [Structure of Release Numbers](./Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
 - [Structure of UUIDs](./Names/StructureOfUuids/StructureOfUuids.md)
-- [Structure of CallbackNames](./Names/StructureOfCallbackNames/StructureOfCallbackNames.md)
+- [Structure of Internal Forwarding Names](./Names/StructureOfInternalForwardingNames/StructureOfInternalForwardingNames.md)
 
 
 ### Underlying Information Model

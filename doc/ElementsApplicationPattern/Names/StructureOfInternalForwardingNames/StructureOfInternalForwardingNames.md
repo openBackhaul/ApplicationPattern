@@ -1,4 +1,4 @@
-# Structure of ForwardingNames  
+# Structure of Internal Forwarding Names  
 
 The _ForwardingName_, which is identifying a _Forwarding_ in the _ForwardingList_, will be re-used for identifying the resulting _ForwardingConstruct_ in the _CONFIGfile_ and for identifying the resulting callback in the OpenApiSpecification.  
 
