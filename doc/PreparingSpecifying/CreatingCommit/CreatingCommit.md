@@ -43,12 +43,13 @@ After authentication, VSCode will try to push the changes to the remote reposito
 It would not succeed, if you would neither be owner nor _Contributor_ to the addressed repository.  
 In such case you would have to address your _Push_ to a _Fork_ (copy) of the original repository in your own GitHub account (see also [Forking Workflow](../ForkingWorkflow/ForkingWorkflow.md)).  
 
-Even if you are _Contributor_ to the addressed repository, you need permission to _Push_ into the addressed branch.
-This might not be given, in case you forgot to create a feature branch from the _Issue_ (see [Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md)) before starting to work.
-In such case, you would now fail to push your commit into _develop_ or _main_ branch. 
+Even if you are _Contributor_ to the addressed repository, you need permission to _Push_ into the addressed branch.  
+This might not be given, in case you forgot to create a feature branch from the _Issue_ (see [Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md)) before starting to work.  
 
 ![vsc_12](https://user-images.githubusercontent.com/57349523/152162653-59a0e1d1-dd16-4f9c-bd88-3ccfae0c45cd.jpg)
 
-If you are _Contributor_ (as the ApplicationOwner you certainly are) and properly created a feature branch before starting to make changes, the latest state of the feature branch will now be published in the original repository on GitHub.  
+As you are failing to push your commit into _develop_ or _main_ branch, you can try saving your contribution by following the steps that are described beginning with _"Starting to actually work on the Issue"_ in [Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md). In most cases, changes don't get lost.  
+
+If you are _Contributor_ (as the ApplicationOwner you certainly are) and properly created a feature branch before starting to make changes, the latest state of the feature branch is now publicly available on GitHub.  
 
 [<- Back to Processing an Issue](../ProcessingAnIssue/ProcessingAnIssue.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Completing an Issue ->](../CreatingMergeRequest/CreatingMergeRequest.md)

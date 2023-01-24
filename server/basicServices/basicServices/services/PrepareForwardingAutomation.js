@@ -26,6 +26,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
             let bequeathYourDataAndDieRequestBody = {};
             bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
             bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
+            bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
             bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
             bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
             bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
@@ -70,12 +71,46 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             let registrationApplicationForwardingName = "PromptForRegisteringCausesRegistrationRequest";
             let registrationApplicationContext;
             let registrationApplicationRequestBody = {};
+            let tcpServerList = [];
             registrationApplicationRequestBody.applicationName = await httpServerInterface.getApplicationNameAsync();
-            registrationApplicationRequestBody.applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
-            registrationApplicationRequestBody.applicationAddress = await tcpServerInterface.getLocalAddress();
-            registrationApplicationRequestBody.applicationPort = await tcpServerInterface.getLocalPort();
+            registrationApplicationRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
             registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
             registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
+            registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
+
+            // formulate the tcp-server-list
+            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
+            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
+            if (tcpHttpAddress != undefined && tcpHttpPort != undefined) {
+                if ("ipv-4-address" in tcpHttpAddress) {
+                    tcpHttpAddress = {
+                        "ip-address": tcpHttpAddress
+                    }
+                }
+                let tcpServer = {
+                    protocol: "HTTP",
+                    port: tcpHttpPort,
+                    address: tcpHttpAddress
+                }
+                tcpServerList.push(tcpServer);
+            }
+            let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTPS");
+            let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTPS");
+            if (tcpHttpsAddress != undefined && tcpHttpsPort != undefined) {
+                if ("ipv-4-address" in tcpHttpsAddress) {
+                    tcpHttpsAddress = {
+                        "ip-address": tcpHttpsAddress
+                    }
+                }
+                let tcpServer = {
+                    protocol: "HTTPS",
+                    port: tcpHttpsPort,
+                    address: tcpHttpsAddress
+                }
+                tcpServerList.push(tcpServer);
+            }
+
+            registrationApplicationRequestBody.tcpServerList = tcpServerList;
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
@@ -111,7 +146,7 @@ exports.endSubscription = function (logicalTerminationPointconfigurationStatus, 
         let forwardingConstructAutomationList = [];
         try {
 
-              /***********************************************************************************
+            /***********************************************************************************
              * forwardings for application layer topology 
              ************************************************************************************/
             let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
@@ -218,53 +253,6 @@ exports.redirectTopologyChangeInformation = function (logicalTerminationPointcon
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
-            /***********************************************************************************
-             * PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT 
-             * /v1/update-all-ltps-and-fcs
-             ************************************************************************************/
-            let updateAllLtpsAndFcsForwardingName = "PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT";
-            let updateAllLtpsAndFcsContext;
-            let updateAllLtpsAndFcsRequestBody = {};
-            let controlConstructUrl = onfPaths.CONTROL_CONSTRUCT;
-            let controlConstruct = await fileOperation.readFromDatabaseAsync(controlConstructUrl);
-            controlConstruct = removeAttribute(
-                controlConstruct,
-                "operation-key");
-            updateAllLtpsAndFcsRequestBody["core-model-1-4:control-construct"] = controlConstruct;
-            let forwardingAutomation = new forwardingConstructAutomationInput(
-                updateAllLtpsAndFcsForwardingName,
-                updateAllLtpsAndFcsRequestBody,
-                updateAllLtpsAndFcsContext
-            );
-            forwardingConstructAutomationList.push(forwardingAutomation);
-
-            /***********************************************************************************
-             * forwardings for application layer topology
-             ************************************************************************************/
-            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
-                logicalTerminationPointconfigurationStatus,
-                forwardingConstructConfigurationStatus
-            );
-
-            if (applicationLayerTopologyForwardingInputList) {
-                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
-                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
-                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-exports.updateOperationKey = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-
             /***********************************************************************************
              * forwardings for application layer topology
              ************************************************************************************/

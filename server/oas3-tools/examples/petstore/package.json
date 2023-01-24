@@ -1,0 +1,16 @@
+{
+  "name": "petstore-example",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node example.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "oas3-tools": "file:../../"
+  }
+}

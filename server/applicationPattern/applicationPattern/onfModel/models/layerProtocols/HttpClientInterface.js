@@ -204,6 +204,29 @@ class HttpClientInterface extends layerProtocol {
     }
 
     /**
+     * @description This function sets the application name for the http client uuid.
+     * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
+     * @param {String} newApplicationName new release number of the http-client-interface .
+     * @returns {promise} boolean {true|false}
+     **/
+    static setApplicationNameAsync(httpClientUuid, newApplicationName) {
+        return new Promise(async function (resolve, reject) {
+            let isUpdated = false;
+            try {
+                let applicationNamePath = onfPaths.HTTP_CLIENT_APPLICATION_NAME.replace(
+                    "{uuid}", httpClientUuid);
+                isUpdated = await fileOperation.writeToDatabaseAsync(
+                    applicationNamePath,
+                    newApplicationName,
+                    false);
+                resolve(isUpdated);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
      * @description This function creates and returns a new HttpClientInterface.
      * @param {String} httpClientUuid : http client unique identifier for the new application.
      * It should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'

@@ -1,5 +1,11 @@
 # Documenting an Issue
 
+Using the GitHub webGUI is recommended for documenting _Issues_.  
+Formulate title and body according to the guidelines for [Formulating Issues](../FormulatingIssues/FormulatingIssues.md).  
+Put _Assignee_, _Label_ and _Milestone_.
+
+Alternatively, you can create _Issues_ in VSCode.
+
 Click on the GitHub symbol to the left of the VSCode window.  
 
 ![createIssuePicture1](./pictures/createIssue_01.png)  

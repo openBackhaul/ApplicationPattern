@@ -22,6 +22,7 @@ Its implementation is publicly available and can be copied into every individual
 The ApplicationPattern is base of the application layer running in the live network at Telefonica Germany.
 
 ### Resources
+- [Documentation](./doc/Main.md)
 - [Specification](./spec/)
 - [TestSuite](./testing/)
 - [Implementation](./server/)

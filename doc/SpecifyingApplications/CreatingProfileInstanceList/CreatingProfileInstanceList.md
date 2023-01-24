@@ -1,77 +1,83 @@
 # Creating a ProfileInstanceList
 
-This is a step by step cookbook for creating the ProfileInstanceList.  
+This is a step by step cookbook for creating the _ProfileInstanceList_.  
 
-**Please, read the background information about the [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the ProfileInstanceList](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the ProfileList.**   
+**Please, read the background information about the [Concept of _Profiles_](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the _ProfileInstanceList_](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the _ProfileList_.**   
 
 
-### File Handling
+### Preparation  
 
-* Assure that there is a copy of the latest [template for the ProfileInstanceList](https://github.com/openBackhaul/ApplicationPattern/blob/develop/ApplicationPattern%2BprofileInstances.yaml) in the develop Branch of your application's repository. The latest ApplicationPattern+profileInstances.yaml can be downloaded from the [ApplicationPattern repository](https://github.com/openBackhaul/ApplicationPattern/tree/develop).  
+* If not yet existing, create an _Issue_ for elaborating the _ProfileInstanceList_.  
+* Open a local feature branch for elaborating the _ProfileInstanceList_.  
+
+
+### File Handling  
+
+* Assure that there is a copy of the latest [template of the _ProfileInstanceList_](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern%2BprofileInstances.yaml) in the _develop_ branch of your application's repository. The latest _ApplicationPattern+profileInstances.yaml_ can be downloaded from the [_ApplicationPattern_ repository](https://github.com/openBackhaul/ApplicationPattern/tree/develop).  
 * Rename the file, by replacing "ApplicationPattern" by your application's name.  
 
 
 ### General  
 
-* Re-using already existing descriptions of instances of Profiles from ProfileInstanceLists of other applications is very much recommended.  
+* Re-using already existing descriptions of instances of _Profiles_ from _ProfileInstanceLists_ of other applications is very much recommended.  
 
 
 ### Further Instances of ActionProfile  
 
-* Check your ServiceList for services that are implementing the concept of generic representation.  
-* If you would need to add further instances of ActionProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept.  
-* Copy/paste and alter additional instances of ActionProfile for configuring a step-by-step-clicking-through-process after starting with /v1/start-application-in-generic-representation.  
+* Check your _ServiceList_ for services that are implementing the concept of _GenericRepresentation_.  
+* If you would need to add further instances of _ActionProfile_ please look into existing applications' _ProfileInstanceLists_ and the template to get familiar with the concept.  
+* Copy/paste and alter additional instances of _ActionProfile_ for configuring a step-by-step-clicking-through-process after starting with _/v1/start-application-in-generic-representation_.  
 * Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
-* The ProfileName shall be set on "ActionProfile".  
+* The _ProfileName_ shall be set on "ActionProfile".  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* The LayerID shall be set on "action".  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The _LayerID_ shall be set on "action".  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same _LayerID_.  
 
 **OperationName**  
-* Fill in the path of the request that shall transport the information about labels, input values and consequent requests in its response body to the GenericRepresentation.  
+* Fill in the name of the operation (e.g. _/v1/start-application-in-generic-representation_) that shall transport the information about labels, input values and consequent requests in its response body to the _GenericRepresentation_.  
 
 **Label**  
-* Fill in the text that shall be printed on the label, which shall be represented in the GenericRepresentation.  
+* Fill in the text (e.g. 'Inform about Application') that shall be printed on a button, which shall be represented in the _GenericRepresentation._  
 
 **InputValueList::FieldName**
-* If the Request needs to send parameters in its body, these parameters have to be defined in the InputValueList.  
-* Don't represent the InputValueList, if not required.  
-* Be aware that the FieldName will not just be sent as an attribute's name in the body of the request, but also be represented by the GenericRepresentation besides an input field.  
-* Fill in the FieldName in UpperCamelCase notation.  
+* If the request needs to send parameters in its body, these parameters have to be defined in the _InputValueList_.  
+* Don't represent the _InputValueList_, if not required.  
+* Be aware that the _FieldName_ will not just be sent as an attribute's name in the body of the request, but also be represented by the _GenericRepresentation_ besides an input field.  
+* Fill in the _FieldName_ in UpperCamelCase notation.  
 
 **InputValueList::Unit**
-* The Unit will be represented by the GenericRepresentation besides an input field.  
+* The _Unit_ will be represented by the _GenericRepresentation_ besides an input field.  
 * Don't represent this stereotype, if not required.  
 
 **DisplayInNewBrowserWindow**  
-* Usually, DisplayInNewBrowserWindow is set on false and the response to the described request will be presented in the same browser window.  
-* If the response to clicking the button shall be represented in a new window of the GenericRepresentation, DisplayInNewBrowserWindow has to be set on true.  
+* Usually, _DisplayInNewBrowserWindow_ is set on false and the response to the described request will be presented in the same browser window.  
+* If the response to clicking the button shall be represented in a new window of the _GenericRepresentation_, _DisplayInNewBrowserWindow_ has to be set on true.  
 
-**Request**  
-* Fill in the complete URL that shall be addressed by the GenericRepresentation whenever the button gets pressed.  
-* Several parts (e.g. IP address, TCP port, operationName) of the URL might be subject to the configuration of some interface. These parts have to be substituted by references into the data tree. The references have to be put into cornered brackets "[]".  
-* UUIDs comprised in the references have to match the ServiceList content (otherwise the implementers will fill wrong data into the response bodies of the generic representation requests).  
+**ConsequentOperationReference**  
+* Operation that shall be called, whenever the button gets pressed in the _GenericRepresentation_.
+* Because several parts (e.g. IP address, TCP port, _OperationName_) of the URL that has to be called by the _GenericRepresentation_ might be subject to configuration in your application, there shall be just a reference to the operation here. The actual URL will then be generated by your application right before responding on a request reaching the _OperationName_.  
+* UUIDs comprised in the references have to match the _ServiceList_ content (otherwise the application will fill wrong data into the response bodies of the _GenericRepresentationRequests_ during run-time).  
 
 
 ### Instances of FileProfile  
 
-* Whenever your application is supposed to use one or several files for storing data, a corresponding number of instances of FileProfile is required.  
-* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Whenever your application is supposed to use one or several files for storing data, a corresponding number of instances of _FileProfile_ is required.  
+* Just copy/paste the form prepared for completion or copy from existing _ProfileInstanceLists_ of other applications.  
 * Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
-* The ProfileName shall be set on "FileProfile".  
+* The _ProfileName_ shall be set on "FileProfile".  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* The LayerID shall be set on "file".  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The _LayerID_ shall be set on "file".  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same _LayerID_.  
 
 **FileIdentifier**  
 * Document an invariant identifier of the file.  
@@ -102,53 +108,60 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 ### Further Instances of GenericResponseProfile  
 
-* Check your ServiceList for services that are implementing the concept of generic representation.  
-* If you would need to add further instances of GenericResponseProfile please look into existing applications' ProfileInstanceLists and the template to get familiar with the concept.  
-* Copy/paste and alter additional instances of GenericResponseProfile for configuring the responses given by the *-in-generic-representation requests.  
+* Check your _ServiceList_ for services that are implementing the concept of _GenericRepresentation_.  
+* If you would need to add further instances of _GenericResponseProfile_ please look into existing applications' _ProfileInstanceLists_ and the template to get familiar with the concept.  
+* Copy/paste and alter additional instances of _GenericResponseProfile_ for configuring the responses given by the _GenericRepresentationRequests_.  
 * Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
-* The ProfileName shall be set on "GenericResponseProfile".  
+* The _ProfileName_ shall be set on "GenericResponseProfile".  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* The LayerID shall be set on "response".  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The _LayerID_ shall be set on "response".  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same _LayerID_.  
 
 **OperationName**  
 * Fill in the path of the request that shall contain provide the response.  
 
-**FieldName**  
-* Fill in the name of the field that shall represent the response value.
+**StaticFieldName**  
+* The response will be represented in a field. This field will have a name/title. If this field name would be static, you could state it here.  
+
+**FieldNameReference**  
+* The response will be represented in a field. This field will have a name/title. If this field name would be stored somewhere in the internal data tree, you could reference this possition here.  
 
 **Description**  
 * This attribute is just for documenting the meaning of the defined field.  
-* It is explanatory only and will not be passed to the application that is consuming the *-in-generic-representation request.  
+* It is explanatory only and will not be passed to the _GenericRepresentation_.  
 
 **Datatype**  
 * Fill in the datatype of the response value.  
 * Chose from 'string', 'integer', 'boolean'.  
 
-**Value**  
-* Fill in the value, which shall be represented in the field.  
-* The value has to be transported as a string, but might be interpreted according to the Datatype at the receiving side.  
+**StaticValue**  
+* The response will represent a value. If this value would be static, you could state it here.  
+* The value has to be transported as a string, but might be interpreted according to the _Datatype_ at the receiving side.  
+
+**ValueReference**  
+* The response will represent a value. If this value would be stored somewhere in the internal data tree, you could reference this possition here.  
+* The value has to be transported as a string, but might be interpreted according to the _Datatype_ at the receiving side.  
 
 
 ### Instances of IntegerProfile  
 
-* Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of IntegerProfile is required.  
-* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Whenever you would like to make an aspect of the application's behavior configurable and this aspect can be expressed as an Integer value, an additional instance of _IntegerProfile_ is required.  
+* Just copy/paste the form prepared for completion or copy from existing _ProfileInstanceLists_ of other applications.  
 * Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
-* The ProfileName shall be set on "IntegerProfile".  
+* The _ProfileName_ shall be set on "IntegerProfile".  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* The LayerID shall be set on "integer".  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The _LayerID_ shall be set on "integer".  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same _LayerID_.  
 
 **IntegerName**  
 * Document the attribute's name.  
@@ -171,18 +184,18 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 ### Instances of StringProfile  
 
-* Whenever you would like to make an aspect of the application's behavior configurable and this aspect needs to be expressed as a String, an additional instance of StringProfile is required.  
-* Just copy/paste the form prepared for completion or copy from existing ProfileInstanceLists of other applications.  
+* Whenever you would like to make an aspect of the application's behavior configurable and this aspect needs to be expressed as a String, an additional instance of _StringProfile_ is required.  
+* Just copy/paste the form prepared for completion or copy from existing _ProfileInstanceLists_ of other applications.  
 * Finally, just delete the form that waits for completion.  
 
 **ProfileName**  
-* The ProfileName shall be set on "StringProfile".  
+* The _ProfileName_ shall be set on "StringProfile".  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* The LayerID shall be set on "string".  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* The _LayerID_ shall be set on "string".  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same _LayerID_.  
 
 **StringName**  
 * Document the attribute's name.  
@@ -203,27 +216,30 @@ This is a step by step cookbook for creating the ProfileInstanceList.
 
 ### New Profiles  
 
-* You are free to instantiate as many objects based on the self-defined Profiles as you like.  
-* Just copy/paste the lines for ProfileName and UUID from an existing definition and the additional stereotypes of your attribute or composed datatype.  
+* You are free to instantiate as many objects based on the self-defined _Profiles_ as you like.  
+* Just copy/paste the lines for _ProfileName_ and UUID from an existing definition and the additional stereotypes of your attribute or composed datatype.  
 * Be aware that you just need to describe the structuring of configuration information. Application data shall be encapsulated by the application.  
 
 **ProfileName**  
-* The ProfileName shall comply with the rules stated in [Concept of Profiles](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md).  
+* The _ProfileName_ shall comply with the rules stated in [Concept of _Profiles_](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md).  
 
 **UUID**  
 * The UUID shall follow the [Structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-* Choose a meaningful LayerID.  
-* The ObjectType shall be set on "p" (Profile).  
-* The SequenceNumber shall start at "000" and must be unique within the scope of instances of Profiles with the same LayerID.  
+* Choose a meaningful _LayerID_.  
+* The _ObjectType_ shall be set on "p" (_Profile_).  
+* The _SequenceNumber_ shall start at "000" and must be unique within the scope of instances of _Profiles_ with the same LayerID.  
 
 **Further Stereotypes**  
-* Add the stereotypes of your profile definition.  
+* Add the stereotypes of your _Profile_ definition.  
 * Don't forget to define the attribute's value during instantiation of the application.  
 
 
-### Validation
+### Validation and Finalization  
 
-* Open the YAML validator at [www.yamllint.com](http://www.yamllint.com/)
-* Click into the ProfileList, Control+A, Control+C
-* Click into YAML validator editor, Control+V, Push "Go" button
-* Syntax of ProfileList is fine, if YAML validator indicates "Valid YAML!"
+* Double check your _ProfileInstanceList_.  
+* _Commit_ to your local feature branch.  
+* _Push_ your local feature branch to the remote repository.  
+* Create a _Pull-Request_.  
+* Please, regard the test results of the YAML linting in the _Pull-Request_. Correct the syntax of the _ProfileList_, if errors are indicated (warnings need not to be regarded), and _commit_ and _push_ again until the _ProfileList_ in the remote repository is successfully validated.  
+* Select a _Reviewer_ from the team.  
+* Assign the _Pull-Request_ to yourself.  
