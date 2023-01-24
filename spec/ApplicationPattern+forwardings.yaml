@@ -17,7 +17,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-000
     consequent-requests:
       - client-name: RegistryOffice://v1/register-application
-        uuid: xx-1-0-0-op-c-bm-ro-2-0-0-000
+        uuid: xx-1-0-0-op-c-bm-ro-2-0-1-000
 
   - forwarding-name: PromptForEmbeddingCausesRequestForBequeathingData
     uuid: xx-1-0-0-op-fc-bm-001
@@ -86,7 +86,7 @@ forwardings:
       ## TODO: All service requests to be complemented
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
-        uuid: xx-1-0-0-op-c-bs-eatl-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-eatl-2-0-1-000
 
   - forwarding-name: OamRequestCausesLoggingRequest
     uuid: xx-1-0-0-op-fc-bm-003
@@ -103,7 +103,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: OamLog://v1/record-oam-request
-        uuid: xx-1-0-0-op-c-bs-ol-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-ol-2-0-1-000
 
   - forwarding-name: OamRequestCausesInquiryForAuthentication
     uuid: xx-1-0-0-op-fc-bm-004
@@ -120,7 +120,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: AdministratorAdministration://v1/approve-oam-request
-        uuid: xx-1-0-0-op-c-bs-aa-2-0-0-000
+        uuid: xx-1-0-0-op-c-bs-aa-2-0-1-000
 
 ## TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
 
@@ -147,7 +147,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-im-000
     consequent-requests:
       - client-name: RegistryOffice://v1/relay-server-replacement
-        uuid: xx-1-0-0-op-c-bm-ro-2-0-0-001
+        uuid: xx-1-0-0-op-c-bm-ro-2-0-1-001
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease
     uuid: xx-1-0-0-op-fc-bm-106
@@ -166,7 +166,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-im-000
     consequent-requests:
       - client-name: RegistryOffice://v1/deregister-application
-        uuid: xx-1-0-0-op-c-bm-ro-2-0-0-002
+        uuid: xx-1-0-0-op-c-bm-ro-2-0-1-002
 
   - forwarding-name: PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation
     uuid: xx-1-0-0-op-fc-bm-107
@@ -185,7 +185,7 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-007
     consequent-requests:
       - client-name: RegistryOffice://v1/relay-operation-update
-        uuid: xx-1-0-0-op-c-bm-ro-2-0-0-003
+        uuid: xx-1-0-0-op-c-bm-ro-2-0-1-003
 
   - forwarding-name: ServiceRequestCausesLtpUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-006
@@ -221,7 +221,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-001
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-001
 
   - forwarding-name: ServiceRequestCausesLtpDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-007
@@ -239,7 +239,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-002
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-002
 
   - forwarding-name: ServiceRequestCausesFcUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-008
@@ -257,7 +257,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-003
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-003
 
   - forwarding-name: ServiceRequestCausesFcPortUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-009
@@ -275,7 +275,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-004
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-004
 
   - forwarding-name: ServiceRequestCausesFcPortDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-010
@@ -295,7 +295,7 @@ forwardings:
       ## TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-005
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-005
 
   - forwarding-name: OamRequestCausesLtpUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-011
@@ -312,7 +312,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-001
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-001
 
   - forwarding-name: OamRequestCausesLtpDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-012
@@ -329,7 +329,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-002
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-002
 
   - forwarding-name: OamRequestCausesFcUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-013
@@ -346,7 +346,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-003
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-003
 
   - forwarding-name: OamRequestCausesFcPortUpdateRequest
     uuid: xx-1-0-0-op-fc-bm-014
@@ -363,7 +363,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-004
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-004
 
   - forwarding-name: OamRequestCausesFcPortDeletionRequest
     uuid: xx-1-0-0-op-fc-bm-015
@@ -380,6 +380,6 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: xx-1-0-0-op-c-bm-alt-2-0-0-005
+        uuid: xx-1-0-0-op-c-bm-alt-2-0-1-005
 
   ## TODO: Potential INDIVIDUAL Forwardings to be added
