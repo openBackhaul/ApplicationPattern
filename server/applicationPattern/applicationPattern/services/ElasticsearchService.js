@@ -3,6 +3,7 @@
 
 const logicalTerminationPoint = require('../onfModel/models/LogicalTerminationPoint');
 const layerProtocol = require('../onfModel/models/LayerProtocol');
+const layerProtocolNameEnum = require('../onfModel/models/LayerProtocol');
 const { Client } = require('@elastic/elasticsearch');
 const controlConstruct = require('../onfModel/models/ControlConstruct');
 const TcpClientInterface = require('../onfModel/models/layerProtocols/TcpClientInterface');
@@ -151,6 +152,22 @@ class ElasticsearchService {
       "phases": updatedPhases
     }
     return policyDetail;
+  }
+
+  /**
+   * @description Updates controlConstruct object with information about service policy
+   * configured for each Elasticsearch client.
+   * @param {Object} controlConstruct
+   * @returns {Promise<Object>} controlConstruct object enriched with service-policy-record object
+   */
+  async updateControlConstructWithServicePolicy(controlConstruct) {
+    let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+    for (let uuid of uuids) {
+      let serviceRecordPolicy = await this.getElasticsearchClientServiceRecordsPolicyAsync(uuid);
+      let found = controlConstruct['logical-termination-point'].find(u => u['uuid'] === uuid);
+      found['layer-protocol'][0][onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC][onfAttributes.ES_CLIENT.CONFIGURATION]['service-records-policy'] = serviceRecordPolicy;
+    }
+    return controlConstruct;
   }
 }
 
