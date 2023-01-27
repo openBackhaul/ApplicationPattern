@@ -5,16 +5,16 @@ This is a step by step cookbook for creating the _ProfileInstanceList_.
 **Please, read the background information about the [Concept of _Profiles_](../../ElementsApplicationPattern/Functions/ConceptOfProfiles/ConceptOfProfiles.md) and the [Concept of the _ProfileInstanceList_](../ConceptOfProfileList/ConceptOfProfileList.md) before working at the _ProfileList_.**   
 
 
-### Preparation  
-
-* If not yet existing, create an _Issue_ for elaborating the _ProfileInstanceList_.  
-* Open a local feature branch for elaborating the _ProfileInstanceList_.  
-
-
 ### File Handling  
 
 * Assure that there is a copy of the latest [template of the _ProfileInstanceList_](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern%2BprofileInstances.yaml) in the _develop_ branch of your application's repository. The latest _ApplicationPattern+profileInstances.yaml_ can be downloaded from the [_ApplicationPattern_ repository](https://github.com/openBackhaul/ApplicationPattern/tree/develop).  
 * Rename the file, by replacing "ApplicationPattern" by your application's name.  
+
+
+### Preparation  
+
+* If not yet existing, create an _Issue_ for elaborating the _ProfileInstanceList_.  
+* Open a local feature branch for elaborating the _ProfileInstanceList_.  
 
 
 ### General  

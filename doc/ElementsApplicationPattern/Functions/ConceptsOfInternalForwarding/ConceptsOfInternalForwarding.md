@@ -20,7 +20,7 @@ If these relationships would be hardcoded, it would not be possible to redirect 
 Thus, the relationships need to be documented in the CONFIGfiles of the individual applications, too.  
 
 _ForwardingDomains_ and _ForwardingConstructs_ are used for documenting the relationships between received (_OperationServer_) and to be sent requests (_OperationClients_).  
-_ForwardingConstructs_ are used for representing process flows as well as calculations.  
-Alike the _Clients_, the _ForwardingConstructs_ could be changed manually in the CONFIGfile or via the OaM segment of the REST API or in automated way via the service segment of the REST API.  
+_ForwardingConstructs_ are used for representing a wide range of relationships from process flows to calculations.  
+The _ForwardingConstructs_ could be changed manually in the CONFIGfile or in automated way via the service segment of the REST API.  
 
-The _ForwardingList_ is supporting designing the relationships before documenting them syntactically correct in the OpenApiSpecification and the CONFIGfile.  
+The _ForwardingList_ is supporting designing the relationships before documenting them in a syntactically pre-defined way in the OpenApiSpecification and the CONFIGfile.  
