@@ -1,14 +1,30 @@
 # Structure of the ForwardingList
 
-The template of the _ForwardingList_ already contains a lot of _Forwardings_.  
-These _Forwardings_ are required for organizing the basic services provided by the _ApplicationPattern_.  
-Please, don't alter these entries, except for the following individualization.  
-Use CTRL+h for replacing 'xx-1-0-0' by the abbreviation of your application's name and release number 'ro-2-0-1'.  
 
-Apart from this, please focus on zones indicated by comments starting with '##'.  
+### Arrangement of Blocks
+
+The template of the ForwardingList already contains a lot of blocks that are describing _Forwardings_.  
+These blocks are arranged more or less according to the sequence of application.  
+
+It starts with initiating the registration at the RegistryOffice.  
+
+Receiving a prompt for embedding into the application layer results in starting the handover process on the old release of the application. (By the way: Don't delete this _Forwarding_. Even the first release of an application requires it. The first release needs calling its own _/v1/bequeath-your-data-and-die_ service for self-configuration. The _oldRelease_ in the _ServiceList_ and the CONFIGfile needs to point to the first release in this case.)  
+
+Meanwhile, the ExecutionAndTraceLog, OamLog and AdministratorAdministration might have sent their subscriptions.  
+
+After configuring these operation support features, the individual embedding process has to be described. Several "TODO:" comments are supporting arranging these _Forwardings_. Details can be found below.  
+
+The later part of the embedding process is following. It is identical on all applications.  
+
+Beneath the _Forwardings_ forming the embedding process, the communication with the _ApplicationLayerTopology_ gets defined.  
+
+The _Forwardings_, which are individual to your application, have to be added at the end of the _ForwardingList_. It is recommended to arrange also those _Forwardings_ according to the sequence of application.  
+
+
+### Details on the TODOs
 
 _TODO: All service requests to be complemented_  
-The complete list of individual services that you added to the _ServiceList_ has be copied into here.  
+The complete list of individual services that you added to the _ServiceList_ has be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
@@ -17,8 +33,7 @@ This section is for preparing for a later update process to a new release of you
 If your application would offer subscriptions to other applications, subscriptions that might already exist at the time of the future upgrade shall be configured by the old release on the new release of your application.  
 The following example shows the old release of the _RegistryOffice_ addressing the _/v1/notify-approvals_ at the new release of the _RegistryOffice_.  
 While subscribing for ApprovalNotifications at the new release, the old release of the _RegistryOffice_ is faking being an application that subscribed for these notifications at the old release in past.  
-This is the way existing subscriptions get transferred from the old release to the new release of an application during upgrade process.  
-There are no _Managements_, because the _forwarding_ gets already defined during design time of the application.  
+There are no _Managements_, because the _Forwarding_ gets already defined during design time of the application.  
 ```
   - forwarding-name: PromptForBequeathingDataCausesNewApplicationBeingRequestedToDocumentSubscriptionsForApprovalNotifications
     uuid: ro-2-0-1-op-fc-im-112
@@ -38,14 +53,14 @@ There are no _Managements_, because the _forwarding_ gets already defined during
 
 _TODO: Add Forwardings for transferring data to NewRelease_
 This section is for preparing for a later update process to a new release of your application.  
-If your applications would store own application data into a DATAfile or the CONFIGfile (e.g. _ProfileInstances_), these data should be transferred during upgrade process.  
+If your application would store own data into a DATAfile or the CONFIGfile (e.g. _ProfileInstances_), these data should be transferred during upgrade process.  
 Most likely your application will learn its application data from other applications calling its _OperationServers_.  
-The same _OperationServers_ must be implemented by the succeeding release of the application.  
+The same _OperationServers_ must be implemented by the succeeding release of the application (n-1 backward compatibility).  
 Due to this design rule, it can be presumed that the same services are available for transferring data during the upgrade process.  
-This is the way application data gets transferred from the old release to the new release of an application.  
-There are no _Managements_, because the _forwarding_ gets already defined during design time of the application.  
+So the old release calling the same _OperationServers_ at the new release is the way the data gets transferred.  
+There are no _Managements_, because the _Forwarding_ gets already defined during design time of the application.  
 The following example shows the old release of the _RegistryOffice_ addressing the _/v1/register-application_ at the new release of the _RegistryOffice_ for transferring the list of applications that registered in past.  
-While registering at the new release, the old release of the _RegistryOffice_ is faking being an application that registered at the old release in past.  
+(Be aware that in this particular case, the entire registration and embedding process is initicated on the individual applications.)  
 ```
   - forwarding-name: PromptForBequeathingDataCausesTransferOfListOfAlreadyRegisteredApplications
     uuid: ro-2-0-1-op-fc-im-114
@@ -64,41 +79,83 @@ While registering at the new release, the old release of the _RegistryOffice_ is
 ```
 
 _TODO: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease_
+This section is for preparing for a later update process to a new release of your application.  
+If the old release of your application would have subscribed for notifications at some 3rd applications, it would now send another subscription to these applications.  
+This time, the subscriptions would not contain contacts of the old release, but those of the new release.  
+The following example shows the old release of the _TypeApprovalRegister_ addressing the _/v1/inquire-application-type-approvals_ at the _RegistryOffice_ for prompting it to request for type approval information at the new release of the _TypeApprovalRegister_.  
+```
+  - forwarding-name: PromptForBequeathingDataCausesRObeingRequestedToInquireForApplicationTypeApprovalsAtNewTAR
+    uuid: tar-2-0-1-op-fc-im-112
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: tar-2-0-1-op-s-im-000
+    consequent-requests:
+      - client-name: RegistryOffice://v1/inquire-application-type-approvals
+        uuid: tar-2-0-1-op-c-im-ro-2-0-1-000
+```
 
-hier geht's weiter
+_TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease_
+This is the last section for preparing for a later update process to a new release of your application.  
+If the old release of your application would have subscribed for notifications at some 3rd applications, it would now unsubscribe at these applications.  
+The following example shows the old release of the _TypeApprovalRegister_ addressing the _/v1/end-subscription_ at the _RegistryOffice_.  
+Because the _TypeApprovalRegister_ subscribed for several kinds of notifications at the _RegistryOffice_ the _/v1/end-subscription_ would have to be sent for several times with different content. This doesn't need to be documented in the _ForwardingList_.  
+```
+  - forwarding-name: PromptForBequeathingDataCausesEndingSubscriptionsToOldRelease
+    uuid: tar-2-0-1-op-fc-im-114
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: tar-2-0-1-op-s-im-000
+    consequent-requests:
+      - client-name: RegistryOffice://v1/end-subscription
+        uuid: tar-2-0-1-op-c-im-ro-2-0-1-003
+```
 
+_TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented_
+This section is for configuring the communication to the _ApplicationLayerTopology_.  
+If receiving a request at some of your individual _OperationServers_ might lead to creation or changing an LTP, the _ApplicationLayerTopology_ needs to be informed about this change.  
+The list of individual services that might have such impact needs to be copied and inserted into here.  
+Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
+Adapt the indents.  
 
+_TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented_
+This section is for configuring the communication to the _ApplicationLayerTopology_.  
+If receiving a request at some of your individual _OperationServers_ might lead to deletion of an LTP, the _ApplicationLayerTopology_ needs to be informed about this change.  
+The list of individual services that might have such impact needs to be copied and inserted into here.  
+Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
+Adapt the indents.  
 
+_TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented_
+This section is for configuring the communication to the _ApplicationLayerTopology_.  
+If receiving a request at some of your individual _OperationServers_ might lead to a change of a _Forwarding_ (like e.g. adding a new _Output_) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
+The list of individual services that might have such impact needs to be copied and inserted into here.  
+Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
+Adapt the indents.  
 
+_TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented_
+This section is for configuring the communication to the _ApplicationLayerTopology_.  
+If receiving a request at some of your individual _OperationServers_ might lead to a change of an _Output_ of an existing _Forwarding_ (e.g. redirecting the reaction of an InvariantProcessSnippet) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
+The list of individual services that might have such impact needs to be copied and inserted into here.  
+Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
+Adapt the indents.  
 
-* In principle, two sections of the Forwardings Template have to be filled:
-  * The Forwardings, which have to be executed after addressing a service, which is individual to the application that is under definition
-  * The Forwardings, which have to be executed by the oldRelease while managing the embedding of a newRelease
-* The following steps are individual to the respective embedding process, and necessary Forwardings have to be described in the Forwarding Template (actual location is indicated by some bars at the right of the template):
-  * Create subscriptions, which are addressing the newRelease, at existing applications. The oldRelease is addressing the same Management Requests, which it originally used to subscribe, now with the contact information of the newRelease
-  * Create subscriptions and configure process snippets inside the newRelease according to the existing configuration of the oldRelease. The oldRelease is addressing the same Management Requests, which have originally been used to configure itself, at the newRelease
-  * Copy own data to newRelease by addressing same services at the newRelease that have originally been used to generate the same data inside the oldRelease
-  * Redirect process snippets inside existing applications from addressing the oldRelease to addressing the newRelease. The oldRelease is addressing the same Management Requests, which it originally used to become part of the process, but now with the contact information of the newRelease
-* Add a new Forwarding box for every Consequent Request, which would differ in parameters or body, to the template
-  * Consequent Requests are a subset of the Operation Clients defined in the Service Template
-  * Consequent Requests will be found in the blue areas of the Service Template; the Operation Clients marked in grey should already been covered by the Forwardings marked in grey
-  * Presumably, most or all Operation Clients from the blue area will require being covered by one or several Forwardings
-* Note the Consequent Requests into the Forwarding boxes
-* Identify the type of Forwarding
-  * Invariant Process Snippets do have invariant number of Consequent Requests
-  * Subscriptions allow increasing the number of Consequent Requests
-* Assign meaningful names to the Forwardings
-  * The names of Process Snippets shall contain “Causes”, e.g. ServiceRequestCausesLoggingRequest
-  * The names of Subscriptions shall end on “Notification”, e.g. DeregistrationNotification
-* Add Management Requests (double check names to distinguish process snippets and subscriptions)
-  * Management Requests are for configuring the Forwarding. Because the Operation Server is invariant, configuration is mostly focused on Operation Clients. Configuration usually concerns where to send the Consequent Request and when to (start) sending.
-  * The Forwarding box distinguishes Management Requests by effect on the internal model structure
-  * The Management Request stated in “operation client creation” has to contain all necessary information (e.g. operation, IP address and port) about where to send the Consequent Request
-  * The Management Request stated in “fc-port creation” is used for starting the forwarding
-  * The Management Request stated in “fc-port deletion” is used for stopping the forwarding
-  * The Management Request stated in “operation client deletion” is used for stopping the forwarding and deleting the client server relationship inside the data of the application
-  * These different types of Management Requests are required, because necessary information inside the requests are sometimes provided by different sources. E.g. the planned receiver of the Consequent Request has to inform about its operation and IP, but the actual sending of the Consequent Request has to be approved by another application
-  * Management Requests are a subset of the Operation Servers defined in the Service Template
-  * Management Requests, which are required to describe additional Forwardings are expected to be found in the green area or the Service Template
-  * Forwardings, which are managed by Operation Servers that are marked in grey, have already been described and are marked in grey color in the Forwarding Template
-  * Sometimes, the Initiating Request is identical with the Management request. E.g. in case of the /v1/register-yourself, the prompt to register at the RegistryOffice contains the IP address and port of the RegistryOffice. In such case, just put “same request” to indicate that management and initiation is actually executed by the same request. If two separate requests would be required, the service name is to be stated twice
+_TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented_
+This is the last section for configuring the communication to the _ApplicationLayerTopology_.  
+If receiving a request at some of your individual _OperationServers_ might lead to removing an _Output_ from an existing _Forwarding_ (e.g. unsubscribing) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
+The list of individual services that might have such impact needs to be copied and inserted into here.  
+Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
+Adapt the indents.  
+
+_TODO: Potential INDIVIDUAL Forwardings to be added_
+All the forwardings, which are individual to your application, have to be added here.  
