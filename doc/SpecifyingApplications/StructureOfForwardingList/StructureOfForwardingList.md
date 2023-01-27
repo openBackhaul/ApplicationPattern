@@ -28,7 +28,7 @@ The complete list of individual services that you added to the _ServiceList_ has
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease_
+_TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease_  
 This section is for preparing for a later update process to a new release of your application.  
 If your application would offer subscriptions to other applications, subscriptions that might already exist at the time of the future upgrade shall be configured by the old release on the new release of your application.  
 The following example shows the old release of the _RegistryOffice_ addressing the _/v1/notify-approvals_ at the new release of the _RegistryOffice_.  
@@ -51,7 +51,7 @@ There are no _Managements_, because the _Forwarding_ gets already defined during
         uuid: ro-2-0-1-op-c-im-nr-2-0-1-002
 ```
 
-_TODO: Add Forwardings for transferring data to NewRelease_
+_TODO: Add Forwardings for transferring data to NewRelease_  
 This section is for preparing for a later update process to a new release of your application.  
 If your application would store own data into a DATAfile or the CONFIGfile (e.g. _ProfileInstances_), these data should be transferred during upgrade process.  
 Most likely your application will learn its application data from other applications calling its _OperationServers_.  
@@ -78,7 +78,7 @@ The following example shows the old release of the _RegistryOffice_ addressing t
         uuid: ro-2-0-1-op-c-im-nr-2-0-1-004
 ```
 
-_TODO: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease_
+_TODO: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease_  
 This section is for preparing for a later update process to a new release of your application.  
 If the old release of your application would have subscribed for notifications at some 3rd applications, it would now send another subscription to these applications.  
 This time, the subscriptions would not contain contacts of the old release, but those of the new release.  
@@ -100,7 +100,7 @@ The following example shows the old release of the _TypeApprovalRegister_ addres
         uuid: tar-2-0-1-op-c-im-ro-2-0-1-000
 ```
 
-_TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease_
+_TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease_  
 This is the last section for preparing for a later update process to a new release of your application.  
 If the old release of your application would have subscribed for notifications at some 3rd applications, it would now unsubscribe at these applications.  
 The following example shows the old release of the _TypeApprovalRegister_ addressing the _/v1/end-subscription_ at the _RegistryOffice_.  
@@ -122,40 +122,40 @@ Because the _TypeApprovalRegister_ subscribed for several kinds of notifications
         uuid: tar-2-0-1-op-c-im-ro-2-0-1-003
 ```
 
-_TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented_
+_TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented_  
 This section is for configuring the communication to the _ApplicationLayerTopology_.  
 If receiving a request at some of your individual _OperationServers_ might lead to creation or changing an LTP, the _ApplicationLayerTopology_ needs to be informed about this change.  
 The list of individual services that might have such impact needs to be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented_
+_TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented_  
 This section is for configuring the communication to the _ApplicationLayerTopology_.  
 If receiving a request at some of your individual _OperationServers_ might lead to deletion of an LTP, the _ApplicationLayerTopology_ needs to be informed about this change.  
 The list of individual services that might have such impact needs to be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented_
+_TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented_  
 This section is for configuring the communication to the _ApplicationLayerTopology_.  
 If receiving a request at some of your individual _OperationServers_ might lead to a change of a _Forwarding_ (like e.g. adding a new _Output_) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
 The list of individual services that might have such impact needs to be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented_
+_TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented_  
 This section is for configuring the communication to the _ApplicationLayerTopology_.  
 If receiving a request at some of your individual _OperationServers_ might lead to a change of an _Output_ of an existing _Forwarding_ (e.g. redirecting the reaction of an InvariantProcessSnippet) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
 The list of individual services that might have such impact needs to be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented_
+_TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented_  
 This is the last section for configuring the communication to the _ApplicationLayerTopology_.  
 If receiving a request at some of your individual _OperationServers_ might lead to removing an _Output_ from an existing _Forwarding_ (e.g. unsubscribing) inside your application, the _ApplicationLayerTopology_ needs to be informed about this change.  
 The list of individual services that might have such impact needs to be copied and inserted into here.  
 Use CTRL+h for replacing 'operation-name:' by 'server-name:'.  
 Adapt the indents.  
 
-_TODO: Potential INDIVIDUAL Forwardings to be added_
+_TODO: Potential INDIVIDUAL Forwardings to be added_  
 All the forwardings, which are individual to your application, have to be added here.  
