@@ -15,7 +15,6 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 **Step-by-Step Guidelines**
 * [Update Configuration](./Infrastructure/SdnLaboratory/IpAddresses/updateconfiguration.md)
 
-
 ## Tools
 To achieve automated testing and delivery process, requires a SDN pipeline dockerize environment setup using below mentioned tools,which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
 ### Jenkins
@@ -59,10 +58,9 @@ Git makes it easy to use by users:
 * [More about Git commands](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 ### Docker
-Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to call as configuration management tool that is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers help applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying applications.
+Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers helps applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying applications.
 
 **Concepts**
-* [Advantages of Docker](./Infrastructure/Tools/Docker/DockerIntroduction.md#advantages-of-docker)
 * [Docker objects](./Infrastructure/Tools/Docker/DockerIntroduction.md#docker-objects)
 * [Docker adhoc commands](./Infrastructure/Tools/Docker/DockerUsefulCommands.md)
 * [Docker Volumes](./Infrastructure/Tools/Docker/DockerVolumes.md)
@@ -79,24 +77,23 @@ Docker is an open source platform that enables developers to build, deploy, run,
 * [Basics of Docker](https://docs.docker.com/engine/ )
 * [Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
 * [Docker volumes reference](https://docs.docker.com/storage/volumes/)
-### Newman and newman-reporter-htmlextra
-Newman is a command-line collection runner for Postman. It allows us to run and test a Postman collection directly from the command-line. It is built with extensibility in mind so that can easily integrate it with continuous integration servers and build systems.
+### Newman and Newman-reporter-htmlextra
+Newman is a command-line collection runner for Postman. It allows us to run and test a Postman collections directly from the command-line. It used for testing and validating APIs as well.
+
+Newman-reporter-htmlextra is an open-source Node.js package which provides an HTML reporter for Newman. It generates detailed HTML reports for the collections includes the total number of requests, response time, and error messages for each testcase in collection. 
 
 **Step-by-Step Guidelines**
 * [Newman Installation](./Infrastructure/Tools/Newman/Newman.md#install-newman-and-newman-reporter-htmlextra)
-* [Basic options and Usage](./Infrastructure/Tools/Newman/Newman.md#basic-options-and-usage)
+* [Newman options and Usage](./Infrastructure/Tools/Newman/Newman.md#basic-options-and-usage)
 
 **Documents**
-* [NodeJs Installation on Redhat](https://linuxconfig.org/how-to-install-node-js-on-redhat-8-linux)
-* [NPM Installation](https://linuxconfig.org/how-to-install-npm-on-redhat-8)
-* [NodeJs Installation on ubuntu](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04)
-* [Newman Installation](https://www.npmjs.com/package/newman)
-* [Newman-reporter-htmlextra Installation](https://www.npmjs.com/package/newman-reporter-htmlextra)
+* [Newman reference](https://learning.postman.com/docs/running-collections/using-newman-cli/newman-options/)
+
 ### HAScripts
-HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. current architecture  have multiple instances of Applications running and if one of them crashes, we still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
+HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. current architecture have multiple instances of applications running and if one of them crashes, we still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
 
 **Step-by-Step Guidelines**
-* [Process of HA Script and Usage](./Infrastructure/Tools/Scripts/Scripts.md)
+* [HA Script Usage](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
  Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently.
