@@ -1,10 +1,11 @@
 ### Create/Add Users in Jenkins & Manage Access levels
 
-In large organizations, there are multiple separate teams to manage and run jobs in Jenkins. By default, Jenkins comes with very basic user creation options. Adminuser can create multiple users but can only assign global roles and privileges to them.
+In large organizations, there are multiple separate teams to manage and run jobs in Jenkins. By default, Jenkins comes with very basic user creation options. Admin user can create multiple users but can only assign global roles and privileges to them.
 
 The Role Strategy Plugin enables to assign different roles and privileges to different users. To get this feature, need to install this plugin in Jenkins environment.
 
-**Steps to Enable the Role-based access**
+**Steps to enable the Role-based access overview**
+- Log in to Jenkins with an admin credentials
 - Install "Role-based Authorization Strategy" plugin in Jenkins.
 - Enabling plugin in Global security section.
 - Create/Add a User in Jenkins.
@@ -17,9 +18,9 @@ The Role Strategy Plugin enables to assign different roles and privileges to dif
 Installing plugin through Jenkins dashboard as follow.
 
 * First login into Jenkins.
-* Go to Jenkins Dashboard"Manage Jenkins" and click on it
-* Click on "Manage Plugins2 option
-* In the available section, "search" for “role”.
+* Go to Jenkins Dashboard "Manage Jenkins" and click on it
+* Click on "Manage Plugins" option
+* In the "available" section, "search" for “role”.
 * Select "Role-based Authorization Strategy" plugin
 * Click on “Install without restart” 
 
@@ -33,19 +34,21 @@ Installing plugin through Jenkins dashboard as follow.
 
 * Go to "Manage Jenkins" 
 * click on "Configure Global Security"  
-* select the checkbox of "Enable securityUnder", 
-* Go to section "Authorization," 
+![globalsecuritysecurity](./Images/globalrolebasedsecurity.png)
+
+* select the checkbox of "Enable security" 
+* Go to section "Authorization" 
 * Select radio button "Role-Based Strategy"
 * Click on "apply" and "Save".
 
 ![globalsecurity](./Images/globalrolebased.png)
 
-**Create/Add a User in Jenkins**
+**Create/Add User in Jenkins**
 
 * Goto "Manage Jenkins"  
 * Under "security" section click on "Manage users"  
 * click on "create user"  
-* enter user credentials 
+* enter user details
 * click on "create user"
 ![adduser](./Images/adduser.png)
 
@@ -64,7 +67,7 @@ Following are the steps on how to manage and assign roles for users:
 
 ![manageroles](./Images/manageroles.png)
 
-**Note:** The "Manage and Assign Roles" option will only be visible if already installed the role strategy plugin.
+**Note:** The "Manage and Assign Roles" option will only be visible if already installed the role based strategy plugin.
 
 -   Click on "Manage Roles" to add new roles
 
@@ -108,8 +111,7 @@ We can create project specific roles under "Project Roles" for group of people i
 
 -   Go to "Manage and Assign Roles"
 -   Enter a role as “tester”
--   Add a pattern like "tester.\*"(so that any username
-starting with “tester” will be assigned the project role)
+-   Add a pattern like "tester" (so that any username starting with “tester” will be assigned the project role)
 -   Click "Add"
 -   Select privileges/access levels
 -   Click "Apply" and "Save"

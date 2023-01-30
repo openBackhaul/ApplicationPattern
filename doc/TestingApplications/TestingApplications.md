@@ -28,14 +28,13 @@ Jenkins is an open source continuous integration/continuous delivery and deploym
 * [Jenkins Installation](./Infrastructure/Tools/Jenkins/JenkinsInstallation.md)
 * [Environment SetUp](./Infrastructure/Tools/Jenkins/EnvironmentSetup.md)
 * [Install required plugins](./Infrastructure/Tools/Jenkins/PluginInstallation.md)
-* [Manage Users and Access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
+* [Manage Users and access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
 * [Configure master-slave configuration](./Infrastructure/Tools/Jenkins/MasterSlaveConfiguration.md)
 * [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
 
 **Documents**
-* [Installation of Jenkins](https://www.jenkins.io/doc/book/installing/)
-* [Download New Plugins](https://updates.jenkins-ci.org/download/plugins/)
-* [Role based strategy](https://plugins.jenkins.io/role-strategy/)
+* [Download Plugins reference](https://updates.jenkins-ci.org/download/plugins/)
+* [Jenkins overview reference](https://www.jenkins.io/doc/tutorials)
 
 ### Git, GitHub
 It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
@@ -68,13 +67,11 @@ Docker is an open source platform that enables developers to build, deploy, run,
 **Step-by-Step Guidelines**
 * [Docker Installation](./Infrastructure/Tools/Docker/Installation.md)
 * [Docker Usage in Microwave SDN Laboratory](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
-* [Example Application RegistryOffice](./Infrastructure/Tools/Docker/UtilizationInSDN.md#dockerized-sdn-application-with-registryoffice-example)
+* [Pictorial representation of application and deployment example](./Infrastructure/Tools/Docker/UtilizationInSDN.md#example-pictorial-representation-of-application-and-deployment)
 * [How to debug container using Adhoc commands](./Infrastructure/Tools/Docker/DebuggingContainer.md)
 
 **Documents**
-* [Docker Installation Process for RHEL](https://linuxconfig.org/how-to-install-docker-in-rhel-8)
-* [Docker Installation Process for Ubuntu]( https://phoenixnap.com/kb/install-docker-on-ubuntu-20-04)
-* [Basics of Docker](https://docs.docker.com/engine/ )
+* [Docker Overview](https://docs.docker.com/get-started/overview/ )
 * [Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
 * [Docker volumes reference](https://docs.docker.com/storage/volumes/)
 ### Newman and Newman-reporter-htmlextra
