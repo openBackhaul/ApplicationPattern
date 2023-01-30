@@ -6,9 +6,13 @@
 
 **Jenkins slaves** takes the instructions/commands from master and execute the jobs.
 
-To configure the slave nodes, Open Jenkins Dashboard=>Click on Manage Jenkins=>Click on Manage Nodes and Clouds=>New node.
+To configure the slave nodes, 
+* Open Jenkins Dashboard
+* Select "Manage Jenkins"
+* Click on Manage Nodes and Clouds
+* Select New node.
 
-Enter the Nodename and select create.
+Enter the nodename and select create.
  ![image](./Images/Addslave.PNG)
 
  Once click on create, it prompts below screen, In that we have to enter the details like nodename, Remote root directory etc.

@@ -14,9 +14,9 @@ There are two methods for installing plugins in Jenkins:
 
 ### Installing plugins through Jenkins dashboard
 * To install plugins first login into Jenkins. 
-* Under Jenkins Dashboard left side we have manage Jenkins options, click on it.
-* Select manage plugins 
-* Under available section search for required plugin and select it then click on install without restart. 
+* Jenkins Dashboard left side, select “Manage Jenkins”, click on it.
+* Select “Manage Plugins” 
+* Select the "Available" tab section and search for required plugin and select it then click on install without restart.
 
 The procedure is applicable for other required plugin's installation in Jenkins. Below is one of the example plugin (GIT plugin) installation that required for SDN setup. 
 
@@ -28,7 +28,7 @@ In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenki
 
 ![JenkinsPlugins](Images/manageplugins.png)
 
-* click on the "Available tab".
+* click on the "Available" tab.
 
 ![Jenkinsplugins](Images/availableplugin.png)
 
@@ -44,18 +44,27 @@ We can also click on "Download now and install after restart" button in which th
 
 ![InstallPage](Images/Gitplugin.png)
 
-**Note** The procedure is same for all other required plugin installation.
+**Note:** The procedure is same for all other required plugin installation.
 
 
 #### Download the plugin from Jenkins website and installing it manually.
 
-If any plugins we required to upgrade or downgrade first, we can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](../../../TestingApplications.md).
+If any plugins we required to upgrade or downgrade first, we can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
 
 **Note**: download plugins with .hpi extension only.
 
-To upload plugins to Jenkins Goto, Manage Jenkins==>manage plugins==> under advance section ==>under deploy plugin click on choose file then upload earlier download plugin.
+* Download the plugin from the Jenkins Plugin page. 
+* Go to the Jenkins Home page and click "Manage Jenkins".
+* Select "Manage Plugins" and then "Advanced" tab.
+* go to "Deploy Plugin" and click "Choose File" and select the plugin file(.hpi) downloaded.
 
 ![deployimage](Images/deployplugin.png)
+* Click Deploy and Jenkins will install the plugin
+
+![upload](Images/uploadhpi.png)
+![success upload and deploy ](Images/deploypluginuploadandsuccess.png)
+
+* Restart the Jenkins server for the changes to take effect.
 
 
 [<-Back to EnvironmentSetup](./EnvironmentSetup.md) - - - [Back to main TestingApplications](../../../TestingApplications.md) - - - [a head to ManageUsers and Access levels->](./ManageUsers.md)

@@ -1,5 +1,5 @@
 ## Environment SetUp
-Once Jenkins is up and running, adjust the firewall rules so that user can reach it from a web browser to complete the initial setup. After enabling the firewall port, reload the firewall setup.
+Once Jenkins is up and running, adjust the firewall rules so that user can reach it from web browser to complete the initial setup. After enabling the firewall port, reload the firewall setup.
 
 ### Enabled firewall support for XXXX(default 8080) port
 

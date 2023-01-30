@@ -46,7 +46,7 @@ While running the applications as container, the created volumes will be maintai
         example: WebApp@WebApp:/var/lib/docker$ docker ps
         207f3f43e0e2   cicd_user/registry-office-v1               "docker-entrypoint.s…"   23 hours ago   Up 2 hours         0.0.0.0:xxxx->xxxx/tcp, :::xxxx->xxxx/tcp  
         
-#### Example pictorial representation of application, its deployment
+#### Example pictorial representation of application and deployment
 Using above procedure, created all applications as container on app server and below is the example for one application.
 
 ![SDN dockerize Application Pattern overview](Images/exmpleROdockerimage.PNG)

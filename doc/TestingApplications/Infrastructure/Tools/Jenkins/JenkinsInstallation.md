@@ -3,39 +3,40 @@
 Before installing the Jenkins, it is recommend to install Java software. Based on type of OS, choose the installation commands.
 
 #### Steps to install Java 
-     "apt-get update"
-     "apt install default-jre" for ubuntu
-     "apt install default-jdk" for ubuntu
+* Start by updating the package index
+
+       "apt-get update" for ubuntu
+       "dnf update" for redhat
+* Install Java
+
+      "apt install default-jre" for ubuntu
+      "apt install default-jdk" for ubuntu
      
-     "dnf update" for rhel
-     "dnf install java-1.8.0-openjdk-devel"
-     "install JDK 8"
-     "dnf install java-11-openjdk-devel"
-     "install JDK 11"
+      "dnf install java-11-openjdk-devel" install JDK 11 for redhat
 
-    Check the version to verify whether installed or not.
-     "java –version"
-     "javac –version"
-
-**Documents**
-* [Install Java on ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04)
-* [Install Java on rhel](https://www.tecmint.com/install-java-on-rhel-8/)
+* Check the version to verify whether installed or not.
+      
+      java –version
 
 ### Jenkins Installation steps
-It is recommend to update the local repository server using "**apt update**" and  install the jenkins.
 
-    "apt-get install jenkins" for ubuntu
-    "yum install Jenkins" for redhat
+* Install the jenkins using below command.
+
+      "apt-get install jenkins" for ubuntu
+      "yum install Jenkins" for redhat
+* To enable the Jenkins service to start at boot with the below command
+
+      systemctl enable jenkins
     
-  **Start Jenkins:** : Start Jenkins by using systemctl commands
+* Start the Jenkins service with the below command
   
-        "systemctl start jenkins"
+        systemctl start jenkins
         
-  **Status Jenkins:** : Check status using below command
+* Check status using below command
   
-        "systemctl status jenkins"
+        systemctl status jenkins
         
-Once Installation is done, the status command output provides that the service is active and configured to start at boot: 
+Once Installation is done and started the jenkins service, the status command output provides that the service is active and configured to start at boot: 
 
 **Output**
 
