@@ -66,7 +66,9 @@ The ProfileInstanceList lists all objects created from the Profile classes; it s
 The ForwardingList must describe all relationships between events and reactions that need to be documented and configurable at the application.
 
 **Concepts**
-* [Concepts of the ForwardingList](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)
+- [Concepts of the _ForwardingList_](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)  
+- [Structure of the _ForwardingList_](./StructureOfForwardingList/StructureOfForwardingList.md)  
+- [Structure of a Description of a _Forwarding_](./StructureOfForwardingDescription/StructureOfForwardingDescription.md)
 
 **Step-by-Step Guidelines**
 * [Creating the ForwardingList](./CreatingForwardingList/CreatingForwardingList.md)
