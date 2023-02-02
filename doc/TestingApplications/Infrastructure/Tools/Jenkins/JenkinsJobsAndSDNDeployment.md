@@ -1,5 +1,5 @@
-### List of Jenkins Jobs 
-In the current setup, we are using below types of jobs
+### Jenkins Jobs  creation
+In the current setup, sdn environment using below types of automated jobs 
 * Freestyle project jobs
 * Pipeline jobs (Declarative Pipelines)
 
@@ -22,7 +22,7 @@ Steps to create and configure the jobs
 - Automated Mediator upgrade and readonly data testing using free style jobs.
 - Automated scheduled/cron sanity testing using free style jobs.
 - Automated Controller upgrade.
-- version wise dockerized pipeline jobs for application deployments.
+- Version wise dockerized pipeline jobs for application deployments.
 - Acceptance and Integration testing jobs for application pattern applications.
 
 [<-Back to MasterSlave configuration](./MasterSlaveConfiguration.md) - - - [Back to main TestingApplications](../../../TestingApplications.md)

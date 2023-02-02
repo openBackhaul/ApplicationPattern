@@ -1,5 +1,5 @@
 ## Integration Testing automation procedure 
-Once Application deployed and automatically tessuites execution performed on production test server.
+Once Application deployed and automatically testsuites execution performed on production test server.
 
 As a prerequisite, the related test tools mentioned earlier to be installed and set up should done the server.
 
@@ -117,6 +117,6 @@ As part of pipeline configuration setup and running the test suites and also con
 
 #### Email Notification
 
-Email notification configuration done as part of groovy script only. Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
+Email notification configuration done as part of groovy script only. Once test suite execution is completed, the notification with execution reports and job URL's sent to developers and cicd engineer.
 
 [<-Back to main Testing Applications->](../../TestingApplications.md)

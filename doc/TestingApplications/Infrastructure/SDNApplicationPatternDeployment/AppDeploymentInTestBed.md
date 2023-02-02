@@ -1,24 +1,20 @@
 
-### Application Deployment in Test Bed
+## Application Deployment in Testbed
+This section explains how to deploy application through jenkins automation job using docker framework in testbed.
 
-This section tells how to deploy application through jenkins automation using docker framework. 
-
-Below are procedure to create the automation job in testbed.
-
-#### Automated Pipeline Steps
+## Automated pipeline steps
 - Pipeline job creation
 - Build the declarative pipeline script
-- Verify the applications are up and running
+- Verification of application status
 - Run the Automation testsuites
  
 ### Create pipeline jobs with all necessary configurations
 
-[Please refer the previous section for creating the jenkins job](../Tools/Jenkins/JenkinsJobsAndSDNDeployment.md#list-of-jenkins-jobs)
+Please refer the previous section for [creating the jenkins job](../Tools/Jenkins/JenkinsJobsAndSDNDeployment.md#list-of-jenkins-jobs)
 
 ### Declarative pipeline script
-To automated script, currently used the groovy scripting and docker commands and few shell commands executed.
-
-Below are the stages executed:
+For automating the procedure, groovy scripting, docker commands and few shell commands are used.
+Below are the stages executed as part of script
 
 - Source stage where takes the clone of source code from github as local repository
 - Docker build stage which cleans the old image data and build the new image
@@ -27,9 +23,8 @@ Below are the stages executed:
 - Execute automated acceptance testsuites and collects html test reports by test server.
 - Approve build for production if everything ok in testing
 
-Follow all stages like clone, build, deploy and test the applications in Testbed.  Once everything is fine, we will save the docker images as tar file in WebApp server.
-
-Pipeline Configuration : 
+#### Example groovy pipeline script
+ 
         
     pipeline {
       agent {
@@ -63,8 +58,8 @@ Pipeline Configuration :
   
 **Note** : above provided sample script code is just an example, based on requirements user can develop his own groovy script/shell script.
     
-#### Verify the applications are up and running
-Once Applications(ex: RO,TAR,EATL etc) deployed as containers, Go to the browser and check the Ip address with port XXXX which exposed in docker file is accessible or not. if it accessible then application swagger started up and running.
+### Verification of application status
+Once Applications (ex: RO,TAR,EATL etc) deployed as containers, go to the browser and check the Ip address with port XXXX (exposed in docker file) is accessible or not. if it accessible then application swagger started up and running.
 
 Below is the format for the swagger created for application pattern applications.
 
@@ -75,9 +70,9 @@ Below is the example of RegistryOffice application which deployed on testbed alr
 
 ![Example RO](Images/Ro.png) 
 
-### Run the Automation Testsuites 
-Automation testsuites running once after the application deployment is done. The testing will performed on testserver as mentioned earlier.
+### Run Automation Testsuites 
+Once application deployment is done, automatically the testing job started to test the testcases. The testing will performed on testserver as mentioned earlier.
 
-- #### [Acceptance testing procedure](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
+- ### [Acceptance testing procedure](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
 
 [<-Back to Workflow](./WorkFlow.md) - - - [Back to main Testing Applications](../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)

@@ -1,13 +1,12 @@
 ### Install Plugins
   In Jenkins by default, adminuser installs all required plugins while installing Jenkins. If required any other plugins, adminuser can install manually after configuring Jenkins by below procedure. 
 
-
 ### Plugin manager
 The Plugin Manager allows to manage, enable and disable the plugins and to edit a plugin's details and options. 
 
 ![](Images/pluginmanager.png)
 
-There are two methods for installing plugins in Jenkins:
+There are two methods for installing plugins in Jenkins
 
 * Installing plugins through Jenkins dashboard
 * Downloading the plugin from Jenkins website and installing it manually.
@@ -32,8 +31,8 @@ In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenki
 
 ![Jenkinsplugins](Images/availableplugin.png)
 
-* The "Available" tab show us a list of plugins which are available for downloading. In Filter tab, enter "GIT Plugin" and select the plugin and Click on the "install without restart". 
-We can also click on "Download now and install after restart" button in which the git plugin is installed after restart.
+* The "Available" tab shows a list of plugins which are available for downloading. In Filter tab, enter "GIT Plugin" and select the plugin and Click on the "install without restart". 
+User can also click on "Download now and install after restart" button in which the git plugin is installed after restart.
 
 ![Jenkinsrestart](Images/install%20without%20restart.jpg)
 
@@ -49,7 +48,7 @@ We can also click on "Download now and install after restart" button in which th
 
 #### Download the plugin from Jenkins website and installing it manually.
 
-If any plugins we required to upgrade or downgrade first, we can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
+If any plugins user required to upgrade or downgrade first, User can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
 
 **Note**: download plugins with .hpi extension only.
 

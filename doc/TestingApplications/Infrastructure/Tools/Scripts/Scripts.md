@@ -1,7 +1,7 @@
 ## Scripts
-### **High Availability Script[HA]**
+### High Availability Script[HA]
 ### Prerequisite 
-To start HA script. required "lsof" and docker (installation procedure is already available in previous sections) to be installed.
+To start HA script, required "lsof" and "docker" (installation procedure is already available in [previous sections](../../../TestingApplications.md#docker)) is to be installed.
 
 Below steps are used to install **lsof**
 
@@ -20,11 +20,11 @@ Below steps are used to install **lsof**
 This command should output the version of lsof that has been installed.       
 
 ### Usage: 
-Using below command, start the script in background which will monitor all applications whether they are running or not and related log file also created and logged the messages. The HAscript if any running containers/applications exited/crashed then automatically restarted the container.
+Using below command, start the script in background which will monitor all applications whether they are running or not and related log file also created and logged the messages. The HAscript if any running containers/applications exited/crashed then automatically restarted the containers.
 
       ./HAscript.sh &
 
-Once started related log file also created and below is the example file.
+A related log file also created after starting the HA script and below is the example file.
 
     WebApp@WebApp:~/HAscripts$ ls
     TACHans.log

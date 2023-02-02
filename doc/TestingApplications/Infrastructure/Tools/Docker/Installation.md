@@ -21,7 +21,7 @@ It is recommend to check before installing docker software whether docker is alr
         systemctl is-active docker
         systemctl is-enabled docker
 
-Once docker installed and we can see the complete related information in path of /var/lib/docker.
+Once docker is installed, the complete related information will be available in path of /var/lib/docker on server.
 
 ![dockerpath](./Images/dockerpathonserver.PNG)
 

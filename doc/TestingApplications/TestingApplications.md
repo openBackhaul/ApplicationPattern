@@ -15,7 +15,7 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 * [Update Configuration](./Infrastructure/SdnLaboratory/IpAddresses/updateconfiguration.md)
 
 ## Tools
-To achieve automated testing and deployment process, requires a SDN pipeline dockerize environment setup using below mentioned tools, which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
+To achieve automated testing and deployment process, requires a SDN pipeline dockerize environment setup using below mentioned tools,   which give how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit from GitHub develop branch.
 ### Jenkins
 Jenkins is an open source continuous integration/continuous deployment (CI/CD) automation software tool written in Java programming language. It helps to automate the software activities like building, testing, deploying which makes easier to developers to deliver the Software modules. It is the leading tool for CI.
 
@@ -29,16 +29,15 @@ Jenkins is an open source continuous integration/continuous deployment (CI/CD) a
 * [Install required plugins](./Infrastructure/Tools/Jenkins/PluginInstallation.md)
 * [Manage Users and access levels](./Infrastructure/Tools/Jenkins/ManageUsers.md)
 * [Configure master-slave configuration](./Infrastructure/Tools/Jenkins/MasterSlaveConfiguration.md)
-* [Jenkins Jobs for SDN project](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
+* [Jenkins jobs creation](./Infrastructure/Tools/Jenkins/JenkinsJobsAndSDNDeployment.md)
 
 **Documents**
-* [Download Plugins reference](https://updates.jenkins-ci.org/download/plugins/)
 * [Jenkins overview reference](https://www.jenkins.io/doc/tutorials)
+* [Download Plugins reference](https://updates.jenkins-ci.org/download/plugins/)
 
 ### Git, GitHub
-It is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
-Git makes it easy to use by users:
-- Keep track of code history
+Git is a free and open source distributed version control system and easy to learn. It is used more efficiently to manage Git repositories on centralized server. 
+- Keeps track of code history
 - Collaborate on code as a team
 - See who made which changes
 - Deploy code to staging or production
@@ -56,7 +55,7 @@ Git makes it easy to use by users:
 * [More about Git commands](https://docs.github.com/en/get-started/using-git/about-git ) 
 
 ### Docker
-Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers helps applications to work efficiently in different environments. docker Containerization is very friendly in building and deploying applications.
+Docker is an open source platform that enables developers to build, deploy, run, update and manage containers of applications. It is used to automate the deployment of software in lightweight containers which can run on any OS environment. These containers helps applications to work efficiently in different environments.
 
 **Concepts**
 * [Docker objects](./Infrastructure/Tools/Docker/DockerIntroduction.md#docker-objects)
@@ -66,7 +65,6 @@ Docker is an open source platform that enables developers to build, deploy, run,
 **Step-by-Step Guidelines**
 * [Docker Installation](./Infrastructure/Tools/Docker/Installation.md)
 * [Docker Usage in Microwave SDN Laboratory](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
-* [Pictorial representation of application and deployment example](./Infrastructure/Tools/Docker/UtilizationInSDN.md#example-pictorial-representation-of-application-and-deployment)
 * [How to debug container using Adhoc commands](./Infrastructure/Tools/Docker/DebuggingContainer.md)
 
 **Documents**
@@ -74,9 +72,9 @@ Docker is an open source platform that enables developers to build, deploy, run,
 * [Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
 * [Docker volumes reference](https://docs.docker.com/storage/volumes/)
 ### Newman and Newman-reporter-htmlextra
-Newman is a command-line collection runner for Postman. It allows us to run and test a Postman collections directly from the command-line. It used for testing and validating APIs as well.
+Newman is a command-line collection runner for Postman. It allows to run and test a postman collections directly from the command-line. It used for testing and validating APIs as well.
 
-Newman-reporter-htmlextra is an open-source Node.js package which provides an HTML reporter for Newman. It generates detailed HTML reports for the collections includes the total number of requests, response time, and error messages for each testcase in collection. 
+Newman-reporter-htmlextra is an open-source node.js package which provides an HTML reporter for Newman. It generates detailed HTML reports for the collections includes the total number of requests, response time, and error messages for each testcase in collection. 
 
 **Step-by-Step Guidelines**
 * [Newman Installation](./Infrastructure/Tools/Newman/Newman.md#install-newman-and-newman-reporter-htmlextra)
@@ -86,23 +84,23 @@ Newman-reporter-htmlextra is an open-source Node.js package which provides an HT
 * [Newman reference](https://learning.postman.com/docs/running-collections/using-newman-cli/newman-options/)
 
 ### HAScripts
-HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. current architecture have multiple instances of applications running and if one of them crashes, we still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
+HighAvailability is an ability to monitor/operate the services continuously with minimal of zero failures. Current architecture have multiple instances of applications running and if one of them crashes, still have the other instances working and available. HA will make sure that all instances are up and running, If required will resume the crashed instances also.
 
 **Step-by-Step Guidelines**
 * [HA Script Usage](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
- Application pattern is building on application layer where the complex applications are run and deploy independently.
+ Application pattern is build on application layer where the complex applications are run and deploy independently.
 
 **Concepts**
 * [WorkFlow](./Infrastructure/SDNApplicationPatternDeployment/WorkFlow.md)
 
 **Step-by-Step Guidelines**
-* [Application Deployment in Test Bed](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInTestBed.md)
+* [Application Deployment in TestBed](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInTestBed.md)
 * [Application Deployment in Production](./Infrastructure/SDNApplicationPatternDeployment/AppDeploymentInProd.md)
 
 ## Acceptance Testing
-Acceptance testing is a quality assurance (QA) process and this technique performed to determine whether software system has met user/business requirement specifications. It evaluates quality of software. Acceptance Testing run in testbed environment and if everything is ok from acceptance testing then approve the build to production environment to deploy.
+Acceptance testing is a quality assurance (QA) process and this technique performed to determine whether software system has met user/business requirement specifications. It evaluates quality of software. Acceptance Testing run on testbed environment and if everything ok, then approve and  build go for deployment in production environment.
 
 **Step-by-Step Guidelines**
 * [Automated testing procedure](./AcceptanceTesting/Overview/pipelineconfiguration.md) 

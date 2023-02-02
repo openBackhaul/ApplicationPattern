@@ -1,11 +1,12 @@
 ## Newman packages and Newman reporter htmlextra package
 ### Newman Installation 
-The easiest way to install Newman is using npm and to run newman need Node.js. As a prerequisites, check the npm and **Node.js >= v10** installed or not on servers.
-#### Prerequisites Installation
+As prerequisites to install Nemman, check the npm and **Node.js >= v10** installed or not on servers.
+
+### Prerequisites Installation
 #### Install npm
 It is recommend to check before installing, if already have npm installed and check installed version using the  "**npm -v"/"npm --version**".
 
-If not installed, please follow below steps:
+If not installed, please follow below steps
 
 * Update the index of packages on system
     
@@ -41,7 +42,7 @@ If not installed, please follow the steps:
 
 Based on requirement, add the options to newman and run the collections.
 
-The newman run command allows you to specify a collection to be run. we can easily export Postman Collection as a json file from the Postman App and run it using Newman.
+The newman run command allows to specify a collection to be run which can easily export as a json collection file from the Postman App and run it using Newman.
 
     $ newman run examples/sample-collection.json -d data.json
 

@@ -15,10 +15,10 @@ To configure the slave nodes,
 Enter the nodename and select create.
  ![image](./Images/Addslave.PNG)
 
- Once click on create, it prompts below screen, In that we have to enter the details like nodename, Remote root directory etc.
+ Once click on create, it prompts below screen, in that one should enter the details like nodename, remote root directory etc.
  ![image](./Images/Enterconfigurationslave.PNG)
  
-Based on our requirement add the data and save the configuration as below.
+Based on requirement add the data and save the configuration as below.
 ![image](./Images/saveslave.PNG)
 
 Once configured the server with node details and home directory updated for all required nodes then the complete set up is ready in current SDN controller application testing.

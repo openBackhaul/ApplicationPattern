@@ -1,35 +1,34 @@
 
 ## Application Deployment in Production 
-Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
-      
-Here, we are not having connection directly between testbed and production, so **manually copying images into production app server**. Once copied, run the pipeline job in jenkins and deploy the applications.
+Acceptance testing is passed in testbed then the respective build/image will be promoted to production. There is no direct connectivity between testbed and production environments. so **manually transfer the images into production app server**. 
 
-### Pipeline configuration:
-Here how we configure Pipeline job in testbed environment, in the same way we have to configure and install all necessary tools in test bed server.
+Run the pipeline job for deployment and testing further application in jenkins and below is the procedure.
 
-### Automated Pipeline Steps
+## Automated Pipeline Steps
+Configure and install the necessary tools in production test server same as test server in test environment.
 - Pipeline job creation
-- Build the declarative pipeline script
-- Verify the applications are up and running
-- Run the Automation testsuites
+- Build declarative pipeline script
+- Verification of applications status
+- Run Automation testsuites
+- Email Notification
  
-### Create pipeline jobs with required configuration
+### Pipeline job creation with required configuration
 [Please refer the previous section for creating the jenkins job and choose pipeline](../Tools/Jenkins/JenkinsJobsAndSDNDeployment.md#list-of-jenkins-jobs)
 
-### Build the declarative pipeline script 
+### Build declarative pipeline script 
 * Manually transfer the tar file from testbed into production server
 * Load the docker image using docker command
-- Run Docker container using loaded image
-- Configure the email notification
-- Execute automated integration testsuites and collects html test reports by test server. 
+* Run Docker container using loaded image
+* Configure the email notification
+* Execute automated integration testsuites and collects the html test reports
 
-Basic scripting is provided and based on requirements we can use groovy scripts to write the pipeline scripts. Basic format provided here and required scripts and steps added as per requirement.
+The following provided format and required steps added as per requirement.
 
-pipeline {
-   agent {
+    pipeline {
+      agent {
         label 'Appserver'
        }
-   stages {
+     stages {
     stage ('load the docker image'){
     load the image using docker load command
     } 
@@ -39,31 +38,30 @@ pipeline {
     stage ('notification') {
     send email with all details to recipients
     }
-   }
-}
+      }
+    }
 
 **Note** : above provided sample script code is just an example, based on requirements user can develop his own groovy script/shell script.
 
-#### Verify the applications are up and running
-   
-Once Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers, Go to the browser and check the Ip address with port XXXX which exposed in docker file. Verify whether application swagger is up and running.
+### Verification of application status
+Once Applications (ex: RO,TAR,EATL etc) deployed, go to the browser and check the Ip address with port XXXX (exposed in docker file) is accessible or not. if yes, the application swagger is up and running without any issues.
     
-Below is the format for the swagger created for application pattern applications.
+Below is the format of application swagger
 
     http://<serverIp>:<port>/docs/
-Below is the example of RegistryOffice application which deployed on testbed already and attached the picture.
+
+Example: RegistryOffice application which deployed already in environment.
 
     http://125.4.5.11:1234/docs/
 
 ![Example RO](Images/Ro.png) 
 
-#### Run the Automation testsuites 
-Automation testsuites running immediately after application deployment. Integration Testing job configured to run in production test server.
+### Run Automation testsuites 
+Integration Testing job is configured to run only on production servers and these testsuites executed immediately after application deployment. 
 
  - [**Integration testing procedure**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
 
- 
-#### Email Notification
+### Email Notification
 Once test suite execution is completed/deployment is done, the notification with execution reports and job URL's sent to developers and CICD team.
 
 

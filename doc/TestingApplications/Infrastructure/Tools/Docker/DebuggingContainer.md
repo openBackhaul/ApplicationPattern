@@ -1,6 +1,6 @@
-### how to debug docker container issues
+### How to debug/check logs for docker container issues
 
-Mostly previous mentioned commands are used for creation, running and debug the containers.
+Mostly previous mentioned commands are used for creation, running and deploy the containers.
 
 For example, when the docker containers are exited due to some issue, to find out the root cause, have to check information about container and related logs.
 
@@ -56,7 +56,7 @@ Example logs:
         Your server is listening on port xxxx (http://localhost:xxxx)
         Swagger-ui is available on http://localhost:XXXX/docs ..... etc
 
-* Stats the container information using below command and it will give live stream of resource usage, then we can see how much memory used.
+* Stats the container information using below command and it will give live stream of resource usage with consumed memory details.
 
         docker stats <container_id>
 

@@ -83,7 +83,7 @@ To run the suite, we are using below command.
 
 ### Results available
 
-As part of pipeline configuration setup and running the test suites and also configure respective suite workspace. Means after executing the suites, the results are available in this workspace which is a server path **/var/lib/jenkins/workspace/< suitename>/newman**
+For every application testing, the workspace is created on same pipeline means after executing the suites, the results are available in this workspace which is a server path **/var/lib/jenkins/workspace/<respectivesuitename>/newman**
 
 
     Example path for RO suite and collected results :

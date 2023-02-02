@@ -84,30 +84,30 @@ To create a new role we have to follow the below procedure and here explaining  
 
 **Assign Roles in Jenkins**
 
-You can assign roles to users and user groups using the "Assign Roles" screen
+Admin can assign roles to users and user groups using the "Assign Roles" screen
 
 -   User groups represent authorities provided by the Security(e.g. LDAP plugin can provide groups)
 -   There are also two built-in groups: authenticated (users who logged in) and anonymous (any users, including ones who have not logged in)
 
-Now that you have created roles, let us assign them to specific users.
+let's assign created roles to specific users.
 
 -   Go to "Manage Jenkins"
 -   Select Manage and Assign Roles
 
 ![assignrole](./Images/assignrolesuser.png)
 
-We shall add the new role “tester” to user “tester”
+Admin can add the new role “tester” to user “tester”
 
 -   Select "tester" role checkbox for tester user
 -   Click Save
 
 ![testerroles](./Images/testerassign%20-%20Copy.png)
 
- As per requirement, We can create and assign any role to any user.
+ As per requirement, one can create and assign any role to any user.
 
 **Create Project Roles in Jenkins**
 
-We can create project specific roles under "Project Roles" for group of people in team.
+One can create project specific roles under "Project Roles" for group of people in team.
 
 -   Go to "Manage and Assign Roles"
 -   Enter a role as “tester”

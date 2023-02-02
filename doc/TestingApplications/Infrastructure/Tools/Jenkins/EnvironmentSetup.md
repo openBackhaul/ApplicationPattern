@@ -16,7 +16,7 @@ The installation and firewall setup is done, now Jenkins is running on following
 
 **Unlock Jenkins** :
 
-Open above mentioned URL which displays the location of the initial password on unlock screen and read the password key from /var/lib/jenkins/secrets/initialAdminPassword file. You can access Jenkins by providing the password.
+Open above mentioned URL which displays the location of the initial password on unlock screen and read the password key from /var/lib/jenkins/secrets/initialAdminPassword file. User can access Jenkins by providing the password.
 
 **Image**
 
