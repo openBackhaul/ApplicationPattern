@@ -1,61 +1,83 @@
 
 ### Application Deployment in Test Bed
 
+This section tells how to deploy application through jenkins automation using docker framework. 
+
+Below are procedure to create the automation job in testbed.
+
 #### Automated Pipeline Steps
-- Create pipeline jobs with required configuration
-- Pipeline Stages 
-- CI/CD Pipeline Flow
-- Declarative pipeline script
+- Pipeline job creation
+- Build the declarative pipeline script
 - Verify the applications are up and running
 - Run the Automation testsuites
  
-#### Create pipeline jobs with all necessary configurations
-- Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitoring the pipeline 
-- Then develop and add the pipeline script to current pipeline job
-- Apply and save the configurations
-![selecttype](../Tools/Jenkins/Images/SelectJobType.PNG)
-![CofigurePipeline](./Images/JenkinsPipeline.PNG)
+### Create pipeline jobs with all necessary configurations
 
-#### Pipeline Stages
-- Source stage 
-- Docker build stage 
-- Publish Docker image 
-- Deploy application as a container.(TestLab) 
-- Save docker image in local server.
-- Testing stage(Acceptance tests in TestLab and Integration tests in Production) 
-- Approve build for production if everything ok in testing stage 
+[Please refer the previous section for creating the jenkins job](../Tools/Jenkins/JenkinsJobsAndSDNDeployment.md#list-of-jenkins-jobs)
 
-#### CI/CD Pipeline Flow
-   
-![cicdflow](Images/cicdflow.jpg)
+### Declarative pipeline script
+To automated script, currently used the groovy scripting and docker commands and few shell commands executed.
 
-#### Automated pipeline scripts
+Below are the stages executed:
+
+- Source stage where takes the clone of source code from github as local repository
+- Docker build stage which cleans the old image data and build the new image
+- Deploy application image as a container
+- Save docker image as tar file in local server.
+- Execute automated acceptance testsuites and collects html test reports by test server.
+- Approve build for production if everything ok in testing
 
 Follow all stages like clone, build, deploy and test the applications in Testbed.  Once everything is fine, we will save the docker images as tar file in WebApp server.
 
 Pipeline Configuration : 
         
     pipeline {
-      stage ('source stage') - clone the repository in this stage
-      stage ('setup and image build') - clean the old container and build new image
-      stage('Run Docker container') - expose the port and run the container from image
-      stage('save Docker image') - save the docker images
+      agent {
+        label 'WebApp'
+      }
+      stages {
+        stage ('source stage') {
+           git branch: 'develop', url: 'https://github.com/openBackhaul/RegistryOffice.git'
+       }
+      stage ('setup and image build') {
+        steps {
+          <execute the FakeToOriginalIPConverter script for changing the application default ip address to actual ip address >
+          sh 'docker build -t <imagename> .'
+          sh 'docker volume create <volumename>'
+          .....
+        }
+      }
+      stage('Run Docker container') {
+        steps {
+        sh 'docker run -d -p XXXX:XXXX --name <containername> -v <volumename>:<path of the volumetobecreated> <imagename>'
+        sh 'docker ps -a'
+      }
+       }
+      stage('save Docker image') {
+        steps{
+                sh 'docker save -o /home/WebApp/gitlab_stage/docker-images-list/RO/cicd_user-registry-office-v2-$(date +%Y-%m-%d-%H:%M:%S).tar cicd_user/registry-office-v2'
+                }
+            }
+        }
     }
+  
+**Note** : above provided sample script code is just an example, based on requirements user can develop his own groovy script/shell script.
     
 #### Verify the applications are up and running
-Once Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers, Go to the browser and check the Ip address with port XXXx which exposed in docker file. Verify whether application swagger is up and running.
+Once Applications(ex: RO,TAR,EATL etc) deployed as containers, Go to the browser and check the Ip address with port XXXX which exposed in docker file is accessible or not. if it accessible then application swagger started up and running.
+
+Below is the format for the swagger created for application pattern applications.
 
     http://<serverIp>:<port>/docs/
-    ex: http://125.4.5.11:1234/docs/
+Below is the example of RegistryOffice application which deployed on testbed already and attached the picture.
+
+    http://125.4.5.11:1234/docs/
 
 ![Example RO](Images/Ro.png) 
-#### Run the Automation Testsuites 
-Automation testsuites running once after the application deployment.
-- #### [Acceptance Testing](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
 
+### Run the Automation Testsuites 
+Automation testsuites running once after the application deployment is done. The testing will performed on testserver as mentioned earlier.
 
-#### Email Notification
-Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
+- #### [Acceptance testing procedure](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
 
 [<-Back to Workflow](./WorkFlow.md) - - - [Back to main Testing Applications](../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInProduction](../SDNApplicationPatternDeployment/AppDeploymentInProd.md)

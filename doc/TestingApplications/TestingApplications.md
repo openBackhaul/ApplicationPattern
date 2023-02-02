@@ -1,11 +1,10 @@
 # Testing Applications
 ## Infrastructure
 ### SDN Laboratory
-Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we have some general concepts like Controllers, Mediators, Network Elements and SDN Applications.
+Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we are having applications deployment on app server and testing is performing on test server.
 
 **Concepts**
-* [SDN Introduction](../Introduction/Introduction.md)
-* [General Concepts](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
+* [Overview](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
 
 ### Fake Addresses
 **Concepts**
@@ -93,7 +92,8 @@ HighAvailability is an ability to monitor/operate the services continuously with
 * [HA Script Usage](./Infrastructure/Tools/Scripts/Scripts.md)
 
 ## SDN Application Pattern Deployment
- Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently.
+ Application pattern is building on application layer where the complex applications are run and deploy independently.
+
 **Concepts**
 * [WorkFlow](./Infrastructure/SDNApplicationPatternDeployment/WorkFlow.md)
 
@@ -105,12 +105,13 @@ HighAvailability is an ability to monitor/operate the services continuously with
 Acceptance testing is a quality assurance (QA) process and this technique performed to determine whether software system has met user/business requirement specifications. It evaluates quality of software. Acceptance Testing run in testbed environment and if everything is ok from acceptance testing then approve the build to production environment to deploy.
 
 **Step-by-Step Guidelines**
-* [Automated Pipeline Flow](./AcceptanceTesting/Overview/pipelineconfiguration.md) 
+* [Automated testing procedure](./AcceptanceTesting/Overview/pipelineconfiguration.md) 
+
 
 ## Integration Testing
 Integration Testing is finalized testing of software product. Normally software products are divided into different modules and here SDN applications are also developed as individual services. This testing verifies that  software modules are integrated logically and tested as a group. The purpose of this level of testing is to expose defects in the interaction level and checks the proper service/data communications happen among modules/Applications.
 
 **Step-by-Step Guidelines**
-* [Automated Pipeline Flow](./IntegrationTesting/Overview/pipelineconfiguration.md)
+* [Automated testing procedure](./IntegrationTesting/Overview/pipelineconfiguration.md)
 
 [<- Back to Specifying](../SpecifyingApplications/SpecifyingApplications.md) - - - [Up to Main](../Main.md) - - - [Ahead to TinyApplicationController ->](../TinyApplicationController/TinyApplicationController.md)
