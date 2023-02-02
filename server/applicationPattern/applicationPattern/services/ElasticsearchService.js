@@ -37,40 +37,42 @@ class ElasticsearchService {
 
   /**
    * @description This method MUST be called in order to use Elasticsearch client directly.
-   * There is always one instance of ES client runnning within this class. The client is configured
-   * with API key, URL and port found in config file. Before returning existing client, this
-   * method also checks if the API key has not changed. If it had changed, closes the existing
-   * client, creates a new one and returns it.
+   * There is always one instance of ES client runnning within this class. This class maintains
+   * an ES client for each ES instance configured (uuid). If any information from following
+   * list changes, it's the responsibility of the caller to set 'forceCreate' parameter to true.
+   * - IP address
+   * - protocol
+   * - port
+   * - API key
+   * - index alias
    *
    * Each error coming from Elasticsearch is logged to console. Users of this client MUST handle
    * ElasticsearchClientError accordingly.
    *
-   * @param {String} uuid optional, UUID of Elasticsearch client. If uuid parameter is missing, it
-   * assumes, there is exactly one Elasticsearch client configured in the config file.
+   * @param {boolean} forceCreate should be set to true in caller methods where any attribute of
+   * ES configuration has changed, eg. IP address, API Key to force recreating the client.
+   * @param {String} [uuid] optional, Elasticsearch client uuid, denotes client uuid (MUST be used if there
+   * are more ES clients configured)
    *
    * @returns {Promise<object>} Elasticsearch client version 7
    */
-  async getClient(uuid) {
+  async getClient(forceCreate, uuid) {
     let esUuid = await getElasticsearchClientUuidAsync(uuid);
-    let newApiKey = await getApiKeyAsync(esUuid);
     let client = this._clients.get(esUuid);
     if (client) {
-      let storedApiKey = client.apiKey;
-      if (newApiKey !== storedApiKey) {
-        client.client.close();
-        storedApiKey = undefined;
+      if (forceCreate) {
+        client.close()
       } else {
-        return client.client;
+        return client;
       }
     }
-    let storedApiKey = newApiKey;
-    client = new Client(await configureClientAsync(esUuid, storedApiKey));
+    client = new Client(await configureClientAsync(esUuid));
     client.on('response', (err, result) => {
       if (err) {
         console.error(`Elasticsearch error occurred: ${err}`);
       }
     });
-    this._clients.set(esUuid, { client: client, apiKey: storedApiKey });
+    this._clients.set(esUuid, client);
     return client;
   }
 
@@ -78,11 +80,11 @@ class ElasticsearchService {
    * @description Issues ping to Elasticsearch instance. Returns operational state UNAVAILABLE
    * if a connection error occurs.
    * MUST be used to implement getElasticsearchClientOperationalState REST API method
-   * @param {String} uuid optional, UUID of Elasticsearch client
+   * @param {String} [uuid] optional, UUID of Elasticsearch client
    * @returns {Promise<String>} AVAILABLE if the ping returns with http status code 200, UNAVAILABLE if not
    */
   async getElasticsearchClientOperationalStateAsync(uuid) {
-    let client = await this.getClient(uuid);
+    let client = await this.getClient(false, uuid);
     try {
       let ping = await client.ping();
       return (ping.statusCode === 200) ?
@@ -101,7 +103,7 @@ class ElasticsearchService {
    * @returns {Promise<object>} result of the putLifecycle operation
    */
   async putElasticsearchClientServiceRecordsPolicyAsync(uuid, body) {
-    let client = await this.getClient(uuid);
+    let client = await this.getClient(false, uuid);
     let policyBody = body["elasticsearch-client-interface-1-0:service-records-policy"];
     let name = policyBody["service-records-policy-name"];
     let description = policyBody["description"];
@@ -125,11 +127,11 @@ class ElasticsearchService {
   /**
    * @description Fetches service records policy associated with configured index alias.
    * MUST be used to implement getElasticsearchClientServiceRecordsPolicy REST API method
-   * @param {String} uuid optional, UUID of Elasticsearch client
+   * @param {String} [uuid] optional, UUID of Elasticsearch client
    * @returns {Promise<object>} service records policy if the policy exists
    */
   async getElasticsearchClientServiceRecordsPolicyAsync(uuid) {
-    let client = await this.getClient(uuid);
+    let client = await this.getClient(false, uuid);
     let indexAlias = await getIndexAliasAsync(uuid);
     let policy = await client.indices.getSettings({
       "index": indexAlias,
@@ -174,11 +176,11 @@ class ElasticsearchService {
 /**
  * Does not perform uuid check.
  * @param {String} uuid UUID of Elasticsearch client
- * @param {String} apiKey configured API key
  * @returns {Promise<object>} configuration options for Elasticsearch client
  */
-async function configureClientAsync(uuid, apiKey) {
+async function configureClientAsync(uuid) {
   let node = await getNodeAsync(uuid);
+  let apiKey = await getApiKeyAsync(uuid);
   return {
     node: node,
     auth: {
@@ -195,7 +197,7 @@ async function configureClientAsync(uuid, apiKey) {
  * @description Given uuid, it checks if it matches any Elasticsearch client LTP UUIDs
  * from config file, returns an error, if it doesn't. If uuid parameter is missing, it
  * assumes, there is exactly one Elasticsearch client configured in the config file.
- * @param {String} uuid optional, UUID of Elasticsearch client
+ * @param {String} [uuid] optional, UUID of Elasticsearch client
  * @returns {Promise<String>} UUID of Elasticsearch client
  */
 async function getElasticsearchClientUuidAsync(uuid) {
@@ -230,7 +232,7 @@ async function getNodeAsync(uuid) {
 
 /**
  * Performs uuid check.
- * @param {String} uuid optional, UUID of Elasticsearch client
+ * @param {String} [uuid] optional, UUID of Elasticsearch client
  * @returns {Promise<object>} Elasticsearch client configuration object
  */
 async function getEsClientConfigAsync(uuid) {
@@ -243,7 +245,7 @@ async function getEsClientConfigAsync(uuid) {
 
 /**
  * Performs uuid check.
- * @param {String} uuid optional, UUID of Elasticsearch client
+ * @param {String} [uuid] optional, UUID of Elasticsearch client
  * @returns {Promise<String>} configured API key for Elasticsearch
  */
 async function getApiKeyAsync(uuid) {
@@ -282,7 +284,7 @@ function replaceAllObjKeys(obj, getNewKey) {
 /**
  * Returns index alias from config file. If uuid is present, performs check if
  * its an ES client uuid, if it's not present, assumes only one ES client is configured.
- * @param {String} uuid optional, UUID of Elasticsearch client
+ * @param {String} [uuid] optional, UUID of Elasticsearch client
  * @returns {Promise<String>} index alias from config file
  */
 async function getIndexAliasAsync(uuid) {
@@ -303,5 +305,21 @@ module.exports.createResultArray = function createResultArray(result) {
   return resultArray;
 }
 
+/**
+ * @description Checks whether given TCP client UUID belongs to an Elasticsearch client.
+ * @param {String} tcpClientUuid TCP client UUID
+ * @returns {Promise<boolean>} true if the TCP client is configured for an Elasticsearch client
+ */
+module.exports.isTcpClientElasticsearch = async function isTcpClientElasticsearch(tcpClientUuid) {
+  let httpClientUuids = await logicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
+  let esClientUuids = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
+  if (esClientUuids.length !== 1) {
+    return false;
+  }
+  let protocol = await layerProtocol.getLayerProtocolName(esClientUuids[0]);
+  return layerProtocol.layerProtocolNameEnum.ES_CLIENT === protocol;
+}
+
 module.exports.getIndexAliasAsync = getIndexAliasAsync
+module.exports.getApiKeyAsync = getApiKeyAsync
 module.exports.elasticsearchService = new ElasticsearchService()
