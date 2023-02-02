@@ -1,7 +1,7 @@
 # Testing Applications
 ## Infrastructure
 ### SDN Laboratory
-Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, we are having applications deployment on app server and testing is performing on test server.
+Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, applications deployment is performed on app server and related testing on test server.
 
 **Concepts**
 * [Overview](./Infrastructure/SdnLaboratory/Overview/OverviewandGeneralConcepts.md)
@@ -15,9 +15,9 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 * [Update Configuration](./Infrastructure/SdnLaboratory/IpAddresses/updateconfiguration.md)
 
 ## Tools
-To achieve automated testing and delivery process, requires a SDN pipeline dockerize environment setup using below mentioned tools,which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
+To achieve automated testing and deployment process, requires a SDN pipeline dockerize environment setup using below mentioned tools, which gives us how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit of GitHub develop branch.
 ### Jenkins
-Jenkins is an open source continuous integration/continuous delivery and deployment (CI/CD) automation software tool written in Java programming language. It helps to automate the software activities like building, testing, deploying and used to implement CI/CD workflows, called pipelines which makes easier to developers to deliver the Software modules. It is the leading tool for CI.
+Jenkins is an open source continuous integration/continuous deployment (CI/CD) automation software tool written in Java programming language. It helps to automate the software activities like building, testing, deploying which makes easier to developers to deliver the Software modules. It is the leading tool for CI.
 
 **Concepts**
 * [Jenkins Workflow](./Infrastructure/Tools/Jenkins/Jenkinsworkflow.md)
