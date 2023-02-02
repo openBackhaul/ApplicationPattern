@@ -60,16 +60,16 @@ Docker is an open source platform that enables developers to build, deploy, run,
 **Concepts**
 * [Docker objects](./Infrastructure/Tools/Docker/DockerIntroduction.md#docker-objects)
 * [Docker adhoc commands](./Infrastructure/Tools/Docker/DockerUsefulCommands.md)
-* [Docker Volumes](./Infrastructure/Tools/Docker/DockerVolumes.md)
+* [Docker volumes](./Infrastructure/Tools/Docker/DockerVolumes.md)
 
 **Step-by-Step Guidelines**
-* [Docker Installation](./Infrastructure/Tools/Docker/Installation.md)
-* [Docker Usage in Microwave SDN Laboratory](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
-* [How to debug container using Adhoc commands](./Infrastructure/Tools/Docker/DebuggingContainer.md)
+* [Docker installation](./Infrastructure/Tools/Docker/Installation.md)
+* [Docker build and deploy procedure](./Infrastructure/Tools/Docker/UtilizationInSDN.md)
+* [How to debug container using adhoc commands](./Infrastructure/Tools/Docker/DebuggingContainer.md)
 
 **Documents**
-* [Docker Overview](https://docs.docker.com/get-started/overview/ )
-* [Docker Adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
+* [Docker overview](https://docs.docker.com/get-started/overview/ )
+* [Docker adhoc Commands reference](https://docs.docker.com/engine/reference/commandline/docker/)
 * [Docker volumes reference](https://docs.docker.com/storage/volumes/)
 ### Newman and Newman-reporter-htmlextra
 Newman is a command-line collection runner for Postman. It allows to run and test a postman collections directly from the command-line. It used for testing and validating APIs as well.
