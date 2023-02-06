@@ -1,4 +1,4 @@
-# Concept of CONFIGfile
+# Concepts of  the CONFIGfile
 
 ### Individualization
 - Find template here 
