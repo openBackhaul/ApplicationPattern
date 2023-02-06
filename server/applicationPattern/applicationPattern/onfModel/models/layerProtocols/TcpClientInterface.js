@@ -150,6 +150,21 @@ class TcpClientInterface extends layerProtocol {
     }
 
     /**
+     * Transforms protocol enum value to a value that can be used in a URL.
+     * @param {String} protocol enum
+     * @returns string representation to be used in URLs, or not-yet-defined string
+     */
+    static transformProtocolToReadableForm(protocol) {
+        if (protocol === "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP") {
+            return "http";
+        } else if (protocol === "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTPS") {
+            return "https";
+        } else {
+            return "not-yet-defined";
+        }
+    }
+
+    /**
      * @description This function generates the tcp-client uuid for the given http-client uuid.
      * @param {String} httpClientUuid uuid of the http-client-interface logical-termination-point.
      * @param {String} remoteProtocol : remoteProtocol where the application is running.

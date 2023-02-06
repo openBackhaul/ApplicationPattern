@@ -227,7 +227,7 @@ async function getNodeAsync(uuid) {
   let address = await TcpClientInterface.getRemoteAddressAsync(tcpClient[0]);
   let port = await TcpClientInterface.getRemotePortAsync(tcpClient[0]);
   let remoteProtocol = await TcpClientInterface.getRemoteProtocolAsync(tcpClient[0]);
-  return remoteProtocol + "://" + address[onfAttributes.TCP_CLIENT.IP_ADDRESS][onfAttributes.TCP_CLIENT.IPV_4_ADDRESS] + ":" + port;
+  return TcpClientInterface.transformProtocolToReadableForm(remoteProtocol) + "://" + address[onfAttributes.TCP_CLIENT.IP_ADDRESS][onfAttributes.TCP_CLIENT.IPV_4_ADDRESS] + ":" + port;
 }
 
 /**
