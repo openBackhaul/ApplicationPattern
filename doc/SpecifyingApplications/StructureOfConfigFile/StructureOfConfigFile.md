@@ -1,0 +1,4 @@
+# Structure of the CONFIGfile
+
+
+
