@@ -12,6 +12,7 @@ const layerProtocol = require('../LayerProtocol');
 const onfAttributes = require('../../constants/OnfAttributes');
 const onfPaths = require('../../constants/OnfPaths');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const TcpClientInterface = require('./TcpClientInterface');
 
 /** 
  * @extends layerProtocol
@@ -89,6 +90,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
+                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
                     if (localProtocol == protocol) {
                         tcpServerUuid = logicalTerminationPoint["uuid"];
                     }
@@ -116,6 +118,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
+                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
                     if (localProtocol == protocol) {
                         localAddress = await getConfiguredLocalAddress(tcpServerConfiguration["local-address"]);
                     }
@@ -143,6 +146,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
+                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
                     if (localProtocol == protocol) {
                         localPort = tcpServerConfiguration["local-port"];
                     }
@@ -169,6 +173,7 @@ class TcpServerInterface extends layerProtocol {
                 let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                 let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                 localProtocol = tcpServerConfiguration["local-protocol"];
+                localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
                 resolve(localProtocol);
             } catch (error) {
                 reject(error);

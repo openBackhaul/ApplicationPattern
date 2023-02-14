@@ -142,12 +142,30 @@ class TcpClientInterface extends layerProtocol {
                 let tcpClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC];
                 let tcpClientConfiguration = tcpClientPac[onfAttributes.TCP_CLIENT.CONFIGURATION];
                 remoteProtocol = tcpClientConfiguration[onfAttributes.TCP_CLIENT.REMOTE_PROTOCOL];
+                remoteProtocol = await TcpClientInterface.getFormattedProtocol(remoteProtocol);
                 resolve(remoteProtocol);
             } catch (error) {
                 reject(error);
             }
         });
     }
+
+    /**
+     * @description This function returns the extracted protocol from onf-core-model format.
+     * @param {String} protocol : protocol in onf-core-model format.
+     * @returns string {formattedProtocol}
+     **/
+    static getFormattedProtocol(protocol) {
+        let formattedProtocol;
+        try {
+            let position = (protocol.split("_", 2).join("_").length) + 1;
+            formattedProtocol = protocol.substring(position)
+            return formattedProtocol;
+        } catch (error) {
+            return error;
+        }
+    }
+
 
     /**
      * @description This function generates the tcp-client uuid for the given http-client uuid.
@@ -182,6 +200,7 @@ class TcpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             let tcpClientLogicalTerminationPoint;
             try {
+                remoteProtocol = onfAttributes.TCP_CLIENT.REMOTE_PROTOCOL_TYPE + remoteProtocol;
                 let tcpClientInterface = new TcpClientInterface(
                     ipv4Address,
                     port,
@@ -271,6 +290,7 @@ class TcpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             let isUpdated = false;
             try {
+                remoteProtocol = onfAttributes.TCP_CLIENT.REMOTE_PROTOCOL_TYPE + remoteProtocol;
                 let remoteProtocolPath = onfPaths.TCP_CLIENT_REMOTE_PROTOCOL.replace(
                     "{uuid}", tcpClientUuid);
                 isUpdated = await fileOperation.writeToDatabaseAsync(
@@ -286,6 +306,7 @@ class TcpClientInterface extends layerProtocol {
 
 
 }
+
 
 
 /**
