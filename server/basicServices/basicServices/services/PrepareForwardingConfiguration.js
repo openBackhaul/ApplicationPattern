@@ -128,7 +128,7 @@ exports.endSubscription = function (subscriberApplication, subscriberReleaseNumb
                         if (forwardingConstructManagementList) {
                             for (let i = 0; i < forwardingConstructManagementList.length; i++) {
                                 let forwardingConstruct = forwardingConstructManagementList[i];
-                                let forwardingName = getValueFromKey(forwardingConstruct["name"],"ForwardingName");
+                                let forwardingName = getValueFromKey(forwardingConstruct["name"], "ForwardingName");
                                 let fcPortList = forwardingConstruct["fc-port"];
                                 for (let j = 0; j < fcPortList.length; j++) {
                                     let fcPort = fcPortList[j];
@@ -150,7 +150,7 @@ exports.endSubscription = function (subscriberApplication, subscriberReleaseNumb
                         }
                     }
                 }
-            }            
+            }
             resolve(forwardingConfigurationInputList);
         } catch (error) {
             reject(error);
@@ -220,7 +220,6 @@ exports.redirectServiceRequestInformation = function (operationClientConfigurati
 }
 
 exports.redirectTopologyChangeInformation = function (operationClientConfigurationStatusList,
-    applicationUpdateTopologyOperation,
     ltpUpdateTopologyOperation,
     ltpDeletionTopologyOperation,
     fcUpdateTopologyOperation,
@@ -236,14 +235,7 @@ exports.redirectTopologyChangeInformation = function (operationClientConfigurati
                 getOperationNameAsync(operationClientUuid);
                 let forwardingConfigurationInput;
                 let forwardingName;
-                if (operationClientName == applicationUpdateTopologyOperation) {
-                    forwardingName =
-                        "PromptForRedirectingTopologyInformationCausesSendingAnInitialStateToALT";
-                    forwardingConfigurationInput = new forwardingConstructConfigurationInput(
-                        forwardingName,
-                        operationClientUuid
-                    );
-                } else if (operationClientName == ltpUpdateTopologyOperation) {
+                if (operationClientName == ltpUpdateTopologyOperation) {
                     forwardingName =
                         "ServiceRequestCausesLtpUpdateRequest";
                     forwardingConfigurationInput = new forwardingConstructConfigurationInput(
@@ -291,7 +283,7 @@ exports.redirectTopologyChangeInformation = function (operationClientConfigurati
 }
 
 
- function getValueFromKey(nameList, key) {
+function getValueFromKey(nameList, key) {
     for (let i = 0; i < nameList.length; i++) {
         let valueName = nameList[i]["value-name"];
         if (valueName == key) {
@@ -300,4 +292,3 @@ exports.redirectTopologyChangeInformation = function (operationClientConfigurati
     }
     return undefined;
 }
- 
