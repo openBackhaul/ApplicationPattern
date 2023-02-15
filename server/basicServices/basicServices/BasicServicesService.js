@@ -142,10 +142,10 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
           relayOperationUpdateOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -212,10 +212,10 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
         subscriptionOperation
       );
       let forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-      unConfigureForwardingConstructAsync(
-        operationServerName,
-        forwardingConfigurationInputList
-      );
+        unConfigureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
@@ -478,10 +478,10 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
           oamApprovalOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -646,10 +646,10 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
           oamLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -746,10 +746,10 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
           serviceLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -858,10 +858,10 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
           fcPortDeletionTopologyOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        configureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
       }
 
       /****************************************************************************************
@@ -1059,10 +1059,10 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
             registryOfficeRegisterOperation
           );
           forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+            configureForwardingConstructAsync(
+              operationServerName,
+              forwardingConfigurationInputList
+            );
         }
       } else {
         customerJourney = traceIndicator;
@@ -1430,16 +1430,18 @@ async function updateTcpServerDetails(protocol, address, port) {
   let tcpServerUuid;
   if (address != undefined || port != undefined) {
     tcpServerUuid = await tcpServerInterface.getUuidOfTheProtocol(protocol);
-    if (address != undefined) {
-      let configuredAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
-      if (configuredAddress != address) {
-        istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address);
+    if (tcpServerUuid != undefined && Object.keys(tcpServerUuid).length != 0) {
+      if (address != undefined) {
+        let configuredAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
+        if (JSON.stringify(configuredAddress) != JSON.stringify(address)) {
+          istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address);
+        }
       }
-    }
-    if (port != undefined) {
-      let configuredPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
-      if (configuredPort != port) {
-        istcpServerUpdated = await tcpServerInterface.setLocalPortAsync(tcpServerUuid, port);
+      if (port != undefined) {
+        let configuredPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
+        if (configuredPort != port) {
+          istcpServerUpdated = await tcpServerInterface.setLocalPortAsync(tcpServerUuid, port);
+        }
       }
     }
   }
