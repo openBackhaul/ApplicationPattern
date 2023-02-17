@@ -44,10 +44,12 @@ class ElasticsearchService {
    * - protocol
    * - port
    * - API key
-   * - index alias
    *
    * Each error coming from Elasticsearch is logged to console. Users of this client MUST handle
    * ElasticsearchClientError accordingly.
+   *
+   * Client is configured with 2s request timeout. If a request is expected to take longer, this
+   * parameter can be overriden in the specific request.
    *
    * @param {boolean} forceCreate should be set to true in caller methods where any attribute of
    * ES configuration has changed, eg. IP address, API Key to force recreating the client.
@@ -125,6 +127,66 @@ class ElasticsearchService {
   }
 
   /**
+   * @description Rewrites index-template to include service policy
+   * with given name.
+   *
+   * This method will be also called when index-alias changes in the
+   * config file, to 'reassign' service policy from old index-alias
+   * to new one.
+   *
+   * @param {*} policyName Service policy that should be assigned to
+   * configured index-alias.
+   * @param {*} [uuid] UUID of ES client in Config file
+   * @returns
+   */
+  async assignPolicyToIndexTemplate(policyName, uuid) {
+    let indexAlias = await getIndexAliasAsync(uuid);
+    let template = await this.getExistingIndexTemplate(uuid);
+    if (!template) {
+      return;
+    }
+    let client = await this.getClient(false, uuid);
+    template['body']['template']['settings'] = {
+      'index.lifecycle.name': policyName,
+			'index.lifecycle.rollover_alias': indexAlias
+    };
+    await client.indices.putIndexTemplate(template);
+    // call rollover to immediatelly create new index with applied policy
+    await client.indices.rollover({
+      alias: indexAlias
+    });
+  }
+
+  /**
+   * @description Returns index-template associated with configured
+   * index-alias. First request returns all configured index-templates,
+   * where it searches for index-alias among index-patterns.
+   *
+   * @param {String} [uuid] UUID of ES client in Config file
+   * @returns {Promise<Object>} existing template or undefined if there is
+   * no such template
+   */
+  async getExistingIndexTemplate(uuid) {
+    let indexAlias = await getIndexAliasAsync(uuid);
+    let client = await this.getClient(false, uuid);
+    let response = await client.indices.getIndexTemplate({
+        filter_path: '*.name,**.index_patterns'
+    });
+    let found = response.body.index_templates.find(item => {
+      return item['index_template']['index_patterns'].includes(`${indexAlias}-*`)
+    });
+    if (found) {
+      let name = found['name'];
+      let existingTemplate = await client.indices.getIndexTemplate({
+          name: name
+      });
+      let body = existingTemplate.body.index_templates[0].index_template;
+      return { name, body };
+    }
+    return undefined;
+  }
+
+  /**
    * @description Fetches service records policy associated with configured index alias.
    * MUST be used to implement getElasticsearchClientServiceRecordsPolicy REST API method
    * @param {String} [uuid] optional, UUID of Elasticsearch client
@@ -186,6 +248,7 @@ async function configureClientAsync(uuid) {
     auth: {
       apiKey: apiKey
     },
+    requestTimeout: 2000,
     tls: {
       // required if elasticsearch has a self-signed certificate
       rejectUnauthorized: false
