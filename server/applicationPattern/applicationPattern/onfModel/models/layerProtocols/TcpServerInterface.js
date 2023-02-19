@@ -12,7 +12,6 @@ const layerProtocol = require('../LayerProtocol');
 const onfAttributes = require('../../constants/OnfAttributes');
 const onfPaths = require('../../constants/OnfPaths');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-const TcpClientInterface = require('./TcpClientInterface');
 
 /** 
  * @extends layerProtocol
@@ -22,6 +21,12 @@ class TcpServerInterface extends layerProtocol {
         static layerProtocolName = layerProtocol.layerProtocolNameEnum.TCP_SERVER;
         tcpServerInterfaceConfiguration;
         static TcpServerInterfaceConfiguration = class TcpServerInterfaceConfiguration {
+            static localProtocolEnum = {
+                HTTP: "tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP",
+                HTTPS: "tcp-server-interface-1-0:PROTOCOL_TYPE_HTTPS",
+                NOT_YET_DEFINED: "tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED"
+            };
+
             static LocalAddress = class LocalAddress {
                 ipv4Address;
 
@@ -90,7 +95,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
-                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
+                    localProtocol = (await TcpServerInterface.getProtocolFromProtocolEnum(localProtocol))[0];
                     if (localProtocol == protocol) {
                         tcpServerUuid = logicalTerminationPoint["uuid"];
                     }
@@ -118,7 +123,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
-                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
+                    localProtocol = (await TcpServerInterface.getProtocolFromProtocolEnum(localProtocol))[0];
                     if (localProtocol == protocol) {
                         localAddress = await getConfiguredLocalAddress(tcpServerConfiguration["local-address"]);
                     }
@@ -146,7 +151,7 @@ class TcpServerInterface extends layerProtocol {
                     let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                     let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
                     let localProtocol = tcpServerConfiguration["local-protocol"]
-                    localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
+                    localProtocol = (await TcpServerInterface.getProtocolFromProtocolEnum(localProtocol))[0];
                     if (localProtocol == protocol) {
                         localPort = tcpServerConfiguration["local-port"];
                     }
@@ -172,8 +177,8 @@ class TcpServerInterface extends layerProtocol {
                 let _layerProtocol = logicalTerminationPoint["layer-protocol"][0];
                 let tcpServerPac = _layerProtocol["tcp-server-interface-1-0:tcp-server-interface-pac"];
                 let tcpServerConfiguration = tcpServerPac["tcp-server-interface-configuration"];
-                localProtocol = tcpServerConfiguration["local-protocol"];
-                localProtocol = await TcpClientInterface.getFormattedProtocol(localProtocol);
+                localProtocol = tcpServerConfiguration["local-protocol"]
+                localProtocol = (await TcpServerInterface.getProtocolFromProtocolEnum(localProtocol))[0];
                 resolve(localProtocol);
             } catch (error) {
                 reject(error);
@@ -281,6 +286,22 @@ class TcpServerInterface extends layerProtocol {
                 reject(error);
             }
         });
+    }
+
+    /**
+     * @description This function returns the protocol from onf-core-model format present in protocolEnum.
+     * @param {String} protocol : protocol in onf-core-model format.
+     * @returns list {localProtocol}
+     **/
+    static getProtocolFromProtocolEnum(protocol) {
+        let localProtocol = [];
+        let localProtocolEnum = TcpServerInterface.TcpServerInterfacePac.TcpServerInterfaceConfiguration.localProtocolEnum;
+        for (let localProtocolKey in localProtocolEnum) {
+            if (localProtocolEnum[localProtocolKey] == protocol || localProtocolKey == protocol) {
+                localProtocol = [localProtocolKey, localProtocolEnum[localProtocolKey]];
+            }
+        }
+        return localProtocol;
     }
 
 }
