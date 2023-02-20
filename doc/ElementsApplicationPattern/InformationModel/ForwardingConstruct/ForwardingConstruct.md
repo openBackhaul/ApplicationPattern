@@ -1,4 +1,11 @@
-# ForwardingConstruct
+# ForwardingDomain, ForwardingConstruct and ForwardingConstructPort
+
+
+
+- **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
+
+
+
 
 ForwardingConstructs (FC) describe the relationships between OperationServers and OperationClients.  
 FCs are the crucial component for documenting which microservice is allowed to communicate with other microservices in the application layer.  

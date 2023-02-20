@@ -1,4 +1,4 @@
-# LogicalTerminationPoint
+# LogicalTerminationPoint and LayerProtocol
 
 ControlConstructs consist of a list of LogicalTerminationPoints (LTP).  
 The LTP class represents the termination point of a connection, means: interface.  
