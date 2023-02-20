@@ -1,4 +1,4 @@
-# Testing Applications
+# Applications Deployment and Testing 
 ## Infrastructure
 ### SDN Laboratory
 Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, applications deployment is performed on app server and related testing on test server.
@@ -12,9 +12,10 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 * [Fake Index Aliases](./Infrastructure/SdnLaboratory/FakeAddresses/IndexAliases.md)
 
 **Step-by-Step Guidelines**
+
 User can update the applications with proper actual addresses in two ways.
 * Manually updating ipaddress and port for each application from respective swagger API's.
-*  Automated updating through script developed that could update the load.json file for the respective application. This script needs to be run once while deployment. Refer this for further details [FakeToOriginalIPConverter](../../server/FakeToOriginalIPConverter/README.md)
+* Automated updating through script developed that could update the load.json file for the respective application. This script needs to be run once while deployment. Refer this for further details [FakeToOriginalIPConverter](../../server/FakeToOriginalIPConverter/README.md)
 
 ## Tools
 To achieve automated testing and deployment process, requires a SDN pipeline dockerize environment setup using below mentioned tools,   which give how NodeJS applications deploy as a docker container through Jenkins and running automated test suites for every commit from GitHub develop branch.
