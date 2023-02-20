@@ -7,14 +7,14 @@ Below is the overview for the complete procedure for deploying and testing the a
 
 ![Overview](./Images/sdn%20application%20deployment.PNG)
 
-* Deploying and Testing application pattern using CI/CD methodology which includes continuous integration and continuous delivery/continuous deployment. 
-* Developer develops code and automates testsuites and push the changes into git respective repository.
+* Deploying and Testing application pattern using CI/CD methodology which includes continuous integration and continuous continuous deployment. 
+* Developer develops code and automates testsuites and push the changes into external git respective repository.
 * Jenkins integrates the changes from current repository and test the applications.
-* Build and deploy the images as containers using docker framework and dockerfile on appserver.
+* Build, save and deploy the images as containers using docker framework and dockerfile on appserver.
 * Once deployment is done, automation acceptance testing performed on testserver environment.
-* Once build is approved, then the build promotes to GCP/production environment. 
+* Once build is approved, then the build promotes to GCP/production environment and manually transfer the tar file. 
 * Deployment performed on appserver and integration testing executed on test server of production/GCP.
-* All the results notified to the user/cicd engineer in production environment.
+* All the results notified to the user/cicd engineer in production environment through notifications.
 
 
 [<- Back to Testing Applications](../../TestingApplications.md) - - - [Ahead to SDNApplicationDeploymentInTestbed](./AppDeploymentInTestBed.md)

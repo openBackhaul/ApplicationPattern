@@ -31,14 +31,20 @@ The applications are deployed as container which has database in the form of jso
         administrator-administration-v1 metadata.db  oam-log-v1  registry-office-v1     type-approval-registry-v1
         application-layer-topology-v1  
 
-#### Build image and deploy containers :
+#### Build/load image and deploy containers :
 Once created volumes, attach these to the containers and storage will be mounted as database/filesystem to current created container from the docker application build image. 
 
 While running the applications as container, the created volumes will be maintain the application configured data.
-* To build image
+* To build image from the scratch
         
         sudo docker build -t <image-name>
         ex: sudo docker build -t registry-office-v1
+        
+* To Load image from existing image tar file
+        
+        sudo docker load -i <imagetarfile>
+        ex: sudo docker load -i registry-office-v1
+
 * To run container and attach/map the volume
         
         sudo docker run -d -p <port>:<port> --name <imagename> -v <volumename>:<pathtomount><localmountedpath>

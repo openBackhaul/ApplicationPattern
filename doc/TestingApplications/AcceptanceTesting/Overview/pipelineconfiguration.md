@@ -7,7 +7,7 @@ Below is the overview of workflow
 
 ![Acceptance Testing](../Images/AcceptanceTestingflow.PNG)
 
-* GIT is a version control system which holds the source code of applications and automated testsuites.
+* External GIT is a version control system which holds the source code of applications and automated testsuites.
 * Developers can develop the source code and test suites and pushed to github.
 * Jenkins has acceptance job created by user with all configuration and run collects the test results.
 * If no failures seen promoted the build to production, failures seen then informed to developers for fixing the issues.

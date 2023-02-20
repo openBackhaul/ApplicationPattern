@@ -7,9 +7,8 @@ As a prerequisite, the related test tools mentioned earlier to be installed and 
 
 * GIT is a version control system which holds the source code of applications and automated testsuites.
 * Developers can develop the source code and test suites and pushed to github.
-* Jenkins has acceptance job created by user with all configuration and run collects the test results.
-* If no failures seen promoted the build to production, failures seen then informed to developers for fixing the issues.
-* The notification generated to configured users on jenkins pipeline.
+* Jenkins has integration pipeline job created by user with all configuration and run collects the test results.
+* The notification generated to configured users from jenkins pipeline.
 
 ### Procedure for automated testing:
 
@@ -117,6 +116,6 @@ As part of pipeline configuration setup and running the test suites and also con
 
 #### Email Notification
 
-Email notification configuration done as part of groovy script only. Once test suite execution is completed, the notification with execution reports and job URL's sent to developers and cicd engineer.
+Email notification configuration done as part of groovy script only. Once test suite execution is completed, the notification with execution reports and job URL's sent to configured users from jenkins pipeline.
 
 [<-Back to main Testing Applications->](../../TestingApplications.md)

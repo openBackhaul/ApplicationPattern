@@ -6,7 +6,7 @@ The Plugin Manager allows to manage, enable and disable the plugins and to edit 
 
 ![](Images/pluginmanager.png)
 
-There are two methods for installing plugins in Jenkins
+Apart from the suggested plugin's, environment needs git, Role-based Authorization Strategy and few other plugin's which needs manual installation using below two methods for Jenkins. 
 
 * Installing plugins through Jenkins dashboard
 * Downloading the plugin from Jenkins website and installing it manually.
@@ -17,7 +17,7 @@ There are two methods for installing plugins in Jenkins
 * Select “Manage Plugins” 
 * Select the "Available" tab section and search for required plugin and select it then click on install without restart.
 
-The procedure is applicable for other required plugin's installation in Jenkins. Below is one of the example plugin (GIT plugin) installation that required for SDN setup. 
+The procedure is same for other required plugin's installation in Jenkins. Below is one of the example plugin (GIT plugin) installation that required for SDN setup. 
 
 In the Home screen of the Jenkins (Jenkins Dashboard), click on the Manage Jenkins.
 
@@ -42,9 +42,6 @@ User can also click on "Download now and install after restart" button in which 
 * To check Git plugin installed then go to "Installed" tab and check.
 
 ![InstallPage](Images/Gitplugin.png)
-
-**Note:** The procedure is same for all other required plugin installation.
-
 
 #### Download the plugin from Jenkins website and installing it manually.
 

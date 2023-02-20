@@ -2,9 +2,13 @@
 
 ![image](./Images/jenkins_master_slave.png)
 
-**The Jenkins master** simple machine where Jenkins is running and acts to scheduling the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) and get back the build result responses from slaves and the display build results on the console output. 
+**The Jenkins master** 
 
-**Jenkins slaves** takes the instructions/commands from master and execute the jobs.
+simple machine where Jenkins is running and acts to scheduling the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) and get back the build result responses from slaves and the display build results on the console output. 
+
+**Jenkins slaves** 
+
+takes the instructions/commands from master and execute the jobs.
 
 To configure the slave nodes, 
 * Open Jenkins Dashboard

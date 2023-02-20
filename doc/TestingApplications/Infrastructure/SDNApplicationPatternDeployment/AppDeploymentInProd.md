@@ -62,7 +62,7 @@ Integration Testing job is configured to run only on production servers and thes
  - [**Integration testing procedure**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
 
 ### Email Notification
-Once test suite execution is completed/deployment is done, the notification with execution reports and job URL's sent to developers and CICD team.
+Once test suite execution is completed/deployment is done, the notification with execution reports and job URL's sent to configured developers and cicd team members.
 
 
 [<- Back to SDNApplicationDeploymentInTestBed](./AppDeploymentInTestBed.md) - - - [Back to main Testing Applications ->](../../TestingApplications.md)
