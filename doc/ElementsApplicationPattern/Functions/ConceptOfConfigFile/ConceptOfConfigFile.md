@@ -1,0 +1,1 @@
+# Concept of the CONFIGfile
