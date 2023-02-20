@@ -34,18 +34,12 @@
 
 ### Underlying Information Model
 
-**Overview Information Model**
-
 **Classes**
 - [ControlConstruct](./InformationModel/ControlConstruct/ControlConstruct.md) 
-- [LogicalTerminationPoint](./InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
-- LayerProtocol
-- Profile
-- **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
-- [ForwardingConstruct](./InformationModel/ForwardingConstruct/ForwardingConstruct.md)
-- ForwardingConstructPort
-- NetworkControlDomain
-- Link
+- [LogicalTerminationPoint and LayerProtocol](./InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
+- [ForwardingDomain, ForwardingConstruct and ForwardingConstructPort](./InformationModel/ForwardingConstruct/ForwardingConstruct.md) 
+- [ProfileCollection and Profile](./InformationModel/Profile/Profile.md) 
+- [NetworkControlDomain and Link](./InformationModel/Link/Link.md) 
 
 
 ### Basic Services
