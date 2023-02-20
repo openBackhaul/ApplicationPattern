@@ -17,6 +17,7 @@
 - [Types of Internal Forwarding](./Functions/TypesOfInternalForwardings/TypesOfInternalForwardings.md)
 - [Substructure of Management of Internal Forwarding](./Functions/SubstructureOfManagementOfInternalForwardings/SubstructureOfManagementOfInternalForwardings.md)
 - [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
+- [Concept of _DATAfile_](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
 - [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
 - [Concept of OpenApiSpecification](./Functions/ConceptOfOas/ConceptOfOas.md)
 - [Structure of OpenApiSpecification](./Functions/StructureOfOas/StructureOfOas.md)
