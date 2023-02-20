@@ -7,7 +7,6 @@
 - [API-First Approach](./Principles/ApiFirst/ApiFirst.md)
 - [RESTful](./Principles/Restful/Restful.md)
 - [Microservice](./Principles/Microservice/Microservice.md)
-- [CONFIGfile](./Principles/ConfigFile/ConfigFile.md)
 
 **Functions**
 - [Structure of Services](./Functions/StructureOfServices/StructureOfServices.md)

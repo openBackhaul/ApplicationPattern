@@ -1,4 +1,7 @@
-# Concepts of  the CONFIGfile
+# Concepts of the CONFIGfile
+
+It is written in JSON
+
 
 ### Individualization
 - Find template here 
