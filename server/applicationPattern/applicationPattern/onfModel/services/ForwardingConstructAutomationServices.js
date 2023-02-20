@@ -31,6 +31,7 @@ exports.automateForwardingConstructAsync = function (operationServerName, forwar
     xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
         try {
+            let response;
             let operationServerUuid = await OperationServerInterface.getOperationServerUuidAsync(operationServerName);
             for (let i = 0; i < forwardingAutomationInputList.length; i++) {
                 let forwardingAutomationInput = forwardingAutomationInputList[i];
@@ -38,7 +39,7 @@ exports.automateForwardingConstructAsync = function (operationServerName, forwar
                 let attributeList = forwardingAutomationInput.attributeList;
                 let context = forwardingAutomationInput.context;
                 traceIndicator = traceIndicator + "." + (i + 1);
-                await automateForwardingsAsync(forwardingName,
+                response = await automateForwardingsAsync(forwardingName,
                     attributeList,
                     context,
                     operationServerUuid,
@@ -48,7 +49,7 @@ exports.automateForwardingConstructAsync = function (operationServerName, forwar
                     customerJourney
                 );
             }
-            resolve();
+            resolve(response);
         } catch (error) {
             reject(error);
         }
@@ -104,6 +105,7 @@ exports.automateForwardingConstructWithoutInputAsync = function (forwardingAutom
 function automateForwardingsAsync(forwardingName, attributeList, context, operationServerUuid, user,
     xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
+        let response;
         try {
             let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
                 forwardingName);
@@ -115,7 +117,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                 let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
                     forwardingConstruct);
                 if (_isForwardingConstructIsProcessSnippet) {
-                    automateProcessSnippetAsync(forwardingConstruct,
+                    response = automateProcessSnippetAsync(forwardingConstruct,
                         attributeList,
                         context,
                         user,
@@ -124,7 +126,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                         customerJourney
                     );
                 } else {
-                    automateSubscriptionsAsync(forwardingConstruct,
+                    response = automateSubscriptionsAsync(forwardingConstruct,
                         attributeList,
                         user,
                         xCorrelator,
@@ -133,7 +135,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                     );
                 }
             }
-            resolve();
+            resolve(response);
         } catch (error) {
             reject(error);
         }
