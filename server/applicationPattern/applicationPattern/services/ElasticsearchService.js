@@ -376,7 +376,7 @@ module.exports.createResultArray = function createResultArray(result) {
 module.exports.isTcpClientElasticsearch = async function isTcpClientElasticsearch(tcpClientUuid) {
   let httpClientUuids = await logicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
   let esClientUuids = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
-  if (esClientUuids.length !== 1) {
+  if (esClientUuids.length < 1) {
     return false;
   }
   let protocol = await layerProtocol.getLayerProtocolName(esClientUuids[0]);
