@@ -29,6 +29,12 @@ class TcpClientInterface extends layerProtocol {
             remotePort;
             remoteProtocol;
 
+            static remoteProtocolEnum = {
+                HTTP: "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
+                HTTPS: "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTPS",
+                NOT_YET_DEFINED: "tcp-client-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED"
+            };
+
             /**
              * constructor 
              * @param {string} remoteAddress tcp ipaddress where the application is hosted .
@@ -142,12 +148,30 @@ class TcpClientInterface extends layerProtocol {
                 let tcpClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.TCP_CLIENT_INTERFACE_PAC];
                 let tcpClientConfiguration = tcpClientPac[onfAttributes.TCP_CLIENT.CONFIGURATION];
                 remoteProtocol = tcpClientConfiguration[onfAttributes.TCP_CLIENT.REMOTE_PROTOCOL];
+                remoteProtocol = (await TcpClientInterface.getProtocolFromProtocolEnum(remoteProtocol))[0];
                 resolve(remoteProtocol);
             } catch (error) {
                 reject(error);
             }
         });
     }
+
+    /**
+     * @description This function returns the protocol from onf-core-model format present in protocolEnum.
+     * @param {String} protocol : protocol in onf-core-model format.
+     * @returns list {remoteProtocol}
+     **/
+    static getProtocolFromProtocolEnum(protocol) {
+        let remoteProtocol = [];
+        let remoteProtocolEnum = TcpClientInterface.TcpClientInterfacePac.TcpClientInterfaceConfiguration.remoteProtocolEnum;
+        for (let remoteProtocolKey in remoteProtocolEnum) {
+            if (remoteProtocolEnum[remoteProtocolKey] == protocol || remoteProtocolKey == protocol) {
+                remoteProtocol = [remoteProtocolKey, remoteProtocolEnum[remoteProtocolKey]];
+            }
+        }
+        return remoteProtocol;
+    }
+
 
     /**
      * @description This function generates the tcp-client uuid for the given http-client uuid.
@@ -182,6 +206,7 @@ class TcpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             let tcpClientLogicalTerminationPoint;
             try {
+                remoteProtocol = (await TcpClientInterface.getProtocolFromProtocolEnum(remoteProtocol))[1];
                 let tcpClientInterface = new TcpClientInterface(
                     ipv4Address,
                     port,
@@ -271,6 +296,7 @@ class TcpClientInterface extends layerProtocol {
         return new Promise(async function (resolve, reject) {
             let isUpdated = false;
             try {
+                remoteProtocol = (await TcpClientInterface.getProtocolFromProtocolEnum(remoteProtocol))[1];
                 let remoteProtocolPath = onfPaths.TCP_CLIENT_REMOTE_PROTOCOL.replace(
                     "{uuid}", tcpClientUuid);
                 isUpdated = await fileOperation.writeToDatabaseAsync(
@@ -286,6 +312,7 @@ class TcpClientInterface extends layerProtocol {
 
 
 }
+
 
 
 /**
