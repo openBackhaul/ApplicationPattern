@@ -203,6 +203,10 @@ class HttpServerInterface extends layerProtocol {
                 let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
                 let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
                 releaseList = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST];
+                releaseList.forEach(function(releaseListItem){
+                    delete releaseListItem['local-id']
+                });
+
                 resolve(releaseList);
             } catch (error) {
                 reject(error);
