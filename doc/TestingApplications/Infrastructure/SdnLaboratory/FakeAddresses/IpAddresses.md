@@ -1,6 +1,6 @@
 # Up-to-date Fake IP Addresses  
 
-The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.
+The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
 
 | Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
