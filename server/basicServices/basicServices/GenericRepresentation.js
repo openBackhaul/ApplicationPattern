@@ -117,6 +117,10 @@ exports.getResponseValueList = function (operationName) {
             let responseInstanceFieldName;
             let responseInstanceValue;
             let responseInstancedataTypeOfValue;
+            let fieldNameDataUpdatePeriod = "dataUpdatePeriod"
+            let dataUpdatePeriodEnum = {
+                "real-time": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME"
+            };
 
             let profilesList = await profileCollection.getProfileListAsync();
             if (profilesList != undefined && profilesList.length != 0) {
@@ -145,6 +149,14 @@ exports.getResponseValueList = function (operationName) {
                                 responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
                             }
                             responseInstancedataTypeOfValue = typeof responseInstanceValue;
+
+                            if(fieldName['static-field-name'] == fieldNameDataUpdatePeriod){
+                                for (let dataUpdatePeriodKey in dataUpdatePeriodEnum) {
+                                    if (dataUpdatePeriodEnum[dataUpdatePeriodKey] == responseInstanceValue) {
+                                        responseInstanceValue = dataUpdatePeriodKey;
+                                    }
+                                }
+                            }
                             let response = new responseValue(
                                 responseInstanceFieldName,
                                 responseInstanceValue,
