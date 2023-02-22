@@ -552,6 +552,19 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
                 delete operationServerConfiguration['operation-key'];
               }
             }
+          } else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
+            let httpServerinterfacepac = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+            if (httpServerinterfacepac !== undefined) {
+              let httpServerConfiguration = httpServerinterfacepac[onfAttributes.HTTP_SERVER.CAPABILITY];
+              if (httpServerConfiguration !== undefined) {
+                delete httpServerConfiguration['operation-key'];
+                delete httpServerConfiguration['application-purpose'];
+                delete httpServerConfiguration['owner-name'];
+                delete httpServerConfiguration['owner-email-address'];
+                delete httpServerConfiguration['release-list'];
+                delete httpServerConfiguration['application-purpose'];
+              }
+            }
           }
         }
       }
