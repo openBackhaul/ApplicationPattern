@@ -6,7 +6,7 @@ Consequently, the REST servers composing the MW SDN application layer are exposi
 That essentially makes the applications for managing applications a miniature version of those required for managing devices.  
 
 The CONFIGfile is structured into objects according to the ONF Core Information Model.  
-A diagram that contains the relevant classes of the ONF Core IM can be found [here](../../InformationModel/Overview/Overview.md).  
+A diagram that depicts the relationships between the relevant classes and more details on the ONF Core IM can be found [here](../../InformationModel/Overview/Overview.md).  
 
 The objects that are created from the classes defined in the ONF Core IM shall have the following ordering in the CONFIGfile. 
 ```
@@ -75,8 +75,8 @@ The objects that are created from the classes defined in the ONF Core IM shall h
 }
 ```
 The entries into the respective array shall be ordered according to the respective high level specification:  
-- profile array: _ProfileInstanceList_  
-- logicalTerminationPoint array: _ServiceList_  
-- forwardingConstruct array: _ForwardingList_  
+- [profile](../../InformationModel/Profile/Profile.md) array: _ProfileInstanceList_  
+- [logicalTerminationPoint](../../InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md) array: _ServiceList_  
+- [forwardingConstruct](../../InformationModel/ForwardingConstruct/ForwardingConstruct.md) array: _ForwardingList_  
 
-The fcPort array shall order in Management, Input and Output.  
+The [fcPort](../../InformationModel/ForwardingConstruct/ForwardingConstruct.md) array shall order in Management, Input and Output.  
