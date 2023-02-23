@@ -1,29 +1,57 @@
 # ForwardingDomain, ForwardingConstruct and ForwardingConstructPort
 
 
+### ForwardingDomain
 
-- **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
+The ForwardingDomain (FD) represents a potential for _Forwarding_.  
+_Forwarding_ is typically supported on multiple layers inside networks and devices.  
+That's why the ControlConstruct class holds a list of ForwardingDomains.  
+
+A ForwardingDomain usually holds a list of references to interfaces between which connections of a certain layer could be configured, as well as a list of connections (ForrwardingConstruct) that belong to the same layer and are already configured.  
+
+In case of the applications of the MW SDN domain, a potential for _Forwarding_ is only expressed on the _Operations_ level.  
+An explicit listing of references to all the _OperationServers_ and _OperationClients_ is not included.  
+Just a list of ForwardingConstructs is comprised.  
+
+The ForwardingDomain comprises the following attributes:
+- **uuid**: Identifier that is unique within the entire MW SDN application layer. Details can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).
+- **forwardingConstruct**: List of connections that are configured within this ForwardingDomain.
 
 
+### ForwardingConstruct
+
+The ForwardingConstruct (FC) represents the actually configured _Forwarding_.  
+It can be used to represent a wide range of forwarding behaviors, from simple packet forwarding to complex traffic engineering and policy-based routing.  
+Since multiple _Forwardings_ can typically exist in parallel between the interfaces of the same layer, the ForwardingDomain contains a list of ForwardingConstructs.  
+
+In case of the applications of the MW SDN domain, ForwardingConstructs are describing event-reaction-relationships on the _Operation_ layer.  
+This means the relationships between receiving a request at a specific OperationServer (event) and sending requests through one or more OperationClients (reaction).  
+
+The ForwardingConstruct comprises the following attributes:  
+- **uuid**: Identifier that is unique within the entire MW SDN application layer. Details can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).  
+- **name**: List of two instances of a composed datatype that holds a valueName and a value attribute. The name attribute is basically some backdoor for adding additional attributes to the ONF Core modelling.  
+- **name::valueName**: Name of the attribute that shall be added to the modelling. The following entries shall be made into two separate instances 'ForwardingKind' and 'ForwardingName'.  
+- **name::value**: Value of the attribute that shall be added to the modelling.  
+- **name::value if valueName==ForwardingKind**: In this case, the value of the value attribute is to be chosen from:  
+  - core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET: Number of FcPorts is invariant.  
+  - core-model-1-4:FORWARDING_KIND_TYPE_SUBSCRIPTION: Number of FcPorts is variant, but they get all activated by an event.  
+  - core-model-1-4:FORWARDING_KIND_TYPE_PROCESS_SNIPPET: Number of FcPorts might be variant. A sophisticated logic implements the _Forwarding_ based on case by case decisions. This might involve variable subsets of Outputs to be activated dependent on the characteristics of the individual event.
+- **name::value if valueName==ForwardingName**: Name of the forwarding as already defined in the ForwardingList.  
+- **fcPort**: List of references to LogicalTerminationPoints that are part of the _Forwarding_.  
 
 
-ForwardingConstructs (FC) describe the relationships between OperationServers and OperationClients.  
-FCs are the crucial component for documenting which microservice is allowed to communicate with other microservices in the application layer.  
+### ForwardingConstructPort
 
-The ForwardingConstruct comprises:
-- **UUID**: Like LTP and FD, the FC also has an unique identifier. Details can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md)  
-- **FcPort**: Each FC consists of a list of FcPorts. The association of the FC to LTPs is always made via FcPorts. The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC.  
+The ForwardingConstructPort (FcPort) describes the reference to an interface that is part of an actually configured _Forwarding_.  
+In principle, the interfaces could also be referenced from within the ForwardingConstruct itself, but the ForwardingConstructPort as an intermediate element allows adding attributes to the reference.  
+This is of particular importance, if the interfaces that are belonging to the same _Forwarding_ distinguish roles like e.g. ingress and egress.  
 
-The FcPort comprises:
-  - **LocalId**: Identifies an FcPort in the list of FcPorts at the FC. It is unique just within the residing FC.  
-  - **LogicalTerminationPoint**: Contains the OperationClient or OperationServer UUIDs.  
-  - **PortDirection**: The direction can be any one of the following:  
-    - **MANAGEMENT**: FcPort of this type is always pointing towards an OperationServer that influences the creation/deletion or modification of FcPorts in an FC. An FC may have zero to n MANAGEMENT Ports. For example, if an OperationServer “v1/service” is represented as a MANAGEMENT FcPort, then whenever “v1/service” is addressed, either a new FcPort will be created for the context of that particular request or an existing FcPort will be removed from the FcPort list of the FC.  
-    - **INPUT**: FcPort of this PortDirection is always represented by an OperationServer. This influence in executing one or many output FcPorts of the FC. For example , if an OperationServer “v1/service” is listed as a INPUT FcPort, then whenever “v1/service” is addressed, one or many OUTPUT FcPorts will be triggered.  
-    - **OUTPUT**: FcPort of this PortDirection is always represented by an OperationClient. This provides information about the services of other applications that needs to be consumed when one of the INPUT FcPorts of the FC gets addressed.  	
-- **name**: This property is a list of key value pair consisting of the following keys,  
-  - **ForwardingName**: Provides a unique self-explanatory name for the FC  
-  - **ForwardingKind**: The value for this key should be any one of the following types,  
-    - **INVARIANT_PROCESS_SNIPPET**: means all the OUPUT FcPorts will be executed. Adding or deleting of FcPorts is not allowed as this FC is invariant.  
-    - **PROCESS_SNIPPET**: means any one or two or all of the OUTPUT FcPorts will be executed based on the context and requirement. Addition or deletion of FcPorts are allowed.  
-    - **SUBSCRIPTION**: means all the OUTPUT FcPorts will be executed. Addition or deletion of FcPorts are allowed.  
+In case of the applications of the MW SDN domain, ForwardingConstructPorts are exclusively referencing OperationServers and OperationClients.  
+
+The ForwardingConstructPort comprises the following attributes:  
+- **localId**: Identifier that is unique just within the residing ForwardingConstruct.  
+- **portDirection**: Role of the referenced OperationClient or OperationServer inside the _Forwarding_.  
+  - **core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT**: FcPorts of this type are always referencing an OperationServer that influences the creation, deletion or modification of FcPorts of type Output inside the same ForwardingConstruct. A ForwardingConstruct may have zero to n Managements. A common case of managing a ForwardingConstruct comprises an OperationServer for subscribing to a specific kind of notifications and a generic OperationServer for unsubscribing.  
+  - **core-model-1-4:PORT_DIRECTION_TYPE_INPUT**: FcPorts of this type are referencing an OperationServer. Receiving a request at such OperationServer leads to sending a request via one or several Outputs of the same ForwardingConstruct. A ForwardingConstruct may have one to n Inputs. In rare cases, Outputs get activated based on a cyclic process inside the application, but not an individual event at an Input. In such case, the OperationServer that servers as Management for starting the cyclic process shall be listed as an Input, too.  
+  - **core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT**: FcPorts of this type are referencing an OperationClient. Depending on the type of _Forwarding_ one or several Output get activated at a time. A ForwardingConstruct may have one to n Outputs.  
+- **logicalTerminationPoint**: UUID of the referenced OperationClient or OperationServer.  
