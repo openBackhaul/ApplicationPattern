@@ -19,16 +19,17 @@ In case of the applications of the MW SDN domain, the Profile is often used for 
 
 The following attributes are common to all kinds of Profile:  
 - **uuid**: Identifier that is unique within the entire MW SDN application layer. Details can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).  
-- **profileName**: Discriminator of kinds of Profile. The ApplicationOwner is free to define new kinds of Profile. Kinds of Profile have to have unique names. Such name would have to be defined in the ProfileList already. It has to be put into a specific format to be stated here. The already existing kinds of Profile are identified by the following names:  
+- **profileName**: Discriminator of kinds of Profile. The ApplicationOwner is free to define new kinds of Profile. Kinds of Profile have to have unique names. Such name would have to be defined in the ProfileList already. It has to be put into a specific format to be represented in the attribute. The already existing kinds of Profile are identified by the following names:  
   - action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE
   - response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE
   - file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE
   - integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE
   - string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE
 
-Further attributes are individual to the kind of Profile.
-The individual attributes have to be filled with the values from the ProfileInstanceList.
-Details about their individual meaning can be found in [Creating a ProfileInstanceList](../../../SpecifyingApplications/CreatingProfileInstanceList/CreatingProfileInstanceList.md).
+Further attributes are individual to the kind of Profile.  
+The individual attributes have to be filled with the values that has already been defined in the ProfileInstanceList.  
+The order of instances should be identical in CONFIGfile and ProfileInstanceList.  
+Details about their individual meaning can be found in [Creating a ProfileInstanceList](../../../SpecifyingApplications/CreatingProfileInstanceList/CreatingProfileInstanceList.md).  
 
 In case of the **ActionProfile** the following attributes get augmented:
 ```
