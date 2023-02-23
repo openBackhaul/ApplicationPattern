@@ -9,7 +9,7 @@ The CONFIGfile is structured into objects according to the ONF Core Information 
 A diagram that contains the relevant classes of the ONF Core IM can be found [here](../../InformationModel/Overview/Overview.md).  
 
 The objects that are created from the classes defined in the ONF Core IM shall have the following ordering in the CONFIGfile. 
-
+```
 {
   "core-model-1-4:control-construct": {
     "uuid": "xx-1-0-0",
@@ -73,8 +73,10 @@ The objects that are created from the classes defined in the ONF Core IM shall h
     ]
   }
 }
+```
+The entries into the respective array shall be ordered according to the respective high level specification:  
+- profile array: _ProfileInstanceList_  
+- logicalTerminationPoint array: _ServiceList_  
+- forwardingConstruct array: _ForwardingList_  
 
-The entries into the profile array shall be ordered according to the _ProfileInstanceList_.  
-The entries into the logical-termination-point array shall be ordered according to the _ServiceList_.  
-The entries into the forwarding-construct array shall be ordered according to the _ForwardingList_.  
-The fc-port array shall order in management, input and output.  
+The fcPort array shall order in Management, Input and Output.  
