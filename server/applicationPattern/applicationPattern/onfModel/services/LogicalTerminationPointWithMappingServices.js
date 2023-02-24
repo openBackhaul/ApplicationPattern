@@ -453,6 +453,7 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
             httpClientConfigurationStatus = await updateHttpClientInterface(
                 httpClientUuid,
                 releaseNumber,
+                operationClientConfigurationStatusList[0]['updated']
             )
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
@@ -566,12 +567,16 @@ function createHttpClientInterface(applicationName, releaseNumber) {
  * @param {String} releaseNumber : release of the client application
  * @return {Promise} object {configurationStatus}
  **/
-function updateHttpClientInterface(httpClientUuid, releaseNumber) {
+function updateHttpClientInterface(httpClientUuid, releaseNumber, isOperationClient = false) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         try {
             let isUpdatedReleaseNumber = false;
             let existingReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+
+            if(isOperationClient){
+                isUpdatedReleaseNumber = true;
+            }
             if (existingReleaseNumber != releaseNumber) {
                 isUpdatedReleaseNumber = await httpClientInterface.setReleaseNumberAsync(
                     httpClientUuid,
