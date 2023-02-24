@@ -1,5 +1,5 @@
 ### Jenkins Jobs  creation
-Jenkins jobs is contains set of tasks which are defined by user to automate build and deploy the applications. In the current setup, sdn environment using below types of automated jobs.
+Jenkins jobs contains a set of tasks which are defined by user to automate build and deploy the applications. In the current setup, sdn environment using below types of automated jobs.
 * Freestyle project jobs
 * Pipeline jobs (Declarative Pipelines)
 

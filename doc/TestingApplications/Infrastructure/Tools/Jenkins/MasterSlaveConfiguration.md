@@ -4,7 +4,7 @@
 
 **The Jenkins master** 
 
-simple machine where Jenkins is running and acts to scheduling the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) and get back the build result responses from slaves and the display build results on the console output. 
+A simple machine where Jenkins is running and acts to scheduling the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) and get back the build result responses from slaves and the display build results on the console output. 
 
 **Jenkins slaves** 
 

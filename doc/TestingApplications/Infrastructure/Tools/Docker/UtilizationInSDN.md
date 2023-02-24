@@ -18,7 +18,7 @@ The applications are deployed as container which has database in the form of jso
         docker volume create <volumeName>
         ex: docker volume create registry-office
 
-* After creating volumes , to make sure whether it is created or not by using below command. 
+* After creating volumes , to make sure whether it is created, the below command can be used.
        
         docker volume inspect <volumeName>
         ex: docker volume inspect registry-office
@@ -32,7 +32,7 @@ The applications are deployed as container which has database in the form of jso
         application-layer-topology-v1  
 
 #### Build/load image and deploy containers :
-Once created volumes, attach these to the containers and storage will be mounted as database/filesystem to current created container from the docker application build image. 
+Once volumes are created, attach these to the containers and storage will be mounted as database/filesystem to current created container from the docker application build image. 
 
 While running the applications as container, the created volumes will be maintain the application configured data.
 * To build image from the scratch
