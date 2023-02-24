@@ -1,10 +1,10 @@
 ### How to debug/check logs for docker container issues
 
-Mostly previous mentioned commands are used for creation, running and deploy the containers.
+Most of the previous mentioned commands are used for creation, running and deploy the containers.
 
-For example, when the docker containers are exited due to some issue, to find out the root cause, have to check information about container and related logs.
+For example, when the docker containers are exited due to some issue, to find out the root cause, we have to check information about container and related logs.
 
-* Initially, using below command list all running and exited containers.
+* As a first step, all running and exited containers can be listed from below command
 
         docker ps -a
 

@@ -56,12 +56,12 @@ Below are the stages executed as part of script
         }
     }
   
-**Note** : above provided sample script code is just an example, based on requirements user can develop his own groovy script/shell script.
+**Note** : above provided sample script code is just an example, based on the requirement user can develop his own groovy script/shell script.
     
 ### Verification of application status
 Once Applications (ex: RO,TAR,EATL etc) deployed as containers, go to the browser and check the Ip address with port XXXX (exposed in docker file) is accessible or not. if it accessible then application swagger started up and running.
 
-Below is the format for the swagger created for application pattern applications.
+Below is the URL format of the swagger created for application pattern applications.
 
     http://<serverIp>:<port>/docs/
 Below is the example of RegistryOffice application which deployed on testbed already and attached the picture.
@@ -71,7 +71,7 @@ Below is the example of RegistryOffice application which deployed on testbed alr
 ![Example RO](Images/Ro.png) 
 
 ### Run Automation Testsuites 
-Once application deployment is done, automatically the testing job started to test the testcases. The testing will performed on testserver as mentioned earlier.
+Once application deployment is done, automatically the testing job started to test the testcases. The testing will be performed on testserver as mentioned earlier.
 
 - ### [Acceptance testing procedure](../../AcceptanceTesting/Overview/pipelineconfiguration.md)
 

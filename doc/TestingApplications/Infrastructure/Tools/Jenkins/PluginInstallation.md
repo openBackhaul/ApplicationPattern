@@ -6,7 +6,7 @@ The Plugin Manager allows to manage, enable and disable the plugins and to edit 
 
 ![](Images/pluginmanager.png)
 
-Apart from the suggested plugin's, environment needs git, Role-based Authorization Strategy and few other plugin's which needs manual installation using below two methods for Jenkins. 
+Apart from the suggested plugins, environment needs git, Role-based Authorization Strategy and few other plugin's which needs manual installation using below two methods for Jenkins. 
 
 * Installing plugins through Jenkins dashboard
 * Downloading the plugin from Jenkins website and installing it manually.
@@ -45,7 +45,7 @@ User can also click on "Download now and install after restart" button in which 
 
 #### Download the plugin from Jenkins website and installing it manually.
 
-If any plugins user required to upgrade or downgrade first, User can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
+If a user needs to upgrade or downgrade any plugin, the user can download plugins from official plugins site in our local then upload it to Jenkins. Refer the site for [Downloadnewplugins](https://updates.jenkins-ci.org/download/plugins/).
 
 **Note**: download plugins with .hpi extension only.
 

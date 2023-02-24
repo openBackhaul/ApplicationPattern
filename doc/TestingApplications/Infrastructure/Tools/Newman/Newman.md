@@ -4,7 +4,7 @@ As prerequisites to install Nemman, check the npm and **Node.js >= v10** install
 
 ### Prerequisites Installation
 #### Install npm
-It is recommend to check before installing, if already have npm installed and check installed version using the  "**npm -v"/"npm --version**".
+It is recommended to check before installing, if already have npm installed and check installed version using the  "**npm -v"/"npm --version**".
 
 If not installed, please follow below steps
 
@@ -33,7 +33,7 @@ If not installed, please follow the steps:
     Newman: npm install -g newman
     Newman-reporter-htmlextra: npm install -g newman-reporter-htmlextra
                 
--g flag useful when install newman globally on system which allows to run from anywhere. If you want to install it locally, Just remove -g flag.
+where -g flag useful for installing newman globally on system which allows to run from anywhere. If you want to install it locally, Just remove -g flag.
 
 #### Basic options and Usage
 

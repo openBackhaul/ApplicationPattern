@@ -13,8 +13,8 @@ Software Defined Networking (SDN) is an architecture that uses open protocols to
 
 **Step-by-Step Guidelines**
 
-User can update the applications with proper actual addresses in two ways.
-* Manually updating ipaddress and port for each application from respective swagger API's.
+A user can update the applications with proper actual addresses in two ways.
+* Manually updating ip-address and port for each application from respective swagger API's.
 * Automated updating through script developed that could update the load.json file for the respective application. This script needs to be run once while deployment. Refer this for further details [FakeToOriginalIPConverter](../../server/FakeToOriginalIPConverter/README.md)
 
 ## Tools

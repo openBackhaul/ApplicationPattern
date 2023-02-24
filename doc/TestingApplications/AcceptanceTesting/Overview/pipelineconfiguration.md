@@ -1,16 +1,16 @@
 ### Acceptance Testing
-Once Application deployed and automatically acceptance testing performed on test server.
+Once Application is deployed, automatically acceptance testing performed on test server.
 
-As a prerequisite, the related test tools mentioned earlier to be installed and set up the server.
+As a prerequisite, the related test tools mentioned in [here](https://github.com/openBackhaul/ApplicationPattern/blob/Rajithapitta/issue547/doc/TestingApplications/TestingApplications.md#tools) to be installed and set up the server.
 
 Below is the overview of workflow
 
 ![Acceptance Testing](../Images/AcceptanceTestingflow.PNG)
 
 * External GIT is a version control system which holds the source code of applications and automated testsuites.
-* Developers can develop the source code and test suites and pushed to github.
-* Jenkins has acceptance job created by user with all configuration and run collects the test results.
-* If no failures seen promoted the build to production, failures seen then informed to developers for fixing the issues.
+* Developers can develop the source code and test suites and push them to github.
+* Jenkins has acceptance jobs created for applications with all configuration and run finally collects the test results.
+* If no failures seen, the build will be promoted to production. In case of failures seen, the run results will be informed to developers for further fixing the issues.
 
 ### Procedure for automated testing
 
@@ -72,18 +72,18 @@ Clone the current testsuite repository from the github though jenkins.
 - Update the file <inputfile.date.time+data.no.json> with "typeOfTesting": "Acceptance"
 - Update <inputfile.date.time+data.no.json> file with proper "userName" and "authorizationCode" to access the applications from Jenkins
 - Update <inputfile.date.time+data.no.json> file with "serverUrl" with current URL of application where it is up and running
--  Finally, makesure that the application loadfile properly updated with latest data (Ip address and Ports of applications in database).
+-  Finally, make sure that the application's loadfile is properly updated with latest data (Ip address and Ports of applications in database).
 
 #### Run Acceptance test cases using newman
-To run the suite, we are using below command.
+To run the test-suite, we are using below command.
 
- newman run <postmancollectionjsonfile> -d <inputfile.date.time+data.no.json> -r htmlextra,cli --reporter-htmlextra-logs
+ newman run <postmancollection.json> -d <inputfile.date.time+data.no.json> -r htmlextra,cli
 
-        Example command used for RO suite: newman run RegistryOffice_0.0.1_tsi.date.time+testcases.1.postman_collection -d RegistryOffice_0.0.1_tsi.date.time+data.no.json -r htmlextra,cli --reporter-htmlextra-logs
+        Example command used for RO suite: newman run RegistryOffice_0.0.1_tsi.date.time+testcases.1.postman_collection -d RegistryOffice_0.0.1_tsi.date.time+data.no.json -r htmlextra,cli 
 
 ### Results available
 
-For every application testing, the workspace is created on same pipeline means after executing the suites, the results are available in this workspace which is a server path **/var/lib/jenkins/workspace/<respectivesuitename>/newman**
+For every application testing, a workspace is created on the same pipeline. So,after executing the test-suites, the results are available in this workspace in server path **/var/lib/jenkins/workspace/<respectivesuitename>/newman**
 
 
     Example path for RO suite and collected results :
