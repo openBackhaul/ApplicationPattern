@@ -1,14 +1,13 @@
 # Structure of the CONFIGfile
 
 The structure of the CONFIGfile is harmonized across all microservices in the MW SDN application layer.  
-Since it mainly involves information for describing traffic relationships, the same information model used to describe traffic relationships in the transport network is applied.  
+Since it mainly involves information for describing traffic relationships, the same information model used for describing traffic relationships in the transport network is applied.  
 Consequently, the REST servers composing the MW SDN application layer are exposing a management interface, which is almost 100% identical to the RESTCONF interface of the devices that are managed by them.  
 That essentially makes the applications for managing applications a miniature version of those required for managing devices.  
 
-The CONFIGfile is structured into objects according to the ONF Core Information Model.  
-A diagram that depicts the relationships between the relevant classes and more details on the ONF Core IM can be found [here](../../InformationModel/Overview/Overview.md).  
+The CONFIGfile is structured into objects according to the [ONF Core Information Model](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/InformationModel/Overview/Overview.md).  
 
-The objects that are created from the classes defined in the ONF Core IM shall have the following ordering in the CONFIGfile. 
+The objects that are created from the classes defined in the ONF CIM shall have the following ordering in the CONFIGfile. 
 ```
 {
   "core-model-1-4:control-construct": {
@@ -74,9 +73,9 @@ The objects that are created from the classes defined in the ONF Core IM shall h
   }
 }
 ```
-The entries into the respective array shall be ordered according to the respective high level specification:  
-- [profile](../../InformationModel/Profile/Profile.md) array: _ProfileInstanceList_  
-- [logicalTerminationPoint](../../InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md) array: _ServiceList_  
-- [forwardingConstruct](../../InformationModel/ForwardingConstruct/ForwardingConstruct.md) array: _ForwardingList_  
+The entries into the lists shall be ordered according to the respective high level specification:  
+- Profiles: _ProfileInstanceList_  
+- LogicalTerminationPoints: _ServiceList_  
+- ForwardingConstructs: _ForwardingList_  
 
-The [fcPort](../../InformationModel/ForwardingConstruct/ForwardingConstruct.md) array shall order in Management, Input and Output.  
+The ForwardingConstructPorts shall be ordered in Management, Input and Output.  
