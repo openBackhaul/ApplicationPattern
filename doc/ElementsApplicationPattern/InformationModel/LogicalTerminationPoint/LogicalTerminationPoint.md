@@ -1,26 +1,149 @@
 # LogicalTerminationPoint and LayerProtocol
 
+### LogicalTerminationPoint
+
 The ControlConstruct comprises a list of LogicalTerminationPoints (LTP).  
 The LTP class represents the termination point of a logical connection, means: it's some sort of interface.  
-In case of applications, this includes details about the exposed and the consumed services.  
-The attributes represented by an LTP depends on the type of connection terminated.  
+The LTP is a generic class that holds the LayerProtocol class, which gets augmented with attributes that are specific to the individual kinds of interfaces.
 
-Most relevant types of connections documented in the CONFIGfile of the applications:
+The following attributes are hold by the LogicalTerminationPoint:
+LogicalTerminationPoint
+- **uuid**: Identifier that is unique within the entire MW SDN application layer. Details can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).  
+- **ltpDirection**: The role of an LTP can be seen in two different context. It could be seen from outside the device/application, or from inside. Because the information about the LTP is provided by the device/application, it is necessary to take the internal point of view for understanding how to interpret the values of the ltpDirection.  
+  - **core-model-1-4:TERMINATION_DIRECTION_SOURCE**: Looking at the _Forwarding_ inside the applications, it is the OperationServer, where the event, which causes a reaction at the OperationClient, happens. Consequently, the LTPs that are describing servers (OperationServer, HttpServer, TcpServer) are identified by being sources in the internal flow.  
+  - **core-model-1-4:TERMINATION_DIRECTION_SINK**: Again looking at the internal _Forwarding_, the information is propagating towards the clients (OperationClient, ElasticsearchClient, HttpClient, TcpClient). Consequently, these interfaces are associated with being sinks in the internal flow.  
+- **clientLtp**: This attribute does not relate to the relationship between applications, but OSI network layers. An Ethernet PHY would be required for transporting an Ethernet MAC, and an Ethernet MAC would be required for transporting an IP layer. So, the Ethernet PHY is serving the Ethernet MAC, and the IP is client of the Ethernet MAC. In case of the applications, OperationClients/OperationServers are referenced in the clientLtp attribute of the HttpClient/HttpServer that identifies the application.
+- **serverLtp**: In case of the applications, TcpClients/TcpServers are referenced in the serverLtp attribute of the HttpClient/HttpServer that identifies the application.
+- **layerProtocol**: List of logical layers that are terminated at the LTP. In case of the applications, but also the MW information model, there is always just a single instance of LayerProtocol in this list.
+
+![ClientServerRelationships](pictures/clientServerLtp.png)  
+
+
+#### LayerProtocol
+
+The LayerProtocol class describes the type of connection that is terminated.  
+In principle, it is a generic class of the CIM, but it gets augmented with attributes that are specific to the individual kind of connection.  
+
+In case of applications, the following attributes are common to all kinds of LayerProtocol:  
+- **localId**: Identifier that is unique just within the residing LogicalTerminationPoint.  
+- **layerProtocolName**: Identifies the network layer, where the LTPs, ForwardingDomain, ForwardingConstructs and Links are residing. These objects must share the same value in their layerProtocolName attribute for being connected to a topology. In case of the applications, ForwardingDomain, ForwardingConstructs and Links are currently exclusively existing on the operation layer. Since there would be always the same value, the layerProtocolName attribute does not existing in these classes. The following values have been defined for the layerProtocolName attribute to destinguish the layers that are available as LayerProtocol:  
+  - operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER: 
+  - http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER: 
+  - tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER: 
+
+Further attributes are individual to the kind of LayerProtocol.  
+The individual attributes have to be filled with the values that have already been defined in the ServiceList.  
+The order of instances should be identical in CONFIGfile and ServiceList.  
+Details about their individual meaning can be found in [Creating a ServiceList](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/SpecifyingApplications/CreatingServiceList/CreatingServiceList.md).  
 
 ![LayerProtocolTypes](pictures/LayerProtocol.png)  
 
-The server interfaces provide information about the application itself:  
-- The HttpServer provides the current application name, release number, owner, and the revision history. There will be only one HttpServer instance per application.  
-- The TcpServer represents the current IPv4 address and port of the application. There will be at least one TcpServer instance per application. If application shall be reachable from within and outside the virtual privat cloud (name space behind TLS layer termination), two TcpServers are required for http and https.  
-- Each service that is provided by the application is represented as an OperationServer in the list of LTPs. The OperationServer consists of the name, operation key to validate the authorization and the lifecycle state of the service.  
+Each service that is provided by the application is represented as an **OperationServer** in the list of LTPs. In case of the OperationServer the following attributes get augmented:  
+```
+"operation-server-interface-1-0:operation-server-interface-pac": {
+  "operation-server-interface-capability": {
+    "operation-name": "/v1/register-yourself"
+  },
+  "operation-server-interface-configuration": {
+    "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
+    "operation-key": "Operation key not yet provided."
+  }
+}
+```
 
-The client interfaces are documenting information about connections to other software components:  
-- The OperationClient interface provides information about the consumed services. The major property of this interface is the name of the consumed service and the operation key that is used for authorization purposes.  
-- The ElasticsearchClient allows configuring the connection towards a database that is storing ApplicationData.  
-- The HttpClient represents the details of a client application whose APIs are consumed. HttpClient acts as a server to the OperationClient. There is an one-to-many mapping between HttpClient to OperationClient.  
-- The TcpClient stores information about the IPv4 address and port at which a serving application can be reached. There is a one-to-one mapping between a HttpClient and a TcpClient.  
+- The **HttpServer** describes the application that holds the CONFIGfile under specification. There will be just a single HttpServer instance per application. Its attributes have to be updated during specification phase. The following attributes get augmented:  
+```
+"http-server-interface-1-0:http-server-interface-pac": {
+  "http-server-interface-capability": {
+    "application-name": "RegistryOffice",
+    "release-number": "2.0.1",
+    "application-purpose": "All applications being part of the MBH SDN must be register here.",
+    "data-update-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
+    "owner-name": "Thorsten Heinze",
+    "owner-email-address": "Thorsten.Heinze@telefonica.com",
+    "release-list": [
+      {
+        "local-id": "0",
+        "release-number": "1.0.0",
+        "release-date": "04.12.2021",
+        "changes": "Initial version."
+      },
+      {
+        "local-id": "1",
+        "release-number": "2.0.1",
+        "release-date": "04.12.2022",
+        "changes": "Update on ApplicationPattern 2.0.1."
+      }
+    ]
+  }
+}
+```
 
-Each LTP is identified by an ID (UUID), which is unique within the entire MW SDN architecture.  
-The clients/server relationships between the Tcp, Http and Operation LTPs are expressed by the “ClientLtp” and “ServerLtp” attributes that are containing references (UUIDs) to other LTPs.  
+- The **TcpServer** represents the current IP address and port of the application. There will be at least one TcpServer instance per application. If application shall be reachable from within and outside the virtual privat cloud (name space behind TLS layer termination), two TcpServers are required for http and https. The TcpServer has a complex datastructure that offers multiple ways of expressing the address information. Several attributes are for alternative usage. It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the application's own address would be required. In all the existing applications, the following attributes got augmented:  
+```
+"tcp-server-interface-1-0:tcp-server-interface-pac": {
+  "tcp-server-interface-configuration": {
+    "description": "Without TLS layer",
+    "local-protocol": "tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP",
+    "local-address": {
+      "ipv-4-address": "1.1.3.8"
+    },
+    "local-port": 3008
+  }
+}
+```
 
-![ClientServerRelationships](pictures/clientServerLtp.png)  
+- The **OperationClient** interface provides information about a consumed service. The following attributes get augmented:  
+```
+"operation-client-interface-1-0:operation-client-interface-pac": {
+    "operation-client-interface-configuration": {
+      "operation-name": "/v1/notify-approvals",
+      "operation-key": "Operation key not yet provided."
+    },
+    "operation-client-interface-status": {
+      "operational-state": "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
+      "life-cycle-state": "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
+    }
+  }
+}
+```
+
+- The **ElasticsearchClient** allows configuring the connection towards a database that is storing ApplicationData. The following attributes get augmented:  
+```
+"elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac": {
+  "elasticsearch-client-interface-configuration": {
+    "auth": {
+      "api-key": "API key not yet defined."
+    },
+    "index-alias": "eatl-2-0-1"
+  },
+  "elasticsearch-client-interface-status": {
+    "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
+    "life-cycle-state": "elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
+  }
+}
+```
+
+- The **HttpClient** identifies the application whose services are consumed. The following attributes get augmented:  
+```
+"http-client-interface-1-0:http-client-interface-pac": {
+  "http-client-interface-configuration": {
+    "application-name": "NewRelease",
+    "release-number": "2.0.1"
+  }
+}
+```
+
+- The **TcpClient** stores the IP address and port of a serving application. In contrast to the TcpServer, the application always documents just a single TcpClient. Alike the the TcpServer, the TcpClient has a complex datastructure that offers multiple ways of expressing the address information. Several attributes are for alternative usage. It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the serving application's address would be required. In all the existing applications, the following attributes got augmented:  
+```
+"tcp-client-interface-1-0:tcp-client-interface-pac": {
+  "tcp-client-interface-configuration": {
+    "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
+    "remote-address": {
+      "ip-address": {
+        "ipv-4-address": "1.1.3.8"
+      }
+    },
+    "remote-port": 3008
+  }
+}
