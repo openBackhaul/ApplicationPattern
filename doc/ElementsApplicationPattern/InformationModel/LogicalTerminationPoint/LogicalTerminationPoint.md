@@ -21,7 +21,6 @@ The client interfaces are documenting information about connections to other sof
 - The TcpClient stores information about the IPv4 address and port at which a serving application can be reached. There is a one-to-one mapping between a HttpClient and a TcpClient.  
 
 Each LTP is identified by an ID (UUID), which is unique within the entire MW SDN architecture.  
-Exact details on the format of UUIDs can be found in [Structure of UUIDs](../../Names/StructureOfUuids/StructureOfUuids.md).  
-The clients/server relationships between the Tcp, Http and Operation LTPs are expressed by the “ClientLtp” and “ServerLtp” properties that are containing references (UUIDs) to other LTPs.  
+The clients/server relationships between the Tcp, Http and Operation LTPs are expressed by the “ClientLtp” and “ServerLtp” attributes that are containing references (UUIDs) to other LTPs.  
 
 ![ClientServerRelationships](pictures/clientServerLtp.png)  
