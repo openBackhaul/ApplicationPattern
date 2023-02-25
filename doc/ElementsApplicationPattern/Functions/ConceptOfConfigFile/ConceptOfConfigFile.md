@@ -1,7 +1,8 @@
 # Concept of the CONFIGfile
 
 Functions are distributed across many individual applications in a modular application layer.  
-Applications are consuming functions provided by other applications, which results in numerous communication relationships between them.  
+Applications are consuming functions provided by other applications.  
+This results in numerous communication relationships between applications.  
 These communication relationships are directed, meaning that a client is sending requests to a server.  
 The client must correctly address these requests for actually reaching the server.  
 
@@ -14,13 +15,13 @@ Therefore, address information needs to be configurable in some way and it needs
 This is the main purpose of the CONFIGfile.  
 
 The CONFIGfile does not just store address information, but also all kinds of parameter values.  
-Parameters might be required for pre-configuring e.g., formulas, algorithms, or processes that are executed inside the application.  
+Parameters might be required for e.g., formulas, algorithms, or processes that are executed inside the application.  
 Such parameters are usually of primitive data types like Integer or String.  
 
 Some applications build their own data during runtime.  
 For example, the ExecutionAndTraceLog is creating a record for every request executed in the application layer.  
 Such data would be called ApplicationData.  
-The CONFIGfile shall not contain ApplicationData, but it might contain information that is required for connecting to a separate file or database that is holding the ApplicationData.  
+The CONFIGfile shall not contain ApplicationData, but it might contain information that is required for connecting a separate file or database that is holding the ApplicationData.  
 
 Immediately after launching, the application is reading the CONFIGfile.  
 Consequently, the values that are defined in the CONFIGfile represent the initial state of the application.  
@@ -32,6 +33,6 @@ These changes are then automatically written into the CONFIGfile.
 The CONFIGfile is stored separately from the code of the application.  
 So, in case of failure, a new instance of an application could be started with the exact latest configuration of a broken instance.  
 
-For completeness, it should be noted that an application of the MW SDN application layer is always stateful due to its configurability.  
-This means that they have a state that changes over the course of their operation, and this state must be kept consistent.  
+For completeness, it should be noted that all applications of the MW SDN application layer are stateful due to their configurability.  
+That state might change over the course of their operation, and it must be kept consistent.  
 This characteristic makes integration with Kubernetes a bit more complex.  
