@@ -27,7 +27,7 @@ The following attributes are common to all kinds of Profile:
   - string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE
 
 Further attributes are individual to the kind of Profile.  
-The individual attributes have to be filled with the values that has already been defined in the ProfileInstanceList.  
+The individual attributes have to be filled with the values that have already been defined in the ProfileInstanceList.  
 The order of instances should be identical in CONFIGfile and ProfileInstanceList.  
 Details about their individual meaning can be found in [Creating a ProfileInstanceList](../../../SpecifyingApplications/CreatingProfileInstanceList/CreatingProfileInstanceList.md).  
 
