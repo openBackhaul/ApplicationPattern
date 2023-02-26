@@ -110,7 +110,7 @@ class ElasticsearchService {
     let name = policyBody["service-records-policy-name"];
     let description = policyBody["description"];
     let project = policyBody["project"];
-    let updatedPhases = replaceAllObjKeys(policyBody["phases"], (key) => key.replaceAll("-","_"));
+    let updatedPhases = replaceAllObjKeys(policyBody["phases"], (key) => key.replaceAll("-", "_"));
     let result = await client.ilm.putLifecycle({
       "policy": name,
       "body": {
@@ -148,7 +148,7 @@ class ElasticsearchService {
     let client = await this.getClient(false, uuid);
     template['body']['template']['settings'] = {
       'index.lifecycle.name': policyName,
-			'index.lifecycle.rollover_alias': indexAlias
+      'index.lifecycle.rollover_alias': indexAlias
     };
     await client.indices.putIndexTemplate(template);
     // call rollover to immediatelly create new index with applied policy
@@ -170,7 +170,7 @@ class ElasticsearchService {
     let indexAlias = await getIndexAliasAsync(uuid);
     let client = await this.getClient(false, uuid);
     let response = await client.indices.getIndexTemplate({
-        filter_path: '*.name,**.index_patterns'
+      filter_path: '*.name,**.index_patterns'
     });
     let found = response.body.index_templates.find(item => {
       return item['index_template']['index_patterns'].includes(`${indexAlias}-*`)
@@ -178,7 +178,7 @@ class ElasticsearchService {
     if (found) {
       let name = found['name'];
       let existingTemplate = await client.indices.getIndexTemplate({
-          name: name
+        name: name
       });
       let body = existingTemplate.body.index_templates[0].index_template;
       return { name, body };
@@ -210,7 +210,7 @@ class ElasticsearchService {
     let result = await client.ilm.getLifecycle({
       "policy": policyName
     });
-    let updatedPhases = replaceAllObjKeys(result.body[policyName].policy.phases, (key) => key.replaceAll("_","-"));
+    let updatedPhases = replaceAllObjKeys(result.body[policyName].policy.phases, (key) => key.replaceAll("_", "-"));
     let policyDetail = {
       "service-records-policy-name": policyName,
       "phases": updatedPhases
@@ -232,6 +232,50 @@ class ElasticsearchService {
       found['layer-protocol'][0][onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC][onfAttributes.ES_CLIENT.CONFIGURATION]['service-records-policy'] = serviceRecordPolicy;
     }
     return controlConstruct;
+  }
+
+  /**
+   * Creates or updates control-construct document in ES.
+   *
+   * The existence of document is determined by control-construct UUID.
+   * If a document with such UUID already exists under configured index alias,
+   * it will be replaced, otherwise, it will be inserted as a new document.
+   *
+   * @param {Object} controlConstruct Full control-construct
+   * @param {String} [uuid] UUID of ES client
+   * @returns response from Elasticsearch index operation
+   */
+  async createOrUpdateControlConstructInES(controlConstruct, uuid) {
+    let controlConstructUuid = controlConstruct["uuid"];
+
+    let client = await this.getClient(false, uuid);
+    let indexAlias = await getIndexAliasAsync(uuid);
+    let res = await client.search({
+      index: indexAlias,
+      filter_path: 'hits.hits._id',
+      body: {
+        "query": {
+          "term": {
+            "uuid": controlConstructUuid
+          }
+        }
+      }
+    });
+    let response = {};
+    if (Object.keys(res.body).length === 0) {
+      response = await client.index({
+        index: indexAlias,
+        body: controlConstruct
+      });
+    } else {
+      let documentId = res.body.hits.hits[0]._id;
+      response = await client.update({
+        index: indexAlias,
+        id: documentId,
+        body: controlConstruct
+      });
+    }
+    return response;
   }
 }
 
@@ -266,7 +310,7 @@ async function configureClientAsync(uuid) {
 async function getElasticsearchClientUuidAsync(uuid) {
   let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
   if (uuid !== undefined) {
-    if(uuids.includes(uuid)) {
+    if (uuids.includes(uuid)) {
       return uuid;
     } else {
       throw new Error(`UUID ${uuid} does not match any Elasticsearch client LTP.`);
@@ -290,7 +334,8 @@ async function getNodeAsync(uuid) {
   let address = await TcpClientInterface.getRemoteAddressAsync(tcpClient[0]);
   let port = await TcpClientInterface.getRemotePortAsync(tcpClient[0]);
   let remoteProtocol = await TcpClientInterface.getRemoteProtocolAsync(tcpClient[0]);
-  return remoteProtocol + "://" + address[onfAttributes.TCP_CLIENT.IP_ADDRESS][onfAttributes.TCP_CLIENT.IPV_4_ADDRESS] + ":" + port;
+  return remoteProtocol.toLowerCase() + "://"
+    + address[onfAttributes.TCP_CLIENT.IP_ADDRESS][onfAttributes.TCP_CLIENT.IPV_4_ADDRESS] + ":" + port;
 }
 
 /**
@@ -376,7 +421,7 @@ module.exports.createResultArray = function createResultArray(result) {
 module.exports.isTcpClientElasticsearch = async function isTcpClientElasticsearch(tcpClientUuid) {
   let httpClientUuids = await logicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
   let esClientUuids = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
-  if (esClientUuids.length < 1) {
+  if (esClientUuids.length === 0) {
     return false;
   }
   let protocol = await layerProtocol.getLayerProtocolName(esClientUuids[0]);
