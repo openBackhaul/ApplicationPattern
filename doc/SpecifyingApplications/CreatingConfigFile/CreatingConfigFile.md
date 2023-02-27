@@ -43,7 +43,7 @@ Several need to be added, and it is recommended to copy and paste the existing o
   - Copy an existing instance of Profile (take care that you pick one that contains both a capability and a configuration section).  
   - Delete the existing attributes from the capability and configuration sections.  
   - Adapt the UUID to the pattern you defined in your ProfileList.  
-  - Update the value of the ProfileName attribute in the CONFIGfile in accordance with the ProfileName attribute from the ProfileList. Regard that the value has to be updated at two separate possitions, the name space and the enumeration value. Regard the syntax!  
+  - Update the value of the ProfileName attribute in the CONFIGfile in accordance with the ProfileName attribute from the ProfileList. Regard that the value has to be updated at two separate positions, the name space and the enumeration value. Regard the syntax!  
   - Replace the profile name in the attributes' names of the pac (name space and attribute), the capability and the configuration objects.  
   - Add the read-only attributes to the capability object.  
   - Add the read-write attributes to the configuration object.  
@@ -55,7 +55,7 @@ Several need to be added, and it is recommended to copy and paste the existing o
 - Compare the list of existing OperationServers with the content of your ServiceList.  
 - Delete existing OperationServers that do not match your ServiceList.  
 - Copy and Paste an existing instance of OperationServer and adapt the value of the OperatioName attribute until the list of OperationServers in the CONFIGfile is consistent with your ServiceList.  
-- Update the API segement and the sequence number in the UUIDs until they are matching your ServiceList.  
+- Update the API segment and the sequence number in the UUIDs until they are matching your ServiceList.  
 - Search for 'http-s-000",' and put the same UUIDs into the clientLtp list attribute.  
 
 - Check the HttpClients in the CONFIGfile and delete all stacks of OperationClients, HttpClients and TcpClients that belong to HttpClients that are not required in your ServiceList.  
@@ -71,7 +71,7 @@ Several need to be added, and it is recommended to copy and paste the existing o
 - Compare the list of existing ForwardingConstructs in the CONFIGfile with the content of your ForwardingList.  
 - Delete existing ForwardingConstructs that do not match your ForwardingList.  
 - Copy and Paste an existing instance of ForwardingConstruct and adapt the value of the ForwardingName and the ForwardingKind attributes until the list of ForwardingConstructs in the CONFIGfile is consistent with the _Forwardings_ in your ForwardingList.  
-- Step through the list of _Forwardings_ in the ForwardingList and assure that the exact same ForwardingConstructPorts are available in the ForwardingConstructs in the CONFIGfile, too. Fokus on correct UUID of the referenced LTP and port direction.  
+- Step through the list of _Forwardings_ in the ForwardingList and assure that the exact same ForwardingConstructPorts are available in the ForwardingConstructs in the CONFIGfile, too. Focus on correct UUID of the referenced LTP and port direction.  
 - Review the local IDs of all ForwardingConstructPorts.  
 - Get through the UUIDs of the referenced LTPs and check by CTRL+f, whether the found OperationServer/OperationClient from the CONFIGfile matches the one from the ForwardingList.  
 - Review the UUIDs of all ForwardingConstructs.  
