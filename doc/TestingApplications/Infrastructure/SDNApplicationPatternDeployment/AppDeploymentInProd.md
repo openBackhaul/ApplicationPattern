@@ -1,71 +1,68 @@
 
 ## Application Deployment in Production 
-Once everything fine in test bed and acceptance test also passed then will promote the build to production. 
-      
-Here, we are not having connection directly between testbed and production, so **manually copying images into production server**. Once copied, run the pipeline job in jenkins using docker containerization tool and deploy the applications.
+Once the acceptance testing is passed in testbed, the respective build/image will be promoted to production environment. There is no direct connectivity between testbed and production environments. so **the images shall be manually transferred into the production app server**. 
 
-### Pipeline configuration:
-Here how we configure Pipeline job in testbed environment, in the same way we have to configure and install all necessary tools in Jenkins server of production.
+Below is the procedure to run the pipeline job for deployment and testing further application in jenkins.
 
-### Automated Pipeline Steps
-- Create pipeline jobs with required configuration
-- Pipeline Stages 
-- CI/CD Pipeline Flow
-- Declarative pipeline script
-- Verify the applications are up and running
-- Run the Automation testsuites
+## Automated Pipeline Steps
+Configure and install the necessary tools in production test server same as test server in test environment.
+- Pipeline job creation
+- Build declarative pipeline script
+- Verification of applications status
+- Run Automation testsuites
+- Email Notification
  
-#### Create pipeline jobs with required configuration
-- Goto DashBoard and select and create new item with pipeline job
-- Once job created and Configure the job with all details that required like PollSCM time interval to perform monitoring the pipeline 
-- Then develop and add the pipeline script to current pipeline job
-- Apply and save the configurations
+### Pipeline job creation with required configuration
+[Please refer the previous section for creating the jenkins job and choose pipeline](../Tools/Jenkins/JenkinsJobsAndSDNDeployment.md#list-of-jenkins-jobs)
 
-#### Pipeline Stages 
-- Take the copy of image into production server.
-- Load the released docker image
-- Run Docker container using image
-- Testing stage(Integration tests in Production) 
+### Build declarative pipeline script 
+* Manually transfer the tar file from testbed into production server
+* Load the docker image using docker command
+* Run Docker container using loaded image
+* Configure the email notification
+* Execute automated integration testsuites and collects the html test reports
 
-#### Automated pipeline scripts
-**Manual : Copy tar file into server**
-
-#### Pipeline Configuration  
-Basic scripting is provided and based on requirements we can use groovy scripts to write the pipeline scripts. Basic format provided here and required scripts and steps added as per requirement.
+The following provided format and required steps shall be added as per requirement.
 
     pipeline {
-      stage ('load the docker image'){
-      load the image using docker load command
-      } 
-      stage ('Run Docker container using image') {
-      create container from image using docker run command
-      }
-      stage ('notification') {
-         send email with all details
-         }
+      agent {
+        label 'Appserver'
+       }
+     stages {
+    stage ('load the docker image'){
+    load the image using docker load command
+    } 
+    stage ('Run Docker container using image') {
+    create container from image using docker run command
     }
+    stage ('notification') {
+    send email with all details to recipients
+    }
+      }
+    }
+
+**Note** : above provided sample script code is just an example, based on the requirement user can develop his own groovy script/shell script.
+
+### Verification of application status
+Once Applications (ex: RO,TAR,EATL etc) are deployed, go to the browser and check the Ip address with port XXXX (exposed in docker file) is accessible or not. if yes, the application swagger is up and running without any issues.
     
-#### Verify the applications are up and running
-   
-Once Applications(ex: RO,TAR,EATL etc) deployed using the dockerize containers, Go to the browser and check the Ip address with port XXXx which exposed in docker file. Verify whether application swagger is up and running.
-    
+Below is the format of application swagger
+
     http://<serverIp>:<port>/docs/
-    ex: http://10.0.2.4:1234/docs/
 
-![RO](Images/Ro.png) 
+Example: RegistryOffice application which deployed already in environment.
 
-Example structure of Applications deployed on docker engine:
+    http://125.4.5.11:1234/docs/
 
-![Allapplications in siglepage](Images/AllApplicationsexample.PNG)
+![Example RO](Images/Ro.png) 
 
-#### Run the Automation testsuites 
-Automation testsuites running immediately after application deployment.Integration Testing job configured to run in preprod environment 
+### Run Automation testsuites 
+Integration Testing job is configured to run only on production servers and these testsuites are executed immediately after application deployment. 
 
- - [**Integration Testing**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
+ - [**Integration testing procedure**](../../IntegrationTesting/Overview/pipelineconfiguration.md)
 
- 
-#### Email Notification
-Once test suite execution is completed, The notification with execution reports and job URL's sent to developers and CICD team.
+### Email Notification
+Once test suite execution is completed/deployment is done, the notification with execution reports and job URL's will be sent to configured developers and cicd team members.
 
 
 [<- Back to SDNApplicationDeploymentInTestBed](./AppDeploymentInTestBed.md) - - - [Back to main Testing Applications ->](../../TestingApplications.md)

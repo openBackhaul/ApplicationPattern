@@ -1,21 +1,27 @@
-## General Concepts of SDN Laboratory
-### Controller
-The SDN Controller is a single point of contact for the applications to provide real-time information about status, configuration and topology for constant optimization and automation of the network. The SDN Controller offers a REST based interface at its northbound interface for external applications to access the resources. The Applications can request the real-time network status and can provide the configurations at the network elements over the standard REST based interface. At the south side, the SDN controller will manage the underlying Network elements through standardized NetConf based requests.
+## SDN Laboratory Overview
 
-![NorthSouthController](./Images/Capture.PNG)
+Currently, the application pattern is building on application layer on SDN controller using the microservice architecture where all the complex applications are spilt into small pieces and make them run independently. 
 
-### Mediators
-Mediator for Microwave is a software product which enables SDN (Software Defined Networking) solutions to utilize an installed base of network elements without native NetConf interfaces. It maps NetConf messages based on the ONF YANG information model for microwave equipment to/from the proprietary protocols of the supported network elements.
+Deploying and testing these application requires two servers and one source code repository.
 
-Mediators are used to send the response towards NetConf YANG interface. An OpenDaylight SDN Controller translates the response from NetConf to RestConf.
+![NorthSouthController](./Images/sdncomponents.PNG)
 
-### Network Elements (NE)
+* External GIT
+    *  The git/github repository which contains all the source code and automated testsuites related to all applications.  
 
-Network Element, or SDN switch which provides APIs to interact with the SDN controller. Network Elements should be mounted to the controller based on controller basekeys which is used to access resources that retrieve, update/modify data on the Network Element.
+* Appserver
+    
+    * Appserver will be used to clone and build the images from source code using docker framework.
+    * Deploys the applications as containers with port, once images are build on same server.
+    * HA script also available on appserver which continuously monitor the applications.
 
-### Applications
+* Test Server
 
-Currently, the application pattern is building an application layer on SDN controller using the microservice architecture where the complex applications are spilt into small pieces and make them run independently. 
+     * Test server is used for testing the applications
+     * Test server contains complete automation set up with required tools includes jenkins as CI tool, newman, newman-reporter for running the test suites and report generation.
 
+To set up complete laboratory for deployment and testing, we required [tools](../../../TestingApplications.md#tools), changing default IP's to actual server Ip using concept of [Fake Addresses](../../../TestingApplications.md#fake-addresses) as prerequisite.
+
+**Note**: The laboratory tools setup is same for both testbed and GCP/Production environment.
 
 [<- Back to Testing Applications](../../../TestingApplications.md)

@@ -1,5 +1,5 @@
 ## Environment SetUp
-Once Jenkins is up and running, adjust the firewall rules so that user can reach it from a web browser to complete the initial setup. After enabling the firewall port, reload the firewall setup.
+Once Jenkins is up and running, adjust the firewall rules so that user can reach it from web browser to complete the initial setup. After enabling the firewall port, reload the firewall setup.
 
 ### Enabled firewall support for XXXX(default 8080) port
 
@@ -16,7 +16,7 @@ The installation and firewall setup is done, now Jenkins is running on following
 
 **Unlock Jenkins** :
 
-Open above mentioned URL which displays the location of the initial password on unlock screen and read the password key from /var/lib/jenkins/secrets/initialAdminPassword file. You can access Jenkins by providing the password.
+Open above mentioned URL which displays the location of the initial password on unlock screen and read the password key from /var/lib/jenkins/secrets/initialAdminPassword file. User can access Jenkins by providing the password.
 
 **Image**
 

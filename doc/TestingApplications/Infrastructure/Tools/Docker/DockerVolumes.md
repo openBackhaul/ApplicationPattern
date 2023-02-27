@@ -3,7 +3,7 @@
 The Docker interface is simple and users can easily create and implement applications into their containers or carry out version management, copy, share, and modify, just like managing ordinary code. 
 
 * However, containers often need to use data beyond their container or share data/store data between containers.
-* Data is deleted when the containers are crashed/stopped/restarted, then data has lost.
+* Data is deleted when containers are crashed/stopped/restarted, then data has lost.
 
 ### Data persistance achieved with docker volumes 
 To avoid mentioned problems, Docker volumes is a better solution is to work with persistent data in a container where data should be backed up and shared.
