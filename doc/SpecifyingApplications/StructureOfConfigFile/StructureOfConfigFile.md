@@ -1,4 +1,0 @@
-# Structure of the CONFIGfile
-
-
-
