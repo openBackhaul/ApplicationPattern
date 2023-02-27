@@ -21,7 +21,7 @@ The objects that are created from the classes defined in the ONF CIM shall have 
             ...
           }
         },
-        ...
+        ... (1)
       ]
     },
     "logical-termination-point": [
@@ -43,7 +43,7 @@ The objects that are created from the classes defined in the ONF CIM shall have 
           }
         ]
       },
-      ...
+      ... (2)
     ],
     "forwarding-domain": [
       {
@@ -67,10 +67,10 @@ The objects that are created from the classes defined in the ONF CIM shall have 
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
                 "logical-termination-point": "xx-1-0-0-op-s-bm-000"
               },
-              ...
+              ... (3)
             ]
           },
-          ...
+          ... (4)
         ]
       }
     ]
@@ -78,8 +78,8 @@ The objects that are created from the classes defined in the ONF CIM shall have 
 }
 ```
 The entries into the lists shall be ordered according to the respective high level specification:  
-- Profiles: _ProfileInstanceList_  
-- LogicalTerminationPoints: _ServiceList_  
-- ForwardingConstructs: _ForwardingList_  
+- (1) Profiles: _ProfileInstanceList_  
+- (2) LogicalTerminationPoints: _ServiceList_  
+- (4) ForwardingConstructs: _ForwardingList_  
 
-The ForwardingConstructPorts shall be ordered in Management, Input and Output.  
+(3) The ForwardingConstructPorts shall be ordered in Management, Input and Output.  
