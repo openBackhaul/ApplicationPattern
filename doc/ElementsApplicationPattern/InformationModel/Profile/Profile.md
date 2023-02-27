@@ -11,9 +11,9 @@ In case of the applications of the MW SDN domain, it just holds the list of inst
 
 ### Profile
 
-The Profile is a location for storing information that cannot directly be associated with an individual interface.  
+The Profile is for storing information that cannot directly be associated with an individual interface.  
 The generic Profile class gets augmented with attributes that are specific to the individual kind of Profile.  
-Inside devices, it is often used for comprehensive parameter settings that are applied on multiple interfaces.  
+Inside devices, it is often used for comprehensive parameter settings that are applied on multiple interfaces (e.g. WRED profiles, scheduler profiles etc.).  
 
 In case of the applications of the MW SDN domain, the Profile is often used for managing parameters that are required for configuring internal formulas, algorithms or processes.  
 
@@ -27,9 +27,10 @@ The following attributes are common to all kinds of Profile:
   - string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE
 
 Further attributes are individual to the kind of Profile.  
-The individual attributes have to be filled with the values that have already been defined in the ProfileInstanceList.  
-The order of instances should be identical in CONFIGfile and ProfileInstanceList.  
-Details about their individual meaning can be found in [Creating a ProfileInstanceList](../../../SpecifyingApplications/CreatingProfileInstanceList/CreatingProfileInstanceList.md).  
+The individual attributes and their values have already been defined in the ProfileInstanceList.  
+Their structuring into pac, capability and configuration has to follow the examples listed below.  
+The order of instances should be identical in ProfileInstanceList and CONFIGfile.  
+Details about the examples and the meaning of their individual attributes can be found in [Creating a ProfileInstanceList](../../../SpecifyingApplications/CreatingProfileInstanceList/CreatingProfileInstanceList.md).  
 
 In case of the **ActionProfile** the following attributes get augmented:
 ```
