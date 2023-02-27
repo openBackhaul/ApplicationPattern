@@ -20,7 +20,8 @@ The objects that are created from the classes defined in the ONF CIM shall have 
           "action-profile-1-0:action-profile-pac": {
             ...
           }
-        }
+        },
+        ...
       ]
     },
     "logical-termination-point": [
@@ -41,7 +42,8 @@ The objects that are created from the classes defined in the ONF CIM shall have 
             }
           }
         ]
-      }
+      },
+      ...
     ],
     "forwarding-domain": [
       {
@@ -64,9 +66,11 @@ The objects that are created from the classes defined in the ONF CIM shall have 
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
                 "logical-termination-point": "xx-1-0-0-op-s-bm-000"
-              }
+              },
+              ...
             ]
-          }
+          },
+          ...
         ]
       }
     ]
