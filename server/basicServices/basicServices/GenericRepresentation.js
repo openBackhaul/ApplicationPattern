@@ -14,7 +14,7 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const TcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
-
+const dataUpdatePeriod = require('./services/PrepareDataUpdatePeriodEnum')
 /**
  * @description This function returns the consequent action list for the provided operation name.
  * @param {String} operationName : operation Name
@@ -117,10 +117,6 @@ exports.getResponseValueList = function (operationName) {
             let responseInstanceFieldName;
             let responseInstanceValue;
             let responseInstancedataTypeOfValue;
-            let fieldNameDataUpdatePeriod = "dataUpdatePeriod"
-            let dataUpdatePeriodEnum = {
-                "real-time": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME"
-            };
 
             let profilesList = await profileCollection.getProfileListAsync();
             if (profilesList != undefined && profilesList.length != 0) {
@@ -149,14 +145,8 @@ exports.getResponseValueList = function (operationName) {
                                 responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
                             }
                             responseInstancedataTypeOfValue = typeof responseInstanceValue;
+                            responseInstanceValue = dataUpdatePeriod.getDataUpdatePeriodEnum(fieldName, responseInstanceValue)
 
-                            if(fieldName['static-field-name'] == fieldNameDataUpdatePeriod){
-                                for (let dataUpdatePeriodKey in dataUpdatePeriodEnum) {
-                                    if (dataUpdatePeriodEnum[dataUpdatePeriodKey] == responseInstanceValue) {
-                                        responseInstanceValue = dataUpdatePeriodKey;
-                                    }
-                                }
-                            }
                             let response = new responseValue(
                                 responseInstanceFieldName,
                                 responseInstanceValue,
