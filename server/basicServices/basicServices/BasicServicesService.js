@@ -555,14 +555,12 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
           } else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
             let httpServerinterfacepac = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
             if (httpServerinterfacepac !== undefined) {
-              let httpServerConfiguration = httpServerinterfacepac[onfAttributes.HTTP_SERVER.CAPABILITY];
-              if (httpServerConfiguration !== undefined) {
-                delete httpServerConfiguration['operation-key'];
-                delete httpServerConfiguration['application-purpose'];
-                delete httpServerConfiguration['owner-name'];
-                delete httpServerConfiguration['owner-email-address'];
-                delete httpServerConfiguration['release-list'];
-                delete httpServerConfiguration['application-purpose'];
+              let httpServerCapability = httpServerinterfacepac[onfAttributes.HTTP_SERVER.CAPABILITY];
+              if (httpServerCapability !== undefined) {
+                delete httpServerCapability['application-purpose'];
+                delete httpServerCapability['owner-name'];
+                delete httpServerCapability['owner-email-address'];
+                delete httpServerCapability['release-list'];
               }
             }
           }
