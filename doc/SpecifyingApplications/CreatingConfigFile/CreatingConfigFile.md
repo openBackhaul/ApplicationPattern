@@ -3,8 +3,8 @@
 This is the step by step cookbook for creating the _CONFIGfile_.
 
 Please read the following conceptual documents before working on the _CONFIGfile_:  
-- [Concept of the CONFIGfile](../ConceptsOfConfigFile/ConceptsOfConfigFile.md)  
-- [Structure of the CONFIGfile](../StructureOfConfigFile/StructureOfConfigFile.md)  
+- [Concept of the CONFIGfile](../../ElementsApplicationPattern/Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)  
+- [Structure of the CONFIGfile](../../ElementsApplicationPattern/Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)  
 - [ONF Core Information Model](../../ElementsApplicationPattern/InformationModel/Overview/Overview.md)  
 
 
