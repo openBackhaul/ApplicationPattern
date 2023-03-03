@@ -63,7 +63,7 @@ Once job is created, please follow the below procedure to build the groovy scrip
         }
     }
     environment {
-            EMAIL_TO = 'rp00807042@techmahindra.com'
+            EMAIL_TO = '<mention mail id>'
         }
     post {
     	success {
