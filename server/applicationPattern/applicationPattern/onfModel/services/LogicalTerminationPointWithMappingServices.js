@@ -450,13 +450,10 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
                 operationNamesByAttributes,
                 operationsMapping
             );
-            operationClientConfigurationStatusList.forEach(async (operationClientConfigurationItem) => {
-                httpClientConfigurationStatus = await updateHttpClientInterface(
-                    httpClientUuid,
-                    releaseNumber,
-                    operationClientConfigurationItem['updated']
-                )
-            });
+            for(let operationClientConfigurationIndex = 0; operationClientConfigurationIndex < operationClientConfigurationStatusList.length; operationClientConfigurationIndex++){
+                httpClientConfigurationStatus = await updateHttpClientInterface(httpClientUuid, releaseNumber, operationClientConfigurationStatusList[operationClientConfigurationIndex]['updated'] )
+            }
+
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
                 httpClientConfigurationStatus,
