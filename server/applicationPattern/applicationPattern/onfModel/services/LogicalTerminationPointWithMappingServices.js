@@ -440,6 +440,7 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName, releaseNumber
             );
+            let getClientListBeforefindAndUpdateOperationClientInterface = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
             tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
                 httpClientUuid,
                 tcpList
@@ -450,8 +451,19 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
                 operationNamesByAttributes,
                 operationsMapping
             );
-            for(let operationClientConfigurationIndex = 0; operationClientConfigurationIndex < operationClientConfigurationStatusList.length; operationClientConfigurationIndex++){
-                httpClientConfigurationStatus = await updateHttpClientInterface(httpClientUuid, releaseNumber, operationClientConfigurationStatusList[operationClientConfigurationIndex]['updated'] )
+            let getClientListAfterfindAndUpdateOperationClientInterface = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
+            if (getClientListBeforefindAndUpdateOperationClientInterface.length != getClientListAfterfindAndUpdateOperationClientInterface.length) {
+                httpClientConfigurationStatus = await updateHttpClientInterface(
+                    httpClientUuid,
+                    releaseNumber,
+                    true
+                )
+            } else {
+                httpClientConfigurationStatus = {
+                    uuid: httpClientUuid,
+                    localId: '',
+                    updated: false
+                }
             }
 
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
