@@ -782,7 +782,7 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort, 
             let _remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(
                 tcpClientUuid
             );
-            if (remoteIpV4Address != _remoteIpV4Address) {
+            if (JSON.stringify(remoteIpV4Address) != JSON.stringify(_remoteIpV4Address)) {
                 isIpV4AddressUpdated = await tcpClientInterface.setRemoteAddressAsync(
                     tcpClientUuid,
                     remoteIpV4Address
