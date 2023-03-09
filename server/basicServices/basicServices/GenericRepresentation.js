@@ -182,10 +182,9 @@ async function getDataUpdatePeriodEnum(fieldName, responseInstanceValue) {
                     if (dataUpdatePeriodEnum[dataUpdatePeriodKey] == responseInstanceValue) {
                         responseInstanceValue = dataUpdatePeriodKey;
                     }
-                }
-
-                resolve(responseInstanceValue);
+                }              
             }
+            resolve(responseInstanceValue);
         } catch (error) {
             reject(error);
         }
