@@ -6,7 +6,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.1",
             "fake-tcp-port": 3001,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3001
         },
         {
@@ -16,7 +20,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.2",
             "fake-tcp-port": 3002,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3002
         },
         {
@@ -26,7 +34,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.3",
             "fake-tcp-port": 3003,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3003
         },
         {
@@ -36,7 +48,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.4",
             "fake-tcp-port": 3004,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3004
         },
         {
@@ -46,7 +62,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.5",
             "fake-tcp-port": 3005,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3005
         },
         {
@@ -56,7 +76,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.6",
             "fake-tcp-port": 3006,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3006
         },
         {
@@ -66,7 +90,11 @@
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.7",
             "fake-tcp-port": 3007,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3007
         },
         {
@@ -76,7 +104,11 @@
             "release": "0.0.2",
             "fake-tcp-ip": "1.1.3.8",
             "fake-tcp-port": 3008,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3008
         }
     ]

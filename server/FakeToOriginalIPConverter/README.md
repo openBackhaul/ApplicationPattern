@@ -18,7 +18,11 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.1",
             "fake-tcp-port": 3001,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3001
         },
         {
@@ -28,7 +32,8 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "release": "0.0.1",
             "fake-tcp-ip": "1.1.3.2",
             "fake-tcp-port": 3002,
-            "original-tcp-ip": "127.0.0.1",
+            "original-tcp-ip": {
+                "domain-name": "www.domainName.com",
             "original-tcp-port": 3002
         }
 ]
