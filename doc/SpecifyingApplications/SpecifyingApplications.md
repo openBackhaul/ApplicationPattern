@@ -79,13 +79,8 @@ The ForwardingList must describe all relationships between events and reactions 
 The OpenApiSpecification represents the detailed specification of the REST API of the application.
 
 **Step-by-Step Guidelines**
-* [Getting Template](./GettingOasTemplate/GettingOasTemplate.md)
-* [Individualizing the Template](./IndividualizingOasTemplate/IndividualizingOasTemplate.md)
-* [Transferring ServiceList content](./TransferringServiceList/TransferringServiceList.md)
-* [Detailing the Services](./DetailingServices/DetailingServices.md)
-* [Transferring ForwardingList content](./TransferringForwardingList/TransferringForwardingList.md)
+- [Creating the OAS](./CreatingOas/CreatingOas.md)
 * [Creating Mock](./CreatingMock/CreatingMock.md)
-* [Reviewing the OAS](./ReviewingOas/ReviewingOas.md)
 
 
 ## CONFIGfile

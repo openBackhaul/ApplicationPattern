@@ -10,6 +10,7 @@ Using the ideology of microservices, large complex applications can be split up 
 
 Each service has its own database in order to be decoupled from other services.  
 Services communicate using either synchronous protocols such as HTTP/REST or asynchronous protocols such as AMQP(ex. RabbitMQ).  
+HTTP/REST is used in the MW SDN domain.  
 
 
 ### Why Microservices?
