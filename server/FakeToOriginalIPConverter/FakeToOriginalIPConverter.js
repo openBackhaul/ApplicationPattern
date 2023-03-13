@@ -43,7 +43,7 @@ async function modifyFakeIpAddressToOriginal() {
  * Step 1 : Read each input from the fakeToOriginalIPMapping.json
  * Step 2 : Findout the httpClient for the application-name and release
  * Step 3 : Findout the corresponding mapped tcpClient 
- * Step 4 : Update the original-tcp-ip and original-tcp-port 
+ * Step 4 : Update the original-address and original-tcp-port 
  ***********************************************************************************************************************************************/
 async function modifyClients() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -51,7 +51,7 @@ async function modifyClients() {
         let application = applicationList[index];
         let applicationName = application['component'];
         let releaseNumber = application['release'];
-        let originalTcpIpAddress = application['original-tcp-ip'];
+        let originalTcpIpAddress = application['original-address'];
         let originalTcpPort = application['original-tcp-port'];
         let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
         if (httpClientUuid != undefined) {
@@ -79,7 +79,7 @@ async function modifyClients() {
  * Updates the TcpServer with the information provided in the input/fakeToOriginalIPMapping.json
  *
  * Step 1 : Findout the tcpServer instance
- * Step 2 : Update the original-tcp-ip and original-tcp-port
+ * Step 2 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyServer() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -92,7 +92,7 @@ async function modifyServer() {
             let application = applicationList[index];
             let applicationName = application['component'];
             let releaseNumber = application['release'];
-            let originalTcpIpAddress = application['original-tcp-ip'];
+            let originalTcpIpAddress = application['original-address'];
             let originalTcpPort = application['original-tcp-port'];
             if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
                 try {
@@ -113,7 +113,7 @@ async function modifyServer() {
  * Step 1 : Findout the version of the oldRelease
  * Step 2 : Findout the name of the current application
  * Step 3 : Findout the instance in the input/fakeToOriginalIPMapping.json that matches the "current application name" + "version of the oldRelease"
- * Step 4 : Update the original-tcp-ip and original-tcp-port
+ * Step 4 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyOldRelease() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -133,7 +133,7 @@ async function modifyOldRelease() {
                     let application = applicationList[index];
                     let applicationName = application['component'];
                     let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-tcp-ip'];
+                    let originalTcpIpAddress = application['original-address'];
                     let originalTcpPort = application['original-tcp-port'];
                     if (applicationName == originalApplicationName && oldReleaseNumber == releaseNumber) {
                         try {
@@ -156,7 +156,7 @@ async function modifyOldRelease() {
  * Step 1 : Findout the version of the newRelease
  * Step 2 : Findout the name of the current application
  * Step 3 : Findout the instance in the input/fakeToOriginalIPMapping.json that matches the "current application name" + "version of the newRelease"
- * Step 4 : Update the original-tcp-ip and original-tcp-port
+ * Step 4 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyNewRelease() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -176,7 +176,7 @@ async function modifyNewRelease() {
                     let application = applicationList[index];
                     let applicationName = application['component'];
                     let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-tcp-ip'];
+                    let originalTcpIpAddress = application['original-address'];
                     let originalTcpPort = application['original-tcp-port'];
                     if (applicationName == originalApplicationName && newReleaseNumber == releaseNumber) {
                         try {
