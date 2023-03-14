@@ -333,7 +333,7 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName
             );
-            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
+            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterfaceForRegardApplication(
                 httpClientUuid,
                 tcpList
             );
@@ -655,6 +655,50 @@ function createOrUpdateTcpClientInterface(httpClientUuid, tcpList) {
                             remoteProtocol
                         );
                         configurationStatusList.push(configurationStatus);
+                    }
+                }
+            }
+            resolve(configurationStatusList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function updates or creates tcp client interface for /v1/regard-application
+ * @return {Promise} object {configurationStatus}
+ **/
+function createOrUpdateTcpClientInterfaceForRegardApplication(httpClientUuid, tcpList) {
+    return new Promise(async function (resolve, reject) {
+        let configurationStatusList = [];
+        try {
+            for (let i = 0; i < tcpList.length; i++) {
+                let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+                let tcpInfo = tcpList[i];
+                let remoteProtocol = tcpInfo.protocol;
+                let remotePort = tcpInfo.port;
+                let remoteIpV4Address = tcpInfo.address;
+                if (serverLtpList != undefined && serverLtpList.length <= 0) {
+                    let configurationStatus = await createTcpClientInterface(
+                        httpClientUuid,
+                        remoteIpV4Address,
+                        remotePort,
+                        remoteProtocol
+                    );
+                    configurationStatusList.push(configurationStatus);
+                } else {
+                    let isInstanceUpdated = false;
+                    for (let j = 0; j < serverLtpList.length; j++) {
+                        let tcpClientUuid = serverLtpList[j];
+                        let configurationStatus = await updateTcpClientInterface(
+                            tcpClientUuid,
+                            remoteIpV4Address,
+                            remotePort,
+                            remoteProtocol
+                        );
+                        configurationStatusList.push(configurationStatus);
+                        isInstanceUpdated = true;
                     }
                 }
             }
