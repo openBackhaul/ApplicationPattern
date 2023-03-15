@@ -4,9 +4,11 @@
 ### Concepts
 
 **General Design Principles**
-- [API-First Approach](./Principles/ApiFirst/ApiFirst.md)
-- [RESTful](./Principles/Restful/Restful.md)
 - [Microservice](./Principles/Microservice/Microservice.md)
+- [HTTP Request](./Principles/Http/Http.md)
+- [RESTful](./Principles/Restful/Restful.md)
+- [API-First Approach](./Principles/ApiFirst/ApiFirst.md)
+- [OpenAPI Specificatgion](./Principles/OpenApiSpecification/OpenApiSpecification.md)
 
 **Functions**
 - [Structure of Services](./Functions/StructureOfServices/StructureOfServices.md)
