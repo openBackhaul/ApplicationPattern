@@ -13,6 +13,7 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "onf-core-model-ap": "1.0.1"
+    "onf-core-model-ap": "2.0.1-alpha.5",
+    "onf-core-model-ap-bs": "2.0.1-alpha.5"
   }
 }
