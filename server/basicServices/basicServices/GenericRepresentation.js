@@ -38,7 +38,7 @@ exports.getConsequentActionList = function (operationName) {
                         actionProfile.label,
                         request,
                         actionProfile.displayInNewBrowserWindow,
-                        actionProfile.inputlist
+                        actionProfile.inputValueList
                     );
                     consequentActionList.push(consequentActionProfile);
                 }
@@ -64,12 +64,12 @@ function formulateRequest(operationName) {
             let tcpServerConfiguration = await fileOperation.readFromDatabaseAsync(
                 onfPaths.TCP_SERVER_INTERFACE_CONFIGURATION.replace(
                     "{uuid}", tcpServerUuid)
-            ); 
+            );
             let address = await getConfiguredAddress(tcpServerConfiguration["local-address"]);
             let port = tcpServerConfiguration["local-port"];
             let ipaddressAndPort = address + ":" + port;
-            if(operationName.indexOf("/") != 0) {
-                operationName = "/"+ operationName
+            if (operationName.indexOf("/") != 0) {
+                operationName = "/" + operationName
             }
             let request = (protocol.toLowerCase()) + "://" + ipaddressAndPort + operationName;
             resolve(request);
@@ -133,7 +133,7 @@ exports.getResponseValueList = function (operationName) {
                             let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
                             let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
                             let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];                            
+                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
                             if (fieldNameReference !== undefined) {
                                 responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
                             } else {
@@ -145,6 +145,8 @@ exports.getResponseValueList = function (operationName) {
                                 responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
                             }
                             responseInstancedataTypeOfValue = typeof responseInstanceValue;
+                            responseInstanceValue = await getDataUpdatePeriodEnum(fieldName, responseInstanceValue)
+
                             let response = new responseValue(
                                 responseInstanceFieldName,
                                 responseInstanceValue,
@@ -162,5 +164,29 @@ exports.getResponseValueList = function (operationName) {
             console.log(error);
         }
 
+    });
+}
+
+async function getDataUpdatePeriodEnum(fieldName, responseInstanceValue) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let fieldNameDataUpdatePeriod = "dataUpdatePeriod"
+            let dataUpdatePeriodEnum = {
+                "real-time": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
+                "1h-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_1H_PERIOD",
+                "24h-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_24H_PERIOD",
+                "manual": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_MANUAL"
+            };
+            if (fieldName['static-field-name'] == fieldNameDataUpdatePeriod) {
+                for (let dataUpdatePeriodKey in dataUpdatePeriodEnum) {
+                    if (dataUpdatePeriodEnum[dataUpdatePeriodKey] == responseInstanceValue) {
+                        responseInstanceValue = dataUpdatePeriodKey;
+                    }
+                }              
+            }
+            resolve(responseInstanceValue);
+        } catch (error) {
+            reject(error);
+        }
     });
 }

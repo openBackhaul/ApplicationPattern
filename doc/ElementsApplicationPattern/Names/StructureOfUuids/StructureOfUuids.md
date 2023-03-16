@@ -47,7 +47,6 @@ Within the respective layers the following types of objects are defined:
 - s = _Server_  
 - fd = _ForwardingDomain_ (potential forwarding inside applications)  
 - fc = _ForwardingConstruct_ (actual forwarding inside applications)  
-- link = _Link_ (actual forwarding outside applications)  
 - p = _Profile_  
 
 **ApiSegment**  
@@ -80,7 +79,7 @@ UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.
 
 **FCs** are inheriting the ApiSegment from the connected OperationClients.  
 
-UUIDs of **Profile**, **FD** and **Link** don't contain an ApiSegment.  
+UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
@@ -106,3 +105,10 @@ Counting is decimal.
 | ol-1-0-0-http-c-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
 | aa-1-0-0-op-fc-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
+
+
+## UUIDs of Links:  
+
+UUIDs of Links are exclusively created inside the ApplicationLayerTopology application.  
+They shall be created according to the version 4 concept provided by IETF RFC4122.  
+

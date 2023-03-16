@@ -440,6 +440,7 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName, releaseNumber
             );
+            let getClientListBeforefindAndUpdateOperationClientInterface = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
             tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
                 httpClientUuid,
                 tcpList
@@ -450,10 +451,21 @@ function findAndUpdateLogicalTerminationPointApplicationAndReleaseInstanceGroupA
                 operationNamesByAttributes,
                 operationsMapping
             );
-            httpClientConfigurationStatus = await updateHttpClientInterface(
-                httpClientUuid,
-                releaseNumber,
-            )
+            let getClientListAfterfindAndUpdateOperationClientInterface = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
+            if (getClientListBeforefindAndUpdateOperationClientInterface.length != getClientListAfterfindAndUpdateOperationClientInterface.length) {
+                httpClientConfigurationStatus = await updateHttpClientInterface(
+                    httpClientUuid,
+                    releaseNumber,
+                    true
+                )
+            } else {
+                httpClientConfigurationStatus = {
+                    uuid: httpClientUuid,
+                    localId: '',
+                    updated: false
+                }
+            }
+
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
                 httpClientConfigurationStatus,
@@ -566,12 +578,16 @@ function createHttpClientInterface(applicationName, releaseNumber) {
  * @param {String} releaseNumber : release of the client application
  * @return {Promise} object {configurationStatus}
  **/
-function updateHttpClientInterface(httpClientUuid, releaseNumber) {
+function updateHttpClientInterface(httpClientUuid, releaseNumber, isOperationClient = false) {
     return new Promise(async function (resolve, reject) {
         let configurationStatus;
         try {
             let isUpdatedReleaseNumber = false;
             let existingReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+
+            if(isOperationClient){
+                isUpdatedReleaseNumber = true;
+            }
             if (existingReleaseNumber != releaseNumber) {
                 isUpdatedReleaseNumber = await httpClientInterface.setReleaseNumberAsync(
                     httpClientUuid,
@@ -766,7 +782,7 @@ function updateTcpClientInterface(tcpClientUuid, remoteIpV4Address, remotePort, 
             let _remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(
                 tcpClientUuid
             );
-            if (remoteIpV4Address != _remoteIpV4Address) {
+            if (JSON.stringify(remoteIpV4Address) != JSON.stringify(_remoteIpV4Address)) {
                 isIpV4AddressUpdated = await tcpClientInterface.setRemoteAddressAsync(
                     tcpClientUuid,
                     remoteIpV4Address

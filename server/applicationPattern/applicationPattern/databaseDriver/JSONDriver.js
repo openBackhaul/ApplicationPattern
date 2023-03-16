@@ -12,6 +12,9 @@
 const JSONDriver = require('./JSONDriver');
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
+const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
+const fileProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile/FileProfile')
+
 global.databasePath;
 
 /**
@@ -380,4 +383,23 @@ function isLastIndexOfTheList(individualFieldOfTheOAMPathList, i) {
     } else {
         return false;
     }
+}
+
+/**
+ * @description Fetch application data file path
+ */
+exports.getApplicationDataFile = async function () {
+    return new Promise(async function (resolve, reject) {
+        try {
+            let applicationDataFile
+            let profileUuid = await profile.getUuidListAsync(profile.profileNameEnum.FILE_PROFILE);
+            for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
+                uuid = profileUuid[profileUuidIndex];
+                applicationDataFile = await fileProfile.getFilePath(uuid)
+            }
+            resolve(applicationDataFile);
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
