@@ -144,40 +144,40 @@ This can be expressed through different combinations of statements.
 
 It is recommended to always start the description of an object with statements about the necessity of the included attributes, then describe the attributes in detail, and conclude with a concrete example.  
 
-#### required: and Multiplicities
-In most cases the description of an object starts with a _required:_ statement and a list of names of attributes that must be present in a valid service or OaM request. Listing the names of required attributes is a clean and clear way of assuring that the defined attributes are actually provided in a Body.  
+  #### required: and Multiplicities
+  In most cases the description of an object starts with a _required:_ statement and a list of names of attributes that must be present in a valid service or OaM request. Listing the names of required attributes is a clean and clear way of assuring that the defined attributes are actually provided in a Body.  
 
-In cases just some of the attributes need to be included, _minProperties:_ and _maxProperties:_ statements might support formulating boundaries. An _additionalProperties: false_ might support enforcing the quantity rules. In practice, these restrictions are usually imprecise and therefore not ideal. Formulating alternative object structures and combining them by e.g. an _oneOf:_ statement should be considered.  
+  In cases just some of the attributes need to be included, _minProperties:_ and _maxProperties:_ statements might support formulating boundaries. An _additionalProperties: false_ might support enforcing the quantity rules. In practice, these restrictions are usually imprecise and therefore not ideal. Formulating alternative object structures and combining them by e.g. an _oneOf:_ statement should be considered.  
 
-#### properties:
-The individual attributes get described in detail in this section.  
+    #### properties:
+    The individual attributes get described in detail in this section.  
 
-It starts with the name of the attribute. Ideally, the attribute's name is clearly and concisely describing the attribute.  
+    It starts with the name of the attribute. Ideally, the attribute's name is clearly and concisely describing the attribute.  
 
-The attribute's datatype is to be stated next.  
+    The attribute's datatype is to be stated next.  
 
-In case of String attributes a _pattern:_ statement together with a Regex string might follow.  
+    In case of String attributes a _pattern:_ statement together with a Regex string might follow.  
 
-#### description:
-The _description:_ statement is essentially a free-text field, but a clear structure has been defined in the ApplicationPattern.  
+      #### description:
+      The _description:_ statement is essentially a free-text field, but a clear structure has been defined in the ApplicationPattern.  
 
-Content of the _description:_ statement shall start with a meaning/use of the attribute. Ideally, words that are different from the attribute's name get used.  
+      Content of the _description:_ statement shall start with a meaning/use of the attribute. Ideally, words that are different from the attribute's name get used.  
 
-Where to get or put the attribute in the internal datastructure of the application is to be stated next.  
-There are strict definitions for the verbs to be used.  
+      Where to get or put the attribute in the internal datastructure of the application is to be stated next.  
+      There are strict definitions for the verbs to be used.  
 
-In the RequestBody:  
-  - _find in_: The attribute serves as a key attribute and its value is for identifying a specific dataset in a list of datasets. If the value could not be found in the list, nothing shall happen. This represents the case of an _invariant process snippet_.  
-  - _find or create_: This combination identifies a key attribute. Its value has to be found in a list of datasets for manipulating the other attributes of the same set. If the value could not be found in the list, a new entry is to be created with its value. This represents the case of a _subscription_.  
-  - _update_: The value of the attribute shall be used for updating the referenced position in the datatree (, if the dataset that is identified by the key attribute's value could be found).  
-  - _update or create_: The value of the attribute shall be used for updating the referenced position in the datatree. (In cases the dataset, which would be identified by the key attribute's value, would not yet exist, a new one would be created.)  
+      In the RequestBody:  
+        - _find in_: The attribute serves as a key attribute and its value is for identifying a specific dataset in a list of datasets. If the value could not be found in the list, nothing shall happen. This represents the case of an _invariant process snippet_.  
+        - _find or create_: This combination identifies a key attribute. Its value has to be found in a list of datasets for manipulating the other attributes of the same set. If the value could not be found in the list, a new entry is to be created with its value. This represents the case of a _subscription_.  
+        - _update_: The value of the attribute shall be used for updating the referenced position in the datatree (, if the dataset that is identified by the key attribute's value could be found).  
+        - _update or create_: The value of the attribute shall be used for updating the referenced position in the datatree. (In cases the dataset, which would be identified by the key attribute's value, would not yet exist, a new one would be created.)  
 
-In the ResponseBody:
-  - _from_: The value of the attribute shall be taken from the referenced position in the datatree for returning it in the ResponseBody.   
+      In the ResponseBody:
+        - _from_: The value of the attribute shall be taken from the referenced position in the datatree for returning it in the ResponseBody.   
 
-The path statements that are identifying the positions in the datatree are usually containing UUIDs.  
-These UUIDs shall be as precise as possible.  
-Unknown segments of the UUIDs have to be covered by '*'.
+      The path statements that are identifying the positions in the datatree are usually containing UUIDs.  
+      These UUIDs shall be as precise as possible.  
+      Unknown segments of the UUIDs have to be covered by '*'.
 
 
 Hier geht's weiter.
