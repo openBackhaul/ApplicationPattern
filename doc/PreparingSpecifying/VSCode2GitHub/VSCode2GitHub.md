@@ -5,6 +5,8 @@ VSCode and Git must be installed already.
 
 ### Configure proxy settings
 
+_Note_: as this guide is available to public, the proxy is not shown in plaintext. Ask [here](mailto:katharina.mohr@soprasteria.com?subject=[GitHub]%20Request%20for%20proxy) to obtain the actual value.
+
 Open the GitBash (this can be done from the Windows Explorer via right-click and selecting "Git Bash Here"):  
 |![vsc_05](https://user-images.githubusercontent.com/57349523/152162633-c738b33a-f4ae-4ffe-a05d-c435bd132e1e.jpg)|
 |---|
@@ -17,7 +19,7 @@ git config --global --unset https.proxy
 ```
 As the https proxy is not needed, only the http proxy has to be set:  
 ```
-git config --global http.proxy http://bc-proxy-vip-prod.de.pri.o2.com:8080
+git config --global http.proxy <TEF-proxy>:8080
 ```
 
 As a result the git config file, typically found under path *"C:\Users\<username>\.gitconfig"*, should look similar to the following example:  
@@ -31,12 +33,12 @@ As a result the git config file, typically found under path *"C:\Users\<username
 	name = <your github user name>
 	email = <your email address used for github>
 [http]
-	proxy = http://bc-proxy-vip-prod.de.pri.o2.com:8080
+	proxy = http://<TEF-proxy>:8080
 ```
 
 To allow for uploading (push) local changes to the remote repository the proxy also needs to be set in VSCode.  
 Therefore go to *File* -> *Preferences* -> *Settings* and type proxy into the appearing window. There enter the proxy:    
-|![vsc_14](https://user-images.githubusercontent.com/57349523/152184549-29eed2d0-cf8f-4b38-b343-3ca0762889d9.jpg)|
+|![image](https://user-images.githubusercontent.com/57349523/225626449-9acd0861-1e90-442e-b267-953d2f25c671.png)|
 |---|
 
 ### Clone the GitHub repository to VSCode
@@ -90,10 +92,16 @@ If asked whether the repository should be fetched regularly select “yes”.
 
 ### Troubleshooting
 
-**_Proxy issue_**:  
+**_Proxy issues_**:  
 In case the following error message appears when trying to clone the repository from the URL, then most likely something went wrong during the Git proxy configuration as Git is not able to connect to the Internet.  
 In that case go over the configuration steps again to ensure everything was configured correctly.  
 |![vsc_04_errormsg](https://user-images.githubusercontent.com/57349523/152162632-f35d84e1-8337-4949-8a59-8a2b4b78c863.jpg)|
 |---|
+
+Another possible issue can be:
+|![image](https://user-images.githubusercontent.com/57349523/225619771-f9b43c0e-d46a-4f23-8c1e-fdcfe682a594.png)|
+|---|
+Normally it should not appear if the [Windows environment proxy variables](../ConfigureProxy/ConfigureProxy.md) are set in the same was as the http proxy in the gitconfig. 
+If the issue occurs remove the http proxy from the gitconfig with the _git config --unset_ command and try again.
 
 [<- Back to Installing VSCode](../InstallingVSCode/InstallingVSCode.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Documenting an Issuee ->](../DocumentingAnIssue/DocumentingAnIssue.md)
