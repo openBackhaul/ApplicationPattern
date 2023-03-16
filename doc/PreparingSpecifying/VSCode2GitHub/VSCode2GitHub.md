@@ -101,6 +101,7 @@ In that case go over the configuration steps again to ensure everything was conf
 Another possible issue can be:
 |![image](https://user-images.githubusercontent.com/57349523/225619771-f9b43c0e-d46a-4f23-8c1e-fdcfe682a594.png)|
 |---|
+
 Normally it should not appear if the [Windows environment proxy variables](../ConfigureProxy/ConfigureProxy.md) are set in the same was as the http proxy in the gitconfig. 
 If the issue occurs remove the http proxy from the gitconfig with the _git config --unset_ command and try again.
 
