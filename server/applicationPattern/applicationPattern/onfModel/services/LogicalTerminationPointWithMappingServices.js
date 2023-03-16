@@ -328,15 +328,23 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
         let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
         let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
+        let serviceName = "regard-application"
 
         try {
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
                 applicationName
             );
-            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterfaceForRegardApplication(
-                httpClientUuid,
-                tcpList
-            );
+            if(operationServerName.includes(serviceName)){
+                tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterfaceForRegardApplication(
+                    httpClientUuid,
+                    tcpList
+                );
+            }else{
+                tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
+                    httpClientUuid,
+                    tcpList
+                );
+            }
             operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
                 httpClientUuid,
                 operationServerName,
