@@ -180,3 +180,76 @@ If the ping was successful, it should check whether configured index aliases exi
 proper settings. The settings depend on the application.
 
 Currently, 3 applications use ES: *ExecutionAndTraceLog*, *OamLog* and *ApplicationLayerTopology*.
+
+### service/ElasticsearchClientService.js
+
+All the service methods are implemented using the same standard as any other application/service methods, except for following:
+
+```
+exports.putElasticsearchClientApiKey = async function(url, body, uuid) {
+  let oldValue = await getApiKeyAsync(uuid);
+  if (oldValue !== body['elasticsearch-client-interface-1-0:api-key']) {
+    await fileOperation.writeToDatabaseAsync(url, body, false);
+    // recreate the client with new connection data
+    await elasticsearchService.getClient(true, uuid);
+    await ElasticsearchPreparation.prepareElasticsearch();
+  }
+}
+```
+```
+exports.putElasticsearchClientIndexAlias = async function(url, body, uuid) {
+  let oldValue = await getIndexAliasAsync(uuid);
+  if (oldValue !== body['elasticsearch-client-interface-1-0:index-alias']) {
+    await fileOperation.writeToDatabaseAsync(url, body, false);
+    await ElasticsearchPreparation.prepareElasticsearch();
+  }
+}
+```
+
+The method `putElasticsearchClientApiKey` might change connection configuration of ES. Therefore we need to:
+-  determine, if the API key was indeed changed, by comparing with previous version of the stored API key and if it was changed:
+    1. write the new API key to config file
+    2. recreate the client with new connection data, by calling `getClient(true, uuid)` - `forceCreate` parameter is set to true
+    3. call `prepareElasticsearch` to ensure, that the index aliases and ES itself are accessible with this new API key
+
+Similarly, method `putElasticsearchClientIndexAlias` should:
+- determine, if the index alias has changed, by comparing with previous version of the stored API key and if it was changed:
+    1. write the new index alias to config file
+    2. call `prepareElasticsearch` to ensure, that the index aliases are accessible
+
+### service/TcpClientService.js
+
+All the service methods are implemented using the same standard as any other application/service methods, except for following, where ES handling needs to be added:
+
+Example:
+```
+exports.putTcpClientRemoteAddress = function (body, uuid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let oldValue = await tcpClientInterface.getRemoteAddressAsync(uuid);
+      let newValue = body["tcp-client-interface-1-0:remote-address"];
+      if (oldValue !== newValue) {
+        let isUpdated = await tcpClientInterface.setRemoteAddressAsync(uuid, newValue);
+        if(isUpdated){
+          let forwardingAutomationInputList = await prepareForwardingAutomation.OAMLayerRequest(
+            uuid
+          );
+          ForwardingAutomationService.automateForwardingConstructWithoutInputAsync(
+            forwardingAutomationInputList
+          );
+          if (isTcpClientElasticsearch(uuid)) {
+            // recreate the client with new connection data
+            await elasticsearchService.getClient(true);
+            await prepareElasticsearch();
+          }
+        }
+      }
+      resolve();
+    } catch (error) {
+      reject();
+    }
+  });
+}
+```
+
+The methods `putTcpClientRemoteAddress`, `putTcpClientRemotePort` and `putTcpClientRemoteProtocol` can all change connection parameters for Elasticsearch, if changed TCP client is tied to an ES client. To determine this, call helper method `isTcpClientElasticsearch` from ApplicationPattern/ElasticsearchService.
