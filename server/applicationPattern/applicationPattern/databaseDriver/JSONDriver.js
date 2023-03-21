@@ -12,8 +12,8 @@
 const JSONDriver = require('./JSONDriver');
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
-const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
-const fileProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile/FileProfile')
+const profile = require('../onfModel/models/Profile');
+const fileProfile = require('../onfModel/models/profile/FileProfile')
 
 global.databasePath;
 
