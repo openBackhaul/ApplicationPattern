@@ -1,125 +1,6 @@
-## Integrate Elasticsearch (ES)
+## Integrate Elasticsearch
 
-Disclaimer: This guide is not meant to be a manual for ES itself,
-it only covers areas implemented in ApplicationPattern and guides how to use
-the class ElasticsearchService in your application. For more information about
-Elasticsearch, go to [official documentation](https://www.elastic.co/).
-
-### What is ES and why should my application use it?
-
-ES is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. Your application should consider using it, if:
-- it will store large amounts of data
-- it will store data often
-
-### Brief introduction to ES buzzwords
-
-Basic building block in ES is `document`. By this word, ES understands one item of `data`. 
-Documents have own `_id` and `_source`, where the actual data is stored. Documents are grouped
-into `indices`. One index groups data that are structured in the same way. Multiple indices
-can be grouped under an index `alias`. Index alias can be assigned a `service policy`. 
-Service policy is a set of rules, that determine when should be an index rolled over, deleted
-or do any other action specified in the policy. Index alias is tied to a service policy by an
-`index template`. This template gives it's properties to each index within the assigned index
-alias, including, but not limited to service policy, mapping and other settings. In order to execute requests towards ES, an ES
-Javascript `client` is used. See [documentation](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/7.17/api-reference.html).
-
-### ElasticsearchService implementation in ApplicationPattern
-
-The version of Elasticsearch used in ApplicationPattern is 7.17 and so all the documentation from official website should be
-looked at with this version in mind.
-
-#### Configuration
-
-Application configuration should contain at least three LTPs.
-
-**ES client** itself with API key and index alias. If your application needs to use more aliases, you need to have more client LTPs. API key should be configured on ES directly.
-```
-{
-    "uuid": "alt-2-0-1-es-c-es-1-0-0-000",
-    "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
-    "client-ltp": [
-    ],
-    "server-ltp": [
-        "alt-2-0-1-http-c-es-1-0-0-000"
-    ],
-    "layer-protocol": [
-        {
-        "local-id": "0",
-        "layer-protocol-name": "elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER",
-        "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac": {
-            "elasticsearch-client-interface-configuration": {
-            "auth": {
-                "api-key": "API key not yet defined."
-            },
-            "index-alias": "alt-2-0-1"
-            },
-            "elasticsearch-client-interface-status": {
-            "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
-            "life-cycle-state": "elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
-            }
-        }
-        }
-    ]
-}
-```
-
-**HTTP client**
-```
-{
-    "uuid": "alt-2-0-1-http-c-es-1-0-0-000",
-    "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
-    "client-ltp": [
-        "alt-2-0-1-es-c-es-1-0-0-000"
-    ],
-    "server-ltp": [
-        "alt-2-0-1-tcp-c-es-1-0-0-000"
-    ],
-    "layer-protocol": [
-        {
-        "local-id": "0",
-        "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
-        "http-client-interface-1-0:http-client-interface-pac": {
-            "http-client-interface-configuration": {
-            "application-name": "ElasticSearch",
-            "release-number": "1.0.0"
-            }
-        }
-        }
-    ]
-}
-```
-
-**TCP client**, where IP address and port of running ES should be configured. If more ES clients are present in config file, they need to be all added here under client-ltp array.
-```
-{
-    "uuid": "alt-2-0-1-tcp-c-es-1-0-0-000",
-    "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
-    "client-ltp": [
-        "alt-2-0-1-http-c-es-1-0-0-000"
-    ],
-    "server-ltp": [
-    ],
-    "layer-protocol": [
-        {
-        "local-id": "0",
-        "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
-        "tcp-client-interface-1-0:tcp-client-interface-pac": {
-            "tcp-client-interface-configuration": {
-            "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
-            "remote-address": {
-                "ip-address": {
-                "ipv-4-address": "1.1.3.15"
-                }
-            },
-            "remote-port": 3015
-            }
-        }
-        }
-    ]
-}
-```
-
-The file ElasticsearchService.js contains class ElasticsearchService, operationalStateEnum and some helper exported methods.
+The file ElasticsearchService.js contains class ElasticsearchService, operationalStateEnum and some helper exported methods. You can find detailed explanation on where and how to use it below in section `How to use ElasticsearchService`.
 
 - `operationalStateEnum` : should be used when handling operational-state field in operation-client-interface-status
 - `createResultArray` : helper method to reduce the boilerplate attributes ES adds to it's response
@@ -196,26 +77,51 @@ exports.putElasticsearchClientApiKey = async function(url, body, uuid) {
   }
 }
 ```
-```
-exports.putElasticsearchClientIndexAlias = async function(url, body, uuid) {
-  let oldValue = await getIndexAliasAsync(uuid);
-  if (oldValue !== body['elasticsearch-client-interface-1-0:index-alias']) {
-    await fileOperation.writeToDatabaseAsync(url, body, false);
-    await ElasticsearchPreparation.prepareElasticsearch();
-  }
-}
-```
-
 The method `putElasticsearchClientApiKey` might change connection configuration of ES. Therefore we need to:
 -  determine, if the API key was indeed changed, by comparing with previous version of the stored API key and if it was changed:
     1. write the new API key to config file
     2. recreate the client with new connection data, by calling `getClient(true, uuid)` - `forceCreate` parameter is set to true
     3. call `prepareElasticsearch` to ensure, that the index aliases and ES itself are accessible with this new API key
 
+```
+exports.putElasticsearchClientIndexAlias = async function(url, body, uuid) {
+  let oldValue = await getIndexAliasAsync(uuid);
+  let oldPolicy = await elasticsearchService.getElasticsearchClientServiceRecordsPolicyAsync(uuid);
+  if (oldValue !== body['elasticsearch-client-interface-1-0:index-alias']) {
+    await fileOperation.writeToDatabaseAsync(url, body, false);
+    await ElasticsearchPreparation.prepareElasticsearch();
+  }
+  // we need to reassign policy associated with the old alias to the new
+  if (oldPolicy) {
+    await elasticsearchService.assignPolicyToIndexTemplate(oldPolicy["service-records-policy-name"], uuid);
+  }
+}
+```
 Similarly, method `putElasticsearchClientIndexAlias` should:
 - determine, if the index alias has changed, by comparing with previous version of the stored API key and if it was changed:
     1. write the new index alias to config file
     2. call `prepareElasticsearch` to ensure, that the index aliases are accessible
+    3. if policy was assigned to the previous index, reassign it to this one
+```
+exports.putElasticsearchClientServiceRecordsPolicy = function(uuid, body) {
+  return new Promise(async function(resolve, reject) {
+    try {
+      await elasticsearchService.putElasticsearchClientServiceRecordsPolicyAsync(uuid, body);
+      let policy = body["elasticsearch-client-interface-1-0:service-records-policy"];
+      await elasticsearchService.assignPolicyToIndexTemplate(policy["service-records-policy-name"], uuid);
+      resolve();
+    } catch (error) {
+      reject();
+    }
+  });
+}
+```
+Method `putElasticsearchClientServiceRecordsPolicy` should:
+1. call `elasticsearchService.putElasticsearchClientServiceRecordsPolicyAsync()`, this will insert the service record policy to ES
+2. call `elasticsearchService.assignPolicyToIndexTemplate()`, this will ensure that the service policy is used with the configured index
+
+
+The methods `getElasticsearchClientOperationalState`, `getElasticsearchClientServiceRecordsPolicyAsync` should call methods with the same name in ElasticsearchService.
 
 ### service/TcpClientService.js
 
@@ -252,4 +158,4 @@ exports.putTcpClientRemoteAddress = function (body, uuid) {
 }
 ```
 
-The methods `putTcpClientRemoteAddress`, `putTcpClientRemotePort` and `putTcpClientRemoteProtocol` can all change connection parameters for Elasticsearch, if changed TCP client is tied to an ES client. To determine this, call helper method `isTcpClientElasticsearch` from ApplicationPattern/ElasticsearchService.
+The methods `putTcpClientRemoteAddress`, `putTcpClientRemotePort` and `putTcpClientRemoteProtocol` can all change connection parameters for Elasticsearch, if changed TCP client is tied to an ES client. To determine this, call helper method `isTcpClientElasticsearch` from ApplicationPattern/ElasticsearchService. Next step is to call `getClient()` with `forceCreate` parameter set to true and `prepareElasticsearch()`.
