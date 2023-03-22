@@ -15,8 +15,6 @@ const operationalStateEnum = {
   NOT_YET_DEFINED: "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED"
 };
 
-module.exports = { operationalStateEnum }
-
 /**
  * @description This class represents Elasticsearch service running on server.
  *
@@ -235,47 +233,31 @@ class ElasticsearchService {
   }
 
   /**
-   * Creates or updates control-construct document in ES.
-   *
-   * The existence of document is determined by control-construct UUID.
-   * If a document with such UUID already exists under configured index alias,
-   * it will be replaced, otherwise, it will be inserted as a new document.
-   *
-   * @param {Object} controlConstruct Full control-construct
-   * @param {String} [uuid] UUID of ES client
-   * @returns response from Elasticsearch index operation
+   * @description Creates index-alias with first index serving
+   * as write_index (if such alias does not exist yet). Such
+   * index will always end with '-000001' to allow for automated
+   * rollover.
+   * @param {String} [uuid] optional, UUID of Elasticsearch client
+   * @returns {Promise<void>}
    */
-  async createOrUpdateControlConstructInES(controlConstruct, uuid) {
-    let controlConstructUuid = controlConstruct["uuid"];
-
-    let client = await this.getClient(false, uuid);
+  async createAlias(uuid) {
     let indexAlias = await getIndexAliasAsync(uuid);
-    let res = await client.search({
-      index: indexAlias,
-      filter_path: 'hits.hits._id',
-      body: {
-        "query": {
-          "term": {
-            "uuid": controlConstructUuid
-          }
-        }
-      }
+    let client = await this.getClient(false, uuid);
+    let alias = await client.indices.existsAlias({
+      name: indexAlias
     });
-    let response = {};
-    if (Object.keys(res.body).length === 0) {
-      response = await client.index({
-        index: indexAlias,
-        body: controlConstruct
-      });
-    } else {
-      let documentId = res.body.hits.hits[0]._id;
-      response = await client.update({
-        index: indexAlias,
-        id: documentId,
-        body: controlConstruct
+    if (!alias.body) {
+      await client.indices.create({
+          index: `${indexAlias}-000001`,
+          body: {
+            aliases: {
+              [indexAlias]: {
+                is_write_index: true
+              }
+            }
+          }
       });
     }
-    return response;
   }
 }
 
@@ -405,7 +387,7 @@ async function getIndexAliasAsync(uuid) {
  * @param {object} result Elasticsearch response
  * @returns {Array} resulting array
  */
-module.exports.createResultArray = function createResultArray(result) {
+function createResultArray(result) {
   const resultArray = [];
   result.body.hits.hits.forEach((item) => {
     resultArray.push(item._source);
@@ -418,7 +400,7 @@ module.exports.createResultArray = function createResultArray(result) {
  * @param {String} tcpClientUuid TCP client UUID
  * @returns {Promise<boolean>} true if the TCP client is configured for an Elasticsearch client
  */
-module.exports.isTcpClientElasticsearch = async function isTcpClientElasticsearch(tcpClientUuid) {
+async function isTcpClientElasticsearch(tcpClientUuid) {
   let httpClientUuids = await logicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
   let esClientUuids = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
   if (esClientUuids.length === 0) {
@@ -428,6 +410,13 @@ module.exports.isTcpClientElasticsearch = async function isTcpClientElasticsearc
   return layerProtocol.layerProtocolNameEnum.ES_CLIENT === protocol;
 }
 
-module.exports.getIndexAliasAsync = getIndexAliasAsync
-module.exports.getApiKeyAsync = getApiKeyAsync
-module.exports.elasticsearchService = new ElasticsearchService()
+const elasticsearchService = new ElasticsearchService();
+
+module.exports = {
+  getApiKeyAsync,
+  getIndexAliasAsync,
+  isTcpClientElasticsearch,
+  createResultArray,
+  operationalStateEnum,
+  elasticsearchService
+}
