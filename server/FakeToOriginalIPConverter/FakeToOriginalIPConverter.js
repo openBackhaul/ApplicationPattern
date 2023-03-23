@@ -92,7 +92,7 @@ async function modifyServer() {
             let application = applicationList[index];
             let applicationName = application['component'];
             let releaseNumber = application['release'];
-            let originalTcpIpAddress = application['original-address'];
+            let originalTcpIpAddress = application['original-address']['ip-address'];
             let originalTcpPort = application['original-tcp-port'];
             if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
                 try {
