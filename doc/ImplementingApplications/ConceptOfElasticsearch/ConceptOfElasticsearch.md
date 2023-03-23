@@ -16,9 +16,9 @@ ES is a distributed, free and open search and analytics engine for all types of 
 
 ### Brief introduction to ES buzzwords
 
-Basic building block in ES is `document`. By this word, ES understands one item of `data`.
+Basic building block in ES is `document`. By this word, ES understands one item of `data`. Elasticsearch stores complex data structures that have been serialized as JSON documents.
 
-Documents have (apart from user fields) own fields `_id` (unique document identifier) and `_source` (where the actual data is stored).
+Documents have (amongst others) proprietary fields `_id` (unique document identifier) and `_source` (where the user data is stored).
 
 Documents are grouped into `indices`. One index groups data that are structured in the same way.
 
@@ -36,9 +36,14 @@ See [documentation](https://www.elastic.co/guide/en/elasticsearch/client/javascr
 
 #### Configuration
 
-Application configuration should contain at least three LTPs.
+Application configuration should contain at least three LTPs:
 
-**ES client** itself with API key and index alias. If your application needs to use more aliases, you need to have more client LTPs. API key should be configured on ES directly.
+* [ES client](#es-client)
+* [HTTP client](#http-client)
+* [TCP client](#tcp-client)
+
+##### **ES client**
+Elasticsearch client LTP contains API key and index alias. If your application needs to use more aliases, you need to have more client LTPs. API key should be configured on ES directly.
 ```
 {
   "uuid": "xx-1-0-0-es-c-es-1-0-0-000",
@@ -69,7 +74,7 @@ Application configuration should contain at least three LTPs.
 }
 ```
 
-**HTTP client**
+#### **HTTP client**
 ```
 {
   "uuid": "xx-1-0-0-http-c-es-1-0-0-000",
@@ -95,7 +100,8 @@ Application configuration should contain at least three LTPs.
 }
 ```
 
-**TCP client**, where IP address and port of running ES should be configured. If more ES clients are present in config file, they need to be all added here under client-ltp array.
+#### **TCP client**
+TCP client is where IP address and port of running ES should be configured. If more ES clients are present in config file, they need to be all added here under client-ltp array.
 ```
 {
   "uuid": "xx-1-0-0-tcp-c-es-1-0-0-000",

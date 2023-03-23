@@ -1,6 +1,6 @@
 ## Integrate Elasticsearch
 
-The file ElasticsearchService.js contains class ElasticsearchService, operationalStateEnum and some helper exported methods. You can find detailed explanation on where and how to use it below in section `How to use ElasticsearchService`.
+The file ElasticsearchService.js contains class ElasticsearchService, operationalStateEnum and some helper exported methods. You can find detailed explanation on where and how to use it below in section [`How to use ElasticsearchService`](#how-to-use-elasticsearchservice).
 
 - `operationalStateEnum` : should be used when handling operational-state field in operation-client-interface-status
 - `createResultArray` : helper method to reduce the boilerplate attributes ES adds to it's response
