@@ -676,6 +676,7 @@ function createOrUpdateTcpClientInterface(httpClientUuid, tcpList) {
 /**
  * @description This function updates or creates tcp client interface for /v1/regard-application
  * @return {Promise} object {configurationStatus}
+ * NOTE: THIS IS A TEMPORARY FUNCTION & WILL BE REMOVED IN FUTRUE
  **/
 function createOrUpdateTcpClientInterfaceForRegardApplication(httpClientUuid, tcpList) {
     return new Promise(async function (resolve, reject) {
