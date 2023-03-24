@@ -98,7 +98,8 @@ Individual service implementation should be done by based on the specified requi
 * [Elasticsearch](./ConceptOfElasticsearch//ConceptOfElasticsearch.md)
   
 **Step-by-Step Guidelines**
-* [Implementing Individual services](./Steps2ImplementIndividualServices/Steps2ImplementIndividualServices.md)  
+* [Implementing Individual services](./Steps2ImplementIndividualServices/Steps2ImplementIndividualServices.md)
+* [Implementing Elasticsearch](./Steps2IntegrateElasticsearch/Steps2IntegrateElasticsearch.md)
 
 
 [<- Back to Introduction](../Introduction/Introduction.md) - - - [Up to Main](../Main.md) - - - [Ahead to Specifying ->](../SpecifyingApplications/SpecifyingApplications.md)
