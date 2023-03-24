@@ -14,7 +14,13 @@ This library provides APIs,
 
 ## Application Pattern Modules
 
-ApplicationPattern modules consists of the following sub-modules
+ApplicationPattern modules consists of the following sub-modules:
+
+### Commons
+This module consists of classes that defines the ONFModel core model.
+
+**SubModules**
+* [AppCommons](./SubModulesOfCommon/AppCommons.md)
 
 ### DatabaseDriver
 This module consists of functionalities using which the CONFIGfile  shall be manipulated.
@@ -24,13 +30,8 @@ This module consists of functionalities using which the CONFIGfile  shall be man
 * [PrimaryKey](./SubModulesOfDatabaseDriver/PrimaryKey.md)
   
 ### ONFModel
-This module consists of classes that defines the ONFModel core model. 
-
-**SubModules**
-* [constants](./SubModulesOfONFModel/constants.md)
-* [models](./SubModulesOfONFModel/models.md)
-* [services](./SubModulesOfONFModel/services.md)
-* [utility](./SubModulesOfONFModel/utility.md)
+This module consists of classes that defines the ONFModel core model.
+The Model is described in separate document [here](../../ImplementingApplications/ApplicationPatternDocumentation/ApplicationPatternDocumentation_onfmodel.md).
 
 ### Rest
 This module consists of classes that defines the ONFModel core model. 
@@ -44,14 +45,11 @@ This module consists of classes that defines the ONFModel core model.
 
 **SubModules**
 * [AuthorizingService](./SubModulesOfServices/AuthorizingService.md)
+* [ElasticsearchService](./SubModulesOfServices/ElasticsearchService.md)
 * [ExecutionAndTraceService](./SubModulesOfServices/ExecutionAndTraceService.md)
 * [OamLogService](./SubModulesOfServices/OamLogService.md)
   
-### Common
-This module consists of classes that defines the ONFModel core model. 
 
-**SubModules**
-* [AppCommons](./SubModulesOfCommon/AppCommons.md)
 
 
 
