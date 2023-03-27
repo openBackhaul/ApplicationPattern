@@ -35,7 +35,7 @@ Now , the basic services implemented in the onf-core-model-ap-bs/basicServices m
   ```
   let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
   ```
-  A formulated response header will consists of the xCorrelator sent in the request , exec-time and the lifecycle-state of the request url.
+  A formulated response header will consists of the xCorrelator sent in the request , start-time and the lifecycle-state of the request url.
 * To build the final response that needs to be fed to the client , the following line needs to be added , 
   ```
   responseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
