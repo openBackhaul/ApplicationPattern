@@ -65,7 +65,7 @@ async function modifyClients() {
                     isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(tcpClientuuid, originalTcpIpAddress);
                     isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(tcpClientuuid, originalTcpPort);
                 } catch (error) {
-
+                    console.log(error);
                 }
                 console.log(applicationName + "," + releaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated)
             }
@@ -92,14 +92,14 @@ async function modifyServer() {
             let application = applicationList[index];
             let applicationName = application['component'];
             let releaseNumber = application['release'];
-            let originalTcpIpAddress = application['original-address'];
+            let originalTcpIpAddress = application['original-address']['ip-address'];
             let originalTcpPort = application['original-tcp-port'];
             if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
                 try {
                     isTcpIPAddressUpdated = await modifyServerLocalAddress(originalTcpIpAddress);
                     isTcpPortUpdated = await modifyServerLocalPort(originalTcpPort);
                 } catch (error) {
-
+                    console.log(error);
                 }
             }
         }
@@ -140,7 +140,7 @@ async function modifyOldRelease() {
                             isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(oldReleaseTcpClientuuid, originalTcpIpAddress);
                             isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(oldReleaseTcpClientuuid, originalTcpPort);
                         } catch (error) {
-
+                            console.log(error);
                         }
                     }
                 }
@@ -183,7 +183,7 @@ async function modifyNewRelease() {
                             isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(newReleaseTcpClientuuid, originalTcpIpAddress);
                             isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(newReleaseTcpClientuuid, originalTcpPort);
                         } catch (error) {
-
+                            console.log(error);
                         }
                     }
                 }
@@ -254,7 +254,7 @@ async function modifyServerLocalPort(localPort) {
             }
 
         } catch (error) {
-
+            console.log(error);
         }
         resolve(isUpdated);
     });
