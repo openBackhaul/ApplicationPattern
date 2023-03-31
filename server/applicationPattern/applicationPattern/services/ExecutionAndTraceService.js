@@ -35,7 +35,7 @@ exports.recordServiceRequestFromClient = function (serverApplicationName, server
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
             let detailedLoggingIsOn = await operationClientInterface.getDetailedLoggingIsOnAsync(operationClientUuid);
-            let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
+            let clientConnectionInfo = await operationClientInterface.getTcpClientConnectionInfoAsync(operationClientUuid);
             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
             let timestamp = moment().format();
             let applicationName = await HttpServerInterface.getApplicationNameAsync();
@@ -44,7 +44,7 @@ exports.recordServiceRequestFromClient = function (serverApplicationName, server
             let stringifiedResponseBody = JSON.stringify(responseBody);
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
-            let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
+            let response = await requestBuilder.BuildAndTriggerRestRequest(clientConnectionInfo, serviceName, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);
@@ -78,7 +78,7 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let operationClientUuid = await getOperationClientToLogServiceRequest();
             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
             let detailedLoggingIsOn = await operationClientInterface.getDetailedLoggingIsOnAsync(operationClientUuid);
-            let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
+            let clientConnectionInfo = await operationClientInterface.getTcpClientConnectionInfoAsync(operationClientUuid);
             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
             let timestamp = moment().format();
             let applicationName = await HttpServerInterface.getApplicationNameAsync();
@@ -88,7 +88,7 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let stringifiedResponseBody = JSON.stringify(responseBody);
             let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
                 operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
-            let response = await requestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
+            let response = await requestBuilder.BuildAndTriggerRestRequest(clientConnectionInfo, serviceName, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);

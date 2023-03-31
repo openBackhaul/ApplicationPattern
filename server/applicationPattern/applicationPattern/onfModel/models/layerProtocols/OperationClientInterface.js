@@ -210,29 +210,22 @@ class OperationClientInterface extends layerProtocol {
     }
 
     /**
-     * @description This function returns the tcp ip address and port where the application that has the 
+     * @description This function returns the tcp protocol, ip address and port where the application that has the
      * operation-client is running.
      * @param {String} operationClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
-     * @returns {promise} string {undefined | tcpAddress+port}.
+     * @returns {Promise<String>} {undefined | protocol+tcpAddress+port}.
      **/
-    static getTcpIpAddressAndPortAsyncAsync(operationClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let tcpIpAddressAndPort;
-            try {
-                let httpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
-                let httpClientUuid = httpClientUuidList[0];
-                let tcpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-                let tcpClientUuid = tcpClientUuidList[0];
-                let tcpClientRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
-                let remoteAddress = await getConfiguredRemoteAddress(tcpClientRemoteAddress);
-                let remotePort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
-                tcpIpAddressAndPort = remoteAddress + ":" + remotePort;
-                resolve(tcpIpAddressAndPort);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getTcpClientConnectionInfoAsync(operationClientUuid) {
+        let httpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+        let httpClientUuid = httpClientUuidList[0];
+        let tcpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+        let tcpClientUuid = tcpClientUuidList[0];
+        let tcpClientRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
+        let remoteAddress = await getConfiguredRemoteAddress(tcpClientRemoteAddress);
+        let remotePort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
+        let remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuid);
+        return remoteProtocol + "//" + remoteAddress + ":" + remotePort;
     }
 
     /**
