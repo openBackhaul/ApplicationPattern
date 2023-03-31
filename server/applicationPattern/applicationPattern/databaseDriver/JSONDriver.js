@@ -257,11 +257,11 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, oamPath, valueToB
                         }
                     } else {
                         if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            if(Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])){
+                            if (Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])) {
                                 coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
-                            }else{
+                            } else {
                                 coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
-                            }                            
+                            }
                             writeToFile(coreModelJsonObject);
                         } else {
                             coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
@@ -395,7 +395,10 @@ exports.getApplicationDataFile = async function () {
             let profileUuid = await profile.getUuidListAsync(profile.profileNameEnum.FILE_PROFILE);
             for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
                 uuid = profileUuid[profileUuidIndex];
-                applicationDataFile = await fileProfile.getFilePath(uuid)
+                let value = await fileProfile.getFilePath(uuid)
+                if (fileSystem.existsSync(value)) {
+                    applicationDataFile = value;
+                }
             }
             resolve(applicationDataFile);
         } catch (error) {
