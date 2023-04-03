@@ -40,8 +40,6 @@ exports.recordOamRequest = function (oamPath, requestBody, responseCode, authori
         let httpRequestBody = {};
         try {
             let operationClientUuid = await getOperationClientToLogOamRequest();
-            let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
-            let clientConnectionInfo = await operationClientInterface.getTcpClientConnectionInfoAsync(operationClientUuid);
             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
             let timestamp = moment().format();
             let applicationName = await HttpServerInterface.getApplicationNameAsync();
@@ -50,7 +48,7 @@ exports.recordOamRequest = function (oamPath, requestBody, responseCode, authori
             let stringifiedBody = JSON.stringify(requestBody);
             let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
             httpRequestBody = formulateResponseBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber);
-            let response = await requestBuilder.BuildAndTriggerRestRequest(clientConnectionInfo, serviceName, "POST", httpRequestHeader, httpRequestBody);
+            let response = await requestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
                 resolve(true);

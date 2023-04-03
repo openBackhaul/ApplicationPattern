@@ -33,8 +33,6 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 operationClientUuid);
             let operationName = await OperationClientInterface.getOperationNameAsync(
                 operationClientUuid);
-            let clientConnectionInfo = await OperationClientInterface.getTcpClientConnectionInfoAsync(
-                operationClientUuid);
             let originator = await httpServerInterface.getApplicationNameAsync();
             let httpRequestHeader = new RequestHeader(
                 user, 
@@ -46,8 +44,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 );
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
-                clientConnectionInfo,
-                operationName, 
+                operationClientUuid,
                 "POST", 
                 httpRequestHeader, 
                 httpRequestBody

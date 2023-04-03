@@ -4,21 +4,23 @@
  * This class provides functionality to construct a rest request
  **/
 const restClient = require('./Client');
+const OperationClientInterface = require('../../onfModel/models/layerProtocols/OperationClientInterface');
 
 /**
  * This function trigger a rest request by calling the restClient class<br>
- * @param {string} clientConnectionInfo protocol, ip address,port of the client application in the format <ipaddress>:<port>.
- * @param {string} operationName service that needs to be addressed in the client application 
+ * @param {string} operationClientUuid of service that needs to be addressed in the client application
  * @param {string} method http method for the REST request
  * @param {object} requestHeader http request header for the REST call
  * @param {object} requestBody request body for the REST call
  * @returns {Promise<Object>} returns the http response received
  */
-exports.BuildAndTriggerRestRequest = async function (clientConnectionInfo, operationName, method, requestHeader, requestBody) {
+exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method, requestHeader, requestBody) {
     try {
+        let operationName = await OperationClientInterface.getOperationNameAsync(operationClientUuid);
         if (operationName.indexOf("/") !== 0) {
             operationName = "/" + operationName
         }
+        let clientConnectionInfo = await OperationClientInterface.getTcpClientConnectionInfoAsync(operationClientUuid);
         let url = clientConnectionInfo + operationName;
         let request = {
             method: method,
