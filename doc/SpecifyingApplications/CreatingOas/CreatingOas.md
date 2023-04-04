@@ -1,14 +1,33 @@
-# Creating the OpenAPI Specification
+# Creating the OAS
 
-This is the step by step cookbook for creating the OpenAPI Specification (OAS).  
+This is the step by step cookbook for creating the OAS.  
 
 Please read the following conceptual documents before working on the OAS:  
-- 
-- 
-- 
+ - [Concept of Microservice](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/Microservice/Microservice.md)  
+ - [Introduction to HTTP Requests](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/Http/Http.md)  
+ - [API-First Approach](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/ApiFirst/ApiFirst.md)  
+ - [OpenAPI Specification](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/ElementsApplicationPattern/Principles/OpenApiSpecification/OpenApiSpecification.md)  
+ - [OpenAPI Guide from Basic Structure to Using $ref](https://swagger.io/docs/specification/basic-structure/)  
+ 
+ Furthermore, it is recommended to study an existing OAS (e.g. [RegistryOffice](https://github.com/openBackhaul/RegistryOffice/blob/develop/spec/RegistryOffice.yaml)) in deep detail while reading [Structure of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/SpecifyingApplications/StructureOfOas/StructureOfOas.md) in parallel.  
 
 
 ### File Handling  
+
+Unfortunately, the handling of the OAS file is not satisfactorily solved.  
+On one hand, the OAS must be part of the application specification on Github, and also participate in the regular version management.  
+On the other hand, editing is better supported in Postman and finally the functions of Postman (e.g. mock server creation) are also needed to test the coding of the test cases.  
+
+It is up to the individual ApplicationOwner whether he prefers to write the OAS in VSCode or in Postman.  
+If Postman is chosen, the file content has to be copied regularly between the two editors (which involves some risks).  
+If VSCode is preferred, the content must be transferred towards Postman before editing the test cases and afterwards been permanently kept in synch.  
+
+
+
+
+hier geht's weiter
+
+
 
 - Assure that there is a copy of the latest [template of the OAS](???) in the _develop_ branch of your application's repository.    
 - Rename the file, by replacing "ApplicationPattern" by your application's name.  

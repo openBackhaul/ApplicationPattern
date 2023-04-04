@@ -615,7 +615,7 @@ If some objects, such as the FileProfile or the ElasticSearchClient are not need
 The UUIDs need to be adapted to the abbreviation and release number of the new application.  
 
 
-### Common Components  
+## Common Components  
 
 The _components_ block contains definitions that get referenced from within the other sections of the OAS.  
 They are identical to all applications belonging to the MW SDN application layer.  
