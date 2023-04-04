@@ -21,10 +21,10 @@ The number of the release that gets specified in this OAS shall be stated in the
 ## Paths  
 
 The _paths_ provided on the API are structured into four categories:  
-  - Individual Services  
-  - Basic Services  
-  - Individual OaM  
-  - Basic OaM  
+  - [Individual Services](IndividualServices)  
+  - [Basic Services](BasicServices)  
+  - [Individual OaM](IndividualOaM)  
+  - [Basic OaM](BasicOaM)  
 
 95% of specification work will be done in the Individual Service section. Whatever specified here will define the purpose of the application. 
 
@@ -35,7 +35,7 @@ _Paths_ that are required for management activities that are individual to this 
 The Basic OaM section comprises standard OaM _paths_ that can be put together from the _paths_ that are already comprised in the ApplicationPattern.  
 
 
-### Individual Services  
+### Individual Services  <a name="IndividualServices"></a>  
 
 The OperationNames of the OperationServers defined in the ServiceList's individual service section shall be listed beneath the _/v1/bequeath-your-data-and-die:_ . The ordering should be kept in synch.  
 
@@ -313,7 +313,7 @@ The OperationNames of the OperationServers defined in the ServiceList's individu
 >>>>>
 
 
-### Basic Services  
+### Basic Services  <a name="BasicServices"></a>  
 
 The basic service section is embedding the application into the MW SDN framework and it implements a couple of services that must be supported by all applications.  
 
@@ -323,7 +323,7 @@ It is a copy of the basic service section of the ApplicationPattern.
 Just UUIDs need to be adapted.  
 
 
-### Individual OaM  
+### Individual OaM  <a name="IndividualOaM"></a>  
 
 The individual OaM section is required for OaM _paths_ that are specific to the application.  
 
@@ -606,7 +606,7 @@ The structure of the _paths_ for managing applications shall be identical to the
 >>>
 
 
-### Basic OaM  
+### Basic OaM  <a name="BasicOaM"></a>  
 
 The Basic OaM section contains the OaM _paths_ that are identical to all applications belonging to the MW SDN application layer.  
 They get just copied from the latest version of the ApplicationPattern.  
