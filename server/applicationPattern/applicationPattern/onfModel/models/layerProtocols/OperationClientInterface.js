@@ -225,7 +225,7 @@ class OperationClientInterface extends layerProtocol {
         let remoteAddress = await getConfiguredRemoteAddress(tcpClientRemoteAddress);
         let remotePort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
         let remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuid);
-        return remoteProtocol + "//" + remoteAddress + ":" + remotePort;
+        return remoteProtocol.toLowerCase() + "://" + remoteAddress + ":" + remotePort;
     }
 
     /**
