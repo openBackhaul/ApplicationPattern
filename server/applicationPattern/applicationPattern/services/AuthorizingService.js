@@ -27,15 +27,13 @@
          let isAuthorized = false;
          try {
              let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
-             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
-             let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
              let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
              let userName = decodeAuthorizationCodeAndExtractUserName(authorizationCode);
              let applicationName = await httpServerInterface.getApplicationNameAsync();
              let applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
              let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
              let httpRequestBody = formulateResponseBody(applicationName, applicationReleaseNumber, authorizationCode, method)
-             let response = await restRequestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
+             let response = await restRequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
              if (response !== undefined && response.status === 200) {
                  let responseBody = response.data;
                  if (responseBody["oam-request-is-approved"] == true) {
