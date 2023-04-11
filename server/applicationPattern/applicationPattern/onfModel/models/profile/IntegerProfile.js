@@ -15,33 +15,6 @@
  class IntegerProfile extends profile {          
  
      /**
-      * @deprecated Since version 1.0.2 Will be deleted in version 2.0.0. Use getMaximumAsync instead.
-      * @description This function returns the maxmimum value for the integer profile.
-      * @param {String} profileUuid : the value should be a valid string in the pattern '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-      * @returns {promise} string {approvalStatus}
-      **/
-     static async getMaximumEntriesAsync() {
-         return new Promise(async function (resolve, reject) {
-             let maximum;
-             try {
-                 let profileList = await profileCollection.getProfileListAsync();
-                 for (let i = 0; i < profileList.length; i++) {
-                     let profileInstance = profileList[i];
-                     let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                     if (profileName == profile.profileNameEnum.INTEGER_PROFILE) {
-                         let integerProfilePac = profileInstance[onfAttributes.INTEGER_PROFILE.PAC];
-                         let integerProfileConfiguration = integerProfilePac[onfAttributes.INTEGER_PROFILE.CONFIGURATION];
-                         maximum = integerProfileConfiguration[onfAttributes.INTEGER_PROFILE.INTEGER_VALUE];                         
-                     }
-                 }
-                 resolve(maximum);
-             } catch (error) {
-                 reject(error);
-             }
-         });
-     }
-
-     /**
       * @description This function returns the maxmimum value for the integer profile.
       * @param {String} integerProfileUuid : the value should be a valid string in the pattern '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
       * @returns {promise} string {approvalStatus}

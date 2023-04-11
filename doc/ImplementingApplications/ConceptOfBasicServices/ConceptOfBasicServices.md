@@ -32,3 +32,4 @@ Totally we have 15 basic services. Please look into the below brief information 
 
 15.	**/v1/update-operation-key** - Allows updating operation key at a OperationServer or OperationClient
 
+16. **/v1/start-application-in-generic-representation** - Starts application in generic representation

@@ -1,7 +1,7 @@
 ## Integrating Basic Services Package
 
-The ApplicationLayer consists of 15 BasicServices which are generic across all the Microservices in the layer. 
-This library provides implementation for all the 15 BasicServices.
+The ApplicationLayer consists of 16 BasicServices which are generic across all the Microservices in the layer.
+This library provides implementation for all the 16 BasicServices.
 
 To integrate the BasicServices package,
 

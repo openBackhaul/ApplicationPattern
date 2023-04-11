@@ -20,8 +20,6 @@
 - [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
 - [Concept of _DATAfile_](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
 - [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
-- [Concept of OpenApiSpecification](./Functions/ConceptOfOas/ConceptOfOas.md)
-- [Structure of OpenApiSpecification](./Functions/StructureOfOas/StructureOfOas.md)
 - [Concept of TestCases](./Functions/ConceptOfTestCases/ConceptOfTestCases.md)
 - [Structure of TestCases](./Functions/StructureOfTestCases/StructureOfTestCases.md)
 
@@ -31,6 +29,7 @@
 - [Structure of Release Numbers](./Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
 - [Structure of UUIDs](./Names/StructureOfUuids/StructureOfUuids.md)
 - [Structure of Internal Forwarding Names](./Names/StructureOfInternalForwardingNames/StructureOfInternalForwardingNames.md)
+- [Structure of OaM paths](./Names/StructureOfOamPaths/StructureOfOamPaths.md)
 
 
 ### Underlying Information Model
