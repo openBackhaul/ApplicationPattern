@@ -16,19 +16,15 @@ ES is a distributed, free and open search and analytics engine for all types of 
 
 ### Brief introduction to ES buzzwords
 
-Basic building block in ES is `document`. By this word, ES understands one item of `data`. Elasticsearch stores complex data structures that have been serialized as JSON documents.
-
-Documents have (amongst others) proprietary fields `_id` (unique document identifier) and `_source` (where the user data is stored).
-
-Documents are grouped into `indices`. One index groups data that are structured in the same way.
-
-Multiple indices can be grouped under an index `alias`.
-
-Index alias can be assigned a `service policy`. Service policy is a set of rules, that determine when should be an index rolled over, deleted or do any other action specified in the policy. 
-
-Index alias is tied to a service policy by an `index template`. This template gives it's properties to each index within the assigned index alias, including, but not limited to service policy, mapping and other settings. 
-
-In order to execute requests towards ES, an ES Javascript `client` is used. 
+- `document`: basic building block in ES
+- `data`: contents of document. Elasticsearch stores complex data structures that have been serialized as JSON documents.
+- `id`: unique document identifier
+- `_source`: where the user data is stored
+- `index`: group of documents. One index groups data that are structured in the same way.
+- `alias`: multiple indices can be grouped under an index alias
+- `service policy`: is a set of rules, that determine when should be an index rolled over, deleted or do any other action specified in the policy. Index alias can be assigned a service policy. 
+- `index template`: link between index alias and a service policy. This template gives its properties to each index within the assigned index alias, including, but not limited to service policy, mapping and other settings. 
+- `client`: ES Javascript client to execute requests towards ES 
 
 See [documentation](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/7.17/api-reference.html).
 
