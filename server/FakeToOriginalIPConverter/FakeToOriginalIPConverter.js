@@ -49,28 +49,36 @@ async function modifyClients() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
     for (let index = 0; index < applicationList.length; index++) {
         let application = applicationList[index];
-        let applicationName = application['component'];
-        let releaseNumber = application['release'];
-        let originalTcpIpAddress = application['original-address'];
-        let originalTcpPort = application['original-tcp-port'];
-        let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
-        if (httpClientUuid != undefined) {
-            const tcpClientuuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-            if (tcpClientuuidList != undefined) {
-                // need to update after including the NGINX concept
-                let tcpClientuuid = tcpClientuuidList[0];
-                let isTcpIPAddressUpdated = false;
-                let isTcpPortUpdated = false;
-                try {
-                    isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(tcpClientuuid, originalTcpIpAddress);
-                    isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(tcpClientuuid, originalTcpPort);
-                } catch (error) {
-                    console.log(error);
+        if(application['instance-type'] == 'client'){
+            let applicationName = application['component'];
+            let releaseNumber = application['release'];
+            let originalTcpIpAddress = application['original-address'];
+            let originalTcpPort = application['original-tcp-port'];
+            let originalTcpProtocol = application['protocol'];
+            let originalReleaseNumber = application['new-release'];
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+            if (httpClientUuid != undefined) {
+                const tcpClientuuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+                if (tcpClientuuidList != undefined) {
+                    // need to update after including the NGINX concept
+                    let tcpClientuuid = tcpClientuuidList[0];
+                    let isTcpIPAddressUpdated = false;
+                    let isTcpPortUpdated = false;
+                    let isTcpProtocolUpdated = false;
+                    let isHttpReleaseNumberUpdated = false;
+                    try {
+                        isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(tcpClientuuid, originalTcpIpAddress);
+                        isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(tcpClientuuid, originalTcpPort);
+                        isTcpProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(tcpClientuuid, originalTcpProtocol);
+                        isHttpReleaseNumberUpdated = await httpClientInterface.setReleaseNumberAsync(httpClientUuid, originalReleaseNumber);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    console.log(applicationName + "," + releaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated + " tcp-client protocol update : " + isTcpProtocolUpdated + " http-client release number update : " + isHttpReleaseNumberUpdated)
                 }
-                console.log(applicationName + "," + releaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated)
+            } else {
+                console.log(applicationName + "," + releaseNumber + " does not exits")
             }
-        } else {
-            console.log(applicationName + "," + releaseNumber + " does not exits")
         }
     }
 }
@@ -90,16 +98,18 @@ async function modifyServer() {
     if (originalApplicationName != undefined && originalReleaseNumber != undefined) {
         for (let index = 0; index < applicationList.length; index++) {
             let application = applicationList[index];
-            let applicationName = application['component'];
-            let releaseNumber = application['release'];
-            let originalTcpIpAddress = application['original-address']['ip-address'];
-            let originalTcpPort = application['original-tcp-port'];
-            if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
-                try {
-                    isTcpIPAddressUpdated = await modifyServerLocalAddress(originalTcpIpAddress);
-                    isTcpPortUpdated = await modifyServerLocalPort(originalTcpPort);
-                } catch (error) {
-                    console.log(error);
+            if(application['instance-type'] == 'server'){
+                let applicationName = application['component'];
+                let releaseNumber = application['release'];
+                let originalTcpIpAddress = application['original-address'];
+                let originalTcpPort = application['original-tcp-port'];
+                if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
+                    try {
+                        isTcpIPAddressUpdated = await modifyServerLocalAddress(originalTcpIpAddress);
+                        isTcpPortUpdated = await modifyServerLocalPort(originalTcpPort);
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
             }
         }
@@ -121,6 +131,7 @@ async function modifyOldRelease() {
     let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidAsync("OldRelease");
     let isTcpIPAddressUpdated = false;
     let isTcpPortUpdated = false;
+    let isTcpProtocolUpdated = false;
     let oldReleaseNumber = "";
     if (oldReleaseHttpClientUuid != undefined) {
         const oldReleaseTcpClientuuidList = await LogicalTerminationPoint.getServerLtpListAsync(oldReleaseHttpClientUuid);
@@ -131,23 +142,27 @@ async function modifyOldRelease() {
             if (originalApplicationName != undefined && oldReleaseNumber != undefined) {
                 for (let index = 0; index < applicationList.length; index++) {
                     let application = applicationList[index];
-                    let applicationName = application['component'];
-                    let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-address'];
-                    let originalTcpPort = application['original-tcp-port'];
-                    if (applicationName == originalApplicationName && oldReleaseNumber == releaseNumber) {
-                        try {
-                            isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(oldReleaseTcpClientuuid, originalTcpIpAddress);
-                            isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(oldReleaseTcpClientuuid, originalTcpPort);
-                        } catch (error) {
-                            console.log(error);
+                    if(application['instance-type'] == 'client'){
+                        let applicationName = application['component'];
+                        let releaseNumber = application['release'];
+                        let originalTcpIpAddress = application['original-address'];
+                        let originalTcpPort = application['original-tcp-port'];
+                        let originalTcpProtocol = application['protocol'];
+                        if (applicationName == originalApplicationName && oldReleaseNumber == releaseNumber) {
+                            try {
+                                isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(oldReleaseTcpClientuuid, originalTcpIpAddress);
+                                isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(oldReleaseTcpClientuuid, originalTcpPort);
+                                isTcpProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(oldReleaseTcpClientuuid, originalTcpProtocol);
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
                     }
                 }
             }
         }
     }
-    console.log("OldRelease" + "," + oldReleaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated);
+    console.log("OldRelease" + "," + oldReleaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated + " tcp-client protocol update : " + isTcpProtocolUpdated);
 }
 
 /***********************************************************************************************************************************************
@@ -164,6 +179,7 @@ async function modifyNewRelease() {
     let newReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidAsync("NewRelease");
     let isTcpIPAddressUpdated = false;
     let isTcpPortUpdated = false;
+    let isTcpProtocolUpdated = false;
     let newReleaseNumber = "";
     if (newReleaseHttpClientUuid != undefined) {
         const newReleaseTcpClientuuidList = await LogicalTerminationPoint.getServerLtpListAsync(newReleaseHttpClientUuid);
@@ -174,23 +190,27 @@ async function modifyNewRelease() {
             if (originalApplicationName != undefined && newReleaseNumber != undefined) {
                 for (let index = 0; index < applicationList.length; index++) {
                     let application = applicationList[index];
-                    let applicationName = application['component'];
-                    let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-address'];
-                    let originalTcpPort = application['original-tcp-port'];
-                    if (applicationName == originalApplicationName && newReleaseNumber == releaseNumber) {
-                        try {
-                            isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(newReleaseTcpClientuuid, originalTcpIpAddress);
-                            isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(newReleaseTcpClientuuid, originalTcpPort);
-                        } catch (error) {
-                            console.log(error);
+                    if(application['instance-type'] == 'client'){
+                        let applicationName = application['component'];
+                        let releaseNumber = application['release'];
+                        let originalTcpIpAddress = application['original-address'];
+                        let originalTcpPort = application['original-tcp-port'];
+                        let originalTcpProtocol = application['protocol'];
+                        if (applicationName == originalApplicationName && newReleaseNumber == releaseNumber) {
+                            try {
+                                isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(newReleaseTcpClientuuid, originalTcpIpAddress);
+                                isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(newReleaseTcpClientuuid, originalTcpPort);
+                                isTcpProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(newReleaseTcpClientuuid, originalTcpProtocol);
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
                     }
                 }
             }
         }
     }
-    console.log("NewRelease" + "," + newReleaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated);
+    console.log("NewRelease" + "," + newReleaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated + " tcp-client protocol update : " + isTcpProtocolUpdated);
 }
 
 
@@ -259,6 +279,3 @@ async function modifyServerLocalPort(localPort) {
         resolve(isUpdated);
     });
 }
-
-
-

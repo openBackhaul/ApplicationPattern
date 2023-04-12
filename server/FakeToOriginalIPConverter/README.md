@@ -11,13 +11,17 @@ It updates the TcpClient/TcpServer address and port details based on the informa
 2. Create a .json file and update the details of application in the following format , 
 3. If ip-address need to be added: refer below Array of json's first index value e.g fake-to-original-iP-mapping[0]
 4. If domain-name need to be added: refer below Array of json's second index value e.g fake-to-original-iP-mapping[1]
+5. For client or server data add "instance-type": "client" or "instance-type": "server" 
+6. For client protocol update Add "protocol" : "HTTP"
 ```
 {
     "fake-to-original-iP-mapping": [{
             "category": "TinyApplicationController",
+            "instance-type": "client",
             "abbreviation" : "RO",
             "component": "RegistryOffice",
             "release": "0.0.1",
+            "new-release": "2.0.1",
             "fake-address": "1.1.3.1",
             "fake-tcp-port": 3001,
             "original-address": {
@@ -25,20 +29,38 @@ It updates the TcpClient/TcpServer address and port details based on the informa
                     "ipv-4-address": "127.0.0.1"
                 }
             },
-            "original-tcp-port": 3001
+            "original-tcp-port": 3000,
+            "protocol" : "HTTP"
         },
         {
             "category": "TinyApplicationController",
+            "instance-type": "server",
+            "abbreviation" : "RO",
+            "component": "RegistryOffice",
+            "release": "0.0.1",
+            "fake-address": "1.1.3.1",
+            "fake-tcp-port": 3001,
+            "original-address": {
+                "ipv-4-address": "127.0.0.1"
+            },
+            "original-tcp-port": 3000
+        },
+        {
+            "category": "TinyApplicationController",
+            "instance-type": "client",
             "abbreviation" : "TAR",
             "component": "TypeApprovalRegister",
             "release": "0.0.1",
+            "new-release": "2.0.1",
             "fake-address": "1.1.3.2",
             "fake-tcp-port": 3002,
             "original-address": {
                 "domain-name": "www.domainName.com",
-            "original-tcp-port": 3002
-        }
-]
+            },
+            "original-tcp-port": 3002,
+            "protocol" : "HTTP"
+        }]
+}
 
 ```
 3. Update the original-address , original-tcp-port as per the environment planning
