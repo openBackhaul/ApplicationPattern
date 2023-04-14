@@ -40,8 +40,8 @@ Data is to be obtained from the network and made available.
 If the application fetches "all" data and offers the same as is, the value of the application is limited to buffering.  
 If the application fetches "all" data and filters and aggregates it until exactly the currently requested KPI can be provided, the future reuse of the application is limited to the reuse of the KPI.  
 
-Both make sense, but a mixture doesn't contribute to a transparend structure.  
-Therefore it is important to have a clear picture of the role and purpose of the application while defining the individual services.  
+Both make sense, but a mixture doesn't contribute to a transparent structure.  
+Therefore, it is important to have a clear picture of the role and purpose of the application while defining the individual services.  
 
 Probably not necessary to mention that concise OperationNames also contribute greatly to transparency.  
 
@@ -110,7 +110,7 @@ Probably not necessary to mention that concise OperationNames also contribute gr
 >>>>>>So, the _schema:_ statements in the RequestBodies shall always be followed by a _type: object_ statement.  
 >>>>>>
 >>>>>>OpenAPI Specification allows defining objects in the Common Components section and to just put references to these definitions into the _schema:_ blocks of the individual RequestBodies.  
->>>>>>This practice should be limited to comprehenive objects that get referenced for at least two or three times.  
+>>>>>>This practice should be limited to comprehensive objects that get referenced for at least two or three times.  
 >>>>>>
 >>>>>>An object description must define the included attributes and specify whether and which combinations of these attributes must be present in a valid Body.  
 >>>>>>This can be expressed through different combinations of statements.  
@@ -171,7 +171,7 @@ Probably not necessary to mention that concise OperationNames also contribute gr
 >>>>>>The _example:_ statement has to be arranged with the same number of indents as the _type: object_ statement.  
 >>>>>>The example has to comply with the specifications of the object.  
 >>>>>>This includes not just the attributes' names and datatypes, but also the rulings of availability and multiplicity.  
->>>>>>(In existing specifications, _example:_ statements might be located deeper in the schema description, maybe even beneathe the attribute. This is out-dated style and should not be copied.)  
+>>>>>>(In existing specifications, _example:_ statements might be located deeper in the schema description, maybe even beneath the attribute. This is outdated style and should not be copied.)  
 >>>>>>
 >>>>>>In most cases the list of attributes can be copied from the _required:_ statement, hyphens have to be removed and proper values have to be added.  
 >>>>>>
@@ -205,7 +205,7 @@ Probably not necessary to mention that concise OperationNames also contribute gr
 >>>
 >>>#### 200:  
 >>>If the response would need to contain attributes, successful requests would be indicated by HTTP status code 200.  
->>>In these cases the ResponseBodies are as individual as RequestBodies.  
+>>>In these cases, the ResponseBodies are as individual as RequestBodies.  
 >>>
 >>>>#### description:  
 >>>>Description of what just happened as the request has been successfully executed.  
@@ -342,7 +342,7 @@ Just UUIDs need to be adapted.
 
 The structure of the _paths_ for managing applications shall be identical to the RESTCONF interface that is exposed at the controller NBI for managing microwave devices. [Structure of OAM Paths](../../ElementsApplicationPattern/Names/StructureOfOamPaths/StructureOfOamPaths.md) is providing concrete guidance for formulating the _paths_.  
 
-_Paths_ that are required for management that is individual to this application shall be located in the Individual OaM section. Two _paths_ are pre-defined, but might require individualization of their ResponseBodies.  
+_Paths_ that are required for management that is individual to this application shall be located in the Individual OaM section. Two _paths_ are pre-defined but might require individualization of their ResponseBodies.  
 
 The Basic OaM section comprises OaM _paths_ that are inherited from the ApplicationPattern. These _paths_ are identical in all applications of the MW SDN application layer.  
 
@@ -393,7 +393,7 @@ All the Profiles from the ProfileList need to be covered by read and write _path
 >>#### operationId:  
 >>The OperationId is required to distinguish the code modules after automated code generation. It must be unique.  
 >>
->>In the OaM layer, the OperationId shall be composed from the method (GET or PUT), the object type (e.g. OperationServer, ActionProfile) and the attribute's name  (e.g. LifeCycleState, ConsequentOperationReference).  
+>>In the OaM layer, the OperationId shall be composed from the method (GET or PUT), the object type (e.g. OperationServer, ActionProfile) and the attribute's name (e.g. LifeCycleState, ConsequentOperationReference).  
 >>lowerCamelCase style is applied, like e.g. getOperationServerLifeCycleState.  
 >>
 >>#### summary:  
@@ -479,7 +479,7 @@ All the Profiles from the ProfileList need to be covered by read and write _path
 >>>>>>>>
 >>>>>>>#### example:  
 >>>>>>>The _example:_ statement shall be arranged one level beneath the _schema:_ statement.  
->>>>>>>(Existing specifications might be out-dated in this regard.)  
+>>>>>>>(Existing specifications might be outdated in this regard.)  
 >>>>>>>
 >>>>>>>The attribute needs to be stated including its name and value.  
 >>>>>>>Reasonable values should be chosen to support validation of the testcases.  
@@ -504,7 +504,7 @@ All the Profiles from the ProfileList need to be covered by read and write _path
 >>#### operationId:  
 >>The OperationId is required to distinguish the code modules after automated code generation. It must be unique.  
 >>
->>In the OaM layer, the OperationId shall be composed from the method (GET or PUT), the object type (e.g. OperationServer, ActionProfile) and the attribute's name  (e.g. LifeCycleState, ConsequentOperationReference).  
+>>In the OaM layer, the OperationId shall be composed from the method (GET or PUT), the object type (e.g. OperationServer, ActionProfile) and the attribute's name (e.g. LifeCycleState, ConsequentOperationReference).  
 >>lowerCamelCase style is applied, like e.g. putActionProfileConsequentOperationReference.  
 >>
 >>#### summary:  

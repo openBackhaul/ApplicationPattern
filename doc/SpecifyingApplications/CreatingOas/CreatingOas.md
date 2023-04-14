@@ -15,7 +15,7 @@ Please read the following conceptual documents before working on the OAS:
 ### File Handling  
 
 Unfortunately, the handling of the OAS file is not 100% satisfactorily solved.  
-On one hand, the OAS must be part of the application specification on Github, and participate in the regular version management.  
+On one hand, the OAS must be part of the application specification on Github and participate in the regular version management.  
 On the other hand, editing is better supported in Postman and finally the functions of Postman (e.g. mock server creation) are also needed to test the coding of the test cases.  
 
 It is up to the individual ApplicationOwner whether he prefers writing the OAS in VSCode or in Postman.  
@@ -26,10 +26,10 @@ Assure that there is a copy of the latest [template of the OAS](https://github.c
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
 
-- (If not already done,) create a workspace for own microservices in your local Postman instalation.  
+- (If not already done,) create a workspace for own microservices in your local Postman installation.  
 - Click the _APIs_ folder at the very left of the Postman window.  
 - Click the "+" for creating a new API.  
-- Enter the offical application name as a Name of the API definition.  
+- Enter the official application name as a Name of the API definition.  
 - Enter a low version number like e.g. 0.0.1 (you will be able to adapt the version number at any time).  
 - Define Schema type to be "OpenAPI 3.0" and Schema format to be "YAML" and create the API.  
 - After the API has been created, click on the just created version.  
@@ -79,19 +79,19 @@ All services are exclusively supporting the _post_ method.
 >- Need attributes to be send as an input to the OperationServer?  
 >- If yes, note the attributes that are required.  
 >- Are attributes expected to be returned as an output by the OperationServer?  
->- If yes, note the attributes that will be returend.  
+>- If yes, note the attributes that will be returned.  
 >Check existing specifications for a _path_ definition that is similar.  
->Obviously, it is unlikely that there is a _path_ that has the exact same input an output attributes, but you should at least chose a _path_ that comprises _requestBody:_ and _responses:_ blocks, if you need those in the new _path_.  
+>Obviously, it is unlikely that there is a _path_ that has the exact same input and output attributes, but you should at least chose a _path_ that comprises _requestBody:_ and _responses:_ blocks, if you need those in the new _path_.  
 >
 >#### Administrational Stuff
->_operationId:_, _summary:_, _tags:_ and _security:_ statements to be updated in accordiance with the respective chapters in [Structure of the OAS](../StructureOfOas/StructureOfOas.md#method).  
+>_operationId:_, _summary:_, _tags:_ and _security:_ statements to be updated in accordance with the respective chapters in [Structure of the OAS](../StructureOfOas/StructureOfOas.md#method).  
 >
 >#### RequestBody
 >Transfer the attributes' names from your notes into the _required:_ block.  
 >
 >Remark:
 >OpenAPI Specification allows defining the structure of objects in the Common Components section at the end of the OAS and to just put references to these definitions into the _schema:_ blocks of the individual RequestBodies or ResponseBodies.  
->In principle, the ApplicationPattern processes are supporting this, but appliance should be limited to comprehenive objects that get referenced for at least two or three times.  
+>In principle, the ApplicationPattern processes are supporting this, but appliance should be limited to comprehensive objects that get referenced for at least two or three times.  
 >Anyway, it is recommended to formulate the schemas of all RequestBodies and ResponseBodies first and to search for redundancies afterwards.  
 >Reading the OAS is much easier when following this order during specification work.
 >
@@ -110,7 +110,7 @@ All services are exclusively supporting the _post_ method.
 >>
 >>Help for formulating proper regular expressions could be found [here](https://www.geeksforgeeks.org/write-regular-expressions/) or [here](https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285).  
 >>A validator for testing regular expressions could be found [here](https://regex101.com/).  
->>It is recommended not to attempt optimizing the length of the regular expression to a minimum number of symbols, but to optimize for easy to read explanations of the format.  
+>>It is recommended not to attempt optimizing the length of the regular expression to a minimum number of symbols, but to optimize for easy-to-read explanations of the format.  
 >>
 >>Describe the meaning of the attribute in connection with the operation in the first line of the _description: >_ statement.  
 >>Example: 'IP address of the device that shall be messed up  
@@ -133,9 +133,9 @@ All services are exclusively supporting the _post_ method.
 >
 >Change into the _example:_ block and delete the already existing, but obsolete attribute names.  
 >Copy the attribute names from the _required:_ block into the _example:_ block.  
->Remove the hyphens infront of the attributes' names.  
+>Remove the hyphens in front of the attributes' names.  
 >Add colons behind the attributes' names.  
->If the _schema_ definition would be substructured into further objects, the example would need to be substructured by the additionally required attributes, too.  
+>If the _schema_ definition would be sub-structured into further objects, the example would need to be sub-structured by the additionally required attributes, too.  
 >Add reasonable values that are complying the restrictions made on the format.  
 >
 >Be aware:  
@@ -176,8 +176,8 @@ All services are exclusively supporting the _post_ method.
 >>After describing the path, some included UUID or local-ID might need to be adapted.  
 >>Looking into the CONFIGfile might support finding the right identifier.  
 >>Often, the output is providing data from an object instance in a list.  
->>As the object instance is identified by the key attribute's value, which is handed-over in the RequestBody, the UUID in the specification cannot identify a concrete instance.  
->>Consequently the variable segments of the UUID need to be replaced by "*" for describing a list of objects that come into question.  
+>>As the object instance is identified by the key attribute's value, which is handed over in the RequestBody, the UUID in the specification cannot identify a concrete instance.  
+>>Consequently, the variable segments of the UUID need to be replaced by "*" for describing a list of objects that come into question.  
 >>(Please take care that the second line ends with a single quote.)  
 >>
 >Repeat these steps until you described all the attributes the _properties:_ block.  
@@ -186,12 +186,12 @@ All services are exclusively supporting the _post_ method.
 >Change into the _example:_ block and delete the already existing, but obsolete attribute names.  
 >Copy the attribute names from the _properties:_ block into the _example:_ block.  
 >Add colons behind the attributes' names.  
->If the _schema_ definition would be substructured into further objects, the example would need to be substructured, too.  
+>If the _schema_ definition would be sub-structured into further objects, the example would need to be substructured, too.  
 >Add reasonable values that are complying the restrictions that are made on the ingress of the data.  
 >
 >Update the UUID in the _description: >_ of the _life-cycle-state:_ parameter in the _headers:_ block.  
 >
-Repeate adding _post:_ blocks until all the _paths_ in your OAS are covered.  
+Repeat adding _post:_ blocks until all the _paths_ in your OAS are covered.  
 
 #### Callbacks
 It is recommended to first describe all RequestBodies and all ResponseBodies before adding the first _callback_ to the OAS.  
@@ -214,7 +214,7 @@ After all _forwardings_ from the ForwardingList have been transferred into the O
 >- adapt the UUIDs of protocol, IP address, domain name, port, and operation name references and  
 >- remove the line breaks again.  
 >
->It is recommended to wait until the original _path_ definitions are  really stable, before copying the entire method block (most likely _post:_) from the original _path_ definition into the _callback_ definition.  
+>It is recommended to wait until the original _path_ definitions are really stable, before copying the entire method block (most likely _post:_) from the original _path_ definition into the _callback_ definition.  
 >The entire block is to be marked for correcting the indents.  
 >_operationId:_, _tags:_ and _security:_ statements are to be removed.  
 >All statements that are filtering the to be sent requests for specific values of the attributes (e.g. patterns or enumerations at String attributes, minimum or maximum values at Integer attributes) are to be removed, too.  
@@ -255,7 +255,7 @@ Collapse all entries inside the _oneOf:_ block.
 >Mark the additional entry that is identifying your new Profile and CTRL+c.  
 >CTRL+v the same into the _enum:_ statements of the _profile-name:_ attributes of all existing Profile definitions.  
 >
-Repeate these steps until all the additional Profiles you defined in the ProfileList have been transferred into the OAS.  
+Repeat these steps until all the additional Profiles you defined in the ProfileList have been transferred into the OAS.  
 
 After defining all the additional Profiles in _/core-model-1-4:control-construct:_, mark the new blocks and CTRL+c.  
 
@@ -336,7 +336,7 @@ For verifying your examples (required for validating the test case collection) i
 - CTRL+s.  
 - Check your individual services and OaM _paths_ for a correct RequestBodies.  
 - If you would push "Send", your newly created mock server would answer.  
-- It is a matter of coincidence, which status code the mock server answers, but if you would expand the list of answers for the request, you could find the 200 or 204 as the top level entry in the list.  
+- It is a matter of coincidence, which status code the mock server answers, but if you would expand the list of answers for the request, you could find the 200 or 204 as the top-level entry in the list.  
 - Here you could check the ResponseBodies of the successfully processed requests.  
 - Actually, you just see the examples you defined in the OAS.  
 - If you would not find the expected attributes, you most likely entered an example that is contradicting the structure or format definitions.  
