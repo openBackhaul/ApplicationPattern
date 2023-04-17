@@ -780,7 +780,7 @@ function createTcpClientInterface(httpClientUuid, remoteIpV4Address, remotePort,
                 httpClientUuid, protocol
             );
             let tcpClientLogicalTerminationPoint = await tcpClientInterface.
-            createTcpClientInterfaceAsync(
+            createTcpClientInterface(
                 httpClientUuid,
                 tcpClientUuid,
                 remoteIpV4Address,
