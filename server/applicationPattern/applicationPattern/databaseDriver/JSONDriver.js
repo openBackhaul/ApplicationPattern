@@ -385,24 +385,3 @@ function isLastIndexOfTheList(individualFieldOfTheOAMPathList, i) {
     }
 }
 
-/**
- * @description Fetch application data file path
- */
-exports.getApplicationDataFile = async function () {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let applicationDataFile
-            let profileUuid = await profile.getUuidListAsync(profile.profileNameEnum.FILE_PROFILE);
-            for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
-                uuid = profileUuid[profileUuidIndex];
-                let value = await fileProfile.getFilePath(uuid)
-                if (fileSystem.existsSync(value)) {
-                    applicationDataFile = value;
-                }
-            }
-            resolve(applicationDataFile);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}

@@ -211,10 +211,11 @@ const OPERATION_CLIENT = {
 const TCP_SERVER = {
     CAPABILITY: "tcp-server-interface-capability",
     CONFIGURATION: "tcp-server-interface-configuration",
+    LOCAL_ADDRESS: "local-address",
     IPV_4_ADDRESS: "ipv-4-address",
-    IP_ADDRESS: "ip-address",
     DOMAIN_NAME: "domain-name",
-    LOCAL_PORT: "local-port"
+    LOCAL_PORT: "local-port",
+    LOCAL_PROTOCOL: "local-protocol"
 };
 
 const TCP_CLIENT = {

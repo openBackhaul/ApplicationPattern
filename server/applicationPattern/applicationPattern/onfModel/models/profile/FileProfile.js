@@ -5,6 +5,7 @@
 
 'use strict';
 
+const fileSystem = require('fs');
 const profileCollection = require('../../../onfModel/models/ProfileCollection');
 const profile = require('../../../onfModel/models/Profile');
 const onfPaths = require('../../../onfModel/constants/OnfPaths');
@@ -82,11 +83,11 @@ class FileProfile extends profile {
          */
         constructor(fileIdentifier, fileDescription, filePath, userName, password, operation) {
             this.fileProfileCapability = new FileProfilePac.
-            FileProfileCapability(
-                fileIdentifier, fileDescription);
+                FileProfileCapability(
+                    fileIdentifier, fileDescription);
             this.FileProfileConfiguration = new FileProfilePac.
-            FileProfileConfiguration(
-                filePath, userName, password, operation);
+                FileProfileConfiguration(
+                    filePath, userName, password, operation);
         }
     }
 
@@ -174,6 +175,27 @@ class FileProfile extends profile {
         });
     }
 
+/**
+ * @description Fetch application data file path
+ */
+    static async getApplicationDataFileContent() {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let applicationDataFile
+                let profileUuid = await profile.getUuidListAsync(profile.profileNameEnum.FILE_PROFILE);
+                for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
+                    let uuid = profileUuid[profileUuidIndex];
+                    let value = await FileProfile.getFilePath(uuid)
+                    if (fileSystem.existsSync(value)) {
+                        applicationDataFile = value;
+                    }
+                }
+                resolve(applicationDataFile);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 
     /**
      * @description This function returns the file path for the provided file profile uuid.
