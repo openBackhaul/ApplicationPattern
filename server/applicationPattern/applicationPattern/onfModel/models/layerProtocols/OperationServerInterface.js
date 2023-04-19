@@ -12,7 +12,6 @@ const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-const LayerProtocol = require('../LayerProtocol');
 /** 
  * @extends layerProtocol
  */
@@ -83,184 +82,128 @@ class OperationServerInterface extends layerProtocol {
     /**
      * @description This function returns the operation name for the given operation server uuid.
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-server-\d+$'
-     * @returns {promise} string {operationName | undefined}
+     * @returns {Promise<String>} operationName | undefined
      **/
-    static getOperationNameAsync(operationServerUuid) {
-        return new Promise(async function (resolve, reject) {
-            let operationName;
-            try {
-                let logicalTerminationPoint = await controlConstruct.
-                getLogicalTerminationPointAsync(operationServerUuid);
-                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-                let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
-                operationName = operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
-                resolve(operationName);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getOperationNameAsync(operationServerUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(operationServerUuid);
+        let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+        let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
+        return operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
     }
 
     /**
-     * @description This function returns the operation name for the given operation server uuid.
+     * @description This function returns the next version operation name for the given operation server name.
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-server-\d+$'
-     * @returns {promise} string {operationName | undefined}
+     * @returns {Promise<String>} operationName | undefined
      **/
-     static getNextVersionOfOperationNameIfExists(operationServerName) {
-        return new Promise(async function (resolve, reject) {
-            let nextVersionOfOperationName;
-            try {
-                let operationServerNameList = await OperationServerInterface.getAllOperationServerNameAsync(); 
-                let splitOperationServerName =  operationServerName.split("/");
-                let versionOfTheOperationServerName = parseInt(splitOperationServerName[1].replace('v',''));
-                let operationServerNameWithoutVersion = splitOperationServerName[2];
-                for(let i=0;i<operationServerNameList.length;i++){
-                    let _operationServerName = operationServerNameList[i];
-                    let _splitOperationServerName = _operationServerName.split("/");
-                    let _versionOfTheOperationServerName = parseInt(_splitOperationServerName[1].replace('v',''));
-                    let _operationServerNameWithoutVersion = _splitOperationServerName[2];
-                    if(_operationServerNameWithoutVersion == operationServerNameWithoutVersion){
-                        if(_versionOfTheOperationServerName > versionOfTheOperationServerName){
-                            nextVersionOfOperationName = _operationServerName;
-                        }
-                    }
-                }              
-                resolve(nextVersionOfOperationName);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    /**
-     * @description This function returns the operation name for the given operation server uuid.
-     * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-server-\d+$'
-     * @returns {promise} string {operationName | undefined}
-     **/
-    static getAllOperationServerNameAsync() {
-        return new Promise(async function (resolve, reject) {
-            let operationNameList = [];
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
-                for (let i = 0; i < logicalTerminationPointList.length; i++) {
-                    let logicalTerminationPoint = logicalTerminationPointList[i];
-                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                    let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-                    let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
-                    let operationName = operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
-                    operationNameList.push(operationName);
+     static async getNextVersionOfOperationNameIfExists(operationServerName) {
+        let nextVersionOfOperationName;
+        let operationServerNameList = await OperationServerInterface.getAllOperationServerNameAsync();
+        let splitOperationServerName =  operationServerName.split("/");
+        let versionOfTheOperationServerName = parseInt(splitOperationServerName[1].replace('v',''));
+        let operationServerNameWithoutVersion = splitOperationServerName[2];
+        for(let i=0;i<operationServerNameList.length;i++){
+            let _operationServerName = operationServerNameList[i];
+            let _splitOperationServerName = _operationServerName.split("/");
+            let _versionOfTheOperationServerName = parseInt(_splitOperationServerName[1].replace('v',''));
+            let _operationServerNameWithoutVersion = _splitOperationServerName[2];
+            if(_operationServerNameWithoutVersion == operationServerNameWithoutVersion){
+                if(_versionOfTheOperationServerName > versionOfTheOperationServerName){
+                    return _operationServerName;
                 }
-
-                resolve(operationNameList);
-            } catch (error) {
-                reject(error);
             }
-        });
+        }
+        return nextVersionOfOperationName;
+    }
+
+    /**
+     * @description This function returns all operation server names
+     * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-server-\d+$'
+     * @returns {Promise<String>} operationName | undefined
+     **/
+    static async getAllOperationServerNameAsync() {
+        let operationNameList = [];
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+        for (let i = 0; i < logicalTerminationPointList.length; i++) {
+            let logicalTerminationPoint = logicalTerminationPointList[i];
+            let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+            let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
+            let operationName = operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
+            operationNameList.push(operationName);
+        }
+        return operationNameList;
     }
 
     /**
      * @description This function returns the operation key of the operation server uuid.
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-operation-server-\d+$'
-     * @returns {promise} string {operationKey | undefined}
+     * @returns {Promise<String>} operationKey | undefined
      **/
-    static getOperationKeyAsync(operationServerUuid) {
-        return new Promise(async function (resolve, reject) {
-            let operationKey;
-            try {
-                let logicalTerminationPoint = await controlConstruct.
-                getLogicalTerminationPointAsync(operationServerUuid);
-                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-                let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
-                operationKey = operationServerConfiguration[onfAttributes.OPERATION_SERVER.OPERATION_KEY];
-                resolve(operationKey);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getOperationKeyAsync(operationServerUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(operationServerUuid);
+        let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+        let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
+        return operationServerConfiguration[onfAttributes.OPERATION_SERVER.OPERATION_KEY];
     }
 
     /**
      * @description This function modifies the operation key of the operation server.
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-operation-server-\d+$'
      * @param {String} operationKey : operation key that needs to be updated.
-     * @returns {promise} boolean {true | false}
+     * @returns {Promise<boolean>} true | false
      **/
-    static setOperationKeyAsync(operationServerUuid, operationKey) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let operationKeyPath = onfPaths.OPERATION_SERVER_OPERATION_KEY.replace(
-                    "{uuid}", operationServerUuid);
-                isUpdated = await fileOperation.writeToDatabaseAsync(
-                    operationKeyPath,
-                    operationKey,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setOperationKeyAsync(operationServerUuid, operationKey) {
+        let operationKeyPath = onfPaths.OPERATION_SERVER_OPERATION_KEY.replace(
+            "{uuid}", operationServerUuid);
+        return await fileOperation.writeToDatabaseAsync(
+            operationKeyPath,
+            operationKey,
+            false);
     }
 
     /**
      * @description This function returns the life-cycle-state for the given operation server uuid.
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-operation-server-\d+$'
-     * @returns {promise} boolean {lifeCycleState | undefined}
+     * @returns {Promise<String>} lifeCycleState | undefined
      **/
-    static getLifeCycleState(operationServerUuid) {
-        return new Promise(async function (resolve, reject) {
-            let lifeCycleState;
-            try {
-                let logicalTerminationPoint = await controlConstruct.
-                getLogicalTerminationPointAsync(operationServerUuid);
-                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-                let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
-                lifeCycleState = operationServerConfiguration[onfAttributes.OPERATION_SERVER.LIFE_CYCLE_STATE];
-                let lifeCycleStateEnum = OperationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
-                for (let lifeCycleStateKey in lifeCycleStateEnum) {
-                   if (lifeCycleStateEnum[lifeCycleStateKey] == lifeCycleState) {
-                        lifeCycleState = lifeCycleStateKey;
-                    }
-                }
-                resolve(lifeCycleState);
-            } catch (error) {
-                reject(error);
+    static async getLifeCycleState(operationServerUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(operationServerUuid);
+        let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+        let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
+        let lifeCycleState = operationServerConfiguration[onfAttributes.OPERATION_SERVER.LIFE_CYCLE_STATE];
+        let lifeCycleStateEnum = OperationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
+        for (let lifeCycleStateKey in lifeCycleStateEnum) {
+            if (lifeCycleStateEnum[lifeCycleStateKey] == lifeCycleState) {
+                return lifeCycleStateKey;
             }
-        });
+        }
     }
 
     /**
      * @description This function returns the operation server uuid for the given operation name.
      * @param {String} operationName : operation name of the operation server.
-     * @returns {promise} string {uuid}
+     * @returns {Promise<String>} uuid
      **/
-    static getOperationServerUuidAsync(operationName) {
-        return new Promise(async function (resolve, reject) {
-            let operationServerUuid;
-            try {
-                let logicalTerminationPointList = await controlConstruct.
-                getLogicalTerminationPointListAsync(layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
-                if (logicalTerminationPointList != undefined) {
-                    for (let i = 0; i < logicalTerminationPointList.length; i++) {
-                        let logicalTerminationPoint = logicalTerminationPointList[i];
-                        let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                        let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-                        let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
-                        let _operationName = operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
-                        if (_operationName != undefined && _operationName == operationName) {
-                            operationServerUuid = logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID];
-                        }
-                    }
+    static async getOperationServerUuidAsync(operationName) {
+        let logicalTerminationPointList = await controlConstruct.
+        getLogicalTerminationPointListAsync(layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+        if (logicalTerminationPointList != undefined) {
+            for (let i = 0; i < logicalTerminationPointList.length; i++) {
+                let logicalTerminationPoint = logicalTerminationPointList[i];
+                let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+                let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+                let operationServerCapability = operationServerPac[onfAttributes.OPERATION_SERVER.CAPABILITY];
+                let _operationName = operationServerCapability[onfAttributes.OPERATION_SERVER.OPERATION_NAME];
+                if (_operationName != undefined && _operationName == operationName) {
+                    return logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID];
                 }
-                resolve(operationServerUuid);
-            } catch (error) {
-                reject(error);
             }
-        });
+        }
     }
 
     /**

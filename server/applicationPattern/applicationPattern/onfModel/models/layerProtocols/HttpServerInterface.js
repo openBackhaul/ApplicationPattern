@@ -119,99 +119,71 @@ class HttpServerInterface extends layerProtocol {
 
     /**
      * @description This function returns the http server capability class.
-     * @returns {promise} object {httpServerCapability}.
+     * @returns {Promise<Object>} httpServerCapability
      **/
-    static getHttpServerCapabilityAsync() {
-        return new Promise(async function (resolve, reject) {
-            let httpServerCapability = undefined;
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
-                let logicalTerminationPoint = logicalTerminationPointList[0];
-                let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
-                let dataUpdatePeriodEnum = HttpServerInterface.HttpServerInterfacePac.HttpServerInterfaceCapability.dataUpdatePeriodEnum;
-                for (let dataUpdatePeriodkey in dataUpdatePeriodEnum) {
-                    if (dataUpdatePeriodEnum[dataUpdatePeriodkey] == httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD]) {
-                        httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD] = dataUpdatePeriodkey;
-                    }
-                }
-                resolve(httpServerCapability);
-            } catch (error) {
-                reject(error);
+    static async getHttpServerCapabilityAsync() {
+        let httpServerCapability = undefined;
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
+        let logicalTerminationPoint = logicalTerminationPointList[0];
+        let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+        httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+        let dataUpdatePeriodEnum = HttpServerInterface.HttpServerInterfacePac.HttpServerInterfaceCapability.dataUpdatePeriodEnum;
+        for (let dataUpdatePeriodkey in dataUpdatePeriodEnum) {
+            if (dataUpdatePeriodEnum[dataUpdatePeriodkey] == httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD]) {
+                httpServerCapability[onfAttributes.HTTP_SERVER.DATA_UPDATE_PERIOD] = dataUpdatePeriodkey;
             }
-        });
+        }
+        return httpServerCapability;
     }
 
     /**
      * @description This function returns the name of the current application.
      * @returns {promise} string {undefined|applicationName}.
      **/
-    static getApplicationNameAsync() {
-        return new Promise(async function (resolve, reject) {
-            let applicationName = undefined;
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
-                let logicalTerminationPoint = logicalTerminationPointList[0];
-                let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
-                applicationName = httpServerCapability[onfAttributes.HTTP_SERVER.APPLICATION_NAME];
-                resolve(applicationName);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getApplicationNameAsync() {
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
+        let logicalTerminationPoint = logicalTerminationPointList[0];
+        let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+        let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+        return httpServerCapability[onfAttributes.HTTP_SERVER.APPLICATION_NAME];
     }
 
     /**
      * @description This function returns the release number of the current application.
-     * @returns {promise} string {undefined|releaseNumber}.
+     * @returns {Promise<String>} undefined|releaseNumber
      **/
-    static getReleaseNumberAsync() {
-        return new Promise(async function (resolve, reject) {
-            let releaseNumber = undefined;
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
-                let logicalTerminationPoint = logicalTerminationPointList[0];
-                let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
-                releaseNumber = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_NUMBER];
-                resolve(releaseNumber);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getReleaseNumberAsync() {
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
+        let logicalTerminationPoint = logicalTerminationPointList[0];
+        let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+        let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+        return httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_NUMBER];
     }
 
     /**
      * @description This function returns the list of releases for the application.
-     * @returns {promise} list {[]|releaseList}.
+     * @returns {Promise<Array>} []|releaseList
      **/
-    static getReleaseListAsync() {
-        return new Promise(async function (resolve, reject) {
-            let releaseList = [];
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
-                let logicalTerminationPoint = logicalTerminationPointList[0];
-                let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
-                let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
-                releaseList = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST];
-                releaseList.forEach(function(releaseListItem){
-                    delete releaseListItem['local-id']
-                });
-
-                resolve(releaseList);
-            } catch (error) {
-                reject(error);
-            }
+    static async getReleaseListAsync() {
+        let releaseList = [];
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_SERVER);
+        let logicalTerminationPoint = logicalTerminationPointList[0];
+        let layerPortocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpServerPac = layerPortocol[onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+        let httpServerCapability = httpServerPac[onfAttributes.HTTP_SERVER.CAPABILITY];
+        releaseList = httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST];
+        releaseList.forEach(function (releaseListItem) {
+            delete releaseListItem['local-id']
         });
+        return releaseList;
     }
 }
+
 module.exports = HttpServerInterface;
