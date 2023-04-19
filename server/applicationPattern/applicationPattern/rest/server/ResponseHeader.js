@@ -14,14 +14,12 @@ class ResponseHeader {
     contentType = 'application/json';
     xCorrelator;
     execTime;
-    backendTime;
     lifeCycleState;
 
     /**
      * constructor 
-     * @param {String} xCorrelator User identifier from the system starting the service call. If not available , originator value will be copied to this attribute.
-     * @param {String} execTime Identification for the system consuming the API , name of the current application.
-     * @param {String} backendTime UUID for the service execution flow that allows to correlate requests and responses.
+     * @param {String} xCorrelator UUID for the service execution flow that allows to correlate requests and responses.
+     * @param {String} startTime Time when this request was initiated.
      * @param {String} lifeCycleState Sequence of request numbers along the flow, if it is empty , set it to 1.
      * 
      */
@@ -31,7 +29,6 @@ class ResponseHeader {
             this.xCorrelator = ResponseHeader.xCorrelatorGenerator();
         }
         this.execTime = ResponseHeader.executionTimeInMilliseconds(startTime);
-        this.backendTime = this.execTime;
         this.lifeCycleState = lifeCycleState;
     }
 
