@@ -1,19 +1,5 @@
 # Application pattern package
 
-Application pattern Package is a ready-made library that has functionalities specific to the ApplicationPattern specification.
-
-This library provides APIs,
-- to manipulate the CONFIGFile, which is structured in the ONF Core model.
-- to configure the LogicalTerminationPoint instances  
-- to configure and automate the forwardings between applications (please refer chapter about ForwardingList to learn more about forwarding)
-- to configure the profile instances in the ProfileCollection
-- to log the service request to the Execution And Trace Log(EATL) and OAM Log Application.
-- to authenticate the OAM request in AdministratorAdministration Application.
-
-    ![ApplicationPatternPackages](Images/ApplicationPatternPackages.png)
-
-## Application Pattern Modules
-
 ApplicationPattern modules consists of the following sub-modules:
 
 ### Commons

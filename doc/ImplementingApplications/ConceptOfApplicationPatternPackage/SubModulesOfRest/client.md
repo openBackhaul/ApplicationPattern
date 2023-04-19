@@ -5,7 +5,7 @@ The module in this package provides a REST client which is used to communicate w
 
 The rest module description contains the following content:
 
-* [Client](#client)
+* Client
     * Client.js
     * eventDispatcher.js
     * RequestBuilder.js
@@ -41,7 +41,7 @@ This module provides functionality to construct a REST request.
 *Function*:
 |**Method and description**|**Input parameters**|**Return type**|
 |---|---|---|
-|**BuildAndTriggerRESTRequest** <br>This function triggers a REST request by calling the RESTClient |{string} **remoteIpAddressAndPort** ip address, port of the client application in the format <ipaddress>:<port>. <br>{string} **operationName** service that needs to be addressed in the client application. <br>{string} **method** HTTP method for the REST request. <br>{string} **requestHeader** HTTP request header for the REST call. <br>{string} **requestBody** request body for the REST call. |{promise} returns the HTTP response received.|
+|**BuildAndTriggerRESTRequest** <br>This function triggers a REST request by calling the RESTClient |{string} **operationalClientUuid** of service that needs to be addressed in the client application <br>{string} **method** HTTP method for the REST request. <br>{string} **requestHeader** HTTP request header for the REST call. <br>{string} **requestBody** request body for the REST call. |{Promise\<Object\>} returns the HTTP response received.|
 
 ![colorline_green](https://user-images.githubusercontent.com/57349523/154716332-4c32260d-5566-49a5-9126-14eefe734fc6.jpg)
 

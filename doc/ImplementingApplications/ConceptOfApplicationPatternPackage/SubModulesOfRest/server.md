@@ -3,7 +3,7 @@ The modules and classes in this package provide functionality to support the RES
 
 The rest module description contains the following content:
 
-* [Server](#server)
+* Server
     * ResponseBuilder.js
     * ResponseCode.js
     * ResponseHeader.js
