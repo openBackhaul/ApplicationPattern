@@ -67,6 +67,7 @@ class ResponseHeader {
         } catch (error) {
             console.log(error);
         }
+        return responseHeader;
     }
 }
 
