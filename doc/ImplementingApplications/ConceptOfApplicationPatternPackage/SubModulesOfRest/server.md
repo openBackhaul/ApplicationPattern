@@ -41,14 +41,14 @@ This class provides functionality to create a HTTP response header.
 *Constructor summary*:
 |**Constuctor and description**|**parameters**|
 |---|---|
-|This instantiates a new response header instance. |{String} **xCorrelator** UUID for the service execution flow that allows to correlate requests and responses. <br>{String} **startTime** Time when this request was initiated. <br>{String} **lifeCycleState** Sequence of request numbers along the flow, if it is empty, set it to 1.|
+|This instantiates a new response header instance. |{String} **xCorrelator** UUID for the service execution flow that allows to correlate requests and responses. <br>{String} **startTime** Time when this request was initiated. <br>{String} **lifeCycleState** Sequence of request numbers along the flow, if it is empty, set it to 1.<br>{String}**backendTime** Time spent in 3rd party requests, defaults to 0.|
 
 *Method Summary*:
 |**Method and description**|**Input parameters**|**Return type**|
 |---|---|---|
 |**xCorrelatorGenerator** <br>This function generates a xCorrelator based on the regular expression provided in the specification.||{String} return the xCorrelator.|
 |**executionTimeInMilliseconds** <br>This function calculates the execution time for processing the request.|{JSONObject} **startTime** start time of the request. |{integer} return the execution time in milli seconds.| 
-|**createResponseHeader** <br>This function creates response header based on the provided input values. |{JSONObject} **xCorrelator** of the request. <br>{JSONObject} **startTime** start time of the request. <br>{JSONObject} **operationName** of the request.|{promise} return the response header.|
+|**createResponseHeader** <br>This function creates response header based on the provided input values. |{String} **xCorrelator** of the request. <br>{String} **startTime** start time of the request. <br>{String} **operationName** of the request.<br>{String} **backendTime** of the request.|{promise} return the response header.|
 
 ![colorline_green](https://user-images.githubusercontent.com/57349523/154716332-4c32260d-5566-49a5-9126-14eefe734fc6.jpg)
 
