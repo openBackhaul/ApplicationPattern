@@ -25,13 +25,13 @@ class ResponseHeader {
      * @param {String} lifeCycleState Sequence of request numbers along the flow, if it is empty , set it to 1.
      * 
      */
-    constructor(xCorrelator, startTime, lifeCycleState) {
+    constructor(xCorrelator, startTime, lifeCycleState, backendTime = 0) {
         this.xCorrelator = xCorrelator;
         if (xCorrelator == undefined || xCorrelator.length == 0) {
             this.xCorrelator = ResponseHeader.xCorrelatorGenerator();
         }
         this.execTime = ResponseHeader.executionTimeInMilliseconds(startTime);
-        this.backendTime = this.execTime;
+        this.backendTime = backendTime;
         this.lifeCycleState = lifeCycleState;
     }
 
@@ -58,18 +58,16 @@ class ResponseHeader {
         return executionTimeInMilliseconds;
     }
 
-    static createResponseHeader(xCorrelator, startTime, operationName) {
-        return new Promise(async function (resolve,reject){
-            let responseHeader;
+    static async createResponseHeader(xCorrelator, startTime, operationName, backendTime) {
+        let responseHeader;
         try {
             let operationServerUuid = await operationServerInterface.getOperationServerUuidAsync(operationName);
             let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
-            responseHeader = new ResponseHeader(xCorrelator, startTime, lifeCycleState);
+            responseHeader = new ResponseHeader(xCorrelator, startTime, lifeCycleState, backendTime);
         } catch (error) {
             console.log(error);
         }
-        resolve(responseHeader);
-        });        
+        return responseHeader;
     }
 }
 
