@@ -3,7 +3,8 @@
 ### Background and main purpose of the CONFIGfile
 There are numerous communication relationships between applications, due to
 -	functions being distributed across many individual applications in a modular application layer
--	and applications consuming functions provided by other applications.
+-	and applications consuming functions provided by other applications.  
+
 These communication relationships are directed, meaning that a client is sending requests to a server. For actually reaching the server, the client must correctly addess these requests.
 
 However, the server's address may change.  
