@@ -336,7 +336,7 @@ This class provides functionality to create a HTTP response header.
 |---|---|---|
 |**xCorrelatorGenerator** <br>This function generates a xCorrelator based on the regular expression provided in the specification.||{promise} return the xCorrelator.| 
 |**executionTimeInMilliseconds** <br>This function calculates the execution time for processing the request.|{JSONObject} **startTime** start time of the request. |{promise} return the execution time in milli seconds.| 
-|**createResponseHeader** <br>This function creates response header based on the provided input values. |{JSONObject} **xCorrelator** of the request. <br>{JSONObject} **startTime** start time of the request. <br>{JSONObject} **operationName** of the request.|{promise} return the response header.|
+|**createResponseHeader** <br>This function creates response header based on the provided input values. |{JSONObject} **xCorrelator** of the request. <br>{JSONObject} **startTime** start time of the request. <br>{JSONObject} **operationName** of the request.|{promise} return the response header.| 
 
 ![colorline_green](https://user-images.githubusercontent.com/57349523/154716332-4c32260d-5566-49a5-9126-14eefe734fc6.jpg)
 
