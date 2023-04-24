@@ -29,7 +29,7 @@ Immediately after launching, the application is reading the CONFIGfile.
 Consequently, the values that are defined in the CONFIGfile represent the initial state of the application.  
 
 _ConfigFile changes_  
-The CONFIGfile is written in JSON format to support being read by JavaScript based applications.
+The CONFIGfile is written in JSON format to support being read by JavaScript based applications (note that it could also be handled by any other programming language like e.g. Java, Python or PHP).
 It could be manually altered if required but operating the updated configuration would require restarting the application.
 The applications, which are based on the MW SDN ApplicationPattern, are supporting changing their configuration via the REST API during runtime.
 These changes are then automatically written into the CONFIGfile.  
