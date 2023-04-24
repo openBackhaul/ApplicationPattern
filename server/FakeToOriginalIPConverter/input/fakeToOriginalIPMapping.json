@@ -13,7 +13,7 @@
                     "ipv-4-address": "127.0.0.1"
                 }
             },
-            "original-tcp-port": 3000,
+            "original-tcp-port": 3001,
             "protocol" : "HTTP"
         },
         {
@@ -27,7 +27,7 @@
             "original-address": {
                 "ipv-4-address": "127.0.0.1"
             },
-            "original-tcp-port": 3000
+            "original-tcp-port": 3001
         },
         {
             "category": "TinyApplicationController",
