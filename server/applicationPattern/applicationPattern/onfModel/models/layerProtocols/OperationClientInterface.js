@@ -16,7 +16,6 @@ const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-const httpClientInterface = require('../../models/layerProtocols/HttpClientInterface');
 
 /**  
  * @extends layerProtocol
@@ -110,75 +109,53 @@ class OperationClientInterface extends layerProtocol {
      * @description This function returns the operation name of the operation client.
      * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
-     * @returns {promise} string {operationName | undefined}
+     * @returns {Promise<String>} operationName | undefined
      **/
-    static getOperationNameAsync(operationClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let operationName = undefined;
-            try {
-                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
-                    operationClientUuid);
-                if (logicalTerminationPoint !== undefined) {
-                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
-                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-                    operationName = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
-                }
-                resolve(operationName);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getOperationNameAsync(operationClientUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(operationClientUuid);
+        if (logicalTerminationPoint !== undefined) {
+            let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+            let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+            return operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_NAME];
+        }
+        return undefined;
     }
     
     /**
      * @description This function returns the detailedLoggingIsOn attribute of the operation client.
      * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
-     * @returns {promise} string {detailedLoggingIsOn | undefined}
+     * @returns {Promise<boolean>} detailedLoggingIsOn | undefined
      **/
-    static getDetailedLoggingIsOnAsync(operationClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let detailedLoggingIsOn;
-            try {
-                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
-                    operationClientUuid);
-                if (logicalTerminationPoint !== undefined) {
-                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
-                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-                    detailedLoggingIsOn = operationClientConfiguration["detailed-logging-is-on"];
-                }
-                resolve(detailedLoggingIsOn);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getDetailedLoggingIsOnAsync(operationClientUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
+            operationClientUuid);
+        if (logicalTerminationPoint !== undefined) {
+            let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+            let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+            return operationClientConfiguration["detailed-logging-is-on"];
+        }
+        return undefined;
     }
 
     /**
      * @description This function returns the operation key of the operation client.
      * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
-     * @returns {promise} string {operationKey | undefined}
+     * @returns {Promise<String>} operationKey | undefined
      **/
-    static getOperationKeyAsync(operationClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let operationKey = undefined;
-            try {
-                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
-                    operationClientUuid);
-                if (logicalTerminationPoint != undefined) {
-                    let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                    let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
-                    let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
-                    operationKey = operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_KEY];
-                }
-                resolve(operationKey);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getOperationKeyAsync(operationClientUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
+            operationClientUuid);
+        if (logicalTerminationPoint != undefined) {
+            let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let operationClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_CLIENT_INTERFACE_PAC];
+            let operationClientConfiguration = operationClientPac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
+            return operationClientConfiguration[onfAttributes.OPERATION_CLIENT.OPERATION_KEY];
+        }
+        return undefined;
     }
 
     /**
@@ -186,27 +163,18 @@ class OperationClientInterface extends layerProtocol {
      * @param {String} httpClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-http-client-\d+$'
      * @param {String} operationName : name of the operation.
-     * @returns {promise} string {undefined | uuid}
+     * @returns {Promise<String>} undefined | uuid
      **/
-    static getOperationClientUuidAsync(httpClientUuid, operationName) {
-        return new Promise(async function (resolve, reject) {
-            let operationClientUuid;
-            try {
-                let clientLtpList = await logicalTerminationPoint.
-                getClientLtpListAsync(httpClientUuid);
-                for (let i = 0; i < clientLtpList.length; i++) {
-                    let clientLtp = clientLtpList[i];
-                    let _operationName = await OperationClientInterface.
-                    getOperationNameAsync(clientLtp);
-                    if (operationName == _operationName) {
-                        operationClientUuid = clientLtpList[i];
-                    }
-                }
-                resolve(operationClientUuid);
-            } catch (error) {
-                reject(error);
+    static async getOperationClientUuidAsync(httpClientUuid, operationName) {
+        let clientLtpList = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuid);
+        for (let i = 0; i < clientLtpList.length; i++) {
+            let clientLtp = clientLtpList[i];
+            let _operationName = await OperationClientInterface.getOperationNameAsync(clientLtp);
+            if (operationName == _operationName) {
+                return clientLtpList[i];
             }
-        });
+        }
+        return undefined;
     }
 
     /**
@@ -233,23 +201,15 @@ class OperationClientInterface extends layerProtocol {
      * @param {String} operationClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} operationKey : key that needs to be updated.
-     * @returns {promise} boolean {true|false}
+     * @returns {Promise<boolean>} true|false
      **/
-    static setOperationKeyAsync(operationClientUuid, operationKey) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
-                    "{uuid}", operationClientUuid);
-                isUpdated = await fileOperation.writeToDatabaseAsync(
-                    operationKeyPath,
-                    operationKey,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setOperationKeyAsync(operationClientUuid, operationKey) {
+        let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
+            "{uuid}", operationClientUuid);
+        return await fileOperation.writeToDatabaseAsync(
+            operationKeyPath,
+            operationKey,
+            false);
     }
 
     /**
@@ -257,73 +217,15 @@ class OperationClientInterface extends layerProtocol {
      * @param {String} {String} operationClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} operationName : name that needs to be updated.
-     * @returns {promise} boolean {true|false}
+     * @returns {Promise<boolean>} true|false
      **/
-    static setOperationNameAsync(operationClientUuid, operationName) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let operationNamePath = onfPaths.OPERATION_CLIENT_OPERATION_NAME.replace(
-                    "{uuid}", operationClientUuid);
-                let isUpdated = await fileOperation.writeToDatabaseAsync(
-                    operationNamePath,
-                    operationName,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
-     * @deprecated Works only with old UUIDs, use generateOperationClientUuidAsync
-     * @description This function generates the next operation client uuid for the given http client uuid and operation name.
-     * @param {String} httpClientUuid : uuid of the http client logical termination point,the value should be a valid string 
-     * in the pattern '-\d+-\d+-\d+-http-client-\d+$'
-     * @param {String} operationName : name that needs to be updated.
-     * @returns {promise} string {uuid}
-     **/
-    static generateNextUuidAsync(httpClientUuid, operationName) {
-        return new Promise(async function (resolve, reject) {
-            let operationClientUuid = undefined;
-            try {
-                let clientLtpList = await logicalTerminationPoint.getClientLtpListAsync(
-                    httpClientUuid);
-
-                if (clientLtpList == undefined || clientLtpList.length == 0) {
-                    operationClientUuid = httpClientUuid.replace("http", "op");
-                    resolve(operationClientUuid);
-                }
-
-                for (let i = 0; i < clientLtpList.length; i++) {
-                    let clientLtp = clientLtpList[i];
-                    let _operationName = await OperationClientInterface.getOperationNameAsync(
-                        clientLtp);
-                    if (_operationName == operationName) {
-                        operationClientUuid = clientLtp;
-                    }
-                }
-
-                if (operationClientUuid == undefined) {
-                    clientLtpList.sort();
-                    let lastUuid = clientLtpList[clientLtpList.length - 1];
-                    let uuidPrefix = lastUuid.substring(0,
-                        lastUuid.lastIndexOf("-") + 1);
-                    let uuidNumber = lastUuid.substring(
-                        lastUuid.lastIndexOf("-") + 1,
-                        lastUuid.length);
-                    operationClientUuid = uuidPrefix +
-                        (parseInt(uuidNumber) +
-                            1);
-                }
-
-                resolve(operationClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setOperationNameAsync(operationClientUuid, operationName) {
+        let operationNamePath = onfPaths.OPERATION_CLIENT_OPERATION_NAME.replace(
+            "{uuid}", operationClientUuid);
+        return await fileOperation.writeToDatabaseAsync(
+            operationNamePath,
+            operationName,
+            false);
     }
 
     /**
@@ -332,22 +234,14 @@ class OperationClientInterface extends layerProtocol {
      * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
      * @param {String} apiSegment : API segment part of client UUID
      * @param {String} sequence : Sequence part of client UUID
-     * @returns {promise} string {uuid}
+     * @returns {Promise<String>} uuid
      **/
-    static generateOperationClientUuidAsync(httpClientUuid, apiSegment, sequence) {
-        return new Promise(async function (resolve, reject) {
-            let operationClientUuid = undefined;
-            try {
-                let appUuid = await controlConstruct.getUuidAsync();
-                let applicationNameUuidFormat = httpClientUuid.split("-")[6];
-                let releaseNumberUuidFormat = httpClientUuid.split("-")[7] + "-" + httpClientUuid.split("-")[8] + "-" + httpClientUuid.split("-")[9];
-                operationClientUuid = appUuid + "-op-c-" + apiSegment + "-" +
-                    applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
-                resolve(operationClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async generateOperationClientUuidAsync(httpClientUuid, apiSegment, sequence) {
+        let appUuid = await controlConstruct.getUuidAsync();
+        let applicationNameUuidFormat = httpClientUuid.split("-")[6];
+        let releaseNumberUuidFormat = httpClientUuid.split("-")[7] + "-" + httpClientUuid.split("-")[8] + "-" + httpClientUuid.split("-")[9];
+        return appUuid + "-op-c-" + apiSegment + "-" +
+            applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-" + sequence;
     }
 
     /**
@@ -357,25 +251,17 @@ class OperationClientInterface extends layerProtocol {
      * @param {String} operationClientUuid : uuid of the operation-client, the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} operationName : name of the operation.
-     * @returns {promise} object {operationClientInterface}
+     * @returns {Object} logicalTerminationPoint
      **/
     static createOperationClientInterface(httpClientUuid, operationClientUuid, operationName) {
-        return new Promise(async function (resolve, reject) {
-            let operationClientLogicalTerminationPoint;
-            try {
-                let operationClientInterface = new OperationClientInterface(operationName);
-                operationClientLogicalTerminationPoint = new logicalTerminationPoint(
-                    operationClientUuid,
-                    logicalTerminationPoint.ltpDirectionEnum.SINK,
-                    [],
-                    [httpClientUuid],
-                    [operationClientInterface]
-                );
-                resolve(operationClientLogicalTerminationPoint);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        let operationClientInterface = new OperationClientInterface(operationName);
+        return new logicalTerminationPoint(
+            operationClientUuid,
+            logicalTerminationPoint.ltpDirectionEnum.SINK,
+            [],
+            [httpClientUuid],
+            [operationClientInterface]
+        );
     }
 
     /**
@@ -392,26 +278,19 @@ class OperationClientInterface extends layerProtocol {
 /**
  * @description This function returns the remote address configured .
  * @param {String} remoteAddress : remote address of the tcp client .
- * @returns {promise} string {remoteAddress}
+ * @returns {String} remoteAddress
  **/
 function getConfiguredRemoteAddress(remoteAddress) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let domainName = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
-            if (domainName in remoteAddress) {
-                remoteAddress = remoteAddress["domain-name"];
-            } else {
-                remoteAddress = remoteAddress[
-                    onfAttributes.TCP_CLIENT.IP_ADDRESS][
-                    onfAttributes.TCP_CLIENT.IPV_4_ADDRESS
-                ];
-            }
-            resolve(remoteAddress);
-        } catch (error) {
-            reject(error);
-        }
-    });
-
+    let domainName = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
+    if (domainName in remoteAddress) {
+        remoteAddress = remoteAddress["domain-name"];
+    } else {
+        remoteAddress = remoteAddress[
+            onfAttributes.TCP_CLIENT.IP_ADDRESS][
+            onfAttributes.TCP_CLIENT.IPV_4_ADDRESS
+        ];
+    }
+    return remoteAddress;
 }
 
 module.exports = OperationClientInterface;
