@@ -385,13 +385,15 @@ async function getIndexAliasAsync(uuid) {
 /**
  * Helper method, creates Javascript array from Elasticsearch response.
  * @param {object} result Elasticsearch response
- * @returns {Array} resulting array
+ * @returns {Array} empty array if there was empty response from Elasticsearch
  */
 function createResultArray(result) {
   const resultArray = [];
-  result.body.hits.hits.forEach((item) => {
-    resultArray.push(item._source);
-  });
+  if (result.body.hits) {
+    result.body.hits.hits.forEach((item) => {
+      resultArray.push(item._source);
+    });
+  }
   return resultArray;
 }
 
