@@ -20,7 +20,7 @@
   * @param {list} forwardingConfigurationInputList : list of the instance forwardingConstruct/ConfigurationInput
   * @return {Promise} object forwardingConstructConfigurationStatus  
   **/
- exports.configureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
+exports.configureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
      return new Promise(async function (resolve, reject) {
          let forwardingConstructConfigurationStatus;
          try {
@@ -117,9 +117,10 @@
          try {
              let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
                  forwardingName);
-             let _isOperationServerIsManangementFcPort = isOperationServerIsManangementFcPort(
+             let _isOperationServerIsManangementFcPort = FcPort.isOperationOfFcPortType(
                  forwardingConstruct,
-                 operationServerUuid
+                 operationServerUuid,
+                 FcPort.portDirectionEnum.MANAGEMENT
              );
              if (_isOperationServerIsManangementFcPort) {
                  let _isForwardingConstructIsInvariant = isForwardingConstructIsInvariant(
@@ -170,9 +171,10 @@
                  let configurationStatus;
                  let forwardingConstruct = forwardingConstructList[i];
                  if (!forwardingName || isForwardingConstructNameMatches(forwardingConstruct, forwardingName)) {
-                     let _isOperationClientIsOutputFcPort = isOperationClientIsOutputFcPort(
+                     let _isOperationClientIsOutputFcPort = FcPort.isOperationOfFcPortType(
                          forwardingConstruct,
-                         operationClientUuid
+                         operationClientUuid,
+                         FcPort.portDirectionEnum.OUTPUT
                      );
                      if (_isOperationClientIsOutputFcPort) {
                          let _isForwardingConstructIsInvariant = isForwardingConstructIsInvariant(
@@ -199,65 +201,7 @@
      });
  }
  
- /**
-  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
-  * @param {String} operationServerUuid operation server uuid of the request url
-  * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
-  * @param {String} user user who initiates this request
-  * @param {string} originator originator of the request
-  * @param {string} xCorrelator flow id of this request
-  * @param {string} traceIndicator trace indicator of the request
-  * @param {string} customerJourney customer journey of the request
-  **/
- function isOperationServerIsManangementFcPort(forwardingConstruct, operationServerUuid) {
-     let isOperationServerIsManangementFcPort = false;
-     try {
-         let fcPortList = forwardingConstruct["fc-port"];
-         for (let i = 0; i < fcPortList.length; i++) {
-             let fcPort = fcPortList[i];
-             let fcPortDirection = fcPort["port-direction"];
-             let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-             if (fcPortDirection == FcPort.portDirectionEnum.MANAGEMENT) {
-                 if (fcLogicalTerminationPoint == operationServerUuid) {
-                     isOperationServerIsManangementFcPort = true;
-                 }
-             }
-         }
-         return isOperationServerIsManangementFcPort;
-     } catch (error) {
-         throw error;
-     }
- }
- 
- /**
-  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
-  * @param {String} operationServerUuid operation server uuid of the request url
-  * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
-  * @param {String} user user who initiates this request
-  * @param {string} originator originator of the request
-  * @param {string} xCorrelator flow id of this request
-  * @param {string} traceIndicator trace indicator of the request
-  * @param {string} customerJourney customer journey of the request
-  **/
- function isOperationClientIsOutputFcPort(forwardingConstruct, operationClientUuid) {
-     let isOperationClientIsOutputFcPort = false;
-     try {
-         let fcPortList = forwardingConstruct["fc-port"];
-         for (let i = 0; i < fcPortList.length; i++) {
-             let fcPort = fcPortList[i];
-             let fcPortDirection = fcPort["port-direction"];
-             let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-             if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                 if (fcLogicalTerminationPoint == operationClientUuid) {
-                     isOperationClientIsOutputFcPort = true;
-                 }
-             }
-         }
-         return isOperationClientIsOutputFcPort;
-     } catch (error) {
-         throw error;
-     }
- }
+
  
  /**
   * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
