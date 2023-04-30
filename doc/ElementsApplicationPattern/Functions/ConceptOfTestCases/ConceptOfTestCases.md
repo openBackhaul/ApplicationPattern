@@ -6,8 +6,7 @@
 The Test Case Collection (TCC) is an important part of the specification of an application.  
 While the OAS defines the interface of the application and the CONFIGfile describes its initial data, the TCC is for specifying the logic that happens inside the application.  
 
-Example:  
-Suppose the purpose of the application is to calculate the current capacity of a microwave link:  
+Example: Suppose the purpose of the application is to calculate the current capacity of a microwave link:  
 - The OAS would define the identifier that is needed to select the microwave link and the format of the result.  
 - The CONFIGfile would hold constant parameters that are needed in the equation and describe the requests that need to be made to the device to get the variable input parameters. 
 - Some test case from the collection needs to implement the concrete formula for calculating the reference value in evaluating the application's response.    
@@ -24,7 +23,7 @@ Therefore, the acceptance tests must already be part of the specification.
 With this approach, the ApplicationOwner can expect to be supplied with code that will 100% successfully pass acceptance testing.  
 The iterative process during the acceptance phase is eliminated.  
 
-**CI/CD**
+**CI/CD**  
 It is expected that applications will build upon each other.  
 For example, application B will consume services provided by application A.  
 However, it must be possible to make changes to application A in order to dynamically update and extend the functionality of the application layer in the long term.  
@@ -53,7 +52,7 @@ These are routine tests that are required to ensure the quality of the data with
 These tests do not provide any information beyond the AOS.  
 Basically, they could be derived automatically from the AOS.  
 
-**Testing the Business Logic**
+**Testing the Business Logic**  
 Each application is expected to add some functionality to the application layer.  
 This functionality could be  
 - repeated execution of an activity according to a generic set of rules  
@@ -74,20 +73,18 @@ Even in the case that both application A and application B, operated on their ow
 The resulting mutual dependencies between the algorithms represent the greatest long-term risk to stable and error-free operation of a modular automation platform.  
 Clear and complete descriptions of the functioning of each component and testing the mutual influences as completely as possible are probably the most effective means of maintaining control.  
 
-Easy example:  
-Once an application has processed a request, it should send a record to the ExecutionAndTraceLog application.  
+Easy example: Once an application has processed a request, it should send a record to the ExecutionAndTraceLog application.  
 A complete TCC must include a test case that verifies in the ExecutionAndTraceLog application that this record has not only arrived, but that it contains all the expected values correctly.  
 This test comes as part of the ApplicationPattern.  
 
-More individual example:  
-Suppose an application contains a formula that includes several externally retrieved values.  
+More individual example: Suppose an application contains a formula that includes several externally retrieved values.  
 Also, suppose that obtaining one of the external values fails.  
 Would the application then calculate the requested result based on the available values, or would it stop calculating and report an error?  
 Obviously, one of the two variants leads to funny system behavior, which keeps any number of colleagues busy with a cheerful search for a sporadically occurring error of completely untransparent root cause.  
 
 Formulating these test cases requires a lot of experience and is also very individual for the respective application.  
 
-**Stability testing**
+**Stability testing**  
 Even though the MW SDN application layer is very modular, the individual components are highly interdependent.  
 This means that the failure of an application can result in a very far-reaching loss of function.  
 
@@ -98,11 +95,11 @@ For example, an aborted upgrade process could leave other applications in an und
 
 Formulating these test cases probably requires some creativity, since stability is usually compromised in unexpected borderline or special cases.  
 
-**Testing compliance with rules of good conduct**
+**Testing compliance with rules of good conduct**  
 The TCC should also be used to exclude implementation variants that tend to be harmful to the system.  
 For example, unnecessarily high loads on the controller or even on the devices in the transport network must be excluded.  
 
-### Sharing the load
+### Sharing the load  
 
 Test case delivery is distributed across multiple roles.  
 
@@ -116,7 +113,7 @@ Test case delivery is distributed across multiple roles.
 
 1\) IT Experts responsible in the beginning. TestingExpert needs to grow into responsible role.  
 
-### InterfaceValidator
+### InterfaceValidator  
 
 Originally, the InterfaceValidator was used to test whether the ONF TR-532 definitions were implemented as expected by hardware vendors.  
 It is a kind of framework that provides not only a structure but also basic functionality for incorporating an increasing variety of test cases.  
