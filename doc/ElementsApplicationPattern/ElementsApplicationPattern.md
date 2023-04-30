@@ -20,7 +20,7 @@
 - [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
 - [Concept of _DATAfile_](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
 - [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
-- [Concept of TestCases](./Functions/ConceptOfTestCases/ConceptOfTestCases.md)
+- [Concept of Test Case Collection](./Functions/ConceptOfTestCases/ConceptOfTestCases.md)
 - [Structure of TestCases](./Functions/StructureOfTestCases/StructureOfTestCases.md)
 
 **Names and IDs**
