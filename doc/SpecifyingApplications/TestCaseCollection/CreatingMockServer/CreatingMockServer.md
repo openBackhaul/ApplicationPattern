@@ -1,4 +1,5 @@
 # Creating a Mock Server from the OAS
 
-* Save the specification
+* Finalize the OAS
+* Aktuelle API Beschreibung in Postman sicherstellen
 * Create mock server with proper naming
