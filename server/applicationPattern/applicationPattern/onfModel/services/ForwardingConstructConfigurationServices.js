@@ -275,7 +275,7 @@
          let nameList = forwardingConstruct["name"];
          for (let i = 0; i < nameList.length; i++) {
              let valueName = getValueFromKey(nameList, "ForwardingKind");
-             if (valueName == ForwardingConstruct.name.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
+             if (valueName == ForwardingConstruct.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
                  isForwardingConstructIsInvariant = true;
              }
          }
@@ -327,8 +327,8 @@
          try {
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {
@@ -371,8 +371,8 @@
          try {
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (isFcPortExists) {
@@ -412,8 +412,8 @@
              let fcPortLocalId = '';
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {
@@ -448,8 +448,8 @@
              let forwardingConstructUuid = forwardingConstruct["uuid"];
              let applicationName = await getApplicationNameAsync(operationClientUuid);
              let releaseNumber = await getReleaseNumberAsync(operationClientUuid);
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {
