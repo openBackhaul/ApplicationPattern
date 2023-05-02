@@ -162,34 +162,6 @@ class ForwardingConstruct {
     }
 
     /**
-     * @description This function returns true if a fc-port is available in the forwarding-construct for the given input argument 
-     * fcLogicalTerminationPoint and forwardingConstructUuid.
-     * @param {String} forwardingConstructUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-fc-\d{4}$'
-     * @param {String} fcLogicalTerminationPoint : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-(s|c)-\d{4}$'
-     * @returns {promise} string {undefined | localId} 
-     **/
-    static async getFcPortLocalIdAsync(forwardingConstructUuid, fcLogicalTerminationPoint) {
-        return new Promise(async function (resolve, reject) {
-            let fcPortLocalId = false;
-            try {
-                let forwardingConstruct = await forwardingDomain.getForwardingConstructAsync(forwardingConstructUuid);
-                let fcPortList = forwardingConstruct[
-                    onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
-                for (let i = 0; i < fcPortList.length; i++) {
-                    let fcPort = fcPortList[i];
-                    let _fclogicalTerminationPoint = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-                    if (_fclogicalTerminationPoint == fcLogicalTerminationPoint) {
-                        fcPortLocalId = fcPort[onfAttributes.LOCAL_CLASS.LOCAL_ID];
-                    }
-                }
-                resolve(fcPortLocalId);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    /**
      * @description This function adds a fc-port instance to the core-model-1-4:control-construct/forwarding-domain/forwarding-construct
      * @param {String} forwardingConstructUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-fc-\d{4}$'
      * @param {String} fcPort : FcPort instance

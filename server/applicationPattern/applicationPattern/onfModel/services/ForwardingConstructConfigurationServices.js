@@ -332,7 +332,7 @@
                  operationClientUuid
              );
              if (!isFcPortExists) {
-                 let nextFcPortLocalId = await FcPort.generateNextLocalIdAsync(forwardingConstructUuid);
+                 let nextFcPortLocalId = FcPort.generateNextLocalId(forwardingConstruct);
                  let fcPort = new FcPort(
                      nextFcPortLocalId,
                      FcPort.portDirectionEnum.OUTPUT,
@@ -376,7 +376,7 @@
                  operationClientUuid
              );
              if (isFcPortExists) {
-                 let fcPortLocalId = await ForwardingConstruct.getFcPortLocalIdAsync(forwardingConstructUuid, operationClientUuid);
+                 let fcPortLocalId = FcPort.getLocalId(forwardingConstruct, operationClientUuid);
                  updated = await ForwardingConstruct.deleteFcPortAsync(
                      forwardingConstructUuid,
                      fcPortLocalId
