@@ -17,11 +17,12 @@
 - [Structure of Internal Forwarding](./Functions/StructureOfInternalForwarding/StructureOfInternalForwarding.md)
 - [Types of Internal Forwarding](./Functions/TypesOfInternalForwardings/TypesOfInternalForwardings.md)
 - [Substructure of Management of Internal Forwarding](./Functions/SubstructureOfManagementOfInternalForwardings/SubstructureOfManagementOfInternalForwardings.md)
-- [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
-- [Concept of _DATAfile_](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
-- [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
-- [Concept of TestCases](./Functions/ConceptOfTestCases/ConceptOfTestCases.md)
-- [Structure of TestCases](./Functions/StructureOfTestCases/StructureOfTestCases.md)
+- [Concept of CONFIGfile](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
+- [Concept of DATAfile](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
+- [Structure of CONFIGfile](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
+- [Concept of Test Case Collection](./Functions/ConceptOfTestCaseCollection/ConceptOfTestCaseCollection.md)
+- [Structure of Test Case Collection](./Functions/StructureOfTestCaseCollection/StructureOfTestCaseCollection.md)
+- [Structure of Test Case](./Functions/StructureOfTestCase/StructureOfTestCase.md)
 
 **Names and IDs**
 - [Structure of ApplicationNames](./Names/StructureOfApplicationNames/StructureOfApplicationNames.md)
