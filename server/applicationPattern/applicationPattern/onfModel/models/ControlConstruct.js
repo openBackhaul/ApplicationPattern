@@ -16,160 +16,97 @@ class ControlConstruct {
 
   /**
    * @description This function returns the forwarding-domain list entries from the core-model-1-4:control-construct
-   * @returns {promise} returns ForwardingDomain List.
+   * @returns {Promise<Array>} ForwardingDomain List
    **/
   static async getForwardingDomainListAsync() {
-    return new Promise(async function (resolve, reject) {
-      try {
-        let forwardingDomainList = await fileOperation.readFromDatabaseAsync(onfPaths.FORWARDING_DOMAIN);
-        resolve(forwardingDomainList);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return await fileOperation.readFromDatabaseAsync(onfPaths.FORWARDING_DOMAIN);
   }
 
   /**
    * @description This function returns the logical-termination-point list entries from the core-model-1-4:control-construct that 
-   * matches the layerProtocolName
-   * @param {String} layerProtocolName : The vaue can be either undefined or any one of the LayerProtocol.layerProtocolNameEnum
-   * @returns {promise} returns LogicalTerminationPoint instance List.
+   * matches the layerProtocolName. If layerProtocolName is undefined, it returns all LTPs.
+   * @param {String} layerProtocolName The value can be either undefined or any one of the LayerProtocol.layerProtocolNameEnum
+   * @returns {Promise<Array>} LogicalTerminationPoint instance List
    **/
   static async getLogicalTerminationPointListAsync(layerProtocolName) {
-    return new Promise(async function (resolve, reject) {
-      let filteredLogicalTerminationPointList = [];
-      try {
-        let logicalTerminationPointList = await fileOperation.readFromDatabaseAsync(
-          onfPaths.LOGICAL_TERMINATION_POINT);
-        if (layerProtocolName) {
-          for (let i = 0; i < logicalTerminationPointList.length; i++) {
-            let logicalTerminationPoint = logicalTerminationPointList[i];
-            let layerProtocolList = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL];
-            let layerProtocol = layerProtocolList[0]
-            let _layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
-            if (_layerProtocolName == layerProtocolName) {
-              filteredLogicalTerminationPointList.push(logicalTerminationPoint);
-            }
-          }
-          resolve(filteredLogicalTerminationPointList);
-        } else {
-          resolve(logicalTerminationPointList);
+    let logicalTerminationPointList = await fileOperation.readFromDatabaseAsync(
+      onfPaths.LOGICAL_TERMINATION_POINT);
+    if (!layerProtocolName) {
+      return logicalTerminationPointList;
+    }
+    let filteredLogicalTerminationPointList = [];
+    if (layerProtocolName) {
+      for (let logicalTerminationPoint of logicalTerminationPointList) {
+        let layerProtocolList = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL];
+        let layerProtocol = layerProtocolList[0];
+        let _layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
+        if (_layerProtocolName === layerProtocolName) {
+          filteredLogicalTerminationPointList.push(logicalTerminationPoint);
         }
-      } catch (error) {
-        reject(error);
       }
-    });
+      return filteredLogicalTerminationPointList;
+    }
   }
 
   /**
    * @description This function returns the logical-termination-point instance from the core-model-1-4:control-construct/
    * logical-termination-point that matches the logicalTerminationPointUuid
    * @param {String} logicalTerminationPointUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-(http|tcp|op)-(s|c)-\d{4}$'
-   * @returns {promise} returns {undefined | LogicalTerminationPoint}
+   * @returns {Promise<Object|undefined>} LogicalTerminationPoint
    **/
-  static getLogicalTerminationPointAsync(logicalTerminationPointUuid) {
-    return new Promise(async function (resolve, reject) {
-      let logicalTerminationPoint;
-      try {
-        let logicalTerminationPointList = await fileOperation.readFromDatabaseAsync(
-          onfPaths.LOGICAL_TERMINATION_POINT
-        );
-        if (logicalTerminationPointList != undefined) {
-          for (let i = 0; i < logicalTerminationPointList.length; i++) {
-            let _logicalTerminationPoint = logicalTerminationPointList[i];
-            let _logicalTerminationPointUuid = _logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID];
-            if (_logicalTerminationPointUuid == logicalTerminationPointUuid) {
-              logicalTerminationPoint = _logicalTerminationPoint;
-            }
-          }
-        }
-        resolve(logicalTerminationPoint);
-      } catch (error) {
-        reject(error);
-      }
-    });
+  static async getLogicalTerminationPointAsync(logicalTerminationPointUuid) {
+    let logicalTerminationPointList = await fileOperation.readFromDatabaseAsync(
+      onfPaths.LOGICAL_TERMINATION_POINT
+    );
+    if (!logicalTerminationPointList) {
+      return undefined;
+    }
+    return logicalTerminationPointList.find(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID] === logicalTerminationPointUuid);
   }
 
 
   /**
    * @description This function returns the profile-collection from core-model-1-4:control-construct
-   * @returns {promise} returns {undefined | profileCollection}
+   * @returns {Promise<Array>} profile-collection
    **/
   static async getProfileCollectionAsync() {
-    return new Promise(async function (resolve, reject) {
-      let profileCollection;
-      try {
-        profileCollection = await fileOperation.readFromDatabaseAsync(
-          onfPaths.PROFILE_COLLECTION
-        );
-        resolve(profileCollection);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return await fileOperation.readFromDatabaseAsync(onfPaths.PROFILE_COLLECTION);
   }
 
   /**
    * @description This function returns the current value of the attribute core-model-1-4:control-construct/uuid
-   * @returns {promise} returns {undefined | uuid}
+   * @returns {Promise<String|undefined>} UUID
    **/
   static async getUuidAsync() {
-    return new Promise(async function (resolve, reject) {
-      let uuid;
-      try {
-        uuid = await fileOperation.readFromDatabaseAsync(
-          onfPaths.CONTROL_CONSTRUCT_UUID
-        );
-        resolve(uuid);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return await fileOperation.readFromDatabaseAsync(onfPaths.CONTROL_CONSTRUCT_UUID);
   }
 
   /**
    * @description This function adds a logical-termination-point instance to the core-model-1-4:control-construct/logical-termination-point
-   * @param {String} logicalTerminationPoint an instance of the LogicalTerminationPoint
-   * @returns {promise} returns {true|false}
+   * @param {Object} logicalTerminationPoint an instance of the LogicalTerminationPoint
+   * @returns {Promise<Boolean>}
    **/
-  static addLogicalTerminationPointAsync(logicalTerminationPoint) {
-    return new Promise(async function (resolve, reject) {
-      let isCreated = false;
-      try {
-        logicalTerminationPoint = onfFormatter.modifyJsonObjectKeysToKebabCase(logicalTerminationPoint);
-        isCreated = await fileOperation.writeToDatabaseAsync(
-          onfPaths.LOGICAL_TERMINATION_POINT,
-          logicalTerminationPoint,
-          true);
-        resolve(isCreated);
-      } catch (error) {
-        reject(error);
-      }
-    });
+  static async addLogicalTerminationPointAsync(logicalTerminationPoint) {
+    logicalTerminationPoint = onfFormatter.modifyJsonObjectKeysToKebabCase(logicalTerminationPoint);
+    return await fileOperation.writeToDatabaseAsync(
+      onfPaths.LOGICAL_TERMINATION_POINT,
+      logicalTerminationPoint,
+      true);
   }
 
   /**
    * @description This function deletes a logical-termination-point instance that matches the uuid argument from the 
    * core-model-1-4:control-construct/logical-termination-point
    * @param {String} logicalTerminationPointUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-(http|tcp|op)-(s|c)-\d{4}$'
-   * @returns {promise} returns {true|false}
+   * @returns {Promise<Boolean>}
    **/
-  static deleteLogicalTerminationPointAsync(logicalTerminationPointUuid) {
-    return new Promise(async function (resolve, reject) {
-      let isDeleted = false;
-      try {
-        let logicalTerminationPointPath = onfPaths.LOGICAL_TERMINATION_POINT + "=" + logicalTerminationPointUuid
-        isDeleted = await fileOperation.deletefromDatabaseAsync(
-          logicalTerminationPointPath, 
-          logicalTerminationPointUuid, 
-          true);
-        resolve(isDeleted);
-      } catch (error) {
-        reject(false);
-      }
-    });
+  static async deleteLogicalTerminationPointAsync(logicalTerminationPointUuid) {
+    let logicalTerminationPointPath = onfPaths.LOGICAL_TERMINATION_POINT + "=" + logicalTerminationPointUuid;
+    return await fileOperation.deletefromDatabaseAsync(
+      logicalTerminationPointPath,
+      logicalTerminationPointUuid,
+      true);
   }
-
 }
 
 module.exports = ControlConstruct;
