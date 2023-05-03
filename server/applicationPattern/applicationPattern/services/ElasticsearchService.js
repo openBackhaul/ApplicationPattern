@@ -132,10 +132,10 @@ class ElasticsearchService {
    * config file, to 'reassign' service policy from old index-alias
    * to new one.
    *
-   * @param {*} policyName Service policy that should be assigned to
+   * @param {String} policyName Service policy that should be assigned to
    * configured index-alias.
-   * @param {*} [uuid] UUID of ES client in Config file
-   * @returns
+   * @param {String} [uuid] UUID of ES client in Config file
+   * @returns {Promise<void>}
    */
   async assignPolicyToIndexTemplate(policyName, uuid) {
     let indexAlias = await getIndexAliasAsync(uuid);
