@@ -17,8 +17,9 @@ This often leads to discussions about how to interpret the words in the specific
 After going through this process several times, a kind of iterative approach becomes established.  
 Since the functional scope is not conclusively defined at the beginning, the implementation effort cannot be determined before completion.  
 
-The MW SDN approach involves multiple vendors estimating the cost of an implementation, after which the vendor is assigned the task.  
-Potential suppliers need to know the criteria that will ultimately lead to successful acceptance in order to realistically assess their efforts.  
+The MW SDN approach involves multiple software providers estimating their costs of an implementation.  
+Just one gets assigned the task also based on its estimate.  
+Potential suppliers need to know the criteria that will ultimately lead to successful acceptance in order to realistically calculate their efforts.  
 Therefore, the acceptance tests must already be part of the specification.  
 With this approach, the ApplicationOwner can expect to be supplied with code that will 100% successfully pass acceptance testing.  
 The iterative process during the acceptance phase is eliminated.  
@@ -45,9 +46,10 @@ Testing must ensure that
 - ResponseBodies have the specified structure  
 - RequestBodies that do not comply with the prescribed structure get objected  
 - datatypes are kept and checked  
-- string patterns and integer boundaries are checked
-- response headers are comprising the values
-- and much more
+- string patterns and integer boundaries are checked  
+- response headers are comprising the expected values  
+- and much more  
+
 These are routine tests that are required to ensure the quality of the data within the application under test and its good behavior towards consuming applications.  
 These tests do not provide any information beyond the AOS.  
 Basically, they could be derived automatically from the AOS.  
@@ -56,8 +58,10 @@ Basically, they could be derived automatically from the AOS.
 Each application is expected to add some functionality to the application layer.  
 This functionality could be  
 - repeated execution of an activity according to a generic set of rules  
-- calculate a derived value according to a certain formula or aggregate information according to a specific pattern  
+- aggregation of information according to a specific pattern  
+- calculation of a derived value according to a certain formula  
 - etc.  
+
 This functionality is the purpose of the application, but it is not defined in the OAS or in the CONFIGfile.  
 The test cases for validating the business logic must actually describe the business logic.  
 A test case validating the repeated execution of an activity would be expected to contain a number of 'if-then-else' decisions or 'for' loops to describe the generic rule set.  
@@ -78,7 +82,7 @@ A complete TCC must include a test case that verifies in the ExecutionAndTraceLo
 This test comes as part of the ApplicationPattern.  
 
 More individual example: Suppose an application contains a formula that includes several externally retrieved values.  
-Also, suppose that obtaining one of the external values fails.  
+Also, suppose that obtaining one of the external values suddenly fails.  
 Would the application then calculate the requested result based on the available values, or would it stop calculating and report an error?  
 Obviously, one of the two variants leads to funny system behavior, which keeps any number of colleagues busy with a cheerful search for a sporadically occurring error of completely untransparent root cause.  
 
@@ -88,20 +92,25 @@ Formulating these test cases requires a lot of experience and is also very indiv
 Even though the MW SDN application layer is very modular, the individual components are highly interdependent.  
 This means that the failure of an application can result in a very far-reaching loss of function.  
 
-Suppose an application contains a fraction and a variable parameter would cause the denominator to equal zero.  
-Or some other internal condition would cause the application to crash.  
-Instability can also be caused by interactions between applications.  
-For example, an aborted upgrade process could leave other applications in an undefined state, or core applications could collapse under a flood of requests when the entire application layer is restarted.  
+Examples of possible causes of an application becoming unstable:  
+- An application contains a fraction and a variable parameter might cause the denominator to equal zero  
+- Some external condition may cause the application to repeat some activity for an infinite number of times  
+- An aborted upgrade process could leave surrounding applications in an undefined state  
+- Applications (e.g. of the TinyApplicationController) could collapse under a flood of requests when the entire application layer is restarted  
+- etc.  
 
-Formulating these test cases probably requires some creativity, since stability is usually compromised in unexpected borderline or special cases.  
+Formulating tests to rule out unstability requires creativity and experience, since stability is usually compromised in unexpected boundary or special cases.  
 
 **Testing compliance with rules of good conduct**  
 The TCC should also be used to exclude implementation variants that tend to be harmful to the system.  
 For example, unnecessarily high loads on the controller or even on the devices in the transport network must be excluded.  
 
+The experience with undesired behavior of applications will certainly become more extensive in the future.  
+
 ### Sharing the load  
 
-Test case delivery is distributed across multiple roles.  
+Because of the diversity of knowledge and experience, it seems reasonable to assemble the TCC from test cases provided by various supporters.  
+Test case delivery is distributed across the following roles:    
 
 | Kind of test case | ApplicationOwner | TestingExpert | IT Expert |
 |-|-|-|-|
@@ -113,10 +122,12 @@ Test case delivery is distributed across multiple roles.
 
 1\) IT Experts responsible in the beginning. TestingExpert needs to grow into responsible role.  
 
+The ApplicationOwner is responsible for ensuring that a complete TCC is eventually passed to the ApplicationImplementers.
+
 ### InterfaceValidator  
 
-Originally, the InterfaceValidator was used to test whether the ONF TR-532 definitions were implemented as expected by hardware vendors.  
+Originally, the InterfaceValidator was used to test that the vendors' implementations of the ONF TR-532 definitions are working as expected.  
 It is a kind of framework that provides not only a structure but also basic functionality for incorporating an increasing variety of test cases.  
 Initially, the InterfaceValidator was written and operated in the Postman GUI.  
 As part of the continuous integration of applications, it was decided to export the finished TCC from Postman and run it automatically through Jenkins in the text-based Newman.  
-Writing test cases in Postman is supported by mock servers that are created from the API definitions to be tested.  
+Writing test cases in Postman is supported by mock servers that can be created from the API definitions to be tested.  
