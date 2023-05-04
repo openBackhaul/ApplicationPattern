@@ -76,37 +76,33 @@ The ForwardingList must describe all relationships between events and reactions 
 
 ## OpenApiSpecification
 
-The OpenApiSpecification represents the detailed specification of the REST API of the application.
+The OpenApiSpecification (OAS) represents the detailed specification of the REST API of the application.
 
 **Concepts**
 - [Structure of the OAS](./StructureOfOas/StructureOfOas.md)  
 
 **Step-by-Step Guidelines**
 - [Creating the OAS](./CreatingOas/CreatingOas.md)
-- [Creating Mock](./CreatingMock/CreatingMock.md)
 
 
 ## CONFIGfile
 
 The CONFIGfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
-**Concepts**
-- [CONFIGfile](./ConceptOfConfigFile/ConceptOfConfigFile.md)
+**Step-by-Step Guidelines**
+- [Creating the CONFIGfile](./CreatingConfigFile/CreatingConfigFile.md)
 
-## TestCases
-TestCases are written in Postman as collections of small scripts.  
-A set of testcases is defined for each individual request and it mainly focuses on
-* determining if the functionality of the service is working as expected.  
-* revealing errors or defects of the implementation.  
+
+## TestCaseCollection
+
+The TestCaseCollection (TCC) must describe the business logic that must be implemented inside the application.  
 
 **Concepts**
-- [Specifying Testcases](./TestCases/SpecifyingTestcases.md)
-- [Concepts of Testcases](./TestCases/ConceptsOfTestCases.md)
 
 **Step-by-Step Guidelines**
-- [Creating Testsuite](./TestCases/CreatingTestSuite.md)
-- [Generating Json schema from Specification](./TestCases/JsonSchemaFromSpecification.md)
-- [Running the Testcases](./TestCases/ExecutingTestSuite.md)
+- [Creating a Mock Server](./TestCaseCollection/CreatingMockServer/CreatingMockServer.md)
+- [Creating a TestCaseCollection](./TestCaseCollection/CreatingTestCaseCollection/CreatingTestCaseCollection.md)
+- [Creating a Test Case](./TestCaseCollection/CreatingTestCase/CreatingTestCase.md)
 
 **Documentation**
 - [Creating workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/)
@@ -114,7 +110,8 @@ A set of testcases is defined for each individual request and it mainly focuses 
 - [Importing and exporting collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 - [Documenting API](https://learning.postman.com/docs/publishing-your-api/documenting-your-api/)
 
-### Publishing
+
+## Publishing
 
 After finishing specification work on a release, files have to be published for initiating next steps.
 
