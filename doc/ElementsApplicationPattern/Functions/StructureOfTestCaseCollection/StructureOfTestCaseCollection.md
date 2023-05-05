@@ -1,6 +1,26 @@
 # Structure of Test Case Collection
 
-[ Aufbau des InterfaceValidators ]
+The Test Case Collection is implemented in a kind of framework.  
+
+First there is Postman. Postman supports the sending of requests to REST interfaces.  
+Several methods are provided. Some are more for quick and dirty shots. Some facilitate to create sophisticated programs.  
+The TCC uses Postman in an advanced form where many requests are combined and executed in a predefined sequence.  
+
+Second there is the InterfaceValidator. The InterfaceValidator was originally designed to test implementations of the ONF TR-532.  
+It basically provides  
+- a set of basic requests that are always required, 
+- a concept for handling variables and 
+- methods for retrieving results from the test case execution.  
+
+This results in a framework that can be flexibly adapted to the respective application.  
+It can hold high numbers of test cases.  
+Every test case may combine multiple Requests.  
+Each Request combines Pre-Request Script, request and Test Script.  
+
+![OuterStructure](./pictures/OuterStructure.png)  
+
+
+
 
 
 
