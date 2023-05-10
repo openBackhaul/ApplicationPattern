@@ -1189,17 +1189,11 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       tcpObjectList.push(tcpObject);
 
       let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidAsync(futureApplicationName, futureReleaseNumber);
-      if(!httpClientUuidOfnewApplication){
-        applicationName = currentApplicationName
-        releaseNumber = currentReleaseNumber
-      }else{
-        applicationName = futureApplicationName
-        releaseNumber = futureReleaseNumber
-      }
+      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
 
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
-        applicationName,
-        releaseNumber,
+        futureApplicationName,
+        futureReleaseNumber,
         tcpObjectList,
         operationServerName,
         operationNamesByAttributes,
@@ -1207,15 +1201,15 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       );
 
       let logicalTerminationPointConfigurationStatus
-      if(!httpClientUuidOfnewApplication){
+      
+        if (!httpClientUuidOfnewApplication) {
+          applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
+          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureApplicationName);
+        }
         logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
           logicalTerminationPointConfigurationInput
         );
-      }else{
-        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationAndReleaseInformationAsync(
-          logicalTerminationPointConfigurationInput
-        );
-      }
+      
 
       /*******************************************************************************************************
        * bussiness logic to transfer the operation-client instances from current-release to future-release
