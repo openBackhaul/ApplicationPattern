@@ -15,6 +15,7 @@ const fileOperation = require('../../databaseDriver/JSONDriver');
 class ProfileCollection {
 
     /**
+     * @deprecated use getProfileListForProfileNameAsync
      * @description This function returns the profile list from /core-model-1-4:control-construct/profile-collection/profile.
      * @returns {promise} list {profile list}
      **/
@@ -31,6 +32,20 @@ class ProfileCollection {
         });
     }
 
+    /**
+     * @description retrieves profiles with the given profileName
+     * @param {String} profileName Profile.profileNameEnum
+     * @returns {Promise<Array>} profile list or empty array
+     */
+    static async getProfileListForProfileNameAsync(profileName) {
+        let profileList = await fileOperation.readFromDatabaseAsync(onfPaths.PROFILE);
+        if (profileList !== undefined) {
+            return profileList.filter(profile =>
+                (profile[onfAttributes.PROFILE.PROFILE_NAME] === profileName)
+            );
+        }
+        return [];
+    }
 
     /**
      * @description This function returns a profile instance from /core-model-1-4:control-construct/profile-collection/profile list 
