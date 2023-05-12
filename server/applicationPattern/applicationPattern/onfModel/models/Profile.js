@@ -39,6 +39,7 @@ class Profile {
   }
 
   /**
+   * @deprecated Use ProfileCollection.getProfileListForProfileNameAsync()
    * @description This function returns a uuid List that matches the input profile-name.
    * @param {String} profileNameType : should be any one of the Profile.profileNameEnum
    * @returns {promise} returns profile uuid List.

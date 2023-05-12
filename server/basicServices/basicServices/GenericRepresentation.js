@@ -14,6 +14,7 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const TcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
+const ResponseProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/ResponseProfile');
 
 /**
  * @description This function returns the consequent action list for the provided operation name.
@@ -125,13 +126,13 @@ exports.getResponseValueList = function (operationName) {
             for (let i = 0; i < profilesList.length; i++) {
                 let profileInstance = profilesList[i];
                 let uuid = profileInstance["uuid"];
-                let profileOperationName = await responseProfile.getOperationNameAsync(uuid);
-                if (operationName === profileOperationName) {
-                    let ResponseProfilePac = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC];
-                    let ResponseProfileCapability = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CAPABILITY];
-                    let ResponseProfileConfiguration = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
-                    let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
-                    let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
+                let responseProfile = await ResponseProfile.getResponseProfile(uuid);
+                let responseProfilePac = responseProfile.responseProfilePac;
+                let responseProfileCapability = responseProfilePac.responseProfileCapability;
+                if (operationName === responseProfileCapability.operationName) {
+                    let responseProfileConfiguration = responseProfilePac.responseProfileConfiguration;
+                    let fieldName = responseProfileCapability.fieldName;
+                    let value = responseProfileConfiguration.value;
                     let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
                     let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
                     if (fieldNameReference !== undefined) {
@@ -139,7 +140,7 @@ exports.getResponseValueList = function (operationName) {
                     } else {
                         responseInstanceFieldName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
                     }
-                    if (valueReference) {
+                    if (valueReference !== undefined) {
                         responseInstanceValue = await fileOperation.readFromDatabaseAsync(valueReference);
                     } else {
                         responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];

@@ -348,8 +348,9 @@ class ApplicationProfile extends profile {
             try {
                 let profileUuid;
                 let initialProfileSuffix = "-application-p-0000";
-                let uuidList = await profile.getUuidListAsync(
+                let profiles = await profileCollection.getProfileListForProfileNameAsync(
                     profile.profileNameEnum.APPLICATION_PROFILE);
+                let uuidList = profiles.flatMap(profile => profile[onfAttributes.GLOBAL_CLASS.UUID]);
                 if (uuidList != undefined && uuidList.length > 0) {
                     uuidList.sort();
                     let lastUuid = uuidList[uuidList.length - 1];

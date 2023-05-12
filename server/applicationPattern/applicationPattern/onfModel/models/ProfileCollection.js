@@ -11,6 +11,7 @@ const onfFormatter = require('../utility/OnfAttributeFormatter');
 const onfPaths = require('../constants/OnfPaths');
 const onfAttributes = require('../constants/OnfAttributes');
 const fileOperation = require('../../databaseDriver/JSONDriver');
+const Profile = require('./Profile');
 
 class ProfileCollection {
 
@@ -52,29 +53,14 @@ class ProfileCollection {
      * that matches the profileUuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-(application|integer|
      * ONF-record|service-record)-p-\d+$'
-     * @returns {promise} object {profile | undefined}.
+     * @returns {Promise<Object>} object {profile | undefined}.
      **/
     static async getProfileAsync(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let profile;
-                let profileList = await fileOperation.readFromDatabaseAsync(
-                    onfPaths.PROFILE
-                    );
-                if (profileList != undefined) {
-                    for (let i = 0; i < profileList.length; i++) {
-                        let _profile = profileList[i];
-                        let _profileUuid = profileInstance[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (_profileUuid == profileUuid) {
-                            profile = _profile;
-                        }
-                    }
-                }
-                resolve(profile);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        let profileList = await fileOperation.readFromDatabaseAsync(onfPaths.PROFILE);
+        if (profileList !== undefined) {
+            return profileList.find(profile => profile[onfAttributes.GLOBAL_CLASS.UUID] === profileUuid);
+        }
+        return undefined;
     }
 
     /**
@@ -82,51 +68,23 @@ class ProfileCollection {
      * list that matches the profileUuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-(application|integer|ONF-record|
      * service-record)-p-\d+$'
-     * @returns {promise} booelan {true | false}
+     * @returns {Promise<Boolean>} booelan {true | false}
      **/
     static async isProfileExistsAsync(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let isProfileExists = false;
-            try {
-                let profileList = await fileOperation.readFromDatabaseAsync(
-                    onfPaths.PROFILE
-                    );
-                if (profileList != undefined) {
-                    for (let i = 0; i < profileList.length; i++) {
-                        let profile = profileList[i];
-                        let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (_profileUuid == profileUuid) {
-                            isProfileExists = true;
-                        }
-                    }
-                }
-                resolve(isProfileExists);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        return await ProfileCollection.getProfileAsync(profileUuid) !== undefined;
     }
 
     /**
      * @description This function adds a profile instance to /core-model-1-4:control-construct/profile-collection/profile list.
-     * @param {profileInstance} : profile instance could be any one of ApplicationProfile, IntegerProfile, ONFRecordProfile, 
-     * ServiceRecordProfile.
-     * @returns {promise} booelan {true | false}
+     * @param {Profile} : profile instance
+     * @returns {Promise<Boolean>} booelan {true | false}
      **/
     static async addProfileAsync(profileInstance) {
-        return new Promise(async function (resolve, reject) {
-            let isCreated = false;
-            try {
-                profileInstance = onfFormatter.modifyJsonObjectKeysToKebabCase(profileInstance);
-                isCreated = await fileOperation.writeToDatabaseAsync(
-                    onfPaths.PROFILE, 
-                    profileInstance, 
-                    true);
-                resolve(isCreated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        profileInstance = onfFormatter.modifyJsonObjectKeysToKebabCase(profileInstance);
+        return await fileOperation.writeToDatabaseAsync(
+            onfPaths.PROFILE,
+            profileInstance,
+            true);
     }
 
     /**
@@ -134,25 +92,15 @@ class ProfileCollection {
      * that matches the profileUuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-(application|
      * integer|ONF-record|service-record)-p-\d+$'
-     * @returns {promise} booelan {true | false}
+     * @returns {Promise<Boolean>} booelan {true | false}
      **/
     static async deleteProfileAsync(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let isDeleted = false;
-            try {
-                let isProfileExistsAsync = await ProfileCollection.isProfileExistsAsync(profileUuid);
-                if (isProfileExistsAsync) {
-                    let profilePath = onfPaths.PROFILE + "=" + profileUuid;
-                    isDeleted = await fileOperation.deletefromDatabaseAsync(
-                        profilePath, 
-                        profileUuid, 
-                        true);
-                }
-                resolve(isDeleted);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        let isProfileExistsAsync = await ProfileCollection.isProfileExistsAsync(profileUuid);
+        if (isProfileExistsAsync) {
+            let profilePath = onfPaths.PROFILE + "=" + profileUuid;
+            return await fileOperation.deletefromDatabaseAsync(profilePath);
+        }
+        return false;
     }
 }
 
