@@ -10,11 +10,13 @@ jobs:
             pull-requests: write
             contents: write
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./server/application-pattern/
         steps:
             - uses: actions/checkout@v3
             - uses: jwalton/gh-find-current-pr@v1
               id: findPr
             - uses: ArtiomTr/jest-coverage-report-action@v2
               with:
-                   working-directory: ./server/application-pattern/
                    prnumber: ${{ steps.findPr.outputs.number }}
