@@ -1,0 +1,41 @@
+@startuml
+node "Application pattern" {
+frame "commons" {
+  [AppCommons]
+}
+frame "databaseDriver" {
+  [JSONDriver]
+  [PrimaryKey]
+}
+frame "services" {
+  [AuthorizingService]
+  [ElasticsearchService]
+  [ExecutionAndTraceService]
+  [OamLogService]
+}
+ frame "rest" {
+  folder "client" {
+    [Client]
+    [EventDispatcher]
+    [RequestBuilder]
+    [RequestHeader]
+  }
+  folder "server" {
+
+    [ResponseBuilder]
+    [ResponseHeader]
+    [ResponseCode]
+
+    folder "responseBody" {
+      [ResponseValue]
+      [ConsequentAction]
+    }
+  }
+ }
+ frame "onfModel" {
+}
+}
+onfModel -down[hidden]-> commons
+databaseDriver -down[hidden]-> services
+ResponseBuilder -down[hidden]-> responseBody
+@enduml
