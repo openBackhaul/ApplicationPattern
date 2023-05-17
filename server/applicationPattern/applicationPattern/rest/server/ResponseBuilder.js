@@ -18,6 +18,12 @@ exports.buildResponse = function (response, responseCode, responseBody, response
       "message": "Unauthorized Access"
     }
   }
+  else if (responseCode == 400) {
+    responseBody = {
+      "code": 400,
+      "message": "BAD_REQUEST"
+    }
+  }
   if (responseHeader != undefined) {
     const stringifiedResponseHeader = OnfAttributeFormatter.
     modifyJsonObjectKeysToKebabCase(responseHeader);
