@@ -67,7 +67,7 @@ class ControlConstruct {
 
   /**
    * @description This function returns the profile-collection from core-model-1-4:control-construct
-   * @returns {Promise<Array>} profile-collection
+   * @returns {Promise} profile-collection
    **/
   static async getProfileCollectionAsync() {
     return await fileOperation.readFromDatabaseAsync(onfPaths.PROFILE_COLLECTION);
