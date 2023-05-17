@@ -175,9 +175,9 @@ class FileProfile extends profile {
         });
     }
 
-/**
- * @description Fetch application data file path
- */
+    /**
+     * @description Fetch application data file path
+     */
     static async getApplicationDataFileContent() {
         return new Promise(async function (resolve, reject) {
             try {
@@ -190,7 +190,12 @@ class FileProfile extends profile {
                         applicationDataFile = value;
                     }
                 }
-                resolve(applicationDataFile);
+                if (applicationDataFile !== undefined) {
+                    resolve(applicationDataFile);
+                }
+                else {
+                    throw new Error( "file is not exist" )
+                }
             } catch (error) {
                 reject(error);
             }
