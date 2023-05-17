@@ -319,7 +319,7 @@ function isForwardingConstructIsProcessSnippet(forwardingConstruct) {
                 nameList,
                 "ForwardingKind"
             );
-            if (valueName == ForwardingConstruct.name.forwardingConstructKindEnum.PROCESS_SNIPPET) {
+            if (valueName == ForwardingConstruct.forwardingConstructKindEnum.PROCESS_SNIPPET) {
                 isForwardingConstructIsProcessSnippet = true;
             }
         }
