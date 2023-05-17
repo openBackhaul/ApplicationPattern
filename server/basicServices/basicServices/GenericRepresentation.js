@@ -14,6 +14,7 @@ const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constant
 const profileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const TcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
+const ResponseProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/ResponseProfile');
 
 /**
  * @description This function returns the consequent action list for the provided operation name.
@@ -28,17 +29,20 @@ exports.getConsequentActionList = function (operationName) {
             let actionProfileUuidList = await ActionProfile.getActionProfileUuidsList();
             for (let i = 0; i < actionProfileUuidList.length; i++) {
                 let uuid = actionProfileUuidList[i];
-                let actionProfileOperationName = await ActionProfile.getOperationName(uuid);
+                let actionProfile = await ActionProfile.getActionProfile(uuid);
+                let actionProfilePac = actionProfile.actionProfilePac;
+                let actionProfileCapability = actionProfilePac.actionProfileCapability;
+                let actionProfileOperationName = actionProfileCapability.operationName;
+                let actionProfileConfiguration = actionProfilePac.actionProfileConfiguration;
                 if (operationName === actionProfileOperationName) {
-                    let actionProfile = await ActionProfile.getActionProfile(uuid);
-                    let consequentOperationReference = await ActionProfile.getConsequentOperationReference(uuid);
-                    let operationName = await fileOperation.readFromDatabaseAsync(consequentOperationReference);
-                    let request = await formulateRequest(operationName);
+                    let consequentOperationReference = actionProfileConfiguration.consequentOperationReference;
+                    let consequentOperationName = await fileOperation.readFromDatabaseAsync(consequentOperationReference);
+                    let request = await formulateRequest(consequentOperationName);
                     consequentActionProfile = new consequentAction(
-                        actionProfile.label,
+                        actionProfileCapability.label,
                         request,
-                        actionProfile.displayInNewBrowserWindow,
-                        actionProfile.inputValueList
+                        actionProfileCapability.displayInNewBrowserWindow,
+                        actionProfileCapability.inputValueList
                     );
                     consequentActionList.push(consequentActionProfile);
                 }
@@ -118,48 +122,41 @@ exports.getResponseValueList = function (operationName) {
             let responseInstanceValue;
             let responseInstancedataTypeOfValue;
 
-            let profilesList = await profileCollection.getProfileListAsync();
-            if (profilesList != undefined && profilesList.length != 0) {
-                for (let i = 0; i < profilesList.length; i++) {
-                    let profileInstance = profilesList[i];
-                    let uuid = profileInstance["uuid"];
-                    let profileInstanceName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileInstanceName === profile.profileNameEnum.RESPONSE_PROFILE) {
-                        let profileOperationName = await responseProfile.getOperationNameAsync(uuid);
-                        if (operationName === profileOperationName) {
-                            let ResponseProfilePac = profileInstance[onfAttributes.RESPONSE_PROFILE.PAC];
-                            let ResponseProfileCapability = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CAPABILITY];
-                            let ResponseProfileConfiguration = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
-                            let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
-                            let value = ResponseProfileConfiguration[onfAttributes.RESPONSE_PROFILE.VALUE];
-                            let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                            let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
-                            if (fieldNameReference !== undefined) {
-                                responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
-                            } else {
-                                responseInstanceFieldName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
-                            }
-                            if (valueReference) {
-                                responseInstanceValue = await fileOperation.readFromDatabaseAsync(valueReference);
-                            } else {
-                                responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
-                            }
-                            responseInstancedataTypeOfValue = typeof responseInstanceValue;
-                            responseInstanceValue = await getDataUpdatePeriodEnum(fieldName, responseInstanceValue)
-
-                            let response = new responseValue(
-                                responseInstanceFieldName,
-                                responseInstanceValue,
-                                responseInstancedataTypeOfValue
-                            );
-                            responseValueList.push(response);
-                        }
-
+            let profilesList = await profileCollection.getProfileListForProfileNameAsync(profile.profileNameEnum.RESPONSE_PROFILE);
+            for (let i = 0; i < profilesList.length; i++) {
+                let profileInstance = profilesList[i];
+                let uuid = profileInstance["uuid"];
+                let responseProfile = await ResponseProfile.getResponseProfile(uuid);
+                let responseProfilePac = responseProfile.responseProfilePac;
+                let responseProfileCapability = responseProfilePac.responseProfileCapability;
+                if (operationName === responseProfileCapability.operationName) {
+                    let responseProfileConfiguration = responseProfilePac.responseProfileConfiguration;
+                    let fieldName = responseProfileCapability.fieldName;
+                    let value = responseProfileConfiguration.value;
+                    let fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
+                    let valueReference = value[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
+                    if (fieldNameReference !== undefined) {
+                        responseInstanceFieldName = await fileOperation.readFromDatabaseAsync(fieldNameReference);
+                    } else {
+                        responseInstanceFieldName = fieldName[onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME];
                     }
+                    if (valueReference !== undefined) {
+                        responseInstanceValue = await fileOperation.readFromDatabaseAsync(valueReference);
+                    } else {
+                        responseInstanceValue = value[onfAttributes.RESPONSE_PROFILE.STATIC_VALUE];
+                    }
+                    responseInstancedataTypeOfValue = typeof responseInstanceValue;
+                    responseInstanceValue = await getDataUpdatePeriodEnum(fieldName, responseInstanceValue)
 
+                    let response = new responseValue(
+                        responseInstanceFieldName,
+                        responseInstanceValue,
+                        responseInstancedataTypeOfValue
+                    );
+                    responseValueList.push(response);
                 }
-                resolve(responseValueList)
             }
+            resolve(responseValueList)
         } catch (error) {
             console.log(error);
         }

@@ -26,7 +26,8 @@ class Profile {
     INTEGER_PROFILE: "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE",
     OAM_RECORD_PROFILE: "oam-record-profile-1-0:PROFILE_NAME_TYPE_OAM_RECORD_PROFILE",
     RESPONSE_PROFILE: "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
-    SERVICE_RECORD_PROFILE: "service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE"
+    SERVICE_RECORD_PROFILE: "service-record-profile-1-0:PROFILE_NAME_TYPE_SERVICE_RECORD_PROFILE",
+    STRING_PROFILE: "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE"
   }
   /**
    * @constructor 
@@ -39,6 +40,7 @@ class Profile {
   }
 
   /**
+   * @deprecated Use ProfileCollection.getProfileListForProfileNameAsync()
    * @description This function returns a uuid List that matches the input profile-name.
    * @param {String} profileNameType : should be any one of the Profile.profileNameEnum
    * @returns {promise} returns profile uuid List.

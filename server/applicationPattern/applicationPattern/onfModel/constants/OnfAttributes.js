@@ -151,6 +151,16 @@ const RESPONSE_PROFILE = {
     STATIC_FIELD_NAME: "static-field-name"
 }
 
+const STRING_PROFILE = {
+    PAC: "string-profile-1-0:string-profile-pac",
+    CAPABILITY: "string-profile-capability",
+    CONFIGURATION: "string-profile-configuration",
+    STRING_NAME: "string-name",
+    ENUMERATION: "enumeration",
+    PATTERN: "pattern",
+    STRING_VALUE: "string-value"
+}
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -270,6 +280,7 @@ module.exports = {
     SERVICE_RECORD_PROFILE,
     OAM_RECORD_PROFILE,
     RESPONSE_PROFILE,
+    STRING_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,
