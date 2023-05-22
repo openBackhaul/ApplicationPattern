@@ -127,7 +127,7 @@ exports.getResponseValueList = function (operationName) {
                 let profileInstance = profilesList[i];
                 let uuid = profileInstance["uuid"];
                 let responseProfile = await ResponseProfile.getResponseProfile(uuid);
-                let responseProfilePac = responseProfile.responseProfilePac;
+                let responseProfilePac = responseProfile[onfAttributes.RESPONSE_PROFILE.PAC];
                 let responseProfileCapability = responseProfilePac.responseProfileCapability;
                 if (operationName === responseProfileCapability.operationName) {
                     let responseProfileConfiguration = responseProfilePac.responseProfileConfiguration;
