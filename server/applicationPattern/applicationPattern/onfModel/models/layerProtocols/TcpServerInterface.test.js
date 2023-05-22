@@ -51,7 +51,7 @@ test("getUuidOfTheProtocol", async () => {
 
 test("getLocalAddressOfTheProtocol - with IP address", async () => {
   expect(await TcpServerInterface.getLocalAddressOfTheProtocol("HTTP")).toStrictEqual({
-     "ipv-4-address" : "1.1.3.13"
+    "ipv-4-address": "1.1.3.13"
   });
   expect(await TcpServerInterface.getLocalAddressOfTheProtocol("HTTPS")).toBeUndefined();
 });
@@ -70,9 +70,9 @@ test("getLocalProtocol", async () => {
 
 test("getLocalAddress", async () => {
   expect(await TcpServerInterface.getLocalAddress()).toStrictEqual({
-     "ipv-4-address" : "1.1.3.13"
+    "ipv-4-address": "1.1.3.13"
   })
-  }
+}
 );
 
 test("getLocalPort", async () => {
@@ -92,86 +92,86 @@ test("setLocalPort", async () => {
   expect(res).toBeTruthy();
 });
 
-test("setLocalAddress - with IP address", async () => {
-  const ret = {
-    "local-address": {
+describe("setLocalAddress", () => {
+  test("with IP address", async () => {
+    const ret = {
       "ipv-4-address": "127.0.0.1"
-    }
-  };
-  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
-  const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
-    "local-address": {
+    };
+    jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
+    const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
       "ipv-4-address": "127.0.0.2"
-    }
+    });
+    expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
+      { "ipv-4-address": "127.0.0.1" },
+      false);
+    expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
+      { "ipv-4-address": "127.0.0.2" },
+      false);
+    expect(res).toBeTruthy();
   });
-  expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
-    tcpServerInterfaceConfigurationPath + "local-address",
-    { "local-address": { "ipv-4-address": "127.0.0.2" } },
-    false);
-  expect(res).toBeTruthy();
-});
 
-test("setLocalAddress - with domain name", async () => {
-  const ret = {
-    "local-address": {
+  test("with domain name", async () => {
+    const ret = {
       "domain-name": "some-domain.com"
-    }
-  };
-  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
-  const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
-    "local-address": {
+    };
+    jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
+    const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
       "domain-name": "some-new-domain.com"
     }
+    );
+    expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name",
+      { "domain-name": "some-domain.com" },
+      false);
+    expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name",
+      {
+        "domain-name": "some-new-domain.com"
+      }, false);
+    expect(res).toBeTruthy();
   });
-  expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
-    tcpServerInterfaceConfigurationPath + "local-address",
-    { "local-address": { 
-      "domain-name": "some-new-domain.com" 
-    } 
-  }, false);
-  expect(res).toBeTruthy();
-});
 
-test("setLocalAddress - switch to domain name", async () => {
-  const ret = {
-    "local-address": {
+  test("switch to domain name", async () => {
+    const ret = {
       "ipv-4-address": "127.0.0.1"
-    }
-  };
-  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
-  const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
-    "local-address": {
+    };
+    jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
+    const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
       "domain-name": "some-new-domain.com"
     }
+    );
+    expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
+      { "ipv-4-address": "127.0.0.1" },
+      false);
+    expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name", {
+      "domain-name": "some-new-domain.com"
+    }, false);
+    expect(res).toBeTruthy();
   });
-  expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
-    tcpServerInterfaceConfigurationPath + "local-address", {
-    "local-address": { 
-      "domain-name": "some-new-domain.com" 
-    } 
-  }, false);
-  expect(res).toBeTruthy();
-});
 
-test("setLocalAddress - switch to IP address", async () => {
-  const ret = {
-    "local-address": {
+  test("switch to IP address", async () => {
+    const ret = {
       "domain-name": "some-new-domain.com"
-    }
-  };
-  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
-  const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
-    "local-address": {
+    };
+    jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => ret);
+    const res = await TcpServerInterface.setLocalAddressAsync("alt-2-0-1-tcp-s-000", {
       "ipv-4-address": "127.0.0.1"
-    }
+    });
+    expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name",
+      { "domain-name": "some-new-domain.com" },
+      false);
+    expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
+      {
+        "ipv-4-address": "127.0.0.1"
+      }, false);
+    expect(res).toBeTruthy();
   });
-  expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
-    tcpServerInterfaceConfigurationPath + "local-address",
-    { "local-address": { 
-      "ipv-4-address": "127.0.0.1" 
-    } 
-  }, false);
-  expect(res).toBeTruthy();
 });
 
 test("getProtocolFromProtocolEnum", () => {
