@@ -45,7 +45,7 @@ exports.recordServiceRequestFromClient = function (serverApplicationName, server
             let response = await requestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
-                resolve(true);
+                return resolve(true);
             }
             console.log(`recordServiceRequestFromClient - record service request from client with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
             resolve(false);
@@ -87,7 +87,7 @@ exports.recordServiceRequest = function (xCorrelator, traceIndicator, userName, 
             let response = await requestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
             let responseCodeValue = response.status.toString();
             if (response !== undefined && responseCodeValue.startsWith("2")) {
-                resolve(true);
+                return resolve(true);
             }
             console.log(`recordServiceRequest - record service request with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
             resolve(false);
