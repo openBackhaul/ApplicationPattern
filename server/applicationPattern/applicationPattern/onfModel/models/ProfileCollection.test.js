@@ -1,6 +1,8 @@
 const ProfileCollection = require('./ProfileCollection');
 const fileOperation = require('../../databaseDriver/JSONDriver');
 const Profile = require('./Profile');
+const ResponseProfile = require('./profile/ResponseProfile');
+
 
 jest.mock('../../databaseDriver/JSONDriver');
 
@@ -68,6 +70,24 @@ beforeEach(() => {
 test("getProfileListForProfileNameAsync", async () => {
   expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.ACTION_PROFILE))
     .toStrictEqual([actionProfile]);
+});
+
+test("addProfile", async () => {
+  const expected1 = new ResponseProfile("alt-2-0-1-response-p-000",
+    "/v1/start-application-in-generic-representation",
+    {
+      "static-field-name": "applicationName"
+    },
+    "Own application name",
+    "string",
+    {
+      "value-reference": "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
+    }
+  );
+  await ProfileCollection.addProfileAsync(expected1);
+  expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
+    "/core-model-1-4:control-construct/profile-collection/profile", responseProfile, true
+  );
 });
 
 afterEach(() => {

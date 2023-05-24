@@ -18,8 +18,8 @@ class ResponseProfile extends Profile {
     responseProfilePac;
 
     static ResponseProfilePac = class ResponseProfilePac {
-        ResponseProfileCapability;
-        ResponseProfileConfiguration;
+        responseProfileCapability;
+        responseProfileConfiguration;
 
         static ResponseProfileCapability = class ResponseProfileCapability {
             operationName;
@@ -38,13 +38,11 @@ class ResponseProfile extends Profile {
                 this.operationName = operationName;
                 if (onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME in fieldName ||
                     onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE in fieldName) {
-                    this.fieldName = {
-                        fieldName: fieldName
-                    }
+                    this.fieldName = fieldName;
                 }
                 this.description = description;
                 this.datatype = datatype;
-            }      
+            }
         };
 
         static ResponseProfileConfiguration = class ResponseProfileConfiguration {
@@ -57,9 +55,7 @@ class ResponseProfile extends Profile {
             constructor(value) {
                 if (onfAttributes.RESPONSE_PROFILE.STATIC_VALUE in value ||
                     onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE in value) {
-                    this.value = {
-                        value : value
-                    }
+                    this.value = value;
                 }
             }
         };
@@ -73,15 +69,15 @@ class ResponseProfile extends Profile {
          * @param {Object} value static-value or value-reference
          */
         constructor(operationName, fieldName, description, datatype, value) {
-            this.ResponseProfileCapability = new ResponseProfilePac.
-            ResponseProfileCapability(
-                operationName,
-                fieldName,
-                description,
-                datatype);
-            this.ResponseProfileConfiguration = new ResponseProfilePac.
-            ResponseProfileConfiguration(
-                value);
+            this.responseProfileCapability = new ResponseProfilePac.
+                ResponseProfileCapability(
+                    operationName,
+                    fieldName,
+                    description,
+                    datatype);
+            this.responseProfileConfiguration = new ResponseProfilePac.
+                ResponseProfileConfiguration(
+                    value);
         }
     }
 
@@ -96,7 +92,7 @@ class ResponseProfile extends Profile {
      */
     constructor(uuid, operationName, fieldName, description, datatype, value) {
         super(uuid, ResponseProfile.profileName);
-        this.responseProfilePac = new ResponseProfile.ResponseProfilePac(
+        this[onfAttributes.RESPONSE_PROFILE.PAC] = new ResponseProfile.ResponseProfilePac(
             operationName,
             fieldName,
             description,
@@ -234,14 +230,14 @@ class ResponseProfile extends Profile {
         let profileUuid = await ResponseProfile.generateNextUuidAsync();
         return new ResponseProfile(profileUuid,
             operationName,
-            { [onfAttributes.RESPONSE_PROFILE.FIELD_NAME]: {
+            {
                 [onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE]: fieldNameReference
-            }},
+            },
             description,
             datatype,
-            { [onfAttributes.RESPONSE_PROFILE.VALUE]: {
+            {
                 [onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE]: valueReference
-            }}
+            }
         );
     }
 

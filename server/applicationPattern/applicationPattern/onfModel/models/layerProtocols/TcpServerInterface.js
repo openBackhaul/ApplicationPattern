@@ -190,25 +190,29 @@ class TcpServerInterface extends layerProtocol {
      * @description This function modifies the tcp-server local-address.
      * @param {String} tcpServerUuid : tcp-server uuid to set tcp-server instance.
      * @param {String} localAddress : localAddress that needs to be modified.
-     * @returns {Promise<boolean>} true|false
+     * @returns {Promise<Boolean>} true|false
      **/
     static async setLocalAddressAsync(tcpServerUuid, localAddress) {
         let addressToBeDeleted = await fileOperation.readFromDatabaseAsync(
             onfPaths.TCP_SERVER_LOCAL_ADDRESS.replace(
                 "{uuid}", tcpServerUuid)
         );
-        let addressPaths = getPaths(tcpServerUuid, localAddress, addressToBeDeleted);
-        let localAddressPath = addressPaths[0];
-        let pathToBeDeleted = addressPaths[1];
-        if (pathToBeDeleted != undefined) {
-            await fileOperation.deletefromDatabaseAsync(
-                pathToBeDeleted,
-                addressToBeDeleted,
-                false
-            );
+        let pathToBeDeleted;
+        if (onfAttributes.TCP_SERVER.DOMAIN_NAME in addressToBeDeleted) {
+            pathToBeDeleted = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
+                "{uuid}", tcpServerUuid);
+        } else {
+            pathToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
+                "{uuid}", tcpServerUuid);
         }
+        await fileOperation.deletefromDatabaseAsync(
+            pathToBeDeleted,
+            addressToBeDeleted,
+            false
+        );
+        let addressPath = getLocalAddressPath(tcpServerUuid, localAddress);
         return await fileOperation.writeToDatabaseAsync(
-            localAddressPath,
+            addressPath,
             localAddress,
             false);
     }
@@ -247,31 +251,20 @@ class TcpServerInterface extends layerProtocol {
 
 /**
  * @description This function returns the remote address configured .
- * @param {String} tcpClientUuid : tcp-client uuid of the tcp-client instance
- * @param {String} addressToBeDeleted : tcp-client address to be deleted.
- * @param {String} remoteAddress : remote address of the tcp client .
- * @returns {Array} paths
+ * @param {String} tcpServerUuid
+ * @param {String} local Address
+ * @returns {String} path
  **/
-function getPaths(tcpServerUuid, localAddress, addressToBeDeleted) {
-    let paths = [];
+function getLocalAddressPath(tcpServerUuid, localAddress) {
     let localAddressPath;
-    let pathOfAddressToBeDeleted;
-    let domainName = onfAttributes.TCP_SERVER.DOMAIN_NAME;
-    if (domainName in localAddress) {
+    if (onfAttributes.TCP_SERVER.DOMAIN_NAME in localAddress) {
         localAddressPath = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
             "{uuid}", tcpServerUuid);
-        if (!(domainName in addressToBeDeleted))
-            pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
-                "{uuid}", tcpServerUuid);
     } else {
-        localAddressPath = onfPaths.TCP_SERVER_LOCAL_ADDRESS.replace(
+        localAddressPath = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
             "{uuid}", tcpServerUuid);
-        if (domainName in addressToBeDeleted)
-            pathOfAddressToBeDeleted = onfPaths.TCP_SERVER_DOMAIN_NAME.replace(
-                "{uuid}", tcpServerUuid);
     }
-    paths.push(localAddressPath, pathOfAddressToBeDeleted)
-    return paths;
+    return localAddressPath;
 }
 
 module.exports = TcpServerInterface;

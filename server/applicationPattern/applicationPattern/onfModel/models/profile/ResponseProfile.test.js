@@ -43,7 +43,7 @@ const responseProfile2 = {
   }
 };
 
-const responseProfile3= {
+const responseProfile3 = {
   "uuid": "alt-2-0-1-response-p-008",
   "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
   "response-profile-1-0:response-profile-pac": {
@@ -120,19 +120,16 @@ test("findProfileUuidForFieldNameReferenceAsync", async () => {
 
 test("createResponseProfile", async () => {
   const expected = new ResponseProfile("alt-2-0-1-response-p-009",
-  "/v1/inform-about-release-history-in-generic-representation",
-  { "field-name": {
+    "/v1/inform-about-release-history-in-generic-representation",
+    {
       "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number"
-    }
-  },
-  "Represents the first entry in the list of releases",
-  "string",
-  {
-    "value": {
+    },
+    "Represents the first entry in the list of releases",
+    "string",
+    {
       "value-reference": "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes"
     }
-  }
-);
+  );
   expect(await ResponseProfile.createProfileAsync(
     "/v1/inform-about-release-history-in-generic-representation",
     "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number",
