@@ -1455,10 +1455,13 @@ async function updateTcpServerDetails(protocol, address, port) {
     tcpServerUuid = await tcpServerInterface.getUuidOfTheProtocol(protocol);
     if (tcpServerUuid != undefined && Object.keys(tcpServerUuid).length != 0) {
       if (address != undefined) {
-        let localAddress = address[onfAttributes.TCP_CLIENT.IP_ADDRESS];
+        let localAddressKey = onfAttributes.TCP_CLIENT.IP_ADDRESS;
+        if (!address[localAddressKey]) {
+          localAddressKey = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
+        }
         let configuredAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
-        if (JSON.stringify(configuredAddress) != JSON.stringify(localAddress)) {
-          istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, localAddress);
+        if (JSON.stringify(configuredAddress) != JSON.stringify(address)) {
+          istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address);
         }
       }
       if (port != undefined) {
