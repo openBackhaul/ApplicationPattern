@@ -205,6 +205,12 @@ class ElasticsearchService {
     }
     let indexName = Object.keys(policy.body)[0];
     let policyName = policy.body[indexName].settings.index.lifecycle.name;
+    if (policyName === '') {
+      return {
+        "service-records-policy-name": "",
+        "phases": {}
+      }
+    }
     let result = await client.ilm.getLifecycle({
       "policy": policyName
     });
