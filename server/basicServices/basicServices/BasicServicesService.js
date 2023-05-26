@@ -954,9 +954,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.registerYourself = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
-  return new Promise(async function (resolve, reject) {
-    try {
+exports.registerYourself = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
       let logicalTerminationPointconfigurationStatus;
       let forwardingConstructConfigurationStatus;
       if (body["registry-office-application"] != undefined) {
@@ -1081,7 +1079,6 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         xCorrelator = originator;
         user = body;
       }
-
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
@@ -1097,12 +1094,12 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         traceIndicator,
         customerJourney
       );
-
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
+      return {
+        customerJourney: customerJourney,
+        traceIndicator: traceIndicator,
+        xCorrelator: xCorrelator,
+        user: user
+      }
 }
 
 
