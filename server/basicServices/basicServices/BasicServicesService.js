@@ -567,9 +567,9 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
           else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
             let elsticSearchClientInterface = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
             if ( elsticSearchClientInterface !== undefined) {
-              let elasticSearchValue = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
-              if (elasticSearchValue !== undefined) {
-                delete elasticSearchValue["auth"]
+              let elasticSearchConfiguration  = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
+              if (elasticSearchConfiguration  !== undefined) {
+                delete elasticSearchConfiguration ["auth"]
               }
         }
         
@@ -929,9 +929,9 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
           else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
             let elsticSearchClientInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
             if ( elsticSearchClientInterface!== undefined) {
-              let elasticSearchValue = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
-              if (elasticSearchValue !== undefined) {
-                delete elasticSearchValue["auth"]
+              let elasticSearchConfiguration  = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
+              if (elasticSearchConfiguration  !== undefined) {
+                delete elasticSearchConfiguration ["auth"]
               }
         }
         }
