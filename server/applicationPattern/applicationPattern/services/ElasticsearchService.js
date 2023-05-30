@@ -282,7 +282,7 @@ class ElasticsearchService {
    */
   async scroll(from, size, query, uuid) {
     // check if we should be using this method
-    if ((from + size) < 10000) {
+    if ((from + size) <= 10000) {
       throw new Error("This method should not be used for queries with results below 10k.");
     }
     let indexAlias = await getIndexAliasAsync(uuid);
