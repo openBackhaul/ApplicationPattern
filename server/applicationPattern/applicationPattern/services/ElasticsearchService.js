@@ -270,13 +270,15 @@ class ElasticsearchService {
    * Method for scrolling results above 10k records.
    *
    * @description This approach uses 'scroll' API from Elasticsearch. This method should NOT
-   * be used when underlying data is changeable. It should be used for EATL and OL only.
+   * be used when underlying data is changeable. Returns an empty array in response object when
+   * from param is bigger than the total number of records.
    *
    * @param {Number} from index from which we want to read documents
    * @param {Number} size how many documents do we want to read
    * @param {Object} query ES query to be used to filter the documents
    * @param {String} [uuid] optional, UUID of ES client
-   * @returns {Promise<Object>} { response, took }
+   * @throws Error if from+size do not exceed 10k
+   * @returns {Promise<Object>} { response, took } 
    */
   async scroll(from, size, query, uuid) {
     // check if we should be using this method
@@ -290,7 +292,6 @@ class ElasticsearchService {
     let responseQueue = [];
     // store here processed results
     let results = [];
-    let took = 0;
 
     // first request is to get scrollId and total values
     // check 10k records because this method is for records 10k
@@ -308,20 +309,21 @@ class ElasticsearchService {
 
     // check if we can return the number of results desired by input parameters
     if (from > total) {
-      console.log("There are not enough results to satisfy input.");
-      return { "response": [], "took": 0 };
+      console.log(`Offset specified (${from}) is bigger than total number of records (${total}).`);
+      return { "response": [], "took": response.body.took };
     }
     let scrollId = response.body._scroll_id;
 
     // if the desired size exceeds the total number of result, reduce it to
-    // the total number of records (max records to be returned)
+    // the number of records we are able to return with given offset
     let newSize = size;
     if (size > total) {
-      newSize = size - total;
+      newSize = total - from;
     }
 
+    let took = 0;
     // our response queue needs to be bigger than desired number of results
-    while (responseQueue.length <= (from + newSize)) {
+    while (responseQueue.length < (from + newSize)) {
       took += response.body.took;
 
       // we do not wish to store the response, if the from parameter is not
