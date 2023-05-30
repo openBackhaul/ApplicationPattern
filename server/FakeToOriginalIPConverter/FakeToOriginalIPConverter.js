@@ -12,29 +12,68 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const { layerProtocolNameEnum } = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
-
+const fileSystem = require('fs');
+const yargs = require("yargs")
 /****************************************************************************************
 * Setting Local Variables and initiating the process
 ****************************************************************************************/
 var config = require('./input/config.json');
 var fakeToOriginalIPMapping = require(config['fake-to-original-iP-mapping-file-path']);
 
-global.databasePath = config['target-oam-config-file-path'];
-modifyFakeIpAddressToOriginal();
+process.env.MODIFY_FILE = yargs.argv.modify
+
+try {
+    if (process.env.MODIFY_FILE == "load") {
+        global.databasePath = config['target-oam-config-file-path'];
+    } else if (process.env.MODIFY_FILE == "config") {
+        global.databasePath = config['testsuite-config-file-path'];
+    } else {
+        throw "--modify argument missing"
+    }
+    modifyFakeIpAddressToOriginal(databasePath);
+} catch (error) {
+    console.log(error)
+}
 
 /***********************************************************************************************************************************************
  * Initiates process to update the Fake IP address to original IP address
- *
+ * 
+ * For testsuit config : it extract core-model-1-4:control-construct from 
+ * "testsuite config" and modify it and merge it back to "testsuit config"
+ * 
  * Step 1 : Modifies the tcpClients of all applications
  * Step 2 : Modifies the tcpClient of the OldRelease
  * Step 3 : Modifies the tcpClient of the NewRelease
  * Step 4 : Modifies the tcpServer of the application 
  ***********************************************************************************************************************************************/
-async function modifyFakeIpAddressToOriginal() {
-    await modifyClients();
-    await modifyOldRelease();
-    await modifyNewRelease();
-    await modifyServer();
+async function modifyFakeIpAddressToOriginal(filePath) {
+    try{
+        let testsuitConfigSplit
+        let testsuitConfigSplitParse
+        let coreModelJsonObjectParse
+        if (process.env.MODIFY_FILE == "config"){
+            testsuitConfigSplit = await splitControlConstructFromTestsuitConfig(filePath)
+            testsuitConfigSplitParse = JSON.parse(testsuitConfigSplit)
+            writeToFile(filePath, testsuitConfigSplitParse.core_model_control_construct)
+        }
+    
+        await modifyClients();
+        await modifyOldRelease();
+        await modifyNewRelease();
+        await modifyServer();
+    
+        if (process.env.MODIFY_FILE == "config"){
+            await readFile(filePath).then((coreModelJsonObject) => {
+                coreModelJsonObjectParse = JSON.parse(coreModelJsonObject)
+                testsuitConfigSplitParse.testsuite_config_without_control_construct[0].application["core-model-1-4:control-construct"] = coreModelJsonObjectParse["core-model-1-4:control-construct"]
+                writeToFile(filePath, testsuitConfigSplitParse.testsuite_config_without_control_construct)
+            }).catch((error) => {
+                throw "unable to read and mofidy testsuite config file " + error
+            })
+        }
+    }catch(error){
+        console.log(error)
+    }
 }
 
 /***********************************************************************************************************************************************
@@ -260,5 +299,70 @@ async function modifyServerLocalPort(localPort) {
     });
 }
 
+/** 
+ * Write to the filesystem.<br>
+ * @param {JSONObject} coreModelJsonObject json object that needs to be updated
+ * @returns {boolean} return true if the value is updated, otherwise returns false
+ **/
+function writeToFile(filePath, coreModelJsonObject) {
+    try {
+        fileSystem.writeFileSync(filePath, JSON.stringify(coreModelJsonObject), (error) => {
+            if (error) {
+                console.log('write failed:')
+                throw "write failed:";
+            } else {
+                console.log('write successful:');
+                resolve();
+            }
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
 
+function readFile(filePath) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            await fileSystem.readFile(filePath, 'utf-8', (error, coreModelJsonObject) => {
+                if (error) {
+                    console.log("read file failed");
+                    throw "read file failed:";
+                }
+                resolve(coreModelJsonObject)
+            });
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
+/**
+* function to split testsuit config into two component
+* 1. core-model-1-4:control-construct json
+* 2. json without core-model-1-4:control-construct
+**/
+async function splitControlConstructFromTestsuitConfig(filePath) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            await readFile(filePath).then((coreModelJsonObject) => {
+                const coreModelJsonObjectParse = JSON.parse(coreModelJsonObject)
+                const controlConstruct = coreModelJsonObjectParse[0].application['core-model-1-4:control-construct']
+                delete coreModelJsonObjectParse[0].application['core-model-1-4:control-construct']
+                const testsuite_config_without_control_construct = coreModelJsonObjectParse
+                const core_model_control_construct = {
+                    'core-model-1-4:control-construct': controlConstruct
+                }
+                const testConfigSplit = JSON.stringify({
+                    "testsuite_config_without_control_construct": testsuite_config_without_control_construct,
+                    "core_model_control_construct": core_model_control_construct
+                })
+                resolve(testConfigSplit)
+            }).catch((error) => {
+                reject(error)
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

@@ -5,7 +5,8 @@
   "main": "FakeToOriginalIPConverter.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node FakeToOriginalIPConverter.js"
+    "start_modify_loadfile": "node FakeToOriginalIPConverter.js --modify=load",
+    "start_modify_testsuite_config": "node FakeToOriginalIPConverter.js --modify=config"
   },
   "keywords": [
     "swagger"
