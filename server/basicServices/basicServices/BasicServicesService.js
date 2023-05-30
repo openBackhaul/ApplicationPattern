@@ -153,7 +153,8 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
        ****************************************************************************************/
       let forwardingAutomationInputList = await prepareForwardingAutomation.embedYourself(
         logicalTerminationPointconfigurationStatus,
-        forwardingConstructConfigurationStatus
+        forwardingConstructConfigurationStatus,
+        oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
         operationServerName,
