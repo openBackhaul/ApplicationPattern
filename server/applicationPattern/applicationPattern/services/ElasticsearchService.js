@@ -265,6 +265,95 @@ class ElasticsearchService {
       });
     }
   }
+
+  /**
+   * Method for scrolling results above 10k records.
+   *
+   * @description This approach uses 'scroll' API from Elasticsearch. This method should NOT
+   * be used when underlying data is changeable. It should be used for EATL and OL only.
+   *
+   * @param {Number} from index from which we want to read documents
+   * @param {Number} size how many documents do we want to read
+   * @param {Object} query ES query to be used to filter the documents
+   * @param {String} [uuid] optional, UUID of ES client
+   * @returns {Promise<Object>} { response, took }
+   */
+  async scroll(from, size, query, uuid) {
+    // check if we should be using this method
+    if ((from + size) < 10000) {
+      throw new Error("This method should not be used for queries with results below 10k.");
+    }
+    let indexAlias = await getIndexAliasAsync(uuid);
+    let client = await this.getClient(false, uuid);
+
+    // store here unprocessed results
+    let responseQueue = [];
+    // store here processed results
+    let results = [];
+    let took = 0;
+
+    // first request is to get scrollId and total values
+    // check 10k records because this method is for records 10k
+    // and above
+    let response = await client.search({
+      filter_path: "took,hits.hits._source,_scroll_id,hits.total",
+      index: indexAlias,
+      scroll: "1m",
+      size: 10000,
+      body: {
+        query: query
+      }
+    });
+    let total = response.body.hits.total.value;
+
+    // check if we can return the number of results desired by input parameters
+    if (from > total) {
+      console.log("There are not enough results to satisfy input.");
+      return { "response": [], "took": 0 };
+    }
+    let scrollId = response.body._scroll_id;
+
+    // if the desired size exceeds the total number of result, reduce it to
+    // the total number of records (max records to be returned)
+    let newSize = size;
+    if (size > total) {
+      newSize = size - total;
+    }
+
+    // our response queue needs to be bigger than desired number of results
+    while (responseQueue.length <= (from + newSize)) {
+      took += response.body.took;
+
+      // we do not wish to store the response, if the from parameter is not
+      // within the 10k range
+      if (from < 10000) {
+        responseQueue = responseQueue.concat(response.body.hits.hits);
+      } else {
+        // reduce the from parameter
+        from -= 10000;
+      }
+
+      // read next 10k of records
+      response = await client.scroll({
+        filter_path: "took,hits.hits._source",
+        scrollId: scrollId,
+        scroll: "1m"
+      });
+    }
+
+    // clear scrollId
+    await client.clearScroll({
+      scrollId: scrollId
+    });
+
+    // take from unprocessed responses only the ones desired by
+    // the input
+    let rawResults = responseQueue.slice(from, from + newSize);
+
+    // process them to contain only desired data
+    results = rawResults.flatMap(item => item._source);
+    return { "response": results, "took": took };
+  }
 }
 
 /**
