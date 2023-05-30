@@ -1480,8 +1480,8 @@ async function updateTcpServerDetails(protocol, address, port) {
           localAddressKey = onfAttributes.TCP_CLIENT.DOMAIN_NAME;
         }
         let configuredAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
-        if (JSON.stringify(configuredAddress) != JSON.stringify(address)) {
-          istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address);
+        if (JSON.stringify(configuredAddress) != JSON.stringify(address[localAddressKey])) {
+          istcpServerUpdated = await tcpServerInterface.setLocalAddressAsync(tcpServerUuid, address[localAddressKey]);
         }
       }
       if (port != undefined) {
