@@ -1093,12 +1093,8 @@ exports.registerYourself = async function (body, user, originator, xCorrelator, 
               forwardingConfigurationInputList
             );
         }
-      } else {
-        customerJourney = traceIndicator;
-        traceIndicator = xCorrelator;
-        xCorrelator = originator;
-        user = body;
       }
+
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
@@ -1114,12 +1110,6 @@ exports.registerYourself = async function (body, user, originator, xCorrelator, 
         traceIndicator,
         customerJourney
       );
-      return {
-        customerJourney: customerJourney,
-        traceIndicator: traceIndicator,
-        xCorrelator: xCorrelator,
-        user: user
-      }
 }
 
 
