@@ -4,7 +4,6 @@
             "abbreviation" : "RO",
             "component": "RegistryOffice",
             "release": "0.0.1",
-            "fake-address": "1.1.3.1",
             "fake-tcp-port": 3001,
             "original-address": {
                 "ip-address": {
@@ -18,7 +17,6 @@
             "abbreviation" : "TAR",
             "component": "TypeApprovalRegister",
             "release": "0.0.1",
-            "fake-address": "1.1.3.2",
             "fake-tcp-port": 3002,
             "original-address": {
                 "ip-address": {
@@ -32,7 +30,6 @@
             "abbreviation" : "EATL",
             "component": "ExecutionAndTraceLog",
             "release": "0.0.1",
-            "fake-address": "1.1.3.3",
             "fake-tcp-port": 3003,
             "original-address": {
                 "ip-address": {
@@ -46,7 +43,6 @@
             "abbreviation" : "OL",
             "component": "OamLog",
             "release": "0.0.1",
-            "fake-address": "1.1.3.4",
             "fake-tcp-port": 3004,
             "original-address": {
                 "ip-address": {
@@ -60,7 +56,6 @@
             "abbreviation" : "AA",
             "component": "AdministratorAdministration",
             "release": "0.0.1",
-            "fake-address": "1.1.3.5",
             "fake-tcp-port": 3005,
             "original-address": {
                 "ip-address": {
@@ -74,7 +69,6 @@
             "abbreviation" : "ALT",
             "component": "ApplicationLayerTopology",
             "release": "0.0.1",
-            "fake-address": "1.1.3.6",
             "fake-tcp-port": 3006,
             "original-address": {
                 "ip-address": {
@@ -88,7 +82,6 @@
             "abbreviation" : "OKM",
             "component": "OperationKeyManagement",
             "release": "0.0.1",
-            "fake-address": "1.1.3.7",
             "fake-tcp-port": 3007,
             "original-address": {
                 "ip-address": {
@@ -102,7 +95,6 @@
             "abbreviation" : "OKM",
             "component": "OperationKeyManagement",
             "release": "0.0.2",
-            "fake-address": "1.1.3.8",
             "fake-tcp-port": 3008,
             "original-address": {
                 "ip-address": {

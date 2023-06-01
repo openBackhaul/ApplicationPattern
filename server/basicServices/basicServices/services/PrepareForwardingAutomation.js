@@ -12,30 +12,31 @@ const operationServerInterface = require('onf-core-model-ap/applicationPattern/o
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
 
-exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName = '') {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-
-            /***********************************************************************************
-             * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
-             ************************************************************************************/
-            let bequeathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
-            let bequeathYourDataAndDieContext;
-            let bequeathYourDataAndDieRequestBody = {};
-            bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
-            bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-            bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
-            bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
-            bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
-            bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
-            forwardingAutomation = new forwardingConstructAutomationInput(
-                bequeathYourDataAndDieForwardingName,
-                bequeathYourDataAndDieRequestBody,
-                bequeathYourDataAndDieContext
-            );
-            forwardingConstructAutomationList.push(forwardingAutomation);
+            if (oldApplicationName != "OldRelease") {
+                /***********************************************************************************
+                 * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
+                 ************************************************************************************/
+                let bequeathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
+                let bequeathYourDataAndDieContext;
+                let bequeathYourDataAndDieRequestBody = {};
+                bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
+                bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
+                bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
+                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalAddressForForwarding();
+                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
+                forwardingAutomation = new forwardingConstructAutomationInput(
+                    bequeathYourDataAndDieForwardingName,
+                    bequeathYourDataAndDieRequestBody,
+                    bequeathYourDataAndDieContext
+                );
+                forwardingConstructAutomationList.push(forwardingAutomation);
+            }
 
             /***********************************************************************************
              * forwardings for application layer topology
