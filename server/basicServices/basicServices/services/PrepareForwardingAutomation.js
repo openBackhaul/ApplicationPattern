@@ -17,7 +17,6 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-
             if (oldApplicationName != "OldRelease") {
                 /***********************************************************************************
                  * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
@@ -29,7 +28,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
                 bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
                 bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
-                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
+                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalAddressForForwarding();
                 bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
                 forwardingAutomation = new forwardingConstructAutomationInput(
                     bequeathYourDataAndDieForwardingName,

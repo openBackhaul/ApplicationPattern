@@ -247,6 +247,18 @@ class TcpServerInterface extends layerProtocol {
         return localProtocol;
     }
 
+    /**
+     * @description This function returns the address of the current application in format 
+     *              required for request body formulation of forwardings.
+     * @returns {Promise<String>} localAddress
+     **/
+    static async getLocalAddressForForwarding() {
+        let localAddress = await TcpServerInterface.getLocalAddress();
+        if(onfAttributes.TCP_SERVER.IPV_4_ADDRESS in localAddress){
+            localAddress = { "ip-address" : localAddress}
+        } 
+            return localAddress;
+    }
 }
 
 /**
