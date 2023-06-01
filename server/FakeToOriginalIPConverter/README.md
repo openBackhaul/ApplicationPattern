@@ -18,7 +18,6 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "abbreviation" : "RO",
             "component": "RegistryOffice",
             "release": "0.0.1",
-            "fake-address": "1.1.3.1",
             "fake-tcp-port": 3001,
             "original-address": {
                 "ip-address": {
@@ -32,7 +31,6 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "abbreviation" : "TAR",
             "component": "TypeApprovalRegister",
             "release": "0.0.1",
-            "fake-address": "1.1.3.2",
             "fake-tcp-port": 3002,
             "original-address": {
                 "domain-name": "www.domainName.com",
@@ -56,8 +54,11 @@ sudo apt install nodejs npm
 nodejs --version
 npm --version
 ```
-1. Run the following command , 
-`npm start`
+# How to execute script for updating database/load.json
+npm run start_modify_loadfile
+
+# How to execute script for updating testsuite config file
+npm run start_modify_testsuite_config
 
 
 
