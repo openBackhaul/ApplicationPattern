@@ -14,18 +14,15 @@
   * This function authorizes the user credentials<br>
   * @param {string} authorizationCode authorization code received from the header<br>
   * @param {string} method is the https method name<br>
-  * @returns {Promise<boolean>} return the authorization result<br>
-  * This method performs the following step,<br>
-  * step 1: extract the <br>
-  * 2. If user value is empty , then the value from originator will be copied<br>
-  * 3. If xCorrelator is empty , then a new X-correlator string will be created by using the method xCorrelatorGenerator<br>
-  * 4. If the customerJourney is empty , then the value "unknown value" will be added<br>
-  * 5. If trace-indicator value is empty , then the value will be assigned to 1<br>
+  * @returns {Promise} authStatus return the authorization result<br>
   */
  exports.isAuthorized = function (authorizationCode, method) {
      return new Promise(async function (resolve, reject) {
-         let isAuthorized = false;
-         try {
+        let authStatus = {
+            "isAuthorized" : false,
+            "status" : 403
+        }
+        try {
              let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
              let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
              let userName = decodeAuthorizationCodeAndExtractUserName(authorizationCode);
@@ -37,13 +34,17 @@
              if (response !== undefined && response.status === 200) {
                  let responseBody = response.data;
                  if (responseBody["oam-request-is-approved"] == true) {
-                     isAuthorized = true;
+                    authStatus.isAuthorized = true;
+                 }else{
+                    if(responseBody["reason-of-objection"] == 'METHOD_NOT_ALLOWED'){
+                    authStatus.status = 403;
+                    }
                  }
              }
-             resolve(isAuthorized);
+             resolve(authStatus);
          } catch (error) {
              console.log(error);
-             resolve(isAuthorized);
+             resolve(authStatus);
          }
      });
  }
