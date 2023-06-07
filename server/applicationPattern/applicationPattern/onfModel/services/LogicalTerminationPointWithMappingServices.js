@@ -261,6 +261,18 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
     });
 }
 
+/**
+ * @description This function returns list of registered application information application-name, release-number,
+ * address, protocol and port.
+ * @return {Promise} return the list of application information
+ * <b><u>Procedure :</u></b><br>
+ * <b>step 1 :</b> Get forwarding-construct based on ForwardingName
+ * <b>step 2 :</b> Get forwarding-construct UUID
+ * <b>step 3 :</b> Get fc-port list using forwarding-construct UUID
+ * <b>step 4 :</b> Fetch http-client-list using logical-termination-point uuid from fc-port
+ * <b>step 5 :</b> get the application name, release number and server-ltp<br>
+ * <b>step 6 :</b> get the ipaddress, port and protocol name of each associated tcp-client <br>
+ **/
 
 exports.getAllApplicationList = function (forwardingName) {
     return new Promise(async function (resolve, reject) {
