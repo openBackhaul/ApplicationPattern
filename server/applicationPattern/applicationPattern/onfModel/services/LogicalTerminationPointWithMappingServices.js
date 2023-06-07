@@ -17,6 +17,12 @@ const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerm
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
 
+const onfAttributes = require('../constants/OnfAttributes');
+const ForwardingConstruct = require('../models/ForwardingConstruct');
+const ForwardingDomain = require('../models/ForwardingDomain');
+
+const FcPort = require("../models/FcPort");
+
 
 /**
  * @description This function find a application in the same or different release and updates the http,
@@ -254,6 +260,53 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
         }
     });
 }
+
+
+exports.getAllApplicationList = function (forwardingName) {
+    return new Promise(async function (resolve, reject) {
+        let clientApplicationList = [];
+        let httpClientUuidList = [];
+        let LogicalTerminationPointlist;
+      
+        try {
+          let ForwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+          let ForwardConstructUuid = ForwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+    
+          let ListofUuid = await ForwardingConstruct.getFcPortListAsync(ForwardConstructUuid)
+          for (let i = 0; i < ListofUuid.length; i++) {
+            let PortDirection = ListofUuid[i][[onfAttributes.FC_PORT.PORT_DIRECTION]]
+    
+            if (PortDirection === FcPort.portDirectionEnum.OUTPUT) {
+              LogicalTerminationPointlist = ListofUuid[i][onfAttributes.CONTROL_CONSTRUCT.LOGICAL_TERMINATION_POINT]
+              let httpClientUuid = await logicalTerminationPoint.getServerLtpListAsync(LogicalTerminationPointlist)
+              httpClientUuidList.push(httpClientUuid[0]);
+            }
+          }
+          for (let j = 0; j < httpClientUuidList.length; j++) {
+            let httpClientUuid = httpClientUuidList[j];
+            let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
+            let applicationReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+            let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+            let tcpClientUuid = serverLtp[0];
+            let applicationAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
+            let applicationPort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
+            let applicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuid);
+            let application = {};
+            application.applicationName = applicationName,
+              application.releaseNumber = applicationReleaseNumber,
+              application.protocol = applicationProtocol,
+              application.address = applicationAddress,
+              application.port = applicationPort,
+    
+              clientApplicationList.push(application);
+          }
+          resolve(clientApplicationList);
+        } catch (error) {
+          reject();
+        }
+      });
+}
+
 
 /**
  * @description This function creates logical-termination-point for the provided values.
