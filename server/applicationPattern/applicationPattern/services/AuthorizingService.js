@@ -19,8 +19,7 @@
  exports.isAuthorized = function (authorizationCode, method) {
      return new Promise(async function (resolve, reject) {
         let authStatus = {
-            "isAuthorized" : false,
-            "status" : 403
+            "isAuthorized" : false
         }
         try {
              let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
@@ -40,6 +39,9 @@
                     authStatus.status = 403;
                     }
                  }
+             }else if(response !== undefined && response.status === 404){
+                authStatus.message = "Application that authenticates the OAM request is down." + 
+                "Therefore, authentication is not verified. Please try again later.";
              }
              resolve(authStatus);
          } catch (error) {
