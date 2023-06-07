@@ -34,6 +34,21 @@ exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method
         return response;
     } catch (error) {
         console.log(error);
-        return { "status": 500 };
+        if (error.response) {
+            if (error.response.status) {
+                return {
+                    "status": error.response.status
+                };
+            }
+        } else if (error.code) {
+            if (error.code == 'ECONNREFUSED') {
+                return {
+                    "status": 404
+                };
+            }
+        }
+        return {
+            "status": 500
+        };
     }
 }

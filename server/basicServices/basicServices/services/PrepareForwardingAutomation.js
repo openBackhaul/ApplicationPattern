@@ -26,9 +26,9 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 let bequeathYourDataAndDieRequestBody = {};
                 bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
                 bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
-                bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
-                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalAddressForForwarding();
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
+                bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
+                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
                 bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
                 forwardingAutomation = new forwardingConstructAutomationInput(
                     bequeathYourDataAndDieForwardingName,

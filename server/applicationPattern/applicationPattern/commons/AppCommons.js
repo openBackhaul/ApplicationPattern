@@ -54,11 +54,15 @@ async function validateOperationKey(request, scopes, schema) {
  * @param {object} request express request
  * @param {string[]} scopes security scopes
  * @param {object} schema SecuritySchemeObject
- * @returns {Promise<boolean>} Promise is true when operation keys are equal.
+ * @returns {Promise} Promise is true when authentication is successful. If not , then a JSON object with the status code will be sent.
  */
 async function validateBasicAuth(request, scopes, schema) {
-    const isAuthorized = await authorizingService.isAuthorized(request.headers.authorization, request.method);
-    return isAuthorized;
+    const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method);
+    if(authStatus.isAuthorized == true){
+        return true;
+    }else{
+        throw authStatus;
+    }
 }
 
 /**
