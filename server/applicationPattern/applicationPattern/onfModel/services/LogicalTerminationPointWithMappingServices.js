@@ -187,6 +187,31 @@ exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPo
     });
 }
 
+
+
+exports.resolveHttpTcpAndOperationClientUuidFromForwardingName =  function () {
+    return new Promise(async function (resolve, reject) {
+        let forwardingName = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
+      try{
+      let uuidList = {};
+      let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+      if (forwardConstructName === undefined) {
+      return {};
+      }
+      let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+      let listofUuid = await ForwardingConstruct.getFcPortListAsync(forwardConstructUuid)
+      let fcPort = listofUuid.find(fcp => fcp[onfAttributes.FC_PORT.PORT_DIRECTION] === FcPort.portDirectionEnum.OUTPUT);
+      let operationClientUuid = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+  
+      let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+      let tcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid))[0];
+      uuidList = { httpClientUuid, tcpClientUuid}
+      resolve(uuidList)
+        }catch(error){
+        console.log(error)
+      }
+    })
+  }
 /**
  * @description This function deletes the tcp,http,operation client for the provided application and release number.
  * @param {String} applicationName name of the client application<br>
