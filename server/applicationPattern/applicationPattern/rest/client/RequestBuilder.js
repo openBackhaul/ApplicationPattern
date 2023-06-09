@@ -41,7 +41,7 @@ exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method
                 };
             }
         } else if (error.code) {
-            if (error.code == 'ECONNREFUSED') {
+            if (error.code == 'ECONNREFUSED' || error.code == 'ETIMEDOUT') {
                 return {
                     "status": 404
                 };
