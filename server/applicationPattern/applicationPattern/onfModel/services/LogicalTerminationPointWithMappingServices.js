@@ -193,20 +193,18 @@ exports.resolveHttpTcpAndOperationClientUuidFromForwardingName =  function () {
     return new Promise(async function (resolve, reject) {
         let forwardingName = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
       try{
-      let uuidList = {};
+      let uuidOfHttpandTcpClient = {};
       let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
       if (forwardConstructName === undefined) {
       return {};
       }
       let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-      let listofUuid = await ForwardingConstruct.getFcPortListAsync(forwardConstructUuid)
-      let fcPort = listofUuid.find(fcp => fcp[onfAttributes.FC_PORT.PORT_DIRECTION] === FcPort.portDirectionEnum.OUTPUT);
-      let operationClientUuid = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-  
+      let fcPortOutput =(await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+      let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
       let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
       let tcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid))[0];
-      uuidList = { httpClientUuid, tcpClientUuid}
-      resolve(uuidList)
+      uuidOfHttpandTcpClient = { httpClientUuid, tcpClientUuid}
+      resolve(uuidOfHttpandTcpClient)
         }catch(error){
         console.log(error)
       }
@@ -303,21 +301,17 @@ exports.getAllApplicationList = function (forwardingName) {
     return new Promise(async function (resolve, reject) {
         let clientApplicationList = [];
         let httpClientUuidList = [];
-        let LogicalTerminationPointlist;
+        let logicalTerminationPointlist = [];
       
         try {
           let ForwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
           let ForwardConstructUuid = ForwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
     
-          let ListofUuid = await ForwardingConstruct.getFcPortListAsync(ForwardConstructUuid)
+          let ListofUuid = await ForwardingConstruct.getOutputFcPortsAsync(ForwardConstructUuid)
           for (let i = 0; i < ListofUuid.length; i++) {
-            let PortDirection = ListofUuid[i][[onfAttributes.FC_PORT.PORT_DIRECTION]]
-    
-            if (PortDirection === FcPort.portDirectionEnum.OUTPUT) {
-              LogicalTerminationPointlist = ListofUuid[i][onfAttributes.CONTROL_CONSTRUCT.LOGICAL_TERMINATION_POINT]
-              let httpClientUuid = await logicalTerminationPoint.getServerLtpListAsync(LogicalTerminationPointlist)
-              httpClientUuidList.push(httpClientUuid[0]);
-            }
+              logicalTerminationPointlist = ListofUuid[i][onfAttributes.CONTROL_CONSTRUCT.LOGICAL_TERMINATION_POINT]
+              let httpClientUuid = await logicalTerminationPoint.getServerLtpListAsync(logicalTerminationPointlist)
+              httpClientUuidList.push(httpClientUuid[0]); 
           }
           for (let j = 0; j < httpClientUuidList.length; j++) {
             let httpClientUuid = httpClientUuidList[j];
