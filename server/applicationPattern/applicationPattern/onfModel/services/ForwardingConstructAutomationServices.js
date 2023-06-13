@@ -118,7 +118,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                 let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
                     forwardingConstruct);
                 if (_isForwardingConstructIsProcessSnippet) {
-                    response = automateProcessSnippetAsync(forwardingConstruct,
+                    response = await automateProcessSnippetAsync(forwardingConstruct,
                         attributeList,
                         context,
                         user,
@@ -127,7 +127,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                         customerJourney
                     );
                 } else {
-                    response = automateSubscriptionsAsync(forwardingConstruct,
+                    response = await automateSubscriptionsAsync(forwardingConstruct,
                         attributeList,
                         user,
                         xCorrelator,

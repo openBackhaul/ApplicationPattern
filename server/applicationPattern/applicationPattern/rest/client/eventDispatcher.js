@@ -72,7 +72,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                         resBody: response.data
                     })} failed with error: ${error.message}`));
             }
-            resolve(result);
+            resolve(response);
         } catch (error) {
             reject(error);
         }
