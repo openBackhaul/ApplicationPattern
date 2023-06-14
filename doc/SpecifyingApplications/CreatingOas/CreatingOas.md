@@ -26,7 +26,8 @@ Assure that there is a copy of the latest [template of the OAS](https://github.c
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
 
-- (If not already done,) create a workspace for own microservices in your local Postman installation.  
+- Open your local Postman installation.  
+- Change to workspace "MW_SDN_Applications".  
 - Click the _APIs_ folder at the very left of the Postman window.  
 - Click the "+" for creating a new API.  
 - Enter the official application name as a Name of the API definition.  
