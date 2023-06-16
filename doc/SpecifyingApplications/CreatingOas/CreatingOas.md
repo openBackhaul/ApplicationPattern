@@ -75,6 +75,7 @@ All services are exclusively supporting the _post_ method.
 >- If yes, note the attributes that are required.  
 >- Are attributes expected to be responded as an output by the OperationServer?  
 >- If yes, note the attributes that will be responded.  
+>  
 >Check existing specifications for a _path_ definition that is similar.  
 >Obviously, it is unlikely that there is a _path_ that has the exact same input and output attributes, but you should at least chose a _path_ that comprises _requestBody:_ and _responses:_ blocks, if you need those in the new _path_.  
 >Make a copy of the chosen _post:_ block beneath the _parameters:_ block.  
