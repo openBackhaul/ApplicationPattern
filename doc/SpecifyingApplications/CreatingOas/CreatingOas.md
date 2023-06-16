@@ -26,6 +26,7 @@ Assure that there is a copy of the latest [template of the OAS](https://github.c
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
 Replace "ApplicationName" by your applications official name in line 3.
+Save the OAS file in your develop branch and commit it and create a feature for completing the OAS.
 
 - Open your local Postman installation.  
 - Change to workspace "MW_SDN_Applications".  
