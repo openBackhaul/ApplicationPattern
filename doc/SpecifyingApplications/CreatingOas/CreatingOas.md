@@ -71,13 +71,15 @@ Copy the entire _parameters:_ block either from the _/v1/bequeath-your-data-and-
 #### Method  
 All services are exclusively supporting the _post_ method.  
 >Pick the next _path_ and make some extra notes about:  
->- Need attributes to be send as an input to the OperationServer?  
+>- Are attributes required to be send as an input to the OperationServer?  
 >- If yes, note the attributes that are required.  
->- Are attributes expected to be returned as an output by the OperationServer?  
->- If yes, note the attributes that will be returned.  
+>- Are attributes expected to be responded as an output by the OperationServer?  
+>- If yes, note the attributes that will be responded.  
 >Check existing specifications for a _path_ definition that is similar.  
 >Obviously, it is unlikely that there is a _path_ that has the exact same input and output attributes, but you should at least chose a _path_ that comprises _requestBody:_ and _responses:_ blocks, if you need those in the new _path_.  
->
+>Make a copy of the chosen _post:_ block beneath the _parameters:_ block.  
+>Delete from the the copied block whatever you no longer need.  
+>  
 >#### Administrational Stuff
 >_operationId:_, _summary:_, _tags:_ and _security:_ statements to be updated in accordance with the respective chapters in [Structure of the OAS](../StructureOfOas/StructureOfOas.md#method).  
 >
