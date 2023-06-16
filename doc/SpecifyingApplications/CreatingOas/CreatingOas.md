@@ -28,6 +28,12 @@ Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's nam
 Replace "ApplicationName" by your applications official name in line 3.
 Save the OAS file in your develop branch and commit it and create a feature for completing the OAS.
 
+**Preparation:**
+- If not yet existing, create an _Issue_ for elaborating the OAS.  
+- Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
+- Open a local feature branch for elaborating the OAS.  
+
+**Preparing Postman:**
 - Open your local Postman installation.  
 - Change to workspace "MW_SDN_Applications".  
 - Click the _APIs_ folder at the very left of the Postman window.  
@@ -42,14 +48,6 @@ Save the OAS file in your develop branch and commit it and create a feature for 
 - Change into the VSCode editor, CTRL+v, CTRL+s.  
 
 Now, you lifted VSCode and Postman to the same level and should decide where to continue specifying.  
-
-
-### Preparation  
-
-- If not yet existing, create an _Issue_ for elaborating the OAS.  
-- Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
-- Open a local feature branch for elaborating the OAS.  
-
 
 ### Individualization  
 
