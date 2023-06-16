@@ -25,7 +25,7 @@ If VSCode is preferred, the content must be transferred towards Postman before e
 Assure that there is a copy of the latest [template of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern.yaml) in the _develop_ branch of your application's repository.  
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
-Replace "ApplicationName" by your applications official name in line 3.
+Update the _title:_ and _version:_ values by the content of the HttpServer in your ServiceList.  
 Save the OAS file in your develop branch and commit it and create a feature for completing the OAS.
 
 **Preparation:**
@@ -59,12 +59,6 @@ Some code blocks might be obsolete (e.g. ElasticSearchClient) in your specific a
 Several individual code blocks need to be added.  
 It is recommended to copy similar, already existing code blocks and to customize them.  
 (Existing code blocks could be taken from the ApplicationPattern, alternatively and probably more appropriate, from existing applications like the RegistryOffice or other microservices of the TinyApplicationController. Please, don't forget to CTRL+h the UUIDs after pasting.)  
-
-
-### Metadata  
-
-Update the _title:_ and _version:_ values by the content of the HttpServer in your ServiceList.  
-
 
 ### Individual Service Section  
 
