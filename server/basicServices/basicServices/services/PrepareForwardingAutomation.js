@@ -113,7 +113,7 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
             registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
-            registrationApplicationRequestBody.precedingReleaseNumer = oldReleaseNumber;
+            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
