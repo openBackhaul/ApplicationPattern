@@ -46,7 +46,7 @@ exports.createOrUpdateApplicationInformationWithMultipleTcpClientAsync = functio
                 releaseNumber
             );
             if (!isApplicationExists) {
-                logicalTerminationPointConfigurationStatus = await createLogicalTerminationPointInstanceGroupAsync(
+                logicalTerminationPointConfigurationStatus = await createMultipleLogicalTerminationPointInstanceGroupAsync(
                     logicalTerminationPointConfigurationInput
                 );
             } else {
@@ -392,6 +392,58 @@ function createLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
 }
 
 /**
+ * @description This function creates logical-termination-point for the provided values.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
+ **/
+function createMultipleLogicalTerminationPointInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+
+        let logicalTerminationPointConfigurationStatus;
+        let httpClientConfigurationStatus;
+        let tcpClientConfigurationStatus;
+        let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
+
+        try {
+            httpClientConfigurationStatus = await createHttpClientInterface(
+                applicationName,
+                releaseNumber
+            );
+            if (httpClientConfigurationStatus.updated) {
+                tcpClientConfigurationStatus = await createOrUpdateMultipleTcpClientInterface(
+                    httpClientConfigurationStatus.uuid,
+                    tcpList
+                );
+                operationClientConfigurationStatusList = await createOrUpdateOperationClientInterface(
+                    httpClientConfigurationStatus.uuid,
+                    operationServerName,
+                    operationNamesByAttributes,
+                    operationsMapping
+                );
+            }
+            logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+                operationClientConfigurationStatusList,
+                httpClientConfigurationStatus,
+                tcpClientConfigurationStatus
+            );
+
+            resolve(logicalTerminationPointConfigurationStatus);
+
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
  * @description This function configures the existing logical-termination-point to the latest values.
  * Also incase if the tcp,operation client are not available it will be created.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of
@@ -471,7 +523,7 @@ function updateLogicalTerminationPointInstanceGroupWithMultipleTcpClientAsync(lo
                 applicationName,
                 releaseNumber
             );
-            tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
+            tcpClientConfigurationStatusList = await createOrUpdateMultipleTcpClientInterface(
                 httpClientUuid,
                 tcpList
             );
@@ -683,6 +735,66 @@ function updateHttpClientInterface(httpClientUuid, releaseNumber, isOperationCli
                 '',
                 isUpdatedReleaseNumber);
             resolve(configurationStatus);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * @description This function creates or updates a tcp client interface.
+ * @param {String} httpClientUuid :uuid of the http-client, the value should be a valid string
+ * in the pattern '-\d+-\d+-\d+-http-c-\d+$'
+ * @param {String} remoteIpV4Address where the application is installed
+ * @param {String} remotePort where the application is running
+ * @return {Promise} object {configurationStatus}
+ **/
+function createOrUpdateMultipleTcpClientInterface(httpClientUuid, tcpList) {
+    return new Promise(async function (resolve, reject) {
+        let configurationStatusList = [];
+        try {
+            for (let i = 0; i < tcpList.length; i++) {
+                let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
+                let tcpInfo = tcpList[i];
+                let remoteProtocol = tcpInfo.protocol;
+                let remotePort = tcpInfo.port;
+                let remoteIpV4Address = tcpInfo.address;
+                if (serverLtpList != undefined && serverLtpList.length <= 0) {
+                    let configurationStatus = await createTcpClientInterface(
+                        httpClientUuid,
+                        remoteIpV4Address,
+                        remotePort,
+                        remoteProtocol
+                    );
+                    configurationStatusList.push(configurationStatus);
+                } else {
+                    let isInstanceUpdated = false;
+                    for (let j = 0; j < serverLtpList.length; j++) {
+                        let tcpInstanceProtocol = await TcpClientInterface.getRemoteProtocolAsync(serverLtpList[j]);
+                        if (tcpInstanceProtocol == remoteProtocol) {
+                            let tcpClientUuid = serverLtpList[j];
+                            let configurationStatus = await updateTcpClientInterface(
+                                tcpClientUuid,
+                                remoteIpV4Address,
+                                remotePort,
+                                remoteProtocol
+                            );
+                            configurationStatusList.push(configurationStatus);
+                            isInstanceUpdated = true;
+                        }
+                    }
+                    if (!isInstanceUpdated) {
+                        let configurationStatus = await createTcpClientInterface(
+                            httpClientUuid,
+                            remoteIpV4Address,
+                            remotePort,
+                            remoteProtocol
+                        );
+                        configurationStatusList.push(configurationStatus);
+                    }
+                }
+            }
+            resolve(configurationStatusList);
         } catch (error) {
             reject(error);
         }

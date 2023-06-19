@@ -16,6 +16,7 @@ const HttpClientInterface = require('../models/layerProtocols/HttpClientInterfac
 const eventDispatcher = require('../../rest/client/eventDispatcher');
 const ForwardingConstruct = require('../models/ForwardingConstruct');
 const FcPort = require('../models/FcPort');
+var traceIndicatorIncrementer = 1;
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
@@ -32,13 +33,13 @@ exports.automateForwardingConstructAsync = function (operationServerName, forwar
     return new Promise(async function (resolve, reject) {
         try {
             let response;
+            traceIndicatorIncrementer = 1;
             let operationServerUuid = await OperationServerInterface.getOperationServerUuidAsync(operationServerName);
             for (let i = 0; i < forwardingAutomationInputList.length; i++) {
                 let forwardingAutomationInput = forwardingAutomationInputList[i];
                 let forwardingName = forwardingAutomationInput.forwardingName;
                 let attributeList = forwardingAutomationInput.attributeList;
                 let context = forwardingAutomationInput.context;
-                traceIndicator = traceIndicator + "." + (i + 1);
                 response = await automateForwardingsAsync(forwardingName,
                     attributeList,
                     context,
@@ -70,12 +71,12 @@ exports.automateForwardingConstructWithoutInputAsync = function (forwardingAutom
     xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
         try {
+            traceIndicatorIncrementer = 1;
             for (let i = 0; i < forwardingAutomationInputList.length; i++) {
                 let forwardingAutomationInput = forwardingAutomationInputList[i];
                 let forwardingName = forwardingAutomationInput.forwardingName;
                 let attributeList = forwardingAutomationInput.attributeList;
                 let context = forwardingAutomationInput.context;
-                traceIndicator = i;
                 await automateForwardingsWithoutInputAsync(forwardingName,
                     attributeList,
                     context,
@@ -212,13 +213,12 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
                     if (isOutputMatchesContext) {
                         let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                        traceIndicator = traceIndicator + "." + (i + 1);
                         response = await eventDispatcher.dispatchEvent(
                             fcPortLogicalTerminationPoint,
                             attributeList,
                             user,
                             xCorrelator,
-                            traceIndicator,
+                            traceIndicator + "." + (traceIndicatorIncrementer++),
                             customerJourney
                         );
                     }
@@ -252,13 +252,12 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
                 let fcPortDirection = fcPort["port-direction"];
                 if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    traceIndicator = traceIndicator + "." + (i + 1);
                     response = await eventDispatcher.dispatchEvent(
                         fcPortLogicalTerminationPoint,
                         attributeList,
                         user,
                         xCorrelator,
-                        traceIndicator,
+                        traceIndicator + "." + (traceIndicatorIncrementer++),
                         customerJourney
                     );
                 }

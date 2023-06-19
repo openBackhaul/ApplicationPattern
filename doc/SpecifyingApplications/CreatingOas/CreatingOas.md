@@ -25,8 +25,17 @@ If VSCode is preferred, the content must be transferred towards Postman before e
 Assure that there is a copy of the latest [template of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern.yaml) in the _develop_ branch of your application's repository.  
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
+Update the _title:_ and _version:_ values by the content of the HttpServer in your ServiceList.  
+Save the OAS file in your develop branch and commit it and create a feature for completing the OAS.
 
-- (If not already done,) create a workspace for own microservices in your local Postman installation.  
+**Preparation:**
+- If not yet existing, create an _Issue_ for elaborating the OAS.  
+- Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
+- Open a local feature branch for elaborating the OAS.  
+
+**Preparing Postman:**
+- Open your local Postman installation.  
+- Change to workspace "MW_SDN_Applications".  
 - Click the _APIs_ folder at the very left of the Postman window.  
 - Click the "+" for creating a new API.  
 - Enter the official application name as a Name of the API definition.  
@@ -40,14 +49,6 @@ Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's nam
 
 Now, you lifted VSCode and Postman to the same level and should decide where to continue specifying.  
 
-
-### Preparation  
-
-- If not yet existing, create an _Issue_ for elaborating the OAS.  
-- Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
-- Open a local feature branch for elaborating the OAS.  
-
-
 ### Individualization  
 
 #### General  
@@ -58,12 +59,6 @@ Some code blocks might be obsolete (e.g. ElasticSearchClient) in your specific a
 Several individual code blocks need to be added.  
 It is recommended to copy similar, already existing code blocks and to customize them.  
 (Existing code blocks could be taken from the ApplicationPattern, alternatively and probably more appropriate, from existing applications like the RegistryOffice or other microservices of the TinyApplicationController. Please, don't forget to CTRL+h the UUIDs after pasting.)  
-
-
-### Metadata  
-
-Update the _title:_ and _version:_ values by the content of the HttpServer in your ServiceList.  
-
 
 ### Individual Service Section  
 
@@ -76,13 +71,16 @@ Copy the entire _parameters:_ block either from the _/v1/bequeath-your-data-and-
 #### Method  
 All services are exclusively supporting the _post_ method.  
 >Pick the next _path_ and make some extra notes about:  
->- Need attributes to be send as an input to the OperationServer?  
+>- Are attributes required to be send as an input to the OperationServer?  
 >- If yes, note the attributes that are required.  
->- Are attributes expected to be returned as an output by the OperationServer?  
->- If yes, note the attributes that will be returned.  
+>- Are attributes expected to be responded as an output by the OperationServer?  
+>- If yes, note the attributes that will be responded.  
+>  
 >Check existing specifications for a _path_ definition that is similar.  
 >Obviously, it is unlikely that there is a _path_ that has the exact same input and output attributes, but you should at least chose a _path_ that comprises _requestBody:_ and _responses:_ blocks, if you need those in the new _path_.  
->
+>Make a copy of the chosen _post:_ block beneath the _parameters:_ block.  
+>Delete from the the copied block whatever you no longer need.  
+>  
 >#### Administrational Stuff
 >_operationId:_, _summary:_, _tags:_ and _security:_ statements to be updated in accordance with the respective chapters in [Structure of the OAS](../StructureOfOas/StructureOfOas.md#method).  
 >
