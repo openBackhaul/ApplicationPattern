@@ -255,6 +255,9 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
     });
 }
 
+
+
+
 /**
  * @description This function creates logical-termination-point for the provided values.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of

@@ -60,7 +60,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
     });
 }
 
-exports.registerYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+exports.registerYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName, oldReleaseNumber) {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
@@ -112,6 +112,8 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
+            registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,

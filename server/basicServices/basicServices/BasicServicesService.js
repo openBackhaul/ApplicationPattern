@@ -980,6 +980,8 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
     try {
       let logicalTerminationPointconfigurationStatus;
       let forwardingConstructConfigurationStatus;
+      let oldApplicationName;
+      let oldReleaseNumber;
       if (body["registry-office-application"] != undefined) {
         /****************************************************************************************
          * Setting up required local variables from the request body
@@ -999,8 +1001,8 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         let httpsAddress = body["https-address"];
         let httpsPort = body["https-port"];
 
-        let oldApplicationName = body["preceding-application-name"];
-        let oldReleaseNumber = body["preceding-release-number"];
+        oldApplicationName = body["preceding-application-name"];
+        oldReleaseNumber = body["preceding-release-number"];
 
         /****************************************************************************************
          * Prepare logicalTerminationPointConfigurationInput object to
@@ -1108,7 +1110,9 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
        ****************************************************************************************/
       let forwardingAutomationInputList = await prepareForwardingAutomation.registerYourself(
         logicalTerminationPointconfigurationStatus,
-        forwardingConstructConfigurationStatus
+        forwardingConstructConfigurationStatus,
+        oldApplicationName,
+        oldReleaseNumber
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
         operationServerName,
