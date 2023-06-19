@@ -17,12 +17,6 @@ const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerm
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
 
-const onfAttributes = require('../constants/OnfAttributes');
-const ForwardingConstruct = require('../models/ForwardingConstruct');
-const ForwardingDomain = require('../models/ForwardingDomain');
-
-const FcPort = require("../models/FcPort");
-
 
 /**
  * @description This function find a application in the same or different release and updates the http,
@@ -187,29 +181,6 @@ exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPo
     });
 }
 
-
-
-exports.resolveHttpTcpAndOperationClientUuidFromForwardingName =  function () {
-    return new Promise(async function (resolve, reject) {
-        let forwardingName = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
-      try{
-      let uuidOfHttpandTcpClient = {};
-      let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
-      if (forwardConstructName === undefined) {
-      return {};
-      }
-      let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-      let fcPortOutput =(await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
-      let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-      let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
-      let tcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid))[0];
-      uuidOfHttpandTcpClient = { httpClientUuid, tcpClientUuid}
-      resolve(uuidOfHttpandTcpClient)
-        }catch(error){
-        console.log(error)
-      }
-    })
-  }
 /**
  * @description This function deletes the tcp,http,operation client for the provided application and release number.
  * @param {String} applicationName name of the client application<br>
@@ -284,59 +255,7 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
     });
 }
 
-/**
- * @description This function returns list of registered application information application-name, release-number,
- * address, protocol and port.
- * @return {Promise} return the list of application information
- * <b><u>Procedure :</u></b><br>
- * <b>step 1 :</b> Get forwarding-construct based on ForwardingName
- * <b>step 2 :</b> Get forwarding-construct UUID
- * <b>step 3 :</b> Get fc-port list using forwarding-construct UUID
- * <b>step 4 :</b> Fetch http-client-list using logical-termination-point uuid from fc-port
- * <b>step 5 :</b> get the application name, release number and server-ltp<br>
- * <b>step 6 :</b> get the ipaddress, port and protocol name of each associated tcp-client <br>
- **/
 
-exports.getAllApplicationList = function (forwardingName) {
-    return new Promise(async function (resolve, reject) {
-        let clientApplicationList = [];
-        let httpClientUuidList = [];
-        let logicalTerminationPointlist = [];
-      
-        try {
-          let ForwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
-          let ForwardConstructUuid = ForwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-    
-          let ListofUuid = await ForwardingConstruct.getOutputFcPortsAsync(ForwardConstructUuid)
-          for (let i = 0; i < ListofUuid.length; i++) {
-              logicalTerminationPointlist = ListofUuid[i][onfAttributes.CONTROL_CONSTRUCT.LOGICAL_TERMINATION_POINT]
-              let httpClientUuid = await logicalTerminationPoint.getServerLtpListAsync(logicalTerminationPointlist)
-              httpClientUuidList.push(httpClientUuid[0]); 
-          }
-          for (let j = 0; j < httpClientUuidList.length; j++) {
-            let httpClientUuid = httpClientUuidList[j];
-            let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
-            let applicationReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
-            let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-            let tcpClientUuid = serverLtp[0];
-            let applicationAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
-            let applicationPort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
-            let applicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuid);
-            let application = {};
-            application.applicationName = applicationName,
-              application.releaseNumber = applicationReleaseNumber,
-              application.protocol = applicationProtocol,
-              application.address = applicationAddress,
-              application.port = applicationPort,
-    
-              clientApplicationList.push(application);
-          }
-          resolve(clientApplicationList);
-        } catch (error) {
-          reject();
-        }
-      });
-}
 
 
 /**
