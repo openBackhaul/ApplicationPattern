@@ -1398,7 +1398,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationServerUuidisnotPresent"))
+          reject(new BadRequestHttpException("OperationServerUuid is not present"))
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
         let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
@@ -1407,7 +1407,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationClientUuidisnotPresent"))
+          reject(new BadRequestHttpException("OperationClientUuid is not present"))
         }
       }
 
