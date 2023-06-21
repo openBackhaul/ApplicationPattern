@@ -133,8 +133,10 @@ exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationP
         let logicalTerminationPointConfigurationStatus = null;
         try {
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
             let isApplicationExists = await httpClientInterface.isApplicationExists(
-                applicationName
+                applicationName,
+                releaseNumber
             );
             if (isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await findAndUpdateLogicalTerminationPointInstanceGroupAsync(
@@ -254,9 +256,6 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
         }
     });
 }
-
-
-
 
 /**
  * @description This function creates logical-termination-point for the provided values.
@@ -559,7 +558,8 @@ function findAndUpdateLogicalTerminationPointInstanceGroupAsync(logicalTerminati
 
         try {
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
-                applicationName
+                applicationName,
+                releaseNumber
             );
             tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
                 httpClientUuid,

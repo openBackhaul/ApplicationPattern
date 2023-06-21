@@ -1229,7 +1229,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       
         if (!httpClientUuidOfnewApplication) {
           applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
-          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureApplicationName);
+          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
         }
         logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
           logicalTerminationPointConfigurationInput

@@ -331,7 +331,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                             let operationUpdateContext;
                             let operationUpdateRequestBody = {};
                             operationUpdateRequestBody.applicationName = applicationName;
-                            operationUpdateRequestBody.applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
+                            operationUpdateRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
                             operationUpdateRequestBody.oldOperationName = oldOperationName;
                             operationUpdateRequestBody.newOperationName = newOperationName;
                             operationUpdateRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(operationUpdateRequestBody);
