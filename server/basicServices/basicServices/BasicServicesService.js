@@ -1392,12 +1392,22 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
        ****************************************************************************************/
       let isUpdated;
       if (operationServerInterface.isOperationServer(operationUuid)) {
-        if (newOperationKey != await operationServerInterface.getOperationKeyAsync(operationUuid)) {
-          isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+        let OldoperationKey = await operationServerInterface.getOperationKeyAsync(operationUuid)
+        if (OldoperationKey != undefined) {
+          if (newOperationKey != OldoperationKey) {
+            isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+          }
+        } else {
+          throw new Error("OperationServerUuidisnotPresent")
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
-        if (newOperationKey != await operationClientInterface.getOperationKeyAsync(operationUuid)) {
-          isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+        let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
+        if (OldoperationKey != undefined) {
+          if (newOperationKey != OldoperationKey) {
+            isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+          }
+        } else {
+          throw new Error("OperationClientUuidisnotPresent")
         }
       }
 

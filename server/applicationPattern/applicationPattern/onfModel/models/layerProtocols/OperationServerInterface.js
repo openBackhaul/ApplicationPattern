@@ -62,9 +62,9 @@ class OperationServerInterface extends layerProtocol {
          */
         constructor(operationName) {
             this.operationServerInterfaceCapability = new OperationServerInterfacePac.
-            OperationServerInterfaceCapability(operationName);
+                OperationServerInterfaceCapability(operationName);
             this.operationServerInterfaceConfiguration = new OperationServerInterfacePac.
-            OperationServerInterfaceConfiguration();
+                OperationServerInterfaceConfiguration();
         }
     }
 
@@ -76,7 +76,7 @@ class OperationServerInterface extends layerProtocol {
         super(0,
             OperationServerInterface.OperationServerInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC] = new
-        OperationServerInterface.OperationServerInterfacePac(operationName);
+            OperationServerInterface.OperationServerInterfacePac(operationName);
     }
 
     /**
@@ -97,19 +97,19 @@ class OperationServerInterface extends layerProtocol {
      * @param {String} operationServerUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-op-server-\d+$'
      * @returns {Promise<String>} operationName | undefined
      **/
-     static async getNextVersionOfOperationNameIfExists(operationServerName) {
+    static async getNextVersionOfOperationNameIfExists(operationServerName) {
         let nextVersionOfOperationName;
         let operationServerNameList = await OperationServerInterface.getAllOperationServerNameAsync();
-        let splitOperationServerName =  operationServerName.split("/");
-        let versionOfTheOperationServerName = parseInt(splitOperationServerName[1].replace('v',''));
+        let splitOperationServerName = operationServerName.split("/");
+        let versionOfTheOperationServerName = parseInt(splitOperationServerName[1].replace('v', ''));
         let operationServerNameWithoutVersion = splitOperationServerName[2];
-        for(let i=0;i<operationServerNameList.length;i++){
+        for (let i = 0; i < operationServerNameList.length; i++) {
             let _operationServerName = operationServerNameList[i];
             let _splitOperationServerName = _operationServerName.split("/");
-            let _versionOfTheOperationServerName = parseInt(_splitOperationServerName[1].replace('v',''));
+            let _versionOfTheOperationServerName = parseInt(_splitOperationServerName[1].replace('v', ''));
             let _operationServerNameWithoutVersion = _splitOperationServerName[2];
-            if(_operationServerNameWithoutVersion == operationServerNameWithoutVersion){
-                if(_versionOfTheOperationServerName > versionOfTheOperationServerName){
+            if (_operationServerNameWithoutVersion == operationServerNameWithoutVersion) {
+                if (_versionOfTheOperationServerName > versionOfTheOperationServerName) {
                     return _operationServerName;
                 }
             }
@@ -144,10 +144,13 @@ class OperationServerInterface extends layerProtocol {
      **/
     static async getOperationKeyAsync(operationServerUuid) {
         let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(operationServerUuid);
-        let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-        let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
-        let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
-        return operationServerConfiguration[onfAttributes.OPERATION_SERVER.OPERATION_KEY];
+        if (logicalTerminationPoint != undefined) {
+            let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let operationServerPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC];
+            let operationServerConfiguration = operationServerPac[onfAttributes.OPERATION_SERVER.CONFIGURATION];
+            return operationServerConfiguration[onfAttributes.OPERATION_SERVER.OPERATION_KEY];
+        }
+        return undefined;
     }
 
     /**
@@ -191,7 +194,7 @@ class OperationServerInterface extends layerProtocol {
      **/
     static async getOperationServerUuidAsync(operationName) {
         let logicalTerminationPointList = await controlConstruct.
-        getLogicalTerminationPointListAsync(layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+            getLogicalTerminationPointListAsync(layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
         if (logicalTerminationPointList != undefined) {
             for (let i = 0; i < logicalTerminationPointList.length; i++) {
                 let logicalTerminationPoint = logicalTerminationPointList[i];
