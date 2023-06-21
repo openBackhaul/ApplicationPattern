@@ -60,7 +60,7 @@
   * @param {list} forwardingConfigurationInputList : list of the instance forwardingConstruct/ConfigurationInput
   * @return {Promise} object forwardingConstructConfigurationStatus  
   **/
- exports.unConfigureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
+ exports.unConfigureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList, isBarred=false) {
      return new Promise(async function (resolve, reject) {
          let forwardingConstructConfigurationStatus;
          try {
@@ -76,7 +76,8 @@
                  let configurationStatusList = await configureOrDeleteFCPortAsync(
                      forwardingName,
                      operationClientUuid,
-                     operationServerUuid
+                     operationServerUuid,
+                     isBarred
                  );
                  if (configurationStatusList) {
                      for (let j = 0; j < configurationStatusList.length; j++) {
@@ -159,13 +160,20 @@
   * @param {string} traceIndicator trace indicator of the request
   * @param {string} customerJourney customer journey of the request
   **/
- function configureOrDeleteFCPortAsync(forwardingName, operationClientUuid, operationServerUuid) {
+ function configureOrDeleteFCPortAsync(forwardingName, operationClientUuid, operationServerUuid, isBarred) {
      return new Promise(async function (resolve, reject) {
          let configurationStatusList = [];
          try {
              let forwardingConstructList = await ForwardingDomain.getForwardingConstructListForTheFcPortAsync(
                  operationServerUuid,
                  FcPort.portDirectionEnum.MANAGEMENT);
+             if(isBarred){
+                let forwardingConstructListForBarredApplication = await ForwardingDomain.getForwardingConstructListForTheFcPortAsync(
+                    operationClientUuid,
+                    FcPort.portDirectionEnum.OUTPUT 
+                )
+                forwardingConstructList.push.apply(forwardingConstructList,forwardingConstructListForBarredApplication);
+             }  
              for (let i = 0; i < forwardingConstructList.length; i++) {
                  let configurationStatus;
                  let forwardingConstruct = forwardingConstructList[i];
