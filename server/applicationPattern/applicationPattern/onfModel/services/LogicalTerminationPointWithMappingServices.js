@@ -133,10 +133,8 @@ exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationP
         let logicalTerminationPointConfigurationStatus = null;
         try {
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-            let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
             let isApplicationExists = await httpClientInterface.isApplicationExists(
-                applicationName,
-                releaseNumber
+                applicationName
             );
             if (isApplicationExists) {
                 logicalTerminationPointConfigurationStatus = await findAndUpdateLogicalTerminationPointInstanceGroupAsync(
@@ -385,8 +383,14 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
 
         try {
             let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
-                applicationName
+                applicationName,
+                releaseNumber
             );
+            if(!httpClientUuid){
+                httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+                    applicationName
+                );
+            }
             tcpClientConfigurationStatusList = await createOrUpdateTcpClientInterface(
                 httpClientUuid,
                 tcpList
@@ -561,6 +565,11 @@ function findAndUpdateLogicalTerminationPointInstanceGroupAsync(logicalTerminati
                 applicationName,
                 releaseNumber
             );
+            if(!httpClientUuid){
+                httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+                    applicationName
+                );
+            }
             tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
                 httpClientUuid,
                 tcpList
@@ -573,7 +582,7 @@ function findAndUpdateLogicalTerminationPointInstanceGroupAsync(logicalTerminati
             );
             httpClientConfigurationStatus = await updateHttpClientInterface(
                 httpClientUuid,
-                releaseNumber,
+                releaseNumber
             )
             logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
                 operationClientConfigurationStatusList,
