@@ -49,20 +49,23 @@ Guidance on other Linux distributions can be found on [this website](https://cod
 After completing the installation, please start Visual Studio Code for adding Extensions.  
 
 Click on the left bar to open the Extension section.  
-Type the respective Extension's name into the Search field for searching the wished Extension.  
+  ![ExtensionSection](./pictures/Extensions%20section.png)  
+Type the respective Extension's name into the Search bar for searching the wished Extension.  
+  ![SearchBar](./pictures/Search%20bar.png)  
 Click on the blue "install" button of the wished Extension for starting its installation.  
+  ![InstallButton](./pictures/Install%20button.png)  
 
-Repeat this procedure for all required Extensions and the recommended Extensions you wish.
+Repeat this procedure for all required Extensions and the recommended Extensions you wish.  
 
-**Required Extensions**
-- **GitHub Pull Requests and Issues**: used to create branches from issues and also pull requests directly from VSCode
-- **PlantUML**: Required for sketching communication or action sequences
-- **YAML**: Required for YAML syntax support
-- **OpenAPI (Swagger) Editor**: Required for real-time validation of the OpenApiSpecification
+**Required Extensions**  
+- **GitHub Pull Requests and Issues**: used to create branches from issues and also pull requests directly from within VSCode  
+- **PlantUML**: Required for sketching communication or action sequences  
+- **YAML**: Required for YAML syntax support  
+- **OpenAPI (Swagger) Editor**: Required for real-time validation of the OpenApiSpecification  
 
-**Recommended Extensions**
-- **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)
-- **GitLens**: code authorship visualisation and seamless navigation of Git repositories
+**Recommended Extensions**  
+- **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)  
+- **GitLens**: code authorship visualisation and seamless navigation of Git repositories  
 
 
 [<- Back to Installing Git](../InstallingGit/InstallingGit.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Connecting VSCode with GitHub ->](../VSCode2GitHub/VSCode2GitHub.md)
