@@ -12,42 +12,20 @@ Please read the following conceptual documents before working on the OAS:
  Furthermore, it is recommended to study an existing OAS (e.g. [RegistryOffice](https://github.com/openBackhaul/RegistryOffice/blob/develop/spec/RegistryOffice.yaml)) in deep detail while reading [Structure of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/SpecifyingApplications/StructureOfOas/StructureOfOas.md) in parallel.  
 
 
-### File Handling  
+### Preparation:  
 
-Unfortunately, the handling of the OAS file is not 100% satisfactorily solved.  
-On one hand, the OAS must be part of the application specification on Github and participate in the regular version management.  
-On the other hand, editing is better supported in Postman and finally the functions of Postman (e.g. mock server creation) are also needed to test the coding of the test cases.  
-
-It is up to the individual ApplicationOwner whether he prefers writing the OAS in VSCode or in Postman.  
-If Postman is chosen, the file content has to be copied regularly between the two editors. This involves some risks that might be mitigated by an [online text compare tool](https://text-compare.com/).  
-If VSCode is preferred, the content must be transferred towards Postman before editing the test cases and afterwards been permanently kept in synch.  
-
-Assure that there is a copy of the latest [template of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern.yaml) in the _develop_ branch of your application's repository.  
+Assure that there is a copy of the latest [template of the OAS](https://github.com/openBackhaul/ApplicationPattern/blob/develop/spec/ApplicationPattern.yaml) in the local _develop_ branch of your application's repository.  
 Rename the file, by replacing "ApplicationPattern" by your application's name.  
 Use CTRL+h for replacing '*-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
 Update the _title:_ and _version:_ values by the content of the HttpServer in your ServiceList.  
-Save the OAS file in your develop branch and commit it and create a feature for completing the OAS.
+Save the OAS file.  
+Commit it.  
+Push it to the remote _develop_ branch of your application's repository.  
 
-**Preparation:**
-- If not yet existing, create an _Issue_ for elaborating the OAS.  
-- Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
-- Open a local feature branch for elaborating the OAS.  
+If not yet existing, create an _Issue_ for elaborating the OAS.  
+Note all your ideas, plans and questions that are not yet documented in ServiceList, ForwardingList etc. into the _Issue_.  
+Create a local feature branch for elaborating the OAS from that _Issue_.  
 
-**Preparing Postman:**
-- Open your local Postman installation.  
-- Change to workspace "MW_SDN_Applications".  
-- Click the _APIs_ folder at the very left of the Postman window.  
-- Click the "+" for creating a new API.  
-- Enter the official application name as a Name of the API definition.  
-- Enter a low version number like e.g. 0.0.1 (you will be able to adapt the version number at any time).  
-- Define Schema type to be "OpenAPI 3.0" and Schema format to be "YAML" and create the API.  
-- After the API has been created, click on the just created version.  
-- Click on "Definition".  
-- Click into the editor, CTRL+a, delete all default content.  
-- Open the OAS in the VSCode, click into the editor, CTRL+a, CTRL+c.  
-- Change into the VSCode editor, CTRL+v, CTRL+s.  
-
-Now, you lifted VSCode and Postman to the same level and should decide where to continue specifying.  
 
 ### Individualization  
 
@@ -318,34 +296,11 @@ Check, whether all Profiles from ProfileList
 - have been covered by dedicated _paths_ for their individual attributes (assure the Configuration attributes being covered by PUT methods) 
 Check, whether all the _forwardings_ from the ForwardingList have been transferred into callbacks.  
 
-If you did not work in Postman:  
-- Copy the OAS into the API file that you created in the beginning.  
-- Save it.  
-
-For verifying your examples (required for validating the test case collection) in Postman:  
-- Click "Generate Collection".  
-- Name your collection by application name and release number and tick "API Mocking".  
-- Copy Mock URL.  
-- Click the _Collections_ folder at the very left of the Postman window.  
-- Click on your newly created collection.  
-- Click on Variables.  
-- Search for "baseUrl" and CTRL+v into the CurrentValue field.  
-- Now, the Mock URL should be pasted into CurrentValue field of the baseUrl variable.  
-- CTRL+s.  
-- Check your individual services and OaM _paths_ for a correct RequestBodies.  
-- If you would push "Send", your newly created mock server would answer.  
-- It is a matter of coincidence, which status code the mock server answers, but if you would expand the list of answers for the request, you could find the 200 or 204 as the top-level entry in the list.  
-- Here you could check the ResponseBodies of the successfully processed requests.  
-- Actually, you just see the examples you defined in the OAS.  
-- If you would not find the expected attributes, you most likely entered an example that is contradicting the structure or format definitions.  
-
 
 ### Review and Finalization  
-- Make sure that Postman and VSCode are both holding the latest OAS.  
 - _Commit_ to your local feature branch.  
 - _Push_ your local feature branch to the remote repository.  
 - Create a _Pull-Request_.  
 - Please, regard the test results of the YAML linting in the _Pull-Request_. Correct the syntax of the OAS, if errors are indicated (warnings need not to be regarded), and _commit_ and _push_ again until the OAS in the remote repository is successfully validated.  
 - Select one or two _Reviewers_ from the team of ApplicationOwners.  
 - Assign the _Pull-Request_ to yourself.  
-
