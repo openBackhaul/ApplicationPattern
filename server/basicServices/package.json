@@ -1,6 +1,6 @@
 {
   "name": "onf-core-model-ap-bs",
-  "version": "2.0.1-alpha.11",
+  "version": "2.0.1-alpha.13",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "openbackhaul-oas3-tools": "2.3.1-alpha.1",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2",
-    "onf-core-model-ap": "2.0.1-alpha.11"
+    "onf-core-model-ap": "2.0.1-alpha.13"
   },
   "author": "Prathiba Jeevan",
   "license": "Apache-2.0"

@@ -31,7 +31,7 @@ const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/
 
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 const genericRepresentation = require('./GenericRepresentation');
-
+const BadRequestHttpException = require('onf-core-model-ap/applicationPattern/rest/server/HttpException');
 /**
  * Embed yourself into the MBH SDN application layer
  *
@@ -1229,7 +1229,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       
         if (!httpClientUuidOfnewApplication) {
           applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
-          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureApplicationName);
+          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
         }
         logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
           logicalTerminationPointConfigurationInput
@@ -1392,12 +1392,22 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
        ****************************************************************************************/
       let isUpdated;
       if (operationServerInterface.isOperationServer(operationUuid)) {
-        if (newOperationKey != await operationServerInterface.getOperationKeyAsync(operationUuid)) {
-          isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+        let OldoperationKey = await operationServerInterface.getOperationKeyAsync(operationUuid)
+        if (OldoperationKey != undefined) {
+          if (newOperationKey != OldoperationKey) {
+            isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+          }
+        } else {
+          reject(new BadRequestHttpException("OperationServerUuid is not present"))
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
-        if (newOperationKey != await operationClientInterface.getOperationKeyAsync(operationUuid)) {
-          isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+        let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
+        if (OldoperationKey != undefined) {
+          if (newOperationKey != OldoperationKey) {
+            isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+          }
+        } else {
+          reject(new BadRequestHttpException("OperationClientUuid is not present"))
         }
       }
 
