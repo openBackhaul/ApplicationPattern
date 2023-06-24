@@ -31,7 +31,7 @@ const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/
 
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 const genericRepresentation = require('./GenericRepresentation');
-const BadRequestHttpException = require('onf-core-model-ap/applicationPattern/rest/server/HttpException');
+const createHttpError = require('http-errors');
 /**
  * Embed yourself into the MBH SDN application layer
  *
@@ -1398,7 +1398,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationServerUuid is not present"))
+          reject(new createHttpError.BadRequest("OperationServerUuid is not present"))
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
         let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
@@ -1407,7 +1407,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationClientUuid is not present"))
+          reject(new createHttpError.BadRequest("OperationClientUuid is not present"))
         }
       }
 
