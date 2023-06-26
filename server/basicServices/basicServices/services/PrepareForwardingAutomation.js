@@ -319,7 +319,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                 for (let i = 0; i < operationServerUuidList.length; i++) {
                     let operationServerUuid = operationServerUuidList[i];
                     let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
-                    if (lifeCycleState == operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED) {
+                    if (isLifeCycleStateDeprecated(lifeCycleState)) {
                         let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);
@@ -366,6 +366,16 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
             reject(error);
         }
     });
+}
+
+function isLifeCycleStateDeprecated(lifeCycleState) {
+    let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
+    let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
+        for (let lifeCycleStateKey in lifeCycleStateEnum) {
+            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
+                return true;
+            }
+        }
 }
 
 function removeAttribute(jsonObject, attributeName) {
