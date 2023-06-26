@@ -58,7 +58,7 @@ async function modifyFakeIpAddressToOriginal(filePath) {
         }
     
         await modifyClients();
-        await modifyOldRelease();
+        //await modifyOldRelease();
         await modifyNewRelease();
         await modifyServer();
     
