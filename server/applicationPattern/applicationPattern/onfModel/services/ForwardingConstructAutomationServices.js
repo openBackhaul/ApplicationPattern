@@ -211,7 +211,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
                     if (isOutputMatchesContext) {
                         let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                        response = await eventDispatcher.dispatchEvent(
+                        response = eventDispatcher.dispatchEvent(
                             fcPortLogicalTerminationPoint,
                             attributeList,
                             user,
@@ -250,7 +250,7 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
                 let fcPortDirection = fcPort["port-direction"];
                 if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    response = await eventDispatcher.dispatchEvent(
+                    response = eventDispatcher.dispatchEvent(
                         fcPortLogicalTerminationPoint,
                         attributeList,
                         user,
