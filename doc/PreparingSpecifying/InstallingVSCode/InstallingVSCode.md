@@ -5,7 +5,6 @@
 This guide shows how to install Visual Studio Code (VSCode) on Windows environments.
 
 **Downloading**
-
 Open your browser and grab the installer from [here](https://code.visualstudio.com/download).  
 Select the User Installer for your environment (e.g. 64 bit).
 It can be installed on the OfficeLaptop without admin rights.  
@@ -16,7 +15,6 @@ Download the installer file to the desired path:
 ![vscodeinstall_03](https://user-images.githubusercontent.com/57349523/151799939-3a878369-fe04-402b-902d-9eba13d00f33.jpg)
 
 **Installing**
-
 Start installation by executing the User Installer.  
 ![vscodeinstall_04](https://user-images.githubusercontent.com/57349523/151799943-bc68df72-429c-4238-83a9-a78db9c7be8e.jpg)  
 Ignore the warning and accept the license aggreement:  
@@ -45,13 +43,29 @@ Guidance on other Linux distributions can be found on [this website](https://cod
 
 [Up to Preparing](../PreparingSpecifying.md)
 
-### Recommended extensions
 
-* **GitHub Pull Requests and Issues**: used to issue pull requests directly from VSCode
-* **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)
-* **GitLens**: code authorship visualisation and seamless navigation of Git repositories
+### Extensions  
 
-To install the extensions either press the extensions button on the VSCode sidebar or press F1 and navigate to "Extensions: Install Extensions".
+After completing the installation, please start Visual Studio Code for adding Extensions.  
+
+Click on the left bar to open the Extension section.  
+  ![ExtensionSection](./pictures/Extensions%20section.png)  
+Type the respective Extension's name into the Search bar for searching the wished Extension.  
+  ![SearchBar](./pictures/Search%20bar.png)  
+Click on the blue "install" button of the wished Extension for starting its installation.  
+  ![InstallButton](./pictures/Install%20button.png)  
+
+Repeat this procedure for all required Extensions and the recommended Extensions you wish.  
+
+**Required Extensions**  
+- **GitHub Pull Requests and Issues**: used to create branches from issues and also pull requests directly from within VSCode  
+- **PlantUML**: Required for sketching communication or action sequences  
+- **YAML**: Required for YAML syntax support  
+- **OpenAPI (Swagger) Editor**: Required for real-time validation of the OpenApiSpecification  
+
+**Recommended Extensions**  
+- **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)  
+- **GitLens**: code authorship visualisation and seamless navigation of Git repositories  
 
 
 [<- Back to Installing Git](../InstallingGit/InstallingGit.md) - - - [Up to Preparing for Specifying Applications](../PreparingSpecifying.md) - - - [Ahead to Connecting VSCode with GitHub ->](../VSCode2GitHub/VSCode2GitHub.md)

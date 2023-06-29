@@ -20,6 +20,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
+|  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.15 | 3015 | 1.2.3.15 | 3215
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
