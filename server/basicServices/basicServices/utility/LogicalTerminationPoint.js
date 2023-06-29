@@ -7,6 +7,7 @@ const FcPort = require("onf-core-model-ap/applicationPattern/onfModel/models/FcP
 const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
+const LogicalTerminationPoint = require('../utility/LogicalTerminationPoint');
 
 
 exports.resolveHttpTcpAndOperationClientUuidOfNewRelease = function () {
@@ -31,7 +32,57 @@ exports.resolveHttpTcpAndOperationClientUuidOfNewRelease = function () {
     })
 }
 
+exports.resolveHttpClientUuidOfNewRelease = function () {
+    return new Promise(async function (resolve, reject) {
+        let regardApplicationForwardingName = "PromptForBequeathingDataCausesTransferOfListOfApplications";
+        let registerApplicationForwardingName = "PromptForBequeathingDataCausesTransferOfListOfAlreadyRegisteredApplications";
+        try {
+            let httpClientUuid;
+            let forwardConstructName;
+            let regardApplicationForwardingConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(regardApplicationForwardingName)
+            let registerApplicationForwardingConstructName = await ForwardingDomain.
+                        getForwardingConstructForTheForwardingNameAsync(registerApplicationForwardingName)
+            if (regardApplicationForwardingConstructName === undefined && registerApplicationForwardingConstructName != undefined) {
+                forwardConstructName = registerApplicationForwardingConstructName;
+            } else if (regardApplicationForwardingConstructName != undefined && registerApplicationForwardingConstructName === undefined){
+                forwardConstructName = regardApplicationForwardingConstructName
+            } else {
+                return {};
+            }
+            let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+            let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+            let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+            httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+            resolve(httpClientUuid)
+        } catch (error) {
+            console.log(error)
+        }
+    })
+}
 
+exports.ishttpClientUuidInstanceofOldReleaseOrNewRelease = function (httpClientUuid) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingName = 'PromptForEmbeddingCausesRequestForBequeathingData'
+        try {
+            let isInstanceofOldReleaseOrNewRelease=false;
+            let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+            if (forwardConstructName === undefined) {
+                return {};
+            }
+            let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+            let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+            let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+            let httpClientUuidofOldRelease = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+            let httpClientUuidofNewRelease = (await LogicalTerminationPoint.resolveHttpClientUuidOfNewRelease());
+            if(httpClientUuid === httpClientUuidofOldRelease || httpClientUuid === httpClientUuidofNewRelease){
+                isInstanceofOldReleaseOrNewRelease=true;
+            }
+            resolve(isInstanceofOldReleaseOrNewRelease);
+        } catch (error) {
+            console.log(error)
+        }
+    })
+}
 
 /**
 * @description This function returns list of registered application information application-name, release-number,

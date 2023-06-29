@@ -1193,8 +1193,8 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       /****************************************************************************************
        * get request body
        ****************************************************************************************/
-      let applicationName
-      let releaseNumber
+      let applicationName;
+      let releaseNumber;
       let currentApplicationName = body["current-application-name"];
       let currentReleaseNumber = body["current-release-number"];
       let futureApplicationName = body["future-application-name"];
@@ -1213,8 +1213,8 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       let tcpObject = formulateTcpObject(futureProtocol, futureAddress, futurePort);
       tcpObjectList.push(tcpObject);
 
-      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidAsync(futureApplicationName, futureReleaseNumber);
-      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber);
+      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber);
 
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         futureApplicationName,
@@ -1231,7 +1231,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
           applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
           releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
         }
-        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
+        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationExcludingOldReleaseAndNewReleaseAsync(
           logicalTerminationPointConfigurationInput
         );
       
@@ -1240,7 +1240,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
        * bussiness logic to transfer the operation-client instances from current-release to future-release
        *******************************************************************************************************/
 
-      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber);
       if (httpClientUuidOfOldApplication) {
         let clientLtpsOfOldApplication = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfOldApplication);
         if (clientLtpsOfOldApplication != undefined && clientLtpsOfOldApplication.length > 0) {
@@ -1321,7 +1321,7 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
        ****************************************************************************************/
       let isUpdated;
       let operationClientUuid
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+      let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber);
       if (httpClientUuid) {
         operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, oldOperationName);
         if (operationClientUuid) {

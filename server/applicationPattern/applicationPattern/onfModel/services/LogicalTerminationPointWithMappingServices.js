@@ -16,6 +16,7 @@ const operationClientInterface = require('../models/layerProtocols/OperationClie
 const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerminationPoint/ConfigurationStatus');
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
+const LogicalTerminationPoint = require('onf-core-model-ap-bs/basicServices/utility/LogicalTerminationPoint')
 
 
 /**
@@ -35,7 +36,7 @@ exports.createOrUpdateApplicationInformationWithMultipleTcpClientAsync = functio
         try {
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
             let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let isApplicationExists = await httpClientInterface.isApplicationExists(
+            let isApplicationExists = await httpClientInterface.isApplicationExistsExcludingOldReleaseAndNewRelease(
                 applicationName,
                 releaseNumber
             );
@@ -149,6 +150,33 @@ exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationP
 }
 
 /**
+ * @description This function finds an application by name and updates the http,
+ * operation and tcp client if require.
+ * @param {object} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus} or null if the application is not found
+ **/
+exports.findAndUpdateApplicationInformationExcludingOldReleaseAndNewReleaseAsync = function (logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+        let logicalTerminationPointConfigurationStatus = null;
+        try {
+            let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+            let isApplicationExists = await httpClientInterface.isApplicationExistsExcludingOldReleaseAndNewRelease(
+                applicationName
+            );
+            if (isApplicationExists) {
+                logicalTerminationPointConfigurationStatus = await findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
+                    logicalTerminationPointConfigurationInput
+                );
+            }
+            resolve(logicalTerminationPointConfigurationStatus)
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of
@@ -161,7 +189,7 @@ exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPo
         try {
             let applicationName = logicalTerminationPointConfigurationInput.applicationName;
             let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-            let isApplicationExists = await httpClientInterface.isApplicationExists(
+            let isApplicationExists = await httpClientInterface.isApplicationExistsExcludingOldReleaseAndNewRelease(
                 applicationName,
                 releaseNumber
             );
@@ -198,7 +226,7 @@ exports.deleteApplicationInformationAsync = function (applicationName, releaseNu
             let httpClientUuid;
             let tcpClientUuid;
 
-            httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+            httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
                 applicationName,
                 releaseNumber
             );
@@ -382,7 +410,7 @@ function updateLogicalTerminationPointInstanceGroupAsync(logicalTerminationPoint
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
         try {
-            let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
                 applicationName,
                 releaseNumber
             );
@@ -441,7 +469,7 @@ function updateLogicalTerminationPointInstanceGroupWithMultipleTcpClientAsync(lo
         let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
 
         try {
-            let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
                 applicationName,
                 releaseNumber
             );
@@ -597,6 +625,64 @@ function findAndUpdateLogicalTerminationPointInstanceGroupAsync(logicalTerminati
     });
 }
 
+/**
+ * @description This function configures the existing logical-termination-point to the latest values.
+ * Also incase if the tcp,operation client are not available it will be created.
+ * @param {String} logicalTerminationPointConfigurationInput : is an instance of
+ * logicalTerminationPoint/ConfigurationInput class
+ * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
+ **/
+function findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(logicalTerminationPointConfigurationInput) {
+    return new Promise(async function (resolve, reject) {
+
+        let logicalTerminationPointConfigurationStatus;
+        let httpClientConfigurationStatus;
+        let tcpClientConfigurationStatusList = [];
+        let operationClientConfigurationStatusList = [];
+
+        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
+        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
+        let tcpList = logicalTerminationPointConfigurationInput.tcpList;
+        let operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
+        let operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
+        let operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
+
+        try {
+            let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+                applicationName,
+                releaseNumber
+            );
+            if(!httpClientUuid){
+                httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+                    applicationName
+                );
+            }
+            tcpClientConfigurationStatusList = await findAndUpdateTcpClientInterface(
+                httpClientUuid,
+                tcpList
+            );
+            operationClientConfigurationStatusList = await findAndUpdateOperationClientInterface(
+                httpClientUuid,
+                operationServerName,
+                operationNamesByAttributes,
+                operationsMapping
+            );
+            httpClientConfigurationStatus = await updateHttpClientInterface(
+                httpClientUuid,
+                releaseNumber
+            )
+            logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+                operationClientConfigurationStatusList,
+                httpClientConfigurationStatus,
+                tcpClientConfigurationStatusList
+            );
+
+            resolve(logicalTerminationPointConfigurationStatus);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
 /**
  * @description This function creates a http client interface.
