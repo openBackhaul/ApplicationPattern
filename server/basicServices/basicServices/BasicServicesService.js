@@ -1098,11 +1098,6 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
               forwardingConfigurationInputList
             );
         }
-      } else {
-        customerJourney = traceIndicator;
-        traceIndicator = xCorrelator;
-        xCorrelator = originator;
-        user = body;
       }
 
       /****************************************************************************************
