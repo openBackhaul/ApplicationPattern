@@ -76,6 +76,7 @@ async function validateBasicAuth(request, scopes, schema) {
 function loggingErrorHandler(err, req, res, next) {
     const statusCode = err.status || 500;
     const errorBody = {
+        code : statusCode,
         message: err.message,
         errors: err.errors,
     }
