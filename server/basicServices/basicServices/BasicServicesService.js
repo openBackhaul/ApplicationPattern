@@ -919,6 +919,9 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
             let clientconfiguration = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
             if (clientconfiguration !== undefined) {
               delete clientconfiguration['operation-key'];
+              if (clientconfiguration['detailed-logging-is-on'] != undefined) {
+                delete clientconfiguration['detailed-logging-is-on'];
+              }
             }
           } else if (layerProtocalName == 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER') {
             serverclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC]
