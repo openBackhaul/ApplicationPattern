@@ -85,6 +85,25 @@ class FcPort {
             false);
     }
 
+    /**
+     * @description Checks if given operation has given port-direction.
+     * @param {Object} forwardingConstruct
+     * @param {String} operationUuid
+     * @param {String} portDirection
+     * @returns {Boolean} true if the operations port-direction matched the argument portDirection
+     **/
+    static isOperationOfFcPortType(forwardingConstruct, operationUuid, portDirection) {
+        let fcPortList = forwardingConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+        for (let fcPort of fcPortList) {
+            let fcPortDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
+            let fcLogicalTerminationPoint = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+            if (fcLogicalTerminationPoint === operationUuid
+                && fcPortDirection === portDirection) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @description This function returns the next available OUTPUT localId for the fc-port list in a forwarding-construct instance.
