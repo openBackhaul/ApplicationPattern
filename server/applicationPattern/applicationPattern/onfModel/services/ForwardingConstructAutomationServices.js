@@ -201,7 +201,6 @@ function automateForwardingsWithoutInputAsync(forwardingName, attributeList, con
  **/
 function automateProcessSnippetAsync(forwardingConstruct, attributeList, context, user, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
-        let response;
         try {
             let fcPortList = forwardingConstruct["fc-port"];
             for (let i = 0; i < fcPortList.length; i++) {
@@ -211,7 +210,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
                     if (isOutputMatchesContext) {
                         let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                        response = await eventDispatcher.dispatchEvent(
+                        eventDispatcher.dispatchEvent(
                             fcPortLogicalTerminationPoint,
                             attributeList,
                             user,
@@ -222,7 +221,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     }
                 }
             }
-            resolve(response);
+            resolve();
         } catch (error) {
             reject(error);
         }
@@ -242,7 +241,6 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
 function automateSubscriptionsAsync(forwardingConstruct, attributeList,
     user, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
-        let response;
         try {
             let fcPortList = forwardingConstruct["fc-port"];
             for (let i = 0; i < fcPortList.length; i++) {
@@ -250,7 +248,7 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
                 let fcPortDirection = fcPort["port-direction"];
                 if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    response = await eventDispatcher.dispatchEvent(
+                    eventDispatcher.dispatchEvent(
                         fcPortLogicalTerminationPoint,
                         attributeList,
                         user,
@@ -260,7 +258,7 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                     );
                 }
             }
-            resolve(response);
+            resolve();
         } catch (error) {
             reject(error);
         }
