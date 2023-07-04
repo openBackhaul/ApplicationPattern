@@ -145,28 +145,25 @@ class HttpClientInterface extends layerProtocol {
         let httpClientUuidList = [];
         let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
             layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
-        if (logicalTerminationPointList != undefined) {
-            for (let i = 0; i < logicalTerminationPointList.length; i++) {
-                let logicalTerminationPoint = logicalTerminationPointList[i];
-                let layerProtocol = logicalTerminationPoint[
-                    onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpClientPac = layerProtocol[
-                    onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
-                if (httpClientPac != undefined) {
-                    let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
-                    let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
-                    let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
-                    if (_applicationName != undefined && _applicationName == applicationName) {
-                        if (_releaseNumber != undefined &&
-                            (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
-                            httpClientUuidList.push(logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID]);
-                        }
+        for (let i = 0; i < logicalTerminationPointList.length; i++) {
+            let logicalTerminationPoint = logicalTerminationPointList[i];
+            let layerProtocol = logicalTerminationPoint[
+                onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let httpClientPac = layerProtocol[
+                onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
+            if (httpClientPac != undefined) {
+                let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+                let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
+                let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
+                if (_applicationName != undefined && _applicationName == applicationName) {
+                    if (_releaseNumber != undefined &&
+                        (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
+                        httpClientUuidList.push(logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID]);
                     }
                 }
             }
-            return httpClientUuidList;
         }
-        return undefined;
+        return httpClientUuidList;
     }
 
     /**
@@ -181,16 +178,6 @@ class HttpClientInterface extends layerProtocol {
         return httpClientUuid != undefined;
     }
 
-    /**
-     * @description This function checks if application exists other than old release and new release
-     * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
-     * @returns {Promise<boolean>} true|false
-     **/
-    static async isApplicationExistsExcludingOldReleaseAndNewRelease(applicationName, releaseNumber) {
-        let httpClientUuid = await HttpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber);
-        return httpClientUuid != undefined;
-    }
 
     /**
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
@@ -199,25 +186,25 @@ class HttpClientInterface extends layerProtocol {
      * @param {String} releaseNumber : release number of the application.
      * @returns {Promise<List>} undefined|httpClientUuid
      **/
-        static async getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber) {
-            return new Promise(async function (resolve, reject) {
-                try {
-                    let httpClientUuid;
-                    let httpClientUuidList = await HttpClientInterface.getHttpClientUuidListAsync(applicationName, releaseNumber);
-                    if(httpClientUuidList !== undefined){
-                        for(let i=0 ; i<httpClientUuidList.length ; i++){
-                              let uuid = httpClientUuidList[i];
-                              if(!(await LogicalTerminationPoint.ishttpClientUuidInstanceofOldReleaseOrNewRelease(uuid))){
-                                 httpClientUuid = uuid; 
-                              }
-                        }
+    static async getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName) {
+        try {
+            let httpClientUuid;
+            let httpClientUuidList = await HttpClientInterface.getHttpClientUuidListAsync(applicationName, releaseNumber);
+            if (httpClientUuidList !== undefined) {
+                for (let i = 0; i < httpClientUuidList.length; i++) {
+                    let uuid = httpClientUuidList[i];
+                    let httpClientUuidOfOldRelease = await LogicalTerminationPoint.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
+                    let httpClientUuidOfNewRelease = await LogicalTerminationPoint.getHttpClientUuidFromForwarding(newReleaseForwardingName);
+                    if (!(uuid === httpClientUuidOfOldRelease || uuid === httpClientUuidOfNewRelease)) {
+                        httpClientUuid = uuid;
                     }
-                    resolve(httpClientUuid)
-                } catch (error) {
-                    console.log(error)
                 }
-            })
+            }
+            return httpClientUuid;
+        } catch (error) {
+            console.log(error)
         }
+    }
 
     /**
      * @description This function sets the release number for the http client uuid.
