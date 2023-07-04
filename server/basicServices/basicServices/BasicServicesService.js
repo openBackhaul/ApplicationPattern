@@ -1047,7 +1047,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
 
         let tcpServerWithHttpsUpdated = await updateTcpServerDetails("HTTPS", httpsAddress, httpsPort);
         if (tcpServerWithHttpsUpdated.istcpServerUpdated) {
-          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpUpdated.tcpServerUuid, '', tcpServerWithHttpUpdated.istcpServerUpdated);
+          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpsUpdated.tcpServerUuid, '', tcpServerWithHttpsUpdated.istcpServerUpdated);
           let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
           tcpClientConfigurationStatusList.push(configurationStatus);
         }
