@@ -985,7 +985,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
       let forwardingConstructConfigurationStatus;
       let oldApplicationName;
       let oldReleaseNumber;
-      if (body["registry-office-application"] != undefined) {
+      if (Object.keys(body).length != 0) {
         /****************************************************************************************
          * Setting up required local variables from the request body
          ****************************************************************************************/
@@ -1101,12 +1101,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
               forwardingConfigurationInputList
             );
         }
-      } else {
-        customerJourney = traceIndicator;
-        traceIndicator = xCorrelator;
-        xCorrelator = originator;
-        user = body;
-      }
+      } 
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
