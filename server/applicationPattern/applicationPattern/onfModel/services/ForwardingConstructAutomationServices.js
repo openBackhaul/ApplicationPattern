@@ -16,267 +16,219 @@ const HttpClientInterface = require('../models/layerProtocols/HttpClientInterfac
 const eventDispatcher = require('../../rest/client/eventDispatcher');
 const ForwardingConstruct = require('../models/ForwardingConstruct');
 const FcPort = require('../models/FcPort');
-var traceIndicatorIncrementer = 1;
+// eslint-disable-next-line no-unused-vars
+const ForwardingAutomationInput = require('./models/forwardingConstruct/AutomationInput');
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} operationServerName operation server uuid of the request url
+ * @param {Array<ForwardingAutomationInput>} forwardingAutomationInputList list of attributes required during forwarding construct automation(to send in the request body)
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
+ * @param {String} xCorrelator flow id of this request
+ * @param {String} traceIndicator trace indicator of the request
+ * @param {String} customerJourney customer journey of the request
  **/
-exports.automateForwardingConstructAsync = function (operationServerName, forwardingAutomationInputList, user,
+exports.automateForwardingConstructAsync = async function (operationServerName, forwardingAutomationInputList, user,
     xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            traceIndicatorIncrementer = 1;
-            let operationServerUuid = await OperationServerInterface.getOperationServerUuidAsync(operationServerName);
-            for (let i = 0; i < forwardingAutomationInputList.length; i++) {
-                let forwardingAutomationInput = forwardingAutomationInputList[i];
-                let forwardingName = forwardingAutomationInput.forwardingName;
-                let attributeList = forwardingAutomationInput.attributeList;
-                let context = forwardingAutomationInput.context;
-                await automateForwardingsAsync(forwardingName,
-                    attributeList,
-                    context,
-                    operationServerUuid,
-                    user,
-                    xCorrelator,
-                    traceIndicator,
-                    customerJourney
-                );
-            }
-            resolve();
-        } catch (error) {
-            reject(error);
-        }
-    });
+    let newTraceIndicator = traceIndicator + ".0";
+    let operationServerUuid = await OperationServerInterface.getOperationServerUuidAsync(operationServerName);
+    for (let forwardingAutomationInput of forwardingAutomationInputList) {
+        let forwardingName = forwardingAutomationInput.forwardingName;
+        let attributeList = forwardingAutomationInput.attributeList;
+        let context = forwardingAutomationInput.context;
+        newTraceIndicator = await automateForwardingsAsync(forwardingName,
+            attributeList,
+            context,
+            operationServerUuid,
+            user,
+            xCorrelator,
+            newTraceIndicator,
+            customerJourney
+        );
+    }
 }
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {Array<ForwardingAutomationInput>} forwardingAutomationInputList list of attributes required during forwarding construct automation(to send in the request body)
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
+ * @param {String} xCorrelator flow id of this request
+ * @param {String} traceIndicator trace indicator of the request
+ * @param {String} customerJourney customer journey of the request
  **/
-exports.automateForwardingConstructWithoutInputAsync = function (forwardingAutomationInputList, user,
+exports.automateForwardingConstructWithoutInputAsync = async function (forwardingAutomationInputList, user,
     xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            traceIndicatorIncrementer = 1;
-            for (let i = 0; i < forwardingAutomationInputList.length; i++) {
-                let forwardingAutomationInput = forwardingAutomationInputList[i];
-                let forwardingName = forwardingAutomationInput.forwardingName;
-                let attributeList = forwardingAutomationInput.attributeList;
-                let context = forwardingAutomationInput.context;
-                await automateForwardingsWithoutInputAsync(forwardingName,
-                    attributeList,
-                    context,
-                    user,
-                    xCorrelator,
-                    traceIndicator,
-                    customerJourney
-                );
-            }
-            resolve();
-        } catch (error) {
-            reject(error);
-        }
-    });
+    let newTraceIndicator = traceIndicator + ".0";
+    for (let forwardingAutomationInput of forwardingAutomationInputList) {
+        let forwardingName = forwardingAutomationInput.forwardingName;
+        let attributeList = forwardingAutomationInput.attributeList;
+        let context = forwardingAutomationInput.context;
+        newTraceIndicator = await automateForwardingsWithoutInputAsync(forwardingName,
+            attributeList,
+            context,
+            user,
+            xCorrelator,
+            newTraceIndicator,
+            customerJourney
+        );
+    }
 }
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} forwardingName
+ * @param {Object} attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} context
+ * @param {String} operationServerUuid
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
+ * @param {String} xCorrelator flow id of this request
+ * @param {String} traceIndicator trace indicator of the request
+ * @param {String} customerJourney customer journey of the request
+ * @returns {Promise<String>} new trace indicator
  **/
-function automateForwardingsAsync(forwardingName, attributeList, context, operationServerUuid, user,
+async function automateForwardingsAsync(forwardingName, attributeList, context, operationServerUuid, user,
     xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
-                forwardingName);
-            let _isOperationServerIsInputFcPort = FcPort.isOperationOfFcPortType(
-                forwardingConstruct,
-                operationServerUuid,
-                FcPort.portDirectionEnum.INPUT
+    let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
+        forwardingName);
+    let _isOperationServerIsInputFcPort = FcPort.isOperationOfFcPortType(
+        forwardingConstruct,
+        operationServerUuid,
+        FcPort.portDirectionEnum.INPUT
+    );
+    let newTraceIndicator = traceIndicator;
+    if (_isOperationServerIsInputFcPort) {
+        let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
+            forwardingConstruct);
+        if (_isForwardingConstructIsProcessSnippet) {
+            newTraceIndicator = await automateProcessSnippetAsync(forwardingConstruct,
+                attributeList,
+                context,
+                user,
+                xCorrelator,
+                traceIndicator,
+                customerJourney
             );
-            if (_isOperationServerIsInputFcPort) {
-                let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
-                    forwardingConstruct);
-                if (_isForwardingConstructIsProcessSnippet) {
-                    await automateProcessSnippetAsync(forwardingConstruct,
-                        attributeList,
-                        context,
-                        user,
-                        xCorrelator,
-                        traceIndicator,
-                        customerJourney
-                    );
-                } else {
-                    await automateSubscriptionsAsync(forwardingConstruct,
-                        attributeList,
-                        user,
-                        xCorrelator,
-                        traceIndicator,
-                        customerJourney
-                    );
-                }
-            }
-            resolve();
-        } catch (error) {
-            reject(error);
+        } else {
+            newTraceIndicator = await automateSubscriptionsAsync(forwardingConstruct,
+                attributeList,
+                user,
+                xCorrelator,
+                traceIndicator,
+                customerJourney
+            );
         }
-    });
-
+    }
+    return newTraceIndicator;
 }
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} forwardingName
+ * @param {Object} attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} context
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
+ * @param {String} xCorrelator flow id of this request
+ * @param {String} traceIndicator trace indicator of the request
+ * @param {String} customerJourney customer journey of the request
+ * @returns {Promise<String>} new trace indicator
  **/
-function automateForwardingsWithoutInputAsync(forwardingName, attributeList, context, user,
+async function automateForwardingsWithoutInputAsync(forwardingName, attributeList, context, user,
     xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
-                forwardingName);
-
-            if (forwardingConstruct) {
-                let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
-                    forwardingConstruct);
-                if (_isForwardingConstructIsProcessSnippet) {
-                    await automateProcessSnippetAsync(forwardingConstruct,
-                        attributeList,
-                        context,
-                        user,
-                        xCorrelator,
-                        traceIndicator,
-                        customerJourney
-                    );
-                } else {
-                    await automateSubscriptionsAsync(forwardingConstruct,
-                        attributeList,
-                        user,
-                        xCorrelator,
-                        traceIndicator,
-                        customerJourney
-                    );
-                }
-            }
-            resolve();
-        } catch (error) {
-            reject(error);
+    let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
+        forwardingName);
+    let newTraceIndicator = traceIndicator;
+    if (forwardingConstruct) {
+        let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
+            forwardingConstruct);
+        if (_isForwardingConstructIsProcessSnippet) {
+            newTraceIndicator = await automateProcessSnippetAsync(forwardingConstruct,
+                attributeList,
+                context,
+                user,
+                xCorrelator,
+                traceIndicator,
+                customerJourney
+            );
+        } else {
+            newTraceIndicator = await automateSubscriptionsAsync(forwardingConstruct,
+                attributeList,
+                user,
+                xCorrelator,
+                traceIndicator,
+                customerJourney
+            );
         }
-    });
-
+    }
+    return newTraceIndicator;
 }
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} forwardingConstruct
+ * @param {Object} attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} context
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
  * @param {string} xCorrelator flow id of this request
  * @param {string} traceIndicator trace indicator of the request
  * @param {string} customerJourney customer journey of the request
+ * @returns {Promise<String>} new trace indicator
  **/
-function automateProcessSnippetAsync(forwardingConstruct, attributeList, context, user, xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let fcPortList = forwardingConstruct["fc-port"];
-            for (let i = 0; i < fcPortList.length; i++) {
-                let fcPort = fcPortList[i];
-                let fcPortDirection = fcPort["port-direction"];
-                if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
-                    if (isOutputMatchesContext) {
-                        let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                        eventDispatcher.dispatchEvent(
-                            fcPortLogicalTerminationPoint,
-                            attributeList,
-                            user,
-                            xCorrelator,
-                            traceIndicator + "." + (traceIndicatorIncrementer++),
-                            customerJourney
-                        );
-                    }
-                }
-            }
-            resolve();
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
- * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
- * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
- **/
-function automateSubscriptionsAsync(forwardingConstruct, attributeList,
-    user, xCorrelator, traceIndicator, customerJourney) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let fcPortList = forwardingConstruct["fc-port"];
-            for (let i = 0; i < fcPortList.length; i++) {
-                let fcPort = fcPortList[i];
+async function automateProcessSnippetAsync(forwardingConstruct, attributeList, context, user, xCorrelator, traceIndicator, customerJourney) {
+    let incrementedTraceIndicator = traceIndicator;
+    let fcPortList = forwardingConstruct["fc-port"];
+    for (let fcPort of fcPortList) {
+        let fcPortDirection = fcPort["port-direction"];
+        if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
+            let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
+            if (isOutputMatchesContext) {
                 let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                let fcPortDirection = fcPort["port-direction"];
-                if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    eventDispatcher.dispatchEvent(
-                        fcPortLogicalTerminationPoint,
-                        attributeList,
-                        user,
-                        xCorrelator,
-                        traceIndicator + "." + (traceIndicatorIncrementer++),
-                        customerJourney
-                    );
-                }
+                incrementedTraceIndicator = incrementTraceIndicator(incrementedTraceIndicator);
+                eventDispatcher.dispatchEvent(
+                    fcPortLogicalTerminationPoint,
+                    attributeList,
+                    user,
+                    xCorrelator,
+                    incrementedTraceIndicator,
+                    customerJourney
+                );
             }
-            resolve();
-        } catch (error) {
-            reject(error);
         }
-    });
+    }
+    return incrementedTraceIndicator;
 }
-
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
+ * @param {String} forwardingConstruct
+ * @param {Object} attributeList list of attributes required during forwarding construct automation(to send in the request body)
  * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
+ * @param {String} xCorrelator flow id of this request
+ * @param {String} traceIndicator trace indicator of the request
+ * @param {String} customerJourney customer journey of the request
+ * @returns {Promise<String>} new trace indicator
  **/
+async function automateSubscriptionsAsync(forwardingConstruct, attributeList,
+    user, xCorrelator, traceIndicator, customerJourney) {
+    let incrementedTraceIndicator = traceIndicator;
+    let fcPortList = forwardingConstruct["fc-port"];
+    for (let fcPort of fcPortList) {
+        let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
+        let fcPortDirection = fcPort["port-direction"];
+        if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
+            incrementedTraceIndicator = incrementTraceIndicator(incrementedTraceIndicator);
+            eventDispatcher.dispatchEvent(
+                fcPortLogicalTerminationPoint,
+                attributeList,
+                user,
+                xCorrelator,
+                incrementedTraceIndicator,
+                customerJourney
+            );
+        }
+    }
+    return incrementedTraceIndicator;
+}
+
 function isForwardingConstructIsProcessSnippet(forwardingConstruct) {
     let isForwardingConstructIsProcessSnippet = false;
     let nameList = forwardingConstruct["name"];
@@ -292,51 +244,15 @@ function isForwardingConstructIsProcessSnippet(forwardingConstruct) {
     return isForwardingConstructIsProcessSnippet;
 }
 
-/**
- * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
- * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
- **/
-function isOutputMatchesContextAsync(fcPort, context) {
-    return new Promise(async function (resolve, reject) {
-        let isOutputMatchesContext = false;
-        try {
-            let fcPortDirection = fcPort["port-direction"];
-            if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-                let serverLtpList = await logicalTerminationPoint.
-                getServerLtpListAsync(fcLogicalTerminationPoint);
-                let httpClientUuid = serverLtpList[0];
-                let applicationName = await HttpClientInterface.
-                getApplicationNameAsync(httpClientUuid);
-                let releaseNumber = await HttpClientInterface.
-                getReleaseNumberAsync(httpClientUuid);
-                if (context == (applicationName + releaseNumber)) {
-                    isOutputMatchesContext = true;
-                }
-            }
-            resolve(isOutputMatchesContext);
-        } catch (error) {
-            reject(error);
-        }
-    });
+async function isOutputMatchesContextAsync(fcPort, context) {
+    let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
+    let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(fcLogicalTerminationPoint);
+    let httpClientUuid = serverLtpList[0];
+    let applicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid);
+    let releaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid);
+    return (context == (applicationName + releaseNumber));
 }
 
-/**
- * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
- * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
- **/
 function getValueFromKey(nameList, key) {
     for (let i = 0; i < nameList.length; i++) {
         let valueName = nameList[i]["value-name"];
@@ -345,4 +261,10 @@ function getValueFromKey(nameList, key) {
         }
     }
     return undefined;
+}
+
+function incrementTraceIndicator(traceIndicator) {
+    const indexOfDot = traceIndicator.lastIndexOf(".");
+    const incLastDigit = parseInt(traceIndicator.substring(indexOfDot + 1)) + 1;
+    return traceIndicator.substring(0, indexOfDot + 1) + incLastDigit.toString();
 }

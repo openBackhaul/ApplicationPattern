@@ -152,7 +152,7 @@ describe("automateForwardingConstructAsync", () => {
      
     await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
       operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
+      '550e8400-e29b-11d4-a716-446655440000', '1', 'Unknown value');
     
     expect(Event.dispatchEvent).toHaveBeenCalledTimes(1);  
     expect(Event.dispatchEvent).toHaveBeenCalledWith(
@@ -160,7 +160,7 @@ describe("automateForwardingConstructAsync", () => {
         expect.objectContaining(httpRequestBody),
         "User Name",
         xCorrelator,
-        "1.3.1.1",
+        "1.1",
         "Unknown value"
       );
   });
@@ -200,14 +200,14 @@ describe("automateForwardingConstructAsync", () => {
      
     await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
       operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
+      '550e8400-e29b-11d4-a716-446655440000', '1', 'Unknown value');
     expect(Event.dispatchEvent).toHaveBeenCalledTimes(2);  
     expect(Event.dispatchEvent).toHaveBeenCalledWith(
         "ro-2-0-1-op-c-bm-or-1-0-0-000",
         expect.objectContaining(httpRequestBody),
         "User Name",
         xCorrelator,
-        "1.3.1.2",
+        "1.2",
         "Unknown value"
       );
   });
@@ -251,7 +251,7 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
 
     await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
         forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
-        '1.3.1', 'Unknown value');
+        '1', 'Unknown value');
         
     expect(Event.dispatchEvent).toHaveBeenCalledTimes(1);  
     expect(Event.dispatchEvent).toHaveBeenCalledWith(
@@ -259,7 +259,7 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
         expect.objectContaining(httpRequestBody),
         "User Name",
         xCorrelator,
-        "1.3.1.1",
+        "1.1",
         "Unknown value"
       );
   });
