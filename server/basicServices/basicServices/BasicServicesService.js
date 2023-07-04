@@ -1184,15 +1184,15 @@ exports.startApplicationInGenericRepresentation = function (user, originator, xC
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.updateClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
   return new Promise(async function (resolve, reject) {
     let response = {};
     try {
       /****************************************************************************************
        * get request body
        ****************************************************************************************/
-      let applicationName
-      let releaseNumber
+      let applicationName;
+      let releaseNumber;
       let currentApplicationName = body["current-application-name"];
       let currentReleaseNumber = body["current-release-number"];
       let futureApplicationName = body["future-application-name"];
@@ -1211,8 +1211,8 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       let tcpObject = formulateTcpObject(futureProtocol, futureAddress, futurePort);
       tcpObjectList.push(tcpObject);
 
-      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidAsync(futureApplicationName, futureReleaseNumber);
-      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber, newReleaseForwardingName);
+      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
 
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         futureApplicationName,
@@ -1229,16 +1229,25 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
           applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
           releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
         }
-        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-          logicalTerminationPointConfigurationInput
+        let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+          logicalTerminationPointConfigurationInput.applicationName,
+          undefined,
+          newReleaseForwardingName
         );
+        
+        if (httpClientUuid) {
+            logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
+                    logicalTerminationPointConfigurationInput,
+                    newReleaseForwardingName
+                );
+        }
       
 
       /*******************************************************************************************************
        * bussiness logic to transfer the operation-client instances from current-release to future-release
        *******************************************************************************************************/
 
-      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
       if (httpClientUuidOfOldApplication) {
         let clientLtpsOfOldApplication = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfOldApplication);
         if (clientLtpsOfOldApplication != undefined && clientLtpsOfOldApplication.length > 0) {
@@ -1302,7 +1311,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateOperationClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.updateOperationClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
   return new Promise(async function (resolve, reject) {
     let response = {};
     try {
@@ -1319,7 +1328,7 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
        ****************************************************************************************/
       let isUpdated;
       let operationClientUuid
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+      let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName);
       if (httpClientUuid) {
         operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, oldOperationName);
         if (operationClientUuid) {
