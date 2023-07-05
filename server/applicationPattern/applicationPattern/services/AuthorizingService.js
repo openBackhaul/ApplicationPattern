@@ -17,6 +17,7 @@
   * @returns {Promise} authStatus return the authorization result<br>
   */
  exports.isAuthorized = function (authorizationCode, method) {
+     // eslint-disable-next-line no-unused-vars
      return new Promise(async function (resolve, reject) {
         let authStatus = {
             "isAuthorized" : false

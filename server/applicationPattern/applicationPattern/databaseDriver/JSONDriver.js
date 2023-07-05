@@ -24,8 +24,8 @@ const lock = new AsyncLock();
  * @returns {Promise<any>} return the requested value
  */
 exports.readFromDatabaseAsync = async function (oamPath) {
-    return await lock.acquire(databasePath, async () => {
-        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
         let individualFieldOfTheOAMPathList = oamPath.split('/');
         return getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
     });
@@ -44,8 +44,8 @@ exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isALis
             valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
         }
     }
-    return await lock.acquire(databasePath, async () => {
-        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
         let individualFieldOfTheOAMPathList = oamPath.split('/');
         let result = putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList, valueToBeUpdated, isAList);
         return result;
@@ -60,9 +60,10 @@ exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isALis
  * @param {Boolean} isAList a boolean flag that represents whether the value to be deleted is a list
  * @returns {Promise<Boolean>} return true if the value is deleted, otherwise returns false
  */
+// eslint-disable-next-line no-unused-vars
 exports.deletefromDatabaseAsync = async function (oamPath, valueToBeDeleted, isAList) {
-    return await lock.acquire(databasePath, async () => {
-        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
         let individualFieldOfTheOAMPathList = oamPath.split('/');
         let result = deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
         return result;
@@ -117,7 +118,7 @@ function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfThe
  * 
  * @param {JSON} coreModelJsonObject Json data for searching the value.
  * @param {Array<String>} individualFieldOfTheOAMPathList  path to find the value.
- * @param {JSON} newValue new value to be changed or added
+ * @param {JSON|String} newValue new value to be changed or added
  * @param {Boolean} isAList whether the newValue to be updated is an entry to a List or it is updating a scalar value
  * @returns {Boolean} if the updation is successful , returns true , otherwise returns false.
  **/
@@ -211,7 +212,7 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, individualFieldOf
  **/
 function writeToFile(coreModelJsonObject) {
     try {
-        fileSystem.writeFileSync(databasePath, JSON.stringify(coreModelJsonObject));
+        fileSystem.writeFileSync(global.databasePath, JSON.stringify(coreModelJsonObject));
         return true;
     } catch (error) {
         console.log('write failed:', error)

@@ -110,7 +110,7 @@ function getLTPForwardingAutomationInputListAsync(logicalTerminationPointconfigu
              * ServiceRequestCausesLtpUpdateRequest update-ltp
              ************************************************************************************/
             if (logicalTerminationPointconfigurationStatus) {
-                if (logicalTerminationPointconfigurationStatus.hasOwnProperty('httpClientConfigurationStatus')) {
+                if (Object.prototype.hasOwnProperty.call(logicalTerminationPointconfigurationStatus, 'httpClientConfigurationStatus')) {
                     let httpClientConfigurationStatus = logicalTerminationPointconfigurationStatus.httpClientConfigurationStatus;
                     let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
                     let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
@@ -151,7 +151,7 @@ function getLTPUnconfigureForwardingAutomationInputListAsync(logicalTerminationP
              * ServiceRequestCausesLtpDeletionRequest delete-ltp-and-dependents
              ************************************************************************************/
             if (logicalTerminationPointconfigurationStatus) {
-                if (logicalTerminationPointconfigurationStatus.hasOwnProperty('httpClientConfigurationStatus')) {
+                if (Object.prototype.hasOwnProperty.call(logicalTerminationPointconfigurationStatus, 'httpClientConfigurationStatus')) {
                     let httpClientConfigurationStatus = logicalTerminationPointconfigurationStatus.httpClientConfigurationStatus;
                     let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
                     let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
@@ -193,7 +193,7 @@ function getFDForwardingAutomationInputListAsync(forwardingConstructConfiguratio
              * ServiceRequestCausesFcUpdateRequest /v1/update-fc
              ************************************************************************************/
             if (forwardingConstructConfigurationStatus) {
-                if (forwardingConstructConfigurationStatus.hasOwnProperty('forwardingConstructConfigurationStatusList')) {
+                if (Object.prototype.hasOwnProperty.call(forwardingConstructConfigurationStatus, 'forwardingConstructConfigurationStatusList')) {
                     let fcConfigurationStatusList = forwardingConstructConfigurationStatus.forwardingConstructConfigurationStatusList;
                     let fcforwardingConstructAutomationInputList = await getFCForwardingAutomationInputList(fcConfigurationStatusList);
 
@@ -233,7 +233,7 @@ function getFDUnconfigureForwardingAutomationInputListAsync(forwardingConstructC
         let forwardingConstructAutomationList = [];
         try {
             if (forwardingConstructConfigurationStatus) {
-                if (forwardingConstructConfigurationStatus.hasOwnProperty('forwardingConstructConfigurationStatusList')) {
+                if (Object.prototype.hasOwnProperty.call(forwardingConstructConfigurationStatus, 'forwardingConstructConfigurationStatusList')) {
 
                     /***********************************************************************************
                      * ServiceRequestCausesFcPortUpdateRequest /v1/delete-fc-port 
@@ -459,7 +459,7 @@ function getFCForwardingAutomationInputList(fcConfigurationStatusList) {
                         let forwardingConstructUuid = fcConfigurationStatus.uuid;
                         serviceRequestCausesFcUpdateRequestRequestBody = await forwardingDomain.getForwardingConstructAsync(
                             forwardingConstructUuid);
-                        forwardingAutomation = new forwardingConstructAutomationInput(
+                        let forwardingAutomation = new forwardingConstructAutomationInput(
                             serviceRequestCausesFcUpdateRequestForwardingName,
                             serviceRequestCausesFcUpdateRequestRequestBody,
                             serviceRequestCausesFcUpdateRequestContext
@@ -495,7 +495,7 @@ function getFCPortForwardingAutomationInputList(fcPortConfigurationStatusList) {
                             fcPortlocalId
                         );
                         serviceRequestCausesFcPortUpdateRequestRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(serviceRequestCausesFcPortUpdateRequestRequestBody);
-                        forwardingAutomation = new forwardingConstructAutomationInput(
+                        let forwardingAutomation = new forwardingConstructAutomationInput(
                             serviceRequestCausesFcPortUpdateRequestForwardingName,
                             serviceRequestCausesFcPortUpdateRequestRequestBody,
                             serviceRequestCausesFcPortUpdateRequestContext
@@ -530,7 +530,7 @@ function getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusL
                         serviceRequestCausesFcPortDeleteRequestRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(
                             serviceRequestCausesFcPortDeleteRequestRequestBody
                         );
-                        forwardingAutomation = new forwardingConstructAutomationInput(
+                        let forwardingAutomation = new forwardingConstructAutomationInput(
                             serviceRequestCausesFcPortDeleteRequestForwardingName,
                             serviceRequestCausesFcPortDeleteRequestRequestBody,
                             serviceRequestCausesFcPortDeleteRequestContext
@@ -581,7 +581,7 @@ function removeAttribute(jsonObject, attributeName) {
 
     for (var element in jsonObject) {
 
-        if (jsonObject.hasOwnProperty(element)) {
+        if (Object.prototype.hasOwnProperty.call(jsonObject, element)) {
 
             if (element == attributeName) {
                 delete jsonObject[element];

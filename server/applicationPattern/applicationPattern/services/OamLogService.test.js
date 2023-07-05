@@ -81,7 +81,7 @@ test("recordOamRequest -- undefined fc", async () => {
 });
 
 test("recordOamRequest -- authorization error", async () => {
-  res = await OamLogService.recordOamRequest(
+  let res = await OamLogService.recordOamRequest(
     "{ testbody: foo }", {}, "200", "ZGFuYTp0ZXN0=", "PUT"
   );
   expect(res).toBeFalsy();

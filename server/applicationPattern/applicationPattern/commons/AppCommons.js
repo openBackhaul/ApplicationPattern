@@ -50,6 +50,7 @@ function setupExpressApp(app) {
  * @param {object} schema SecuritySchemeObject
  * @returns {Promise<boolean>} Promise is true when operation keys are equal.
  */
+// eslint-disable-next-line no-unused-vars
 async function validateOperationKey(request, scopes, schema) {
     const operationUuid = await operationServerInterface.getOperationServerUuidAsync(request.url);
     const operationKeyFromLoadfile = await operationServerInterface.getOperationKeyAsync(operationUuid);
@@ -65,6 +66,7 @@ async function validateOperationKey(request, scopes, schema) {
  * @param {object} schema SecuritySchemeObject
  * @returns {Promise} Promise is true when authentication is successful. If not , then a JSON object with the status code will be sent.
  */
+// eslint-disable-next-line no-unused-vars
 async function validateBasicAuth(request, scopes, schema) {
     const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method);
     if (authStatus.isAuthorized == true) {
@@ -82,6 +84,7 @@ async function validateBasicAuth(request, scopes, schema) {
  * @param {object} res express response
  * @param {function} next express next middleware function
  */
+// eslint-disable-next-line no-unused-vars
 function loggingErrorHandler(err, req, res, next) {
     const statusCode = err.status || 500;
     const errorBody = {
