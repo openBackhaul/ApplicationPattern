@@ -16,7 +16,6 @@ const operationClientInterface = require('../models/layerProtocols/OperationClie
 const LogicalTerminationPointConfigurationStatus = require('./models/logicalTerminationPoint/ConfigurationStatus');
 const ConfigurationStatus = require('./models/ConfigurationStatus');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
-const LogicalTerminationPoint = require('onf-core-model-ap-bs/basicServices/utility/LogicalTerminationPoint')
 
 
 /**

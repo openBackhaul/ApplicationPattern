@@ -13,8 +13,8 @@ const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
-const ForwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
-const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
+const ForwardingConstruct = require('../../models/ForwardingConstruct');
+const ForwardingDomain = require('../../models/ForwardingDomain');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
 
@@ -86,21 +86,24 @@ class HttpClientInterface extends layerProtocol {
         return httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
     }
 
-    static async getHttpClientUuidFromForwarding (forwardingName) {
-        try {
-            let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
-            if (forwardConstructName === undefined) {
-                return;
-            }
-            let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-            let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
-            let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-            let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
-            return httpClientUuid;
-        } catch (error) {
-            console.log(error);
-        }  
-}
+    /**
+     * @description This function returns the http client uuid of the fowarding.
+     * @param {String} forwardingName: the value should be a valid forwardingName
+     * @returns {String} undefined|httpClientUuid
+     **/
+
+    static async getHttpClientUuidFromForwarding(forwardingName) {
+        let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+        if (forwardConstructName === undefined) {
+            return;
+        }
+        let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+        let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+        let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+        let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+        return httpClientUuid;
+    }
+
     /**
      * @description This function returns the release number for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
