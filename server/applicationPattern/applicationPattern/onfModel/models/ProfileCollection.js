@@ -11,6 +11,7 @@ const onfFormatter = require('../utility/OnfAttributeFormatter');
 const onfPaths = require('../constants/OnfPaths');
 const onfAttributes = require('../constants/OnfAttributes');
 const fileOperation = require('../../databaseDriver/JSONDriver');
+// eslint-disable-next-line no-unused-vars
 const Profile = require('./Profile');
 
 class ProfileCollection {

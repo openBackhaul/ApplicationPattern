@@ -182,7 +182,7 @@ class LogicalTerminationPoint {
                 }
                 resolve(filteredLogicalTerminationPointUuidList);
             } catch (error) {
-                resolve(error);
+                reject(error);
             }
         });
     }

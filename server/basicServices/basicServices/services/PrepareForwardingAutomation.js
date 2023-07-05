@@ -392,20 +392,3 @@ function isLifeCycleStateDeprecated(lifeCycleState) {
         }
     }
 }
-
-function removeAttribute(jsonObject, attributeName) {
-
-    for (var element in jsonObject) {
-
-        if (jsonObject.hasOwnProperty(element)) {
-
-            if (element == attributeName) {
-                delete jsonObject[element];
-
-            } else if (typeof jsonObject[element] == 'object') {
-                removeAttribute(jsonObject[element], attributeName);
-            }
-        }
-    }
-    return jsonObject;
-}

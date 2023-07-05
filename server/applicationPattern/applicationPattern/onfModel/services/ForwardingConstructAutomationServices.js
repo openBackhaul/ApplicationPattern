@@ -279,21 +279,17 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
  **/
 function isForwardingConstructIsProcessSnippet(forwardingConstruct) {
     let isForwardingConstructIsProcessSnippet = false;
-    try {
-        let nameList = forwardingConstruct["name"];
-        for (let i = 0; i < nameList.length; i++) {
-            let valueName = getValueFromKey(
-                nameList,
-                "ForwardingKind"
-            );
-            if (valueName == ForwardingConstruct.forwardingConstructKindEnum.PROCESS_SNIPPET) {
-                isForwardingConstructIsProcessSnippet = true;
-            }
+    let nameList = forwardingConstruct["name"];
+    for (let i = 0; i < nameList.length; i++) {
+        let valueName = getValueFromKey(
+            nameList,
+            "ForwardingKind"
+        );
+        if (valueName == ForwardingConstruct.forwardingConstructKindEnum.PROCESS_SNIPPET) {
+            isForwardingConstructIsProcessSnippet = true;
         }
-        return isForwardingConstructIsProcessSnippet;
-    } catch (error) {
-        throw error;
     }
+    return isForwardingConstructIsProcessSnippet;
 }
 
 /**

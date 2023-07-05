@@ -67,6 +67,7 @@ class ElasticsearchService {
       }
     }
     client = new Client(await configureClientAsync(esUuid));
+    // eslint-disable-next-line no-unused-vars
     client.on('response', (err, result) => {
       if (err) {
         console.error(`Elasticsearch error occurred: ${err}`);
@@ -466,7 +467,7 @@ function replaceAllObjKeys(obj, getNewKey) {
     }
   }
   return obj;
-};
+}
 
 /**
  * Returns index alias from config file. If uuid is present, performs check if
