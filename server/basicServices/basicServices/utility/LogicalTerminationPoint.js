@@ -31,22 +31,6 @@ exports.resolveHttpTcpAndOperationClientUuidOfNewRelease = function () {
     })
 }
 
-exports.getHttpClientUuidFromForwarding = async function (forwardingName) {
-        try {
-            let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
-            if (forwardConstructName === undefined) {
-                return;
-            }
-            let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-            let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
-            let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-            let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
-            return httpClientUuid;
-        } catch (error) {
-            console.log(error);
-        }  
-}
-
 /**
 * @description This function returns list of registered application information application-name, release-number,
 * address, protocol and port.

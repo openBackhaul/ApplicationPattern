@@ -13,9 +13,10 @@ const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
+const ForwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
+const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-const LogicalTerminationPoint = require('onf-core-model-ap-bs/basicServices/utility/LogicalTerminationPoint')
 
 /** 
  * @extends layerProtocol
@@ -85,6 +86,21 @@ class HttpClientInterface extends layerProtocol {
         return httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
     }
 
+    static async getHttpClientUuidFromForwarding (forwardingName) {
+        try {
+            let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+            if (forwardConstructName === undefined) {
+                return;
+            }
+            let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+            let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+            let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+            let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+            return httpClientUuid;
+        } catch (error) {
+            console.log(error);
+        }  
+}
     /**
      * @description This function returns the release number for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
@@ -193,8 +209,8 @@ class HttpClientInterface extends layerProtocol {
             if (httpClientUuidList !== undefined) {
                 for (let i = 0; i < httpClientUuidList.length; i++) {
                     let uuid = httpClientUuidList[i];
-                    let httpClientUuidOfOldRelease = await LogicalTerminationPoint.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
-                    let httpClientUuidOfNewRelease = await LogicalTerminationPoint.getHttpClientUuidFromForwarding(newReleaseForwardingName);
+                    let httpClientUuidOfOldRelease = await HttpClientInterface.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
+                    let httpClientUuidOfNewRelease = await HttpClientInterface.getHttpClientUuidFromForwarding(newReleaseForwardingName);
                     if (!(uuid === httpClientUuidOfOldRelease || uuid === httpClientUuidOfNewRelease)) {
                         httpClientUuid = uuid;
                     }
