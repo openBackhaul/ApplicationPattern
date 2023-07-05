@@ -4,7 +4,7 @@
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@elastic/elasticsearch": "~7.17.0",
