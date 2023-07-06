@@ -48,6 +48,7 @@ So, code collaboration can be managed through VSCode with the support of the Git
 * [Avoiding Conflicts](./AvoidingConflicts/AvoidingConflicts.md)
 
 **Step-by-Step Guidelines**
+* [Setting the Proxy on TEF laptop](./ConfigureProxy/ConfigureProxy.md)
 * [Connecting VS Code with a GitHub repository](./VSCode2GitHub/VSCode2GitHub.md)
 * [Documenting an Issue](./DocumentingAnIssue/DocumentingAnIssue.md)
 * [Processing an Issue](./ProcessingAnIssue/ProcessingAnIssue.md)
