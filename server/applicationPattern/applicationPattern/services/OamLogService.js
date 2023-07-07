@@ -18,6 +18,7 @@ const RequestBuilder = require('../rest/client/RequestBuilder');
 const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
 const FcPort = require('../onfModel/models/FcPort');
 const ForwardingDomain = require('../onfModel/models/ForwardingDomain');
+const AuthorizingService = require('./AuthorizingService');
 const moment = require('moment');
 
 /**
@@ -43,13 +44,13 @@ exports.recordOamRequest = async function (oamPath, requestBody, responseCode, a
         let timestamp = moment().format();
         let applicationName = await HttpServerInterface.getApplicationNameAsync();
         let releaseNumber = await HttpServerInterface.getReleaseNumberAsync();
-        let userName = decodeAuthorizationCodeAndExtractUserName(authorizationCode);
+        let userName = AuthorizingService.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
         let stringifiedBody = JSON.stringify(requestBody);
         let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new RequestHeader(userName, applicationName, "", "", "unknown", operationKey));
         httpRequestBody = formulateResponseBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber);
         let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
         let responseCodeValue = response.status.toString();
-        if (response !== undefined && responseCodeValue.startsWith("2")) {
+        if (responseCodeValue.startsWith("2")) {
             return true;
         }
         console.log(`recordOamRequest - record OAM request with body ${JSON.stringify(httpRequestBody)} failed with response status: ${response.status}`);
@@ -99,30 +100,3 @@ async function getOperationClientToLogOamRequest() {
     return undefined;
 }
 
-/**
- * @description To decode base64 authorization code from authorization header
- * @param {String} authorizationCode base64 encoded authorization code
- * @returns {String} returns user name based on the decoded authorization code or empty string if decoding failed
- * <b><u>Procedure :</u></b><br>
- * <b>step 1 :</b> Get the authorization code from the header<br>
- * <b>step 2 :</b> split the authorization code with delimiter "space" to ignore the prefix "basic" from the authorization code<br>
- * <b>step 3 :</b> decode the encoded string (which will result in the format username:password)<br>
- * <b>step 3 :</b> split the text with delimiter ":" to get the username<br>
- **/
-function decodeAuthorizationCodeAndExtractUserName(authorizationCode) {
-    if (authorizationCode == undefined) {
-        return "";
-    }
-    try {
-        let base64EncodedString = authorizationCode.split(" ")[1];
-        let base64BufferObject = Buffer.from(base64EncodedString, "base64");
-        let base64DecodedString = base64BufferObject.toString("utf8");
-        let userName = base64DecodedString.split(":")[0];
-        console.log("Authorization code : " + authorizationCode);
-        console.log("decoded user name: " + userName);
-        return userName;
-    } catch (error) {
-        console.log(error);
-        return "";
-    }
-}
