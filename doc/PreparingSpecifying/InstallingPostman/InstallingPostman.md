@@ -29,32 +29,22 @@ To create a desktop icon open the Explorer and navigate to path *C:\Users\<usern
 Postman is now installed but still needs to be configured properly (see next section).
 
 ### Proxy Configuration
+_Note:_ As this guide is available to public, the proxy is not shown in plaintext. Ask [here](mailto:katharina.mohr@soprasteria.com?subject=[GitHub]%20Request%20for%20proxy) to obtain the actual value.
 
 To access the lab environment and to allow for workspace synchronisation, proxy settings need to be modified.  
+
 Therefore open the Settings dialogue:  
 ![postman_07](https://user-images.githubusercontent.com/57349523/151950095-c875e962-ca3d-41ca-a26d-7f0e68b45738.jpg)
 
 Set the proxy information as in the screenshot.  
 * The "Use the system proxy" checkbox needs to be set
-* The Proxy Server needs to be set to "bc-proxy-vip.de.pri.o2.com" with port 8080.
+* The Proxy Server needs to be set to the TEF-proxy with port 8080.
 * The Proxy Bypass needs to contain the NAT address of the SDN lab controller (10.118.67.77).  
-![postman_09](https://user-images.githubusercontent.com/57349523/151949896-ca46268d-c1a2-4d46-a0e0-f076dad5c736.jpg)
+![image](https://user-images.githubusercontent.com/57349523/225627054-7a0cef2e-bb95-4360-880d-37c64205f04e.png)
+
 
 Normally workspace synchronisation should now be possible (user needs to be logged in):  
 ![postman_11](https://user-images.githubusercontent.com/57349523/151950706-6d4d228a-9684-42ee-a544-0d0e9ef733f9.jpg)
 
-If not the workspace synchronisation is not possible the system proxy may not be configured correctly. In that case setting the HTTP_PROXY and HTTPS_PROXY environment variables can help (make sure to set the respective checkbox "Respect HTTP_PROXY..."). These variables can be set from Windows command line. Therefore press the Windows start button and type *cmd* to open the command line (note: it is not necessary to open the cmd with admin rights). The variables can be set with the following commands (make sure to use "http://..." for the HTTPS_PROXY as using "https://..." may not work):  
-```
-setx HTTP_PROXY "http://bc-proxy-vip-de.pri.o2.com:8080"
-setx HTTPS_PROXY "http://bc-proxy-vip-de.pri.o2.com:8080"
-````
-
-The result can be checked with command (for the changes to be visible first close the cmd and open it again):  
-```
-set | findstr "PROXY"
-```
-
-What it should look like (with cmd closed and reopened after the *setx* commands):  
-![postman_10](https://user-images.githubusercontent.com/57349523/151951061-8dcb2152-852b-414c-bed1-4f212e28932f.jpg)
-
+If not the workspace synchronisation is not possible the system proxy may not be configured correctly. In that case setting the HTTP_PROXY and HTTPS_PROXY environment variables like described [here](../ConfigureProxy/ConfigureProxy.md) can help. 
 
