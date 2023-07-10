@@ -9,6 +9,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | OL | OamLog | 2.0.0 | 4
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 5
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 6
+|  | MWDI | MicroWaveDeviceInventory | 1.0.0 | 7
 
 
 # Historical Fake Index Aliases  
