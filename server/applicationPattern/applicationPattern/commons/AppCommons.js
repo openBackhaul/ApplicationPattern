@@ -6,6 +6,15 @@ const authorizingService = require('../services/AuthorizingService');
 const oamLogService = require('../services/OamLogService');
 const executionAndTraceService = require('../services/ExecutionAndTraceService');
 
+const httpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
+const tcpServerInterface = require('../onfModel/models/layerProtocols/TcpServerInterface');
+const ForwardingDomain = require('../onfModel/models/ForwardingDomain');
+const FcPort = require('../onfModel/models/FcPort');
+const OnfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
+const onfAttributes = require('../onfModel/constants/OnfAttributes');
+const restClient = require('../rest/client/Client');
+const RequestHeader = require('../rest/client/RequestHeader');
+
 /**
  * Options for express-openapi-validator middleware
  */
@@ -58,9 +67,9 @@ async function validateOperationKey(request, scopes, schema) {
  */
 async function validateBasicAuth(request, scopes, schema) {
     const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method);
-    if(authStatus.isAuthorized == true){
+    if (authStatus.isAuthorized == true) {
         return true;
-    }else{
+    } else {
         throw authStatus;
     }
 }
@@ -76,6 +85,7 @@ async function validateBasicAuth(request, scopes, schema) {
 function loggingErrorHandler(err, req, res, next) {
     const statusCode = err.status || 500;
     const errorBody = {
+        code : statusCode,
         message: err.message,
         errors: err.errors,
     }
@@ -94,10 +104,85 @@ function loggingErrorHandler(err, req, res, next) {
     res.status(statusCode).json(errorBody);
 }
 
+/**
+ * Function to initiates application registration
+ * Register-yourself basic service will be triggered to the own application with no requestbody.
+ * 
+ */
+async function performApplicationRegistration() {
+    let registrationOperationServerUuid = await getRegisterYourselfOperationServerUuid();
+    if (registrationOperationServerUuid) {
+        formulateAndSendRequest(registrationOperationServerUuid);
+    }
+}
+
+/**
+ * Function to get the operation-server uuid of the register-yourself API
+ */
+async function getRegisterYourselfOperationServerUuid() {
+    let registerYourselfOperationServerUuid;
+    try {
+        let registeringCausesRegistrationRequestFCName = "PromptForRegisteringCausesRegistrationRequest";
+        let forwardingConstructInstance = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(registeringCausesRegistrationRequestFCName);
+        let fcPortInputDirectionLogicalTerminationPointList = [];
+        let fcPortList = forwardingConstructInstance[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+        for (const fcPort of fcPortList) {
+            const portDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
+            if (FcPort.portDirectionEnum.INPUT === portDirection) {
+                fcPortInputDirectionLogicalTerminationPointList.push(fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]);
+            }
+        }
+        registerYourselfOperationServerUuid = fcPortInputDirectionLogicalTerminationPointList.length >= 1 ? fcPortInputDirectionLogicalTerminationPointList[0] : undefined;
+    } catch (error) {
+        console.log(error);
+    }
+    return registerYourselfOperationServerUuid;
+}
+
+/**
+ * Function to formulate and initiate REST Request
+ * @param {string} registrationOperationServerUuid operation-server uuid of the register-yourself service
+ */
+async function formulateAndSendRequest(registrationOperationServerUuid) {
+    try {
+        let operationName = await operationServerInterface.getOperationNameAsync(registrationOperationServerUuid);
+        let operationKey = await operationServerInterface.getOperationKeyAsync(registrationOperationServerUuid);
+        let originator = await httpServerInterface.getApplicationNameAsync()
+        let httpRequestHeader = new RequestHeader(
+            undefined,
+            originator,
+            undefined,
+            undefined,
+            undefined,
+            operationKey
+        );
+        httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
+        let tcpServerProtocol = await tcpServerInterface.getLocalProtocol();
+        let tcpServerIpV4Address = (await tcpServerInterface.getLocalAddress())[onfAttributes.TCP_SERVER.IPV_4_ADDRESS];
+        let tcpServerPort = await tcpServerInterface.getLocalPort();
+        let registerYourselfUrl = tcpServerProtocol +
+            "://" +
+            tcpServerIpV4Address +
+            ":" +
+            tcpServerPort +
+            operationName;
+        let request = {
+            method: "POST",
+            url: registerYourselfUrl,
+            headers: httpRequestHeader
+        }
+        let result = await restClient.post(request);
+        console.log("Initiated application registration to " + registerYourselfUrl + " expected 204 is " + result.status);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     openApiValidatorOptions,
     setupExpressApp,
     validateOperationKey,
     validateBasicAuth,
-    loggingErrorHandler
+    loggingErrorHandler,
+    performApplicationRegistration
 };

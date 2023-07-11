@@ -9,7 +9,7 @@ const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfMode
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 
 
-exports.resolveHttpTcpAndOperationClientUuidFromForwardingName = function () {
+exports.resolveHttpTcpAndOperationClientUuidOfNewRelease = function () {
     return new Promise(async function (resolve, reject) {
         let forwardingName = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
         try {
@@ -30,8 +30,6 @@ exports.resolveHttpTcpAndOperationClientUuidFromForwardingName = function () {
         }
     })
 }
-
-
 
 /**
 * @description This function returns list of registered application information application-name, release-number,

@@ -9,8 +9,10 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 
+const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
+const TcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 
 exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName = '') {
     return new Promise(async function (resolve, reject) {
@@ -29,13 +31,22 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
                 bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
                 bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
-                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
-                forwardingAutomation = new forwardingConstructAutomationInput(
-                    bequeathYourDataAndDieForwardingName,
-                    bequeathYourDataAndDieRequestBody,
-                    bequeathYourDataAndDieContext
-                );
-                forwardingConstructAutomationList.push(forwardingAutomation);
+                let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding(bequeathYourDataAndDieForwardingName);
+                let oldReleaseTcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(oldReleaseHttpClientUuid))[0];
+                let oldReleaseProtocol = await TcpClientInterface.getRemoteProtocolAsync(oldReleaseTcpClientUuid);
+                let oldReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(oldReleaseTcpClientUuid);
+                let oldReleasePort = await TcpClientInterface.getRemotePortAsync(oldReleaseTcpClientUuid);
+                if (!(oldReleaseProtocol == bequeathYourDataAndDieRequestBody.newApplicationProtocol &&
+                        JSON.stringify(oldReleaseAddress) == JSON.stringify(bequeathYourDataAndDieRequestBody.newApplicationAddress) &&
+                        oldReleasePort == bequeathYourDataAndDieRequestBody.newApplicationPort)) {
+                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);                
+                    forwardingAutomation = new forwardingConstructAutomationInput(
+                        bequeathYourDataAndDieForwardingName,
+                        bequeathYourDataAndDieRequestBody,
+                        bequeathYourDataAndDieContext
+                    );
+                    forwardingConstructAutomationList.push(forwardingAutomation);
+                }
             }
 
             /***********************************************************************************
@@ -319,7 +330,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                 for (let i = 0; i < operationServerUuidList.length; i++) {
                     let operationServerUuid = operationServerUuidList[i];
                     let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
-                    if (lifeCycleState == operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED) {
+                    if (isLifeCycleStateDeprecated(lifeCycleState)) {
                         let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);
@@ -366,6 +377,16 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
             reject(error);
         }
     });
+}
+
+function isLifeCycleStateDeprecated(lifeCycleState) {
+    let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
+    let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
+        for (let lifeCycleStateKey in lifeCycleStateEnum) {
+            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
+                return true;
+            }
+        }
 }
 
 function removeAttribute(jsonObject, attributeName) {

@@ -108,9 +108,10 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
         try {
             let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
                 forwardingName);
-            let _isOperationServerIsInputFcPort = isOperationServerIsInputFcPort(
+            let _isOperationServerIsInputFcPort = FcPort.isOperationOfFcPortType(
                 forwardingConstruct,
-                operationServerUuid
+                operationServerUuid,
+                FcPort.portDirectionEnum.INPUT
             );
             if (_isOperationServerIsInputFcPort) {
                 let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
@@ -201,7 +202,6 @@ function automateForwardingsWithoutInputAsync(forwardingName, attributeList, con
  **/
 function automateProcessSnippetAsync(forwardingConstruct, attributeList, context, user, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
-        let response;
         try {
             let fcPortList = forwardingConstruct["fc-port"];
             for (let i = 0; i < fcPortList.length; i++) {
@@ -211,7 +211,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     let isOutputMatchesContext = await isOutputMatchesContextAsync(fcPort, context);
                     if (isOutputMatchesContext) {
                         let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-                        response = await eventDispatcher.dispatchEvent(
+                        eventDispatcher.dispatchEvent(
                             fcPortLogicalTerminationPoint,
                             attributeList,
                             user,
@@ -222,7 +222,7 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
                     }
                 }
             }
-            resolve(response);
+            resolve();
         } catch (error) {
             reject(error);
         }
@@ -242,7 +242,6 @@ function automateProcessSnippetAsync(forwardingConstruct, attributeList, context
 function automateSubscriptionsAsync(forwardingConstruct, attributeList,
     user, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
-        let response;
         try {
             let fcPortList = forwardingConstruct["fc-port"];
             for (let i = 0; i < fcPortList.length; i++) {
@@ -250,7 +249,7 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                 let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
                 let fcPortDirection = fcPort["port-direction"];
                 if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                    response = await eventDispatcher.dispatchEvent(
+                    eventDispatcher.dispatchEvent(
                         fcPortLogicalTerminationPoint,
                         attributeList,
                         user,
@@ -260,42 +259,13 @@ function automateSubscriptionsAsync(forwardingConstruct, attributeList,
                     );
                 }
             }
-            resolve(response);
+            resolve();
         } catch (error) {
             reject(error);
         }
     });
 }
 
-/**
- * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
- * @param {String} operationServerUuid operation server uuid of the request url
- * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
- * @param {String} user user who initiates this request
- * @param {string} originator originator of the request
- * @param {string} xCorrelator flow id of this request
- * @param {string} traceIndicator trace indicator of the request
- * @param {string} customerJourney customer journey of the request
- **/
-function isOperationServerIsInputFcPort(forwardingConstruct, operationServerUuid) {
-    let isOperationServerIsInputFcPort = false;
-    try {
-        let fcPortList = forwardingConstruct["fc-port"];
-        for (let i = 0; i < fcPortList.length; i++) {
-            let fcPort = fcPortList[i];
-            let fcPortDirection = fcPort["port-direction"];
-            let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-            if (fcPortDirection == FcPort.portDirectionEnum.INPUT) {
-                if (fcLogicalTerminationPoint == operationServerUuid) {
-                    isOperationServerIsInputFcPort = true;
-                }
-            }
-        }
-        return isOperationServerIsInputFcPort;
-    } catch (error) {
-        throw error;
-    }
-}
 
 /**
  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.

@@ -31,7 +31,7 @@ const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/
 
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 const genericRepresentation = require('./GenericRepresentation');
-const BadRequestHttpException = require('onf-core-model-ap/applicationPattern/rest/server/HttpException');
+const createHttpError = require('http-errors');
 /**
  * Embed yourself into the MBH SDN application layer
  *
@@ -919,6 +919,9 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
             let clientconfiguration = operationclientinterfacepac[onfAttributes.OPERATION_CLIENT.CONFIGURATION]
             if (clientconfiguration !== undefined) {
               delete clientconfiguration['operation-key'];
+              if (clientconfiguration['detailed-logging-is-on'] != undefined) {
+                delete clientconfiguration['detailed-logging-is-on'];
+              }
             }
           } else if (layerProtocalName == 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER') {
             serverclientinterfacepac = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC]
@@ -982,7 +985,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
       let forwardingConstructConfigurationStatus;
       let oldApplicationName;
       let oldReleaseNumber;
-      if (body["registry-office-application"] != undefined) {
+      if (Object.keys(body).length != 0) {
         /****************************************************************************************
          * Setting up required local variables from the request body
          ****************************************************************************************/
@@ -1044,7 +1047,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
 
         let tcpServerWithHttpsUpdated = await updateTcpServerDetails("HTTPS", httpsAddress, httpsPort);
         if (tcpServerWithHttpsUpdated.istcpServerUpdated) {
-          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpUpdated.tcpServerUuid, '', tcpServerWithHttpUpdated.istcpServerUpdated);
+          let configurationStatus = new ConfigurationStatus(tcpServerWithHttpsUpdated.tcpServerUuid, '', tcpServerWithHttpsUpdated.istcpServerUpdated);
           let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
           tcpClientConfigurationStatusList.push(configurationStatus);
         }
@@ -1098,12 +1101,7 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
               forwardingConfigurationInputList
             );
         }
-      } else {
-        customerJourney = traceIndicator;
-        traceIndicator = xCorrelator;
-        xCorrelator = originator;
-        user = body;
-      }
+      } 
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
@@ -1186,15 +1184,15 @@ exports.startApplicationInGenericRepresentation = function (user, originator, xC
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.updateClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
   return new Promise(async function (resolve, reject) {
     let response = {};
     try {
       /****************************************************************************************
        * get request body
        ****************************************************************************************/
-      let applicationName
-      let releaseNumber
+      let applicationName;
+      let releaseNumber;
       let currentApplicationName = body["current-application-name"];
       let currentReleaseNumber = body["current-release-number"];
       let futureApplicationName = body["future-application-name"];
@@ -1213,8 +1211,8 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       let tcpObject = formulateTcpObject(futureProtocol, futureAddress, futurePort);
       tcpObjectList.push(tcpObject);
 
-      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidAsync(futureApplicationName, futureReleaseNumber);
-      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber, newReleaseForwardingName);
+      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
 
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         futureApplicationName,
@@ -1231,16 +1229,25 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
           applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
           releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
         }
-        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateApplicationInformationAsync(
-          logicalTerminationPointConfigurationInput
+        let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+          logicalTerminationPointConfigurationInput.applicationName,
+          undefined,
+          newReleaseForwardingName
         );
+        
+        if (httpClientUuid) {
+            logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
+                    logicalTerminationPointConfigurationInput,
+                    newReleaseForwardingName
+                );
+        }
       
 
       /*******************************************************************************************************
        * bussiness logic to transfer the operation-client instances from current-release to future-release
        *******************************************************************************************************/
 
-      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidAsync(currentApplicationName, currentReleaseNumber);
+      let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
       if (httpClientUuidOfOldApplication) {
         let clientLtpsOfOldApplication = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfOldApplication);
         if (clientLtpsOfOldApplication != undefined && clientLtpsOfOldApplication.length > 0) {
@@ -1304,7 +1311,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateOperationClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.updateOperationClient = function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
   return new Promise(async function (resolve, reject) {
     let response = {};
     try {
@@ -1321,7 +1328,7 @@ exports.updateOperationClient = function (body, user, originator, xCorrelator, t
        ****************************************************************************************/
       let isUpdated;
       let operationClientUuid
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+      let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName);
       if (httpClientUuid) {
         operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, oldOperationName);
         if (operationClientUuid) {
@@ -1398,7 +1405,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationServerUuid is not present"))
+          reject(new createHttpError.BadRequest("OperationServerUuid is not present"))
         }
       } else if (operationClientInterface.isOperationClient(operationUuid)) {
         let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
@@ -1407,7 +1414,7 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
             isUpdated = await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
           }
         } else {
-          reject(new BadRequestHttpException("OperationClientUuid is not present"))
+          reject(new createHttpError.BadRequest("OperationClientUuid is not present"))
         }
       }
 
