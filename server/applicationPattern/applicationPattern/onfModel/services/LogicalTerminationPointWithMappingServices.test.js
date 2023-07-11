@@ -300,7 +300,7 @@ test("createOrUpdateApplicationAndReleaseInformationAsync", async () => {
 test("findAndUpdateApplicationInformationAsync", async () => {
 	const logicalTerminationPointConfigurationInput2 = {
     "applicationName": "TypeApprovalRegister",
-    "releaseNumber": "1.0.0",
+    "releaseNumber": "2.0.1",
     "tcpList": [
       {
         "protocol": "HTTP",
