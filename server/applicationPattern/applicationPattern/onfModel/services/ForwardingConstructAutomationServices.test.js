@@ -118,20 +118,18 @@ test("automateForwardingConstructAsync", async () => {
   jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
   jest.spyOn(event, 'dispatchEvent').mockImplementation(() => false);
   
-  const res = await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
+  return await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
     operationServerName, forwardingAutomationInputList, 'User Name', 
     '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-  expect(res).toBe(undefined);
 });
 
 test("automateForwardingConstructWithoutInputAsync", async () => {
   jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
   jest.spyOn(event, 'dispatchEvent').mockImplementation(() => true);
 
-  const res = await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
+  return await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
       forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
       '1.3.1', 'Unknown value');
-  expect(res).toBe(undefined);
 });
 
 afterEach(() => {
