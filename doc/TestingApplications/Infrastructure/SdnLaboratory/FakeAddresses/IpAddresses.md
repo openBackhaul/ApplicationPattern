@@ -36,6 +36,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MO | MountingOrchestrator | 1.0.0 | 1.1.4.10 | 4010 | 1.2.4.10 | 4210
 |  | NP | NotificationProxy | 1.0.0 | 1.1.4.11 | 4011 | 1.2.4.11 | 4211
 |  | MB | MycomButler | 1.0.0 | 1.1.4.12 | 4012 | 1.2.4.12 | 4212
+|  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 1.1.4.13 | 4013 | 1.2.4.13 | 4213
 
 \*) IP_1 + TCP_1 = address from **within** the GCP VPC (HTTP).  
 \*\*) IP_2 + TCP_2 = address from **outside** the GCP VPC (HTTP**S**).
