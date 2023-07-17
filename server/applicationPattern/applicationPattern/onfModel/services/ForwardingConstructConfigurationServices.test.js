@@ -1,4 +1,4 @@
-const ForwardingConstructAutomationServices = require('./ForwardingConstructConfigurationServices');
+const ForwardingConstructConfigurationServices = require('./ForwardingConstructConfigurationServices');
 const ForwardingConstructConfigurationStatus = require('./models/forwardingConstruct/ConfigurationStatus');
 const ControlConstruct = require('../models/ControlConstruct');
 const ForwardingDomain = require('../models/ForwardingDomain');
@@ -90,27 +90,161 @@ beforeEach(() => {
   ltps[0] = ltp;
 })
 
-test("configureForwardingConstructAsync", async () => {
-  const operationServerName = '/v1/embed-yourself';
-  jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
-  jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-  jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
+describe("configureForwardingConstructAsync", () => {
+  test("configureForwardingConstructAsync - successful", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
+    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
 
-  const res = await ForwardingConstructAutomationServices.configureForwardingConstructAsync(
-    operationServerName, forwardingConfigurationInputList);
-  expect(res).toBeInstanceOf(ForwardingConstructConfigurationStatus);
-});
+    const res = await ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    expect(res).toBeInstanceOf(ForwardingConstructConfigurationStatus);
+    
+  });
 
-test("unConfigureForwardingConstructAsync", async () => {
-  const operationServerName = '/v1/embed-yourself';
-  jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
-  jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
-  jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
+  test("configureForwardingConstructAsync - failed to get LogicalTerminationPointListAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    
+    const mockError = { message: 'Something bad happened' };
 
-  const res = await ForwardingConstructAutomationServices.unConfigureForwardingConstructAsync(
-    operationServerName, forwardingConfigurationInputList);
-  expect(res).toBeInstanceOf(ForwardingConstructConfigurationStatus);
-});
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => {
+      return Promise.reject(mockError);
+    });
+
+    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    return res.then(() => fail())
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+    
+  });
+
+  test("configureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    
+    const mockError = { message: 'Something really bad happened' };
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => {
+      return Promise.reject(mockError);
+    });
+
+    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    return res.then(() => fail())
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+    
+  });
+
+  test("configureForwardingConstructAsync - failed to set LogicalTerminationPointAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    
+    const mockError = { message: 'Something bad happened' };
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
+    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => {
+      return Promise.reject(mockError);
+    });
+
+    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    return res.then(() => fail())
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+    
+  });
+
+  test("configureForwardingConstructAsync - failed to configure ForwardingConstructAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    
+    const mockError = { message: 'Something bad happened' };
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
+    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
+
+    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    return res.then(() => {
+      return Promise.reject(mockError);
+    })
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+    
+  });
+
+})
+
+describe("unConfigureForwardingConstructAsync", () => {
+  test("unConfigureForwardingConstructAsync - successful", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
+    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
+
+    const res = await ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    expect(res).toBeInstanceOf(ForwardingConstructConfigurationStatus);
+  });
+
+  test("unConfigureForwardingConstructAsync - failed to get LogicalTerminationPointListAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    const mockError = { message: 'Something bad happened' };
+
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => {
+      return Promise.reject(mockError);
+    });
+
+    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    
+    return res.then(() => fail())
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+  });
+
+  test("unConfigureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    const mockError = { message: 'Something bad happened' };
+
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => {
+      return Promise.reject(mockError);
+    });
+
+    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    return res.then(() => fail())
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+  });
+
+  test("unConfigureForwardingConstructAsync - failed to UnConfigureForwardingConstructAsync", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    const mockError = { message: 'Something bad happened' };
+    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
+    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
+
+    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
+      operationServerName, forwardingConfigurationInputList);
+    
+    return res.then(() => {
+      return Promise.reject(mockError);
+    })
+    .catch((err)=> {
+      expect(err).toEqual(mockError);
+    })
+      
+  });
+  
+})
 
 afterEach(() => {
   jest.resetAllMocks();
