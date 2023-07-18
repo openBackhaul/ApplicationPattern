@@ -120,7 +120,7 @@ class FcPort {
             fcPortLocalIdList.sort();
             let lastUuid = fcPortLocalIdList[
                 fcPortLocalIdList.length - 1];
-            if (lastUuid > nextlocalId) {
+            if (lastUuid >= nextlocalId) {
                 nextlocalId = parseInt(lastUuid) + 1;
             }
         }
