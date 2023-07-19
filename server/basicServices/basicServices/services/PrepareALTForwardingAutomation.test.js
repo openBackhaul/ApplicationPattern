@@ -160,14 +160,14 @@ test("getALTForwardingAutomationInputAsync -- response OK", async () => {
     new ForwardingConstructAutomationInput("ServiceRequestCausesLtpUpdateRequest", tcpClientLtp),
     new ForwardingConstructAutomationInput("ServiceRequestCausesLtpUpdateRequest", operationLtp),
     new ForwardingConstructAutomationInput("ServiceRequestCausesFcUpdateRequest", forwardingConstruct),
-    new ForwardingConstructAutomationInput("ServiceRequestCausesFcPortUpdateRequest", 
+    new ForwardingConstructAutomationInput("ServiceRequestCausesFcPortUpdateRequest",
       { "fc-uuid": forwardingConstruct["uuid"], "fc-port": fcPort }
     )
   ];
   let res = await PrepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
     logicalTerminationPointConfigurationStatus, forwardingConstructConfigurationStatus);
-    expect(res).toStrictEqual(expected);
-    expect(res[2].attributeList["layer-protocol"][0]["operation-client-interface-1-0:operation-client-interface-pac"]["operation-client-interface-configuration"]["operation-key"]).toBeUndefined();
+  expect(res).toStrictEqual(expected);
+  expect(res[2].attributeList["layer-protocol"][0]["operation-client-interface-1-0:operation-client-interface-pac"]["operation-client-interface-configuration"]["operation-key"]).toBeUndefined();
 });
 
 test("getALTForwardingAutomationInputAsync -- empty inputs", async () => {
@@ -187,16 +187,11 @@ test("getALTForwardingAutomationInputAsync -- empty inputs", async () => {
 
 test("getALTUnConfigureForwardingAutomationInputAsync -- response OK", () => {
   let expected = [
-    new ForwardingConstructAutomationInput("ServiceRequestCausesLtpDeletionRequest", { uuid: httpClientLtp["uuid"]}),
-    new ForwardingConstructAutomationInput("ServiceRequestCausesLtpDeletionRequest", { uuid: tcpClientLtp["uuid"]}),
-    new ForwardingConstructAutomationInput("ServiceRequestCausesLtpDeletionRequest", { uuid: operationLtp["uuid"]}),
-    new ForwardingConstructAutomationInput("ServiceRequestCausesFcPortDeletionRequest", 
-      { "fc-uuid": forwardingConstruct["uuid"], "fc-port-local-id": "102" }
-    )
+    new ForwardingConstructAutomationInput("ServiceRequestCausesLtpDeletionRequest", { uuid: tcpClientLtp["uuid"] }),
   ];
   let res = PrepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
-    logicalTerminationPointConfigurationStatus, forwardingConstructConfigurationStatus);
-    expect(res).toStrictEqual(expected);
+    logicalTerminationPointConfigurationStatus);
+  expect(res).toStrictEqual(expected);
 });
 
 test("getALTUnConfigureForwardingAutomationInputAsync -- empty inputs", () => {
@@ -205,18 +200,31 @@ test("getALTUnConfigureForwardingAutomationInputAsync -- empty inputs", () => {
     httpClientConfigurationStatus: undefined,
     tcpClientConfigurationStatusList: []
   };
-  let forwardingConstructConfigurationStatusEmpty = {
-    forwardingConstructConfigurationStatusList: [],
-    fcPortConfigurationStatusList: []
-  };
   let res = PrepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
-    logicalTerminationPointConfigurationStatusEmpty, forwardingConstructConfigurationStatusEmpty);
+    logicalTerminationPointConfigurationStatusEmpty);
   expect(res).toStrictEqual([]);
 });
 
-test("getALTForwardingAutomationInputForOamRequestAsync -- empty inputs", async () => {
-  let res = await PrepareALTForwardingAutomation.getALTForwardingAutomationInputForOamRequestAsync();
-  expect(res).toStrictEqual([]);
+test("getFDUnconfigureForwardingAutomationInputList -- response OK", () => {
+  let expected = [
+    new ForwardingConstructAutomationInput("ServiceRequestCausesFcPortDeletionRequest",
+      { "fc-uuid": forwardingConstruct["uuid"], "fc-port-local-id": "102" }
+    )
+  ];
+  let res = PrepareALTForwardingAutomation.getFDUnconfigureForwardingAutomationInputList(
+    forwardingConstructConfigurationStatus);
+  expect(res).toStrictEqual(expected);
+});
+
+test("getFDUnconfigureForwardingAutomationInputList -- empty inputs", () => {
+  let forwardingConstructConfigurationStatusEmpty = {
+    forwardingConstructConfigurationStatusList: [],
+    fcPortConfigurationStatusList: []
+  }
+  let res = PrepareALTForwardingAutomation.getFDUnconfigureForwardingAutomationInputList(
+    forwardingConstructConfigurationStatusEmpty
+  );
+  expect(res).toEqual([]);
 });
 
 test("getALTForwardingAutomationInputForOamRequestAsync -- tcp client", async () => {
@@ -225,7 +233,7 @@ test("getALTForwardingAutomationInputForOamRequestAsync -- tcp client", async ()
   ];
   let res = await PrepareALTForwardingAutomation.getALTForwardingAutomationInputForOamRequestAsync(
     "alt-2-0-1-tcp-c-es-1-0-0-000");
-    expect(res).toStrictEqual(expected);
+  expect(res).toStrictEqual(expected);
 });
 
 test("getALTForwardingAutomationInputForOamRequestAsync -- http client", async () => {

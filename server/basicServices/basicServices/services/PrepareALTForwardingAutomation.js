@@ -1,10 +1,20 @@
+// @ts-check
 const ForwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const onfFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
 const ForwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
+// eslint-disable-next-line no-unused-vars
+const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
+// eslint-disable-next-line no-unused-vars
+const ForwardingConstructConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationStatus')
 
+/**
+ * @param {LogicalTerminationPointConfigurationStatus} ltpConfigurationStatus
+ * @param {ForwardingConstructConfigurationStatus} fcConfigurationStatus
+ * @returns {Promise<Array<ForwardingConstructAutomationInput>>}
+ */
 exports.getALTForwardingAutomationInputAsync = async function (ltpConfigurationStatus, fcConfigurationStatus) {
     let forwardingConstructAutomationList = [];
     let ltpforwardingConstructAutomationInputList = await getLTPForwardingAutomationInputListAsync(
@@ -18,19 +28,28 @@ exports.getALTForwardingAutomationInputAsync = async function (ltpConfigurationS
     return forwardingConstructAutomationList.flat();
 }
 
-exports.getALTUnConfigureForwardingAutomationInputAsync = function (ltpConfigurationStatus, fcConfigurationStatus) {
-    let forwardingConstructAutomationList = [];
-    let ltpforwardingConstructAutomationInputList = getLTPUnconfigureForwardingAutomationInputList(
-        ltpConfigurationStatus
-    );
-    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInputList);
-    let fdforwardingConstructAutomationInputList = getFDUnconfigureForwardingAutomationInputList(
-        fcConfigurationStatus
-    );
-    forwardingConstructAutomationList.push(fdforwardingConstructAutomationInputList);
-    return forwardingConstructAutomationList.flat();
+/**
+ * This function should be used for creating delete-ltp-and-dependents forwardings when an application is
+ * removed. Since delete-ltp-and-dependents will remove all traces of an LTP (including fc-ports),
+ * there is no need to send each LTP individually, only tcp-clients are necessary.
+ * 
+ * @param {LogicalTerminationPointConfigurationStatus} ltpConfigurationStatus
+ * @returns {Array<ForwardingConstructAutomationInput>} list of forwardings
+ */
+exports.getALTUnConfigureForwardingAutomationInputAsync = function (ltpConfigurationStatus) {
+    if (ltpConfigurationStatus === undefined ||
+        ltpConfigurationStatus.tcpClientConfigurationStatusList === undefined) {
+        return [];
+    }
+    let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
+    let tcpClientForwardingAutomationList = getUnconfigurableTcpClientForwardingAutomationInput(tcpClientConfigurationStatusList);
+    return tcpClientForwardingAutomationList;
 }
 
+/**
+ * @param {String} uuid
+ * @returns {Promise<Array<ForwardingConstructAutomationInput>>}
+ */
 exports.getALTForwardingAutomationInputForOamRequestAsync = async function (uuid) {
     let forwardingConstructAutomationList = [];
     let fwName = "OamRequestCausesLtpUpdateRequest";
@@ -61,29 +80,7 @@ async function getLTPForwardingAutomationInputListAsync(ltpConfigurationStatus) 
     let tcpClientForwardingAutomationList = await getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList);
     let operationClientForwardingAutomationList = await getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList);
 
-    if (httpClientConfigurationStatus) {
-        forwardingConstructAutomationList.push(httpClientForwardingAutomation);
-    }
-    forwardingConstructAutomationList.push(tcpClientForwardingAutomationList);
-    forwardingConstructAutomationList.push(operationClientForwardingAutomationList);
-    return forwardingConstructAutomationList.flat();
-}
-
-function getLTPUnconfigureForwardingAutomationInputList(ltpConfigurationStatus) {
-    if (ltpConfigurationStatus === undefined ||
-        ltpConfigurationStatus.httpClientConfigurationStatus === undefined) {
-        return [];
-    }
-    let forwardingConstructAutomationList = [];
-    let httpClientConfigurationStatus = ltpConfigurationStatus.httpClientConfigurationStatus;
-    let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
-    let operationClientConfigurationStatusList = ltpConfigurationStatus.operationClientConfigurationStatusList;
-
-    let httpClientForwardingAutomation = getUnconfigurableHttpClientForwardingAutomationInput(httpClientConfigurationStatus);
-    let tcpClientForwardingAutomationList = getUnconfigurableTcpClientForwardingAutomationInput(tcpClientConfigurationStatusList);
-    let operationClientForwardingAutomationList = getUnconfigurableOperationClientForwardingAutomationInputList(operationClientConfigurationStatusList);
-
-    if (httpClientConfigurationStatus) {
+    if (httpClientForwardingAutomation) {
         forwardingConstructAutomationList.push(httpClientForwardingAutomation);
     }
     forwardingConstructAutomationList.push(tcpClientForwardingAutomationList);
@@ -108,14 +105,18 @@ async function getFDForwardingAutomationInputListAsync(fcConfigurationStatus) {
     return forwardingConstructAutomationList.flat();
 }
 
-function getFDUnconfigureForwardingAutomationInputList(fcConfigurationStatus) {
+/**
+ * Creates forwardings for delete-fc-port.
+ * @param {ForwardingConstructConfigurationStatus} fcConfigurationStatus
+ * @returns {Array<ForwardingConstructAutomationInput>} list of forwardings
+ */
+exports.getFDUnconfigureForwardingAutomationInputList = function(fcConfigurationStatus) {
     if (fcConfigurationStatus === undefined ||
         fcConfigurationStatus.forwardingConstructConfigurationStatusList === undefined) {
         return [];
     }
     let fcPortConfigurationStatusList = fcConfigurationStatus.fcPortConfigurationStatusList;
-    let fcPortforwardingConstructAutomationInputList = getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusList);
-    return fcPortforwardingConstructAutomationInputList;
+    return getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusList);
 }
 
 async function getHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus) {
@@ -123,16 +124,6 @@ async function getHttpClientForwardingAutomationInputAsync(httpClientConfigurati
     if (httpClientConfigurationStatus.updated) {
         let body = await ControlConstruct.getLogicalTerminationPointAsync(
             httpClientConfigurationStatus.uuid);
-        return new ForwardingConstructAutomationInput(fwName, body, undefined);
-    }
-    return undefined;
-}
-
-function getUnconfigurableHttpClientForwardingAutomationInput(httpClientConfigurationStatus) {
-    let fwName = "ServiceRequestCausesLtpDeletionRequest";
-    if (httpClientConfigurationStatus.updated) {
-        let body = { uuid: httpClientConfigurationStatus.uuid };
-        body = onfFormatter.modifyJsonObjectKeysToKebabCase(body);
         return new ForwardingConstructAutomationInput(fwName, body, undefined);
     }
     return undefined;
@@ -177,21 +168,6 @@ async function getOperationClientForwardingAutomationInputListAsync(operationCli
             let body = await ControlConstruct.getLogicalTerminationPointAsync(
                 operationClientConfigurationStatus.uuid);
             body = removeAttribute(body, "operation-key")
-            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
-            forwardingConstructAutomationList.push(forwardingAutomation);
-        }
-    }
-    return forwardingConstructAutomationList;
-}
-
-function getUnconfigurableOperationClientForwardingAutomationInputList(operationClientConfigurationStatusList) {
-    let fwName = "ServiceRequestCausesLtpDeletionRequest";
-    let forwardingConstructAutomationList = [];
-
-    for (let operationClientConfigurationStatus of operationClientConfigurationStatusList) {
-        if (operationClientConfigurationStatus.updated) {
-            let body = { uuid: operationClientConfigurationStatus.uuid };
-            body = onfFormatter.modifyJsonObjectKeysToKebabCase(body);
             let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
             forwardingConstructAutomationList.push(forwardingAutomation);
         }

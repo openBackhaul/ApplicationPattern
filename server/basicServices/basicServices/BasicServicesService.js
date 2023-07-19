@@ -200,14 +200,6 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
       let subscriptionOperation = body["subscription"];
 
       /****************************************************************************************
-       * Prepare logicalTerminationPointConfigurationInput object to
-       * configure logical-termination-point
-       ****************************************************************************************/
-
-      let logicalTerminationPointconfigurationStatus;
-
-
-      /****************************************************************************************
        * Prepare attributes to configure forwarding-construct
        ****************************************************************************************/
 
@@ -225,8 +217,7 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
-      let forwardingAutomationInputList = await prepareForwardingAutomation.endSubscription(
-        logicalTerminationPointconfigurationStatus,
+      let forwardingAutomationInputList = prepareForwardingAutomation.endSubscription(
         forwardingConstructConfigurationStatus
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
