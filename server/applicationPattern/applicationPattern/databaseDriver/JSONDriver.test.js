@@ -29,10 +29,6 @@ const initialContent = {
 
 beforeAll(() => {
   fileSystem.open(file, 'r+', function (err, data) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log("File open successfully");
   });
   fileSystem.writeFileSync(file, JSON.stringify(initialContent));
 });

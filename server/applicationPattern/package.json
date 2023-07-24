@@ -1,6 +1,6 @@
 {
   "name": "onf-core-model-ap",
-  "version": "2.0.1-alpha.13",
+  "version": "2.0.1-alpha.19",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "~7.17.0",
+    "async-lock": "^1.4.0",
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "connect": "^3.2.0",

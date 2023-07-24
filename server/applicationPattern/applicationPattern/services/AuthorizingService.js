@@ -109,7 +109,7 @@
   * @param {string} authorizationCode base64 encoded authorization code<br> 
   * @returns {string} returns user name based on the decoded authorization code
   **/
- function decodeAuthorizationCodeAndExtractUserName(authorizationCode) {
+ exports.decodeAuthorizationCodeAndExtractUserName = function(authorizationCode) {
      try {
          let base64EncodedString = authorizationCode.split(" ")[1];
          let base64BufferObject = Buffer.from(base64EncodedString, "base64");
