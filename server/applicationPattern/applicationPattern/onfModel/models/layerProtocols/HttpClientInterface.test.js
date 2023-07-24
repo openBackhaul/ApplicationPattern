@@ -82,6 +82,10 @@ test("generateHttpClientUuidAsync", async () => {
   expect(await HttpClientInterface.generateHttpClientUuidAsync("ElasticSearchTest", "1.5.6")).toBe("undefined-http-c-est-1-5-6-000");
 });
 
+test("generateHttpClientUuidAsync", async () => {
+  expect(await HttpClientInterface.generateHttpClientUuidAsync("ELsTiCSeArcHTest", "1.5.6")).toBe("undefined-http-c-eltcsa-1-5-6-000");
+});
+
 afterEach(() => {
   jest.resetAllMocks();
 });
