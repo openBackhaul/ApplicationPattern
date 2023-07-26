@@ -3,7 +3,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "RO",
             "component": "RegistryOffice",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3001,
             "original-address": {
                 "ip-address": {
@@ -16,7 +16,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "TAR",
             "component": "TypeApprovalRegister",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3002,
             "original-address": {
                 "ip-address": {
@@ -29,7 +29,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "EATL",
             "component": "ExecutionAndTraceLog",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3003,
             "original-address": {
                 "ip-address": {
@@ -42,7 +42,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "OL",
             "component": "OamLog",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3004,
             "original-address": {
                 "ip-address": {
@@ -55,7 +55,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "AA",
             "component": "AdministratorAdministration",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3005,
             "original-address": {
                 "ip-address": {
@@ -68,7 +68,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "ALT",
             "component": "ApplicationLayerTopology",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3006,
             "original-address": {
                 "ip-address": {
@@ -81,7 +81,7 @@
             "category": "TinyApplicationController",
             "abbreviation" : "OKM",
             "component": "OperationKeyManagement",
-            "release": "0.0.1",
+            "release": "2.0.1",
             "fake-tcp-port": 3007,
             "original-address": {
                 "ip-address": {
@@ -92,9 +92,9 @@
         },
         {
             "category": "TinyApplicationController",
-            "abbreviation" : "OKM",
-            "component": "OperationKeyManagement",
-            "release": "0.0.2",
+            "abbreviation" : "ELK",
+            "component": "ElasticSearch",
+            "release": "1.0.0",
             "fake-tcp-port": 3008,
             "original-address": {
                 "ip-address": {

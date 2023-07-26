@@ -10,42 +10,24 @@
  * @copyright   Telefónica Germany GmbH & Co. OHG
  * @module FileOperation
  **/
-const JSONDriver = require('./JSONDriver');
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
+const AsyncLock = require('async-lock');
 
 global.databasePath;
+
+const lock = new AsyncLock();
 
 /**
  * This function reads the requested oam path from the core-model<br>
  * @param {String} oamPath json path that leads to the destined attribute
  * @returns {Promise<any>} return the requested value
  */
-exports.readFromDatabaseAsync = function (oamPath) {
-    return new Promise(function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            let individualFieldOfTheOAMPathList = oamPath.split('/');
-                            resolve(getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList));
-                        } catch (error) {
-                            console.log("retry mechanism read");
-                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            } else {
-                console.log("path not exists " + databasePath);
-            }
-        } catch (error) {
-            console.log(error);
-            reject();
-        }
+exports.readFromDatabaseAsync = async function (oamPath) {
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        return getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
     });
 }
 
@@ -56,36 +38,17 @@ exports.readFromDatabaseAsync = function (oamPath) {
  * @param {Boolean} isAList a boolean flag that represents whether the value to be updated is a list
  * @returns {Promise<Boolean>} return true if the value is updated, otherwise returns false
  */
-exports.writeToDatabaseAsync = function (oamPath, valueToBeUpdated, isAList) {
-    if (isAList !== true) {
-        if (typeof valueToBeUpdated !== "string") {
-            for (let keyAttributeOfTheList in valueToBeUpdated) {
-                valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
-            }
+exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isAList) {
+    if (isAList !== true && typeof valueToBeUpdated !== "string") {
+        for (let keyAttributeOfTheList in valueToBeUpdated) {
+            valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
         }
     }
-    return new Promise(function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            let individualFieldOfTheOAMPathList = oamPath.split('/');
-                            resolve(putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList, valueToBeUpdated, isAList));
-                        } catch (error) {
-                            console.log("retry mechanism write");
-                            setTimeout(() => JSONDriver.writeToDatabaseAsync(oamPath, valueToBeUpdated, isAList), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            reject(false);
-        }
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList, valueToBeUpdated, isAList);
+        return result;
     });
 }
 
@@ -97,28 +60,12 @@ exports.writeToDatabaseAsync = function (oamPath, valueToBeUpdated, isAList) {
  * @param {Boolean} isAList a boolean flag that represents whether the value to be deleted is a list
  * @returns {Promise<Boolean>} return true if the value is deleted, otherwise returns false
  */
-exports.deletefromDatabaseAsync = function (oamPath, valueToBeDeleted, isAList) {
-    return new Promise(function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            let individualFieldOfTheOAMPathList = oamPath.split('/');
-                            resolve(deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList));
-                        } catch (error) {
-                            setTimeout(() => JSONDriver.deletefromDatabaseAsync(oamPath, valueToBeDeleted, isAList), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            reject(false);
-        }
+exports.deletefromDatabaseAsync = async function (oamPath, valueToBeDeleted, isAList) {
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
+        return result;
     });
 }
 
@@ -267,7 +214,7 @@ function writeToFile(coreModelJsonObject) {
         fileSystem.writeFileSync(databasePath, JSON.stringify(coreModelJsonObject));
         return true;
     } catch (error) {
-        console.log('write failed:')
+        console.log('write failed:', error)
         return false;
     }
 }
