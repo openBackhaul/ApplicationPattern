@@ -4,10 +4,11 @@
 ### Concepts
 
 **General Design Principles**
-- [API-First Approach](./Principles/ApiFirst/ApiFirst.md)
-- [RESTful](./Principles/Restful/Restful.md)
 - [Microservice](./Principles/Microservice/Microservice.md)
-- [CONFIGfile](./Principles/ConfigFile/ConfigFile.md)
+- [HTTP Request](./Principles/Http/Http.md)
+- [RESTful](./Principles/Restful/Restful.md)
+- [API-First Approach](./Principles/ApiFirst/ApiFirst.md)
+- [OpenAPI Specificatgion](./Principles/OpenApiSpecification/OpenApiSpecification.md)
 
 **Functions**
 - [Structure of Services](./Functions/StructureOfServices/StructureOfServices.md)
@@ -16,12 +17,12 @@
 - [Structure of Internal Forwarding](./Functions/StructureOfInternalForwarding/StructureOfInternalForwarding.md)
 - [Types of Internal Forwarding](./Functions/TypesOfInternalForwardings/TypesOfInternalForwardings.md)
 - [Substructure of Management of Internal Forwarding](./Functions/SubstructureOfManagementOfInternalForwardings/SubstructureOfManagementOfInternalForwardings.md)
-- [Concept of _CONFIGfile_](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
-- [Structure of _CONFIGfile_](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
-- [Concept of OpenApiSpecification](./Functions/ConceptOfOas/ConceptOfOas.md)
-- [Structure of OpenApiSpecification](./Functions/StructureOfOas/StructureOfOas.md)
-- [Concept of TestCases](./Functions/ConceptOfTestCases/ConceptOfTestCases.md)
-- [Structure of TestCases](./Functions/StructureOfTestCases/StructureOfTestCases.md)
+- [Concept of CONFIGfile](./Functions/ConceptOfConfigFile/ConceptOfConfigFile.md)
+- [Concept of DATAfile](./Functions/ConceptOfDataFile/ConceptOfDataFile.md)
+- [Structure of CONFIGfile](./Functions/StructureOfConfigFile/StructureOfConfigFile.md)
+- [Concept of Test Case Collection](./Functions/ConceptOfTestCaseCollection/ConceptOfTestCaseCollection.md)
+- [Structure of Test Case Collection](./Functions/StructureOfTestCaseCollection/StructureOfTestCaseCollection.md)
+- [Structure of Test Case](./Functions/StructureOfTestCase/StructureOfTestCase.md)
 
 **Names and IDs**
 - [Structure of ApplicationNames](./Names/StructureOfApplicationNames/StructureOfApplicationNames.md)
@@ -29,22 +30,17 @@
 - [Structure of Release Numbers](./Names/StructureOfReleaseNumbers/StructureOfReleaseNumbers.md)
 - [Structure of UUIDs](./Names/StructureOfUuids/StructureOfUuids.md)
 - [Structure of Internal Forwarding Names](./Names/StructureOfInternalForwardingNames/StructureOfInternalForwardingNames.md)
+- [Structure of OaM paths](./Names/StructureOfOamPaths/StructureOfOamPaths.md)
 
 
 ### Underlying Information Model
 
-**Overview Information Model**
-
 **Classes**
 - [ControlConstruct](./InformationModel/ControlConstruct/ControlConstruct.md) 
-- [LogicalTerminationPoint](./InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
-- LayerProtocol
-- Profile
-- **ForwardingDomain**: The ForwardingDomain(FD) aggregates one or more ForrwardingConstruct(FC). Theoretically CC consists of a list of FDs. But practically a Microservice consists of a single FD instance. FDs are identified by a uuid.
-- [ForwardingConstruct](./InformationModel/ForwardingConstruct/ForwardingConstruct.md)
-- ForwardingConstructPort
-- NetworkControlDomain
-- Link
+- [LogicalTerminationPoint and LayerProtocol](./InformationModel/LogicalTerminationPoint/LogicalTerminationPoint.md)
+- [ForwardingDomain, ForwardingConstruct and ForwardingConstructPort](./InformationModel/ForwardingConstruct/ForwardingConstruct.md) 
+- [ProfileCollection and Profile](./InformationModel/Profile/Profile.md) 
+- [NetworkControlDomain and Link](./InformationModel/Link/Link.md) 
 
 
 ### Basic Services

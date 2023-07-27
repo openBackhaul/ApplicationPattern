@@ -14,38 +14,39 @@
   * This function authorizes the user credentials<br>
   * @param {string} authorizationCode authorization code received from the header<br>
   * @param {string} method is the https method name<br>
-  * @returns {Promise<boolean>} return the authorization result<br>
-  * This method performs the following step,<br>
-  * step 1: extract the <br>
-  * 2. If user value is empty , then the value from originator will be copied<br>
-  * 3. If xCorrelator is empty , then a new X-correlator string will be created by using the method xCorrelatorGenerator<br>
-  * 4. If the customerJourney is empty , then the value "unknown value" will be added<br>
-  * 5. If trace-indicator value is empty , then the value will be assigned to 1<br>
+  * @returns {Promise} authStatus return the authorization result<br>
   */
  exports.isAuthorized = function (authorizationCode, method) {
      return new Promise(async function (resolve, reject) {
-         let isAuthorized = false;
-         try {
+        let authStatus = {
+            "isAuthorized" : false
+        }
+        try {
              let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
-             let serviceName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
-             let ipAddressAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationClientUuid);
              let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
-             let userName = decodeAuthorizationCodeAndExtractUserName(authorizationCode);
+             let userName = exports.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
              let applicationName = await httpServerInterface.getApplicationNameAsync();
              let applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
              let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
              let httpRequestBody = formulateResponseBody(applicationName, applicationReleaseNumber, authorizationCode, method)
-             let response = await restRequestBuilder.BuildAndTriggerRestRequest(ipAddressAndPort, serviceName, "POST", httpRequestHeader, httpRequestBody);
+             let response = await restRequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
              if (response !== undefined && response.status === 200) {
                  let responseBody = response.data;
                  if (responseBody["oam-request-is-approved"] == true) {
-                     isAuthorized = true;
+                    authStatus.isAuthorized = true;
+                 }else{
+                    if(responseBody["reason-of-objection"] == 'METHOD_NOT_ALLOWED'){
+                    authStatus.status = 403;
+                    }
                  }
+             }else if(response !== undefined && response.status === 404){
+                authStatus.message = "Application that authenticates the OAM request is down." + 
+                "Therefore, authentication is not verified. Please try again later.";
              }
-             resolve(isAuthorized);
+             resolve(authStatus);
          } catch (error) {
              console.log(error);
-             resolve(isAuthorized);
+             resolve(authStatus);
          }
      });
  }
@@ -108,7 +109,7 @@
   * @param {string} authorizationCode base64 encoded authorization code<br> 
   * @returns {string} returns user name based on the decoded authorization code
   **/
- function decodeAuthorizationCodeAndExtractUserName(authorizationCode) {
+ exports.decodeAuthorizationCodeAndExtractUserName = function(authorizationCode) {
      try {
          let base64EncodedString = authorizationCode.split(" ")[1];
          let base64BufferObject = Buffer.from(base64EncodedString, "base64");

@@ -27,7 +27,18 @@ const NAME = {
 const CONTROL_CONSTRUCT = {
     PROFILE_COLLECTION: "profile-collection",
     LOGICAL_TERMINATION_POINT: "logical-termination-point",
-    FORWARDING_DOMAIN: "forwarding-domain"
+    FORWARDING_DOMAIN: "forwarding-domain",
+    LINK: "link"
+};
+
+/******************************************
+ ********************link******************
+ *****************************************/
+
+ const LINK = {
+    LINK_PORT: "link-port",
+    PORT_DIRECTION: "port-direction",
+    LOGICAL_TERMINATION_POINT: "logical-termination-point"
 };
 
 /******************************************
@@ -140,6 +151,16 @@ const RESPONSE_PROFILE = {
     STATIC_FIELD_NAME: "static-field-name"
 }
 
+const STRING_PROFILE = {
+    PAC: "string-profile-1-0:string-profile-pac",
+    CAPABILITY: "string-profile-capability",
+    CONFIGURATION: "string-profile-configuration",
+    STRING_NAME: "string-name",
+    ENUMERATION: "enumeration",
+    PATTERN: "pattern",
+    STRING_VALUE: "string-value"
+}
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -200,10 +221,11 @@ const OPERATION_CLIENT = {
 const TCP_SERVER = {
     CAPABILITY: "tcp-server-interface-capability",
     CONFIGURATION: "tcp-server-interface-configuration",
+    LOCAL_ADDRESS: "local-address",
     IPV_4_ADDRESS: "ipv-4-address",
-    IP_ADDRESS: "ip-address",
     DOMAIN_NAME: "domain-name",
-    LOCAL_PORT: "local-port"
+    LOCAL_PORT: "local-port",
+    LOCAL_PROTOCOL: "local-protocol"
 };
 
 const TCP_CLIENT = {
@@ -247,6 +269,7 @@ module.exports = {
     LOCAL_CLASS,
     NAME,
     CONTROL_CONSTRUCT,
+    LINK,
     PROFILE_COLLECTION,
     PROFILE,
     APPLICATION_PROFILE,
@@ -257,6 +280,7 @@ module.exports = {
     SERVICE_RECORD_PROFILE,
     OAM_RECORD_PROFILE,
     RESPONSE_PROFILE,
+    STRING_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,

@@ -1,11 +1,16 @@
-### How to see the logs of a docker container
-Mostly mentioned commands are used for creation, running and debug the containers.
+### How to debug/check logs for docker container issues
 
-For example, when the docker containers are exited due to some issue, to find out the root cause, have to check information about container and related logs.
+Most of the previous mentioned commands are used for creation, running and deploy the containers.
 
-* Initially, check whether container is running or not using **docker ps -a** and which list all running and dead containers.
+For example, when the docker containers are exited due to some issue, to find out the root cause, we have to check information about container and related logs.
 
-* Select the container id and inspect the container using the **docker inspect < containerId/containerName>**. With this command output gives the overall status of container includes state, path, image and logpath etc.
+* As a first step, all running and exited containers can be listed from below command
+
+        docker ps -a
+
+* Select the container id and inspect the container using below command. With this command output gives the overall status of container includes state, path, image and logpath etc.
+
+        docker inspect < containerId/containerName>
 
 Below is an example for one of the application:
 
@@ -40,7 +45,10 @@ Below is an example for one of the application:
 
 Based on this information, able to get the data related to images, logs path, state of container etc.
 
-* Fetch container logs using "**docker logs <containerId/containerName>**" which gives the logs and to tail the current logs use the command "**docker logs -f <containerId/containerName>**".
+* Fetch the container logs using below command 
+
+         docker logs -f <containerId/containerName>
+Example logs: 
 
         WebApp@WebApp:/var/lib/docker$ docker logs -f registry-office-v1
         Sun, 04 Sep 2022 14:55:46 GMT body-parser deprecated undefined extended: provide extended option at node_modules/oas3-tools/dist/middleware/express.app.config.js:22:33
@@ -48,6 +56,8 @@ Based on this information, able to get the data related to images, logs path, st
         Your server is listening on port xxxx (http://localhost:xxxx)
         Swagger-ui is available on http://localhost:XXXX/docs ..... etc
 
-* Stats the container information using "docker stats <container_id>" it will give live stream of resource usage, then we can see how much memory used.
+* Stats the container information using below command and it will give live stream of resource usage with consumed memory details.
+
+        docker stats <container_id>
 
 [<- Back to Docker Usage](./UtilizationInSDN.md) - - - [Back to Testing Applications](../../../TestingApplications.md)

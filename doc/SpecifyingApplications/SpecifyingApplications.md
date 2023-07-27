@@ -26,11 +26,11 @@ Every Application needs an own repository, which will exist in parallel to the A
 Initial specification, but also implementation and later bug fixing and potential expansion of the Application will be organized through this repository.  
 
 **Concepts**
-* [Creating the ApplicationRepository](./CreatingApplicationRepository/CreatingApplicationRepository.md)
-* [Standardized ApplicationRepository](./StandardizedApplicationRepository/StandardizedApplicationRepository.md)
+- [Creating the ApplicationRepository](./CreatingApplicationRepository/CreatingApplicationRepository.md)
+- [Standardized ApplicationRepository](./StandardizedApplicationRepository/StandardizedApplicationRepository.md)
 
 **Step-by-Step Guidelines**
-* [Starting the Specification Process](./StartingToSpecify/StartingToSpecify.md)
+- [Starting the Specification Process](./StartingToSpecify/StartingToSpecify.md)
 
 
 ## ServiceList
@@ -40,10 +40,10 @@ The ServiceList is a compact notation for designing the service names and alloca
 It provides full focus on composing a complete and well-structured set of services before adding parameter and body details in the OpenApiSpecification.  
 
 **Concepts**
-* [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
+- [Concept of ServiceList](./ConceptOfServiceList/ConceptOfServiceList.md)
 
 **Step-by-Step Guidelines**
-* [Creating the ServiceList](./CreatingServiceList/CreatingServiceList.md)
+- [Creating the ServiceList](./CreatingServiceList/CreatingServiceList.md)
 
 
 ## ProfileList and ProfileInstanceList
@@ -54,11 +54,11 @@ The ProfileList describes the Profiles as classes and supports creating the Open
 The ProfileInstanceList lists all objects created from the Profile classes; it supports creating the CONFIGfile.  
 
 **Concepts**
-* [Concepts of ProfileList and ProfileInstanceList ](./ConceptOfProfileList/ConceptOfProfileList.md)
+- [Concepts of ProfileList and ProfileInstanceList ](./ConceptOfProfileList/ConceptOfProfileList.md)
 
 **Step-by-Step Guidelines**
-* [Creating the ProfileList](./CreatingProfileList/CreatingProfileList.md)
-* [Creating the ProfileInstanceList](./CreatingProfileInstanceList/CreatingProfileInstanceList.md)
+- [Creating the ProfileList](./CreatingProfileList/CreatingProfileList.md)
+- [Creating the ProfileInstanceList](./CreatingProfileInstanceList/CreatingProfileInstanceList.md)
 
 
 ## ForwardingList
@@ -66,60 +66,57 @@ The ProfileInstanceList lists all objects created from the Profile classes; it s
 The ForwardingList must describe all relationships between events and reactions that need to be documented and configurable at the application.
 
 **Concepts**
-* [Concepts of the ForwardingList](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)
+- [Concepts of the _ForwardingList_](./ConceptsOfForwardingList/ConceptsOfForwardingList.md)  
+- [Structure of the _ForwardingList_](./StructureOfForwardingList/StructureOfForwardingList.md)  
+- [Structure of a Description of a _Forwarding_](./StructureOfForwardingDescription/StructureOfForwardingDescription.md)
 
 **Step-by-Step Guidelines**
-* [Creating the ForwardingList](./CreatingForwardingList/CreatingForwardingList.md)
+- [Creating the ForwardingList](./CreatingForwardingList/CreatingForwardingList.md)
 
 
 ## OpenApiSpecification
 
-The OpenApiSpecification represents the detailed specification of the REST API of the application.
+The OpenApiSpecification (OAS) represents the detailed specification of the REST API of the application.
+
+**Concepts**
+- [Structure of the OAS](./StructureOfOas/StructureOfOas.md)  
 
 **Step-by-Step Guidelines**
-* [Getting Template](./GettingOasTemplate/GettingOasTemplate.md)
-* [Individualizing the Template](./IndividualizingOasTemplate/IndividualizingOasTemplate.md)
-* [Transferring ServiceList content](./TransferringServiceList/TransferringServiceList.md)
-* [Detailing the Services](./DetailingServices/DetailingServices.md)
-* [Transferring ForwardingList content](./TransferringForwardingList/TransferringForwardingList.md)
-* [Creating Mock](./CreatingMock/CreatingMock.md)
-* [Reviewing the OAS](./ReviewingOas/ReviewingOas.md)
+- [Creating the OAS](./CreatingOas/CreatingOas.md)
 
 
 ## CONFIGfile
 
 The CONFIGfile describes the data structure inside the application and on the disk. The defined values represent the initial state of the application directly after instantiation.
 
-**Concepts**
-* [CONFIGfile](./ConceptOfConfigFile/ConceptOfConfigFile.md)
+**Step-by-Step Guidelines**
+- [Creating the CONFIGfile](./CreatingConfigFile/CreatingConfigFile.md)
 
-## TestCases
-TestCases are written in Postman as collections of small scripts.  
-A set of testcases is defined for each individual request and it mainly focuses on
-* determining if the functionality of the service is working as expected.  
-* revealing errors or defects of the implementation.  
+
+## TestCaseCollection
+
+The TestCaseCollection (TCC) must describe the business logic that must be implemented inside the application.  
 
 **Concepts**
-* [Specifying Testcases](./TestCases/SpecifyingTestcases.md)
-* [Concepts of Testcases](./TestCases/ConceptsOfTestCases.md)
 
 **Step-by-Step Guidelines**
-* [Creating Testsuite](./TestCases/CreatingTestSuite.md)
-* [Generating Json schema from Specification](./TestCases/JsonSchemaFromSpecification.md)
-* [Running the Testcases](./TestCases/ExecutingTestSuite.md)
+- [Creating a Mock Server](./TestCaseCollection/CreatingMockServer/CreatingMockServer.md)
+- [Creating a TestCaseCollection](./TestCaseCollection/CreatingTestCaseCollection/CreatingTestCaseCollection.md)
+- [Creating a Test Case](./TestCaseCollection/CreatingTestCase/CreatingTestCase.md)
 
 **Documentation**
-* [Creating workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/)
-* [Version control in postman](https://learning.postman.com/docs/collaborating-in-postman/version-control/)
-* [Importing and exporting collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
-* [Documenting API](https://learning.postman.com/docs/publishing-your-api/documenting-your-api/)
+- [Creating workspace](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/creating-workspaces/)
+- [Version control in postman](https://learning.postman.com/docs/collaborating-in-postman/version-control/)
+- [Importing and exporting collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
+- [Documenting API](https://learning.postman.com/docs/publishing-your-api/documenting-your-api/)
 
-### Publishing
+
+## Publishing
 
 After finishing specification work on a release, files have to be published for initiating next steps.
 
 **Concepts**
-* [Publishing a Specification](./PublishingSpecification/PublishingSpecification.md)
+- [Publishing a Specification](./PublishingSpecification/PublishingSpecification.md)
 
 
 [<- Back to Preparing](../PreparingSpecifying/PreparingSpecifying.md) - - - [Up to Main](../Main.md) - - - [Ahead to TinyApplicationController ->](../TinyApplicationController/TinyApplicationController.md)

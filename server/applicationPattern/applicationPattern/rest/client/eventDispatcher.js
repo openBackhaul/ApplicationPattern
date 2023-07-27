@@ -33,8 +33,11 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 operationClientUuid);
             let operationName = await OperationClientInterface.getOperationNameAsync(
                 operationClientUuid);
-            let remoteIpAndPort = await OperationClientInterface.getTcpIpAddressAndPortAsyncAsync(
-                operationClientUuid);
+            // we need information from the database at this stage, because the database might change
+            // before the response is received, see https://github.com/openBackhaul/ExecutionAndTraceLog/issues/227
+            let httpClientUuid = await LogicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
+            let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid[0]);
+            let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid[0]);
             let originator = await httpServerInterface.getApplicationNameAsync();
             let httpRequestHeader = new RequestHeader(
                 user, 
@@ -46,8 +49,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 );
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
-                remoteIpAndPort, 
-                operationName, 
+                operationClientUuid,
                 "POST", 
                 httpRequestHeader, 
                 httpRequestBody
@@ -55,10 +57,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             let responseCode = response.status;
             if (responseCode.toString().startsWith("2")) {
                 result = true;
-            } else if (responseCode.toString().startsWith("5")) {
-                let httpClientUuid = await LogicalTerminationPoint.getServerLtpListAsync(operationClientUuid);
-                let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid);
-                let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid);
+            } else if (responseCode == 408) {
                 recordServiceRequestFromClient(serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, user, originator, operationName, responseCode, httpRequestBody, response.data)
                     .catch((error) => console.log(`record service request ${JSON.stringify({
                         xCorrelator,

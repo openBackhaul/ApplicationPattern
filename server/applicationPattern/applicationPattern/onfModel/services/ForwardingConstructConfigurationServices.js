@@ -20,7 +20,7 @@
   * @param {list} forwardingConfigurationInputList : list of the instance forwardingConstruct/ConfigurationInput
   * @return {Promise} object forwardingConstructConfigurationStatus  
   **/
- exports.configureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
+exports.configureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
      return new Promise(async function (resolve, reject) {
          let forwardingConstructConfigurationStatus;
          try {
@@ -60,7 +60,7 @@
   * @param {list} forwardingConfigurationInputList : list of the instance forwardingConstruct/ConfigurationInput
   * @return {Promise} object forwardingConstructConfigurationStatus  
   **/
- exports.unConfigureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList) {
+ exports.unConfigureForwardingConstructAsync = function (operationServerName, forwardingConstructConfigurationList, isBarred=false) {
      return new Promise(async function (resolve, reject) {
          let forwardingConstructConfigurationStatus;
          try {
@@ -76,7 +76,8 @@
                  let configurationStatusList = await configureOrDeleteFCPortAsync(
                      forwardingName,
                      operationClientUuid,
-                     operationServerUuid
+                     operationServerUuid,
+                     isBarred
                  );
                  if (configurationStatusList) {
                      for (let j = 0; j < configurationStatusList.length; j++) {
@@ -117,9 +118,10 @@
          try {
              let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
                  forwardingName);
-             let _isOperationServerIsManangementFcPort = isOperationServerIsManangementFcPort(
+             let _isOperationServerIsManangementFcPort = FcPort.isOperationOfFcPortType(
                  forwardingConstruct,
-                 operationServerUuid
+                 operationServerUuid,
+                 FcPort.portDirectionEnum.MANAGEMENT
              );
              if (_isOperationServerIsManangementFcPort) {
                  let _isForwardingConstructIsInvariant = isForwardingConstructIsInvariant(
@@ -159,20 +161,28 @@
   * @param {string} traceIndicator trace indicator of the request
   * @param {string} customerJourney customer journey of the request
   **/
- function configureOrDeleteFCPortAsync(forwardingName, operationClientUuid, operationServerUuid) {
+ function configureOrDeleteFCPortAsync(forwardingName, operationClientUuid, operationServerUuid, isBarred) {
      return new Promise(async function (resolve, reject) {
          let configurationStatusList = [];
          try {
              let forwardingConstructList = await ForwardingDomain.getForwardingConstructListForTheFcPortAsync(
                  operationServerUuid,
                  FcPort.portDirectionEnum.MANAGEMENT);
+             if(isBarred){
+                let forwardingConstructListForBarredApplication = await ForwardingDomain.getForwardingConstructListForTheFcPortAsync(
+                    operationClientUuid,
+                    FcPort.portDirectionEnum.OUTPUT 
+                )
+                forwardingConstructList.push.apply(forwardingConstructList,forwardingConstructListForBarredApplication);
+             }  
              for (let i = 0; i < forwardingConstructList.length; i++) {
                  let configurationStatus;
                  let forwardingConstruct = forwardingConstructList[i];
                  if (!forwardingName || isForwardingConstructNameMatches(forwardingConstruct, forwardingName)) {
-                     let _isOperationClientIsOutputFcPort = isOperationClientIsOutputFcPort(
+                     let _isOperationClientIsOutputFcPort = FcPort.isOperationOfFcPortType(
                          forwardingConstruct,
-                         operationClientUuid
+                         operationClientUuid,
+                         FcPort.portDirectionEnum.OUTPUT
                      );
                      if (_isOperationClientIsOutputFcPort) {
                          let _isForwardingConstructIsInvariant = isForwardingConstructIsInvariant(
@@ -199,65 +209,7 @@
      });
  }
  
- /**
-  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
-  * @param {String} operationServerUuid operation server uuid of the request url
-  * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
-  * @param {String} user user who initiates this request
-  * @param {string} originator originator of the request
-  * @param {string} xCorrelator flow id of this request
-  * @param {string} traceIndicator trace indicator of the request
-  * @param {string} customerJourney customer journey of the request
-  **/
- function isOperationServerIsManangementFcPort(forwardingConstruct, operationServerUuid) {
-     let isOperationServerIsManangementFcPort = false;
-     try {
-         let fcPortList = forwardingConstruct["fc-port"];
-         for (let i = 0; i < fcPortList.length; i++) {
-             let fcPort = fcPortList[i];
-             let fcPortDirection = fcPort["port-direction"];
-             let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-             if (fcPortDirection == FcPort.portDirectionEnum.MANAGEMENT) {
-                 if (fcLogicalTerminationPoint == operationServerUuid) {
-                     isOperationServerIsManangementFcPort = true;
-                 }
-             }
-         }
-         return isOperationServerIsManangementFcPort;
-     } catch (error) {
-         throw error;
-     }
- }
- 
- /**
-  * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
-  * @param {String} operationServerUuid operation server uuid of the request url
-  * @param {list}   attributeList list of attributes required during forwarding construct automation(to send in the request body)
-  * @param {String} user user who initiates this request
-  * @param {string} originator originator of the request
-  * @param {string} xCorrelator flow id of this request
-  * @param {string} traceIndicator trace indicator of the request
-  * @param {string} customerJourney customer journey of the request
-  **/
- function isOperationClientIsOutputFcPort(forwardingConstruct, operationClientUuid) {
-     let isOperationClientIsOutputFcPort = false;
-     try {
-         let fcPortList = forwardingConstruct["fc-port"];
-         for (let i = 0; i < fcPortList.length; i++) {
-             let fcPort = fcPortList[i];
-             let fcPortDirection = fcPort["port-direction"];
-             let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
-             if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                 if (fcLogicalTerminationPoint == operationClientUuid) {
-                     isOperationClientIsOutputFcPort = true;
-                 }
-             }
-         }
-         return isOperationClientIsOutputFcPort;
-     } catch (error) {
-         throw error;
-     }
- }
+
  
  /**
   * @description This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.
@@ -275,7 +227,7 @@
          let nameList = forwardingConstruct["name"];
          for (let i = 0; i < nameList.length; i++) {
              let valueName = getValueFromKey(nameList, "ForwardingKind");
-             if (valueName == ForwardingConstruct.name.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
+             if (valueName == ForwardingConstruct.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
                  isForwardingConstructIsInvariant = true;
              }
          }
@@ -327,12 +279,12 @@
          try {
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {
-                 let nextFcPortLocalId = await FcPort.generateNextLocalIdAsync(forwardingConstructUuid);
+                 let nextFcPortLocalId = FcPort.generateNextLocalId(forwardingConstruct);
                  let fcPort = new FcPort(
                      nextFcPortLocalId,
                      FcPort.portDirectionEnum.OUTPUT,
@@ -371,12 +323,12 @@
          try {
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (isFcPortExists) {
-                 let fcPortLocalId = await ForwardingConstruct.getFcPortLocalIdAsync(forwardingConstructUuid, operationClientUuid);
+                 let fcPortLocalId = FcPort.getLocalId(forwardingConstruct, operationClientUuid);
                  updated = await ForwardingConstruct.deleteFcPortAsync(
                      forwardingConstructUuid,
                      fcPortLocalId
@@ -412,8 +364,8 @@
              let fcPortLocalId = '';
              let updated = false;
              let forwardingConstructUuid = forwardingConstruct["uuid"];
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {
@@ -448,8 +400,8 @@
              let forwardingConstructUuid = forwardingConstruct["uuid"];
              let applicationName = await getApplicationNameAsync(operationClientUuid);
              let releaseNumber = await getReleaseNumberAsync(operationClientUuid);
-             let isFcPortExists = await ForwardingConstruct.isFcPortExistsAsync(
-                 forwardingConstructUuid,
+             let isFcPortExists = ForwardingConstruct.isFcPortExists(
+                 forwardingConstruct,
                  operationClientUuid
              );
              if (!isFcPortExists) {

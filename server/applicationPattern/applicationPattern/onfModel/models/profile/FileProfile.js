@@ -5,6 +5,7 @@
 
 'use strict';
 
+const fileSystem = require('fs');
 const profileCollection = require('../../../onfModel/models/ProfileCollection');
 const profile = require('../../../onfModel/models/Profile');
 const onfPaths = require('../../../onfModel/constants/OnfPaths');
@@ -82,11 +83,11 @@ class FileProfile extends profile {
          */
         constructor(fileIdentifier, fileDescription, filePath, userName, password, operation) {
             this.fileProfileCapability = new FileProfilePac.
-            FileProfileCapability(
-                fileIdentifier, fileDescription);
+                FileProfileCapability(
+                    fileIdentifier, fileDescription);
             this.FileProfileConfiguration = new FileProfilePac.
-            FileProfileConfiguration(
-                filePath, userName, password, operation);
+                FileProfileConfiguration(
+                    filePath, userName, password, operation);
         }
     }
 
@@ -125,17 +126,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let fileIdentifier;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileCapability = fileProfilePac[onfAttributes.FILE_PROFILE.CAPABILITY];
-                            fileIdentifier = fileProfileCapability[onfAttributes.FILE_PROFILE.FILE_IDENTIFIER];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileCapability = fileProfilePac[onfAttributes.FILE_PROFILE.CAPABILITY];
+                        fileIdentifier = fileProfileCapability[onfAttributes.FILE_PROFILE.FILE_IDENTIFIER];
                     }
                 }
                 resolve(fileIdentifier);
@@ -154,17 +151,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let fileDescription;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileCapability = fileProfilePac[onfAttributes.FILE_PROFILE.CAPABILITY];
-                            fileDescription = fileProfileCapability[onfAttributes.FILE_PROFILE.FILE_DESCRIPTION];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileCapability = fileProfilePac[onfAttributes.FILE_PROFILE.CAPABILITY];
+                        fileDescription = fileProfileCapability[onfAttributes.FILE_PROFILE.FILE_DESCRIPTION];
                     }
                 }
                 resolve(fileDescription);
@@ -174,6 +167,33 @@ class FileProfile extends profile {
         });
     }
 
+    /**
+     * @description Fetch application data file path
+     */
+    static async getApplicationDataFileContent() {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let applicationDataFile
+                let profiles = await profileCollection.getProfileListForProfileNameAsync(profile.profileNameEnum.FILE_PROFILE);
+                let profileUuid = profiles.flatMap(profile => profile[onfAttributes.GLOBAL_CLASS.UUID]);
+                for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
+                    let uuid = profileUuid[profileUuidIndex];
+                    let value = await FileProfile.getFilePath(uuid)
+                    if (fileSystem.existsSync(value)) {
+                        applicationDataFile = value;
+                    }
+                }
+                if (applicationDataFile !== undefined) {
+                    resolve(applicationDataFile);
+                }
+                else {
+                    throw new Error( "file is not exist" )
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 
     /**
      * @description This function returns the file path for the provided file profile uuid.
@@ -184,17 +204,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let filePath;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                            filePath = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_PATH];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        filePath = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_PATH];
                     }
                 }
                 resolve(filePath);
@@ -215,17 +231,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let userName;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                            userName = fileProfileConfiguration[onfAttributes.FILE_PROFILE.USER_NAME];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        userName = fileProfileConfiguration[onfAttributes.FILE_PROFILE.USER_NAME];
                     }
                 }
                 resolve(userName);
@@ -245,17 +257,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let password;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                            password = fileProfileConfiguration[onfAttributes.FILE_PROFILE.PASSWORD];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        password = fileProfileConfiguration[onfAttributes.FILE_PROFILE.PASSWORD];
                     }
                 }
                 resolve(password);
@@ -274,17 +282,13 @@ class FileProfile extends profile {
         return new Promise(async function (resolve, reject) {
             try {
                 let operation;
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == FileProfile.FileProfilePac.profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (uuidOfProfile === profileUuid) {
-                            let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
-                            let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                            operation = fileProfileConfiguration[onfAttributes.FILE_PROFILE.OPERATION];
-                        }
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        operation = fileProfileConfiguration[onfAttributes.FILE_PROFILE.OPERATION];
                     }
                 }
                 resolve(operation);
@@ -405,32 +409,6 @@ class FileProfile extends profile {
             }
         });
     }
-
-    /**
-     * @description This function returns the list of file profile uuids.
-     * @returns {promise} list {fileProfileUuidsList}
-     **/
-    static async getFileProfileUuidsList() {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let fileProfileUuidsList = [];
-                let profileName = FileProfile.FileProfilePac.profileName
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileNameFromList = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileNameFromList == profileName) {
-                        let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        fileProfileUuidsList.push(uuidOfProfile);
-                    }
-                }
-                resolve(fileProfileUuidsList);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
 }
 
 module.exports = FileProfile;

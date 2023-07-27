@@ -9,33 +9,45 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 
+const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
+const TcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 
-exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName = '') {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-
-            /***********************************************************************************
-             * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
-             ************************************************************************************/
-            let bequeathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
-            let bequeathYourDataAndDieContext;
-            let bequeathYourDataAndDieRequestBody = {};
-            bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
-            bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-            bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
-            bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddress();
-            bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
-            bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
-            forwardingAutomation = new forwardingConstructAutomationInput(
-                bequeathYourDataAndDieForwardingName,
-                bequeathYourDataAndDieRequestBody,
-                bequeathYourDataAndDieContext
-            );
-            forwardingConstructAutomationList.push(forwardingAutomation);
+            if (oldApplicationName != "OldRelease") {
+                /***********************************************************************************
+                 * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
+                 ************************************************************************************/
+                let bequeathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
+                let bequeathYourDataAndDieContext;
+                let bequeathYourDataAndDieRequestBody = {};
+                bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
+                bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
+                bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
+                bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
+                let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding(bequeathYourDataAndDieForwardingName);
+                let oldReleaseTcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(oldReleaseHttpClientUuid))[0];
+                let oldReleaseProtocol = await TcpClientInterface.getRemoteProtocolAsync(oldReleaseTcpClientUuid);
+                let oldReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(oldReleaseTcpClientUuid);
+                let oldReleasePort = await TcpClientInterface.getRemotePortAsync(oldReleaseTcpClientUuid);
+                if (!(oldReleaseProtocol == bequeathYourDataAndDieRequestBody.newApplicationProtocol &&
+                        JSON.stringify(oldReleaseAddress) == JSON.stringify(bequeathYourDataAndDieRequestBody.newApplicationAddress) &&
+                        oldReleasePort == bequeathYourDataAndDieRequestBody.newApplicationPort)) {
+                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);                
+                    forwardingAutomation = new forwardingConstructAutomationInput(
+                        bequeathYourDataAndDieForwardingName,
+                        bequeathYourDataAndDieRequestBody,
+                        bequeathYourDataAndDieContext
+                    );
+                    forwardingConstructAutomationList.push(forwardingAutomation);
+                }
+            }
 
             /***********************************************************************************
              * forwardings for application layer topology
@@ -59,7 +71,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
     });
 }
 
-exports.registerYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+exports.registerYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName, oldReleaseNumber) {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
@@ -111,6 +123,8 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
+            registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
@@ -316,7 +330,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                 for (let i = 0; i < operationServerUuidList.length; i++) {
                     let operationServerUuid = operationServerUuidList[i];
                     let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
-                    if (lifeCycleState == operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED) {
+                    if (isLifeCycleStateDeprecated(lifeCycleState)) {
                         let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);
@@ -328,7 +342,7 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                             let operationUpdateContext;
                             let operationUpdateRequestBody = {};
                             operationUpdateRequestBody.applicationName = applicationName;
-                            operationUpdateRequestBody.applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
+                            operationUpdateRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
                             operationUpdateRequestBody.oldOperationName = oldOperationName;
                             operationUpdateRequestBody.newOperationName = newOperationName;
                             operationUpdateRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(operationUpdateRequestBody);
@@ -363,6 +377,16 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
             reject(error);
         }
     });
+}
+
+function isLifeCycleStateDeprecated(lifeCycleState) {
+    let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
+    let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
+        for (let lifeCycleStateKey in lifeCycleStateEnum) {
+            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
+                return true;
+            }
+        }
 }
 
 function removeAttribute(jsonObject, attributeName) {

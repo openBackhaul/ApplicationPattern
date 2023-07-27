@@ -1,23 +1,28 @@
 {
   "name": "onf-core-model-ap",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.1-alpha.22",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@elastic/elasticsearch": "~7.17.0",
+    "async-lock": "^1.4.0",
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "connect": "^3.2.0",
+    "http-errors": "^2.0.0",
     "js-yaml": "^3.3.0",
     "moment": "^2.29.1",
     "node-statsd": "^0.1.1",
-    "oas3-tools": "^2.2.3",
+    "openbackhaul-oas3-tools": "2.3.1-alpha.3",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2"
   },
   "author": "Prathiba Jeevan",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
 }

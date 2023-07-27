@@ -1,0 +1,18 @@
+@startuml
+if (you would like to create a diagram?) then (yes)
+  :create "diagrams" folder;
+  :create a file with .plantuml extension;
+  :open guidelines linked above;
+  :code the diagram;
+  if (like to preview diagram?) then (yes)
+    :right click into diagram code;
+    :select "Preview Current Diagram";
+  endif;
+  :right click into diagram code;
+  :select "Export Current Diagram";
+  :select "png";
+  :get to the file location;
+  :cut it and paste it into "diagrams" folder;
+  :delete the obsolete path;
+endif;
+@enduml

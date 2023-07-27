@@ -13,6 +13,8 @@ const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
+const ForwardingConstruct = require('../../models/ForwardingConstruct');
+const ForwardingDomain = require('../../models/ForwardingDomain');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
 
@@ -72,90 +74,115 @@ class HttpClientInterface extends layerProtocol {
     /**
      * @description This function returns the application name for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
-     * @returns {promise} string {undefined|applicationName}
+     * @returns {Promise<String>} undefined|applicationName
      **/
-    static getApplicationNameAsync(httpClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let applicationName;
-            try {
-                let logicalTerminationPoint = await controlConstruct.
-                getLogicalTerminationPointAsync(httpClientUuid);
-                let layerProtocol = logicalTerminationPoint[
-                    onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                let httpClientPac = layerProtocol[
-                    onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
-                let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
-                applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
-                resolve(applicationName);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getApplicationNameAsync(httpClientUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(httpClientUuid);
+        let layerProtocol = logicalTerminationPoint[
+            onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpClientPac = layerProtocol[
+            onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
+        let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+        return httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
+    }
+
+    /**
+     * @description This function returns the http client uuid of the fowarding.
+     * @param {String} forwardingName: the value should be a valid forwardingName
+     * @returns {String} undefined|httpClientUuid
+     **/
+
+    static async getHttpClientUuidFromForwarding(forwardingName) {
+        let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+        if (forwardConstructName === undefined) {
+            return;
+        }
+        let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
+        let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+        let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+        let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
+        return httpClientUuid;
     }
 
     /**
      * @description This function returns the release number for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
-     * @returns {promise} string {undefined|releaseNumber}
+     * @returns {Promise<String>} undefined|releaseNumber
      **/
-    static getReleaseNumberAsync(httpClientUuid) {
-        return new Promise(async function (resolve, reject) {
-            let releaseNumber;
-            try {
-                let logicalTerminationPoint = await controlConstruct.
-                getLogicalTerminationPointAsync(httpClientUuid);
+    static async getReleaseNumberAsync(httpClientUuid) {
+        let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(httpClientUuid);
+        let layerProtocol = logicalTerminationPoint[
+            onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        let httpClientPac = layerProtocol[
+            onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
+        let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+        return httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
+    }
+
+
+    /**
+     * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
+     * is not provided , then only the application name will be checked
+     * @param {String} applicationName : name of the application.
+     * @param {String} releaseNumber : release number of the application.
+     * @returns {Promise<String>} undefined|httpClientUuid
+     **/
+    static async getHttpClientUuidAsync(applicationName, releaseNumber) {
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
+        if (logicalTerminationPointList != undefined) {
+            for (let i = 0; i < logicalTerminationPointList.length; i++) {
+                let logicalTerminationPoint = logicalTerminationPointList[i];
                 let layerProtocol = logicalTerminationPoint[
                     onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
                 let httpClientPac = layerProtocol[
                     onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
-                let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
-                releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
-                resolve(releaseNumber);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
-     * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
-     * is not provided , then only the application name will be checked
-     * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
-     * @returns {promise} string {undefined|httpClientUuid}
-     **/
-    static getHttpClientUuidAsync(applicationName, releaseNumber) {
-        return new Promise(async function (resolve, reject) {
-            let httpClientUuid;
-            try {
-                let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-                    layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
-                if (logicalTerminationPointList != undefined) {
-                    for (let i = 0; i < logicalTerminationPointList.length; i++) {
-                        let logicalTerminationPoint = logicalTerminationPointList[i];
-                        let layerProtocol = logicalTerminationPoint[
-                            onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-                        let httpClientPac = layerProtocol[
-                            onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
-                        if (httpClientPac != undefined) {
-                            let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
-                            let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
-                            let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
-                            if (_applicationName != undefined && _applicationName == applicationName) {
-                                if (_releaseNumber != undefined &&
-                                    (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
-                                    httpClientUuid = logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID];
-                                }
-                            }
+                if (httpClientPac != undefined) {
+                    let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+                    let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
+                    let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
+                    if (_applicationName != undefined && _applicationName == applicationName) {
+                        if (_releaseNumber != undefined &&
+                            (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
+                            return logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID];
                         }
                     }
                 }
-                resolve(httpClientUuid);
-            } catch (error) {
-                reject(error);
             }
-        });
+        }
+        return undefined;
+    }
+
+    /**
+     * @description This function returns the uuid list of the http-client-interface for the application-name and release-number.If release number
+     * is not provided , then only the application name will be checked
+     * @param {String} applicationName : name of the application.
+     * @param {String} releaseNumber : release number of the application.
+     * @returns {Promise<List>} undefined|httpClientUuidList
+     **/
+    static async getHttpClientUuidListAsync(applicationName, releaseNumber) {
+        let httpClientUuidList = [];
+        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
+        for (let i = 0; i < logicalTerminationPointList.length; i++) {
+            let logicalTerminationPoint = logicalTerminationPointList[i];
+            let layerProtocol = logicalTerminationPoint[
+                onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            let httpClientPac = layerProtocol[
+                onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
+            if (httpClientPac != undefined) {
+                let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+                let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
+                let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
+                if (_applicationName != undefined && _applicationName == applicationName) {
+                    if (_releaseNumber != undefined &&
+                        (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
+                        httpClientUuidList.push(logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID]);
+                    }
+                }
+            }
+        }
+        return httpClientUuidList;
     }
 
     /**
@@ -163,67 +190,69 @@ class HttpClientInterface extends layerProtocol {
      * is not provided , then only the application name will be checked
      * @param {String} applicationName : name of the application.
      * @param {String} releaseNumber : release number of the application.
-     * @returns {promise} boolean {true|false}
+     * @returns {Promise<boolean>} true|false
      **/
-    static isApplicationExists(applicationName, releaseNumber) {
-        return new Promise(async function (resolve, reject) {
-            let isApplicationExists = false;
-            try {
-                let httpClientUuid = await HttpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
-                if (httpClientUuid != undefined) {
-                    isApplicationExists = true;
+    static async isApplicationExists(applicationName, releaseNumber) {
+        let httpClientUuid = await HttpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
+        return httpClientUuid != undefined;
+    }
+
+
+    /**
+     * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
+     * is not provided , then only the application name will be checked other than old release and new release
+     * @param {String} applicationName : name of the application.
+     * @param {String} releaseNumber : release number of the application.
+     * @returns {Promise<List>} undefined|httpClientUuid
+     **/
+    static async getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName) {
+        try {
+            let httpClientUuid;
+            let httpClientUuidList = await HttpClientInterface.getHttpClientUuidListAsync(applicationName, releaseNumber);
+            if (httpClientUuidList !== undefined) {
+                for (let i = 0; i < httpClientUuidList.length; i++) {
+                    let uuid = httpClientUuidList[i];
+                    let httpClientUuidOfOldRelease = await HttpClientInterface.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
+                    let httpClientUuidOfNewRelease = await HttpClientInterface.getHttpClientUuidFromForwarding(newReleaseForwardingName);
+                    if (!(uuid === httpClientUuidOfOldRelease || uuid === httpClientUuidOfNewRelease)) {
+                        httpClientUuid = uuid;
+                    }
                 }
-                resolve(isApplicationExists);
-            } catch (error) {
-                reject(error);
             }
-        });
+            return httpClientUuid;
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     /**
      * @description This function sets the release number for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
      * @param {String} newReleaseNumber new release number of the http-client-interface .
-     * @returns {promise} boolean {true|false}
-     **/
-    static setReleaseNumberAsync(httpClientUuid, newReleaseNumber) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let releaseNumberPath = onfPaths.HTTP_CLIENT_RELEASE_NUMBER.replace(
-                    "{uuid}", httpClientUuid);
-                isUpdated = await fileOperation.writeToDatabaseAsync(
-                    releaseNumberPath,
-                    newReleaseNumber,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+     * @returns {Promise<boolean>} true|false
+     */
+    static async setReleaseNumberAsync(httpClientUuid, newReleaseNumber) {
+        let releaseNumberPath = onfPaths.HTTP_CLIENT_RELEASE_NUMBER.replace(
+            "{uuid}", httpClientUuid);
+        return await fileOperation.writeToDatabaseAsync(
+            releaseNumberPath,
+            newReleaseNumber,
+            false);
     }
 
     /**
      * @description This function sets the application name for the http client uuid.
      * @param {String} httpClientUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
      * @param {String} newApplicationName new release number of the http-client-interface .
-     * @returns {promise} boolean {true|false}
+     * @returns {Promise<boolean>} true|false
      **/
-    static setApplicationNameAsync(httpClientUuid, newApplicationName) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let applicationNamePath = onfPaths.HTTP_CLIENT_APPLICATION_NAME.replace(
-                    "{uuid}", httpClientUuid);
-                isUpdated = await fileOperation.writeToDatabaseAsync(
-                    applicationNamePath,
-                    newApplicationName,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setApplicationNameAsync(httpClientUuid, newApplicationName) {
+        let applicationNamePath = onfPaths.HTTP_CLIENT_APPLICATION_NAME.replace(
+            "{uuid}", httpClientUuid);
+        return await fileOperation.writeToDatabaseAsync(
+            applicationNamePath,
+            newApplicationName,
+            false);
     }
 
     /**
@@ -236,78 +265,38 @@ class HttpClientInterface extends layerProtocol {
      * It should be a valid string in the pattern '-\d+-\d+-\d+-tcp-client-\d+$'
      * @param {String} applicationName : name of the application.
      * @param {String} releaseNumber : release number of the application.
-     * @returns {promise} object {undefined|HttpClientInterface}.
+     * @returns {Object} undefined|logicalTerminationPoint.
      **/
     static createHttpClientInterface(httpClientUuid, operationClientUuidList, tcpClientUuidList, applicationName, releaseNumber) {
         let httpClientLogicalTerminationPoint;
-        try {
-            let httpClientInterface = new HttpClientInterface(
-                applicationName,
-                releaseNumber);
-            httpClientLogicalTerminationPoint = new logicalTerminationPoint(
-                httpClientUuid,
-                logicalTerminationPoint.ltpDirectionEnum.SINK,
-                operationClientUuidList,
-                tcpClientUuidList,
-                [httpClientInterface]
-            );
-            return httpClientLogicalTerminationPoint;
-        } catch (error) {
-            return error;
-        }
+        let httpClientInterface = new HttpClientInterface(
+            applicationName,
+            releaseNumber);
+        httpClientLogicalTerminationPoint = new logicalTerminationPoint(
+            httpClientUuid,
+            logicalTerminationPoint.ltpDirectionEnum.SINK,
+            operationClientUuidList,
+            tcpClientUuidList,
+            [httpClientInterface]
+        );
+        return httpClientLogicalTerminationPoint;
     }
-
-    /**
-     * @deprecated Works only with old UUIDs, use generateHttpClientUuidAsync
-     * @description This function returns the next available uuid for the http-client-interface.
-     * @returns {promise} string {nextHttpClientUuid}
-     **/
-    static generateNextUuidAsync() {
-        return new Promise(async function (resolve, reject) {
-            let nextHttpClientUuid;
-            try {
-                let logicalTerminationPointUuidList = await logicalTerminationPoint.
-                getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
-                if (logicalTerminationPointUuidList != undefined) {
-                    logicalTerminationPointUuidList.sort();
-                    let lastUuid = logicalTerminationPointUuidList[
-                        logicalTerminationPointUuidList.length - 1];
-                    let uuidPrefix = lastUuid.substring(
-                        0,
-                        lastUuid.lastIndexOf("-") + 1);
-                    let uuidNumber = lastUuid.substring(
-                        lastUuid.lastIndexOf("-") + 1,
-                        lastUuid.length);
-                    nextHttpClientUuid = uuidPrefix +
-                        (parseInt(uuidNumber) + 10);
-                }
-                resolve(nextHttpClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-  
 
     /**
      * @description This function returns the uuid for the http-client-interface.
      * @param {String} applicationName: caller application name
      * @param {String} releaseNumber: caller release number
-     * @returns {promise} string {nextHttpClientUuid}
+     * @returns {Promise<String>} nextHttpClientUuid
      **/
-    static generateHttpClientUuidAsync(applicationName, releaseNumber) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let appUuid = await controlConstruct.getUuidAsync();
-                let releaseNumberUuidFormat = releaseNumber.replace(/\./g, "-");
-                let applicationNameUuidFormat = applicationName.replace(/[a-z]/g, "").toLowerCase();
-                let httpClientUuid = appUuid + "-http-c-" +
-                    applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-000";
-                resolve(httpClientUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async generateHttpClientUuidAsync(applicationName, releaseNumber) {
+        let appUuid = await controlConstruct.getUuidAsync();
+        let releaseNumberUuidFormat = releaseNumber.replace(/\./g, "-");
+        let applicationNameUuidFormat = applicationName.replace(/[^A-Z]/g, "").toLowerCase();
+        if(applicationNameUuidFormat.length > 5){
+            applicationNameUuidFormat = applicationNameUuidFormat.slice(0,6);
+        }
+        return appUuid + "-http-c-" +
+            applicationNameUuidFormat + "-" + releaseNumberUuidFormat + "-000";
     }
 }
 

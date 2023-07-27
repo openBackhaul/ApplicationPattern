@@ -2,7 +2,7 @@
 
 The _ForwardingName_, which is identifying a _Forwarding_ in the _ForwardingList_, will be re-used for identifying the resulting _ForwardingConstruct_ in the _CONFIGfile_ and for identifying the resulting callback in the OpenApiSpecification.  
 
-It is very much recommended to invest sufficient time and energy into definition of very descriptive names.  
+It is very much recommended to invest sufficient time and energy into defining very descriptive names.  
 Ideally, even uninformed readers could understand the logic, which is implemented by some _Forwarding_, from its naming.  
 
 _ForwardingNames_ shall follow the UpperCamelCase spelling, means they shall start with a capital letter and every new word shall be indicated by a capital letter, too.  
@@ -26,7 +26,7 @@ The description of the output should indicate the nature of the consequent actio
 - 'Request', might indicate asking for provissioning of a service (e.g. RequestForBroadcastingInfoAboutServerReplacement, LoggingRequest)  
 - 'Inquiry', might indicate asking for information (e.g. InquiryForAuthentication)  
 
-In general, it is assumed that the addressed application is providing the service or information to the requesting application. If this would not be the case, this should be expressed in the description of the output. Source and destination should be indicated (e.g. RObeingRequestedToNotifyWithdrawnApprovalsToNewRelease).  
+In general, it is assumed that the addressed application is providing the service or information to the requesting application. If this would not be true, it should be indicated in the description of the output. Source and destination should be named (e.g. RObeingRequestedToNotifyWithdrawnApprovalsToNewRelease).  
 If the _Output_ might involve multiple consequent requests of the same or even different kinds, it might make sense to express their consolidated result in the description of the output (e.g. TransferOfListOfApplications, RetrievingLiveNetworkInput)  
 
 Examples:  

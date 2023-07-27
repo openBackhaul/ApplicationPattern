@@ -9,6 +9,8 @@ It updates the TcpClient/TcpServer address and port details based on the informa
 
 1. Refer the file https://github.com/openBackhaul/ApplicationPattern/blob/develop/doc/TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md
 2. Create a .json file and update the details of application in the following format , 
+3. If ip-address need to be added: refer below Array of json's first index value e.g fake-to-original-iP-mapping[0]
+4. If domain-name need to be added: refer below Array of json's second index value e.g fake-to-original-iP-mapping[1]
 ```
 {
     "fake-to-original-iP-mapping": [{
@@ -16,9 +18,12 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "abbreviation" : "RO",
             "component": "RegistryOffice",
             "release": "0.0.1",
-            "fake-tcp-ip": "1.1.3.1",
             "fake-tcp-port": 3001,
-            "original-tcp-ip": "127.0.0.1",
+            "original-address": {
+                "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                }
+            },
             "original-tcp-port": 3001
         },
         {
@@ -26,15 +31,15 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "abbreviation" : "TAR",
             "component": "TypeApprovalRegister",
             "release": "0.0.1",
-            "fake-tcp-ip": "1.1.3.2",
             "fake-tcp-port": 3002,
-            "original-tcp-ip": "127.0.0.1",
+            "original-address": {
+                "domain-name": "www.domainName.com",
             "original-tcp-port": 3002
         }
 ]
 
 ```
-3. Update the original-tcp-ip , original-tcp-port as per the environment planning
+3. Update the original-address , original-tcp-port as per the environment planning
 
 ### STEP 2 : CONFIGURE CONFIGURATION FILE
 1. Open the file input/config.json
@@ -49,8 +54,11 @@ sudo apt install nodejs npm
 nodejs --version
 npm --version
 ```
-1. Run the following command , 
-`npm start`
+# How to execute script for updating database/load.json
+npm run start_modify_loadfile
+
+# How to execute script for updating testsuite config file
+npm run start_modify_testsuite_config
 
 
 

@@ -1,25 +1,35 @@
 ## Scripts
-### **High Availability Script[HA]**
+### High Availability Script[HA]
 ### Prerequisite 
-To start the HA script. required "lsof", docker tools to be installed and  update latest docker images are available in the local registry.
+To start HA script, required "lsof" and "docker" (installation procedure is already available in [previous sections](../../../TestingApplications.md#docker)) is to be installed.
 
-Below steps are used to install **lsof** for ubuntu
+Below steps are used to install **lsof**
 
-        "apt update" - Update the repo with latest softwares
-        "apt install lsof" - On Ubuntu
-        "lsof -v" - Check the version 
+* Update the package index
 
-
+        "sudo apt update"  for Ubuntu
         "dnf info lsof" for RHEL
+* Install lsof
+
+        "apt install lsof" for Ubuntu
         "dnf install lsof" for RHEL
-        "lsof -v" for RHEL to check version
+* Verify the installation:
+
+        "lsof -v" for both RHEL and Ubuntu
+
+This command should output the version of lsof that has been installed.       
 
 ### Usage: 
-Using below command start the script in background which will monitor all applications whether they are running or not and related log file also created and logged the messages. this HAscript if any running containers/applications exited/crashed then automatically restarted the container.
+Using below command, start the script in background which will monitor all applications whether they are running or not and related log file also created and logged the messages. The HAscript if any running containers/applications exited/crashed then automatically restarted the containers.
 
       ./HAscript.sh &
+
+A related log file also created after starting the HA script and below is the example file.
+
     WebApp@WebApp:~/HAscripts$ ls
-    HAscript.sh  TACHans.log
+    TACHans.log
+
+Note: Before starting the script, the latest docker images are available and to be updated in the local registry.
 
 
 [<-Back to main Testing Applications](../../../TestingApplications.md) 

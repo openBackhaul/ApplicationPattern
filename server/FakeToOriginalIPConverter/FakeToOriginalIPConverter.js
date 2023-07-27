@@ -12,29 +12,68 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const { layerProtocolNameEnum } = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
-
+const fileSystem = require('fs');
+const yargs = require("yargs")
 /****************************************************************************************
 * Setting Local Variables and initiating the process
 ****************************************************************************************/
 var config = require('./input/config.json');
 var fakeToOriginalIPMapping = require(config['fake-to-original-iP-mapping-file-path']);
 
-global.databasePath = config['target-oam-config-file-path'];
-modifyFakeIpAddressToOriginal();
+process.env.MODIFY_FILE = yargs.argv.modify
+
+try {
+    if (process.env.MODIFY_FILE == "load") {
+        global.databasePath = config['target-oam-config-file-path'];
+    } else if (process.env.MODIFY_FILE == "config") {
+        global.databasePath = config['testsuite-config-file-path'];
+    } else {
+        throw "--modify argument missing"
+    }
+    modifyFakeIpAddressToOriginal(databasePath);
+} catch (error) {
+    console.log(error)
+}
 
 /***********************************************************************************************************************************************
  * Initiates process to update the Fake IP address to original IP address
- *
+ * 
+ * For testsuit config : it extract core-model-1-4:control-construct from 
+ * "testsuite config" and modify it and merge it back to "testsuit config"
+ * 
  * Step 1 : Modifies the tcpClients of all applications
  * Step 2 : Modifies the tcpClient of the OldRelease
  * Step 3 : Modifies the tcpClient of the NewRelease
  * Step 4 : Modifies the tcpServer of the application 
  ***********************************************************************************************************************************************/
-async function modifyFakeIpAddressToOriginal() {
-    await modifyClients();
-    await modifyOldRelease();
-    await modifyNewRelease();
-    await modifyServer();
+async function modifyFakeIpAddressToOriginal(filePath) {
+    try{
+        let testsuitConfigSplit
+        let testsuitConfigSplitParse
+        let coreModelJsonObjectParse
+        if (process.env.MODIFY_FILE == "config"){
+            testsuitConfigSplit = await splitControlConstructFromTestsuitConfig(filePath)
+            testsuitConfigSplitParse = JSON.parse(testsuitConfigSplit)
+            writeToFile(filePath, testsuitConfigSplitParse.core_model_control_construct)
+        }
+    
+        await modifyClients();
+        //await modifyOldRelease();
+        await modifyNewRelease();
+        await modifyServer();
+    
+        if (process.env.MODIFY_FILE == "config"){
+            await readFile(filePath).then((coreModelJsonObject) => {
+                coreModelJsonObjectParse = JSON.parse(coreModelJsonObject)
+                testsuitConfigSplitParse.testsuite_config_without_control_construct[0].application["core-model-1-4:control-construct"] = coreModelJsonObjectParse["core-model-1-4:control-construct"]
+                writeToFile(filePath, testsuitConfigSplitParse.testsuite_config_without_control_construct)
+            }).catch((error) => {
+                throw "unable to read and mofidy testsuite config file " + error
+            })
+        }
+    }catch(error){
+        console.log(error)
+    }
 }
 
 /***********************************************************************************************************************************************
@@ -43,7 +82,7 @@ async function modifyFakeIpAddressToOriginal() {
  * Step 1 : Read each input from the fakeToOriginalIPMapping.json
  * Step 2 : Findout the httpClient for the application-name and release
  * Step 3 : Findout the corresponding mapped tcpClient 
- * Step 4 : Update the original-tcp-ip and original-tcp-port 
+ * Step 4 : Update the original-address and original-tcp-port 
  ***********************************************************************************************************************************************/
 async function modifyClients() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -51,7 +90,7 @@ async function modifyClients() {
         let application = applicationList[index];
         let applicationName = application['component'];
         let releaseNumber = application['release'];
-        let originalTcpIpAddress = application['original-tcp-ip'];
+        let originalTcpIpAddress = application['original-address'];
         let originalTcpPort = application['original-tcp-port'];
         let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName, releaseNumber);
         if (httpClientUuid != undefined) {
@@ -65,7 +104,7 @@ async function modifyClients() {
                     isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(tcpClientuuid, originalTcpIpAddress);
                     isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(tcpClientuuid, originalTcpPort);
                 } catch (error) {
-
+                    console.log(error);
                 }
                 console.log(applicationName + "," + releaseNumber + " tcp-client Ip address update : " + isTcpIPAddressUpdated + " tcp-client port update : " + isTcpPortUpdated)
             }
@@ -79,7 +118,7 @@ async function modifyClients() {
  * Updates the TcpServer with the information provided in the input/fakeToOriginalIPMapping.json
  *
  * Step 1 : Findout the tcpServer instance
- * Step 2 : Update the original-tcp-ip and original-tcp-port
+ * Step 2 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyServer() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -92,14 +131,14 @@ async function modifyServer() {
             let application = applicationList[index];
             let applicationName = application['component'];
             let releaseNumber = application['release'];
-            let originalTcpIpAddress = application['original-tcp-ip'];
+            let originalTcpIpAddress = application['original-address']['ip-address'];
             let originalTcpPort = application['original-tcp-port'];
             if (applicationName == originalApplicationName && originalReleaseNumber == releaseNumber) {
                 try {
                     isTcpIPAddressUpdated = await modifyServerLocalAddress(originalTcpIpAddress);
                     isTcpPortUpdated = await modifyServerLocalPort(originalTcpPort);
                 } catch (error) {
-
+                    console.log(error);
                 }
             }
         }
@@ -113,7 +152,7 @@ async function modifyServer() {
  * Step 1 : Findout the version of the oldRelease
  * Step 2 : Findout the name of the current application
  * Step 3 : Findout the instance in the input/fakeToOriginalIPMapping.json that matches the "current application name" + "version of the oldRelease"
- * Step 4 : Update the original-tcp-ip and original-tcp-port
+ * Step 4 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyOldRelease() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -133,14 +172,14 @@ async function modifyOldRelease() {
                     let application = applicationList[index];
                     let applicationName = application['component'];
                     let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-tcp-ip'];
+                    let originalTcpIpAddress = application['original-address'];
                     let originalTcpPort = application['original-tcp-port'];
                     if (applicationName == originalApplicationName && oldReleaseNumber == releaseNumber) {
                         try {
                             isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(oldReleaseTcpClientuuid, originalTcpIpAddress);
                             isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(oldReleaseTcpClientuuid, originalTcpPort);
                         } catch (error) {
-
+                            console.log(error);
                         }
                     }
                 }
@@ -156,7 +195,7 @@ async function modifyOldRelease() {
  * Step 1 : Findout the version of the newRelease
  * Step 2 : Findout the name of the current application
  * Step 3 : Findout the instance in the input/fakeToOriginalIPMapping.json that matches the "current application name" + "version of the newRelease"
- * Step 4 : Update the original-tcp-ip and original-tcp-port
+ * Step 4 : Update the original-address and original-tcp-port
  ***********************************************************************************************************************************************/
 async function modifyNewRelease() {
     let applicationList = fakeToOriginalIPMapping['fake-to-original-iP-mapping'];
@@ -176,14 +215,14 @@ async function modifyNewRelease() {
                     let application = applicationList[index];
                     let applicationName = application['component'];
                     let releaseNumber = application['release'];
-                    let originalTcpIpAddress = application['original-tcp-ip'];
+                    let originalTcpIpAddress = application['original-address'];
                     let originalTcpPort = application['original-tcp-port'];
                     if (applicationName == originalApplicationName && newReleaseNumber == releaseNumber) {
                         try {
                             isTcpIPAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(newReleaseTcpClientuuid, originalTcpIpAddress);
                             isTcpPortUpdated = await tcpClientInterface.setRemotePortAsync(newReleaseTcpClientuuid, originalTcpPort);
                         } catch (error) {
-
+                            console.log(error);
                         }
                     }
                 }
@@ -254,11 +293,76 @@ async function modifyServerLocalPort(localPort) {
             }
 
         } catch (error) {
-
+            console.log(error);
         }
         resolve(isUpdated);
     });
 }
 
+/** 
+ * Write to the filesystem.<br>
+ * @param {JSONObject} coreModelJsonObject json object that needs to be updated
+ * @returns {boolean} return true if the value is updated, otherwise returns false
+ **/
+function writeToFile(filePath, coreModelJsonObject) {
+    try {
+        fileSystem.writeFileSync(filePath, JSON.stringify(coreModelJsonObject), (error) => {
+            if (error) {
+                console.log('write failed:')
+                throw "write failed:";
+            } else {
+                console.log('write successful:');
+                resolve();
+            }
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
 
+function readFile(filePath) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            await fileSystem.readFile(filePath, 'utf-8', (error, coreModelJsonObject) => {
+                if (error) {
+                    console.log("read file failed");
+                    throw "read file failed:";
+                }
+                resolve(coreModelJsonObject)
+            });
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
+/**
+* function to split testsuit config into two component
+* 1. core-model-1-4:control-construct json
+* 2. json without core-model-1-4:control-construct
+**/
+async function splitControlConstructFromTestsuitConfig(filePath) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            await readFile(filePath).then((coreModelJsonObject) => {
+                const coreModelJsonObjectParse = JSON.parse(coreModelJsonObject)
+                const controlConstruct = coreModelJsonObjectParse[0].application['core-model-1-4:control-construct']
+                delete coreModelJsonObjectParse[0].application['core-model-1-4:control-construct']
+                const testsuite_config_without_control_construct = coreModelJsonObjectParse
+                const core_model_control_construct = {
+                    'core-model-1-4:control-construct': controlConstruct
+                }
+                const testConfigSplit = JSON.stringify({
+                    "testsuite_config_without_control_construct": testsuite_config_without_control_construct,
+                    "core_model_control_construct": core_model_control_construct
+                })
+                resolve(testConfigSplit)
+            }).catch((error) => {
+                reject(error)
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

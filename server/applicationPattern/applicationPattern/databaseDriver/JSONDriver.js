@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * <p>This class provides functionality to read and update the flat file JSON database load file in onf format.
  * The interaction with the file system will be performed with the use of 'fs module' which enables interacting with the file system
@@ -9,117 +10,62 @@
  * @copyright   Telefónica Germany GmbH & Co. OHG
  * @module FileOperation
  **/
-const JSONDriver = require('./JSONDriver');
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
+const AsyncLock = require('async-lock');
+
 global.databasePath;
+
+const lock = new AsyncLock();
 
 /**
  * This function reads the requested oam path from the core-model<br>
- * @param {object} oamPath json path that leads to the destined attribute
- * @returns {promise} return the requested value
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @returns {Promise<any>} return the requested value
  */
-exports.readFromDatabaseAsync = function (oamPath) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            resolve(getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath));
-                        } catch (error) {
-                            console.log("retry mechanism read");
-                            setTimeout(() => JSONDriver.readFromDatabaseAsync(oamPath), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            } else {
-                console.log("path not exists " + databasePath);
-            }
-        } catch (error) {
-            console.log(error);
-            reject();
-        }
+exports.readFromDatabaseAsync = async function (oamPath) {
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        return getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
     });
 }
 
 /**
  * This function writes the requested data to the path in the core-model<br>
- * @param {object} oamPath json path that leads to the destined attribute
- * @param {JSONObject|String} valueToBeUpdated value that needs to be updated
- * @param {boolean} isAList a boolean flag that represents whether the value to be updated is a list
- * @returns {promise} return true if the value is updated, otherwise returns false
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @param {JSON|String} valueToBeUpdated value that needs to be updated
+ * @param {Boolean} isAList a boolean flag that represents whether the value to be updated is a list
+ * @returns {Promise<Boolean>} return true if the value is updated, otherwise returns false
  */
-exports.writeToDatabaseAsync = function (oamPath, valueToBeUpdated, isAList) {
-    if (isAList !== true) {
-        if (typeof valueToBeUpdated !== "string") {
-            for (keyAttributeOfTheList in valueToBeUpdated) {
-                valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
-            }
+exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isAList) {
+    if (isAList !== true && typeof valueToBeUpdated !== "string") {
+        for (let keyAttributeOfTheList in valueToBeUpdated) {
+            valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
         }
     }
-    return new Promise(async function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            resolve(putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeUpdated, isAList));
-                        } catch (error) {
-                            console.log("retry mechanism write");
-                            setTimeout(() => JSONDriver.writeToDatabaseAsync(oamPath, valueToBeUpdated, isAList), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            reject(false);
-        }
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList, valueToBeUpdated, isAList);
+        return result;
     });
 }
 
 /**
  * This function deletes the requested data in the oam path from the core-model<br>
- * @param {object} oamPath json path that leads to the destined attribute
- * @param {JSONObject|String} valueToBeDeleted value that needs to be deleted
- * @param {boolean} isAList a boolean flag that represents whether the value to be deleted is a list
- * @returns {promise} return true if the value is deleted, otherwise returns false
+ * @deprecated remove unused params valueToBeDeleted and isAList
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @param {JSON|String} valueToBeDeleted value that needs to be deleted
+ * @param {Boolean} isAList a boolean flag that represents whether the value to be deleted is a list
+ * @returns {Promise<Boolean>} return true if the value is deleted, otherwise returns false
  */
-exports.deletefromDatabaseAsync = function (oamPath, valueToBeDeleted, isAList) {
-    if (isAList !== true) {
-        if (typeof valueToBeUpdated !== "string") {
-            for (keyAttributeOfTheList in valueToBeDeleted) {
-                valueToBeDeleted = valueToBeDeleted[keyAttributeOfTheList];
-            }
-        }
-    }
-    return new Promise(async function (resolve, reject) {
-        try {
-            if (fileSystem.existsSync(databasePath)) {
-                await fileSystem.readFile(databasePath, 'utf-8', (error, coreModelJsonObject) => {
-                    if (error) {
-                        console.log(error);
-                    } else if (coreModelJsonObject.length > 0) {
-                        try {
-                            resolve(deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), oamPath, valueToBeDeleted, isAList));
-                        } catch (error) {
-                            setTimeout(() => JSONDriver.deletefromDatabaseAsync(oamPath, valueToBeDeleted, isAList), 1000);
-                            console.log(error);
-                        }
-                    }
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            reject(false);
-        }
+exports.deletefromDatabaseAsync = async function (oamPath, valueToBeDeleted, isAList) {
+    return await lock.acquire(databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
+        return result;
     });
 }
 
@@ -134,23 +80,18 @@ exports.deletefromDatabaseAsync = function (oamPath, valueToBeDeleted, isAList) 
  *          3.2: Then, by iterating each entry of the list , the correct match will be identified based on comparing the key attribute to the value present in the path attribute<br>
  * <b>step 4 : </b>If the element doesn't contain "=" , then it will be considered as scalar and its value will be access by the reference within square bracket.<br>
  * <b>step 5 : </b>Once reaching the final element of the oam path , the value of this attribute will be returned.  <br> 
- * @param {JSONObject} coreModelJsonObject Json data to use for searching the value.
- * @param {String} oamPath the path used to find the value.
- * @returns {valueOfTheOAMPath|undefined}
+ * @param {JSON} coreModelJsonObject Json data to use for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList the path used to find the value.
+ * @returns {any|undefined}
  **/
-function getAttributeValueFromDataBase(coreModelJsonObject, oamPath) {
+function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList) {
     try {
-        let individualFieldOfTheOAMPathList;
-        individualFieldOfTheOAMPathList = oamPath.split('/');
-        if (isNotAnEmptyList(individualFieldOfTheOAMPathList)) {
-            let i;
-            for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
-                if (isDataValid(individualFieldOfTheOAMPathList[i])) {
-                    if (isFieldIsAList(individualFieldOfTheOAMPathList[i])) {
-                        coreModelJsonObject = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObject);
-                    } else {
-                        coreModelJsonObject = coreModelJsonObject[individualFieldOfTheOAMPathList[i]];
-                    }
+        for (let individualField of individualFieldOfTheOAMPathList) {
+            if (individualField !== "") {
+                if (individualField.includes("=")) {
+                    coreModelJsonObject = findMatchingInstanceFromList(individualField, coreModelJsonObject);
+                } else {
+                    coreModelJsonObject = coreModelJsonObject[individualField];
                 }
             }
         }
@@ -174,37 +115,33 @@ function getAttributeValueFromDataBase(coreModelJsonObject, oamPath) {
  * <b>step 5 : </b>Once reaching the final element of the path , new value will overwrite the old value. <br> 
  * <b>step 6 : </b>Finally the entire JSON data will be written to the load file.<br> 
  * 
- * @param {JSONObject} coreModelJsonObject Json data for searching the value.
- * @param {String} oamPath  path to find the value.
- * @param {JSONObject} newValue new value to be changed or added
- * @param {boolean} isAList whether the newValue to be updated is an entry to a List or it is updating a scalar value
- * @returns {true|false} if the updation is successful , returns true , otherwise returns false.
+ * @param {JSON} coreModelJsonObject Json data for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList  path to find the value.
+ * @param {JSON} newValue new value to be changed or added
+ * @param {Boolean} isAList whether the newValue to be updated is an entry to a List or it is updating a scalar value
+ * @returns {Boolean} if the updation is successful , returns true , otherwise returns false.
  **/
-function putAttributeValueToDataBase(coreModelJsonObject, oamPath, newValue, isAList) {
+function putAttributeValueToDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList, newValue, isAList) {
     try {
-        let individualFieldOfTheOAMPathList;
         let coreModelJsonObjectTemp;
         let i;
 
-        individualFieldOfTheOAMPathList = oamPath.split('/');
         coreModelJsonObjectTemp = coreModelJsonObject;
-        if (isNotAnEmptyList(individualFieldOfTheOAMPathList)) {
-            for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
-                if (isDataValid(individualFieldOfTheOAMPathList[i])) {
-                    if (isFieldIsAList(individualFieldOfTheOAMPathList[i])) {
-                        coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
-                    } else {
-                        if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            if (isAList === true) {
-                                coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
-                                coreModelJsonObjectTemp.push(newValue);
-                            } else {
-                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
-                            }
-                            writeToFile(coreModelJsonObject);
-                        } else {
+        for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
+            if (individualFieldOfTheOAMPathList[i] != "") {
+                if (individualFieldOfTheOAMPathList[i].includes("=")) {
+                    coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
+                } else {
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
+                        if (isAList === true) {
                             coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
+                            coreModelJsonObjectTemp.push(newValue);
+                        } else {
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
                         }
+                        writeToFile(coreModelJsonObject);
+                    } else {
+                        coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
                     }
                 }
             }
@@ -229,40 +166,33 @@ function putAttributeValueToDataBase(coreModelJsonObject, oamPath, newValue, isA
  * <b>step 5 : </b>Once reaching the final element of the path , the value will be removed from the jsonObject <br>
  * <b>step 6 : </b>Finally the entire JSON data will be written to the load file.<br>
  * 
- * @param {JSONObject} coreModelJsonObject Json data for searching the value.
- * @param {String} oamPath  path to find the value.
- * @param {JSONObject} valueToBeDeleted value needs to be deleted
- * @param {boolean} isAList whether the newValue to be updated is an entry to a List or it is updating a scalar value
- * @returns {true|false} if the deletion is successful , returns true , otherwise returns false.
+ * @param {JSON} coreModelJsonObject Json data for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList  path to find the value.
+ * @returns {Boolean} if the deletion is successful , returns true , otherwise returns false.
  **/
-function deleteAttributeValueFromDataBase(coreModelJsonObject, oamPath, valueToBeDeleted, isAList) {
+function deleteAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList) {
     try {
-        let individualFieldOfTheOAMPathList;
         let coreModelJsonObjectTemp = coreModelJsonObject;
         let i;
-
-        individualFieldOfTheOAMPathList = oamPath.split('/');
-        if (individualFieldOfTheOAMPathList.length > 0) {
-            for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
-                if (isDataValid(individualFieldOfTheOAMPathList[i])) {
-                    if (isFieldIsAList(individualFieldOfTheOAMPathList[i])) {
-                        if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            coreModelJsonObjectTemp = findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
-                            writeToFile(coreModelJsonObject);
-                        } else {
-                            coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
-                        }
+        for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
+            if (individualFieldOfTheOAMPathList[i] !== "") {
+                if (individualFieldOfTheOAMPathList[i].includes("=")) {
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
+                        coreModelJsonObjectTemp = findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
+                        writeToFile(coreModelJsonObject);
                     } else {
-                        if (isLastIndexOfTheList(individualFieldOfTheOAMPathList, i)) {
-                            if(Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])){
-                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
-                            }else{
-                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
-                            }                            
-                            writeToFile(coreModelJsonObject);
+                        coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
+                    }
+                } else {
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
+                        if (Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])) {
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
                         } else {
-                            coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
                         }
+                        writeToFile(coreModelJsonObject);
+                    } else {
+                        coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
                     }
                 }
             }
@@ -275,38 +205,16 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, oamPath, valueToB
 }
 
 /** 
- * Returns the key attribute of the list<br>
- * @param {String} nameOfTheList Name of the JSON array.
- * @returns {keyAttributeOfTheList} returns the key attribute of the list
- **/
-function findKeyAttributeForList(nameOfTheList) {
-    try {
-        let keyAttributeOfTheList;
-        keyAttributeOfTheList = primaryKey.keyAttributeOfList[nameOfTheList];
-        return keyAttributeOfTheList;
-    } catch (error) {
-        return undefined;
-    }
-}
-
-/** 
  * Write to the filesystem.<br>
- * @param {JSONObject} coreModelJsonObject json object that needs to be updated
- * @returns {boolean} return true if the value is updated, otherwise returns false
+ * @param {JSON} coreModelJsonObject json object that needs to be updated
+ * @returns {Boolean} return true if the value is updated, otherwise returns false
  **/
 function writeToFile(coreModelJsonObject) {
     try {
-        fileSystem.writeFileSync(databasePath, JSON.stringify(coreModelJsonObject), (error) => {
-            if (error) {
-                console.log('write failed:')
-                throw "write failed:";
-            } else {
-                console.log('write successful:');
-                resolve();
-            }
-        });
+        fileSystem.writeFileSync(databasePath, JSON.stringify(coreModelJsonObject));
         return true;
     } catch (error) {
+        console.log('write failed:', error)
         return false;
     }
 }
@@ -318,7 +226,7 @@ function findMatchingInstanceFromList(individualFieldOfTheOAMPath, coreModelJson
     try {
         nameOfTheList = individualFieldOfTheOAMPath.split("=")[0];
         valueOfTheKeyAttributeOfTheList = individualFieldOfTheOAMPath.split("=")[1];
-        keyAttributeOfTheList = findKeyAttributeForList(nameOfTheList);
+        keyAttributeOfTheList = primaryKey.keyAttributeOfList[nameOfTheList];
         coreModelJsonObject = coreModelJsonObject[nameOfTheList];
         coreModelJsonObject.forEach(element => {
             if (element[keyAttributeOfTheList] == valueOfTheKeyAttributeOfTheList) {
@@ -339,7 +247,7 @@ function findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPath, core
 
     nameOfTheList = individualFieldOfTheOAMPath.split("=")[0];
     valueOfTheKeyAttributeOfTheList = individualFieldOfTheOAMPath.split("=")[1];
-    keyAttributeOfTheList = findKeyAttributeForList(nameOfTheList);
+    keyAttributeOfTheList = primaryKey.keyAttributeOfList[nameOfTheList];
     coreModelJsonObject = coreModelJsonObject[nameOfTheList];
     coreModelJsonObject.forEach((element, index) => {
         if (element[keyAttributeOfTheList] == valueOfTheKeyAttributeOfTheList) {
@@ -349,35 +257,3 @@ function findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPath, core
     return coreModelJsonObject;
 }
 
-function isDataValid(value) {
-    if (value) {
-        if (value !== undefined && value != "") {
-            return true;
-        }
-    }
-    return false;
-}
-
-function isFieldIsAList(field) {
-    if (field.includes("=")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function isNotAnEmptyList(individualFieldOfTheOAMPathList) {
-    if (individualFieldOfTheOAMPathList !== undefined && individualFieldOfTheOAMPathList.length > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function isLastIndexOfTheList(individualFieldOfTheOAMPathList, i) {
-    if (individualFieldOfTheOAMPathList !== undefined && i === individualFieldOfTheOAMPathList.length - 1) {
-        return true;
-    } else {
-        return false;
-    }
-}

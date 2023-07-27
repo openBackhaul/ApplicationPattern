@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * This class provides a stub to instantiate and generate a JSON object for a ResponseProfile. This class is a sub class for profile. 
  * This response profile ,
@@ -7,44 +8,37 @@
 
 'use strict';
 
-const controlConstruct = require('../ControlConstruct');
-const profileCollection = require('../ProfileCollection');
-const profile = require('../Profile');
-const onfPaths = require('../../constants/OnfPaths');
+const ControlConstruct = require('../ControlConstruct');
+const ProfileCollection = require('../ProfileCollection');
+const Profile = require('../Profile');
 const onfAttributes = require('../../constants/OnfAttributes');
-const fileOperation = require('../../../databaseDriver/JSONDriver');
 
-/** 
- * @extends profile
- */
-class ResponseProfile extends profile {
-    /**
-     * ResponseProfilePac class holds the following properties,
-     * 1. ResponseProfileCapability - class that holds the operationName, fieldNameReference, description, datatype.
-     * 2. ResponseProfileConfiguration - class that holds the valueReference.
-     */
+class ResponseProfile extends Profile {
+    static profileName = Profile.profileNameEnum.RESPONSE_PROFILE;
+    responseProfilePac;
+
     static ResponseProfilePac = class ResponseProfilePac {
-        static profileName = profile.profileNameEnum.RESPONSE_PROFILE;
-        ResponseProfileCapability;
-        ResponseProfileConfiguration;
+        responseProfileCapability;
+        responseProfileConfiguration;
 
         static ResponseProfileCapability = class ResponseProfileCapability {
             operationName;
-            fieldNameReference;
+            fieldName;
             description;
             datatype;
+
             /**
-             * constructor 
-             * @param {string} operationName name of the Operation
-             * @param {string} fieldName name of the field.
-             * @param {string} description description.
-             * @param {string} datatype datatype.
-             * This constructor will instantiate the ResponseProfileCapability class
+             * constructor
+             * @param {String} operationName name of the Operation
+             * @param {Object} fieldName static-field-name or field-name-reference
+             * @param {String} description description
+             * @param {String} datatype datatype
              */
-            constructor(operationName, fieldNameReference, description, datatype) {
+            constructor(operationName, fieldName, description, datatype) {
                 this.operationName = operationName;
-                this.fieldName = {
-                    fieldNameReference: fieldNameReference
+                if (onfAttributes.RESPONSE_PROFILE.STATIC_FIELD_NAME in fieldName ||
+                    onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE in fieldName) {
+                    this.fieldName = fieldName;
                 }
                 this.description = description;
                 this.datatype = datatype;
@@ -52,66 +46,94 @@ class ResponseProfile extends profile {
         };
 
         static ResponseProfileConfiguration = class ResponseProfileConfiguration {
-            valueReference;
+            value;
+
             /**
-             * constructor 
-             * @param {string} valueReference value to be referred.
-             * This constructor will instantiate the ResponseProfileConfiguration class
+             * constructor
+             * @param {Object} value static-value or value-reference
              */
-            constructor(valueReference) {
-                this.value = {
-                    valueReference: valueReference
-                };
+            constructor(value) {
+                if (onfAttributes.RESPONSE_PROFILE.STATIC_VALUE in value ||
+                    onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE in value) {
+                    this.value = value;
+                }
             }
         };
 
         /**
          * constructor 
-         * @param {string} operationName name of the Operation
-         * @param {string} fieldName name of the field.
-         * @param {string} description description.
-         * @param {string} datatype datatype.
-         * @param {string} valueReference value to be referred.
-         * This constructor will instantiate the ResponseProfilePac class
+         * @param {String} operationName name of the Operation
+         * @param {Object} fieldName static-field-name or field-name-reference
+         * @param {String} description description
+         * @param {String} datatype datatype
+         * @param {Object} value static-value or value-reference
          */
-        constructor(operationName, fieldNameReference, description, datatype, valueReference) {
-            this.ResponseProfileCapability = new ResponseProfilePac.
-            ResponseProfileCapability(
-                operationName,
-                fieldNameReference,
-                description,
-                datatype);
-            this.ResponseProfileConfiguration = new ResponseProfilePac.
-            ResponseProfileConfiguration(
-                valueReference);
+        constructor(operationName, fieldName, description, datatype, value) {
+            this.responseProfileCapability = new ResponseProfilePac.
+                ResponseProfileCapability(
+                    operationName,
+                    fieldName,
+                    description,
+                    datatype);
+            this.responseProfileConfiguration = new ResponseProfilePac.
+                ResponseProfileConfiguration(
+                    value);
         }
     }
 
     /**
      * constructor 
-     * @param {string} uuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
-     * @param {string} operationName name of the Operation
-     * @param {string} fieldName name of the field.
-     * @param {string} description description.
-     * @param {string} datatype datatype.
-     * @param {string} valueReference value to be referred.
-     * This constructor will instantiate the ResponseProfile class
+     * @param {String} uuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
+     * @param {String} operationName name of the Operation
+     * @param {Object} fieldName static-field-name or field-name-reference
+     * @param {String} description description
+     * @param {String} datatype datatype
+     * @param {Object} value static-value or value-reference
      */
-    constructor(uuid, operationName, fieldNameReference, description, datatype, valueReference) {
-        super(
-            uuid,
-            ResponseProfile.ResponseProfilePac.profileName
-        );
+    constructor(uuid, operationName, fieldName, description, datatype, value) {
+        super(uuid, ResponseProfile.profileName);
         this[onfAttributes.RESPONSE_PROFILE.PAC] = new ResponseProfile.ResponseProfilePac(
             operationName,
-            fieldNameReference,
+            fieldName,
             description,
             datatype,
-            valueReference
+            value
         );
     }
 
     /**
+     * @description This function returns the response profile capability for the given profile uuid.
+     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
+     * @returns {Promise<ResponseProfile|undefined>} object {actionProfile}
+     **/
+    static async getResponseProfile(profileUuid) {
+        let profileList = await ProfileCollection.getProfileListForProfileNameAsync(ResponseProfile.profileName);
+        if (profileList === undefined) {
+            return undefined;
+        }
+        let found = profileList.find(profile => profile[onfAttributes.GLOBAL_CLASS.UUID] === profileUuid);
+        if (found !== undefined) {
+            let responseProfilePacJSON = found[onfAttributes.RESPONSE_PROFILE.PAC];
+            let capabilityJSON = responseProfilePacJSON[onfAttributes.RESPONSE_PROFILE.CAPABILITY];
+            let operationName = capabilityJSON[onfAttributes.RESPONSE_PROFILE.OPERATION_NAME];
+            let fieldName = capabilityJSON[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
+            let description = capabilityJSON[onfAttributes.RESPONSE_PROFILE.DESCRIPTION];
+            let datatype = capabilityJSON[onfAttributes.RESPONSE_PROFILE.DATATYPE];
+
+            let configurationJSON = responseProfilePacJSON[onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
+            let value = configurationJSON[onfAttributes.RESPONSE_PROFILE.VALUE];
+            return new ResponseProfile(profileUuid,
+                operationName,
+                fieldName,
+                description,
+                datatype,
+                value
+            );
+        }
+    }
+
+    /**
+     * @deprecated
      * @description This function returns the operationName for the provided responseProfile profile uuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
      * @returns {promise} string {operationName}
@@ -120,11 +142,11 @@ class ResponseProfile extends profile {
         return new Promise(async function (resolve, reject) {
             let operationName;
             try {
-                let profileList = await profileCollection.getProfileListAsync();
+                let profileList = await ProfileCollection.getProfileListAsync();
                 for (let i = 0; i < profileList.length; i++) {
                     let profile = profileList[i];
                     let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
+                    if (profileName == ResponseProfile.profileName) {
                         let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
                         if (_profileUuid == profileUuid) {
                             let ResponseProfilePac = profile[
@@ -144,73 +166,7 @@ class ResponseProfile extends profile {
     }
 
     /**
-     * @description This function returns the FieldNameReference for the provided responseProfile profile uuid.
-     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
-     * @returns {promise} string {FieldNameReference}
-     **/
-    static async getFieldNameReferenceAsync(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let fieldNameReference;
-            try {
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
-                        let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (_profileUuid == profileUuid) {
-                            let ResponseProfilePac = profile[
-                                onfAttributes.RESPONSE_PROFILE.PAC];
-                            let ResponseProfileCapability = ResponseProfilePac[
-                                onfAttributes.RESPONSE_PROFILE.CAPABILITY];
-                            let fieldName = ResponseProfileCapability[
-                                onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
-                            fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                        }
-                    }
-                }
-                resolve(fieldNameReference);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
-     * @description This function returns the description for the provided responseProfile profile uuid.
-     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
-     * @returns {promise} string {description}
-     **/
-    static async getDescription(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let description;
-            try {
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
-                        let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (_profileUuid == profileUuid) {
-                            let ResponseProfilePac = profile[
-                                onfAttributes.RESPONSE_PROFILE.PAC];
-                            let ResponseProfileCapability = ResponseProfilePac[
-                                onfAttributes.RESPONSE_PROFILE.CAPABILITY];
-                            description = ResponseProfileCapability[
-                                onfAttributes.RESPONSE_PROFILE.DESCRIPTION];
-                        }
-                    }
-                }
-                resolve(description);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
+     * @deprecated
      * @description This function returns the datatype for the provided responseProfile profile uuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
      * @returns {promise} string {datatype}
@@ -219,11 +175,11 @@ class ResponseProfile extends profile {
         return new Promise(async function (resolve, reject) {
             let datatype;
             try {
-                let profileList = await profileCollection.getProfileListAsync();
+                let profileList = await ProfileCollection.getProfileListAsync();
                 for (let i = 0; i < profileList.length; i++) {
                     let profile = profileList[i];
                     let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
+                    if (profileName == ResponseProfile.profileName) {
                         let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
                         if (_profileUuid == profileUuid) {
                             let ResponseProfilePac = profile[
@@ -243,120 +199,46 @@ class ResponseProfile extends profile {
     }
 
     /**
-     * @description This function returns the valueReference for the provided responseProfile profile uuid.
-     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-response-p-\d+$'
-     * @returns {promise} string {valueReference}
-     **/
-    static async getValueReferenceAsync(profileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let valueReference;
-            try {
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
-                        let _profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        if (_profileUuid == profileUuid) {
-                            let ResponseProfilePac = profile[
-                                onfAttributes.RESPONSE_PROFILE.PAC];
-                            let ResponseProfileConfiguration = ResponseProfilePac[
-                                onfAttributes.RESPONSE_PROFILE.CONFIGURATION];
-                            let fieldName = ResponseProfileConfiguration[
-                                onfAttributes.RESPONSE_PROFILE.VALUE];
-                            valueReference = fieldName[onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE];
-                        }
-                    }
-                }
-                resolve(valueReference);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    /**
-     * @description This function sets the value reference for the provided profileUuid
-     * @param {String} profileUuid uuid of the profile.
-     * @param {String} valueReference value reference.
-     * @returns {promise} boolean {true|false}
-     **/
-    static async setValueReferenceAsync(profileUuid, valueReference) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            try {
-                let valueReferencePath = onfPaths.RESPONSE_PROFILE_VALUE_REFERENCE.replace(
-                    "{profileUuid}", profileUuid);
-                isUpdated = await fileOperation.writeToDatabaseAsync(
-                    valueReferencePath,
-                    valueReference,
-                    false);
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
      * @description This function returns the profileUuid for the provided fieldReference.
-     * @param {String} fieldReference : the value should be a valid onfPath
-     * @returns {promise} string {profileUuid}
+     * @param {String} fieldNameReference : the value should be a valid onfPath
+     * @returns {Promise<String|undefined>} string {profileUuid}
      **/
     static async findProfileUuidForFieldNameReferenceAsync(fieldNameReference) {
-        return new Promise(async function (resolve, reject) {
-            let profileUuid;
-            try {
-                let profileList = await profileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profile = profileList[i];
-                    let profileName = profile[onfAttributes.PROFILE.PROFILE_NAME];
-                    if (profileName == ResponseProfile.ResponseProfilePac.profileName) {
-                        let ResponseProfilePac = profile[
-                            onfAttributes.RESPONSE_PROFILE.PAC];
-                        let ResponseProfileCapability = ResponseProfilePac[
-                            onfAttributes.RESPONSE_PROFILE.CAPABILITY];
-                        let fieldName = ResponseProfileCapability[
-                            onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
-                        let _fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
-                        if (_fieldNameReference == fieldNameReference) {
-                            profileUuid = profile[onfAttributes.GLOBAL_CLASS.UUID];
-                        }
-                    }
-                }
-                resolve(profileUuid);
-            } catch (error) {
-                reject(error);
+        let profileList = await ProfileCollection.getProfileListForProfileNameAsync(ResponseProfile.profileName);
+        for (let profile of profileList) {
+            let ResponseProfilePac = profile[onfAttributes.RESPONSE_PROFILE.PAC];
+            let ResponseProfileCapability = ResponseProfilePac[onfAttributes.RESPONSE_PROFILE.CAPABILITY];
+            let fieldName = ResponseProfileCapability[onfAttributes.RESPONSE_PROFILE.FIELD_NAME];
+            let _fieldNameReference = fieldName[onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE];
+            if (_fieldNameReference === fieldNameReference) {
+                return profile[onfAttributes.GLOBAL_CLASS.UUID];
             }
-        });
+        }
+        return undefined;
     }
 
     /**
      * @description This function creates a new application profile.
-     * @param {string} operationName name of the Operation
-     * @param {string} fieldName name of the field.
-     * @param {string} description description.
-     * @param {string} datatype datatype.
-     * @param {string} valueReference value to be reffered.
-     * @returns {promise} object {ResponseProfile}
+     * @param {String} operationName name of the Operation
+     * @param {String} fieldNameReference name of the field.
+     * @param {String} description description.
+     * @param {String} datatype datatype.
+     * @param {String} valueReference value to be reffered.
+     * @returns {Promise<ResponseProfile>}
      **/
     static async createProfileAsync(operationName, fieldNameReference, description, datatype, valueReference) {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let profileUuid = await ResponseProfile.generateNextUuidAsync();
-                let ResponseProfileInstance = new ResponseProfile(
-                    profileUuid,
-                    operationName,
-                    fieldNameReference,
-                    description,
-                    datatype,
-                    valueReference);
-                resolve(ResponseProfileInstance);
-            } catch (error) {
-                reject(error);
+        let profileUuid = await ResponseProfile.generateNextUuidAsync();
+        return new ResponseProfile(profileUuid,
+            operationName,
+            {
+                [onfAttributes.RESPONSE_PROFILE.FIELD_NAME_REFERENCE]: fieldNameReference
+            },
+            description,
+            datatype,
+            {
+                [onfAttributes.RESPONSE_PROFILE.VALUE_REFERENCE]: valueReference
             }
-        });
+        );
     }
 
     /**
@@ -364,32 +246,27 @@ class ResponseProfile extends profile {
      * @returns {promise} string {uuid}
      **/
     static async generateNextUuidAsync() {
-        return new Promise(async function (resolve, reject) {
-            try {
-                let profileUuid;
-                let initialProfileSuffix = "-response-p-000";
-                let uuidList = await profile.getUuidListAsync(
-                    profile.profileNameEnum.RESPONSE_PROFILE);
-                if (uuidList != undefined && uuidList.length > 0) {
-                    uuidList.sort();
-                    let lastUuid = uuidList[uuidList.length - 1];
-                    let uuidPrefix = lastUuid.substring(
-                        0,
-                        lastUuid.lastIndexOf("-") + 1);
-                    let uuidNumber = lastUuid.substring(
-                        lastUuid.lastIndexOf("-") + 1,
-                        lastUuid.length);
-                    profileUuid = uuidPrefix + (
-                        parseInt(uuidNumber) + 1).toString().padStart(3, 0);
-                } else {
-                    let coreModelUuid = await controlConstruct.getUuidAsync();
-                    profileUuid = coreModelUuid + initialProfileSuffix;
-                }
-                resolve(profileUuid);
-            } catch (error) {
-                reject(error);
-            }
-        });
+        let profileUuid;
+        let initialProfileSuffix = "-response-p-000";
+        let profiles = await ProfileCollection.getProfileListForProfileNameAsync(
+            Profile.profileNameEnum.RESPONSE_PROFILE);
+        let uuidList = profiles.flatMap(profile => profile[onfAttributes.GLOBAL_CLASS.UUID]);
+        if (uuidList.length > 0) {
+            uuidList.sort();
+            let lastUuid = uuidList[uuidList.length - 1];
+            let uuidPrefix = lastUuid.substring(
+                0,
+                lastUuid.lastIndexOf("-") + 1);
+            let uuidNumber = lastUuid.substring(
+                lastUuid.lastIndexOf("-") + 1,
+                lastUuid.length);
+            profileUuid = uuidPrefix + (
+                parseInt(uuidNumber) + 1).toString().padStart(3, "0");
+        } else {
+            let coreModelUuid = await ControlConstruct.getUuidAsync();
+            profileUuid = coreModelUuid + initialProfileSuffix;
+        }
+        return profileUuid;
     }
 }
 
