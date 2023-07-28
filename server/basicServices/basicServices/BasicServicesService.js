@@ -64,7 +64,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let oldReleaseAddress = body["old-release-address"];
       let oldReleasePort = body["old-release-port"];
 
-      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement');
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
       if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
         reject(new Error(`The registry-office-application ${applicationName} was not found.`));
         return;
@@ -99,9 +99,12 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let isOldApplicationTcpClientUpdated = false;
       let oldApplicationTcpClientUuid;
       let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+      let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
+      let oldApplicationNameInConfiguration;
+      if(isOldReleaseExist){
       let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
       let httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
-
+      oldApplicationNameInConfiguration =  oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName;
       if (httpUuidOfOldApplication != undefined) {
         let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
         if (tcpClientUuidList != undefined) {
@@ -125,6 +128,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
         let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
         tcpClientConfigurationStatusList.push(configurationStatus);
       }
+      }      
 
       /****************************************************************************************
        * Prepare attributes to configure forwarding-construct
@@ -134,7 +138,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let forwardingConstructConfigurationStatus;
       let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
 
-      if (operationClientConfigurationStatusList) {
+      if (operationClientConfigurationStatusList && isOldReleaseExist) {
         forwardingConfigurationInputList = await prepareForwardingConfiguration.embedYourself(
           operationClientConfigurationStatusList,
           deregisterOperation,
@@ -154,7 +158,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let forwardingAutomationInputList = await prepareForwardingAutomation.embedYourself(
         logicalTerminationPointconfigurationStatus,
         forwardingConstructConfigurationStatus,
-        oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName
+        oldApplicationNameInConfiguration
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
         operationServerName,
@@ -1055,9 +1059,10 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         // update old release configuration
         let isOldApplicationIsUpdated = false;
         let httpUuidOfOldApplication;
-
-        if (oldApplicationName != undefined || oldReleaseNumber != undefined) {
-          let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+        //whether oldRelease of the application name exists        
+        let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+        let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
+        if ((oldApplicationName != undefined || oldReleaseNumber != undefined) && isOldReleaseExist) {
           let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
           httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
 
@@ -1433,6 +1438,14 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
       reject();
     }
   });
+}
+
+async function isForwardingNameExist(forwardingName) {
+  const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+  if (forwardingConstruct === undefined) {
+    return false;
+  }
+  return true;
 }
 
 async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forwardingName) {

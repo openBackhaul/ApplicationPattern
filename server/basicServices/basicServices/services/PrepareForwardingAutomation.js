@@ -19,7 +19,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-            if (oldApplicationName != "OldRelease") {
+            if (oldApplicationName != "OldRelease" && oldApplicationName != '') {
                 /***********************************************************************************
                  * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
                  ************************************************************************************/
@@ -123,8 +123,12 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
-            registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
-            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            if(oldApplicationName){
+                registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            }
+            if(oldReleaseNumber){
+                registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            }            
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
