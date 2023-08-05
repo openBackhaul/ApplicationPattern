@@ -936,13 +936,22 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
           }
           else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
             let elsticSearchClientInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
-            if ( elsticSearchClientInterface!== undefined) {
-              let elasticSearchConfiguration  = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
-              if (elasticSearchConfiguration  !== undefined) {
-                delete elasticSearchConfiguration ["auth"]
+            if (elsticSearchClientInterface !== undefined) {
+              let elasticSearchConfiguration = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
+              if (elasticSearchConfiguration !== undefined) {
+                delete elasticSearchConfiguration["auth"]
               }
-        }
-        }
+            }
+          }
+          else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
+            let httpServerInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
+            if (httpServerInterface !== undefined) {
+              let httpServerCapacity = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
+              if (httpServerCapacity !== undefined) {
+                delete httpServerCapacity[onfAttributes.HTTP_SERVER.RELEASE_LIST]
+              }
+            }
+          }
 
         }
       }
