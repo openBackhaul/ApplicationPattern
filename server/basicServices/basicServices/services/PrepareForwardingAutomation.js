@@ -28,7 +28,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 let bequeathYourDataAndDieRequestBody = {};
                 bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
                 bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
                 bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
                 bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
                 let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding(bequeathYourDataAndDieForwardingName);
@@ -39,7 +39,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 if (!(oldReleaseProtocol == bequeathYourDataAndDieRequestBody.newApplicationProtocol &&
                         JSON.stringify(oldReleaseAddress) == JSON.stringify(bequeathYourDataAndDieRequestBody.newApplicationAddress) &&
                         oldReleasePort == bequeathYourDataAndDieRequestBody.newApplicationPort)) {
-                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);                
+                    bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
                     forwardingAutomation = new forwardingConstructAutomationInput(
                         bequeathYourDataAndDieForwardingName,
                         bequeathYourDataAndDieRequestBody,
@@ -123,12 +123,12 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
-            if(oldApplicationName){
+            if (oldApplicationName) {
                 registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
             }
-            if(oldReleaseNumber){
+            if (oldReleaseNumber) {
                 registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
-            }            
+            }
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
@@ -386,11 +386,11 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
 function isLifeCycleStateDeprecated(lifeCycleState) {
     let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
     let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
-        for (let lifeCycleStateKey in lifeCycleStateEnum) {
-            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
-                return true;
-            }
+    for (let lifeCycleStateKey in lifeCycleStateEnum) {
+        if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState) {
+            return true;
         }
+    }
 }
 
 function removeAttribute(jsonObject, attributeName) {
