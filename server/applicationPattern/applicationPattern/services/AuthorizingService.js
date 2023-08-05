@@ -24,7 +24,7 @@
         try {
              let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
              let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
-             let userName = decodeAuthorizationCodeAndExtractUserName(authorizationCode);
+             let userName = exports.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
              let applicationName = await httpServerInterface.getApplicationNameAsync();
              let applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
              let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));

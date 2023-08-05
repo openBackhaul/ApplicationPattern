@@ -5,6 +5,7 @@
  **/
 const restClient = require('./Client');
 const OperationClientInterface = require('../../onfModel/models/layerProtocols/OperationClientInterface');
+const createHttpError = require('http-errors');
 
 /**
  * This function trigger a rest request by calling the restClient class<br>
@@ -33,22 +34,13 @@ exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method
             "body :" + JSON.stringify(requestBody) + "response code:" + response.status)
         return response;
     } catch (error) {
-        console.log(error);
         if (error.response) {
-            if (error.response.status) {
-                return {
-                    "status": error.response.status
-                };
-            }
-        } else if (error.code) {
-            if (error.code == 'ECONNREFUSED' || error.code == 'ETIMEDOUT') {
-                return {
-                    "status": 404
-                };
-            }
+            return error.response;
+        } else if (error.request) {
+            console.log(`Request errored with ${error}`);
+            return new createHttpError.RequestTimeout();
         }
-        return {
-            "status": 500
-        };
+        console.log(`Unknown request error: ${error}`);
+        return new createHttpError.InternalServerError();
     }
 }
