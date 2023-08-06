@@ -64,7 +64,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let oldReleaseAddress = body["old-release-address"];
       let oldReleasePort = body["old-release-port"];
 
-      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement');
+      const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
       if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
         reject(new Error(`The registry-office-application ${applicationName} was not found.`));
         return;
@@ -99,31 +99,35 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let isOldApplicationTcpClientUpdated = false;
       let oldApplicationTcpClientUuid;
       let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
-      let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
-      let httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
-
-      if (httpUuidOfOldApplication != undefined) {
-        let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
-        if (tcpClientUuidList != undefined) {
-          oldApplicationTcpClientUuid = tcpClientUuidList[0];
-          let tcpClientProtocolOfOldApplication = await tcpClientInterface.getRemoteProtocolAsync(oldApplicationTcpClientUuid);
-          if (oldReleaseProtocol != tcpClientProtocolOfOldApplication) {
-            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteProtocolAsync(oldApplicationTcpClientUuid, oldReleaseProtocol);
-          }
-          let tcpClientAddressOfOldApplication = await tcpClientInterface.getRemoteAddressAsync(oldApplicationTcpClientUuid);
-          if (oldReleaseAddress != tcpClientAddressOfOldApplication) {
-            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteAddressAsync(oldApplicationTcpClientUuid, oldReleaseAddress);
-          }
-          let tcpClientPortOfOldApplication = await tcpClientInterface.getRemotePortAsync(oldApplicationTcpClientUuid);
-          if (oldReleasePort != tcpClientPortOfOldApplication) {
-            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemotePortAsync(oldApplicationTcpClientUuid, oldReleasePort);
+      let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
+      let oldApplicationNameInConfiguration;
+      if (isOldReleaseExist) {
+        let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
+        let httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
+        oldApplicationNameInConfiguration = oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName;
+        if (httpUuidOfOldApplication != undefined) {
+          let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
+          if (tcpClientUuidList != undefined) {
+            oldApplicationTcpClientUuid = tcpClientUuidList[0];
+            let tcpClientProtocolOfOldApplication = await tcpClientInterface.getRemoteProtocolAsync(oldApplicationTcpClientUuid);
+            if (oldReleaseProtocol != tcpClientProtocolOfOldApplication) {
+              isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteProtocolAsync(oldApplicationTcpClientUuid, oldReleaseProtocol);
+            }
+            let tcpClientAddressOfOldApplication = await tcpClientInterface.getRemoteAddressAsync(oldApplicationTcpClientUuid);
+            if (oldReleaseAddress != tcpClientAddressOfOldApplication) {
+              isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteAddressAsync(oldApplicationTcpClientUuid, oldReleaseAddress);
+            }
+            let tcpClientPortOfOldApplication = await tcpClientInterface.getRemotePortAsync(oldApplicationTcpClientUuid);
+            if (oldReleasePort != tcpClientPortOfOldApplication) {
+              isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemotePortAsync(oldApplicationTcpClientUuid, oldReleasePort);
+            }
           }
         }
-      }
-      if (isOldApplicationTcpClientUpdated) {
-        let configurationStatus = new ConfigurationStatus(oldApplicationTcpClientUuid, '', isOldApplicationTcpClientUpdated);
-        let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
-        tcpClientConfigurationStatusList.push(configurationStatus);
+        if (isOldApplicationTcpClientUpdated) {
+          let configurationStatus = new ConfigurationStatus(oldApplicationTcpClientUuid, '', isOldApplicationTcpClientUpdated);
+          let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
+          tcpClientConfigurationStatusList.push(configurationStatus);
+        }
       }
 
       /****************************************************************************************
@@ -134,7 +138,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let forwardingConstructConfigurationStatus;
       let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
 
-      if (operationClientConfigurationStatusList) {
+      if (operationClientConfigurationStatusList && isOldReleaseExist) {
         forwardingConfigurationInputList = await prepareForwardingConfiguration.embedYourself(
           operationClientConfigurationStatusList,
           deregisterOperation,
@@ -142,10 +146,10 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
           relayOperationUpdateOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       }
 
       /****************************************************************************************
@@ -154,7 +158,7 @@ exports.embedYourself = function (body, user, originator, xCorrelator, traceIndi
       let forwardingAutomationInputList = await prepareForwardingAutomation.embedYourself(
         logicalTerminationPointconfigurationStatus,
         forwardingConstructConfigurationStatus,
-        oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName
+        oldApplicationNameInConfiguration
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
         operationServerName,
@@ -213,10 +217,10 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
         subscriptionOperation
       );
       let forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-        unConfigureForwardingConstructAsync(
-          operationServerName,
-          forwardingConfigurationInputList
-        );
+      unConfigureForwardingConstructAsync(
+        operationServerName,
+        forwardingConfigurationInputList
+      );
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
@@ -479,10 +483,10 @@ exports.inquireOamRequestApprovals = function (body, user, originator, xCorrelat
           oamApprovalOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       }
 
       /****************************************************************************************
@@ -564,17 +568,16 @@ exports.listLtpsAndFcs = function (user, originator, xCorrelator, traceIndicator
                 delete httpServerCapability['release-list'];
               }
             }
-          }
-          else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
+          } else if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
             let elsticSearchClientInterface = layerProtocolInstance[onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
-            if ( elsticSearchClientInterface !== undefined) {
-              let elasticSearchConfiguration  = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
-              if (elasticSearchConfiguration  !== undefined) {
-                delete elasticSearchConfiguration ["auth"]
+            if (elsticSearchClientInterface !== undefined) {
+              let elasticSearchConfiguration = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
+              if (elasticSearchConfiguration !== undefined) {
+                delete elasticSearchConfiguration["auth"]
               }
-        }
-        
-        }
+            }
+
+          }
         }
       }
 
@@ -668,10 +671,10 @@ exports.redirectOamRequestInformation = function (body, user, originator, xCorre
           oamLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       }
 
       /****************************************************************************************
@@ -768,10 +771,10 @@ exports.redirectServiceRequestInformation = function (body, user, originator, xC
           serviceLogOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       }
 
       /****************************************************************************************
@@ -880,10 +883,10 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
           fcPortDeletionTopologyOperation
         );
         forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-          configureForwardingConstructAsync(
-            operationServerName,
-            forwardingConfigurationInputList
-          );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       }
 
       /****************************************************************************************
@@ -929,8 +932,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
             if (serverconfiguration !== undefined) {
               delete serverconfiguration['operation-key'];
             }
-          }
-          else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
+          } else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.ES_CLIENT) {
             let elsticSearchClientInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
             if (elsticSearchClientInterface !== undefined) {
               let elasticSearchConfiguration = elsticSearchClientInterface[onfAttributes.ES_CLIENT.CONFIGURATION]
@@ -938,8 +940,7 @@ exports.redirectTopologyChangeInformation = function (body, user, originator, xC
                 delete elasticSearchConfiguration["auth"]
               }
             }
-          }
-          else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
+          } else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
             let httpServerInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
             if (httpServerInterface !== undefined) {
               let httpServerCapacity = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
@@ -1064,9 +1065,10 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
         // update old release configuration
         let isOldApplicationIsUpdated = false;
         let httpUuidOfOldApplication;
-
-        if (oldApplicationName != undefined || oldReleaseNumber != undefined) {
-          let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+        //whether oldRelease of the application name exists        
+        let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
+        let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
+        if ((oldApplicationName != undefined || oldReleaseNumber != undefined) && isOldReleaseExist) {
           let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
           httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
 
@@ -1105,12 +1107,12 @@ exports.registerYourself = function (body, user, originator, xCorrelator, traceI
             registryOfficeRegisterOperation
           );
           forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
-            configureForwardingConstructAsync(
-              operationServerName,
-              forwardingConfigurationInputList
-            );
+          configureForwardingConstructAsync(
+            operationServerName,
+            forwardingConfigurationInputList
+          );
         }
-      } 
+      }
 
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
@@ -1233,24 +1235,24 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       );
 
       let logicalTerminationPointConfigurationStatus
-      
-        if (!httpClientUuidOfnewApplication) {
-          applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
-          releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
-        }
-        let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
-          logicalTerminationPointConfigurationInput.applicationName,
-          undefined,
+
+      if (!httpClientUuidOfnewApplication) {
+        applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
+        releaseNumber = await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
+      }
+      let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+        logicalTerminationPointConfigurationInput.applicationName,
+        undefined,
+        newReleaseForwardingName
+      );
+
+      if (httpClientUuid) {
+        logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
+          logicalTerminationPointConfigurationInput,
           newReleaseForwardingName
         );
-        
-        if (httpClientUuid) {
-            logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
-                    logicalTerminationPointConfigurationInput,
-                    newReleaseForwardingName
-                );
-        }
-      
+      }
+
 
       /*******************************************************************************************************
        * bussiness logic to transfer the operation-client instances from current-release to future-release
@@ -1442,6 +1444,11 @@ exports.updateOperationKey = function (body, user, originator, xCorrelator, trac
       reject();
     }
   });
+}
+
+async function isForwardingNameExist(forwardingName) {
+  const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+  return forwardingConstruct !== undefined;
 }
 
 async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forwardingName) {
