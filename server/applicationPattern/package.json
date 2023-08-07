@@ -4,7 +4,6 @@
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
-    "prepare": "cd ../.. && husky install server/applicationPattern/.husky",
     "test": "jest"
   },
   "dependencies": {
@@ -24,9 +23,7 @@
   "author": "Prathiba Jeevan",
   "license": "Apache-2.0",
   "devDependencies": {
-    "jest": "^29.5.0",
     "eslint": "^8.44.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.2.3"
+    "jest": "^29.5.0"
   }
 }

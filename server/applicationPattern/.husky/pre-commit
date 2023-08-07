@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-AP_DIR=$(dirname -- "$0")/..
-# change working dir to be server/applicationPattern
-cd $AP_DIR
-npx lint-staged

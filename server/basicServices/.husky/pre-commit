@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-BS_DIR=$(dirname -- "$0")/..
-# change working dir to be server/basicServices
-cd $BS_DIR
-npx lint-staged
