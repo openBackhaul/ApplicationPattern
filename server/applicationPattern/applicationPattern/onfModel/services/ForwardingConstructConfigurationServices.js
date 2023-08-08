@@ -223,18 +223,14 @@ exports.configureForwardingConstructAsync = function (operationServerName, forwa
   **/
  function isForwardingConstructIsInvariant(forwardingConstruct) {
      let isForwardingConstructIsInvariant = false;
-     try {
-         let nameList = forwardingConstruct["name"];
-         for (let i = 0; i < nameList.length; i++) {
-             let valueName = getValueFromKey(nameList, "ForwardingKind");
-             if (valueName == ForwardingConstruct.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
-                 isForwardingConstructIsInvariant = true;
-             }
+     let nameList = forwardingConstruct["name"];
+     for (let i = 0; i < nameList.length; i++) {
+         let valueName = getValueFromKey(nameList, "ForwardingKind");
+         if (valueName == ForwardingConstruct.forwardingConstructKindEnum.INVARIANT_PROCESS_SNIPPET) {
+             isForwardingConstructIsInvariant = true;
          }
-         return isForwardingConstructIsInvariant;
-     } catch (error) {
-         throw error;
      }
+     return isForwardingConstructIsInvariant;
  }
  
  /**
@@ -249,18 +245,14 @@ exports.configureForwardingConstructAsync = function (operationServerName, forwa
   **/
  function isForwardingConstructNameMatches(forwardingConstruct, forwardingConstructName) {
      let isForwardingConstructNameMatches = false;
-     try {
-         let nameList = forwardingConstruct["name"];
-         for (let i = 0; i < nameList.length; i++) {
-             let valueName = getValueFromKey(nameList, "ForwardingName");
-             if (valueName == forwardingConstructName) {
-                 isForwardingConstructNameMatches = true;
-             }
+     let nameList = forwardingConstruct["name"];
+     for (let i = 0; i < nameList.length; i++) {
+         let valueName = getValueFromKey(nameList, "ForwardingName");
+         if (valueName == forwardingConstructName) {
+             isForwardingConstructNameMatches = true;
          }
-         return isForwardingConstructNameMatches;
-     } catch (error) {
-         throw error;
      }
+     return isForwardingConstructNameMatches;
  }
  
  /**

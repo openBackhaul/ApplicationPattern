@@ -1,5 +1,4 @@
 const OperationClientInterface = require("./OperationClientInterface");
-const tcpClientInterface = require('./TcpClientInterface');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const ControlConstruct = require('../ControlConstruct');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
