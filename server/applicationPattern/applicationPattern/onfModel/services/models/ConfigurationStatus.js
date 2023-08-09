@@ -28,8 +28,8 @@ class ConfigurationStatus {
         return this.localId;
     }
     isUpdated() {
-        return updated;
+        return this.updated;
     }
-};
+}
 
 module.exports = ConfigurationStatus;

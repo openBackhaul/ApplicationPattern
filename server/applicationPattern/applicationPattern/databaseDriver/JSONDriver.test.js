@@ -28,6 +28,7 @@ const initialContent = {
 };
 
 beforeAll(() => {
+  // eslint-disable-next-line no-unused-vars
   fileSystem.open(file, 'r+', function (err, data) {
   });
   fileSystem.writeFileSync(file, JSON.stringify(initialContent));

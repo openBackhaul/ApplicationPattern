@@ -19,7 +19,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-            if (oldApplicationName != "OldRelease") {
+            if (oldApplicationName != "OldRelease" && oldApplicationName != '') {
                 /***********************************************************************************
                  * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
                  ************************************************************************************/
@@ -28,7 +28,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 let bequeathYourDataAndDieRequestBody = {};
                 bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
                 bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
                 bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
                 bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
                 let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding(bequeathYourDataAndDieForwardingName);
@@ -39,7 +39,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 if (!(oldReleaseProtocol == bequeathYourDataAndDieRequestBody.newApplicationProtocol &&
                         JSON.stringify(oldReleaseAddress) == JSON.stringify(bequeathYourDataAndDieRequestBody.newApplicationAddress) &&
                         oldReleasePort == bequeathYourDataAndDieRequestBody.newApplicationPort)) {
-                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);                
+                    bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
                     forwardingAutomation = new forwardingConstructAutomationInput(
                         bequeathYourDataAndDieForwardingName,
                         bequeathYourDataAndDieRequestBody,
@@ -123,8 +123,12 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
-            registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
-            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            if (oldApplicationName) {
+                registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            }
+            if (oldReleaseNumber) {
+                registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            }
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
@@ -382,26 +386,9 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
 function isLifeCycleStateDeprecated(lifeCycleState) {
     let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
     let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
-        for (let lifeCycleStateKey in lifeCycleStateEnum) {
-            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
-                return true;
-            }
-        }
-}
-
-function removeAttribute(jsonObject, attributeName) {
-
-    for (var element in jsonObject) {
-
-        if (jsonObject.hasOwnProperty(element)) {
-
-            if (element == attributeName) {
-                delete jsonObject[element];
-
-            } else if (typeof jsonObject[element] == 'object') {
-                removeAttribute(jsonObject[element], attributeName);
-            }
+    for (let lifeCycleStateKey in lifeCycleStateEnum) {
+        if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState) {
+            return true;
         }
     }
-    return jsonObject;
 }
