@@ -230,7 +230,8 @@ class ElasticsearchService {
    * @returns {Promise<Object>} controlConstruct object enriched with service-policy-record object
    */
   async updateControlConstructWithServicePolicy(controlConstruct) {
-    let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+    let ltps = await controlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+    let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
     for (let uuid of uuids) {
       let serviceRecordPolicy = await this.getElasticsearchClientServiceRecordsPolicyAsync(uuid);
       let found = controlConstruct['logical-termination-point'].find(u => u['uuid'] === uuid);
@@ -388,7 +389,8 @@ async function configureClientAsync(uuid) {
  * @returns {Promise<String>} UUID of Elasticsearch client
  */
 async function getElasticsearchClientUuidAsync(uuid) {
-  let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
+  let ltps = await controlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+  let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
   if (uuid !== undefined) {
     if (uuids.includes(uuid)) {
       return uuid;
