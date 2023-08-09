@@ -4,38 +4,26 @@
  * tcp-client,http-client and operation-client.
  * 
  **/
+// @ts-check
+'use strict';
 
- 'use strict';
+class AutomationInput {
 
- class AutomationInput {
- 
     forwardingName;
-     attributeList;
-     context;
- 
-     /**
-      * constructor 
-      * @param {string} forwardingConstructName : name of the forwarding construct.
-      * @param {string} attributeList : list of attributes in key value pairs.
-      * @param {string} context : it should be a string with the information of application name + release number
-      */
-     constructor(forwardingName, attributeList, context) {
-         this.forwardingName = forwardingName;
-         this.attributeList = attributeList;
-         this.context = context;
-     }
- 
-     getForwardingName() {
-         return this.forwardingName;
-     }
- 
-     getAttributeList() {
-         return this.attributeList;
-     }
- 
-     getContext() {
-         return this.context;
-     }
- }
- 
- module.exports = AutomationInput;
+    attributeList;
+    context;
+
+    /**
+     * constructor 
+     * @param {String} forwardingName : name of the forwarding construct.
+     * @param {Object} attributeList : list of attributes in key value pairs.
+     * @param {String} context : it should be a string with the information of application name + release number
+     */
+    constructor(forwardingName, attributeList, context) {
+        this.forwardingName = forwardingName;
+        this.attributeList = attributeList;
+        this.context = context;
+    }
+}
+
+module.exports = AutomationInput;

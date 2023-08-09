@@ -4,7 +4,7 @@
  * and findOrCreateApplicationInformation function
  * which will further configure the tcp,http,operation clients of the logical-termination-point
 **/
-
+// @ts-check
 'use strict';
 
 class ConfigurationInputWithMapping {
@@ -24,7 +24,6 @@ class ConfigurationInputWithMapping {
      * @param {String} operationServerName : caller operation
      * @param {Map} operationNamesByAttributes : map of the client operation attribute (key) with client operation name (value)
      * @param {Object} operationsMapping : map of hardcoded context values for operations
-     * @return {Promise} object {ConfigurationInputWithMapping}
      **/
     constructor(
         applicationName,
@@ -40,10 +39,6 @@ class ConfigurationInputWithMapping {
         this.operationServerName = operationServerName;
         this.operationNamesByAttributes = operationNamesByAttributes;
         this.operationsMapping = operationsMapping;
-    }
-
-    validateInput() {
-
     }
 }
 

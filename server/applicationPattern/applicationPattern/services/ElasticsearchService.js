@@ -5,7 +5,7 @@ const logicalTerminationPoint = require('../onfModel/models/LogicalTerminationPo
 const layerProtocol = require('../onfModel/models/LayerProtocol');
 const layerProtocolNameEnum = require('../onfModel/models/LayerProtocol');
 const { Client } = require('@elastic/elasticsearch');
-const controlConstruct = require('../onfModel/models/ControlConstruct');
+const ControlConstruct = require('../onfModel/models/ControlConstruct');
 const TcpClientInterface = require('../onfModel/models/layerProtocols/TcpClientInterface');
 const onfAttributes = require('../onfModel/constants/OnfAttributes');
 
@@ -230,7 +230,7 @@ class ElasticsearchService {
    * @returns {Promise<Object>} controlConstruct object enriched with service-policy-record object
    */
   async updateControlConstructWithServicePolicy(controlConstruct) {
-    let ltps = await controlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+    let ltps = await ControlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
     let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
     for (let uuid of uuids) {
       let serviceRecordPolicy = await this.getElasticsearchClientServiceRecordsPolicyAsync(uuid);
@@ -389,7 +389,7 @@ async function configureClientAsync(uuid) {
  * @returns {Promise<String>} UUID of Elasticsearch client
  */
 async function getElasticsearchClientUuidAsync(uuid) {
-  let ltps = await controlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+  let ltps = await ControlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
   let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
   if (uuid !== undefined) {
     if (uuids.includes(uuid)) {
@@ -411,7 +411,7 @@ async function getElasticsearchClientUuidAsync(uuid) {
  */
 async function getNodeAsync(uuid) {
   let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(uuid);
-  let httpClient = await controlConstruct.getLogicalTerminationPointAsync(serverLtp[0]);
+  let httpClient = await ControlConstruct.getLogicalTerminationPointAsync(serverLtp[0]);
   let tcpClient = await logicalTerminationPoint.getServerLtpListAsync(httpClient.uuid);
   let address = await TcpClientInterface.getRemoteAddressAsync(tcpClient[0]);
   let port = await TcpClientInterface.getRemotePortAsync(tcpClient[0]);
@@ -427,7 +427,7 @@ async function getNodeAsync(uuid) {
  */
 async function getEsClientConfigAsync(uuid) {
   let esUuid = await getElasticsearchClientUuidAsync(uuid);
-  let ltp = await controlConstruct.getLogicalTerminationPointAsync(esUuid);
+  let ltp = await ControlConstruct.getLogicalTerminationPointAsync(esUuid);
   let lp = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
   let esClientPac = lp[onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
   return esClientPac[onfAttributes.ES_CLIENT.CONFIGURATION];
