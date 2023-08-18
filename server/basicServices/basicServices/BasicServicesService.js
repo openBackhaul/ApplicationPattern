@@ -200,14 +200,6 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
       let subscriptionOperation = body["subscription"];
 
       /****************************************************************************************
-       * Prepare logicalTerminationPointConfigurationInput object to
-       * configure logical-termination-point
-       ****************************************************************************************/
-
-      let logicalTerminationPointconfigurationStatus;
-
-
-      /****************************************************************************************
        * Prepare attributes to configure forwarding-construct
        ****************************************************************************************/
 
@@ -225,8 +217,7 @@ exports.endSubscription = function (body, user, originator, xCorrelator, traceIn
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
-      let forwardingAutomationInputList = await prepareForwardingAutomation.endSubscription(
-        logicalTerminationPointconfigurationStatus,
+      let forwardingAutomationInputList = prepareForwardingAutomation.endSubscription(
         forwardingConstructConfigurationStatus
       );
       ForwardingAutomationService.automateForwardingConstructAsync(
@@ -1184,7 +1175,7 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
       tcpObjectList.push(tcpObject);
 
       let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber, newReleaseForwardingName);
-      let httpClientUuidOfcurrentApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
+      let httpClientUuid;
 
       let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
         futureApplicationName,
@@ -1195,23 +1186,27 @@ exports.updateClient = function (body, user, originator, xCorrelator, traceIndic
         basicServicesOperationsMapping.basicServicesOperationsMapping
       );
 
-      let logicalTerminationPointConfigurationStatus
-
       if (!httpClientUuidOfnewApplication) {
-        await httpClientInterface.setApplicationNameAsync(httpClientUuidOfcurrentApplication, futureApplicationName)
-        await httpClientInterface.setReleaseNumberAsync(httpClientUuidOfcurrentApplication, futureReleaseNumber);
+        httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+          currentApplicationName,
+          currentReleaseNumber,
+          newReleaseForwardingName
+        );
+      } else {
+        httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+          futureApplicationName,
+          futureReleaseNumber,
+          newReleaseForwardingName
+        );
       }
-      let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
-        logicalTerminationPointConfigurationInput.applicationName,
-        undefined,
-        newReleaseForwardingName
-      );
+
+      let logicalTerminationPointConfigurationStatus;
 
       if (httpClientUuid) {
         logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
-          logicalTerminationPointConfigurationInput,
-          newReleaseForwardingName
-        );
+                logicalTerminationPointConfigurationInput,
+                httpClientUuid
+            );
       }
 
 

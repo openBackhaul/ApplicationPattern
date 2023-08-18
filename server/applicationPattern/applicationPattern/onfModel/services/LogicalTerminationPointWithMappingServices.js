@@ -628,21 +628,12 @@ function findAndUpdateLogicalTerminationPointAsync(logicalTerminationPointConfig
  * logicalTerminationPoint/ConfigurationInput class
  * @return {Promise} object {LogicalTerminationPointConfigurationStatus}
  **/
-exports.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync = function (logicalTerminationPointConfigurationInput, forwardConstructName) {
+exports.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync = function (logicalTerminationPointConfigurationInput, httpClientUuid) {
     return new Promise(async function (resolve, reject) {
 
         let logicalTerminationPointConfigurationStatus;
 
-
-        let applicationName = logicalTerminationPointConfigurationInput.applicationName;
-        let releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-
         try {
-            let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
-                applicationName,
-                releaseNumber,
-                forwardConstructName
-            );
 
             logicalTerminationPointConfigurationStatus = await findAndUpdateLogicalTerminationPointAsync(logicalTerminationPointConfigurationInput, httpClientUuid)
 
