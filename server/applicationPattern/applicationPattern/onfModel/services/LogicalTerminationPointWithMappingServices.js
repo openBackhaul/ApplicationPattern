@@ -22,6 +22,7 @@ const FcPort = require('../models/FcPort');
 const onfAttributes = require('../constants/OnfAttributes');
 
 /**
+ * @deprecated
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of
@@ -57,6 +58,7 @@ exports.createOrUpdateApplicationInformationWithMultipleTcpClientAsync = functio
 }
 
 /**
+ * @deprecated
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of
@@ -91,6 +93,7 @@ exports.createOrUpdateApplicationAndReleaseInformationAsync = function (logicalT
 }
 
 /**
+ * @deprecated
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of
@@ -123,6 +126,7 @@ exports.createOrUpdateApplicationInformationAsync = function (logicalTermination
 }
 
 /**
+ * @deprecated
  * @description This function finds an application by name and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of
@@ -150,6 +154,7 @@ exports.findAndUpdateApplicationInformationAsync = function (logicalTerminationP
 }
 
 /**
+ * @deprecated
  * @description This function find a application in the same or different release and updates the http,
  * operation and tcp client if require.
  * @param {object} logicalTerminationPointConfigurationInput : is an instance of
@@ -181,6 +186,7 @@ exports.findOrCreateApplicationInformationAsync = function (logicalTerminationPo
 }
 
 /**
+ * @deprecated
  * @description This function deletes the tcp,http,operation client for the provided application and release number.
  * @param {String} applicationName name of the client application
  * @param {String} releaseNumber release of the client application
@@ -615,6 +621,7 @@ function findAndUpdateLogicalTerminationPointAsync(logicalTerminationPointConfig
 }
 
 /**
+ * @deprecated
  * @description This function configures the existing logical-termination-point to the latest values.
  * Also incase if the tcp,operation client are not available it will be created.
  * @param {String} logicalTerminationPointConfigurationInput : is an instance of
