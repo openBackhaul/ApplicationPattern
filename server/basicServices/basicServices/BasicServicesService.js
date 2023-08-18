@@ -953,7 +953,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
 
   let tcpObjectList = [new TcpObject(futureProtocol, futureAddress, futurePort)];
 
-  let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber, newReleaseForwardingName);
+  let httpClientUuidOfnewApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(futureApplicationName, futureReleaseNumber, newReleaseFwName);
   let httpClientUuid;
   if (!httpClientUuidOfnewApplication) {
     httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
@@ -988,7 +988,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
    * bussiness logic to transfer the operation-client instances from current-release to future-release
    *******************************************************************************************************/
 
-  let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseForwardingName);
+  let httpClientUuidOfOldApplication = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(currentApplicationName, currentReleaseNumber, newReleaseFwName);
   if (httpClientUuidOfOldApplication) {
     let clientLtpsOfOldApplication = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuidOfOldApplication);
     if (clientLtpsOfOldApplication != undefined && clientLtpsOfOldApplication.length > 0) {
@@ -1038,7 +1038,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateOperationClient = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
+exports.updateOperationClient = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseFwName) {
   let applicationName = body["application-name"];
   let releaseNumber = body["release-number"];
   let oldOperationName = body["old-operation-name"];
@@ -1046,7 +1046,7 @@ exports.updateOperationClient = async function (body, user, xCorrelator, traceIn
 
   let isUpdated;
   let operationClientUuid
-  let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName);
+  let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseFwName);
   if (httpClientUuid) {
     operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, oldOperationName);
     if (operationClientUuid) {
