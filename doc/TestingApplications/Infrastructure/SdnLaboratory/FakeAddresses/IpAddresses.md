@@ -5,7 +5,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 | Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
 | Controller |  |  |  |  |  |  |  |
-|  | C | OpenDaylight | 4.0.2 | 1.1.1.1 | 1001
+|  | ODL | OpenDayLight | 4.0.2 | 1.1.1.1 | 1001
 | Mediator |  |  |  |  |  |
 |  | xMIM | xMediatorInstanceManager | 1.0.0 | 1.1.2.1 | 2001
 |  | EMIM | EricssonMediatorInstanceManager | 1.0.0 | 1.1.2.2 | 2002
