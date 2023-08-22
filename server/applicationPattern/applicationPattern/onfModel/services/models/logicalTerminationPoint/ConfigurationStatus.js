@@ -3,7 +3,7 @@
  * This class consolidates the logical termination point configuration status for the protocol tcp-client,http-client 
  * and operation-client.
  **/
-
+// @ts-check
 'use strict';
 
 class ConfigurationStatus {
@@ -11,24 +11,19 @@ class ConfigurationStatus {
     operationClientConfigurationStatusList;
     httpClientConfigurationStatus;
     tcpClientConfigurationStatusList;
-    
+
     /**
     * @constructor creates a ConfigurationInput  object for the provided values. 
-    * @param {list} operationClientConfigurationStatusList : is a list of 
-    * @param {String} httpClientConfigurationStatus : release of the client application
-    * @param {String} tcpClientConfigurationStatusList : name of the client application
-    * @return {Promise} object {ConfigurationInput}
+    * @param {Array} operationClientConfigurationStatusList
+    * @param {Object} httpClientConfigurationStatus : release of the client application
+    * @param {Array} tcpClientConfigurationStatusList : name of the client application
     **/
     constructor(operationClientConfigurationStatusList, httpClientConfigurationStatus,
-       tcpClientConfigurationStatusList) {
+        tcpClientConfigurationStatusList) {
         this.operationClientConfigurationStatusList = operationClientConfigurationStatusList;
         this.httpClientConfigurationStatus = httpClientConfigurationStatus;
         this.tcpClientConfigurationStatusList = tcpClientConfigurationStatusList;
     }
-
-    validateInput() {
-
-   }
 }
 
 module.exports = ConfigurationStatus;

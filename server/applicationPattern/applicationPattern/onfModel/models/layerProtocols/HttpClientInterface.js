@@ -259,7 +259,7 @@ class HttpClientInterface extends layerProtocol {
      * @description This function creates and returns a new HttpClientInterface.
      * @param {String} httpClientUuid : http client unique identifier for the new application.
      * It should be a valid string in the pattern '-\d+-\d+-\d+-http-client-\d+$'
-     * @param {String} operationClientUuidList : uuids of the operation clients associated services with this application.
+     * @param {Array} operationClientUuidList : uuids of the operation clients associated services with this application.
      * It should be a valid list of string in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} tcpClientUuid : tcp client uuid that provides information about the ip address and port number of the application.
      * It should be a valid string in the pattern '-\d+-\d+-\d+-tcp-client-\d+$'

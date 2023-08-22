@@ -8,7 +8,7 @@ const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/mod
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-
+const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
@@ -304,17 +304,16 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
-
             let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
             if (currentApplicationName == applicationName) {
-                let operationServerUuidList = await logicalTerminationPoint.getUuidListForTheProtocolAsync(
-                    LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER
-                );
-                for (let i = 0; i < operationServerUuidList.length; i++) {
-                    let operationServerUuid = operationServerUuidList[i];
-                    let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
+                let operationServerList = await ControlConstruct.getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+                for (let operationServer of operationServerList) {
+                    const opSPac = operationServer["layer-protocol"][0]["operation-server-interface-1-0:operation-server-interface-pac"];
+                    const opSCap = opSPac["operation-server-interface-capability"];
+                    const opSConf = opSPac["operation-server-interface-configuration"];
+                    let lifeCycleState = opSConf["life-cycle-state"];
                     if (isLifeCycleStateDeprecated(lifeCycleState)) {
-                        let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
+                        let oldOperationName = opSCap["operation-name"];
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);
                         /***********************************************************************************
