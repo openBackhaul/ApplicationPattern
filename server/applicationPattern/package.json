@@ -4,7 +4,7 @@
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@elastic/elasticsearch": "~7.17.0",
