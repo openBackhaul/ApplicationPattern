@@ -10,9 +10,6 @@
 
 'use strict';
 
-const profileCollection = require("./ProfileCollection");
-const onfAttributes = require('../constants/OnfAttributes');
-
 class Profile {
 
   uuid;

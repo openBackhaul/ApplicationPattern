@@ -13,7 +13,6 @@ const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
-const ForwardingConstruct = require('../../models/ForwardingConstruct');
 const ForwardingDomain = require('../../models/ForwardingDomain');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
