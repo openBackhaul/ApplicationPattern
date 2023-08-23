@@ -1,8 +1,7 @@
 const config = {
     collectCoverageFrom: [
-      '**/*.{js,jsx}',
-      '!**/node_modules/**'
+        'applicationPattern/**'
     ],
-  };
-  
-  module.exports = config;
+};
+
+module.exports = config;
