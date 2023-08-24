@@ -10,9 +10,6 @@
 
 'use strict';
 
-const profileCollection = require("./ProfileCollection");
-const onfAttributes = require('../constants/OnfAttributes');
-
 class Profile {
 
   uuid;
@@ -37,34 +34,6 @@ class Profile {
   constructor(uuid, profileName) {
     this.uuid = uuid;
     this.profileName = profileName;
-  }
-
-  /**
-   * @deprecated Use ProfileCollection.getProfileListForProfileNameAsync()
-   * @description This function returns a uuid List that matches the input profile-name.
-   * @param {String} profileNameType : should be any one of the Profile.profileNameEnum
-   * @returns {promise} returns profile uuid List.
-   **/
-  static async getUuidListAsync(profileNameType) {
-    return new Promise(async function (resolve, reject) {
-      let filteredProfileUuidList = [];
-      try {
-        let profileList = await profileCollection.getProfileListAsync();
-        if (profileList != undefined) {
-          for (let i = 0; i < profileList.length; i++) {
-            let profileInstanceName = profileList[i][onfAttributes.PROFILE.PROFILE_NAME];
-            if (profileInstanceName != undefined) {
-              if (profileInstanceName == profileNameType) {
-                filteredProfileUuidList.push(profileList[i][onfAttributes.GLOBAL_CLASS.UUID]);
-              }
-            }
-          }
-        }
-        resolve(filteredProfileUuidList);
-      } catch (error) {
-        reject(undefined);
-      }
-    });
   }
 }
 

@@ -13,10 +13,10 @@ const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const layerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
-const ForwardingConstruct = require('../../models/ForwardingConstruct');
 const ForwardingDomain = require('../../models/ForwardingDomain');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const FcPort = require('../FcPort');
 
 /** 
  * @extends layerProtocol
@@ -89,19 +89,20 @@ class HttpClientInterface extends layerProtocol {
     /**
      * @description This function returns the http client uuid of the fowarding.
      * @param {String} forwardingName: the value should be a valid forwardingName
-     * @returns {String} undefined|httpClientUuid
+     * @returns {Promise<String|undefined>} httpClientUuid
      **/
 
     static async getHttpClientUuidFromForwarding(forwardingName) {
-        let forwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
-        if (forwardConstructName === undefined) {
-            return;
+        let forwardConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+        if (forwardConstruct === undefined) {
+            return undefined;
         }
-        let forwardConstructUuid = forwardConstructName[onfAttributes.GLOBAL_CLASS.UUID]
-        let fcPortOutput = (await ForwardingConstruct.getOutputFcPortsAsync(forwardConstructUuid))[0]
+        let fcPorts = forwardConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+        let fcPortOutput = fcPorts.filter(
+            fcPort => fcPort[onfAttributes.FC_PORT.PORT_DIRECTION] === FcPort.portDirectionEnum.OUTPUT
+        )[0];
         let operationClientUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-        let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
-        return httpClientUuid;
+        return (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
     }
 
     /**
@@ -154,38 +155,6 @@ class HttpClientInterface extends layerProtocol {
     }
 
     /**
-     * @description This function returns the uuid list of the http-client-interface for the application-name and release-number.If release number
-     * is not provided , then only the application name will be checked
-     * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
-     * @returns {Promise<List>} undefined|httpClientUuidList
-     **/
-    static async getHttpClientUuidListAsync(applicationName, releaseNumber) {
-        let httpClientUuidList = [];
-        let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-            layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
-        for (let i = 0; i < logicalTerminationPointList.length; i++) {
-            let logicalTerminationPoint = logicalTerminationPointList[i];
-            let layerProtocol = logicalTerminationPoint[
-                onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
-            let httpClientPac = layerProtocol[
-                onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
-            if (httpClientPac != undefined) {
-                let httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
-                let _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
-                let _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
-                if (_applicationName != undefined && _applicationName == applicationName) {
-                    if (_releaseNumber != undefined &&
-                        (releaseNumber == undefined || _releaseNumber == releaseNumber)) {
-                        httpClientUuidList.push(logicalTerminationPoint[onfAttributes.GLOBAL_CLASS.UUID]);
-                    }
-                }
-            }
-        }
-        return httpClientUuidList;
-    }
-
-    /**
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
      * is not provided , then only the application name will be checked
      * @param {String} applicationName : name of the application.
@@ -197,32 +166,37 @@ class HttpClientInterface extends layerProtocol {
         return httpClientUuid != undefined;
     }
 
-
     /**
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
      * is not provided , then only the application name will be checked other than old release and new release
      * @param {String} applicationName : name of the application.
      * @param {String} releaseNumber : release number of the application.
-     * @returns {Promise<List>} undefined|httpClientUuid
+     * @returns {Promise<String|undefined>} httpClientUuid
      **/
     static async getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName) {
-        try {
-            let httpClientUuid;
-            let httpClientUuidList = await HttpClientInterface.getHttpClientUuidListAsync(applicationName, releaseNumber);
-            if (httpClientUuidList !== undefined) {
-                for (let i = 0; i < httpClientUuidList.length; i++) {
-                    let uuid = httpClientUuidList[i];
-                    let httpClientUuidOfOldRelease = await HttpClientInterface.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
-                    let httpClientUuidOfNewRelease = await HttpClientInterface.getHttpClientUuidFromForwarding(newReleaseForwardingName);
-                    if (!(uuid === httpClientUuidOfOldRelease || uuid === httpClientUuidOfNewRelease)) {
-                        httpClientUuid = uuid;
-                    }
+        const httpClientUuidOfOldRelease = await HttpClientInterface.getHttpClientUuidFromForwarding("PromptForEmbeddingCausesRequestForBequeathingData");
+        const httpClientUuidOfNewRelease = await HttpClientInterface.getHttpClientUuidFromForwarding(newReleaseForwardingName);
+
+        const logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
+            layerProtocol.layerProtocolNameEnum.HTTP_CLIENT);
+        for (const ltp of logicalTerminationPointList) {
+            const httpClientUuid = ltp[onfAttributes.GLOBAL_CLASS.UUID];
+            if (httpClientUuid === httpClientUuidOfOldRelease || httpClientUuid === httpClientUuidOfNewRelease) {
+                continue;
+            }
+            const layerProtocol = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+            const httpClientPac = layerProtocol[onfAttributes.LAYER_PROTOCOL.HTTP_CLIENT_INTERFACE_PAC];
+            if (httpClientPac != undefined) {
+                const httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
+                const _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
+                const _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
+                if (_applicationName === applicationName &&
+                    releaseNumber == undefined || _releaseNumber === releaseNumber) {
+                    return httpClientUuid;
                 }
             }
-            return httpClientUuid;
-        } catch (error) {
-            console.log(error)
         }
+        return undefined;
     }
 
     /**

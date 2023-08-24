@@ -95,6 +95,12 @@ test("getOperationServerUuidAsync", async () => {
   expect(await OperationServerInterface.getOperationServerUuidAsync("/v1/notify-link-updates")).toBe("alt-2-0-1-op-s-is-022");
 });
 
+test("isOperationServerAsync", async () => {
+  jest.spyOn(ControlConstruct, 'getLogicalTerminationPointAsync').mockReturnValue(opS);
+  expect(await OperationServerInterface.isOperationServerAsync("alt-2-0-1-op-s-is-022"))
+    .toBeTruthy();
+});
+
 afterEach(() => {
   jest.resetAllMocks();
 });

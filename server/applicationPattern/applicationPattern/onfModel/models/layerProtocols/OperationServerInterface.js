@@ -8,19 +8,19 @@
 'use strict';
 
 const controlConstruct = require('../ControlConstruct');
-const layerProtocol = require('../LayerProtocol');
+const LayerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
 /** 
- * @extends layerProtocol
+ * @extends LayerProtocol
  */
-class OperationServerInterface extends layerProtocol {
+class OperationServerInterface extends LayerProtocol {
 
     static OperationServerInterfacePac = class OperationServerInterfacePac {
         operationServerInterfaceCapability;
         operationServerInterfaceConfiguration;
-        static layerProtocolName = layerProtocol.layerProtocolNameEnum.OPERATION_SERVER;
+        static layerProtocolName = LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER;
 
         static OperationServerInterfaceCapability = class OperationServerInterfaceCapability {
             operationName;
@@ -125,7 +125,7 @@ class OperationServerInterface extends layerProtocol {
     static async getAllOperationServerNameAsync() {
         let operationNameList = [];
         let logicalTerminationPointList = await controlConstruct.getLogicalTerminationPointListAsync(
-            layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+            LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
         for (let i = 0; i < logicalTerminationPointList.length; i++) {
             let logicalTerminationPoint = logicalTerminationPointList[i];
             let layerProtocol = logicalTerminationPoint[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
@@ -194,7 +194,7 @@ class OperationServerInterface extends layerProtocol {
      **/
     static async getOperationServerUuidAsync(operationName) {
         let logicalTerminationPointList = await controlConstruct.
-            getLogicalTerminationPointListAsync(layerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+            getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
         if (logicalTerminationPointList != undefined) {
             for (let i = 0; i < logicalTerminationPointList.length; i++) {
                 let logicalTerminationPoint = logicalTerminationPointList[i];
@@ -210,6 +210,22 @@ class OperationServerInterface extends layerProtocol {
     }
 
     /**
+     * @description Determines if given UUID belongs to a server operation.
+     * @param {String} operationUuid UUID to be checked
+     * @returns {Promise<Boolean>} true if UUID belongs to a server operation
+     */
+    static async isOperationServerAsync(operationUuid) {
+        const ltp = await controlConstruct.getLogicalTerminationPointAsync(operationUuid);
+        if (ltp === undefined) {
+            return false;
+        }
+        const layerProtocol = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        const layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
+        return LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER === layerProtocolName;
+    }
+
+    /**
+     * @deprecated use isOperationServerAsync
      * @description Determines if given UUID belongs to a server operation.
      * @param {String} operationUuid UUID to be checked
      * @returns {boolean} true if UUID belongs to a server operation

@@ -3,10 +3,9 @@ const fileOperation = require('../../databaseDriver/JSONDriver');
 const Profile = require('./Profile');
 const ResponseProfile = require('./profile/ResponseProfile');
 
-
 jest.mock('../../databaseDriver/JSONDriver');
 
-const input = [];
+let input = [];
 
 const actionProfile = {
   "uuid": "alt-2-0-1-action-p-002",
@@ -63,16 +62,34 @@ const stringProfile = {
 };
 
 beforeEach(() => {
-  input.push(actionProfile, stringProfile, responseProfile);
-  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockImplementation(() => input);
+  input = [actionProfile, stringProfile, responseProfile];
+  jest.spyOn(fileOperation, 'readFromDatabaseAsync').mockReturnValue(input);
+});
+
+test("getProfileAsync", async () => {
+  expect(await ProfileCollection.getProfileAsync("okm-2-0-1-string-p-000"))
+    .toStrictEqual(stringProfile);
+
+  expect(await ProfileCollection.getProfileAsync("okm-2-0-1-string-p-001"))
+    .toBeUndefined();
 });
 
 test("getProfileListForProfileNameAsync", async () => {
   expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.ACTION_PROFILE))
     .toStrictEqual([actionProfile]);
+
+  expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.APPLICATION_PROFILE))
+    .toStrictEqual([]);
 });
 
-test("addProfile", async () => {
+test("isProfileExistsAsync", async () => {
+  expect(await ProfileCollection.isProfileExistsAsync("okm-2-0-1-string-p-000"))
+    .toBeTruthy();
+  expect(await ProfileCollection.isProfileExistsAsync("okm-2-0-1-string-p-001"))
+    .toBeFalsy();
+});
+
+test("addProfileAsync", async () => {
   const expected1 = new ResponseProfile("alt-2-0-1-response-p-000",
     "/v1/start-application-in-generic-representation",
     {
@@ -88,6 +105,15 @@ test("addProfile", async () => {
   expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
     "/core-model-1-4:control-construct/profile-collection/profile", responseProfile, true
   );
+});
+
+test("deleteProfileAsync", async () => {
+  await ProfileCollection.deleteProfileAsync("okm-2-0-1-string-p-001");
+  expect(fileOperation.deletefromDatabaseAsync).not.toHaveBeenCalled();
+
+  await ProfileCollection.deleteProfileAsync("okm-2-0-1-string-p-000");
+  expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
+    "/core-model-1-4:control-construct/profile-collection/profile=okm-2-0-1-string-p-000");
 });
 
 afterEach(() => {

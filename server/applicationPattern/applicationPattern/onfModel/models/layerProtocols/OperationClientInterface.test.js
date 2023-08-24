@@ -2,6 +2,7 @@ const OperationClientInterface = require("./OperationClientInterface");
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
 const ControlConstruct = require('../ControlConstruct');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const TcpClientInterface = require("./TcpClientInterface");
 
 jest.mock('../LogicalTerminationPoint');
 jest.mock('../../../databaseDriver/JSONDriver');
@@ -69,6 +70,23 @@ test("getOperationClientUuidAsync", async () => {
     .toBe("alt-2-0-1-op-c-im-tar-1-0-0-004");
 });
 
+test("getTcpClientConnectionInfoAsync", async () => {
+  const remoteAddress = {
+      "ip-address": {
+        "ipv-4-address": "1.1.3.15"
+      }
+  };
+  jest.spyOn(logicalTerminationPoint, 'getServerLtpListAsync')
+    .mockReturnValueOnce(["alt-2-0-1-http-c-tar-1-0-0-004"])
+    .mockReturnValueOnce(["alt-2-0-1-tcp-c-tar-1-0-0-004"]);
+  jest.spyOn(TcpClientInterface, 'getRemoteAddressAsync').mockReturnValue(remoteAddress);
+  jest.spyOn(TcpClientInterface, 'getRemoteAddressAsync').mockReturnValue(remoteAddress);
+  jest.spyOn(TcpClientInterface, 'getRemotePortAsync').mockReturnValue("3015");
+  jest.spyOn(TcpClientInterface, 'getRemoteProtocolAsync').mockReturnValue("HTTPS");
+  expect(await OperationClientInterface.getTcpClientConnectionInfoAsync("alt-2-0-1-op-c-im-tar-1-0-0-004"))
+    .toBe("https://1.1.3.15:3015");
+});
+
 test("setOperationNameAsync", async () => {
   const res = await OperationClientInterface.setOperationNameAsync("alt-2-0-1-op-c-im-tar-1-0-0-004", "/v1/foo-bar");
   expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
@@ -86,6 +104,12 @@ test("generateOperationClientUuidAsync", async () => {
 test("createOperationClientInterface", async () => {
   expect(await OperationClientInterface.createOperationClientInterface("alt-2-0-1-http-c-es-1-0-0-000", "alt-2-0-1-op-c-im-tar-1-0-0-004", "/v1/foo-bar"))
     .toBeInstanceOf(logicalTerminationPoint);
+});
+
+test("isOperationClientAsync", async () => {
+  jest.spyOn(ControlConstruct, 'getLogicalTerminationPointAsync').mockReturnValue(opC);
+  expect(await OperationClientInterface.isOperationClientAsync("alt-2-0-1-op-c-im-tar-1-0-0-004"))
+    .toBeTruthy();
 });
 
 afterEach(() => {
