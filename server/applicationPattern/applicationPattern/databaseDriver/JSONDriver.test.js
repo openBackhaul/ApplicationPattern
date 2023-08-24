@@ -97,8 +97,7 @@ describe("writeToDatabaseAsync", () => {
 describe("deletefromDatabaseAsync", () => {
   test("delete field", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window",
-      false,
+      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window",
@@ -107,8 +106,7 @@ describe("deletefromDatabaseAsync", () => {
 
   test("delete object", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration",
-      false
+      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration",
