@@ -29,8 +29,8 @@ class LogicalTerminationPoint {
      * @constructor 
      * @param {String} uuid : unified resource identifier for the logical-termination-point.
      * @param {String} ltpDirection : direction of the LTP , it can be any one of the LogicalTerminationPoint.ltpDirectionEnum.
-     * @param {String} clientLtp : client LTPs ((operation-client/server) associated with http-client/server, ((http-client/server) associated with tcp-client/server)).
-     * @param {String} serverLtp : server LTPs ((tcp-client/server) associated with http-client/server, ((http-client/server) associated with operation-client/server)).
+     * @param {Array} clientLtp : client LTPs ((operation-client/server) associated with http-client/server, ((http-client/server) associated with tcp-client/server)).
+     * @param {Array} serverLtp : server LTPs ((tcp-client/server) associated with http-client/server, ((http-client/server) associated with operation-client/server)).
      * @param {String} layerProtocol : an instance of the LayerProtocol class.
      **/
     constructor(uuid, ltpDirection, clientLtp, serverLtp, layerProtocol) {
@@ -43,115 +43,86 @@ class LogicalTerminationPoint {
 
     /**
      * @description This function returns the server-ltp list for the given logical-termination-point uuid
-     * @param {String} logicalTerminationPointUuid : the value should be a valid string in the pattern 
+     * @param {String} ltpUuid : the value should be a valid string in the pattern
      * '-\d+-\d+-\d+-(http|tcp|op)-(server|client)-\d+$'
-     * @returns {promise} list { [] | uuid }
+     * @returns {Promise<Array>}
      **/
-    static getServerLtpListAsync(logicalTerminationPointUuid) {
-        return new Promise(async function (resolve, reject) {
-            let serverLtpList = [];
-            try {
-                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
-                    logicalTerminationPointUuid);
-                if (logicalTerminationPoint != undefined) {
-                    serverLtpList = logicalTerminationPoint[
-                        onfAttributes.LOGICAL_TERMINATION_POINT.SERVER_LTP];
-                }
-                resolve(serverLtpList);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getServerLtpListAsync(ltpUuid) {
+        let ltp = await controlConstruct.getLogicalTerminationPointAsync(ltpUuid);
+        if (ltp != undefined) {
+            return ltp[onfAttributes.LOGICAL_TERMINATION_POINT.SERVER_LTP];
+        }
+        return [];
     }
 
     /**
      * @description This function returns the client-ltp list for the given logical-termination-point uuid
-     * @param {String} logicalTerminationPointUuid : the value should be a valid string in the pattern 
+     * @param {String} ltpUuid : the value should be a valid string in the pattern
      * '-\d+-\d+-\d+-(http|tcp|op)-(server|client)-\d+$'
-     * @returns {promise} list { [] | uuid }
+     * @returns {Promise<Array>}
      **/
-    static getClientLtpListAsync(logicalTerminationPointUuid) {
-        return new Promise(async function (resolve, reject) {
-            let clientLtpList;
-            try {
-                let logicalTerminationPoint = await controlConstruct.getLogicalTerminationPointAsync(
-                    logicalTerminationPointUuid);
-                if (logicalTerminationPoint != undefined) {
-                    clientLtpList = logicalTerminationPoint[
-                        onfAttributes.LOGICAL_TERMINATION_POINT.CLIENT_LTP];
-                }
-                resolve(clientLtpList);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async getClientLtpListAsync(ltpUuid) {
+        let ltp = await controlConstruct.getLogicalTerminationPointAsync(ltpUuid);
+        if (ltp != undefined) {
+            return ltp[onfAttributes.LOGICAL_TERMINATION_POINT.CLIENT_LTP];
+        }
+        return [];
     }
 
     /**
      * @description This function modifies the client-ltp list for the given logical-termination-point uuid.
-     * @param {String} logicalTerminationPointUuid of the logical-termination-point in the pattern
+     * @param {String} ltpUuid of the logical-termination-point in the pattern
      * '-\d+-\d+-\d+-(http|tcp|op)-(server|client)-\d+$'
-     * @param {list} clientUuidList : list of client uuids that needs to be updated.
-     * @returns {promise} boolean { true | false }
+     * @param {Array} clientUuidList : list of client uuids that needs to be updated.
+     * @returns {Promise<Boolean>}
      **/
-    static setClientLtpListAsync(logicalTerminationPointUuid, clientUuidList) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            let _clientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(logicalTerminationPointUuid);
-            let clientLtpPath = onfPaths.CLIENT_LTP.replace("{uuid}", logicalTerminationPointUuid);
-            try {
-                for (let toBeRemovedUuid of _clientUuidList) {
-                    await fileOperation.deletefromDatabaseAsync(
-                        clientLtpPath,
-                        toBeRemovedUuid,
-                        true);
-                }
-                for (let clientUuid of clientUuidList) {
-                    isUpdated = await fileOperation.writeToDatabaseAsync(
-                        clientLtpPath,
-                        clientUuid,
-                        true);
-                }
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setClientLtpListAsync(ltpUuid, clientUuidList) {
+        let isUpdated = false;
+        let _clientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(ltpUuid);
+        let clientLtpPath = onfPaths.CLIENT_LTP.replace("{uuid}", ltpUuid);
+        for (let toBeRemovedUuid of _clientUuidList) {
+            await fileOperation.deletefromDatabaseAsync(
+                clientLtpPath,
+                toBeRemovedUuid,
+                true);
+        }
+        for (let clientUuid of clientUuidList) {
+            isUpdated = await fileOperation.writeToDatabaseAsync(
+                clientLtpPath,
+                clientUuid,
+                true);
+        }
+        return isUpdated;
     }
 
     /**
      * @description This function modifies the server-ltp list for the given logical-termination-point uuid.
-     * @param {String} logicalTerminationPointUuid : uuid of the logical-termination-point in the pattern
+     * @param {String} ltpUuid : uuid of the logical-termination-point in the pattern
      * '-\d+-\d+-\d+-(http|tcp|op)-(server|client)-\d+$'
-     * @param {list} serverUuidList : list of server uuids that needs to be updated.  
-     * @returns {promise} boolean { true | false }
+     * @param {Array} serverUuidList : list of server uuids that needs to be updated.  
+     * @returns {Promise<Boolean>}
      **/
-    static setServerLtpListAsync(logicalTerminationPointUuid, serverUuidList) {
-        return new Promise(async function (resolve, reject) {
-            let isUpdated = false;
-            let _serverUuidList = await LogicalTerminationPoint.getServerLtpListAsync(logicalTerminationPointUuid);
-            let serverLtpPath = onfPaths.SERVER_LTP.replace("{uuid}", logicalTerminationPointUuid);
-            try {
-                for (let toBeRemovedUuid of _serverUuidList) {
-                    await fileOperation.deletefromDatabaseAsync(
-                        serverLtpPath,
-                        toBeRemovedUuid,
-                        true);
-                }
-                for (let serverUuid of serverUuidList) {
-                    isUpdated = await fileOperation.writeToDatabaseAsync(
-                        serverLtpPath,
-                        serverUuid,
-                        true);
-                }
-                resolve(isUpdated);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    static async setServerLtpListAsync(ltpUuid, serverUuidList) {
+        let isUpdated = false;
+        let _serverUuidList = await LogicalTerminationPoint.getServerLtpListAsync(ltpUuid);
+        let serverLtpPath = onfPaths.SERVER_LTP.replace("{uuid}", ltpUuid);
+        for (let toBeRemovedUuid of _serverUuidList) {
+            await fileOperation.deletefromDatabaseAsync(
+                serverLtpPath,
+                toBeRemovedUuid,
+                true);
+        }
+        for (let serverUuid of serverUuidList) {
+            isUpdated = await fileOperation.writeToDatabaseAsync(
+                serverLtpPath,
+                serverUuid,
+                true);
+        }
+        return isUpdated;
     }
 
     /**
+     * @deprecated use ControlConstruct.getLogicalTerminationPointListAsync(layerProtocolName)
      * @description This function returns the list of logical-termination-point uuid for the provided layer-protocol-name.
      * @param {String} layerProtocolName : one of the LayerProtocol.layerProtocolNameEnum
      * @returns {promise} list {[] | uuid}
@@ -182,7 +153,7 @@ class LogicalTerminationPoint {
                 }
                 resolve(filteredLogicalTerminationPointUuidList);
             } catch (error) {
-                resolve(error);
+                reject(error);
             }
         });
     }

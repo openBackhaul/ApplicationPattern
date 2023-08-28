@@ -145,63 +145,6 @@ class IntegerProfile extends Profile {
             }
         });
     }
-
-    /**
-      * @description This function returns the maxmimum value for the integer profile.
-      * @deprecated should be removed
-      * @param {String} integerProfileUuid : the value should be a valid string in the pattern '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-      * @returns {promise} string {approvalStatus}
-      **/
-    static async getMaximumAsync(integerProfileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let maximum;
-            try {
-                let profileList = await ProfileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profileInstance = profileList[i];
-                    let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                    let profileUuid = profileInstance[onfAttributes.GLOBAL_CLASS.UUID];
-                    if (profileName == Profile.profileNameEnum.INTEGER_PROFILE && profileUuid == integerProfileUuid) {
-                        let integerProfilePac = profileInstance[onfAttributes.INTEGER_PROFILE.PAC];
-                        let integerProfileConfiguration = integerProfilePac[onfAttributes.INTEGER_PROFILE.CAPABILITY];
-                        maximum = integerProfileConfiguration[onfAttributes.INTEGER_PROFILE.MAXIMUM];
-                    }
-                }
-                resolve(maximum);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-
-    /**
-      * @description This function returns the maxmimum value for the integer profile.
-      * @deprecated should be removed
-      * @param {String} integerProfileUuid : the value should be a valid string in the pattern '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-      * @returns {promise} string {approvalStatus}
-      **/
-    static async getMinimumAsync(integerProfileUuid) {
-        return new Promise(async function (resolve, reject) {
-            let minimum;
-            try {
-                let profileList = await ProfileCollection.getProfileListAsync();
-                for (let i = 0; i < profileList.length; i++) {
-                    let profileInstance = profileList[i];
-                    let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-                    let profileUuid = profileInstance[onfAttributes.GLOBAL_CLASS.UUID];
-                    if (profileName == Profile.profileNameEnum.INTEGER_PROFILE && profileUuid == integerProfileUuid) {
-                        let integerProfilePac = profileInstance[onfAttributes.INTEGER_PROFILE.PAC];
-                        let integerProfileConfiguration = integerProfilePac[onfAttributes.INTEGER_PROFILE.CAPABILITY];
-                        minimum = integerProfileConfiguration[onfAttributes.INTEGER_PROFILE.MINIMUM];
-                    }
-                }
-                resolve(minimum);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
 }
 
 module.exports = IntegerProfile;

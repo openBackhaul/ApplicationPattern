@@ -18,6 +18,7 @@ const yargs = require("yargs")
 * Setting Local Variables and initiating the process
 ****************************************************************************************/
 var config = require('./input/config.json');
+const ControlConstruct = require('../applicationPattern/applicationPattern/onfModel/models/ControlConstruct');
 var fakeToOriginalIPMapping = require(config['fake-to-original-iP-mapping-file-path']);
 
 process.env.MODIFY_FILE = yargs.argv.modify
@@ -245,7 +246,8 @@ async function modifyServerLocalAddress(localAddress) {
         const TCP_SERVER_INTERFACE_CONFIGURATION = TCP_SERVER_INTERFACE_PAC + "/tcp-server-interface-configuration";
         const TCP_SERVER_LOCAL_ADDRESS = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-address/ipv-4-address";
         let isUpdated = false;
-        let tcpServerUuidList = await LogicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocolNameEnum.TCP_SERVER);
+        let tcpServerList = await ControlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.TCP_SERVER);
+        let tcpServerUuidList = tcpServerList.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
         try {
             for (let index = 0; index < tcpServerUuidList.length; index++) {
                 let tcpServerUuid = tcpServerUuidList[index];
@@ -278,7 +280,8 @@ async function modifyServerLocalPort(localPort) {
         const TCP_SERVER_INTERFACE_CONFIGURATION = TCP_SERVER_INTERFACE_PAC + "/tcp-server-interface-configuration";
         const TCP_SERVER_LOCAL_PORT = TCP_SERVER_INTERFACE_CONFIGURATION + "/local-port";
         let isUpdated = false;
-        let tcpServerUuidList = await LogicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocolNameEnum.TCP_SERVER);
+        let tcpServerList = await ControlConstruct.getLogicalTerminationPointListAsync(layerProtocolNameEnum.TCP_SERVER);
+        let tcpServerUuidList = tcpServerList.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
         try {
             for (let index = 0; index < tcpServerUuidList.length; index++) {
                 let tcpServerUuid = tcpServerUuidList[index];

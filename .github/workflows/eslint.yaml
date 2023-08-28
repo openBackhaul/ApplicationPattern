@@ -1,0 +1,36 @@
+name: Run eslint
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  eslint:
+    name: Run eslint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install applicationPattern dependencies
+        run: npm install
+        working-directory: server/applicationPattern
+
+      - name: Run applicationPattern ESLint
+        run: ./node_modules/.bin/eslint .
+        working-directory: server/applicationPattern
+
+      - name: Install basicServices dependencies
+        run: npm install
+        working-directory: server/basicServices
+
+      - name: Run basicServices ESLint
+        run: ./node_modules/.bin/eslint .
+        working-directory: server/basicServices

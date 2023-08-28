@@ -7,7 +7,6 @@
 const consequentAction = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ConsequentAction');
 const responseValue = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ResponseValue');
 const ActionProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/ActionProfile');
-const responseProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/ResponseProfile');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
@@ -49,7 +48,7 @@ exports.getConsequentActionList = function (operationName) {
             }
             resolve(consequentActionList);
         } catch (error) {
-            console.log(error);
+            reject(error)
         }
 
     });
@@ -158,7 +157,7 @@ exports.getResponseValueList = function (operationName) {
             }
             resolve(responseValueList)
         } catch (error) {
-            console.log(error);
+            reject(error);
         }
 
     });

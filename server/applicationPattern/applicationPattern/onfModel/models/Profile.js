@@ -10,16 +10,12 @@
 
 'use strict';
 
-const profileCollection = require("./ProfileCollection");
-const onfAttributes = require('../constants/OnfAttributes');
-
 class Profile {
 
   uuid;
   profileName;
 
   static profileNameEnum = {
-    APPLICATION_PROFILE: "application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE",
     ADMIN_PROFILE: "admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE",
     ACTION_PROFILE: "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
     FILE_PROFILE: "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",
@@ -37,34 +33,6 @@ class Profile {
   constructor(uuid, profileName) {
     this.uuid = uuid;
     this.profileName = profileName;
-  }
-
-  /**
-   * @deprecated Use ProfileCollection.getProfileListForProfileNameAsync()
-   * @description This function returns a uuid List that matches the input profile-name.
-   * @param {String} profileNameType : should be any one of the Profile.profileNameEnum
-   * @returns {promise} returns profile uuid List.
-   **/
-  static async getUuidListAsync(profileNameType) {
-    return new Promise(async function (resolve, reject) {
-      let filteredProfileUuidList = [];
-      try {
-        let profileList = await profileCollection.getProfileListAsync();
-        if (profileList != undefined) {
-          for (let i = 0; i < profileList.length; i++) {
-            let profileInstanceName = profileList[i][onfAttributes.PROFILE.PROFILE_NAME];
-            if (profileInstanceName != undefined) {
-              if (profileInstanceName == profileNameType) {
-                filteredProfileUuidList.push(profileList[i][onfAttributes.GLOBAL_CLASS.UUID]);
-              }
-            }
-          }
-        }
-        resolve(filteredProfileUuidList);
-      } catch (error) {
-        reject(undefined);
-      }
-    });
   }
 }
 

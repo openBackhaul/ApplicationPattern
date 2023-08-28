@@ -5,7 +5,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 | Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
 | Controller |  |  |  |  |  |  |  |
-|  | C | OpenDaylight | 4.0.2 | 1.1.1.1 | 1001
+|  | ODL | OpenDayLight | 4.0.2 | 1.1.1.1 | 1001
 | Mediator |  |  |  |  |  |
 |  | xMIM | xMediatorInstanceManager | 1.0.0 | 1.1.2.1 | 2001
 |  | EMIM | EricssonMediatorInstanceManager | 1.0.0 | 1.1.2.2 | 2002
@@ -20,7 +20,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
-|  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.15 | 3015 | 1.2.3.15 | 3215
+|  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |

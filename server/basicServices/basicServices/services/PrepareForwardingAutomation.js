@@ -8,7 +8,7 @@ const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/mod
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-
+const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
@@ -19,7 +19,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-            if (oldApplicationName != "OldRelease") {
+            if (oldApplicationName != "OldRelease" && oldApplicationName != '') {
                 /***********************************************************************************
                  * PromptForEmbeddingCausesRequestForBequeathingData /v1/bequeath-your-data-and-die
                  ************************************************************************************/
@@ -28,7 +28,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 let bequeathYourDataAndDieRequestBody = {};
                 bequeathYourDataAndDieRequestBody.newApplicationName = await httpServerInterface.getApplicationNameAsync();
                 bequeathYourDataAndDieRequestBody.newApplicationRelease = await httpServerInterface.getReleaseNumberAsync();
-                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();                
+                bequeathYourDataAndDieRequestBody.newApplicationProtocol = await tcpServerInterface.getLocalProtocol();
                 bequeathYourDataAndDieRequestBody.newApplicationAddress = await tcpServerInterface.getLocalAddressForForwarding();
                 bequeathYourDataAndDieRequestBody.newApplicationPort = await tcpServerInterface.getLocalPort();
                 let oldReleaseHttpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding(bequeathYourDataAndDieForwardingName);
@@ -39,7 +39,7 @@ exports.embedYourself = function (logicalTerminationPointconfigurationStatus, fo
                 if (!(oldReleaseProtocol == bequeathYourDataAndDieRequestBody.newApplicationProtocol &&
                         JSON.stringify(oldReleaseAddress) == JSON.stringify(bequeathYourDataAndDieRequestBody.newApplicationAddress) &&
                         oldReleasePort == bequeathYourDataAndDieRequestBody.newApplicationPort)) {
-                bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);                
+                    bequeathYourDataAndDieRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(bequeathYourDataAndDieRequestBody);
                     forwardingAutomation = new forwardingConstructAutomationInput(
                         bequeathYourDataAndDieForwardingName,
                         bequeathYourDataAndDieRequestBody,
@@ -123,8 +123,12 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
-            registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
-            registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            if (oldApplicationName) {
+                registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            }
+            if (oldReleaseNumber) {
+                registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            }
             registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
             forwardingAutomation = new forwardingConstructAutomationInput(
                 registrationApplicationForwardingName,
@@ -155,31 +159,10 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
     });
 }
 
-exports.endSubscription = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-
-            /***********************************************************************************
-             * forwardings for application layer topology 
-             ************************************************************************************/
-            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
-                logicalTerminationPointconfigurationStatus,
-                forwardingConstructConfigurationStatus
-            );
-
-            if (applicationLayerTopologyForwardingInputList) {
-                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
-                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
-                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
+exports.endSubscription = function (forwardingConstructConfigurationStatus) {
+    return prepareALTForwardingAutomation.getFDUnconfigureForwardingAutomationInputList(
+        forwardingConstructConfigurationStatus
+    );
 }
 
 exports.inquireOamRequestApprovals = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
@@ -321,17 +304,16 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
-
             let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
             if (currentApplicationName == applicationName) {
-                let operationServerUuidList = await logicalTerminationPoint.getUuidListForTheProtocolAsync(
-                    LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER
-                );
-                for (let i = 0; i < operationServerUuidList.length; i++) {
-                    let operationServerUuid = operationServerUuidList[i];
-                    let lifeCycleState = await operationServerInterface.getLifeCycleState(operationServerUuid);
+                let operationServerList = await ControlConstruct.getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+                for (let operationServer of operationServerList) {
+                    const opSPac = operationServer["layer-protocol"][0]["operation-server-interface-1-0:operation-server-interface-pac"];
+                    const opSCap = opSPac["operation-server-interface-capability"];
+                    const opSConf = opSPac["operation-server-interface-configuration"];
+                    let lifeCycleState = opSConf["life-cycle-state"];
                     if (isLifeCycleStateDeprecated(lifeCycleState)) {
-                        let oldOperationName = await operationServerInterface.getOperationNameAsync(operationServerUuid);
+                        let oldOperationName = opSCap["operation-name"];
                         let newOperationName = await operationServerInterface.getNextVersionOfOperationNameIfExists(
                             oldOperationName);
                         /***********************************************************************************
@@ -382,26 +364,9 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
 function isLifeCycleStateDeprecated(lifeCycleState) {
     let deprecatedLifeCycleState = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum.DEPRECATED
     let lifeCycleStateEnum = operationServerInterface.OperationServerInterfacePac.OperationServerInterfaceConfiguration.lifeCycleStateEnum;
-        for (let lifeCycleStateKey in lifeCycleStateEnum) {
-            if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState)  {
-                return true;
-            }
-        }
-}
-
-function removeAttribute(jsonObject, attributeName) {
-
-    for (var element in jsonObject) {
-
-        if (jsonObject.hasOwnProperty(element)) {
-
-            if (element == attributeName) {
-                delete jsonObject[element];
-
-            } else if (typeof jsonObject[element] == 'object') {
-                removeAttribute(jsonObject[element], attributeName);
-            }
+    for (let lifeCycleStateKey in lifeCycleStateEnum) {
+        if (lifeCycleStateEnum[lifeCycleStateKey] === deprecatedLifeCycleState && lifeCycleStateKey === lifeCycleState) {
+            return true;
         }
     }
-    return jsonObject;
 }
