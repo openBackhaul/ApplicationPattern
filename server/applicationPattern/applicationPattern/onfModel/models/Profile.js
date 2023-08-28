@@ -16,7 +16,6 @@ class Profile {
   profileName;
 
   static profileNameEnum = {
-    APPLICATION_PROFILE: "application-profile-1-0:PROFILE_NAME_TYPE_APPLICATION_PROFILE",
     ADMIN_PROFILE: "admin-profile-1-0:PROFILE_NAME_TYPE_ADMIN_PROFILE",
     ACTION_PROFILE: "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
     FILE_PROFILE: "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",

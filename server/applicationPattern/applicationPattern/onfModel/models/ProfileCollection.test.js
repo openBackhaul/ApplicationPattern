@@ -78,7 +78,7 @@ test("getProfileListForProfileNameAsync", async () => {
   expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.ACTION_PROFILE))
     .toStrictEqual([actionProfile]);
 
-  expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.APPLICATION_PROFILE))
+  expect(await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.FILE_PROFILE))
     .toStrictEqual([]);
 });
 

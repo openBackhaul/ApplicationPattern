@@ -53,15 +53,6 @@ const PROFILE = {
     PROFILE_NAME: "profile-name"
 };
 
-const APPLICATION_PROFILE = {
-    PAC: "application-profile-1-0:application-profile-pac",
-    CAPABILITY: "application-profile-capability",
-    CONFIGURATION: "application-profile-configuration",
-    APPLICATION_NAME: "application-name",
-    RELEASE_NUMBER: "release-number",
-    APPROVAL_STATUS: "approval-status"
-};
-
 const ADMIN_PROFILE = {
     PAC: "admin-profile-1-0:admin-profile-pac",
     CAPABILITY: "admin-profile-capability",
@@ -272,7 +263,6 @@ module.exports = {
     LINK,
     PROFILE_COLLECTION,
     PROFILE,
-    APPLICATION_PROFILE,
     ADMIN_PROFILE,
     ACTION_PROFILE,
     FILE_PROFILE,
