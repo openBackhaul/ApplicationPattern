@@ -1,35 +1,8 @@
 const ForwardingConstructConfigurationServices = require('./ForwardingConstructConfigurationServices');
 const ForwardingConstructConfigurationStatus = require('./models/forwardingConstruct/ConfigurationStatus');
-const ControlConstruct = require('../models/ControlConstruct');
+const OperationServerInterface = require('../models/layerProtocols/OperationServerInterface');
 const ForwardingDomain = require('../models/ForwardingDomain');
 const fcPort = require('../models/FcPort');
-
-const ltps = [
-  {
-    "uuid": "ro-2-0-1-op-s-bm-001",
-    "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-    "client-ltp": [
-    ],
-    "server-ltp": [
-      "ro-2-0-1-http-s-000"
-    ],
-    "layer-protocol": [
-      {
-        "local-id": "0",
-        "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-        "operation-server-interface-1-0:operation-server-interface-pac": {
-          "operation-server-interface-capability": {
-            "operation-name": "/v1/embed-yourself"
-          },
-          "operation-server-interface-configuration": {
-            "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-            "operation-key": "Operation key not yet provided."
-          }
-        }
-      }
-    ]
-  }
-];
 
 const fc = {
   uuid: 'ro-2-0-1-op-fc-bm-106',
@@ -81,7 +54,7 @@ describe("configureForwardingConstructAsync", () => {
   test("configureForwardingConstructAsync - successful", async () => {
     const operationServerName = '/v1/embed-yourself';
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
 
@@ -91,11 +64,11 @@ describe("configureForwardingConstructAsync", () => {
     
   });
 
-  test("configureForwardingConstructAsync - failed to get LogicalTerminationPointListAsync", async () => {
+  test("configureForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
     const operationServerName = '/v1/embed-yourself';
     const mockError = { message: 'Something bad happened' };
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => {
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => {
       return Promise.reject(mockError);
     });
 
@@ -108,25 +81,11 @@ describe("configureForwardingConstructAsync", () => {
     
   });
 
-  test("configureForwardingConstructAsync - LogicalTerminationPointListAsync returns undefined", async () => {
-    const operationServerName = '/v1/embed-yourself';
-
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => undefined);
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err).toBe(undefined);
-    })
-    
-  });
-
   test("configureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
     const operationServerName = '/v1/embed-yourself';
     
     const mockError = { message: 'Something bad happened' };
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => {
       return Promise.reject(mockError);
     });
@@ -143,7 +102,7 @@ describe("configureForwardingConstructAsync", () => {
   test("configureForwardingConstructAsync - ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
     const operationServerName = '/v1/embed-yourself';
     
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);
 
     const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
@@ -159,7 +118,7 @@ describe("configureForwardingConstructAsync", () => {
     const operationServerName = '/v1/embed-yourself';
     
     const mockError = { message: 'Something bad happened' };
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => {
       return Promise.reject(mockError);
@@ -178,7 +137,7 @@ describe("configureForwardingConstructAsync", () => {
     const operationServerName = '/v1/embed-yourself';
     
     const mockError = { message: 'Something bad happened' };
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
 
@@ -198,7 +157,7 @@ describe("unConfigureForwardingConstructAsync", () => {
   test("unConfigureForwardingConstructAsync - successful", async () => {
     const operationServerName = '/v1/embed-yourself';
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
 
@@ -207,11 +166,11 @@ describe("unConfigureForwardingConstructAsync", () => {
     expect(res).toBeInstanceOf(ForwardingConstructConfigurationStatus);
   });
 
-  test("unConfigureForwardingConstructAsync - failed to get LogicalTerminationPointListAsync", async () => {
+  test("unConfigureForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
     const operationServerName = '/v1/embed-yourself';
     const mockError = { message: 'Something bad happened' };
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => {
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => {
       return Promise.reject(mockError);
     });
 
@@ -224,25 +183,11 @@ describe("unConfigureForwardingConstructAsync", () => {
     })
   });
 
-  test("unConfigureForwardingConstructAsync - if LogicalTerminationPointListAsync returns undefined", async () => {
-    const operationServerName = '/v1/embed-yourself';
-
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => undefined);
-
-    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    
-    return res.then()
-    .catch((err)=> {
-      expect(err).toBe(undefined);
-    })
-  });
-
   test("unConfigureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
     const operationServerName = '/v1/embed-yourself';
     const mockError = { message: 'Something bad happened' };
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => {
       return Promise.reject(mockError);
     });
@@ -258,7 +203,7 @@ describe("unConfigureForwardingConstructAsync", () => {
   test("unConfigureForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
     const operationServerName = '/v1/embed-yourself';
 
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => undefined);
 
     const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
@@ -273,7 +218,7 @@ describe("unConfigureForwardingConstructAsync", () => {
     const operationServerName = '/v1/embed-yourself';
     const mockError = { message: 'Something bad happened' };
     
-    jest.spyOn(ControlConstruct, 'getLogicalTerminationPointListAsync').mockImplementation(() => ltps);
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
 
