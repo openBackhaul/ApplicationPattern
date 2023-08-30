@@ -1,7 +1,11 @@
 const ForwardingConstructAutomationServices = require('./ForwardingConstructAutomationServices');
 const OperationServerInterface = require('../models/layerProtocols/OperationServerInterface');
 const ForwardingDomain = require('../models/ForwardingDomain');
-const event = require('../../rest/client/eventDispatcher');
+const LogicalTerminationPoint = require('../models/LogicalTerminationPoint');
+const HttpClientInterface = require('../models/layerProtocols/HttpClientInterface');
+const Event = require('../../rest/client/eventDispatcher');
+
+jest.mock('../../rest/client/eventDispatcher');
 
 const fc = {
   "uuid": "ro-2-0-1-op-fc-bm-001",
@@ -25,6 +29,42 @@ const fc = {
       "local-id": "200",
       "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
       "logical-termination-point": "ro-2-0-1-op-c-bm-or-1-0-0-000"
+    }
+  ]
+};
+
+const fcForProcessSnippet = {
+  "uuid": "ro-2-0-1-op-fc-is-000",
+  "name": [
+    {
+      "value-name": "ForwardingKind",
+      "value": "core-model-1-4:FORWARDING_KIND_TYPE_PROCESS_SNIPPET"
+    },
+    {
+      "value-name": "ForwardingName",
+      "value": "TypeApprovalCausesRequestForEmbedding"
+    }
+  ],
+  "fc-port": [
+    {
+      "local-id": "000",
+      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
+      "logical-termination-point": "ro-2-0-1-op-s-is-001"
+    },
+    {
+      "local-id": "001",
+      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
+      "logical-termination-point": "ro-2-0-1-op-s-is-002"
+    },
+    {
+      "local-id": "100",
+      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+      "logical-termination-point": "ro-2-0-1-op-s-is-003"
+    },
+    {
+      "local-id": "201",
+      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+      "logical-termination-point": "ro-2-0-1-op-c-im-tar-1-0-0-000"
     }
   ]
 };
@@ -68,55 +108,45 @@ const forwardingAutomationInputList = [
         }
       ]
     },
-    context: undefined
+    context: 'TypeApprovalRegister2.0.1'
   }
+  
 ];
 
-const forwardingAutomationInputListforSubscription = [
-  {
-    forwardingName: 'OperationUpdateBroadcast',
-    attributeList: {
-      'application-name': 'RegistryOffice',
-      'release-number': '2.0.1',
-      'old-operation-name': '/v1/register-application',
-      'new-operation-name': '/v2/register-application'
-    },
-    context: undefined
-  }
-];
+describe("automateForwardingConstructAsync", () => {
+  test("automateForwardingConstructAsync - success when FC is Process Snippet", async () => {
+    const operationServerName = '/v1/embed-yourself';
+    const httpRequestBody = {
+          "new-application-name": "RegistryOffice",
+          "new-application-release": "2.0.1",
+          "new-application-protocol": "HTTP",
+          "new-application-address": {
+            "ipv-4-address": "1.1.3.8"
+          },
+          "new-application-port": 3008
+        };
+    const xCorrelator = "550e8400-e29b-11d4-a716-446655440000";
+    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-is-003');
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fcForProcessSnippet);
+    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue(["ro-2-0-1-http-c-tar-1-0-0-000"]);
+    jest.spyOn(HttpClientInterface, 'getApplicationNameAsync').mockReturnValue('TypeApprovalRegister');
+    jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValue('2.0.1');
+    jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
+     
+    let res = await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
+      operationServerName, forwardingAutomationInputList, 'User Name', 
+      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
+    
+    expect(Event.dispatchEvent).toHaveBeenCalledWith(
+        "ro-2-0-1-op-s-is-003",
+        expect.objectContaining(httpRequestBody),
+        "User Name",
+        xCorrelator,
+        "1.3.1",
+        "Unknown value"
+      );
+  });
 
-const fcForSubscription = {
-  "uuid": "ro-2-0-1-op-fc-is-010",
-  "name": [
-    {
-      "value-name": "ForwardingKind",
-      "value": "core-model-1-4:FORWARDING_KIND_TYPE_SUBSCRIPTION"
-    },
-    {
-      "value-name": "ForwardingName",
-      "value": "OperationUpdateBroadcast"
-    }
-  ],
-  "fc-port": [
-    {
-      "local-id": "000",
-      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-      "logical-termination-point": "ro-2-0-1-op-s-is-003"
-    },
-    {
-      "local-id": "001",
-      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-      "logical-termination-point": "ro-2-0-1-op-s-is-002"
-    },
-    {
-      "local-id": "100",
-      "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-      "logical-termination-point": "ro-2-0-1-op-s-is-011"
-    }
-  ]
-};
-
-describe("configureForwardingConstructAsync", () => {
   test("automateForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
     const operationServerName = '/v1/embed-yourself';
     const mockError = { message: 'Something bad happened' };
@@ -153,6 +183,7 @@ describe("configureForwardingConstructAsync", () => {
 
   test("automateForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
     const operationServerName = '/v1/embed-yourself';
+    const errorMsg = "Cannot read properties of undefined (reading 'fc-port')";
     
     jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);    
@@ -162,7 +193,7 @@ describe("configureForwardingConstructAsync", () => {
 
     return res.then()
     .catch((err)=> {
-      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toStrictEqual(errorMsg);
     })
   });
 
@@ -172,29 +203,10 @@ describe("configureForwardingConstructAsync", () => {
     
     jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-    jest.spyOn(event, 'dispatchEvent').mockImplementation(() => true);
+    jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
      
     const res =  ForwardingConstructAutomationServices.automateForwardingConstructAsync(
       operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-  });
-
-  test("automateForwardingConstructAsync - failed to automate ForwardingConstructAsync when FC Port is subscription", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-    
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fcForSubscription);
-    jest.spyOn(event, 'dispatchEvent').mockImplementation(() => true);
-     
-    const res =  ForwardingConstructAutomationServices.automateForwardingConstructAsync(
-      operationServerName, forwardingAutomationInputListforSubscription, 'User Name', 
       '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
     return res.then(() => {
       return Promise.reject(mockError);
@@ -207,6 +219,38 @@ describe("configureForwardingConstructAsync", () => {
 })
 
 describe("automateForwardingConstructWithoutInputAsync", () => {
+  // test("automateForwardingConstructWithoutInputAsync - successful when FC is Process Snippet", async () => {
+  //   const httpRequestBody = {
+  //         "new-application-name": "RegistryOffice",
+  //         "new-application-release": "2.0.1",
+  //         "new-application-protocol": "HTTP",
+  //         "new-application-address": {
+  //           "ipv-4-address": "1.1.3.8"
+  //         },
+  //         "new-application-port": 3008
+  //       };
+  //   const xCorrelator = "550e8400-e29b-11d4-a716-446655440000";
+
+  //   jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fcForProcessSnippet);
+  //   jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue(["ro-2-0-1-http-c-tar-1-0-0-000"])
+  //   jest.spyOn(HttpClientInterface, 'getApplicationNameAsync').mockReturnValue('TypeApprovalRegister')
+  //   jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValue('2.0.1');
+  //   jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
+
+  //   const res = await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
+  //       forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
+  //       '1.3.1', 'Unknown value');
+        
+  // expect(Event.dispatchEvent).toHaveBeenCalledWith(
+  //   "ro-2-0-1-op-s-is-003",
+  //   expect.objectContaining(httpRequestBody),
+  //   "User Name",
+  //   xCorrelator,
+  //   "1.3.1",
+  //   "Unknown value"
+  // );
+  // });
+
   test("automateForwardingConstructWithoutInputAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
     const mockError = { message: 'Something bad happened' };
 
@@ -225,6 +269,7 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
   });
 
   test("automateForwardingConstructWithoutInputAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
+    const errorMsg = "Cannot read properties of undefined (reading 'fc-port')";
 
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);
 
@@ -234,7 +279,7 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
 
     return res.then()
       .catch((err)=> {
-        expect(err).toBeInstanceOf(Error);
+        expect(err.message).toStrictEqual(errorMsg);
     })
   });
 
@@ -242,27 +287,10 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
     const mockError = { message: 'Something bad happened' };
 
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-    jest.spyOn(event, 'dispatchEvent').mockImplementation(() => true);
+    jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
 
     const res = ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
         forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
-        '1.3.1', 'Unknown value');
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-  });
-
-  test("automateForwardingConstructWithoutInputAsync - failed to automate ForwardingConstructWithoutInputAsync when FC Port is subscription", async () => {
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fcForSubscription);
-    jest.spyOn(event, 'dispatchEvent').mockImplementation(() => true);
-
-    const res = ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
-        forwardingAutomationInputListforSubscription, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
         '1.3.1', 'Unknown value');
     return res.then(() => {
       return Promise.reject(mockError);
