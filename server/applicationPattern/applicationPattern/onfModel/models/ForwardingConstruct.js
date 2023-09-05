@@ -118,10 +118,7 @@ class ForwardingConstruct {
         let fcPortPath = onfPaths.FC_PORT.replace(
             "{fdUuid}", forwardingDomainUuid).replace(
                 "{fcUuid}", forwardingConstructUuid) + "=" + fcPortLocalId;
-        return await fileOperation.deletefromDatabaseAsync(
-            fcPortPath,
-            fcPortLocalId,
-            true);
+        return await fileOperation.deletefromDatabaseAsync(fcPortPath);
     }
 }
 

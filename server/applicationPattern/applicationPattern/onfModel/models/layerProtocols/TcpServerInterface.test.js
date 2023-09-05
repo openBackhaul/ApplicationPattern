@@ -102,9 +102,7 @@ describe("setLocalAddress", () => {
       "ipv-4-address": "127.0.0.2"
     });
     expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
-      { "ipv-4-address": "127.0.0.1" },
-      false);
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address");
     expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
       tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
       { "ipv-4-address": "127.0.0.2" },
@@ -122,9 +120,7 @@ describe("setLocalAddress", () => {
     }
     );
     expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-      tcpServerInterfaceConfigurationPath + "local-address/domain-name",
-      { "domain-name": "some-domain.com" },
-      false);
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name");
     expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
       tcpServerInterfaceConfigurationPath + "local-address/domain-name",
       {
@@ -143,9 +139,7 @@ describe("setLocalAddress", () => {
     }
     );
     expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
-      { "ipv-4-address": "127.0.0.1" },
-      false);
+      tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address");
     expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
       tcpServerInterfaceConfigurationPath + "local-address/domain-name", {
       "domain-name": "some-new-domain.com"
@@ -162,9 +156,7 @@ describe("setLocalAddress", () => {
       "ipv-4-address": "127.0.0.1"
     });
     expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-      tcpServerInterfaceConfigurationPath + "local-address/domain-name",
-      { "domain-name": "some-new-domain.com" },
-      false);
+      tcpServerInterfaceConfigurationPath + "local-address/domain-name");
     expect(fileOperation.writeToDatabaseAsync).toBeCalledWith(
       tcpServerInterfaceConfigurationPath + "local-address/ipv-4-address",
       {

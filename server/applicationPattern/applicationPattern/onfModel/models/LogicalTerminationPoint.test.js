@@ -72,9 +72,7 @@ test("setServerLtpListAsync -- add to existing", async () => {
   jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue(["alt-2-0-1-tcp-c-es-1-0-0-000"]);
   const res = await LogicalTerminationPoint.setServerLtpListAsync("alt-2-0-1-http-c-es-1-0-0-000", inputServerList);
   expect(fileOperation.deletefromDatabaseAsync).toHaveBeenCalledWith(
-    "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/server-ltp",
-    "alt-2-0-1-tcp-c-es-1-0-0-000", true
-  );
+    "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/server-ltp");
   expect(fileOperation.writeToDatabaseAsync).toHaveBeenNthCalledWith(1,
     "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/server-ltp",
     "alt-2-0-1-es-c-es-1-0-0-000", true
@@ -128,9 +126,7 @@ test("setClientLtpListAsync -- add to existing", async () => {
   jest.spyOn(LogicalTerminationPoint, 'getClientLtpListAsync').mockReturnValue(["alt-2-0-1-tcp-c-es-1-0-0-000"]);
   const res = await LogicalTerminationPoint.setClientLtpListAsync("alt-2-0-1-http-c-es-1-0-0-000", inputClientList);
   expect(fileOperation.deletefromDatabaseAsync).toHaveBeenCalledWith(
-    "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/client-ltp",
-    "alt-2-0-1-tcp-c-es-1-0-0-000", true
-  );
+    "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/client-ltp");
   expect(fileOperation.writeToDatabaseAsync).toHaveBeenNthCalledWith(1,
     "/core-model-1-4:control-construct/logical-termination-point=alt-2-0-1-http-c-es-1-0-0-000/client-ltp",
     "alt-2-0-1-es-c-es-1-0-0-000", true

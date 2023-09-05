@@ -56,12 +56,9 @@ exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isALis
  * This function deletes the requested data in the oam path from the core-model<br>
  * @deprecated remove unused params valueToBeDeleted and isAList
  * @param {String} oamPath json path that leads to the destined attribute
- * @param {JSON|String} valueToBeDeleted value that needs to be deleted
- * @param {Boolean} isAList a boolean flag that represents whether the value to be deleted is a list
  * @returns {Promise<Boolean>} return true if the value is deleted, otherwise returns false
  */
-// eslint-disable-next-line no-unused-vars
-exports.deletefromDatabaseAsync = async function (oamPath, valueToBeDeleted, isAList) {
+exports.deletefromDatabaseAsync = async function (oamPath) {
     return await lock.acquire(global.databasePath, async () => {
         let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
         let individualFieldOfTheOAMPathList = oamPath.split('/');
