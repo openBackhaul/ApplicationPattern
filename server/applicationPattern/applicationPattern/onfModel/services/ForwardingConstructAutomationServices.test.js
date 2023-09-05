@@ -150,7 +150,7 @@ describe("automateForwardingConstructAsync", () => {
     jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValue('2.0.1');
     jest.spyOn(Event, 'dispatchEvent').mockReturnValue(true);
      
-    let res = await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
+    await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
       operationServerName, forwardingAutomationInputList, 'User Name', 
       '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
     
@@ -271,7 +271,7 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
     jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValue('2.0.1');
     jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
 
-    const res = await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
+    await ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
         forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
         '1.3.1', 'Unknown value');
         
