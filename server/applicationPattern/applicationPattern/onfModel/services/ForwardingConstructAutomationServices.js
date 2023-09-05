@@ -117,7 +117,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                 let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
                     forwardingConstruct);
                 if (_isForwardingConstructIsProcessSnippet) {
-                    automateProcessSnippetAsync(forwardingConstruct,
+                    await automateProcessSnippetAsync(forwardingConstruct,
                         attributeList,
                         context,
                         user,
@@ -126,7 +126,7 @@ function automateForwardingsAsync(forwardingName, attributeList, context, operat
                         customerJourney
                     );
                 } else {
-                    automateSubscriptionsAsync(forwardingConstruct,
+                    await automateSubscriptionsAsync(forwardingConstruct,
                         attributeList,
                         user,
                         xCorrelator,
@@ -164,7 +164,7 @@ function automateForwardingsWithoutInputAsync(forwardingName, attributeList, con
                 let _isForwardingConstructIsProcessSnippet = isForwardingConstructIsProcessSnippet(
                     forwardingConstruct);
                 if (_isForwardingConstructIsProcessSnippet) {
-                    automateProcessSnippetAsync(forwardingConstruct,
+                    await automateProcessSnippetAsync(forwardingConstruct,
                         attributeList,
                         context,
                         user,
@@ -173,7 +173,7 @@ function automateForwardingsWithoutInputAsync(forwardingName, attributeList, con
                         customerJourney
                     );
                 } else {
-                    automateSubscriptionsAsync(forwardingConstruct,
+                    await automateSubscriptionsAsync(forwardingConstruct,
                         attributeList,
                         user,
                         xCorrelator,
