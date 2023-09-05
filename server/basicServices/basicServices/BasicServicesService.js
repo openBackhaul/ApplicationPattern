@@ -7,6 +7,7 @@ const TcpObject = require('onf-core-model-ap/applicationPattern/onfModel/service
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
+const LogicalTerminationPointServiceMapping = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
 
 const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
@@ -979,11 +980,14 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
   );
   let logicalTerminationPointConfigurationStatus;
   if (httpClientUuid) {
-    logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+    logicalTerminationPointConfigurationStatus = await LogicalTerminationPointServiceMapping.findAndUpdateLogicalTerminationPointInstanceGroupExcludingOldReleaseAndNewReleaseAsync(
+      logicalTerminationPointConfigurationInput,httpClientUuid
     );
   }
-
+  if(currentApplicationName != futureApplicationName){
+    let applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuid, futureApplicationName)  
+    logicalTerminationPointConfigurationStatus.httpClientConfigurationStatus.updated = true
+  }
   /*******************************************************************************************************
    * bussiness logic to transfer the operation-client instances from current-release to future-release
    *******************************************************************************************************/
