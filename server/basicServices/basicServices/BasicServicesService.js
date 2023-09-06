@@ -985,7 +985,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     );
   }
   if(currentApplicationName != futureApplicationName){
-    let applicationName = await httpClientInterface.setApplicationNameAsync(httpClientUuid, futureApplicationName)  
+     await httpClientInterface.setApplicationNameAsync(httpClientUuid, futureApplicationName)  
     logicalTerminationPointConfigurationStatus.httpClientConfigurationStatus.updated = true
   }
   /*******************************************************************************************************
