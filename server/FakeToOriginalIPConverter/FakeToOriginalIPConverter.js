@@ -11,6 +11,7 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const { layerProtocolNameEnum } = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
+const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/onfAttributes');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const fileSystem = require('fs');
 const yargs = require("yargs")
