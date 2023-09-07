@@ -205,11 +205,7 @@ class TcpServerInterface extends layerProtocol {
             pathToBeDeleted = onfPaths.TCP_SERVER_IP_ADDRESS.replace(
                 "{uuid}", tcpServerUuid);
         }
-        await fileOperation.deletefromDatabaseAsync(
-            pathToBeDeleted,
-            addressToBeDeleted,
-            false
-        );
+        await fileOperation.deletefromDatabaseAsync(pathToBeDeleted);
         let addressPath = getLocalAddressPath(tcpServerUuid, localAddress);
         return await fileOperation.writeToDatabaseAsync(
             addressPath,

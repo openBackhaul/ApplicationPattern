@@ -85,9 +85,7 @@ test("deleteFcPortAsync", async () => {
   jest.spyOn(ForwardingDomain, 'getForwardingDomainUuidAsync').mockImplementation(() => "fw-domain-uuid");
   const res = await ForwardingConstruct.deleteFcPortAsync("alt-2-0-1-op-fc-bm-107", "201");
   expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-    "/core-model-1-4:control-construct/forwarding-domain=fw-domain-uuid/forwarding-construct=alt-2-0-1-op-fc-bm-107/fc-port=201",
-    "201", true
-  );
+    "/core-model-1-4:control-construct/forwarding-domain=fw-domain-uuid/forwarding-construct=alt-2-0-1-op-fc-bm-107/fc-port=201");
   expect(res).toBeTruthy();
 });
 

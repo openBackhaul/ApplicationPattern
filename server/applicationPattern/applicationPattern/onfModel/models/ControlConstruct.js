@@ -102,10 +102,7 @@ class ControlConstruct {
    **/
   static async deleteLogicalTerminationPointAsync(logicalTerminationPointUuid) {
     let logicalTerminationPointPath = onfPaths.LOGICAL_TERMINATION_POINT + "=" + logicalTerminationPointUuid;
-    return await fileOperation.deletefromDatabaseAsync(
-      logicalTerminationPointPath,
-      logicalTerminationPointUuid,
-      true);
+    return await fileOperation.deletefromDatabaseAsync(logicalTerminationPointPath);
   }
 }
 

@@ -78,14 +78,8 @@ class LogicalTerminationPoint {
      **/
     static async setClientLtpListAsync(ltpUuid, clientUuidList) {
         let isUpdated = false;
-        let _clientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(ltpUuid);
         let clientLtpPath = onfPaths.CLIENT_LTP.replace("{uuid}", ltpUuid);
-        for (let toBeRemovedUuid of _clientUuidList) {
-            await fileOperation.deletefromDatabaseAsync(
-                clientLtpPath,
-                toBeRemovedUuid,
-                true);
-        }
+        await fileOperation.deletefromDatabaseAsync(clientLtpPath);
         for (let clientUuid of clientUuidList) {
             isUpdated = await fileOperation.writeToDatabaseAsync(
                 clientLtpPath,
@@ -104,14 +98,8 @@ class LogicalTerminationPoint {
      **/
     static async setServerLtpListAsync(ltpUuid, serverUuidList) {
         let isUpdated = false;
-        let _serverUuidList = await LogicalTerminationPoint.getServerLtpListAsync(ltpUuid);
         let serverLtpPath = onfPaths.SERVER_LTP.replace("{uuid}", ltpUuid);
-        for (let toBeRemovedUuid of _serverUuidList) {
-            await fileOperation.deletefromDatabaseAsync(
-                serverLtpPath,
-                toBeRemovedUuid,
-                true);
-        }
+        await fileOperation.deletefromDatabaseAsync(serverLtpPath);
         for (let serverUuid of serverUuidList) {
             isUpdated = await fileOperation.writeToDatabaseAsync(
                 serverLtpPath,
