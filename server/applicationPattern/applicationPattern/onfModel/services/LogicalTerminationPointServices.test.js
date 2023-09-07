@@ -134,6 +134,7 @@ beforeEach(() => {
 
 describe("createOrUpdateApplicationLtpsAsync", () => {
   test("createLtpInstanceGroupAsync - new HTTP Client", async () => {
+    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue([]);
     let expectedHttpClientConfigStatus = new ConfigurationStatus("ol-2-0-1-http-c-nan-2-0-5-000", "", true);
     const input = new LogicalTerminationPointConfigurationInput(
       undefined,
@@ -162,7 +163,7 @@ describe("createOrUpdateApplicationLtpsAsync", () => {
     jest.spyOn(TcpClientInterface, 'setRemotePortAsync').mockReturnValue(true);
     jest.spyOn(TcpClientInterface, 'setRemoteProtocolAsync').mockReturnValue(true);
     let expectedHttpClientConfigStatus = new ConfigurationStatus("ol-2-0-1-http-c-nan-2-0-5-000", "", true);
-    const expectedTcpClientConfigStatusList = [new ConfigurationStatus("ol-2-0-1-tcp-c-nan-2-0-5-001", "", true)];
+    const expectedTcpClientConfigStatusList = [new ConfigurationStatus("ol-2-0-1-tcp-c-cc-1-0-0-000", "", true)];
     const input = new LogicalTerminationPointConfigurationInput(
       undefined,
       "NewApplicationName",
@@ -271,7 +272,8 @@ describe("createOrUpdateApplicationLtpsAsync", () => {
   test("updateLtpInstanceGroupAsync - update HTTP Client", async () => {
     jest.spyOn(ControlConstruct, 'getLogicalTerminationPointAsync').mockReturnValue(http);
     jest.spyOn(HttpClientInterface, 'setReleaseNumberAsync').mockReturnValue(true);
-    jest.spyOn(LogicalTerminationPoint, 'getClientLtpListAsync').mockReturnValue(["aa-2-0-1-op-c-im-eatl-1-0-0-004"]);
+    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue([]);
+    jest.spyOn(LogicalTerminationPoint, 'getClientLtpListAsync').mockReturnValue([]);
     let expectedHttpClientConfigStatus = new ConfigurationStatus("ol-2-0-1-http-c-nan-2-0-5-000", "", true);
     const input = new LogicalTerminationPointConfigurationInput(
       "ol-2-0-1-http-c-nan-2-0-5-000",

@@ -8,7 +8,7 @@ const LogicalTerminationPointService = require('onf-core-model-ap/applicationPat
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
 
-const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
+const ServiceUtils = require('./utility/LogicalTerminationPoint');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
 const ForwardingConfigurationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructConfigurationServices');
 const ForwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
@@ -59,8 +59,8 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   let oldReleaseAddress = body["old-release-address"];
   let oldReleasePort = body["old-release-port"];
 
-  const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
-  if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+  const registryOfficeApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
+  if (registryOfficeApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The registry-office-application ${applicationName} was not found.`);
   }
 
@@ -79,7 +79,10 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
     applicationName,
     releaseNumber
   );
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(applicationName);
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     applicationName,
     releaseNumber,
@@ -89,21 +92,19 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
     basicServicesOperationsMapping.basicServicesOperationsMapping
   );
   let ltpConfigurationStatus;
-  if (!httpClientUuid) {
+  if (httpClientUuid) {
     ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+      ltpConfigurationInput, true
     );
   }
-
   let isOldApplicationTcpClientUpdated = false;
   let oldApplicationTcpClientUuid;
   let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
   let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
   let oldApplicationNameInConfiguration;
   if (isOldReleaseExist) {
-    let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
-    let httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
-    oldApplicationNameInConfiguration = oldApplicationApplicationNameAndHttpClientLtpUuid.applicationName;
+    let httpUuidOfOldApplication = await httpClientInterface.getHttpClientUuidFromForwarding(oldApplicationForwardingTag);
+    oldApplicationNameInConfiguration = await ServiceUtils.resolveApplicationNameFromForwardingAsync(oldApplicationForwardingTag);
     if (httpUuidOfOldApplication != undefined) {
       let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
       if (tcpClientUuidList != undefined) {
@@ -284,8 +285,8 @@ exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, tr
   let applicationPort = body["oam-approval-port"];
   let oamApprovalOperation = body["oam-approval-operation"];
 
-  const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesInquiryForAuthentication');
-  if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+  const oamApplicationName = await ServiceUtils.resolveApplicationNameFromForwardingAsync("OamRequestCausesInquiryForAuthentication");
+  if (oamApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The oam-approval-application ${applicationName} was not found.`);
   }
   let operationNamesByAttributes = new Map();
@@ -297,7 +298,14 @@ exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, tr
     releaseNumber,
     newReleaseFwName
   );
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      applicationName,
+      undefined,
+      newReleaseFwName
+    );
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     applicationName,
     releaseNumber,
@@ -309,7 +317,7 @@ exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, tr
   let ltpConfigurationStatus;
   if (httpClientUuid) {
     ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+      ltpConfigurationInput, false
     );
   }
 
@@ -431,8 +439,8 @@ exports.redirectOamRequestInformation = async function (body, user, xCorrelator,
   let applicationPort = body["oam-log-port"];
   let oamLogOperation = body["oam-log-operation"];
 
-  const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesLoggingRequest');
-  if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+  const oamApplicationName = await ServiceUtils.resolveApplicationNameFromForwardingAsync("OamRequestCausesLoggingRequest");
+  if (oamApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The oam-log-application ${applicationName} was not found.`);
   }
 
@@ -445,7 +453,14 @@ exports.redirectOamRequestInformation = async function (body, user, xCorrelator,
     releaseNumber,
     newReleaseFwName
   );
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      applicationName,
+      undefined,
+      newReleaseFwName
+    );
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     applicationName,
     releaseNumber,
@@ -457,7 +472,7 @@ exports.redirectOamRequestInformation = async function (body, user, xCorrelator,
   let ltpConfigurationStatus;
   if (httpClientUuid) {
     ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+      ltpConfigurationInput, false
     );
   }
 
@@ -519,8 +534,8 @@ exports.redirectServiceRequestInformation = async function (body, user, xCorrela
   let applicationPort = body["service-log-port"];
   let serviceLogOperation = body["service-log-operation"];
 
-  const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('ServiceRequestCausesLoggingRequest');
-  if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+  const eatlApplicationName = await ServiceUtils.resolveApplicationNameFromForwardingAsync("ServiceRequestCausesLoggingRequest");
+  if (eatlApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The service-log-application ${applicationName} was not found.`);
   }
 
@@ -533,7 +548,14 @@ exports.redirectServiceRequestInformation = async function (body, user, xCorrela
     releaseNumber,
     newReleaseFwName
   );
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      applicationName,
+      undefined,
+      newReleaseFwName
+    );
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     applicationName,
     releaseNumber,
@@ -545,7 +567,7 @@ exports.redirectServiceRequestInformation = async function (body, user, xCorrela
   let ltpConfigurationStatus;
   if (httpClientUuid) {
     ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+      ltpConfigurationInput, false
     );
   }
 
@@ -611,8 +633,8 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
   let fcPortUpdateTopologyOperation = body["topology-operation-fc-port-update"];
   let fcPortDeletionTopologyOperation = body["topology-operation-fc-port-deletion"];
 
-  const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('OamRequestCausesLtpUpdateRequest');
-  if (appNameAndUuidFromForwarding?.applicationName !== applicationName) {
+  const altApplicationName = await ServiceUtils.resolveApplicationNameFromForwardingAsync("OamRequestCausesLtpUpdateRequest");
+  if (altApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The topology-application ${applicationName} was not found.`);
   }
 
@@ -629,7 +651,14 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
     releaseNumber,
     newReleaseFwName
   );
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      applicationName,
+      undefined,
+      newReleaseFwName
+    );
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     applicationName,
     releaseNumber,
@@ -641,7 +670,7 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
   let ltpConfigurationStatus;
   if (httpClientUuid) {
     ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+      ltpConfigurationInput, false
     );
   }
 
@@ -790,8 +819,8 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
      * configure logical-termination-point
      ****************************************************************************************/
     // update the registryOffice configuration
-    const appNameAndUuidFromForwarding = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName('PromptForRegisteringCausesRegistrationRequest');
-    if (appNameAndUuidFromForwarding?.applicationName !== registryOfficeApplicationName) {
+    const roApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
+    if (roApplicationName !== registryOfficeApplicationName) {
       throw new createHttpError.BadRequest(`The registry-office-application ${registryOfficeApplicationName} was not found.`);
     }
     let operationNamesByAttributes = new Map();
@@ -802,7 +831,12 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
       registryOfficeApplicationName,
       registryOfficeReleaseNumber
     );
-    let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+    if (!httpClientUuid) {
+      httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+        registryOfficeApplicationName
+      );
+    }
+    let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
       httpClientUuid,
       registryOfficeApplicationName,
       registryOfficeReleaseNumber,
@@ -813,7 +847,7 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
     );
     if (httpClientUuid) {
       ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-        logicalTerminatinPointConfigurationInput
+        ltpConfigurationInput, true
       );
     }
 
@@ -843,8 +877,7 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
     let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
     let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
     if ((oldApplicationName != undefined || oldReleaseNumber != undefined) && isOldReleaseExist) {
-      let oldApplicationApplicationNameAndHttpClientLtpUuid = await resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(oldApplicationForwardingTag);
-      httpUuidOfOldApplication = oldApplicationApplicationNameAndHttpClientLtpUuid.httpClientLtpUuid;
+      httpUuidOfOldApplication = await httpClientInterface.getHttpClientUuidFromForwarding(oldApplicationForwardingTag);
 
       if (httpUuidOfOldApplication != undefined) {
         if (oldApplicationName != undefined) {
@@ -968,7 +1001,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
       newReleaseFwName
     );
   }
-  let logicalTerminationPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     futureApplicationName,
     futureReleaseNumber,
@@ -977,10 +1010,12 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     operationNamesByAttributes,
     basicServicesOperationsMapping.basicServicesOperationsMapping
   );
-  let logicalTerminationPointConfigurationStatus;
+  const roApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
+  let ltpConfigurationStatus;
   if (httpClientUuid) {
-    logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      logicalTerminationPointConfigurationInput
+    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
+      ltpConfigurationInput,
+      roApplicationName === futureApplicationName
     );
   }
 
@@ -1015,7 +1050,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
    * Prepare attributes to automate forwarding-construct
    ****************************************************************************************/
   let forwardingAutomationInputList = await prepareForwardingAutomation.updateClient(
-    logicalTerminationPointConfigurationStatus, undefined,
+    ltpConfigurationStatus, undefined,
     futureApplicationName
   );
   ForwardingAutomationService.automateForwardingConstructAsync(
@@ -1091,7 +1126,7 @@ exports.updateOperationKey = async function (body) {
   let operationUuid = body["operation-uuid"];
   let newOperationKey = body["new-operation-key"];
 
-  if (operationServerInterface.isOperationServer(operationUuid)) {
+  if (await operationServerInterface.isOperationServerAsync(operationUuid)) {
     let OldoperationKey = await operationServerInterface.getOperationKeyAsync(operationUuid)
     if (OldoperationKey != undefined) {
       if (newOperationKey != OldoperationKey) {
@@ -1100,7 +1135,7 @@ exports.updateOperationKey = async function (body) {
     } else {
       throw new createHttpError.BadRequest("OperationServerUuid is not present");
     }
-  } else if (operationClientInterface.isOperationClient(operationUuid)) {
+  } else if (await operationClientInterface.isOperationClientAsync(operationUuid)) {
     let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
     if (OldoperationKey != undefined) {
       if (newOperationKey != OldoperationKey) {
@@ -1115,38 +1150,6 @@ exports.updateOperationKey = async function (body) {
 async function isForwardingNameExist(forwardingName) {
   const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
   return forwardingConstruct !== undefined;
-}
-
-async function resolveApplicationNameAndHttpClientLtpUuidFromForwardingName(forwardingName) {
-  const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
-  if (forwardingConstruct === undefined) {
-    return null;
-  }
-
-  let fcPortOutputDirectionLogicalTerminationPointList = [];
-  const fcPortList = forwardingConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
-  for (const fcPort of fcPortList) {
-    const portDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
-    if (FcPort.portDirectionEnum.OUTPUT === portDirection) {
-      fcPortOutputDirectionLogicalTerminationPointList.push(fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]);
-    }
-  }
-
-  if (fcPortOutputDirectionLogicalTerminationPointList.length !== 1) {
-    return null;
-  }
-
-  const opLtpUuid = fcPortOutputDirectionLogicalTerminationPointList[0];
-  const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(opLtpUuid);
-  const httpClientLtpUuid = httpLtpUuidList[0];
-  const applicationName = await httpClientInterface.getApplicationNameAsync(httpClientLtpUuid);
-  return applicationName === undefined ? {
-    applicationName: null,
-    httpClientLtpUuid
-  } : {
-    applicationName,
-    httpClientLtpUuid
-  };
 }
 
 /**
