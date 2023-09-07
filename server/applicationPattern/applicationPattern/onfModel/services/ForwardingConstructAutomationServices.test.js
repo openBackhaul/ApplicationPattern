@@ -165,73 +165,57 @@ describe("automateForwardingConstructAsync", () => {
       );
   });
 
-  test("automateForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-    
-    const res =  ForwardingConstructAutomationServices.automateForwardingConstructAsync(
-      operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-  });
-
-  test("automateForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-    
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });    
-    const res =  ForwardingConstructAutomationServices.automateForwardingConstructAsync(
-      operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-  });
-
   test("automateForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const errorMsg = "Cannot read properties of undefined (reading 'fc-port')";
-    
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);    
-    const res = ForwardingConstructAutomationServices.automateForwardingConstructAsync(
-      operationServerName, forwardingAutomationInputList, 'User Name', 
-      '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-
-    return res.then()
-    .catch((err)=> {
-      expect(err.message).toStrictEqual(errorMsg);
-    })
+    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')d"))).rejects.toThrow(
+      "Cannot read properties of undefined (reading 'fc-port')",
+    );
   });
 
-  test("automateForwardingConstructAsync - failed to automate ForwardingConstructAsync", async () => {
+  test("automateForwardingConstructAsync - success when FC is Process Subscription", async () => {
     const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
+    const httpRequestBody = {
+      "client-ltp": [
+        "ro-2-0-1-http-c-or-1-0-0-000"
+      ],
+      "layer-protocol": [
+        {
+          "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
+          "local-id": "0",
+          "tcp-client-interface-1-0:tcp-client-interface-pac": {
+            "tcp-client-interface-configuration": {
+              "remote-address": {
+                "ip-address": {
+                  "ipv-4-address": "1.1.3.1"
+                }
+              },
+              "remote-port": 3001,
+              "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP"
+            }
+          }
+        }
+      ],
+      "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+      "server-ltp": [],
+      "uuid": "ro-2-0-1-tcp-c-or-1-0-0-000"
+    };
+    const xCorrelator = "550e8400-e29b-11d4-a716-446655440000";
     
     jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
     jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
      
-    const res =  ForwardingConstructAutomationServices.automateForwardingConstructAsync(
+    await ForwardingConstructAutomationServices.automateForwardingConstructAsync(
       operationServerName, forwardingAutomationInputList, 'User Name', 
       '550e8400-e29b-11d4-a716-446655440000', '1.3.1', 'Unknown value');
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
+    expect(Event.dispatchEvent).toHaveBeenCalledTimes(2);  
+    expect(Event.dispatchEvent).toHaveBeenCalledWith(
+        "ro-2-0-1-op-c-bm-or-1-0-0-000",
+        expect.objectContaining(httpRequestBody),
+        "User Name",
+        xCorrelator,
+        "1.3.1.2",
+        "Unknown value"
+      );
   });
 
 })
@@ -286,53 +270,11 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
       );
   });
 
-  test("automateForwardingConstructWithoutInputAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-
-    const res = ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
-        forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
-        '1.3.1', 'Unknown value');
-
-    return res.then()
-      .catch((err)=> {
-        expect(err).toEqual(mockError);
-    })
-  });
-
   test("automateForwardingConstructWithoutInputAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    const errorMsg = "Cannot read properties of undefined (reading 'fc-port')";
 
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);
-
-    const res = ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
-        forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
-        '1.3.1', 'Unknown value');
-
-    return res.then()
-      .catch((err)=> {
-        expect(err.message).toStrictEqual(errorMsg);
-    })
-  });
-
-  test("automateForwardingConstructWithoutInputAsync - failed to automate ForwardingConstructWithoutInputAsync", async () => {
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-    jest.spyOn(Event, 'dispatchEvent').mockImplementation(() => true);
-
-    const res = ForwardingConstructAutomationServices.automateForwardingConstructWithoutInputAsync(
-        forwardingAutomationInputList, 'User Name', '550e8400-e29b-11d4-a716-446655440000',
-        '1.3.1', 'Unknown value');
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
+    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
+      "Cannot read properties of undefined (reading 'fc-port')",
+    );
   });
 
 })

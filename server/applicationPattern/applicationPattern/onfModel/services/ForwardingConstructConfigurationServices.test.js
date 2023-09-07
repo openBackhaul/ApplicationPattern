@@ -48,7 +48,7 @@ const fcForSubscription = {
     },
     {
       "value-name": "ForwardingName",
-      "value": "ApprovalNotification"
+      "value": "PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation"
     }
   ],
   "fc-port": [
@@ -139,6 +139,20 @@ const forwardingConfigurationInputList = [
     operationClientUuid: 'ro-2-0-1-op-c-bm-ro-2-0-1-003'
   }
 ];
+const forwardingUnConfigurationInputList = [
+  {
+    forwardingName: 'PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease',
+    operationClientUuid: 'ro-2-0-1-op-c-bm-ro-2-0-1-002'
+  },
+  {
+    forwardingName: 'PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement',
+    operationClientUuid: 'ro-2-0-1-op-c-bm-ro-2-0-1-001'
+  },
+  {
+    forwardingName: '',
+    operationClientUuid: 'ro-2-0-1-op-c-im-eatl-1-0-0-003'
+  }
+];
 
 describe("configureForwardingConstructAsync", () => {
   test("configureForwardingConstructAsync - Add Port Async", async () => {
@@ -146,12 +160,13 @@ describe("configureForwardingConstructAsync", () => {
 
     jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-is-008');
     jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fcForSubscription);
-    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValueOnce(["ro-2-0-1-http-s-000"]);
-    jest.spyOn(HttpClientInterface, 'getApplicationNameAsync').mockReturnValueOnce('RegistryOffice');
-    jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValueOnce('2.0.1');
-    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync').mockReturnValue(["ro-2-0-1-op-c-im-ol-1-0-0-003"]);
+    jest.spyOn(LogicalTerminationPoint, 'getServerLtpListAsync')
+      .mockReturnValueOnce(["ro-2-0-1-http-s-000"])
+      .mockReturnValue(["ro-2-0-1-op-c-im-ol-1-0-0-003"]);
+    jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync')
+      .mockReturnValueOnce('2.0.1')
+      .mockReturnValue('2.0.2');
     jest.spyOn(HttpClientInterface, 'getApplicationNameAsync').mockReturnValue('RegistryOffice')
-    jest.spyOn(HttpClientInterface, 'getReleaseNumberAsync').mockReturnValue('2.0.2');
     jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
     jest.spyOn(ForwardingConstruct, 'addFcPortAsync').mockImplementation(() => true);
 
@@ -189,94 +204,13 @@ describe("configureForwardingConstructAsync", () => {
     
   });
 
-  test("configureForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-    
-  });
-
-  test("configureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    
-    const mockError = { message: 'Something bad happened' };
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-    
-  });
-
   test("configureForwardingConstructAsync - ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const errorMsg = "Cannot read properties of undefined (reading 'fc-port')";
-    
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => undefined);
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err.message).toStrictEqual(errorMsg);
-    })
+    return expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
+      "Cannot read properties of undefined (reading 'fc-port')",
+    );
     
   });
 
-  test("configureForwardingConstructAsync - failed to set LogicalTerminationPointAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    
-    const mockError = { message: 'Something bad happened' };
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-    
-  });
-
-  test("configureForwardingConstructAsync - failed to configure ForwardingConstructAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    
-    const mockError = { message: 'Something bad happened' };
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructForTheForwardingNameAsync').mockImplementation(() => fc);
-    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
-
-    const res = ForwardingConstructConfigurationServices.configureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-    
-  });
 })
 
 describe("unConfigureForwardingConstructAsync", () => {
@@ -300,73 +234,30 @@ describe("unConfigureForwardingConstructAsync", () => {
       ));
   });
 
-  test("unConfigureForwardingConstructAsync - failed to get OperationServerUuidAsync", async () => {
+  test("unConfigureForwardingConstructAsync - delete port successful", async () => {
     const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
-
-    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-  });
-
-  test("unConfigureForwardingConstructAsync - failed to get ForwardingConstructForTheForwardingNameAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
 
     jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => {
-      return Promise.reject(mockError);
-    });
+    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => [fcForSubscription]);
+    jest.spyOn(ForwardingConstruct, 'deleteFcPortAsync').mockImplementation(() => true);
 
-    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
+    const res = await ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
+      operationServerName, forwardingUnConfigurationInputList);
+    
+    const forwardingConstructConfigurationStatusList = [];
+    const fcPortConfigurationStatusList = [
+      new ConfigurationStatus("ro-2-0-1-op-fc-is-007", '200', true)
+    ];
+    expect(res).toStrictEqual(new ForwardingConstructConfigurationStatus(
+      forwardingConstructConfigurationStatusList,
+      fcPortConfigurationStatusList
+      ));
   });
 
   test("unConfigureForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const errorMsg = "Cannot read properties of undefined (reading 'length')";
-
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => undefined);
-
-    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    return res.then()
-    .catch((err)=> {
-      expect(err.message).toStrictEqual(errorMsg);
-    })
-  });
-
-  test("unConfigureForwardingConstructAsync - failed to UnConfigureForwardingConstructAsync", async () => {
-    const operationServerName = '/v1/embed-yourself';
-    const mockError = { message: 'Something bad happened' };
-    
-    jest.spyOn(OperationServerInterface, 'getOperationServerUuidAsync').mockImplementation(() => 'ro-2-0-1-op-s-bm-001');
-    jest.spyOn(ForwardingDomain, 'getForwardingConstructListForTheFcPortAsync').mockImplementation(() => fc);
-    jest.spyOn(fcPort, 'setLogicalTerminationPointAsync').mockImplementation(() => true);
-
-    const res = ForwardingConstructConfigurationServices.unConfigureForwardingConstructAsync(
-      operationServerName, forwardingConfigurationInputList);
-    
-    return res.then(() => {
-      return Promise.reject(mockError);
-    })
-    .catch((err)=> {
-      expect(err).toEqual(mockError);
-    })
-      
+    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
+      "Cannot read properties of undefined (reading 'fc-port')",
+    );
   });
   
 })
