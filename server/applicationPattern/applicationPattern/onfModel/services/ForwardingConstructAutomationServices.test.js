@@ -165,12 +165,6 @@ describe("automateForwardingConstructAsync", () => {
       );
   });
 
-  test("automateForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')d"))).rejects.toThrow(
-      "Cannot read properties of undefined (reading 'fc-port')",
-    );
-  });
-
   test("automateForwardingConstructAsync - success when FC is Process Subscription", async () => {
     const operationServerName = '/v1/embed-yourself';
     const httpRequestBody = {
@@ -268,13 +262,6 @@ describe("automateForwardingConstructWithoutInputAsync", () => {
         "1.3.1.1",
         "Unknown value"
       );
-  });
-
-  test("automateForwardingConstructWithoutInputAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-
-    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
-      "Cannot read properties of undefined (reading 'fc-port')",
-    );
   });
 
 })

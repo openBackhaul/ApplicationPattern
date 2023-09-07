@@ -204,13 +204,6 @@ describe("configureForwardingConstructAsync", () => {
     
   });
 
-  test("configureForwardingConstructAsync - ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    return expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
-      "Cannot read properties of undefined (reading 'fc-port')",
-    );
-    
-  });
-
 })
 
 describe("unConfigureForwardingConstructAsync", () => {
@@ -252,12 +245,6 @@ describe("unConfigureForwardingConstructAsync", () => {
       forwardingConstructConfigurationStatusList,
       fcPortConfigurationStatusList
       ));
-  });
-
-  test("unConfigureForwardingConstructAsync - if ForwardingConstructForTheForwardingNameAsync returns undefined", async () => {
-    await expect(Promise.reject(new Error("Cannot read properties of undefined (reading 'fc-port')"))).rejects.toThrow(
-      "Cannot read properties of undefined (reading 'fc-port')",
-    );
   });
   
 })
