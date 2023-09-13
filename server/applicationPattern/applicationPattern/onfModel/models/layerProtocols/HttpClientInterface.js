@@ -125,7 +125,7 @@ class HttpClientInterface extends layerProtocol {
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
      * is not provided , then only the application name will be checked
      * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
+     * @param {String} [releaseNumber] : release number of the application.
      * @returns {Promise<String>} undefined|httpClientUuid
      **/
     static async getHttpClientUuidAsync(applicationName, releaseNumber) {
@@ -158,7 +158,7 @@ class HttpClientInterface extends layerProtocol {
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
      * is not provided , then only the application name will be checked
      * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
+     * @param {String} [releaseNumber] : release number of the application.
      * @returns {Promise<boolean>} true|false
      **/
     static async isApplicationExists(applicationName, releaseNumber) {
@@ -170,7 +170,7 @@ class HttpClientInterface extends layerProtocol {
      * @description This function returns the uuid of the http-client-interface for the application-name and release-number.If release number
      * is not provided , then only the application name will be checked other than old release and new release
      * @param {String} applicationName : name of the application.
-     * @param {String} releaseNumber : release number of the application.
+     * @param {String} [releaseNumber] : release number of the application.
      * @returns {Promise<String|undefined>} httpClientUuid
      **/
     static async getHttpClientUuidExcludingOldReleaseAndNewRelease(applicationName, releaseNumber, newReleaseForwardingName) {
@@ -190,8 +190,8 @@ class HttpClientInterface extends layerProtocol {
                 const httpClientConfiguration = httpClientPac[onfAttributes.HTTP_CLIENT.CONFIGURATION];
                 const _applicationName = httpClientConfiguration[onfAttributes.HTTP_CLIENT.APPLICATION_NAME];
                 const _releaseNumber = httpClientConfiguration[onfAttributes.HTTP_CLIENT.RELEASE_NUMBER];
-                if (_applicationName === applicationName &&
-                    releaseNumber == undefined || _releaseNumber === releaseNumber) {
+                if (_applicationName === applicationName && (releaseNumber == undefined
+                    || _releaseNumber === releaseNumber)) {
                     return httpClientUuid;
                 }
             }
@@ -239,21 +239,19 @@ class HttpClientInterface extends layerProtocol {
      * It should be a valid string in the pattern '-\d+-\d+-\d+-tcp-client-\d+$'
      * @param {String} applicationName : name of the application.
      * @param {String} releaseNumber : release number of the application.
-     * @returns {Object} undefined|logicalTerminationPoint.
+     * @returns {logicalTerminationPoint} logicalTerminationPoint
      **/
     static createHttpClientInterface(httpClientUuid, operationClientUuidList, tcpClientUuidList, applicationName, releaseNumber) {
-        let httpClientLogicalTerminationPoint;
         let httpClientInterface = new HttpClientInterface(
             applicationName,
             releaseNumber);
-        httpClientLogicalTerminationPoint = new logicalTerminationPoint(
+        return new logicalTerminationPoint(
             httpClientUuid,
             logicalTerminationPoint.ltpDirectionEnum.SINK,
             operationClientUuidList,
             tcpClientUuidList,
             [httpClientInterface]
         );
-        return httpClientLogicalTerminationPoint;
     }
 
     /**
