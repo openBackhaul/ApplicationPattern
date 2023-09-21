@@ -7,7 +7,6 @@ const TcpObject = require('onf-core-model-ap/applicationPattern/onfModel/service
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
-const LogicalTerminationPointServiceMapping = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
 
 const ServiceUtils = require('./utility/LogicalTerminationPoint');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
