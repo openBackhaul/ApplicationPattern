@@ -23,6 +23,7 @@
   "author": "Prathiba Jeevan",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@elastic/elasticsearch-mock": "^1.0.0",
     "eslint": "^8.44.0",
     "jest": "^29.5.0"
   }

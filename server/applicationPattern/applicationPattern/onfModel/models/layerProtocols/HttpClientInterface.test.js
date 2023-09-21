@@ -168,6 +168,10 @@ describe("getHttpClientUuidExcludingOldReleaseAndNewRelease", () => {
   test("no release number", async () => {
     expect(await HttpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease("ElasticSearch", undefined, "foo")).toBe("alt-2-0-1-http-c-es-1-0-0-000");
   });
+
+  test("only release number matches", async () => {
+    expect(await HttpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease("ApplicationLayerTopology", "1.0.1", "foo")).toBeUndefined();
+  });
 });
 
 test("setReleaseNumberAsync", async () => {
