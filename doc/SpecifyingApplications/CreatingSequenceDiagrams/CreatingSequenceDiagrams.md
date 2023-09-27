@@ -1,4 +1,4 @@
-# Creating a Sequence Diagrams
+# Creating Sequence Diagrams
 
 This is a step by step cookbook for creating the _Sequence Diagrams_.  
 
@@ -7,9 +7,9 @@ This is a step by step cookbook for creating the _Sequence Diagrams_.
 
 ### File Handling  
 
-In your repository navibate to the _spec_ folder and if not yet available, create a new subfolder called _diagrams_.
+In your repository navigate to the _spec_ folder and if not yet available, create a new subfolder called _diagrams_.  
 There are no template files for the diagrams to be placed there.  
-All diagrams are to be placed here, together with a readme file, which contains all the images created from the PlantUML files.
+All diagrams (both as *.plantuml* and *.png*) are to be placed here, together with a readme file, which contains all the images created from the PlantUML files.  
 
 
 
@@ -24,19 +24,19 @@ All diagrams are to be placed here, together with a readme file, which contains 
 * Check out the diagrams at other application repositories, like [AutomatedLinkAcceptanceProxy](https://github.com/openBackhaul/AutomatedLinkAcceptanceProxy/tree/develop/spec/diagrams) or [NotificationProxy](https://github.com/openBackhaul/NotificationProxy/tree/develop/spec/diagrams) for examples
 * Diagrams are typically only generated for individual parts, with one diagram per forwarding in most cases
 
-### Identify which diagrams to specify  
+### Identify Which Diagrams to Specify  
 
-* Typically, each individual operation server, i.e. those services listed under *operation-servers/own-pam/basic/individual* and *operation-servers/basic/individual* from your ServiceList is a starting point for a diagram
+* Typically, each individual operation server (i.e. those services listed under *operation-servers/own-oam/basic/individual* and *operation-servers/basic/individual* from your ServiceList) is a starting point for a diagram
 * An operation server can also be starting point for more than just one diagram
-* There might be own diagrams for embed-yourself and bequeath-your-data-and-die sequences
+* There might also be diagrams for *embed-yourself* and *bequeath-your-data-and-die* sequences
 
 ### Specifying a Sequence Diagram
 
-#### Assigning a proper name
+#### Assigning a Proper Name
 * Create a new file under the diagrams folder, and name it according to one of the following schemas:
   * `<number>_<short-content-description>.plantuml`: e.g. *100_ReadingLtpStructure.plantuml*
-  * `<is|im><number>_<short-content-description>.plantuml`: if there are own diagrams for *im* and *is* operation servers (individual managment and individual service), e.g. *im000_ListenToControllers.plantuml* or *is020_NotifiyingOfDeviceAlarms.plantuml*
-* The name of the diagram should sufficiently indicate what the purpose of the diagram is
+  * `<is|im><number>_<short-content-description>.plantuml`: if there are own diagrams for *im* and *is* operation servers (individual managment and individual service) add the *is* or *im* prefix; e.g. *im000_ListenToControllers.plantuml* or *is020_NotifiyingOfDeviceAlarms.plantuml*
+* The chosen name should sufficiently indicate what the purpose of the diagram is
 * The starting number refers the the sequence number of the uuid of the operation server the diagram is created for
   * sometimes a diagram may combine multiple forwardings with the same process flow, but for different operation servers; in those cases a *x* may be used to wildcard the related part of the sequence number, e.g. in MWDI there is diagram *00x_CyclicOperationBasedDeviceListSync.plantuml*, which maps four separate forwardings
 
@@ -45,7 +45,7 @@ All diagrams are to be placed here, together with a readme file, which contains 
 Check how the already existing diagrams of other applications look like to get an idea for how your application's diagrams need to be created!
 
 The sequence diagram consists of several building blocks.   
-The picture shows an example from the NotificationProxy.  
+The picture shows an example from the NotificationProxy:  
 ![Diagram_building_blocks](./pictures/createSeqDiagram_01.png) 
 
 **1: Diagram name = *.pgn* file name**  
@@ -62,14 +62,14 @@ The picture shows an example from the NotificationProxy.
 * the participant block is used for easier editing of the diagram
 * for each node in the diagram create a participant
   * format: `participant "<text to be displayed in the diagram>" as <alias>`
-  * the `"<text>"` part contains what is shown in the diagram, the `<alias>` is the reference to the node in the *.plantuml*
-* the ordering of the participants determines the order in which the nodes are displayed in the diagram
+  * the `"<text>"` part contains what is shown in the rendered diagram, the `<alias>` is the reference to the node in the *.plantuml* raw view
+* the participant ordering determines the order in which the nodes are displayed in the diagram
 * typically, the first participant is the iniator of the request
-  * some examples for the `"<text>"` are "Admin", "/v1/embed-yourself", "external", "cyclic", a specific other applications (abbreviated) name or a combination of those
+  * some examples for the `"<text>"` are "Admin", "/v1/embed-yourself", "external", "cyclic", a specific other application's (abbreviated) name or a combination of those
   * chose the alias according to the node type, this can e.g. be a requestor or subscriber
-* if a node refers to a certain service it should be provided in the following format: `<AppAbbreviation>://<operation-name>`, e.g. *"NP://v1/listen-to-controller"* or *"MWDI://provide-list-of-connected-devices"*
-  * including the AppAbbreviation allows to directly see to which service the operation server or operation client belongs to
-  * the service from the ServiceList for which the diagram was created, typically is the operation server, whereas other operation-names included in the diagram called due to that operation server, are the operation clients (either from the same App or a 3rd App)
+* if a node refers to a certain service it should be provided in the following format: `<AppAbbreviation>://<operation-name>`, e.g. *"NP://v1/listen-to-controller"* or *"MWDI://v1/provide-list-of-connected-devices"*
+  * including the AppAbbreviation allows to directly see to which application the operation server or operation client belongs to
+  * the service from the ServiceList for which the diagram was created, typically is the operation server, whereas other operation-names included in the diagram called due to that operation server, are the operation clients (either from the same app or a 3rd app)
 
 **4. Activation of the Forwarding**
 * add a connection between the operation server and it's preceding participant
@@ -83,9 +83,9 @@ The picture shows an example from the NotificationProxy.
 * the notes are shown as yellow boxes
 
 **6. Connections between Participants**
-* the connections between the participants show how the communication between the participants look like
+* the connections between the participants show how the communication between the participants looks like
 * a sent request is modelled as `<caller participant> -> <called participant>: {input parameters}`
-  * it's shown as a solid line
+  * it is shown as a solid line
   * the parameters are optional, if there are none, leave out everything starting at the ":"
   * input information can e.g. be a linkId for which the service is called, or a list of multiple input parameters
 * the resulting answer is modelled as `<caller participant> --> <called participant>: {answered parameters}`
@@ -119,10 +119,10 @@ deactivate alias1
 @enduml
 ```
 
-#### Export PlantUML Diagrams to Pictures in VSC 
+#### Export PlantUML Diagrams to Pictures in VisualStudioCode  
 
-After all the *.plantuml* files have been created, a *.png* file needs to be created for each diagram.  
-For that purpose right-click on the related PlantUML files in VisualStudioCode and select Export Workspace Diagrams:  
+After all the *.plantuml* files have been finalized, a *.png* file needs to be created for each diagram.  
+For that purpose right-click on the related *.plantuml* files in VSC and select *Export Workspace Diagrams*:  
 ![Export to png](./pictures/createSeqDiagramExport_01.png)  
 
 If the *.plantuml* file was created according to above instructions, it will create a new *.png* with the same name as the *.plantuml* file.  
@@ -135,7 +135,7 @@ Notes:
 #### Create the Readme
 
 Once all the diagrams have been exported to *.png*, create the *README.md* file in the *diagram* folder.  
-All of the pictures should be added there, the ordering of the pictures is according to the ordering of diagram names (i.e. sequence number).
+All of the pictures should be added to it, with the ordering of the pictures in accordance to the ordering of diagram names (i.e. by sequence numbers).
 
 The following snippet shows how the file should look like in the editor (for an application with two diagrams):
 ```
