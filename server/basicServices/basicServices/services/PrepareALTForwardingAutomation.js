@@ -162,14 +162,15 @@ function getUnconfigurableTcpClientForwardingAutomationInput(tcpClientConfigurat
 async function getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList) {
     let forwardingConstructAutomationList = [];
     let fwName = "ServiceRequestCausesLtpUpdateRequest";
-
-    for (let operationClientConfigurationStatus of operationClientConfigurationStatusList) {
-        if (operationClientConfigurationStatus.updated) {
-            let body = await ControlConstruct.getLogicalTerminationPointAsync(
-                operationClientConfigurationStatus.uuid);
-            body = removeAttribute(body, "operation-key")
-            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
-            forwardingConstructAutomationList.push(forwardingAutomation);
+    if (operationClientConfigurationStatusList) {
+        for (let operationClientConfigurationStatus of operationClientConfigurationStatusList) {
+            if (operationClientConfigurationStatus.updated) {
+                let body = await ControlConstruct.getLogicalTerminationPointAsync(
+                    operationClientConfigurationStatus.uuid);
+                body = removeAttribute(body, "operation-key")
+                let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+                forwardingConstructAutomationList.push(forwardingAutomation);
+            }
         }
     }
     return forwardingConstructAutomationList;
