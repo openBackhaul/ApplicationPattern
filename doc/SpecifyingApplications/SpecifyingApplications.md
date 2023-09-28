@@ -45,6 +45,16 @@ It provides full focus on composing a complete and well-structured set of servic
 **Step-by-Step Guidelines**
 - [Creating the ServiceList](./CreatingServiceList/CreatingServiceList.md)
 
+## Sequence Diagrams
+
+The sequence diagrams are a visualization of interaction chains between operation servers and operation clients and the basis for the individual forwardings in the forwardingList.  
+
+**Concepts**  
+- [Concepts of Sequence Diagrams](./ConceptOfSequenceDiagrams/ConceptOfSequenceDiagrams.md)
+
+**Step-by-Step Guidelines**
+- [Creating the Sequence Diagrams](./CreatingSequenceDiagrams/CreatingSequenceDiagrams.md)
+
 
 ## ProfileList and ProfileInstanceList
 
@@ -54,7 +64,7 @@ The ProfileList describes the Profiles as classes and supports creating the Open
 The ProfileInstanceList lists all objects created from the Profile classes; it supports creating the CONFIGfile.  
 
 **Concepts**
-- [Concepts of ProfileList and ProfileInstanceList ](./ConceptOfProfileList/ConceptOfProfileList.md)
+- [Concepts of ProfileList and ProfileInstanceList](./ConceptOfProfileList/ConceptOfProfileList.md)
 
 **Step-by-Step Guidelines**
 - [Creating the ProfileList](./CreatingProfileList/CreatingProfileList.md)
