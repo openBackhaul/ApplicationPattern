@@ -24,8 +24,10 @@ const LogicalTerminationPoint = require('../../onfModel/models/LogicalTerminatio
  * @param {String} xCorrelator UUID for the service execution flow that allows to correlate requests and responses. 
  * @param {String} traceIndicator Sequence number of the request. 
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies.
- */
-exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney) {
+ * @param {boolean} isMethodGET true if method of the request is GET
+ * @param {Object} params path and query params
+*/
+exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, isMethodGET=false, params) {
     return new Promise(async function (resolve, reject) {
         let result = false;
         try {
@@ -39,6 +41,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid[0]);
             let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid[0]);
             let originator = await httpServerInterface.getApplicationNameAsync();
+            let method = "POST"
             let httpRequestHeader = new RequestHeader(
                 user, 
                 originator,
@@ -48,11 +51,15 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 operationKey
                 );
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
+            if(isMethodGET){
+                method = "GET";
+            }
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
                 operationClientUuid,
-                "POST", 
+                method,
                 httpRequestHeader, 
-                httpRequestBody
+                httpRequestBody,
+                params
                 );
             let responseCode = response.status;
             if (responseCode.toString().startsWith("2")) {
