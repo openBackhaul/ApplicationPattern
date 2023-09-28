@@ -14,7 +14,8 @@ const Qs =  require('qs');
  * @param {string} method http method for the REST request
  * @param {object} requestHeader http request header for the REST call
  * @param {object} requestBody request body for the REST call
- * @param {Object} params path and query params
+ * @param {Object} params object of pathParams<Map> and queryParams<Object> 
+ *                 (Example :  params = {"query" : {},"path" : new Map()})
  * @returns {Promise<Object>} returns the http response received
  */
 exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method, requestHeader, requestBody, params) {
