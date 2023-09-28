@@ -9,7 +9,7 @@ This is a step by step cookbook for creating the _Sequence Diagrams_.
 
 In your repository navigate to the _spec_ folder and if not yet available, create a new subfolder called _diagrams_.  
 There are no template files for the diagrams to be placed there.  
-All diagrams (both as *.plantuml* and *.png*) are to be placed here, together with a readme file, which contains all the images created from the PlantUML files.  
+All diagrams (both as *.plantuml* and *.png*) are to be placed here, together with a readme file, which links all the *.png* files created from the PlantUML files.  
 
 
 
@@ -37,8 +37,8 @@ All diagrams (both as *.plantuml* and *.png*) are to be placed here, together wi
   * `<number>_<short-content-description>.plantuml`: e.g. *100_ReadingLtpStructure.plantuml*
   * `<is|im><number>_<short-content-description>.plantuml`: if there are own diagrams for *im* and *is* operation servers (individual managment and individual service) add the *is* or *im* prefix; e.g. *im000_ListenToControllers.plantuml* or *is020_NotifiyingOfDeviceAlarms.plantuml*
 * The chosen name should sufficiently indicate what the purpose of the diagram is
-* The starting number refers the the sequence number of the uuid of the operation server the diagram is created for
-  * sometimes a diagram may combine multiple forwardings with the same process flow, but for different operation servers; in those cases a *x* may be used to wildcard the related part of the sequence number, e.g. in MWDI there is diagram *00x_CyclicOperationBasedDeviceListSync.plantuml*, which maps four separate forwardings
+* The starting number should be identical with the sequence number of the uuid of the forwarding (later callback) that is described in the diagram (often it makes sense to reuse the sequence number of the uuid of the operation server that serves as an Input to the forwarding).
+  * sometimes a diagram may serve as a blue print for multiple forwardings with the same process flow, but for different operation servers; in those cases a *x* may be used to wildcard the related part of the sequence number, e.g. in MWDI there is diagram *00x_CyclicOperationBasedDeviceListSync.plantuml*, which maps four separate forwardings
 
 #### Sequence Diagram Content
 
@@ -53,12 +53,17 @@ The picture shows an example from the NotificationProxy:
 * this is the same string as in the filename without the *.plantuml* file ending
 * when the diagram is exported to *.png*, the created picture file will be named with the string provided here
 
-**2: Diagram Title = ForwardingName**
+**2: Format settings**
+* next comes the *skinparam* section, where format settings used during rendering of the diagram can be provided
+* add the setting `skinparam responseMessageBelowArrow true`, which places the message of response arrows below the arrow
+* note that for the request message arrow there is no such setting, means a related message is placed above the arrow
+
+**3: Diagram Title = ForwardingName**
 * the title is what will be shown as title in the rendered diagram
-* here, the name of the forwarding has to be provided
+* here, the name of the forwarding (and later callback in the OAS) has to be provided
 * to come up with a proper name, it is advised to read [Structure of Internal _ForwardingNames_](../../ElementsApplicationPattern/Names/StructureOfInternalForwardingNames/StructureOfInternalForwardingNames.md)
 
-**3. Participants = diagram nodes**
+**4. Participants = diagram nodes**
 * the participant block is used for easier editing of the diagram
 * for each node in the diagram create a participant
   * format: `participant "<text to be displayed in the diagram>" as <alias>`
@@ -71,28 +76,29 @@ The picture shows an example from the NotificationProxy:
   * including the AppAbbreviation allows to directly see to which application the operation server or operation client belongs to
   * the service from the ServiceList for which the diagram was created, typically is the operation server, whereas other operation-names included in the diagram called due to that operation server, are the operation clients (either from the same app or a 3rd app)
 
-**4. Activation of the Forwarding**
+**5. Activation of the Forwarding**
 * add a connection between the operation server and it's preceding participant
 * then activate the operation server to indicate over which process steps the forwarding is active
 * once the forwarding is finished, deactivate the operation server participant
 * in the rendered diagram the activation is shown as a white vertical rectangle 
 
-**5. Notes Boxes**
-* sometimes additional information needs to be provided, e.g. if there are if-then-else conditions, which cannot be properly modelled in PlantUML
+**6. Notes Boxes**
+* sometimes additional information needs to be provided, e.g. if there are if-then-else condition or repetitions (for all ...), which cannot be properly modelled in PlantUML
 * encapsulate those notes in `note over <participant>` and `end note` statements
 * the notes are shown as yellow boxes
 
-**6. Connections between Participants**
+**7. Connections between Participants**
 * the connections between the participants show how the communication between the participants looks like
 * a sent request is modelled as `<caller participant> -> <called participant>: {input parameters}`
   * it is shown as a solid line
-  * the parameters are optional, if there are none, leave out everything starting at the ":"
+  * the parameters are optional, and just for visualizing, whether all the required input values are available at this point of the sequence. If there are none, leave out everything starting at the ":"
   * input information can e.g. be a linkId for which the service is called, or a list of multiple input parameters
-* the resulting answer is modelled as `<caller participant> --> <called participant>: {answered parameters}`
-  * the answer is shown as a broken line 
+* the resulting response is modelled as `<caller participant> --> <called participant>: {response parameters}`
+  * the response is shown as a broken line 
   * again, parameters are optional
-  * omit the answer line, if it is not required
-* note: an answer may not be given directly, but only after some additional steps in the sequence have been carried out
+  * omit the response line, if it is not required
+* note: a response may not be given directly, but only after some additional steps in the sequence have been carried out
+
 
 The image shows how the rendered diagram from the above example looks like:  
 ![Diagram_building_blocks_rendered](./pictures/createSeqDiagram_02.png)
