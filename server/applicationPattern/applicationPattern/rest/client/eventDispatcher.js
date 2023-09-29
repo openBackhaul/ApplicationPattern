@@ -24,8 +24,10 @@ const LogicalTerminationPoint = require('../../onfModel/models/LogicalTerminatio
  * @param {String} xCorrelator UUID for the service execution flow that allows to correlate requests and responses. 
  * @param {String} traceIndicator Sequence number of the request. 
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies.
- */
-exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney) {
+ * @param {String} httpMethod method of the request if undefined defaults to POST
+ * @param {Object} params path and query params
+*/
+exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod="POST", params) {
     return new Promise(async function (resolve, reject) {
         let result = false;
         try {
@@ -50,9 +52,10 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
                 operationClientUuid,
-                "POST", 
+                httpMethod,
                 httpRequestHeader, 
-                httpRequestBody
+                httpRequestBody,
+                params
                 );
             let responseCode = response.status;
             if (responseCode.toString().startsWith("2")) {
