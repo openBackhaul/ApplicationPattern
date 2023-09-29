@@ -5661,8 +5661,9 @@ paths:
                         type: string
                       field-name-reference:
                         type: string
-                    example:
-                      static-field-name: 'applicationName'
+                example:
+                  response-profile-1-0:field-name:
+                    static-field-name: 'applicationName'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
