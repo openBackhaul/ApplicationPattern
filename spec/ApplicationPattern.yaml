@@ -8677,19 +8677,20 @@ paths:
                                   properties:
                                     policy:
                                       type: string
-                  example:
-                    service-records-policy-name: 'eatl_service_records_policy'
-                    phases:
-                      hot:
-                        min-age: '30s'
-                        actions:
-                          rollover:
-                            max-age: '5d'
-                      delete:
-                        min-age: '5d'
-                        actions:
-                          delete:
-                            delete-searchable-snapshot: true
+              example:
+                elasticsearch-client-interface-1-0:service-records-policy:
+                  service-records-policy-name: 'eatl_service_records_policy'
+                  phases:
+                    hot:
+                      min-age: '30s'
+                      actions:
+                        rollover:
+                          max-age: '5d'
+                    delete:
+                      min-age: '5d'
+                      actions:
+                        delete:
+                          delete-searchable-snapshot: true
       responses:
         '204':
           description: 'Service records policy configured'
