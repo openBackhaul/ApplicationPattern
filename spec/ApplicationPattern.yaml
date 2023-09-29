@@ -4178,7 +4178,9 @@ paths:
                                             string-name:
                                               type: string
                                             enumeration:
-                                              type: string
+                                              type: array
+                                              items:
+                                                type: string
                                             pattern:
                                               type: string
                                         string-profile-configuration:
@@ -5293,7 +5295,9 @@ paths:
                                   string-name:
                                     type: string
                                   enumeration:
-                                    type: string
+                                    type: array
+                                    items:
+                                      type: string
                                   pattern:
                                     type: string
                               string-profile-configuration:
