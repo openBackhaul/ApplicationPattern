@@ -24,10 +24,10 @@ const LogicalTerminationPoint = require('../../onfModel/models/LogicalTerminatio
  * @param {String} xCorrelator UUID for the service execution flow that allows to correlate requests and responses. 
  * @param {String} traceIndicator Sequence number of the request. 
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies.
- * @param {String} httpMethod method of the request
+ * @param {String} httpMethod method of the request if undefined defaults to POST
  * @param {Object} params path and query params
 */
-exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod, params) {
+exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod="POST", params) {
     return new Promise(async function (resolve, reject) {
         let result = false;
         try {
@@ -41,7 +41,6 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             let serverApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid[0]);
             let serverApplicationReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpClientUuid[0]);
             let originator = await httpServerInterface.getApplicationNameAsync();
-            let method = "POST"
             let httpRequestHeader = new RequestHeader(
                 user, 
                 originator,
@@ -51,12 +50,9 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 operationKey
                 );
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
-            if(httpMethod){
-                method = httpMethod;
-            }
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
                 operationClientUuid,
-                method,
+                httpMethod,
                 httpRequestHeader, 
                 httpRequestBody,
                 params
