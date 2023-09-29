@@ -24,10 +24,10 @@ const LogicalTerminationPoint = require('../../onfModel/models/LogicalTerminatio
  * @param {String} xCorrelator UUID for the service execution flow that allows to correlate requests and responses. 
  * @param {String} traceIndicator Sequence number of the request. 
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies.
- * @param {boolean} isMethodGET true if method of the request is GET
+ * @param {String} httpMethod method of the request
  * @param {Object} params path and query params
 */
-exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, isMethodGET=false, params) {
+exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod, params) {
     return new Promise(async function (resolve, reject) {
         let result = false;
         try {
@@ -51,8 +51,8 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                 operationKey
                 );
             httpRequestHeader = OnfAttributeFormatter.modifyJsonObjectKeysToKebabCase(httpRequestHeader);
-            if(isMethodGET){
-                method = "GET";
+            if(httpMethod){
+                method = httpMethod;
             }
             let response = await RestRequestBuilder.BuildAndTriggerRestRequest(
                 operationClientUuid,
