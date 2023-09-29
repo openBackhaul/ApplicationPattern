@@ -6469,6 +6469,7 @@ paths:
               properties:
                 integer-profile-1-0:integer-value:
                   type: integer
+                  description: 'Value must be between /integer-profile-capability/minimum and /integer-profile-capability/maximum to be accepted, if those attributes are available in the Capability section'
                   example: 1000000
       responses:
         '204':
