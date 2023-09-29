@@ -8342,18 +8342,19 @@ paths:
                                     properties:
                                       policy:
                                         type: string
-                    example:
-                      service-records-policy-name: 'eatl_service_records_policy'
-                      phases:
-                        hot:
-                          min-age: '30s'
-                          actions:
-                            rollover:
-                              max-age: '5d'
-                        delete:
-                          min-age: '5d'
-                          actions:
-                            delete:
+                example:
+                  elasticsearch-client-interface-1-0:service-records-policy:
+                    service-records-policy-name: 'eatl_service_records_policy'
+                    phases:
+                      hot:
+                        min-age: '30s'
+                        actions:
+                          rollover:
+                            max-age: '5d'
+                      delete:
+                        min-age: '5d'
+                        actions:
+                          delete:
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
