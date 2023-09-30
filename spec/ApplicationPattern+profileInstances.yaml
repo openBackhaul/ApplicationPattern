@@ -144,7 +144,7 @@ profile-instances:
       file-identifier: ## TODO: Add invariant identifier of the referenced file
       file-description: ## TODO: Add a description of the content of the referenced file
     configuration:
-      file-path: ## TODO: Add file name, like e.g. '../application-data/application-data.json'
+      file-name: ## TODO: Add file name, like e.g. 'application-data.json'
       user-name: ## TODO: If file protected, add user-name
       password: ## TODO: If file protected, add password
       operation: ## TODO: Choose from read/write/off
