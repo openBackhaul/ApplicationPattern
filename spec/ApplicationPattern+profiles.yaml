@@ -31,8 +31,6 @@ profiles:
       file-description: string
     configuration:
       file-path: string
-      user-name: string
-      password: string
       operation: string
 
   - profile-name: 'IntegerProfile'

@@ -91,15 +91,6 @@ This is a step by step cookbook for creating the _ProfileInstanceList_.
 * The content of this field is actually determined by the implementer.  
 * Maybe, '../application-data/application-data.json' is a good choice for being a default value.  
 
-**UserName**  
-* This field is not mandatory.  
-* If access to the file shall be protected by user name and password, some value should be added here.  
-* Maybe, the application's name is a good choice.  
-
-**Password**  
-* This field is not mandatory.  
-* If access to the file shall be protected by user name and password, some value should be added here.  
-
 **Operations**  
 * This field allows restricting the access rights of the application to the file.
 * Values are to be chosen from 'read', 'write' or 'off'.
