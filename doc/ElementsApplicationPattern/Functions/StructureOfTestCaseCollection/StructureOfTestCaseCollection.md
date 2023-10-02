@@ -2,36 +2,55 @@
 
 The Test Case Collection is implemented in a kind of framework.  
 
-First there is Postman. Postman supports the sending of requests to REST interfaces.  
-Several methods are provided. Some are more for quick and dirty shots. Some facilitate to create sophisticated programs.  
-The TCC uses Postman in an advanced form where many requests are combined and executed in a predefined sequence.  
+First there is Postman.  
+Postman supports the sending of HTTP requests to REST interfaces.  
+Several different approaches are supported.  
+Some are more for quick and dirty shots.  
+Some facilitate to create sophisticated programs.  
+The TCC uses Postman in an advanced form where many Requests get executed in a sequential order.  
+Every individual Request consists of a  
+- Pre-request Script that is used for preparing sending the HTTP request, an  
+- HTTP request and a  
+- Tests Script that is used for analysing the response of the HTTP request.  
+Both Scripts are written a JavaScript code into the respective Postman sandbox.  
 
-Second there is the InterfaceValidator. The InterfaceValidator was originally designed to test implementations of the ONF TR-532.  
+Second there is the InterfaceValidator.  
+The InterfaceValidator was originally designed to test implementations of the ONF TR-532.  
 It basically provides  
-- a set of basic requests that are always required, 
-- a concept for handling variables and 
-- methods for retrieving results from the test case execution.  
+- a structure of folders that allows flexibly adding test cases,  
+- a set of basic requests that are always required,  
+- a concept for handling variables,  
+- a scripting structure that allows to quickly read and navigate code contributed by different people,  
+- a simple programming method that prevents the program flow from being interrupted when an error occurs,
+- a harmonized way to represent testing results and  
+- a unified way to display error messages and warnings that pop up during TCC execution.  
 
-This results in a framework that can be flexibly adapted to the respective application.  
+The framework can be flexibly adapted to the respective application under test.  
 It can hold high numbers of test cases.  
 Every test case may combine multiple Requests.  
-Each Request combines Pre-Request Script, request and Test Script.  
+Each Request combines Pre-Request Script, HTTP request and Test Script.  
 
 ![OuterStructure](./pictures/OuterStructure.png)  
 
+Postman allows presenting Output in two ways:
+- in the CollectionRunner
+- in the PostmanConsole
+
+The InterfaceValidator uses these two possibilities in the following way:
+- The CollectionRunner represents the results of the test case.  
+  The represented information is related with the application under test.  
+- PostmanConsole shows information about the program flow of the InterfaceValidator.  
+  This covers the sent requests, the data inside the InterfaceValidator, and notifications provided by the InterfaceValidator, etc.
 
 
 
 
+.
+.
+.
 
-Postman
-- GUI
-- Sending request
-  - individually
-  - or fully automated collections of sequentially executed requests
-- Sandbox for code being executed before => preparation e.g. composing the URI and the body
-- Sandbox for code being executed afterwards => assessing the response
-- for rest of text: Request = combination of Sandbox + request + Sandbox
+
+Stoffsammlung
 
 - Properly assessing the response requires reference values
   - could either be read from file

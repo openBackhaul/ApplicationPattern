@@ -4093,10 +4093,6 @@ paths:
                                           properties:
                                             file-name:
                                               type: string
-                                            user-name:
-                                              type: string
-                                            password:
-                                              type: string
                                             operation:
                                               type: string
                                               enum:
@@ -5208,10 +5204,6 @@ paths:
                                 properties:
                                   file-name:
                                     type: string
-                                  user-name:
-                                    type: string
-                                  password:
-                                    type: string
                                   operation:
                                     type: string
                                     enum:
@@ -5999,156 +5991,6 @@ paths:
       responses:
         '204':
           description: 'File name configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/user-name:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-1-file-p-000'
-    get:
-      operationId: getFileProfileUserName
-      summary: 'Returns the user name for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'User name provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:user-name
-                properties:
-                  file-profile-1-0:user-name:
-                    type: string
-                    example: 'firstname.surname'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfileUserName
-      summary: 'Configures the user name for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:user-name
-              properties:
-                file-profile-1-0:user-name:
-                  type: string
-                  example: 'firstname.surname'
-      responses:
-        '204':
-          description: 'User name configured'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/password:
-    parameters:
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
-          example: 'ro-2-0-1-file-p-000'
-    get:
-      operationId: getFileProfilePassword
-      summary: 'Returns the password for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Password provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - file-profile-1-0:password
-                properties:
-                  file-profile-1-0:password:
-                    type: string
-                    example: 'stupid_phrase'
-        '400':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredOamRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredOamRequests'
-    put:
-      operationId: putFileProfilePassword
-      summary: 'Configures the password for acccessing the file'
-      tags:
-        - FileProfile
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - file-profile-1-0:password
-              properties:
-                file-profile-1-0:password:
-                  type: string
-                  example: 'stupid_phrase'
-      responses:
-        '204':
-          description: 'Password configured'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':

@@ -30,9 +30,7 @@ profiles:
       file-identifier: string
       file-description: string
     configuration:
-      file-name: string
-      user-name: string
-      password: string
+      file-path: string
       operation: string
 
   - profile-name: 'IntegerProfile'
