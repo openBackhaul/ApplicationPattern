@@ -690,6 +690,8 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         tcp-server-list:
                           type: array
+                          minItems: 1
+                          maxItems: 1
                           items:
                             type: object
                             required:
