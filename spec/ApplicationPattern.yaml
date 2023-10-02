@@ -848,9 +848,6 @@ paths:
                 - registry-office-protocol
                 - registry-office-address
                 - registry-office-port
-                - old-release-protocol
-                - old-release-address
-                - old-release-port
               properties:
                 registry-office-application:
                   type: string
