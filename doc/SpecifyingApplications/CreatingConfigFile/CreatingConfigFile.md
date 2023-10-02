@@ -31,7 +31,7 @@ Several need to be added, and it is recommended to copy and paste the existing o
 
 - Use CTRL+h for replacing 'xx-1-0-0' by the abbreviation of your application's name and release number e.g. 'ro-2-0-1'.  
 - Use CTRL+f for searching '"http-server-interface-1-0:http-server-interface-pac":', and update the information about your application. Keep being consistent with the ServiceList.  
-- Use CTRL+f for searching '"tcp-server-interface-1-0:tcp-server-interface-pac":', and update the FakeIP address information of your application. Keep being consistent with the ServiceList. It might be required to add or delete a TcpServer instance.  
+- Use CTRL+f for searching '"tcp-server-interface-1-0:tcp-server-interface-pac":', and update the fake TCP port of your application. Keep being consistent with the ServiceList. It might be required to add or delete a TcpServer instance.  
 
 #### Profiles
 
@@ -59,7 +59,7 @@ Several need to be added, and it is recommended to copy and paste the existing o
 - Search for 'http-s-000",' and put the same UUIDs into the clientLtp list attribute.  
 
 - Check the HttpClients in the CONFIGfile and delete all stacks of OperationClients, HttpClients and TcpClients that belong to HttpClients that are not required in your ServiceList.  
-- Step through the HttpClients in your ServiceList and check, whether all the required OperationClients are available in the CONFIGfile. If not, copy a stack of one OperationClient, an HttpClient and a TcpClient, adapt the values of the applicationName and releaseNumber attributes at the HttpClient and the fakeIP address and port at the TcpClient. Take care that the UUIDs at the three new objects get update with the official abbreviation of the application's name.  
+- Step through the HttpClients in your ServiceList and check, whether all the required OperationClients are available in the CONFIGfile. If not, copy a stack of one OperationClient, an HttpClient and a TcpClient, adapt the values of the applicationName and releaseNumber attributes at the HttpClient and the fake TCP port at the TcpClient. Take care that the UUIDs at the three new objects get update with the official abbreviation of the application's name.  
 - Double check that all the HttpClients of the ServiceList are now covered in the same ordering as in the CONFIGfile.  
 - Step through the list of HttpClients in the CONFIGfile and check, whether all the OperationClients from the ServiceList are available in the CONFIGfile. If not, copy an existing OperationClient object on the same HttpClient and replace the value of the operationName attribute. Delete obsolete OperationClient objects. Update the clientLtp list attribute at the HttpClient objects.  
 - After you updated the OperationClients at all the HttpClients, double check whether the ordering of the OperationClients is consistent with the ServiceList.  

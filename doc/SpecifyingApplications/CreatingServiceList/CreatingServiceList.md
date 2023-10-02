@@ -28,7 +28,7 @@ This is a step by step cookbook for creating the  _ServiceList_.
 ### HttpServer and TcpServer  
 
 * Add the official _ApplicationName_ and _ReleaseNumber_ of the application.  
-* Add fake IP address and TCP port from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md).  
+* Add fake address from [official List](../../TestingApplications/Infrastructure/SdnLaboratory/FakeAddresses/IpAddresses.md).  
 
 
 ### OperationServers  
@@ -53,13 +53,13 @@ This is a step by step cookbook for creating the  _ServiceList_.
 ### OldRelease  
 
 * Add official _ReleaseNumber_ of the operational version of the application. In case of new application, put the same value as in _HttpServer_ above.  
-* Add fake IP address and TCP port of the operational version of the application. In case of new application, put the same value as in TcpServer above.  
+* Add fake address of the operational version of the application. In case of new application, put the same value as in TcpServer above.  
 
 
 ### NewRelease  
 
 * Add same value as in _HttpServer_ above as the substituting _ReleaseNumber_.  
-* Add fake IP address and TCP port from _TcpServer_ above as IP address and TCP port of the substituting release.  
+* Add fake address from _TcpServer_ above as IP address and TCP port of the substituting release.  
 * Add _OperationsClients_ that will be required for handing-over the configuration information to the _NewRelease_.  
   * Add the following two lines for every _OperationsClient_ that shall be defined:  
 ```
@@ -90,7 +90,7 @@ This is a step by step cookbook for creating the  _ServiceList_.
 * Start with specifying the HttpClients and TcpClients.  
   * Add the official _ApplicationName_ and _ReleaseNumber_ of the application, which shall be addressed, into the _HttpClient_.  
   * Add a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
-  * Add the fake IP address and TCP port of the application to be addressed to the _TcpClient_.  
+  * Add the fake address of the application to be addressed to the _TcpClient_.  
   * Add a UUID according to [structure of UUIDs](../../ElementsApplicationPattern/Names/StructureOfUuids/StructureOfUuids.md).  
 * Add the usual two lines for defining an _OperationClient_ to the _operation-clients/service/individual_ section:  
 ```
