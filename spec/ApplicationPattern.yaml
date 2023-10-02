@@ -4089,9 +4089,9 @@ paths:
                                         file-profile-configuration:
                                           type: object
                                           required:
-                                            - file-path
+                                            - file-name
                                           properties:
-                                            file-path:
+                                            file-name:
                                               type: string
                                             operation:
                                               type: string
@@ -5200,9 +5200,9 @@ paths:
                               file-profile-configuration:
                                 type: object
                                 required:
-                                  - file-path
+                                  - file-name
                                 properties:
-                                  file-path:
+                                  file-name:
                                     type: string
                                   operation:
                                     type: string
@@ -5927,7 +5927,7 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
-  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-path:
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-name:
     parameters:
       - in: path
         name: uuid
@@ -5937,25 +5937,25 @@ paths:
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$'
           example: 'ro-2-0-1-file-p-000'
     get:
-      operationId: getFileProfileFilePath
-      summary: 'Returns the path of the file'
+      operationId: getFileProfileFileName
+      summary: 'Returns the name of the file'
       tags:
         - FileProfile
       security:
         - basicAuth: []
       responses:
         '200':
-          description: 'File path provided'
+          description: 'File name provided'
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - file-profile-1-0:file-path
+                  - file-profile-1-0:file-name
                 properties:
-                  file-profile-1-0:file-path:
+                  file-profile-1-0:file-name:
                     type: string
-                    example: '../application-data/application-data.json'
+                    example: 'application-data.json'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -5969,8 +5969,8 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
     put:
-      operationId: putFileProfileFilePath
-      summary: 'Configures path of the file'
+      operationId: putFileProfileFileName
+      summary: 'Configures name of the file'
       tags:
         - FileProfile
       security:
@@ -5982,14 +5982,15 @@ paths:
             schema:
               type: object
               required:
-                - file-profile-1-0:file-path
+                - file-profile-1-0:file-name
               properties:
-                file-profile-1-0:file-path:
+                file-profile-1-0:file-name:
                   type: string
-                  example: '../application-data/application-data.json'
+                  pattern: '^([A-Za-z0-9-_,\s]{3,})\.([A-Za-z]{3})$'
+                  example: 'application-data.json'
       responses:
         '204':
-          description: 'File path configured'
+          description: 'File name configured'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
