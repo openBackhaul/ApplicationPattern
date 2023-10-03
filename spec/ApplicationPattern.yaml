@@ -3944,6 +3944,7 @@ paths:
                                     # - action-profile-1-0:action-profile-pac
                                     # workaround code is:
                                     # - empty line -
+                                  additionalProperties: false
                                   properties:
                                     uuid:
                                       type: string
