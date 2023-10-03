@@ -6519,6 +6519,7 @@ paths:
               properties:
                 string-profile-1-0:string-value:
                   type: string
+                  description: 'Value must be one of the options defined in /string-profile-capability/enumeration to be accepted, if such enumeration is available in the Capability section'
                   example: 'string-profile-1-0:STRING_VALUE_TYPE_OFF'
       responses:
         '204':
