@@ -1161,13 +1161,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the service requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-eatl-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-eatl-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 service-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall record the service requests
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-eatl-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-eatl-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 service-log-operation:
                   type: string
                   minLength: 6
@@ -1412,13 +1412,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the OaM requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ol-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ol-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall record the OaM request
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ol-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-ol-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-log-operation:
                   type: string
                   minLength: 6
@@ -1746,13 +1746,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall approve the OaM requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-aa-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-aa-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-approval-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall approve the OaM requests
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-aa-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-aa-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-approval-operation:
                   type: string
                   minLength: 6
@@ -1977,7 +1977,7 @@ paths:
       operationId: updateClient
       summary: 'Allows updating connection data of a serving application'
       description: >
-        'Initiates update of release number and TCP/IP address at existing HttpClients and TcpClients.
+        'Initiates update of release number and TCP/IP address at existing HttpClients and TcpClients, but not at OldRelease or NewRelease.
         If combination of {future-application-name, future-release-number} is different from combination {current-application-name, current-release-number}
         and if HttpClient with combination of {future-application-name, future-release-number} already exists,
         HttpClient with combination {current-application-name, current-release-number} shall not be updated,
@@ -2005,13 +2005,13 @@ paths:
                   type: string
                   description: >
                     'Current name of the application that has updated connection data
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 current-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Current release number of the application that has updated connection data
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 future-application-name:
                   type: string
                   description: >
@@ -2292,13 +2292,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall document the application layer topology
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 topology-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release of application that shall document the application layer topology
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-alt-2-0-1-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 topology-operation-ltp-update:
                   type: string
                   minLength: 6
@@ -3426,13 +3426,13 @@ paths:
                   type: string
                   description: >
                     'Name of the application that has an updated operation
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
                   description: >
                     'Release number of the application that has an updated operation
-                    find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-c-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 old-operation-name:
                   type: string
                   minLength: 6
