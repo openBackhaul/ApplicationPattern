@@ -8,7 +8,7 @@ const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/con
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-
+const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 
 exports.resolveHttpTcpAndOperationClientUuidOfNewRelease = function () {
     return new Promise(async function (resolve, reject) {
@@ -104,4 +104,13 @@ exports.resolveRegistryOfficeApplicationNameFromForwardingAsync = async function
     return exports.resolveApplicationNameFromForwardingAsync(
         "PromptForRegisteringCausesRegistrationRequest"
     );
+}
+
+exports.getServerApplicationDetail = async function () {
+    let isRoApplication = false;
+    let tcpserverapplication = await httpServerInterface.getApplicationNameAsync()
+    if (tcpserverapplication == "RegistryOffice") {
+        isRoApplication = true
+    }
+    return isRoApplication;
 }

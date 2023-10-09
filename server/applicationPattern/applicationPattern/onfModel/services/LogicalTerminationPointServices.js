@@ -46,6 +46,36 @@ exports.createOrUpdateApplicationLtpsAsync = async function (logicalTerminationP
 }
 
 /**
+
+ * @description This function creates or finds the http, operation and tcp client if required.
+
+ * @param {LogicalTerminationPointConfigurationInput} logicalTerminationPointConfigurationInput
+
+ * @return {Promise<LogicalTerminationPointConfigurationStatus>}
+
+ **/
+
+exports.FindAndUpdateApplicationLtpsAsync = async function (logicalTerminationPointConfigurationInput,isApplicationRO) {
+  let logicalTerminationPointConfigurationStatus;
+  let httpClientConfigurationStatus;
+  let tcpClientConfigurationStatusList = [];
+  let operationClientConfigurationStatusList = [];
+ 
+  const httpClientUuid = logicalTerminationPointConfigurationInput.httpClientUuid;
+  if (httpClientUuid) {
+    logicalTerminationPointConfigurationStatus = await updateLtpInstanceGroupAsync(
+      logicalTerminationPointConfigurationInput,isApplicationRO
+    );
+  } else {
+    logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+      operationClientConfigurationStatusList,
+      httpClientConfigurationStatus,
+      tcpClientConfigurationStatusList
+    );
+  }
+  return logicalTerminationPointConfigurationStatus;
+}
+/**
  * @description This function deletes the tcp,http,operation client for the provided http client uuid.
  * @param {String|undefined} httpClientUuid http client uuid of the client application
  * @returns {Promise<LogicalTerminationPointConfigurationStatus>} status of deletions
