@@ -30,13 +30,14 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 1.1.4.4 | 4004 | 1.2.4.4 | 4204
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
-|  | AIPS | AirInterfacePowerSaver  | 1.0.0 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
+|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | MO | MountingOrchestrator | 1.0.0 | 1.1.4.10 | 4010 | 1.2.4.10 | 4210
 |  | NP | NotificationProxy | 1.0.0 | 1.1.4.11 | 4011 | 1.2.4.11 | 4211
 |  | MB | MycomButler | 1.0.0 | 1.1.4.12 | 4012 | 1.2.4.12 | 4212
 |  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 1.1.4.13 | 4013 | 1.2.4.13 | 4213
+|  | MWDG | MicroWaveDeviceGatekeeper | 1.0.0 | 1.1.4.14 | 4014 | 1.2.4.14 | 4214
 
 \*) IP_1 + TCP_1 = address from **within** the GCP VPC (HTTP).  
 \*\*) IP_2 + TCP_2 = address from **outside** the GCP VPC (HTTP**S**).
