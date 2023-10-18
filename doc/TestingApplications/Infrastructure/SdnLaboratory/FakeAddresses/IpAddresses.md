@@ -13,14 +13,14 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
-|  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008 | 1.2.3.8 | 3208
-|  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009 | 1.2.3.9 | 3209
-|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010 | 1.2.3.10 | 3210
-|  | OL | OamLog | 2.0.0 | 1.1.3.11 | 3011 | 1.2.3.11 | 3211
-|  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
-|  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
-|  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
 |  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
+|  | RO | RegistryOffice | 2.0.2 | 1.1.3.17 | 3017
+|  | TAR | TypeApprovalRegister | 2.0.2 | 1.1.3.18 | 3018
+|  | EaTL | ExecutionAndTraceLog | 2.0.2 | 1.1.3.19 | 3019
+|  | OL | OamLog | 2.0.2 | 1.1.3.20 | 3020
+|  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
+|  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
+|  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
@@ -46,8 +46,8 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 
 The following fake TCP/IP addresses have no longer to be used while writing new specifications.
 
-| Cathegory | Abbr. | Component | Release | IP | TCP |
-|---|---|---|---|---|---|
+| Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
+|---|---|---|---|---|---|---|---|
 | TAC |  |  |  |  |  |
 |  | RO | RegistryOffice | 1.0.0 | 1.1.3.1 | 3001
 |  | TAR | TypeApprovalRegister | 1.0.0 | 1.1.3.2 | 3002
@@ -56,3 +56,10 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | AA | AdministratorAdministration | 1.0.0 | 1.1.3.5 | 3005
 |  | ALT | ApplicationLayerTopology | 1.0.0 | 1.1.3.6 | 3006
 |  | OKM | OperationKeyManagement | 1.0.0 | 1.1.3.7 | 3007
+|  | RO | RegistryOffice | 2.0.0 | 1.1.3.8 | 3008 | 1.2.3.8 | 3208
+|  | TAR | TypeApprovalRegister | 2.0.0 | 1.1.3.9 | 3009 | 1.2.3.9 | 3209
+|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 1.1.3.10 | 3010 | 1.2.3.10 | 3210
+|  | OL | OamLog | 2.0.0 | 1.1.3.11 | 3011 | 1.2.3.11 | 3211
+|  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
+|  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
+|  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
