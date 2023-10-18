@@ -11,7 +11,7 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const { layerProtocolNameEnum } = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const onfPaths = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfPaths');
-const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/onfAttributes');
+const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const fileSystem = require('fs');
 const yargs = require("yargs")
@@ -19,7 +19,7 @@ const yargs = require("yargs")
 * Setting Local Variables and initiating the process
 ****************************************************************************************/
 var config = require('./input/config.json');
-const ControlConstruct = require('../applicationPattern/applicationPattern/onfModel/models/ControlConstruct');
+const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 var fakeToOriginalIPMapping = require(config['fake-to-original-iP-mapping-file-path']);
 
 process.env.MODIFY_FILE = yargs.argv.modify
