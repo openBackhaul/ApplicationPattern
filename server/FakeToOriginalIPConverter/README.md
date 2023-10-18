@@ -34,9 +34,10 @@ It updates the TcpClient/TcpServer address and port details based on the informa
             "fake-tcp-port": 3002,
             "original-address": {
                 "domain-name": "www.domainName.com",
+            }
             "original-tcp-port": 3002
-        }
-]
+        }]
+}
 
 ```
 3. Update the original-address , original-tcp-port as per the environment planning
