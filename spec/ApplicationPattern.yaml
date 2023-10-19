@@ -539,57 +539,21 @@ paths:
                               type: string
                               pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                               description: >
-                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                                find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
-                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) 
+                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                         domain-name:
                           type: string
                           pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
                           description: >
-                            'If provided, own domain name, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                            find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
-                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
+                            'If provided, own domain name, which has to be documented (but not be directly used for formulating the callback)
+                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
                     http-port:
                       type: integer
                       minimum: 0
                       maximum: 65535
                       description: >
-                        'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                        find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == http
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
-                    https-address:
-                      type: object
-                      minProperties: 1
-                      maxProperties: 1
-                      additionalProperties: false
-                      properties:
-                        ip-address:
-                          type: object
-                          minProperties: 1
-                          additionalProperties: false
-                          properties:
-                            ipv-4-address:
-                              type: string
-                              pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                              description: >
-                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                                find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
-                                update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
-                        domain-name:
-                          type: string
-                          pattern: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
-                          description: >
-                            'If provided, own domain name, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                            find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
-                            update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
-                    https-port:
-                      type: integer
-                      minimum: 0
-                      maximum: 65535
-                      description: >
-                        'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback) into the TcpServer with
-                        find [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol] == https
-                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                        'If provided, own TCP port, which has to be documented (but not be directly used for formulating the callback)
+                        update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
                     preceding-application-name:
                       type: string
                       minLength: 3
@@ -726,6 +690,8 @@ paths:
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         tcp-server-list:
                           type: array
+                          minItems: 1
+                          maxItems: 1
                           items:
                             type: object
                             required:
@@ -773,11 +739,6 @@ paths:
                               ip-address:
                                 ipv-4-address: '1.1.3.9'
                             port: 3009
-                          - protocol: 'HTTPS'
-                            address:
-                              ip-address:
-                                ipv-4-address: '1.2.3.9'
-                            port: 3209
               responses:
                 '204':
                   description: 'Application registered'
@@ -7112,7 +7073,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-000$'
           example: 'ro-2-0-1-tcp-s-000'
     get:
       operationId: getTcpServerDescription
@@ -7185,7 +7146,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-000$'
           example: 'ro-2-0-1-tcp-s-000'
     get:
       operationId: getTcpServerLocalProtocol
@@ -7266,7 +7227,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-000$'
           example: 'ro-2-0-1-tcp-s-000'
     get:
       operationId: getTcpServerLocalAddress
@@ -7360,7 +7321,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-s-000$'
           example: 'ro-2-0-1-tcp-s-000'
     get:
       operationId: getTcpServerLocalPort
@@ -9234,13 +9195,13 @@ components:
                 description: >
                   'Request that shall be called, when button gets pressed
                   from
-                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol}]
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol}]
                   ://
-                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address}
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address}
                   or
-                  {/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name}]
+                  {/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name}]
                   :
-                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-*/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port}]
+                  [{/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port}]
                   [{/core-model-1-4:control-construct/profile-collection/profile=*-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/consequent-operation-reference}]'
               input-value-list:
                 type: array

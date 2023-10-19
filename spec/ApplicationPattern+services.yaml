@@ -55,11 +55,6 @@ servers:
       own-ip-address: ## TODO: Add OwnIpAddress
       own-tcp-port: ## TODO: Add OwnTcpPort
       uuid: xx-1-0-0-tcp-s-000
-    - description: With TLS layer
-      local-protocol: https
-      own-ip-address: ## TODO: Add OwnIpAddress
-      own-tcp-port: ## TODO: Add OwnTcpPort
-      uuid: xx-1-0-0-tcp-s-001
 
 
 clients:
