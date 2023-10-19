@@ -1322,18 +1322,49 @@ paths:
                         stringified-response:
                           type: string
                           description: 'Stringified response sent from [application-name] to [originator]; only to be provided, if [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-eatl-2-0-1-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/detailed-logging-is-on] == true'
-                      example:
-                        x-correlator: '550e8400-e29b-11d4-a716-446655440000'
-                        trace-indicator: '1.1'
-                        user: 'User Name'
-                        originator: 'RegistryOffice'
-                        application-name: 'OwnApplicationName'
-                        release-number: '1.0.0'
-                        operation-name: '/v1/embed-yourself'
-                        response-code: 500
-                        timestamp: '2010-11-20T14:00:00+01:00'
-                        stringified-body: ''
-                        stringified-response: ''
+                        url:
+                          type: string
+                          description: 'Complete URL that has been addressed by the request; only to be provided, if the client is sending the record to EaTL, because the server could not be reached'
+                        exec-time:
+                          type: integer
+                          description: 'Total elapsed time for the execution of the request; value identical with responseHeaders.exec-time; only to be provided, if the server is sending the record to EaTL after processing the request'
+                    examples:
+                      ProvidedByServer:
+                        value:
+                          x-correlator: '550e8400-e29b-11d4-a716-446655440000'
+                          trace-indicator: '1.1'
+                          user: 'UserName'
+                          originator: 'RegistryOffice'
+                          application-name: 'NewApplicationName'
+                          release-number: '1.0.1'
+                          operation-name: '/v1/embed-yourself'
+                          response-code: 204
+                          exec-time: 1100
+                      ProvidedByDetailedServer:
+                        value:
+                          x-correlator: '550e8400-e29b-11d4-a716-446655440123'
+                          trace-indicator: '1'
+                          user: 'UserName'
+                          originator: 'Subscriber'
+                          application-name: 'ServingApplication'
+                          release-number: '1.0.0'
+                          operation-name: '/v1/end-subscription'
+                          response-code: 204
+                          timestamp: '2010-11-20T14:00:00+01:02'
+                          stringified-body: '{"subscriber-application":"Subscriber","subscriber-release-number":"1.2.1","subscription":"/v1/send-notifications"}'
+                          stringified-response: ''
+                          exec-time: 1100
+                      ProvidedByClient:
+                        value:
+                          x-correlator: '883e8400-e29b-11d4-a716-446655440333'
+                          trace-indicator: '1.1'
+                          user: 'UserName'
+                          originator: 'RegistryOffice'
+                          application-name: 'OfflineApplicationName'
+                          release-number: '1.0.0'
+                          operation-name: '/v1/embed-yourself'
+                          response-code: 500
+                          url: 'http://1.1.4.1:4001/v1/embed-yourself'
               responses:
                 '204':
                   description: 'Request recorded'
