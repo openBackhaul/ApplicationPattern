@@ -1,0 +1,99 @@
+@startuml 017_EmbedWithOkm
+skinparam responseMessageBelowArrow true
+
+title
+017_EmbedWithOkm
+Improved Embedding process for new or updated applications at OKM
+end title
+
+participant "RO://v1/regard-updated-approval-status" as RoRegaUa
+participant "ALT://v1/update-ltp" as AltUltp
+participant "ALT://v1/add-operation-client-to-link" as AltAoctL
+participant "ALT://v1/list-end-points-of-link" as AltLepol
+participant "OKM://v2/regard-updated-link" as OkmReguL
+participant "NewApp://v1/update-operation-key" as NewAppUok
+participant "OKM://v1/regard-application" as OkmRegaA
+  participant "ALT:///v1/list-link-uuids" as AltLiu
+
+activate RoRegaUa
+note over RoRegaUa
+010_Embedding
+end note
+
+RoRegaUa -> OkmRegaA : (known ApiKey)
+
+  activate OkmRegaA
+  note over OkmRegaA #White
+  Starting from now on OKM could properly
+  address requests for updating ApiKeys
+  whenever activated at
+  OKM://v2/regard-updated-link
+  end note
+
+
+note over OkmRegaA
+  Add OKM to Link of NewApplication://v1/update-operation-key
+  end note
+  OkmRegaA -> AltAoctL : (known ApiKey)
+    note right OkmRegaA #LightBlue
+    Automation of Link creation
+    requires issue #okm305 to be implemented
+    end note
+
+    activate AltAoctL
+    note left AltAoctL #LightBlue
+    Addressing OKM://v2/regard-updated-link
+    requires issue #alt485 to be implemented
+    end note  
+    AltAoctL -> OkmReguL : (known ApiKey)
+    note over AltAoctL #White
+    Starting from now on, 
+    OKM would attempt to update the ApiKey at 
+    Client and Server of /v1/update-operation-key
+    during its cyclic operation
+    end note
+    deactivate AltAoctL
+
+      activate OkmReguL
+      note left OkmReguL #LightBlue
+      Applying OKM://v2/regard-updated-link
+      requires issue #okm295 to be implemented
+      end note
+        note over NewAppUok #LightCoral
+        Default ApiKeys have to be assured in both 
+        OperationClient and OperationServer
+        end note
+      OkmReguL -> NewAppUok : (default ApiKey)
+        note over NewAppUok #White
+        Now, OKM reached NewApplication and
+        locked NewApp://v1/update-operation-key
+        by replacing the Default ApiKey
+        end note
+      deactivate OkmReguL
+
+  note over OkmRegaA #LightCoral
+  It is important that the cyclic operation
+  did not replace the Default ApiKey at the
+  NewApp://v1/update-operation-key Server
+  before it got Linked with the Client in OKM.
+  
+  Even after that, it is important that the
+  Server gets its new ApiKey first and the 
+  Client right after.
+  end note
+  note over OkmRegaA #White
+  Now, OKM starts its cyclic
+  operation and overwrites 
+  default ApiKeys at all 
+  OperationServers of 
+  NewApplication
+  end note
+  OkmRegaA -> AltLiu : (known ApiKey)
+  OkmRegaA -> AltLepol : (known ApiKey)
+  AltLepol --> OkmRegaA
+  OkmRegaA -> NewAppUok : (ApiKey)
+  deactivate OkmRegaA
+
+deactivate RoRegaUa
+
+@enduml

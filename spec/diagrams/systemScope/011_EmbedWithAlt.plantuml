@@ -1,0 +1,131 @@
+@startuml 011_EmbedWithAlt
+skinparam responseMessageBelowArrow true
+
+title
+011_EmbedWithAlt
+Improved Embedding process for new or updated applications at ALT
+end title
+
+participant "RO://v1/regard-updated-approval-status" as RoRegaUa
+participant "ALT://v1/regard-application" as AltRegaA
+participant "ALT://v1/update-ltp" as AltUltp
+participant "ALT://v1/delete-ltp-and-dependents" as AltDltpAd
+participant "ALT://v1/update-fc" as AltUfc
+participant "ALT://v1/update-fc-port" as AltUfcP
+participant "ALT://v1/delete-fc-port" as AltDfcP
+participant "NewApp://v1/redirect-topology-change-information" as NewAppRtci
+participant "EaTL://v1/record-service-request" as EatlRsr
+participant "ALT://v1/add-operation-client-to-link" as AltAoctL
+participant "OKM://v2/regard-updated-link" as OkmReguL
+participant "NewApp://v1/update-operation-key" as NewAppUok
+
+activate RoRegaUa
+note over RoRegaUa
+010_Embedding
+end note
+
+RoRegaUa -> AltRegaA : (known ApiKey)
+
+  activate AltRegaA
+  note over NewAppRtci #LightCoral
+  Default ApiKeys have to be assured in both 
+  OperationClient and OperationServer
+  end note
+  AltRegaA -> NewAppRtci : (default ApiKey)
+
+    activate NewAppRtci
+    note right NewAppRtci #LightBlue
+    NewApplication needs to internally update 
+    clients for ALT and its services before (!)
+    sending the response, otherwise ALT content
+    is wrong as ALT://v1/update-ltp will fail
+    in the next step
+    end note
+    NewAppRtci --> AltRegaA : {entire ControlConstruct}
+    note over AltRegaA #White
+    ControlConstruct available in ALT
+    end note
+
+
+    NewAppRtci ->x AltUltp : <font color=red> <b> (ApiKey)
+    NewAppRtci ->x EatlRsr : <font color=red> <b> (ApiKey and EaTL address)
+    note over NewAppRtci #White
+    ControlConstruct provided to ALT,
+    but all notifications fail as ApiKeys
+    in OperationClients are invalid
+    end note
+
+  note over AltRegaA
+  Add 
+  - ALT to Link of NewApplication://v1/redirect-topology-change-information
+  - NewApplication to Link of ALT://v1/update-ltp
+  - NewApplication to Link of ALT://v1/delete-ltp-and-dependents
+  - NewApplication to Link of ALT://v1/update-fc
+  - NewApplication to Link of ALT://v1/update-fc-port
+  - NewApplication to Link of ALT://v1/delete-fc-port
+  end note
+  AltRegaA -> AltAoctL : (known ApiKey)
+    note right AltRegaA #LightBlue
+    Automation of Link creation
+    requires issue #eatl498 to be implemented
+    end note
+
+    activate AltAoctL
+    note left AltAoctL #LightBlue
+    Addressing OKM://v2/regard-updated-link
+    requires issue #alt485 to be implemented
+    end note  
+    AltAoctL -> OkmReguL : (known ApiKey)
+    deactivate AltAoctL
+
+      activate OkmReguL
+      note left OkmReguL #LightBlue
+      Applying OKM://v2/regard-updated-link
+      requires issue #okm295 to be implemented
+      end note
+      OkmReguL ->x NewAppUok : (default ApiKey, <font color=red><b>NewApplication address)
+      note over NewAppUok #White
+      OKM cannot yet overwrite Default ApiKeys as 
+      it didn't receive OKM://v1/regard-application,
+      but Links are in ALT and ApiKeys would match
+      in case key management would be activated
+      end note
+      deactivate OkmReguL
+
+  deactivate AltRegaA
+
+deactivate RoRegaUa
+
+    note over NewAppRtci
+    Sends info about
+    updated LTPs in future
+    end note
+    NewAppRtci ->x AltUltp : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    deleted LTPs in future
+    end note
+    NewAppRtci ->x AltDltpAd : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    updated FCs in future
+    end note
+    NewAppRtci ->x AltUfc : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    updated FcPorts in future
+    end note
+    NewAppRtci ->x AltUfcP : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    deleted FcPorts in future
+    end note
+    NewAppRtci ->x AltDfcP : <font color=red> <b> (ApiKey)
+
+    deactivate NewAppRtci
+
+@enduml

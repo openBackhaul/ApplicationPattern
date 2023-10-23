@@ -1,0 +1,59 @@
+@startuml 010_Embedding
+skinparam responseMessageBelowArrow true
+
+title
+010_Embedding
+Improved Embedding process for new or updated applications into a properly running environment
+end title
+
+participant "TAR://v1/regard-application" as TarRegaA
+participant "RO://v1/regard-updated-approval-status" as RoRegaUa
+participant "ALT://v1/regard-application" as AltRegaA
+participant "EaTL://v1/regard-application" as EatlRegaA
+participant "OL://v1/regard-application" as OlRegaA
+participant "AA://v1/regard-application" as AaRegaA
+participant "OKM://v1/regard-application" as OkmRegaA
+participant "NewApp://v1/embed-yourself" as NewAppEmbYs
+
+activate TarRegaA
+note over TarRegaA
+001_Registering
+end note
+TarRegaA -> RoRegaUa : (known ApiKey)
+deactivate TarRegaA
+
+activate RoRegaUa
+
+RoRegaUa -> AltRegaA : (known ApiKey)
+  note over AltRegaA
+  011_EmbedWithAlt
+  end note
+
+RoRegaUa -> EatlRegaA : (known ApiKey)
+  note over EatlRegaA
+  013_EmbedWithEatl
+  end note
+
+RoRegaUa -> OlRegaA : (known ApiKey)
+  note over OlRegaA
+  014_EmbedWithOl
+  end note
+
+RoRegaUa -> AaRegaA : (known ApiKey)
+  note over AaRegaA
+  015_EmbedWithAa
+  end note
+
+RoRegaUa -> OkmRegaA : (known ApiKey)
+  note over OkmRegaA
+  017_EmbedWithOkm
+  end note
+
+RoRegaUa -> NewAppEmbYs : (default ApiKey)
+  note over NewAppEmbYs
+  020_EmbedYourself
+  end note
+
+deactivate RoRegaUa
+
+@enduml
