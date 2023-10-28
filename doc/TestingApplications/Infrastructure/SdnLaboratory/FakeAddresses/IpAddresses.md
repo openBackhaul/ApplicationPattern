@@ -27,7 +27,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001 | 1.2.4.1 | 4201
 |  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002 | 1.2.4.2 | 4202
 |  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 1.1.4.3 | 4003 | 1.2.4.3 | 4203
-|  | MWDI | MicroWaveDeviceInventory  | 1.0.1 | 1.1.4.4 | 4004 |   |  
+|  | MWDI | MicroWaveDeviceInventory  | 1.1.0 | 1.1.4.15 | 4015 |   |  
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
 |  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
@@ -63,3 +63,4 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | AA | AdministratorAdministration | 2.0.0 | 1.1.3.12 | 3012 | 1.2.3.12 | 3212
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
+|  | MWDI | MicroWaveDeviceInventory  | 1.0.1 | 1.1.4.4 | 4004 |   |  
