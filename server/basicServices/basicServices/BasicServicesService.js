@@ -764,6 +764,9 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
         if (httpServerInterface !== undefined) {
           let httpServerCapacity = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
           if (httpServerCapacity !== undefined) {
+            delete httpServerCapacity['application-purpose']
+            delete httpServerCapacity['owner-name']
+            delete httpServerCapacity['owner-email-address']
             delete httpServerCapacity[onfAttributes.HTTP_SERVER.RELEASE_LIST]
           }
         }
