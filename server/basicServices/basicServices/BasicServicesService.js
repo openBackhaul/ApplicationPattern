@@ -762,12 +762,12 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
       } else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
         let httpServerInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
         if (httpServerInterface !== undefined) {
-          let httpServerCapacity = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
-          if (httpServerCapacity !== undefined) {
-            delete httpServerCapacity['application-purpose']
-            delete httpServerCapacity['owner-name']
-            delete httpServerCapacity['owner-email-address']
-            delete httpServerCapacity[onfAttributes.HTTP_SERVER.RELEASE_LIST]
+          let httpServerCapability = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
+          if (httpServerCapability !== undefined) {
+            delete httpServerCapability['application-purpose']
+            delete httpServerCapability['owner-name']
+            delete httpServerCapability['owner-email-address']
+            delete httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST]
           }
         }
       }
