@@ -30,7 +30,7 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.0 | 1.1.4.15 | 4015 |   |  
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
-|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007 | 1.2.4.7 | 4207
+|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007 | |
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | MO | MountingOrchestrator | 1.0.0 | 1.1.4.10 | 4010 | 1.2.4.10 | 4210
