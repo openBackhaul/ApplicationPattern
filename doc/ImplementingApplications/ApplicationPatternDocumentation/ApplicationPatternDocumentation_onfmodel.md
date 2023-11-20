@@ -31,8 +31,19 @@ The description outline is as follows:
 * [Profiles](#profiles)
     * [Application Profile.js](#application-profilejs)
 * [Services](#Services)
-    * [LogicalTerminationPointService.js](#logicalterminationpointservicejs)
-        * ForwardingConstructServices.js
+    * [ForwardingConstructAutomationServices.js](#forwardingconstructautomationservicesjs)
+    * [ForwardingConstructConfigurationServices.js](#forwardingconstructconfigurationservicesjs)
+    * [LogicalTerminationPointServices.js](#logicalterminationpointservicesjs)
+    * [models](#models)
+        * ForwardingConstruct
+            * AutomationInput.js
+            * ConfigurationInput.js
+            * ConfigurationStatus.js
+        * logicalTerminationPoint
+            * ConfigurationInput.js
+            * ConfigurationStatus.js
+        * ConfigurationStatus.js
+        * TcpObject.js
     * [Utility](#utility)
         * ONfAttributeFormatter.js
 
@@ -401,29 +412,63 @@ This class provides a stub to instantiate and generate a JSON object for a Appli
 
 ### Services 
 
-#### **LogicalTerminationPointService.js**
-
-([top &uarr;](#Outline)) This module provides functionality to manipulate the logical termination point. For example, to instantiate client instances for a new application in the LOADfile, this module provides a service 
-called "createLogicalTerminationPointInstanceGroup" which will instantiate the tcp, http, operation client instances for the new application and updates it to the logical-termination-point list.
-
-*Function*:
+#### **ForwardingConstructAutomationServices.js**
+([top &uarr;](#Outline)) This module contains a list of methods that automates the forwarding construct by calling the appropriate call back operations.
 |**Method and description**|**Input parameters**|**Return type**|
 |---|---|---|
-|**createLogicalTerminationPointInstanceGroup** <br>This function creates the tcp, http, operation client instances (if it doesn’t exist) and link them together.|{String} applicationName name of the client application. <br>{String} releaseNumber release of the client application.<br>{String} ipv4Address ip address of the client application. <br>{String} port of the client application. <br>{array} operationList list of operation client that needs to be created.|{object} operationClientUuid InformationInstance returns the generatedoperation client information.| 
-|**updateLogicalTerminationPointInstanceGroup** <br>This function updates the tcp, http, operation client instances that linked together with the new values provided in the input|{String} applicationName name of the client application <br>{String} releaseNumber release of the client application <br>{String} ipv4Address ip address of the client application <br>{String} port of the client application <br>{array} operationList list of operation client that needs to be created|{promise} return true if the value is updated, otherwise returns false.|
-|**deleteLogicalTerminationPointInstanceGroup** <br>This function deletes the tcp, http, operation client for the provided application and release number|{String} applicationName name of the client application <br>{String} releaseNumber release of the client application|{Promise} returns the deleted OperationClientLists associated to the application.|
+|**automateForwardingConstructAsync** <br> This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.|{String} **operationServerName** operation server uuid of the request url <br> {Array<ForwardingAutomationInput>} **forwardingAutomationInputList** list of attributes required during forwarding construct automation(to send in the request body)| |
+|**automateForwardingConstructWithoutInputAsync** <br> This function automates the forwarding construct by calling the appropriate call back operations based on the output directions.|{Array<ForwardingAutomationInput>} **forwardingAutomationInputList** list of attributes required during forwarding construct automation(to send in the request body) | |
+|**automateForwardingsAsync** <br> This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort input and output directions.|{String} **forwardingName** name of the forwarding construct. <br> {Object} **attributeList** list of attributes required during forwarding construct automation <br> {String} **context** it should be a string with the information of application name + release number <br> {String} **operationServerUuid** uuid of operation-server|{Promise<String>} returns new trace indicator| 
+|**automateForwardingsWithoutInputAsync** <br> This function automates the forwarding construct by calling the appropriate call back operations based on the fcPort output directions.|{String} **forwardingName** name of the forwarding construct. <br> {Object} **attributeList** list of attributes required during forwarding construct automation <br> {String} **context** it should be a string with the information of application name + release number |{Promise<String>} returns new trace indicator| 
+|**automateProcessSnippetAsync** <br> This function dispatches request to the appropriate call back operations based forwardingKind FORWARDING_KIND_TYPE_PROCESS_SNIPPET.|{String} **forwardingConstruct**<br>{Object} **attributeList** list of attributes required during forwarding construct automation <br> {String} **context** it should be a string with the information of application name + release number|{Promise<String>} returns new trace indicator| 
+|**automateSubscriptionsAsync** <br> This function dispatches request to the appropriate call back operations based forwardingKind FORWARDING_KIND_TYPE_SUBSCRIPTION |{String} **forwardingConstruct**<br> {Object} **attributeList** list of attributes required during forwarding construct automation |{Promise<String>} returns new trace indicator| 
+|**isForwardingConstructIsProcessSnippet** <br> This function checks if the given forwarding construct is of kind FORWARDING_KIND_TYPE_PROCESS_SNIPPET|{String} **forwardingConstruct**| {Boolean} isForwardingConstructIsProcessSnippet|
+|**isOutputMatchesContextAsync** <br> This function finds if the given context matches the actual context of the operation|{Object} **fcPort** fc-port instance <br> {String} **context** combination of applicationName and releaseNumber| {Boolean} isContextMatching|
+|**getValueFromKey** <br> This function returns the value for given key| {list} **nameList** list of objects to be filtered <br> {String} **key** The key for which the value to be found. | {String} value |
+|**incrementTraceIndicator** <br> This function increments the trace-indicator value by '1' | {String} traceIndicator | {String} incrementedTraceIndicator|
 
-![colorline_green](https://user-images.githubusercontent.com/57349523/154716332-4c32260d-5566-49a5-9126-14eefe734fc6.jpg)
 
-**_ForwardingConstructServices.js_**
-
-This module provides functionality to configure, unconfigure and automate the ForwardingConstruct.
-
-*Function*:
+#### **ForwardingConstructConfigurationServices.js**
+([top &uarr;](#Outline)) This module contains a list of methods that configures the forwarding construct based on given input.
 |**Method and description**|**Input parameters**|**Return type**|
 |---|---|---|
-|**configureAndAutomateForwardingConstruct** <br>This function configures the forwarding construct based on the provided new operation client information and automates the already existing forwarding construct.|{String} **serviceType** service type can be basic or individual. <br>{String} **operationServerUuid** operation server uuid of the request url. <br>{String} **forwardingConstructConfigurationList** list of operation uuid along with the forwarding name that needs to be modified. <br>{list} **attributeList** list of attributes required during forwarding construct automation (to send in the request body). <br>{String} **user** who initiates this request. <br>{string} **xCorrelator** flow id of this request.<br>{string} **traceIndicator** trace indicator of the request. <br>{string} **customerJourney** customer journey of the request.||
-|**unConfigureAndAutomateForwardingConstruct** <br>This function removes the configured operation clients in the forwarding construct based on the provided operation client information and automates the forwarding construct.|{String} **serviceType** service type can be basic or individual. <br>{String} **operationServerUuid** operation server uuid of the request url. <br>{String} **operationClientUuidLists** list of operation client uuids that needs to be deleted. <br>{list} **attributeList** list of attributes required during forwarding construct automation (to send in the request body). <br>{String} **user** who initiates this request.<br>{string} **xCorrelator** flow id of this request. <br>{string} **traceIndicator** trace indicator of the request. <br>{string} **customerJourney** customer journey of the request.||
+|**configureForwardingConstructAsync** <br>This function configures the forwarding construct based on the provided new operation client information.|{String} **operationServerName** : name of the operation server<br>{list} **forwardingConfigurationInputList** : list of the instance forwardingConstruct/ConfigurationInput|{Promise} object returns forwardingConstructConfigurationStatus |
+|**unConfigureForwardingConstructAsync**<br>This function configures/deletes fc-port instance of the forwarding construct.|{String} **operationServerName** : name of the operation server<br>{list} **forwardingConfigurationInputList** : list of the instance forwardingConstruct/ConfigurationInput|{Promise} object returns forwardingConstructConfigurationStatus |
+|**configureForwardingConstructOrFCPortAsync**<br>This function configures the forwarding construct/fc-port instance based on the provided information.|{String} **forwardingName** name of forwarding construct <br> {String} **operationClientUuid** operation client uuid to be added to fc <br>{String} **operationServerUuid** operation server uuid of the request url|{Promise} object returns configurationStatus |
+|**configureOrDeleteFCPortAsync**<br>This function configures/deletes fc-port instance of the forwarding construct.|{String} **forwardingName** name of forwarding construct <br> {String} **operationClientUuid** operation client uuid to be added to fc <br>{String} **operationServerUuid** operation server uuid of the request url <br> {Boolean} **isBarred** true or false to delete fc-port |{Promise} {list} returns configurationStatusList |
+|**isForwardingConstructIsInvariant** <br>This function checks if the given forwarding construct is FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET| {Object} **forwardingConstruct** | {Boolean} returns isForwardingConstructIsInvariant|
+|**isForwardingConstructNameMatches** <br> This function checks if given forwarding construct name matches the given forwarding name|{Object}**forwardingConstruct** <br>{String} **forwardingConstructName**| {Boolean} returns isForwardingConstructNameMatches|
+|**addFcPortAsync** <br> This function adds given operation-client uuid to given forwarding-construct|{Object} **forwardingConstruct** <br>{String} **operationClientUuid** uuid of operation-client to be added to fc|{Promise} object returns configurationStatus |
+|**deleteFcPortAsync** <br> This function deletes the given operation-client uuid to given forwarding-construct|{Object} **forwardingConstruct** <br>{String} **operationClientUuid** uuid of operation-client to be deleted fromthe fc|{Promise} object returns configurationStatus |
+|**updateInvariantFcPortAsync** <br> This function updates the OUTPUT fc-port instance for FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET type forwarding construct| {Object} **forwardingConstruct** <br>{String} **operationClientUuid** uuid of operation-client to be updated in OUTPUT fc-port of fc|{Promise} object returns configurationStatus |
+|**updateFcPortAsync** <br>This function updates the forwarding construct of the output port direction if forwarding kind is SUBSCRIPTION or PROCESS_SNIPPET.|{Object} **forwardingConstruct** <br>{String} **operationClientUuid** uuid of operation-client to be updated in OUTPUT fc-port of fc|{Promise} object returns configurationStatus |
+|**getOutputFcPortListInTheForwardingConstruct** <br> This function filters the fc for fc-port instance of type PORT_DIRECTION_TYPE_OUTPUT|{Object} **forwardingConstruct** |{list} outputFcPortList |
+|**getValueFromKey** <br> This function returns the value for given key| {list} **nameList** list of objects to be filtered <br> {String} **key** The key for which the value to be found. | {String} value |
+|**getApplicationNameAsync** <br> This function finds the http-client application-name of operation-client uuid|{String} **operationClientUuid** uuid of operation-client for which it's serving application-name to be found|{String} applicationName |
+|**getReleaseNumberAsync** <br> This function finds the http-client release-number of operation-client uuid|{String} **operationClientUuid** uuid of operation-client for which it's serving application's release-number to be found|{String} releaseNumber |
+
+#### **LogicalTerminationPointServices.js**
+
+#### **models**
+
+**ForwardingConstruct**
+
+_AutomationInput.js_
+
+_ConfigurationInput.js_
+
+_ConfigurationStatus.js_
+
+**logicalTerminationPoint**x
+
+_ConfigurationInput.js_
+
+_ConfigurationStatus.js_
+
+**ConfigurationStatus.js**
+
+**TcpObject.js**
+
 
 #### **Utility**
 
