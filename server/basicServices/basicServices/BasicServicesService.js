@@ -59,6 +59,7 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   let oldReleaseAddress = body["old-release-address"];
   let oldReleasePort = body["old-release-port"];
 
+  
   const registryOfficeApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
   if (registryOfficeApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The registry-office-application ${applicationName} was not found.`);
@@ -73,6 +74,8 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   operationNamesByAttributes.set("deregistration-operation", deregisterOperation);
   operationNamesByAttributes.set("relay-server-replacement-operation", relayServerReplacementOperation);
   operationNamesByAttributes.set("relay-operation-update-operation", relayOperationUpdateOperation);
+
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
 
   let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
   let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
@@ -93,8 +96,8 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   );
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      ltpConfigurationInput, true
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, isApplicationRo
     );
   }
   let isOldApplicationTcpClientUpdated = false;
@@ -291,6 +294,7 @@ exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, tr
   }
   let operationNamesByAttributes = new Map();
   operationNamesByAttributes.set("oam-approval-operation", oamApprovalOperation);
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
 
   let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
   let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
@@ -316,8 +320,8 @@ exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, tr
   );
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      ltpConfigurationInput, false
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, isApplicationRo
     );
   }
 
@@ -447,6 +451,8 @@ exports.redirectOamRequestInformation = async function (body, user, xCorrelator,
   let operationNamesByAttributes = new Map();
   operationNamesByAttributes.set("oam-log-operation", oamLogOperation);
 
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
+
   let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
   let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
     applicationName,
@@ -471,8 +477,8 @@ exports.redirectOamRequestInformation = async function (body, user, xCorrelator,
   );
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      ltpConfigurationInput, false
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, isApplicationRo
     );
   }
 
@@ -541,6 +547,7 @@ exports.redirectServiceRequestInformation = async function (body, user, xCorrela
 
   let operationNamesByAttributes = new Map();
   operationNamesByAttributes.set("service-log-operation", serviceLogOperation);
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
 
   let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
   let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
@@ -566,8 +573,8 @@ exports.redirectServiceRequestInformation = async function (body, user, xCorrela
   );
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      ltpConfigurationInput, false
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, isApplicationRo
     );
   }
 
@@ -644,7 +651,7 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
   operationNamesByAttributes.set("topology-operation-fc-update", fcUpdateTopologyOperation);
   operationNamesByAttributes.set("topology-operation-fc-port-update", fcPortUpdateTopologyOperation);
   operationNamesByAttributes.set("topology-operation-fc-port-deletion", fcPortDeletionTopologyOperation);
-
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
   let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
   let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
     applicationName,
@@ -669,8 +676,8 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
   );
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-      ltpConfigurationInput, false
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, isApplicationRo
     );
   }
 
@@ -755,9 +762,12 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
       } else if (layerProtocalName == LayerProtocol.layerProtocolNameEnum.HTTP_SERVER) {
         let httpServerInterface = layerprotocol[j][onfAttributes.LAYER_PROTOCOL.HTTP_SERVER_INTERFACE_PAC];
         if (httpServerInterface !== undefined) {
-          let httpServerCapacity = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
-          if (httpServerCapacity !== undefined) {
-            delete httpServerCapacity[onfAttributes.HTTP_SERVER.RELEASE_LIST]
+          let httpServerCapability = httpServerInterface[onfAttributes.HTTP_SERVER.CAPABILITY]
+          if (httpServerCapability !== undefined) {
+            delete httpServerCapability['application-purpose']
+            delete httpServerCapability['owner-name']
+            delete httpServerCapability['owner-email-address']
+            delete httpServerCapability[onfAttributes.HTTP_SERVER.RELEASE_LIST]
           }
         }
       }
@@ -826,6 +836,8 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
     let operationNamesByAttributes = new Map();
     operationNamesByAttributes.set("registration-operation", registryOfficeRegisterOperation);
 
+    let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
+
     let tcpObjectList = [new TcpObject(registryOfficeProtocol, registryOfficeAddress, registryOfficePort)];
     let httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
       registryOfficeApplicationName,
@@ -846,8 +858,8 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
       basicServicesOperationsMapping.basicServicesOperationsMapping
     );
     if (httpClientUuid) {
-      ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
-        ltpConfigurationInput, true
+      ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
+        ltpConfigurationInput, isApplicationRo
       );
     }
 
@@ -1010,12 +1022,14 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     operationNamesByAttributes,
     basicServicesOperationsMapping.basicServicesOperationsMapping
   );
-  const roApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
+  
+  let isApplicationRo = await ServiceUtils.getServerApplicationDetail();
+
   let ltpConfigurationStatus;
   if (httpClientUuid) {
-    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
+    ltpConfigurationStatus = await LogicalTerminationPointService.FindAndUpdateApplicationLtpsAsync(
       ltpConfigurationInput,
-      roApplicationName === futureApplicationName
+      isApplicationRo
     );
   }
   if(currentApplicationName != futureApplicationName){

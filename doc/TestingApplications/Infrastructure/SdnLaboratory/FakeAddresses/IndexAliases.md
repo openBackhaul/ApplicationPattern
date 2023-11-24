@@ -10,6 +10,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 5
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 6
 |  | MWDI | MicroWaveDeviceInventory | 1.0.0 | 7
+|  | AIPS | AirInterfacePowerSaver | 0.0.5 | 8
 
 
 # Historical Fake Index Aliases  
