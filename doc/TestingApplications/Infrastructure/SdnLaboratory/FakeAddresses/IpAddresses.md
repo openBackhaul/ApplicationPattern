@@ -21,20 +21,19 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
 |  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
-|  | RO | RegistryOffice | 2.0.2 | 1.1.3.17 | 3017
-|  | TAR | TypeApprovalRegister | 2.0.2 | 1.1.3.18 | 3018
-|  | EaTL | ExecutionAndTraceLog | 2.0.2 | 1.1.3.19 | 3019
-|  | OL | OamLog | 2.0.2 | 1.1.3.20 | 3020
-|  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
-|  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
-|  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
+|  | RO | RegistryOffice | 2.1.0 | 127.0.0.1 | 3024
+|  | TAR | TypeApprovalRegister | 2.1.0 | 127.0.0.1 | 3025
+|  | EaTL | ExecutionAndTraceLog | 2.1.0 | 127.0.0.1 | 3026
+|  | OL | OamLog | 2.1.0 | 127.0.0.1 | 3027
+|  | AA | AccessAdministration | 2.1.0 | 127.0.0.1 | 3028
+|  | ALT | ApplicationLayerTopology | 2.1.0 | 127.0.0.1 | 3029
+|  | OKM | OperationKeyManagement | 2.1.0 | 127.0.0.1 | 3030
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
 |  | CC | CurrentController | 1.0.0 | 127.0.0.1 | 4001
 |  | RESO | Resolver | 1.0.0 | 127.0.0.1 | 4002
 |  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 127.0.0.1 | 4003
-|  | MWDI | MicroWaveDeviceInventory  | 1.0.0 | 1.1.4.4 | 4004 | 1.2.4.4 | 4204
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
 |  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
@@ -73,3 +72,10 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
 |  | MWDI | MicroWaveDeviceInventory  | 1.0.1 | 1.1.4.4 | 4004 |   |  
+|  | RO | RegistryOffice | 2.0.2 | 1.1.3.17 | 3017
+|  | TAR | TypeApprovalRegister | 2.0.2 | 1.1.3.18 | 3018
+|  | EaTL | ExecutionAndTraceLog | 2.0.2 | 1.1.3.19 | 3019
+|  | OL | OamLog | 2.0.2 | 1.1.3.20 | 3020
+|  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
+|  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
+|  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
