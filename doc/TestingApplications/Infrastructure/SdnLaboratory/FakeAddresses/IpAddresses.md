@@ -1,6 +1,13 @@
-# Up-to-date Fake IP Addresses  
+# Up-to-date Fake Addresses  
 
 The following fake TCP/IP addresses have to be used in public documentation and specifications to establish a homogeneous system of unique addresses that can be replaced by actual values during later automated processing.  
+
+UPDATE on 2nd of October 2023:  
+The following rules have changed:  
+- As the automation script is chosing the IP address based on ApplicationName and ReleaseNumber, it is no longer necessary to have individual fake IP addresses. The local host IP address shall be used as a default instead.  
+- The idea of addressing diverse applications from outside the GCP VPC has been replaced by the concept of using Proxies. It is no longer required to administrate a separate IP address for HTTPS connections.  
+
+Both changes shall be applied on applications that did not yet reach milestone v1.0.0_spec.  
 
 | Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
@@ -14,28 +21,28 @@ The following fake TCP/IP addresses have to be used in public documentation and 
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
 |  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
-|  | RO | RegistryOffice | 2.0.2 | 1.1.3.17 | 3017
-|  | TAR | TypeApprovalRegister | 2.0.2 | 1.1.3.18 | 3018
-|  | EaTL | ExecutionAndTraceLog | 2.0.2 | 1.1.3.19 | 3019
-|  | OL | OamLog | 2.0.2 | 1.1.3.20 | 3020
-|  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
-|  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
-|  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
+|  | RO | RegistryOffice | 2.1.0 | 127.0.0.1 | 3024
+|  | TAR | TypeApprovalRegister | 2.1.0 | 127.0.0.1 | 3025
+|  | EaTL | ExecutionAndTraceLog | 2.1.0 | 127.0.0.1 | 3026
+|  | OL | OamLog | 2.1.0 | 127.0.0.1 | 3027
+|  | AA | AdministratorAdministration | 2.1.0 | 127.0.0.1 | 3028
+|  | ALT | ApplicationLayerTopology | 2.1.0 | 127.0.0.1 | 3029
+|  | OKM | OperationKeyManagement | 2.1.0 | 127.0.0.1 | 3030
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
 | Application |  |  |  |  |  |
-|  | CC | CurrentController | 1.0.0 | 1.1.4.1 | 4001 | 1.2.4.1 | 4201
-|  | RESO | Resolver | 1.0.0 | 1.1.4.2 | 4002 | 1.2.4.2 | 4202
-|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 1.1.4.3 | 4003 | 1.2.4.3 | 4203
+|  | CC | CurrentController | 1.0.0 | 127.0.0.1 | 4001
+|  | RESO | Resolver | 1.0.0 | 127.0.0.1 | 4002
+|  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 127.0.0.1 | 4003
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
-|  | MM | MediatorManager | 1.0.0 | 1.1.4.6 | 4006 | 1.2.4.6 | 4206
-|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007 | |
-|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 1.1.4.8 | 4008 | 1.2.4.8 | 4208
+|  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
+|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
+|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 127.0.0.1 | 4008
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
-|  | MO | MountingOrchestrator | 1.0.0 | 1.1.4.10 | 4010 | 1.2.4.10 | 4210
+|  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
 |  | NP | NotificationProxy | 1.0.1 | 1.1.4.11 | 4011 | 1.2.4.11 | 4211
-|  | MB | MycomButler | 1.0.0 | 1.1.4.12 | 4012 | 1.2.4.12 | 4212
-|  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 1.1.4.13 | 4013 | 1.2.4.13 | 4213
+|  | MB | MycomButler | 1.0.0 | 127.0.0.1 | 4012 |
+|  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 127.0.0.1 | 4013
 |  | MWDG | MicroWaveDeviceGatekeeper | 1.0.0 | 1.1.4.14 | 4014
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.1 | 1.1.4.15 | 4015
 |  | MDIP | MultiDomainInventoryProxy | 1.0.0 | 1.1.4.16 | 4016 | 1.2.4.16 | 4216
@@ -65,3 +72,10 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | ALT | ApplicationLayerTopology | 2.0.0 | 1.1.3.13 | 3013 | 1.2.3.13 | 3213
 |  | OKM | OperationKeyManagement | 2.0.0 | 1.1.3.14 | 3014 | 1.2.3.14 | 3214
 |  | MWDI | MicroWaveDeviceInventory  | 1.0.1 | 1.1.4.4 | 4004 |   |  
+|  | RO | RegistryOffice | 2.0.2 | 1.1.3.17 | 3017
+|  | TAR | TypeApprovalRegister | 2.0.2 | 1.1.3.18 | 3018
+|  | EaTL | ExecutionAndTraceLog | 2.0.2 | 1.1.3.19 | 3019
+|  | OL | OamLog | 2.0.2 | 1.1.3.20 | 3020
+|  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
+|  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
+|  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
