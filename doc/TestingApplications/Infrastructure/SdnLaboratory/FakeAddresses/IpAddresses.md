@@ -25,7 +25,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | TAR | TypeApprovalRegister | 2.1.0 | 127.0.0.1 | 3025
 |  | EaTL | ExecutionAndTraceLog | 2.1.0 | 127.0.0.1 | 3026
 |  | OL | OamLog | 2.1.0 | 127.0.0.1 | 3027
-|  | AA | AdministratorAdministration | 2.1.0 | 127.0.0.1 | 3028
+|  | AA | AccessAdministration | 2.1.0 | 127.0.0.1 | 3028
 |  | ALT | ApplicationLayerTopology | 2.1.0 | 127.0.0.1 | 3029
 |  | OKM | OperationKeyManagement | 2.1.0 | 127.0.0.1 | 3030
 | DataBases |  |  |  |  |  |
