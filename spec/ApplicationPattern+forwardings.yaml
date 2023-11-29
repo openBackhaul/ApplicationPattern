@@ -69,6 +69,8 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-010
       - server-name: /v1/update-operation-client
         uuid: xx-1-0-0-op-s-bm-011
+      - server-name: /v1/inquire-basic-auth-approvals
+        uuid: aa-2-0-1-op-s-bm-012
       - server-name: /v1/bequeath-your-data-and-die
         uuid: xx-1-0-0-op-s-im-000
       - server-name: /v1/start-application-in-generic-representation
@@ -120,7 +122,25 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: AdministratorAdministration://v1/approve-oam-request
-        uuid: xx-1-0-0-op-c-bs-aa-2-0-1-000
+        uuid: xx-1-0-0-op-c-bs-aa-2-1-0-000
+
+  - forwarding-name: BasicAuthRequestCausesInquiryForAuthentication
+    uuid: aa-2-0-1-op-fc-bm-005
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/inquire-basic-auth-approvals
+          uuid: aa-2-0-1-op-s-bm-012
+      fc-port-update:
+        - server-name: /v1/inquire-basic-auth-approvals
+          uuid: aa-2-0-1-op-s-bm-012
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      # [all oam requests]
+    consequent-requests:
+      - client-name: AdministratorAdministration://v1/approve-oam-request
+        uuid: aa-2-0-1-op-c-bs-aa-2-0-1-000
 
 ## TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
 
@@ -216,6 +236,8 @@ forwardings:
         uuid: xx-1-0-0-op-s-bm-009
       - server-name: /v1/update-operation-client
         uuid: xx-1-0-0-op-s-bm-011
+      - server-name: /v1/inquire-basic-auth-approvals
+        uuid: aa-2-0-1-op-s-bm-012
       - server-name: /v1/bequeath-your-data-and-die
         uuid: xx-1-0-0-op-s-im-000
       ## TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented
