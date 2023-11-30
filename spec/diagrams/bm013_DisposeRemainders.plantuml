@@ -1,0 +1,44 @@
+@startuml bm013_DisposeRemainders
+skinparam responseMessageBelowArrow true
+
+title
+<i> No Callback </i>
+end title
+
+participant "OR://v1/bequeath-your-data-and-die" as OldRelease
+participant "RO://v1/deregister-application" as RO
+participant "All://v1/dispose-remainders-of-deregistered-application" as disposeRemainders
+participant "ALT://v1/delete-ltp-and-dependents" as AltDeleteLtp
+
+OldRelease -> RO : {applicationName, releaseNumber}
+
+RO -> disposeRemainders : {applicationName, releaseNumber}
+activate disposeRemainders
+disposeRemainders --> RO : 204
+
+note over disposeRemainders
+The HttpClient identified by applicationName and releaseNumber
+and its serving TcpClients and its client OperationClients
+shall be deleted from all internal configuration and application data
+
+This results in implicitly applying the existing forwarding
+ServiceRequestCausesLtpDeletionRequest
+end note
+disposeRemainders -> AltDeleteLtp
+
+deactivate disposeRemainders
+
+
+skinparam NoteBackgroundColor white
+note over RO
+Remark:
+The following Forwardings become obsolete 
+at RO and potentially other TAC applications, too
+end note
+skinparam NoteBackgroundColor default
+participant "TAC://v1/disregard-application" as TacDisregardApp
+RO -> AltDeleteLtp
+RO -> TacDisregardApp
+
+
+@enduml

@@ -27,7 +27,9 @@ servers:
         - operation-name: /v1/update-operation-client
           uuid: xx-1-0-0-op-s-bm-011
         - operation-name: /v1/inquire-basic-auth-approvals
-          uuid: aa-2-0-1-op-s-bm-012
+          uuid: xx-1-0-0-op-s-bm-012
+        - operation-name: /v1/dispose-remainders-of-deregistered-application
+          uuid: xx-1-0-0-op-s-bm-013
       individual:
         - operation-name: /v1/bequeath-your-data-and-die
           uuid: xx-1-0-0-op-s-im-000
@@ -123,7 +125,7 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - operation-name: /v1/register-application
+          - operation-name: /v2/register-application
             uuid: xx-1-0-0-op-c-bm-ro-2-0-1-000
           - operation-name: /v1/relay-server-replacement
             uuid: xx-1-0-0-op-c-bm-ro-2-0-1-001
