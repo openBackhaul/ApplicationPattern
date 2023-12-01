@@ -154,6 +154,7 @@ profile-instances:
     uuid: '*-integer-p-???' ## TODO: Replace "*" by ApplicationID and ReleaseNumber and ??? by SequenceNumber
     capability:
       integer-name: ## TODO: Add name of the Integer attribute
+      purpose: ## TODO: Potentially add description of the Integer attribute
       unit: ## TODO: Potentially add unit of the Integer attribute
       minimum: ## TODO: Potentially add minimum value that is to be accepted, while configuration
       maximum: ## TODO: Potentially add maximum value that is to be accepted, while configuration
