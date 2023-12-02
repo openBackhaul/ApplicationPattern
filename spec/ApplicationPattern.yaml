@@ -1835,6 +1835,10 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
   /v1/inquire-oam-request-approvals:
+    description: >
+      'DEPRECATED
+      Service shall be deleted with AP v3.0.0
+      Starting from AP v2.1.0, /v1/inquire-basic-auth-approvals shall be applied as a backward compatible update'
     parameters:
       - $ref: '#/components/parameters/user'
       - $ref: '#/components/parameters/originator'
@@ -1972,7 +1976,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
-        OamRequestCausesInquiryForAuthentication:
+        BasicAuthRequestCausesInquiryForAuthentication:
           url: #[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address or /core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]:[/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-c-aa-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-op-c-bs-aa-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
@@ -1987,65 +1991,53 @@ paths:
                   application/json:
                     schema:
                       type: object
-                      required:
-                        - application-name
-                        - release-number
-                        - Authorization
-                        - method
                       properties:
+                        Authorization:
+                          type: string
+                          description: >
+                            'Authorization code
+                            from {$request.parameters#Authorization} of the BasicAuth request that initiates the inquiry for approval'
                         application-name:
                           type: string
                           description: >
-                            'Own application name for the AccessAdministration to check, whether this application is part of the SDN at all
+                            'Own application name
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         release-number:
                           type: string
                           description: >
-                            'Own application release number for the AccessAdministration to check, whether this application is part of the SDN at all
+                            'Own application release number
                             from [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
-                        Authorization:
+                        operation-name:
                           type: string
                           description: >
-                            'Authorization code of the administrator addressing the OaM request to this application from [parameters::Authorization]'
+                            'Path (could be service, could be OaM path) that has been addressed by the BasicAuth request
+                            in path parameter values to be replaced by original parameter names in curly brackets
+                            filters to be removed
+                            from {$request.path} of the BasicAuth request that initiates the inquiry for approval'
                         method:
                           type: string
-                          description: 'Method applied in the OaM request, which is to be approved'
-                      example:
-                        application-name: 'OwnApplicationName'
-                        release-number: '1.0.0'
-                        Authorization: 'Basic PEJhc2ljIEF1dGggVXNlcm5hbWU+OjxCYHduEdBBdXRoIFBhc3N3b3JkPg=='
-                        method: 'PUT'
+                          description: >
+                            'Method applied in the BasicAuth request
+                            from {$request.method} of the BasicAuth request that initiates the inquiry for approval'
               responses:
                 '200':
-                  description: 'Response on inquiry for approval of an OaM request provided'
+                  description: 'Response on inquiry for approval of a BasicAuth request provided'
                   content:
                     application/json:
                       schema:
                         type: object
-                        required:
-                          - oam-request-is-approved
                         properties:
-                          oam-request-is-approved:
+                          basic-auth-request-is-approved:
                             type: boolean
+                            description: 'If true, BasicAuth request can be executed'
                           reason-of-objection:
                             type: string
-                            enum:
-                              - 'APPLICATION_NAME_UNKNOWN'
-                              - 'RELEASE_NUMBER_UNKNOWN'
-                              - 'AUTHORIZATION_CODE_UNKNOWN'
-                              - 'METHOD_NOT_ALLOWED'
-                              - 'UNKNOWN'
                             description: >
-                              'This attribute to be represented, if response::oam-request-is-approved==false.
-                              Reasons to be checked and indicated according to the sequence defined in the enumeration.'
-                      examples:
-                        True:
-                          value:
-                            oam-request-is-approved: true
-                        False:
-                          value:
-                            oam-request-is-approved: false
-                            reason-of-objection: 'AUTHORIZATION_CODE_UNKNOWN'
+                              'if AUTHORIZATION_CODE_UNKNOWN BasicAuth request to be aborted and 401 to be sent
+                              else BasicAuth request to be aborted and 403 to be sent'
+                        example:
+                          basic-auth-request-is-approved: false
+                          reason-of-objection: 'AUTHORIZATION_CODE_UNKNOWN'
                   headers:
                     x-correlator:
                       schema:
