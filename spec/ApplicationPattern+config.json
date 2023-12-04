@@ -526,6 +526,30 @@
             ]
           },
           {
+            "uuid": "xx-1-0-0-op-s-bm-014",
+            "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
+            "client-ltp": [
+            ],
+            "server-ltp": [
+              "xx-1-0-0-http-s-000"
+            ],
+            "layer-protocol": [
+              {
+                "local-id": "0",
+                "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
+                "operation-server-interface-1-0:operation-server-interface-pac": {
+                  "operation-server-interface-capability": {
+                    "operation-name": "/v1/inform-about-preceding-release"
+                  },
+                  "operation-server-interface-configuration": {
+                    "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
+                    "operation-key": "Operation key not yet provided."
+                  }
+                }
+              }
+            ]
+          },
+          {
             "uuid": "xx-1-0-0-op-s-im-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
             "client-ltp": [
@@ -709,6 +733,8 @@
               "xx-1-0-0-op-s-bm-010",
               "xx-1-0-0-op-s-bm-011",
               "xx-1-0-0-op-s-bm-012",
+              "xx-1-0-0-op-s-bm-013",
+              "xx-1-0-0-op-s-bm-014",
               "xx-1-0-0-op-s-im-000",
               "xx-1-0-0-op-s-bs-000",
               "xx-1-0-0-op-s-bs-001",

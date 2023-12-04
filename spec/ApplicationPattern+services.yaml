@@ -30,6 +30,8 @@ servers:
           uuid: xx-1-0-0-op-s-bm-012
         - operation-name: /v1/dispose-remainders-of-deregistered-application
           uuid: xx-1-0-0-op-s-bm-013
+        - operation-name: /v1/inform-about-preceding-release
+          uuid: xx-1-0-0-op-s-bm-014
       individual:
         - operation-name: /v1/bequeath-your-data-and-die
           uuid: xx-1-0-0-op-s-im-000
