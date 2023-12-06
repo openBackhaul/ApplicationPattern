@@ -32,6 +32,8 @@ servers:
           uuid: xx-1-0-0-op-s-bm-013
         - operation-name: /v1/inform-about-preceding-release
           uuid: xx-1-0-0-op-s-bm-014
+        - operation-name: /v1/update-client-of-subsequent-release
+          uuid: xx-1-0-0-op-s-bm-015
       individual:
         - operation-name: /v1/bequeath-your-data-and-die
           uuid: xx-1-0-0-op-s-im-000
