@@ -32,7 +32,7 @@ deactivate disposeRemainders
 skinparam NoteBackgroundColor white
 note over RO
 Remark:
-The following Forwardings become obsolete 
+The following Forwardings become obsolete
 at RO and potentially other TAC applications, too
 end note
 skinparam NoteBackgroundColor default

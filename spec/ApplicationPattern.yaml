@@ -566,7 +566,7 @@ paths:
                               type: string
                               pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                               description: >
-                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback) 
+                                'If provided, own IPv4 address, which has to be documented (but not be directly used for formulating the callback)
                                 update [/core-model-1-4:control-construct/logical-termination-point=*-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                         domain-name:
                           type: string

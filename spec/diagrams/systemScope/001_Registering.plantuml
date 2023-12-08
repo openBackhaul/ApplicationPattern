@@ -33,7 +33,7 @@ Either manual or stored
 type approval of new application
 end note
 note left TarRegaA #LightBlue
-Issue #tar294 for improving 
+Issue #tar294 for improving
 documenting approvals is pending
 end note
 TarRegaA -> RoRegaUa : (known ApiKey)

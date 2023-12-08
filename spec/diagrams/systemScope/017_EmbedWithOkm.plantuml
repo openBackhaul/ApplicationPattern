@@ -44,11 +44,11 @@ note over OkmRegaA
     note left AltAoctL #LightBlue
     Addressing OKM://v2/regard-updated-link
     requires issue #alt485 to be implemented
-    end note  
+    end note
     AltAoctL -> OkmReguL : (known ApiKey)
     note over AltAoctL #White
-    Starting from now on, 
-    OKM would attempt to update the ApiKey at 
+    Starting from now on,
+    OKM would attempt to update the ApiKey at
     Client and Server of /v1/update-operation-key
     during its cyclic operation
     end note
@@ -60,7 +60,7 @@ note over OkmRegaA
       requires issue #okm295 to be implemented
       end note
         note over NewAppUok #LightCoral
-        Default ApiKeys have to be assured in both 
+        Default ApiKeys have to be assured in both
         OperationClient and OperationServer
         end note
       OkmReguL -> NewAppUok : (default ApiKey)
@@ -76,16 +76,16 @@ note over OkmRegaA
   did not replace the Default ApiKey at the
   NewApp://v1/update-operation-key Server
   before it got Linked with the Client in OKM.
-  
+
   Even after that, it is important that the
-  Server gets its new ApiKey first and the 
+  Server gets its new ApiKey first and the
   Client right after.
   end note
   note over OkmRegaA #White
   Now, OKM starts its cyclic
-  operation and overwrites 
-  default ApiKeys at all 
-  OperationServers of 
+  operation and overwrites
+  default ApiKeys at all
+  OperationServers of
   NewApplication
   end note
   OkmRegaA -> AltLiu : (known ApiKey)
