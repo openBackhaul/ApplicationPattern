@@ -3,9 +3,36 @@ info:
   title: ApplicationName
   version: 1.0.0
 
+x-gui-paths:
+########################################################################################################################
+#   Representation Layer
+########################################################################################################################
+  /docs:
+    get:
+      operationId: docs
+      summary: 'Represents Swagger API description page'
+      tags:
+        - RepresentationServices
+      responses:
+        '200':
+          description: 'Swagger API description page represented'
+            # Not explixitly described
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
 paths:
 ########################################################################################################################
-#   Service Layer - Individual Part - Following paths can be taken as a base for individualization
+#   Service Layer - Individual Part
 ########################################################################################################################
   /v1/bequeath-your-data-and-die:
     parameters:
@@ -432,7 +459,7 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
 
 ########################################################################################################################
-#   Service Layer - Basic Part - Following paths must be copied into every application
+#   Service Layer - Basic Part
 ########################################################################################################################
   /v1/register-yourself:
     parameters:
@@ -4562,7 +4589,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
 
 ########################################################################################################################
-#   OAM Layer - Individual Part - Following paths must be individualized, if additional Profiles have been defined
+#   OAM Layer - Individual Part
 ########################################################################################################################
   /core-model-1-4:control-construct:
     get:
@@ -5731,6 +5758,7 @@ paths:
                           - uuid
                           - profile-name
                           - action-profile-1-0:action-profile-pac
+                        additionalProperties: false
                         properties:
                           uuid:
                             type: string
@@ -6003,7 +6031,7 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
 ########################################################################################################################
-#   OAM Layer - Basic Part - Following paths must be copied, if respective class is applied in the application
+#   OAM Layer - Basic Part
 ########################################################################################################################
   /core-model-1-4:control-construct/profile-collection/profile={uuid}/action-profile-1-0:action-profile-pac/action-profile-capability/operation-name:
     parameters:
