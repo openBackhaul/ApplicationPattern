@@ -29,7 +29,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | ALT | ApplicationLayerTopology | 2.1.0 | 127.0.0.1 | 3029
 |  | OKM | OperationKeyManagement | 2.1.0 | 127.0.0.1 | 3030
 | DataBases |  |  |  |  |  |
-|  | ES | ElasticSearch | 1.0.0 | 1.1.3.15 | 3015
+|  | ES | ElasticSearch | 1.0.0 | 127.0.0.1 | 3015
 | Application |  |  |  |  |  |
 |  | CC | CurrentController | 1.0.0 | 127.0.0.1 | 4001
 |  | RESO | Resolver | 1.0.0 | 127.0.0.1 | 4002
