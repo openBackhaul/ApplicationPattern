@@ -1,0 +1,50 @@
+@startuml 001_Registering
+skinparam responseMessageBelowArrow true
+
+title
+001_Registering
+Registering process of either new applications or application updates
+end title
+
+participant "Admin" as Admin
+participant "NewApp://v1/register-yourself" as NewAppRegYs
+participant "RO://v2/register-application" as RoRegiA
+participant "TAR://v1/regard-application" as TarRegaA
+participant "RO://v1/regard-updated-approval-status" as RoRegaUa
+
+note over NewAppRegYs #LightCoral
+Default ApiKey has to be assured
+by either CONFIGfile or OaM interface
+end note
+
+Admin -> NewAppRegYs : (default ApiKey)
+
+activate NewAppRegYs
+NewAppRegYs -> RoRegiA : (./.)
+deactivate NewAppRegYs
+
+activate RoRegiA
+RoRegiA -> TarRegaA : (known ApiKey)
+deactivate RoRegiA
+
+activate TarRegaA
+note over TarRegaA
+Either manual or stored
+type approval of new application
+end note
+note left TarRegaA #LightBlue
+Issue #tar294 for improving
+documenting approvals is pending
+end note
+TarRegaA -> RoRegaUa : (known ApiKey)
+deactivate TarRegaA
+
+activate RoRegaUa
+
+note over RoRegaUa
+010_Embedding
+end note
+
+deactivate RoRegaUa
+
+@enduml

@@ -59,7 +59,7 @@ It occurs several times in all existing applications.
 
 **FileProfile**  
 The _FileProfile_ contains the information, which is required for connecting with a file that holds application data.  
-Aside identifying and describing the referenced file, it makes file path, access credentials and allowed operations available for configuration.  
+Aside identifying and describing the referenced file, it makes file path and allowed operations available for configuration.  
 The _FileProfile_ is used whenever the application uses one or several files for storing internal data.  
 
 **GenericResponseProfile** 
