@@ -1,594 +1,236 @@
-const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
+// @ts-check
+const ForwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
 const onfFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
-const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
-const forwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
-const forwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
+const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
+const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
+const ForwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
+// eslint-disable-next-line no-unused-vars
+const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
+// eslint-disable-next-line no-unused-vars
+const ForwardingConstructConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationStatus')
 
-exports.getALTForwardingAutomationInputAsync = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            /***********************************************************************************
-             * logical-termination-point related forwarding automation
-             ************************************************************************************/
-            let ltpforwardingConstructAutomationInputList = await getLTPForwardingAutomationInputListAsync(
-                logicalTerminationPointconfigurationStatus
+/**
+ * @param {LogicalTerminationPointConfigurationStatus} ltpConfigurationStatus
+ * @param {ForwardingConstructConfigurationStatus} fcConfigurationStatus
+ * @returns {Promise<Array<ForwardingConstructAutomationInput>>}
+ */
+exports.getALTForwardingAutomationInputAsync = async function (ltpConfigurationStatus, fcConfigurationStatus) {
+    let forwardingConstructAutomationList = [];
+    let ltpforwardingConstructAutomationInputList = await getLTPForwardingAutomationInputListAsync(
+        ltpConfigurationStatus
+    );
+    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInputList);
+    let fdforwardingConstructAutomationInputList = await getFDForwardingAutomationInputListAsync(
+        fcConfigurationStatus
+    );
+    forwardingConstructAutomationList.push(fdforwardingConstructAutomationInputList);
+    return forwardingConstructAutomationList.flat();
+}
+
+/**
+ * This function should be used for creating delete-ltp-and-dependents forwardings when an application is
+ * removed. Since delete-ltp-and-dependents will remove all traces of an LTP (including fc-ports),
+ * there is no need to send each LTP individually, only tcp-clients are necessary.
+ * 
+ * @param {LogicalTerminationPointConfigurationStatus} ltpConfigurationStatus
+ * @returns {Array<ForwardingConstructAutomationInput>} list of forwardings
+ */
+exports.getALTUnConfigureForwardingAutomationInputAsync = function (ltpConfigurationStatus) {
+    if (ltpConfigurationStatus === undefined ||
+        ltpConfigurationStatus.tcpClientConfigurationStatusList === undefined) {
+        return [];
+    }
+    let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
+    let tcpClientForwardingAutomationList = getUnconfigurableTcpClientForwardingAutomationInput(tcpClientConfigurationStatusList);
+    return tcpClientForwardingAutomationList;
+}
+
+/**
+ * @param {String} uuid
+ * @returns {Promise<Array<ForwardingConstructAutomationInput>>}
+ */
+exports.getALTForwardingAutomationInputForOamRequestAsync = async function (uuid) {
+    let forwardingConstructAutomationList = [];
+    let fwName = "OamRequestCausesLtpUpdateRequest";
+    if (uuid) {
+        let body = await ControlConstruct.getLogicalTerminationPointAsync(uuid);
+        let layerProtocolName = body["layer-protocol"][0]["layer-protocol-name"];
+        if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT ||
+            layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER) {
+            body = removeAttribute(body, "operation-key");
+        }
+        let ltpforwardingConstructAutomationInput = new ForwardingConstructAutomationInput(fwName, body, undefined);
+        forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInput);
+    }    
+    return forwardingConstructAutomationList;
+}
+
+async function getLTPForwardingAutomationInputListAsync(ltpConfigurationStatus) {
+    if (ltpConfigurationStatus === undefined ||
+        ltpConfigurationStatus.httpClientConfigurationStatus === undefined) {
+        return [];
+    }
+    let forwardingConstructAutomationList = [];
+    let httpClientConfigurationStatus = ltpConfigurationStatus.httpClientConfigurationStatus;
+    let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
+    let operationClientConfigurationStatusList = ltpConfigurationStatus.operationClientConfigurationStatusList;
+
+    let httpClientForwardingAutomation = await getHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus);
+    let tcpClientForwardingAutomationList = await getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList);
+    let operationClientForwardingAutomationList = await getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList);
+
+    if (httpClientForwardingAutomation) {
+        forwardingConstructAutomationList.push(httpClientForwardingAutomation);
+    }
+    forwardingConstructAutomationList.push(tcpClientForwardingAutomationList);
+    forwardingConstructAutomationList.push(operationClientForwardingAutomationList);
+    return forwardingConstructAutomationList.flat();
+}
+
+async function getFDForwardingAutomationInputListAsync(fcConfigurationStatus) {
+    let forwardingConstructAutomationList = [];
+    if (fcConfigurationStatus === undefined ||
+        fcConfigurationStatus.forwardingConstructConfigurationStatusList === undefined) {
+        return [];
+    }
+    let fcConfigurationStatusList = fcConfigurationStatus.forwardingConstructConfigurationStatusList;
+    let fcforwardingConstructAutomationInputList = await getFCForwardingAutomationInputList(fcConfigurationStatusList);
+    forwardingConstructAutomationList.push(fcforwardingConstructAutomationInputList);
+
+    let fcPortConfigurationStatusList = fcConfigurationStatus.fcPortConfigurationStatusList;
+    let fcPortforwardingConstructAutomationInputList = await getFCPortForwardingAutomationInputList(fcPortConfigurationStatusList);
+    forwardingConstructAutomationList.push(fcPortforwardingConstructAutomationInputList);
+
+    return forwardingConstructAutomationList.flat();
+}
+
+/**
+ * Creates forwardings for delete-fc-port.
+ * @param {ForwardingConstructConfigurationStatus} fcConfigurationStatus
+ * @returns {Array<ForwardingConstructAutomationInput>} list of forwardings
+ */
+exports.getFDUnconfigureForwardingAutomationInputList = function(fcConfigurationStatus) {
+    if (fcConfigurationStatus === undefined ||
+        fcConfigurationStatus.forwardingConstructConfigurationStatusList === undefined) {
+        return [];
+    }
+    let fcPortConfigurationStatusList = fcConfigurationStatus.fcPortConfigurationStatusList;
+    return getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusList);
+}
+
+async function getHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus) {
+    let fwName = "ServiceRequestCausesLtpUpdateRequest";
+    if (httpClientConfigurationStatus.updated) {
+        let body = await ControlConstruct.getLogicalTerminationPointAsync(
+            httpClientConfigurationStatus.uuid);
+        return new ForwardingConstructAutomationInput(fwName, body, undefined);
+    }
+    return undefined;
+}
+
+async function getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList) {
+    let fwName = "ServiceRequestCausesLtpUpdateRequest";
+    let forwardingAutomationList = [];
+
+    for (let tcpClientConfigurationStatus of tcpClientConfigurationStatusList) {
+        if (tcpClientConfigurationStatus.updated) {
+            let body = await ControlConstruct.getLogicalTerminationPointAsync(
+                tcpClientConfigurationStatus.uuid);
+            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+            forwardingAutomationList.push(forwardingAutomation);
+        }
+    }
+    return forwardingAutomationList;
+}
+
+function getUnconfigurableTcpClientForwardingAutomationInput(tcpClientConfigurationStatusList) {
+    let fwName = "ServiceRequestCausesLtpDeletionRequest";
+    let forwardingAutomationList = [];
+
+    for (let tcpClientConfigurationStatus of tcpClientConfigurationStatusList) {
+        if (tcpClientConfigurationStatus.updated) {
+            let body = { uuid: tcpClientConfigurationStatus.uuid };
+            body = onfFormatter.modifyJsonObjectKeysToKebabCase(body);
+            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+            forwardingAutomationList.push(forwardingAutomation);
+        }
+    }
+    return forwardingAutomationList;
+}
+
+async function getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList) {
+    let forwardingConstructAutomationList = [];
+    let fwName = "ServiceRequestCausesLtpUpdateRequest";
+    if (operationClientConfigurationStatusList) {
+        for (let operationClientConfigurationStatus of operationClientConfigurationStatusList) {
+            if (operationClientConfigurationStatus.updated) {
+                let body = await ControlConstruct.getLogicalTerminationPointAsync(
+                    operationClientConfigurationStatus.uuid);
+                body = removeAttribute(body, "operation-key")
+                let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+                forwardingConstructAutomationList.push(forwardingAutomation);
+            }
+        }
+    }
+    return forwardingConstructAutomationList;
+}
+
+async function getFCForwardingAutomationInputList(fcConfigurationStatusList) {
+    let fwName = "ServiceRequestCausesFcUpdateRequest";
+    let forwardingConstructAutomationList = [];
+    for (let fcConfigurationStatus of fcConfigurationStatusList) {
+        if (fcConfigurationStatus.updated) {
+            let body = await ForwardingDomain.getForwardingConstructAsync(
+                fcConfigurationStatus.uuid);
+            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+            forwardingConstructAutomationList.push(forwardingAutomation);
+        }
+    }
+    return forwardingConstructAutomationList
+}
+
+async function getFCPortForwardingAutomationInputList(fcPortConfigurationStatusList) {
+    let fwName = "ServiceRequestCausesFcPortUpdateRequest";
+    let forwardingConstructAutomationList = [];
+
+    for (let fcPortConfigurationStatus of fcPortConfigurationStatusList) {
+        if (fcPortConfigurationStatus.updated) {
+            let body = { fcUuid: fcPortConfigurationStatus.uuid };
+            body.fcPort = await ForwardingConstruct.getFcPortAsync(
+                fcPortConfigurationStatus.uuid,
+                fcPortConfigurationStatus.localId
             );
-            if (ltpforwardingConstructAutomationInputList) {
-                for (let i = 0; i < ltpforwardingConstructAutomationInputList.length; i++) {
-                    let ltpforwardingConstructAutomationInput = ltpforwardingConstructAutomationInputList[i];
-                    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInput);
-                }
-            }
-
-            /***********************************************************************************
-             * forwarding-construct updation related forwarding automation
-             ************************************************************************************/
-            let fdforwardingConstructAutomationInputList = await getFDForwardingAutomationInputListAsync(
-                forwardingConstructConfigurationStatus
-            );
-            if (fdforwardingConstructAutomationInputList) {
-                for (let i = 0; i < fdforwardingConstructAutomationInputList.length; i++) {
-                    let fdforwardingConstructAutomationInput = fdforwardingConstructAutomationInputList[i];
-                    forwardingConstructAutomationList.push(fdforwardingConstructAutomationInput);
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
+            body = onfFormatter.modifyJsonObjectKeysToKebabCase(body);
+            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+            forwardingConstructAutomationList.push(forwardingAutomation);
         }
-    });
-}
-
-exports.getALTUnConfigureForwardingAutomationInputAsync = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-
-            /***********************************************************************************
-             * logical-termination-point related forwarding automation
-             ************************************************************************************/
-            let ltpforwardingConstructAutomationInputList = await getLTPUnconfigureForwardingAutomationInputListAsync(
-                logicalTerminationPointconfigurationStatus
-            );
-            if (ltpforwardingConstructAutomationInputList) {
-                for (let i = 0; i < ltpforwardingConstructAutomationInputList.length; i++) {
-                    let ltpforwardingConstructAutomationInput = ltpforwardingConstructAutomationInputList[i];
-                    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInput);
-                }
-            }
-
-            /***********************************************************************************
-             * forwarding-construct updation related forwarding automation
-             ************************************************************************************/
-            let fdforwardingConstructAutomationInputList = await getFDUnconfigureForwardingAutomationInputListAsync(
-                forwardingConstructConfigurationStatus
-            );
-            if (fdforwardingConstructAutomationInputList) {
-                for (let i = 0; i < fdforwardingConstructAutomationInputList.length; i++) {
-                    let fdforwardingConstructAutomationInput = fdforwardingConstructAutomationInputList[i];
-                    forwardingConstructAutomationList.push(fdforwardingConstructAutomationInput);
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-exports.getALTForwardingAutomationInputForOamRequestAsync = function (uuid) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            /***********************************************************************************
-             * logical-termination-point related forwarding automation
-             ************************************************************************************/
-            let ltpforwardingConstructAutomationInput = await getLtpForwardingAutomationInputForOAMRequestAsync(uuid);
-            let ltpforwardingConstructAutomationInputList = [ltpforwardingConstructAutomationInput];
-            if (ltpforwardingConstructAutomationInputList) {
-                for (let i = 0; i < ltpforwardingConstructAutomationInputList.length; i++) {
-                    let ltpforwardingConstructAutomationInput = ltpforwardingConstructAutomationInputList[i];
-                    forwardingConstructAutomationList.push(ltpforwardingConstructAutomationInput);
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getLTPForwardingAutomationInputListAsync(logicalTerminationPointconfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            /***********************************************************************************
-             * ServiceRequestCausesLtpUpdateRequest update-ltp
-             ************************************************************************************/
-            if (logicalTerminationPointconfigurationStatus) {
-                if (logicalTerminationPointconfigurationStatus.hasOwnProperty('httpClientConfigurationStatus')) {
-                    let httpClientConfigurationStatus = logicalTerminationPointconfigurationStatus.httpClientConfigurationStatus;
-                    let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
-                    let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
-
-                    let httpClientForwardingAutomation = await getHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus);
-                    let tcpClientForwardingAutomationList = await getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList);
-                    let operationClientForwardingAutomationList = await getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList);
-
-                    if (httpClientForwardingAutomation) {
-                        forwardingConstructAutomationList.push(httpClientForwardingAutomation);
-                    }
-                    if (tcpClientForwardingAutomationList) {
-                        for (let i = 0; i < tcpClientForwardingAutomationList.length; i++) {
-                            let tcpClientForwardingAutomation = tcpClientForwardingAutomationList[i];
-                            forwardingConstructAutomationList.push(tcpClientForwardingAutomation);
-                        }
-                    }
-
-                    for (let i = 0; i < operationClientForwardingAutomationList.length; i++) {
-                        let operationClientForwardingAutomation = operationClientForwardingAutomationList[i];
-                        forwardingConstructAutomationList.push(operationClientForwardingAutomation);
-                    }
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getLTPUnconfigureForwardingAutomationInputListAsync(logicalTerminationPointconfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            /***********************************************************************************
-             * ServiceRequestCausesLtpDeletionRequest delete-ltp-and-dependents
-             ************************************************************************************/
-            if (logicalTerminationPointconfigurationStatus) {
-                if (logicalTerminationPointconfigurationStatus.hasOwnProperty('httpClientConfigurationStatus')) {
-                    let httpClientConfigurationStatus = logicalTerminationPointconfigurationStatus.httpClientConfigurationStatus;
-                    let tcpClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.tcpClientConfigurationStatusList;
-                    let operationClientConfigurationStatusList = logicalTerminationPointconfigurationStatus.operationClientConfigurationStatusList;
-
-                    let httpClientForwardingAutomation = await getUnconfigurableHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus);
-                    let tcpClientForwardingAutomationList = await getUnconfigurableTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList);
-                    let operationClientForwardingAutomationList = await getUnconfigurableOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList);
-
-                    if (httpClientForwardingAutomation) {
-                        forwardingConstructAutomationList.push(httpClientForwardingAutomation);
-                    }
-
-                    if (tcpClientForwardingAutomationList) {
-                        for (let i = 0; i < tcpClientForwardingAutomationList.length; i++) {
-                            let tcpClientForwardingAutomation = tcpClientForwardingAutomationList[i];
-                            forwardingConstructAutomationList.push(tcpClientForwardingAutomation);
-                        }
-                    }
-
-                    for (let i = 0; i < operationClientForwardingAutomationList.length; i++) {
-                        let operationClientForwardingAutomation = operationClientForwardingAutomationList[i];
-                        forwardingConstructAutomationList.push(operationClientForwardingAutomation);
-                    }
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getFDForwardingAutomationInputListAsync(forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            /***********************************************************************************
-             * ServiceRequestCausesFcUpdateRequest /v1/update-fc
-             ************************************************************************************/
-            if (forwardingConstructConfigurationStatus) {
-                if (forwardingConstructConfigurationStatus.hasOwnProperty('forwardingConstructConfigurationStatusList')) {
-                    let fcConfigurationStatusList = forwardingConstructConfigurationStatus.forwardingConstructConfigurationStatusList;
-                    let fcforwardingConstructAutomationInputList = await getFCForwardingAutomationInputList(fcConfigurationStatusList);
-
-                    if (fcforwardingConstructAutomationInputList) {
-                        for (let i = 0; i < fcforwardingConstructAutomationInputList.length; i++) {
-                            let fcforwardingConstructAutomationInput = fcforwardingConstructAutomationInputList[i];
-                            forwardingConstructAutomationList.push(fcforwardingConstructAutomationInput);
-                        }
-                    }
-                    /***********************************************************************************
-                     * ServiceRequestCausesFcPortUpdateRequest /v1/update-fc-port
-                     ************************************************************************************/
-
-                    let fcPortConfigurationStatusList = forwardingConstructConfigurationStatus.fcPortConfigurationStatusList;
-
-                    let fcPortforwardingConstructAutomationInputList = await getFCPortForwardingAutomationInputList(fcPortConfigurationStatusList);
-
-                    if (fcPortforwardingConstructAutomationInputList) {
-                        for (let i = 0; i < fcPortforwardingConstructAutomationInputList.length; i++) {
-                            let fcPortforwardingConstructAutomationInput = fcPortforwardingConstructAutomationInputList[i];
-                            forwardingConstructAutomationList.push(fcPortforwardingConstructAutomationInput);
-                        }
-                    }
-
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getFDUnconfigureForwardingAutomationInputListAsync(forwardingConstructConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            if (forwardingConstructConfigurationStatus) {
-                if (forwardingConstructConfigurationStatus.hasOwnProperty('forwardingConstructConfigurationStatusList')) {
-
-                    /***********************************************************************************
-                     * ServiceRequestCausesFcPortUpdateRequest /v1/delete-fc-port 
-                     ************************************************************************************/
-
-                    let fcPortConfigurationStatusList = forwardingConstructConfigurationStatus.fcPortConfigurationStatusList;
-
-                    let fcPortforwardingConstructAutomationInputList = await getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusList);
-
-                    if (fcPortforwardingConstructAutomationInputList) {
-                        for (let i = 0; i < fcPortforwardingConstructAutomationInputList.length; i++) {
-                            let fcPortforwardingConstructAutomationInput = fcPortforwardingConstructAutomationInputList[i];
-                            forwardingConstructAutomationList.push(fcPortforwardingConstructAutomationInput);
-                        }
-                    }
-
-                }
-            }
-
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingAutomation;
-            let serviceRequestCausesLtpUpdateRequestForwardingName = "ServiceRequestCausesLtpUpdateRequest";
-            let serviceRequestCausesLtpUpdateRequestContext;
-            let serviceRequestCausesLtpUpdateRequestRequestBody;
-
-            if (httpClientConfigurationStatus) {
-                if (httpClientConfigurationStatus.updated) {
-                    let httpClientUuid = httpClientConfigurationStatus.uuid;
-                    serviceRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
-                        httpClientUuid);
-                    forwardingAutomation = new forwardingConstructAutomationInput(
-                        serviceRequestCausesLtpUpdateRequestForwardingName,
-                        serviceRequestCausesLtpUpdateRequestRequestBody,
-                        serviceRequestCausesLtpUpdateRequestContext
-                    );
-                }
-            }
-            resolve(forwardingAutomation);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getUnconfigurableHttpClientForwardingAutomationInputAsync(httpClientConfigurationStatus) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingAutomation;
-            let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
-            let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
-
-            if (httpClientConfigurationStatus) {
-                if (httpClientConfigurationStatus.updated) {
-                    let httpClientUuid = httpClientConfigurationStatus.uuid;
-                    serviceRequestCausesLtpDeletionRequestRequestBody.uuid = httpClientUuid;
-                    serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                        .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
-                    forwardingAutomation = new forwardingConstructAutomationInput(
-                        serviceRequestCausesLtpDeletionRequestForwardingName,
-                        serviceRequestCausesLtpDeletionRequestRequestBody,
-                        serviceRequestCausesLtpDeletionRequestContext
-                    );
-                }
-            }
-            resolve(forwardingAutomation);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingAutomationList = [];
-            let serviceRequestCausesLtpUpdateRequestForwardingName = "ServiceRequestCausesLtpUpdateRequest";
-            let serviceRequestCausesLtpUpdateRequestContext;
-            let serviceRequestCausesLtpUpdateRequestRequestBody;
-            if (tcpClientConfigurationStatusList) {
-                for (let i = 0; i < tcpClientConfigurationStatusList.length; i++) {
-                    let tcpClientConfigurationStatus = tcpClientConfigurationStatusList[i];
-                    if (tcpClientConfigurationStatus) {
-                        if (tcpClientConfigurationStatus.updated) {
-                            let tcpClientUuid = tcpClientConfigurationStatus.uuid;
-                            serviceRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
-                                tcpClientUuid);
-                            let forwardingAutomation = new forwardingConstructAutomationInput(
-                                serviceRequestCausesLtpUpdateRequestForwardingName,
-                                serviceRequestCausesLtpUpdateRequestRequestBody,
-                                serviceRequestCausesLtpUpdateRequestContext
-                            );
-                            forwardingAutomationList.push(forwardingAutomation);
-                        }
-                    }
-                }
-            }
-            resolve(forwardingAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getUnconfigurableTcpClientForwardingAutomationInputAsync(tcpClientConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingAutomationList = [];
-            let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
-            let serviceRequestCausesLtpDeletionRequestContext;
-            let serviceRequestCausesLtpDeletionRequestRequestBody = {};
-            for (let i = 0; i < tcpClientConfigurationStatusList.length; i++) {
-                let tcpClientConfigurationStatus = tcpClientConfigurationStatusList[i];
-                if (tcpClientConfigurationStatus.updated) {
-                    let tcpClientUuid = tcpClientConfigurationStatus.uuid;
-                    serviceRequestCausesLtpDeletionRequestRequestBody.uuid = tcpClientUuid;
-                    serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                        .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
-                    let forwardingAutomation = new forwardingConstructAutomationInput(
-                        serviceRequestCausesLtpDeletionRequestForwardingName,
-                        serviceRequestCausesLtpDeletionRequestRequestBody,
-                        serviceRequestCausesLtpDeletionRequestContext
-                    );
-                    forwardingAutomationList.push(forwardingAutomation);
-                }
-            }
-            resolve(forwardingAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            let forwardingAutomation;
-            let serviceRequestCausesLtpUpdateRequestForwardingName = "ServiceRequestCausesLtpUpdateRequest";
-            let serviceRequestCausesLtpUpdateRequestContext;
-            let serviceRequestCausesLtpUpdateRequestRequestBody;
-
-            if (operationClientConfigurationStatusList) {
-                for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
-                    let operationClientConfigurationStatus = operationClientConfigurationStatusList[i];
-                    if (operationClientConfigurationStatus.updated) {
-                        let operationClientUuid = operationClientConfigurationStatus.uuid;
-                        serviceRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
-                            operationClientUuid);
-                        serviceRequestCausesLtpUpdateRequestRequestBody = removeAttribute(
-                            serviceRequestCausesLtpUpdateRequestRequestBody,
-                            "operation-key");
-                        forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesLtpUpdateRequestForwardingName,
-                            serviceRequestCausesLtpUpdateRequestRequestBody,
-                            serviceRequestCausesLtpUpdateRequestContext
-                        );
-                        forwardingConstructAutomationList.push(forwardingAutomation);
-                    }
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getUnconfigurableOperationClientForwardingAutomationInputListAsync(operationClientConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        let forwardingConstructAutomationList = [];
-        try {
-            let forwardingAutomation;
-            let serviceRequestCausesLtpDeletionRequestForwardingName = "ServiceRequestCausesLtpDeletionRequest";
-            let serviceRequestCausesLtpDeletionRequestContext;
-
-            if (operationClientConfigurationStatusList) {
-                for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
-                    let operationClientConfigurationStatus = operationClientConfigurationStatusList[i];
-                    if (operationClientConfigurationStatus.updated) {
-                        let operationClientUuid = operationClientConfigurationStatus.uuid;
-                        let serviceRequestCausesLtpDeletionRequestRequestBody = {
-                            uuid: operationClientUuid
-                        }
-                        serviceRequestCausesLtpDeletionRequestRequestBody = onfFormatter
-                            .modifyJsonObjectKeysToKebabCase(serviceRequestCausesLtpDeletionRequestRequestBody)
-                        forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesLtpDeletionRequestForwardingName,
-                            serviceRequestCausesLtpDeletionRequestRequestBody,
-                            serviceRequestCausesLtpDeletionRequestContext
-                        );
-                        forwardingConstructAutomationList.push(forwardingAutomation);
-                    }
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getFCForwardingAutomationInputList(fcConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        let serviceRequestCausesFcUpdateRequestForwardingName = "ServiceRequestCausesFcUpdateRequest";
-        let serviceRequestCausesFcUpdateRequestContext;
-        let serviceRequestCausesFcUpdateRequestRequestBody;
-        let forwardingConstructAutomationList = [];
-        try {
-            if (fcConfigurationStatusList) {
-                for (let i = 0; i < fcConfigurationStatusList.length; i++) {
-                    let fcConfigurationStatus = fcConfigurationStatusList[i];
-                    if (fcConfigurationStatus.updated) {
-                        let forwardingConstructUuid = fcConfigurationStatus.uuid;
-                        serviceRequestCausesFcUpdateRequestRequestBody = await forwardingDomain.getForwardingConstructAsync(
-                            forwardingConstructUuid);
-                        forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesFcUpdateRequestForwardingName,
-                            serviceRequestCausesFcUpdateRequestRequestBody,
-                            serviceRequestCausesFcUpdateRequestContext
-                        );
-                        forwardingConstructAutomationList.push(forwardingAutomation);
-                    }
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-function getFCPortForwardingAutomationInputList(fcPortConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        let serviceRequestCausesFcPortUpdateRequestForwardingName = "ServiceRequestCausesFcPortUpdateRequest";
-        let serviceRequestCausesFcPortUpdateRequestContext;
-        let serviceRequestCausesFcPortUpdateRequestRequestBody = {};
-        let forwardingConstructAutomationList = [];
-
-        try {
-            if (fcPortConfigurationStatusList) {
-                for (let i = 0; i < fcPortConfigurationStatusList.length; i++) {
-                    let fcPortConfigurationStatus = fcPortConfigurationStatusList[i];
-                    if (fcPortConfigurationStatus.updated) {
-                        let forwardingConstructUuid = fcPortConfigurationStatus.uuid;
-                        let fcPortlocalId = fcPortConfigurationStatus.localId;
-                        serviceRequestCausesFcPortUpdateRequestRequestBody.fcUuid = forwardingConstructUuid;
-                        serviceRequestCausesFcPortUpdateRequestRequestBody.fcPort = await forwardingConstruct.getFcPortAsync(
-                            forwardingConstructUuid,
-                            fcPortlocalId
-                        );
-                        serviceRequestCausesFcPortUpdateRequestRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(serviceRequestCausesFcPortUpdateRequestRequestBody);
-                        forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesFcPortUpdateRequestForwardingName,
-                            serviceRequestCausesFcPortUpdateRequestRequestBody,
-                            serviceRequestCausesFcPortUpdateRequestContext
-                        );
-                        forwardingConstructAutomationList.push(forwardingAutomation);
-                    }
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
-        }
-    });
+    }
+    return forwardingConstructAutomationList;
 }
 
 function getFCPortDeleteForwardingAutomationInputList(fcPortConfigurationStatusList) {
-    return new Promise(async function (resolve, reject) {
-        let serviceRequestCausesFcPortDeleteRequestForwardingName = "ServiceRequestCausesFcPortDeletionRequest";
-        let serviceRequestCausesFcPortDeleteRequestRequestBody = {};
-        let serviceRequestCausesFcPortDeleteRequestContext;
-        let forwardingConstructAutomationList = [];
+    let fwName = "ServiceRequestCausesFcPortDeletionRequest";
+    let forwardingConstructAutomationList = [];
 
-        try {
-            if (fcPortConfigurationStatusList) {
-                for (let i = 0; i < fcPortConfigurationStatusList.length; i++) {
-                    let fcPortConfigurationStatus = fcPortConfigurationStatusList[i];
-                    if (fcPortConfigurationStatus.updated) {
-                        let forwardingConstructUuid = fcPortConfigurationStatus.uuid;
-                        let fcPortlocalId = fcPortConfigurationStatus.localId;
-                        serviceRequestCausesFcPortDeleteRequestRequestBody.fcUuid = forwardingConstructUuid;
-                        serviceRequestCausesFcPortDeleteRequestRequestBody.fcPortLocalId = fcPortlocalId;
-                        serviceRequestCausesFcPortDeleteRequestRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(
-                            serviceRequestCausesFcPortDeleteRequestRequestBody
-                        );
-                        forwardingAutomation = new forwardingConstructAutomationInput(
-                            serviceRequestCausesFcPortDeleteRequestForwardingName,
-                            serviceRequestCausesFcPortDeleteRequestRequestBody,
-                            serviceRequestCausesFcPortDeleteRequestContext
-                        );
-                        forwardingConstructAutomationList.push(forwardingAutomation);
-                    }
-                }
-            }
-            resolve(forwardingConstructAutomationList);
-        } catch (error) {
-            reject(error);
+    for (let fcPortConfigurationStatus of fcPortConfigurationStatusList) {
+        if (fcPortConfigurationStatus.updated) {
+            let body = { fcUuid: fcPortConfigurationStatus.uuid };
+            body.fcPortLocalId = fcPortConfigurationStatus.localId;
+            body = onfFormatter.modifyJsonObjectKeysToKebabCase(body);
+            let forwardingAutomation = new ForwardingConstructAutomationInput(fwName, body, undefined);
+            forwardingConstructAutomationList.push(forwardingAutomation);
         }
-    });
-}
-
-function getLtpForwardingAutomationInputForOAMRequestAsync(uuid) {
-    return new Promise(async function (resolve, reject) {
-        try {
-            let forwardingAutomation;
-            let oamRequestCausesLtpUpdateRequestForwardingName = "OamRequestCausesLtpUpdateRequest";
-            let oamRequestCausesLtpUpdateRequestContext;
-            let oamRequestCausesLtpUpdateRequestRequestBody;
-
-            if (uuid) {
-                oamRequestCausesLtpUpdateRequestRequestBody = await controlConstruct.getLogicalTerminationPointAsync(
-                    uuid);
-                let layerProtocolName = oamRequestCausesLtpUpdateRequestRequestBody["layer-protocol"][0]["layer-protocol-name"];
-                if (layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT ||
-                    layerProtocolName == LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER) {
-                    oamRequestCausesLtpUpdateRequestRequestBody = removeAttribute(
-                        oamRequestCausesLtpUpdateRequestRequestBody,
-                        "operation-key");
-                }
-                forwardingAutomation = new forwardingConstructAutomationInput(
-                    oamRequestCausesLtpUpdateRequestForwardingName,
-                    oamRequestCausesLtpUpdateRequestRequestBody,
-                    oamRequestCausesLtpUpdateRequestContext
-                );
-            }
-            resolve(forwardingAutomation);
-        } catch (error) {
-            reject(error);
-        }
-    });
+    }
+    return forwardingConstructAutomationList;
 }
 
 function removeAttribute(jsonObject, attributeName) {
-
     for (var element in jsonObject) {
-
-        if (jsonObject.hasOwnProperty(element)) {
-
-            if (element == attributeName) {
-                delete jsonObject[element];
-
-            } else if (typeof jsonObject[element] == 'object') {
-                removeAttribute(jsonObject[element], attributeName);
-            }
+        if (element == attributeName) {
+            delete jsonObject[element];
+        } else if (typeof jsonObject[element] == 'object') {
+            removeAttribute(jsonObject[element], attributeName);
         }
     }
     return jsonObject;

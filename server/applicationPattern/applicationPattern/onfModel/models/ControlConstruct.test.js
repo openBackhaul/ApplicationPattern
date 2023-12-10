@@ -91,9 +91,7 @@ test("addLogicalTerminationPointAsync", async () => {
 test("deleteLogicalTerminationPointAsync", async () => {
   const res = await ControlConstruct.deleteLogicalTerminationPointAsync("eatl-2-0-1-op-s-bm-000");
   expect(fileOperation.deletefromDatabaseAsync).toBeCalledWith(
-    "/core-model-1-4:control-construct/logical-termination-point=eatl-2-0-1-op-s-bm-000",
-    "eatl-2-0-1-op-s-bm-000", true
-  );
+    "/core-model-1-4:control-construct/logical-termination-point=eatl-2-0-1-op-s-bm-000");
   expect(res).toBeTruthy();
 });
 

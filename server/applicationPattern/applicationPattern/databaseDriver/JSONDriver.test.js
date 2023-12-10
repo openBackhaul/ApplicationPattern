@@ -22,12 +22,19 @@ const initialContent = {
             "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=aa-2-0-1-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
           }
         }
+      },
+      {
+        "uuid": "aa-2-0-1-action-p-001",
+        "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
+        "action-profile-1-0:action-profile-pac": {
+        }
       }
     ]
   }
 };
 
 beforeAll(() => {
+  // eslint-disable-next-line no-unused-vars
   fileSystem.open(file, 'r+', function (err, data) {
   });
   fileSystem.writeFileSync(file, JSON.stringify(initialContent));
@@ -90,8 +97,7 @@ describe("writeToDatabaseAsync", () => {
 describe("deletefromDatabaseAsync", () => {
   test("delete field", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window",
-      false,
+      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window",
@@ -100,12 +106,20 @@ describe("deletefromDatabaseAsync", () => {
 
   test("delete object", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration",
-      false
+      "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-configuration",
     )).toBeUndefined();
+  });
+
+  test("delete item from list", async () => {
+    expect(await jsonDriver.deletefromDatabaseAsync(
+      "profile-collection/profile=aa-2-0-1-action-p-000",
+    )).toBeTruthy();
+    expect(await jsonDriver.readFromDatabaseAsync(
+      "profile-collection/profile",
+    )).toStrictEqual( [{"action-profile-1-0:action-profile-pac": {}, "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE", "uuid": "aa-2-0-1-action-p-001"}]);
   });
 
   test("delete list", async () => {

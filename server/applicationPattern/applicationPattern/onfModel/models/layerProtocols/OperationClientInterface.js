@@ -11,16 +11,16 @@
 
 const controlConstruct = require('../ControlConstruct');
 const logicalTerminationPoint = require('../LogicalTerminationPoint');
-const layerProtocol = require('../LayerProtocol');
+const LayerProtocol = require('../LayerProtocol');
 const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
 
 /**  
- * @extends layerProtocol
+ * @extends LayerProtocol
  */
-class OperationClientInterface extends layerProtocol {
+class OperationClientInterface extends LayerProtocol {
 
     static OperationClientInterfacePac = class OperationClientInterfacePac {
         operationClientInterfaceConfiguration;
@@ -86,7 +86,7 @@ class OperationClientInterface extends layerProtocol {
             }
         };
 
-        static layerProtocolName = layerProtocol.layerProtocolNameEnum.OPERATION_CLIENT;
+        static layerProtocolName = LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT;
         static defaultOperationKey = "Operation key not yet provided.";
         static defaultOperationalState = OperationClientInterfacePac.OperationClientInterfaceStatus.operationalStateEnum.NOT_YET_DEFINED;
         static defaultLifeCycleState = OperationClientInterfacePac.OperationClientInterfaceStatus.lifeCycleStateEnum.NOT_YET_DEFINED;
@@ -190,7 +190,7 @@ class OperationClientInterface extends layerProtocol {
         let tcpClientUuidList = await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
         let tcpClientUuid = tcpClientUuidList[0];
         let tcpClientRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuid);
-        let remoteAddress = await getConfiguredRemoteAddress(tcpClientRemoteAddress);
+        let remoteAddress = getConfiguredRemoteAddress(tcpClientRemoteAddress);
         let remotePort = await tcpClientInterface.getRemotePortAsync(tcpClientUuid);
         let remoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuid);
         return remoteProtocol.toLowerCase() + "://" + remoteAddress + ":" + remotePort;
@@ -265,6 +265,7 @@ class OperationClientInterface extends layerProtocol {
     }
 
     /**
+     * @deprecated use isOperationClientAsync
      * @description Determines if given UUID belongs to a client operation.
      * @param {String} operationUuid UUID to be checked
      * @returns {boolean} true if UUID belongs to a client operation
@@ -272,6 +273,21 @@ class OperationClientInterface extends layerProtocol {
     static isOperationClient(operationUuid) {
         let splitted = operationUuid.split("-");
         return "c" === splitted[5];
+    }
+
+    /**
+     * @description Determines if given UUID belongs to a client operation.
+     * @param {String} operationUuid UUID to be checked
+     * @returns {Promise<Boolean>} true if UUID belongs to a client operation
+     */
+    static async isOperationClientAsync(operationUuid) {
+        const ltp = await controlConstruct.getLogicalTerminationPointAsync(operationUuid);
+        if (ltp === undefined) {
+            return false;
+        }
+        const layerProtocol = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
+        const layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
+        return LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT === layerProtocolName;
     }
 }
 

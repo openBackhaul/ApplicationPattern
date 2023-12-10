@@ -206,11 +206,7 @@ class TcpClientInterface extends layerProtocol {
         let remoteAddressPath = addressPaths[0];
         let pathToBeDeleted = addressPaths[1];
         if (pathToBeDeleted != undefined) {
-            await fileOperation.deletefromDatabaseAsync(
-                pathToBeDeleted,
-                addressToBeDeleted,
-                false
-            );
+            await fileOperation.deletefromDatabaseAsync(pathToBeDeleted);
         }
         return await fileOperation.writeToDatabaseAsync(
             remoteAddressPath,

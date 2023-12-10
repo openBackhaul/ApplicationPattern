@@ -14,7 +14,7 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "onf-core-model-ap": "2.0.1-alpha.6",
+    "onf-core-model-ap": "2.0.2-alpha.2",
     "yargs": "^17.7.2"
   }
 }

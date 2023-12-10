@@ -1,126 +1,93 @@
- // @ts-check
- 'use strict';
- const requestHeader = require('../rest/client/RequestHeader');
- const restRequestBuilder = require('../rest/client/RequestBuilder');
- 
- const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
+// @ts-check
+'use strict';
+const RequestHeader = require('../rest/client/RequestHeader');
+const RequestBuilder = require('../rest/client/RequestBuilder');
 
- const operationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
- const httpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
- const forwardingDomain = require('../onfModel/models/ForwardingDomain');
- const FcPort = require('../onfModel/models/FcPort');
- 
- /**
-  * This function authorizes the user credentials<br>
-  * @param {string} authorizationCode authorization code received from the header<br>
-  * @param {string} method is the https method name<br>
-  * @returns {Promise} authStatus return the authorization result<br>
-  */
- exports.isAuthorized = function (authorizationCode, method) {
-     return new Promise(async function (resolve, reject) {
-        let authStatus = {
-            "isAuthorized" : false
+const onfAttributeFormatter = require('../onfModel/utility/OnfAttributeFormatter');
+
+const OperationClientInterface = require('../onfModel/models/layerProtocols/OperationClientInterface');
+const HttpServerInterface = require('../onfModel/models/layerProtocols/HttpServerInterface');
+const ForwardingDomain = require('../onfModel/models/ForwardingDomain');
+const FcPort = require('../onfModel/models/FcPort');
+
+/**
+ * This function authorizes the user credentials
+ * @param {String} authorizationCode authorization code received from the header
+ * @param {String} method is the https method name
+ * @returns {Promise<Object>} authStatus
+ */
+exports.isAuthorized = async function (authorizationCode, method) {
+    let authStatus = {
+        "isAuthorized": false
+    }
+    let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
+    let operationKey = await OperationClientInterface.getOperationKeyAsync(operationClientUuid);
+    let userName = exports.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
+    let applicationName = await HttpServerInterface.getApplicationNameAsync();
+    let applicationReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
+    let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new RequestHeader(userName, applicationName, "", "", "unknown", operationKey));
+    let httpRequestBody = formulateRequestBody(applicationName, applicationReleaseNumber, authorizationCode, method);
+    let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
+    if (response && response.status === 200) {
+        if (response.data["oam-request-is-approved"] == true) {
+            authStatus.isAuthorized = true;
+        } else if (response.data["reason-of-objection"] == 'METHOD_NOT_ALLOWED') {
+            authStatus.status = 403;
         }
-        try {
-             let operationClientUuid = await getOperationClientToAuthenticateTheRequest();
-             let operationKey = await operationClientInterface.getOperationKeyAsync(operationClientUuid);
-             let userName = exports.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
-             let applicationName = await httpServerInterface.getApplicationNameAsync();
-             let applicationReleaseNumber = await httpServerInterface.getReleaseNumberAsync();
-             let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new requestHeader(userName, applicationName, "", "", "unknown", operationKey));
-             let httpRequestBody = formulateResponseBody(applicationName, applicationReleaseNumber, authorizationCode, method)
-             let response = await restRequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
-             if (response !== undefined && response.status === 200) {
-                 let responseBody = response.data;
-                 if (responseBody["oam-request-is-approved"] == true) {
-                    authStatus.isAuthorized = true;
-                 }else{
-                    if(responseBody["reason-of-objection"] == 'METHOD_NOT_ALLOWED'){
-                    authStatus.status = 403;
-                    }
-                 }
-             }else if(response !== undefined && response.status === 404){
-                authStatus.message = "Application that authenticates the OAM request is down." + 
-                "Therefore, authentication is not verified. Please try again later.";
-             }
-             resolve(authStatus);
-         } catch (error) {
-             console.log(error);
-             resolve(authStatus);
-         }
-     });
- }
- 
+    } else if (response && response.status === 408) {
+        authStatus.status = 408;
+        authStatus.message = "Application that authenticates the OAM request is down." +
+            "Therefore, authentication is not verified. Please try again later.";
+    }
+    return authStatus;
+}
+
  /**
-  * This function formulates the response body with the required attributes that needs to be sent to the Administrator Administration application<br>
-  * @param {string} applicationName name of the application<br>
-  * @param {string} releaseNumber release number of the application<br>
-  * @param {string} authorizationCode authorization code to access the OAM layer<br>
-  * @param {string} method HTTP method of the OAM layer call. It can be PUT,GET<br>
-  * @returns {object} return the formulated responseBody<br>
+  * This function formulates the request body with the required attributes that needs to be sent to the Administrator Administration application
+  * @param {String} applicationName name of the application
+  * @param {String} releaseNumber release number of the application
+  * @param {String} authorizationCode authorization code to access the OAM layer
+  * @param {String} method HTTP method of the OAM layer call. It can be PUT,GET
+  * @returns {Object} formulated requestBody
   */
- function formulateResponseBody(applicationName, releaseNumber, authorizationCode, method) {
-     let httpRequestBody = {};
-     try {
-         httpRequestBody = {
-             "application-name": applicationName,
-             "release-number": releaseNumber,
-             "Authorization": authorizationCode,
-             "method": method
-         };
-         return httpRequestBody;
-     } catch (error) {
-         return httpRequestBody;
-     }
- }
- 
- /**
-  * This function returns the operation client uuid of the service that needs to be called to authenticate the OAM requests<br>
-  * @returns {Promise<string>} return the uuid of the operation client of the service that needs to be addressed to authenticate the OAM request<br>
-  * This method performs the following step,<br>
-  * step 1: extract the forwarding-construct OamRequestCausesInquiryForAuthentication<br>
-  * step 2: get the output fc-port from the forwarding-construct<br>
-  */
- async function getOperationClientToAuthenticateTheRequest() {
-     return new Promise(async function (resolve, reject) {
-         try {
-             let operationClientUuid = undefined;
-             let forwardingConstruct = await forwardingDomain.getForwardingConstructForTheForwardingNameAsync(
-                 "OamRequestCausesInquiryForAuthentication");
-             if (forwardingConstruct) {
-                 let fcPortList = forwardingConstruct["fc-port"];
-                 for (let i = 0; i < fcPortList.length; i++) {
-                     let fcPort = fcPortList[i];
-                     let fcPortDirection = fcPort["port-direction"];
-                     if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-                         operationClientUuid = fcPort["logical-termination-point"];
-                     }
-                 }
-             }
-             resolve(operationClientUuid);
-         } catch (error) {
-             reject(error);
-         }
-     });
- }
- 
- /**
-  * @description To decode base64 authorization code from authorization header<br>
-  * @param {string} authorizationCode base64 encoded authorization code<br> 
-  * @returns {string} returns user name based on the decoded authorization code
-  **/
- exports.decodeAuthorizationCodeAndExtractUserName = function(authorizationCode) {
-     try {
-         let base64EncodedString = authorizationCode.split(" ")[1];
-         let base64BufferObject = Buffer.from(base64EncodedString, "base64");
-         let base64DecodedString = base64BufferObject.toString("utf8");
-         let userName = base64DecodedString.split(":")[0];
-         console.log("Authorization code : " + authorizationCode);
-         console.log("decoded user name: " + userName);
-         return userName;
-     } catch (error) {
-         console.log(error);
-         return "";
-     }
- }
- 
+ function formulateRequestBody(applicationName, releaseNumber, authorizationCode, method) {
+    return {
+        "application-name": applicationName,
+        "release-number": releaseNumber,
+        "Authorization": authorizationCode,
+        "method": method
+    };
+}
+
+async function getOperationClientToAuthenticateTheRequest() {
+    let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
+        "OamRequestCausesInquiryForAuthentication");
+    if (forwardingConstruct) {
+        let fcPortList = forwardingConstruct["fc-port"];
+        for (let fcPort of fcPortList) {
+            if (FcPort.portDirectionEnum.OUTPUT === fcPort["port-direction"]) {
+                return fcPort["logical-termination-point"];
+            }
+        }
+    }
+    return undefined;
+}
+
+/**
+ * @description To decode base64 authorization code from authorization header
+ * @param {String} authorizationCode base64 encoded authorization code
+ * @returns {String|undefined} user name based on the decoded authorization code
+ **/
+exports.decodeAuthorizationCodeAndExtractUserName = function (authorizationCode) {
+    try {
+        let base64EncodedString = authorizationCode.split(" ")[1];
+        let base64BufferObject = Buffer.from(base64EncodedString, "base64");
+        let base64DecodedString = base64BufferObject.toString("utf8");
+        let userName = base64DecodedString.split(":")[0];
+        console.log(`decoded user name: ${userName}`);
+        return userName;
+    } catch (error) {
+        console.error(`Could not decode authorization code "${authorizationCode}". Got ${error}.`);
+        return undefined;
+    }
+}

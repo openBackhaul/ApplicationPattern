@@ -4134,6 +4134,8 @@ paths:
                                           properties:
                                             integer-name:
                                               type: string
+                                            purpose:
+                                              type: string
                                             unit:
                                               type: string
                                             minimum:
@@ -4194,6 +4196,7 @@ paths:
                                 integer-profile-1-0:integer-profile-pac:
                                   integer-profile-capability:
                                     integer-name: 'maximumNumberOfEntries'
+                                    purpose: 'Limiting the number of entries for controlling the storage consumption and access response time'
                                     unit: 'records'
                                     minimum: 0
                                     maximum: 1000000
@@ -5249,6 +5252,8 @@ paths:
                                 properties:
                                   integer-name:
                                     type: string
+                                  purpose:
+                                    type: string
                                   unit:
                                     type: string
                                   minimum:
@@ -6275,6 +6280,47 @@ paths:
                   integer-profile-1-0:integer-name:
                     type: string
                     example: 'maximumNumberOfEntries'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/integer-profile-1-0:integer-profile-pac/integer-profile-capability/purpose:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
+          example: 'ro-2-0-1-integer-p-000'
+    get:
+      operationId: getIntegerProfilePurpose
+      summary: 'Returns the purpose of the Integer'
+      tags:
+        - IntegerProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Integer purpose provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - integer-profile-1-0:purpose
+                properties:
+                  integer-profile-1-0:purpose:
+                    type: string
+                    example: 'Limiting the number of entries for controlling the storage consumption and access response time'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':

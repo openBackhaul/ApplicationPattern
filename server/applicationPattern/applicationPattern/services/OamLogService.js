@@ -47,7 +47,7 @@ exports.recordOamRequest = async function (oamPath, requestBody, responseCode, a
         let userName = AuthorizingService.decodeAuthorizationCodeAndExtractUserName(authorizationCode);
         let stringifiedBody = JSON.stringify(requestBody);
         let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new RequestHeader(userName, applicationName, "", "", "unknown", operationKey));
-        httpRequestBody = formulateResponseBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber);
+        httpRequestBody = formulateRequestBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber);
         let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
         let responseCodeValue = response.status.toString();
         if (responseCodeValue.startsWith("2")) {
@@ -62,7 +62,7 @@ exports.recordOamRequest = async function (oamPath, requestBody, responseCode, a
 }
 
 /**
- * This function formulates the response body with the required attributes that needs to be sent to the OAMLog application
+ * This function formulates the request body with the required attributes that needs to be sent to the OAMLog application
  * @param {String} method HTTP method of the OAM layer call. It can be PUT,GET
  * @param {String} oamPath oam path that is accessed during the request
  * @param {String} stringifiedBody incase if it is a put request, then the request body of the request
@@ -71,9 +71,9 @@ exports.recordOamRequest = async function (oamPath, requestBody, responseCode, a
  * @param {String} timestamp timestamp of the execution
  * @param {String} applicationName name of the application
  * @param {String} releaseNumber release number of the application
- * @returns {Object} return the formulated responseBody
+ * @returns {Object} return the formulated requestBody
  */
-function formulateResponseBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber) {
+function formulateRequestBody(method, oamPath, stringifiedBody, responseCode, userName, timestamp, applicationName, releaseNumber) {
     return {
         "application-name": applicationName,
         "release-number": releaseNumber,

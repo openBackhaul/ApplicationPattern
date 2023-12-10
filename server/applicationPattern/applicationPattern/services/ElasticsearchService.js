@@ -1,11 +1,10 @@
-//@ts-check
+// @ts-check
 'use strict'
 
-const logicalTerminationPoint = require('../onfModel/models/LogicalTerminationPoint');
-const layerProtocol = require('../onfModel/models/LayerProtocol');
-const layerProtocolNameEnum = require('../onfModel/models/LayerProtocol');
+const LogicalTerminationPoint = require('../onfModel/models/LogicalTerminationPoint');
+const LayerProtocol = require('../onfModel/models/LayerProtocol');
 const { Client } = require('@elastic/elasticsearch');
-const controlConstruct = require('../onfModel/models/ControlConstruct');
+const ControlConstruct = require('../onfModel/models/ControlConstruct');
 const TcpClientInterface = require('../onfModel/models/layerProtocols/TcpClientInterface');
 const onfAttributes = require('../onfModel/constants/OnfAttributes');
 
@@ -67,6 +66,7 @@ class ElasticsearchService {
       }
     }
     client = new Client(await configureClientAsync(esUuid));
+    // eslint-disable-next-line no-unused-vars
     client.on('response', (err, result) => {
       if (err) {
         console.error(`Elasticsearch error occurred: ${err}`);
@@ -144,9 +144,9 @@ class ElasticsearchService {
       return;
     }
     let client = await this.getClient(false, uuid);
-    template['body']['template']['settings'] = {
-      'index.lifecycle.name': policyName,
-      'index.lifecycle.rollover_alias': indexAlias
+    template['body']['template']['settings']['index']['lifecycle'] = {
+      'name': policyName,
+      'rollover_alias': indexAlias
     };
     await client.indices.putIndexTemplate(template);
     // call rollover to immediatelly create new index with applied policy
@@ -229,7 +229,8 @@ class ElasticsearchService {
    * @returns {Promise<Object>} controlConstruct object enriched with service-policy-record object
    */
   async updateControlConstructWithServicePolicy(controlConstruct) {
-    let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocolNameEnum.layerProtocolNameEnum.ES_CLIENT);
+    let ltps = await ControlConstruct.getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.ES_CLIENT);
+    let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
     for (let uuid of uuids) {
       let serviceRecordPolicy = await this.getElasticsearchClientServiceRecordsPolicyAsync(uuid);
       let found = controlConstruct['logical-termination-point'].find(u => u['uuid'] === uuid);
@@ -387,7 +388,8 @@ async function configureClientAsync(uuid) {
  * @returns {Promise<String>} UUID of Elasticsearch client
  */
 async function getElasticsearchClientUuidAsync(uuid) {
-  let uuids = await logicalTerminationPoint.getUuidListForTheProtocolAsync(layerProtocol.layerProtocolNameEnum.ES_CLIENT);
+  let ltps = await ControlConstruct.getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.ES_CLIENT);
+  let uuids = ltps.flatMap(ltp => ltp[onfAttributes.GLOBAL_CLASS.UUID]);
   if (uuid !== undefined) {
     if (uuids.includes(uuid)) {
       return uuid;
@@ -407,9 +409,9 @@ async function getElasticsearchClientUuidAsync(uuid) {
  * @returns {Promise<String>} connection string in form: "<remote-protocol>://<address>:port"
  */
 async function getNodeAsync(uuid) {
-  let serverLtp = await logicalTerminationPoint.getServerLtpListAsync(uuid);
-  let httpClient = await controlConstruct.getLogicalTerminationPointAsync(serverLtp[0]);
-  let tcpClient = await logicalTerminationPoint.getServerLtpListAsync(httpClient.uuid);
+  let serverLtp = await LogicalTerminationPoint.getServerLtpListAsync(uuid);
+  let httpClient = await ControlConstruct.getLogicalTerminationPointAsync(serverLtp[0]);
+  let tcpClient = await LogicalTerminationPoint.getServerLtpListAsync(httpClient.uuid);
   let address = await TcpClientInterface.getRemoteAddressAsync(tcpClient[0]);
   let port = await TcpClientInterface.getRemotePortAsync(tcpClient[0]);
   let remoteProtocol = await TcpClientInterface.getRemoteProtocolAsync(tcpClient[0]);
@@ -424,7 +426,7 @@ async function getNodeAsync(uuid) {
  */
 async function getEsClientConfigAsync(uuid) {
   let esUuid = await getElasticsearchClientUuidAsync(uuid);
-  let ltp = await controlConstruct.getLogicalTerminationPointAsync(esUuid);
+  let ltp = await ControlConstruct.getLogicalTerminationPointAsync(esUuid);
   let lp = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
   let esClientPac = lp[onfAttributes.LAYER_PROTOCOL.ES_CLIENT_INTERFACE_PAC];
   return esClientPac[onfAttributes.ES_CLIENT.CONFIGURATION];
@@ -466,7 +468,7 @@ function replaceAllObjKeys(obj, getNewKey) {
     }
   }
   return obj;
-};
+}
 
 /**
  * Returns index alias from config file. If uuid is present, performs check if
@@ -500,13 +502,13 @@ function createResultArray(result) {
  * @returns {Promise<boolean>} true if the TCP client is configured for an Elasticsearch client
  */
 async function isTcpClientElasticsearch(tcpClientUuid) {
-  let httpClientUuids = await logicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
-  let esClientUuids = await logicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
+  let httpClientUuids = await LogicalTerminationPoint.getClientLtpListAsync(tcpClientUuid);
+  let esClientUuids = await LogicalTerminationPoint.getClientLtpListAsync(httpClientUuids[0]);
   if (esClientUuids.length === 0) {
     return false;
   }
-  let protocol = await layerProtocol.getLayerProtocolName(esClientUuids[0]);
-  return layerProtocol.layerProtocolNameEnum.ES_CLIENT === protocol;
+  let protocol = await LayerProtocol.getLayerProtocolName(esClientUuids[0]);
+  return LayerProtocol.layerProtocolNameEnum.ES_CLIENT === protocol;
 }
 
 const elasticsearchService = new ElasticsearchService();
