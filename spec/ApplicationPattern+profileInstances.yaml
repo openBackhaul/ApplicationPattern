@@ -28,7 +28,7 @@ profile-instances:
       consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
 
   - profile-name: 'ActionProfile'
-    uuid: 'xx-1-0-0-action-p-???' and ??? by SequenceNumber
+    uuid: 'xx-1-0-0-action-p-???'
     capability:
       operation-name: ## TODO: Add generic representation operation that shall result in a new button and potentially new input fields
       label: ## TODO: Add label of the new button
@@ -64,7 +64,7 @@ profile-instances:
       value-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: 'xx-1-0-0-response-p-002' 
+    uuid: 'xx-1-0-0-response-p-002'
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       static-field-name: 'releaseNumber'
@@ -74,7 +74,7 @@ profile-instances:
       value-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: 'xx-1-0-0-response-p-003' 
+    uuid: 'xx-1-0-0-response-p-003'
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       static-field-name: 'applicationPurpose'
@@ -84,7 +84,7 @@ profile-instances:
       value-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: 'xx-1-0-0-response-p-004' 
+    uuid: 'xx-1-0-0-response-p-004'
     capability:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       static-field-name: 'dataUpdatePeriod'
