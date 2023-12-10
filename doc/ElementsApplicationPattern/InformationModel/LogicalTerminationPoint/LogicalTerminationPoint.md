@@ -12,7 +12,7 @@ The following attributes are hold by the LogicalTerminationPoint:
   - **core-model-1-4:TERMINATION_DIRECTION_SOURCE**: Looking at the _Forwarding_ inside the applications, it is the OperationServer, where the event, which causes a reaction at the OperationClient, happens. Consequently, the LTPs that are describing servers (OperationServer, HttpServer, TcpServer) are identified by being sources of the internal flow.  
   - **core-model-1-4:TERMINATION_DIRECTION_SINK**: Again looking at the internal _Forwarding_, the information is propagating towards the clients (OperationClient, ElasticsearchClient, HttpClient, TcpClient). Consequently, these interfaces are associated with being sinks of the internal flow.  
 - **clientLtp**: This attribute does not relate to the relationship between applications, but OSI network layers. Example: An Ethernet PHY would be required for transporting an Ethernet MAC, and an Ethernet MAC would be required for transporting an IP layer. So, the Ethernet PHY is serving the Ethernet MAC, and the IP is client of the Ethernet MAC. Example in case of applications: OperationClients/OperationServers are referenced in the clientLtp attribute of the HttpClient/HttpServer.  
-- **serverLtp**: Example in case of applications: TcpClients/TcpServers are referenced in the serverLtp attribute of the HttpClient/HttpServer.
+- **serverLtp**: Example in case of applications: the TcpClient/TcpServer is referenced in the serverLtp attribute of the HttpClient/HttpServer.
 - **layerProtocol**: List of logical layers that are terminated at the LTP. In case of MW SDN applications, but also in case of the MW information model, there is always just a single instance of LayerProtocol in this list.  
 
 ![ClientServerRelationships](pictures/clientServerLtp.png)  
@@ -78,7 +78,7 @@ Each service that is provided by the application is represented as an **Operatio
 }
 ```
 
-- The **TcpServer** represents the current IP address and port of the application that is subject to the specification. There must be at least one instance of TcpServer. If the application shall be reachable from within and from outside the virtual private cloud (name space behind TLS layer termination), separate TcpServers are required for http and https. The TcpServer has a complex data structure that offers multiple ways of expressing the address information. Several attributes are for alternative usage (means: exclusive alternatives). It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the application's own address would be required. In all the existing applications, the following attributes got augmented:  
+- The **TcpServer** represents the current IP address and port of the application that is subject to the specification. The TcpServer has a complex data structure that offers multiple ways of expressing the address information. Several attributes are for alternative usage (means: exclusive alternatives). It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the application's own address would be required. In all the existing applications, the following attributes got augmented:  
 ```
 "tcp-server-interface-1-0:tcp-server-interface-pac": {
   "tcp-server-interface-configuration": {
@@ -133,7 +133,7 @@ Each service that is provided by the application is represented as an **Operatio
 }
 ```
 
-- The **TcpClient** stores the IP address and port of a serving application. In contrast to the TcpServer, just a single TcpClient shall be described. Alike the TcpServer, the TcpClient has a complex data structure that offers multiple ways of expressing the address information. Several attributes are for alternative usage (means: exclusive alternatives). It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the serving application's address would be required. In all the existing applications, the following attributes got augmented:  
+- The **TcpClient** stores the IP address and port of a serving application. Alike the TcpServer, the TcpClient has a complex data structure that offers multiple ways of expressing the address information. Several attributes are for alternative usage (means: exclusive alternatives). It is recommended to study the definition of the ControlConstruct in the OpenApiSpecification of the ApplicationPattern, if a different way of expressing the serving application's address would be required. In all the existing applications, the following attributes got augmented:  
 ```
 "tcp-client-interface-1-0:tcp-client-interface-pac": {
   "tcp-client-interface-configuration": {

@@ -1,0 +1,210 @@
+@startuml Improved_EmbedNewApp
+skinparam responseMessageBelowArrow true
+
+title
+Improved Embedding process of a completely new application into a properly running environment
+(Status = should be ; Problems indicated in red)
+end title
+
+participant "Admin" as Admin
+participant "NewApp://v1/register-yourself" as NewAppRegYs
+participant "RO://v2/register-application" as RoRegiA
+participant "TAR://v1/regard-application" as TarRegaA
+participant "RO://v1/regard-updated-approval-status" as RoRegaUa
+participant "NewApp://v1/embed-yourself" as NewAppEmbYs
+  participant "OR://v1/bequeath-your-data-and-die" as OrBydad
+participant "ALT://v1/regard-application" as AltRegaA
+  participant "ALT://v1/update-ltp" as AltUltp
+  participant "ALT://v1/delete-ltp-and-dependents" as AltDltpAd
+  participant "ALT://v1/update-fc" as AltUfc
+  participant "ALT://v1/update-fc-port" as AltUfcP
+  participant "ALT://v1/delete-fc-port" as AltDfcP
+  participant "NewApp://v1/redirect-topology-change-information" as NewAppRtci
+participant "ALT://v1/add-operation-client-to-link" as AltAoctL
+participant "ALT://v1/list-end-points-of-link" as AltLepol
+participant "OKM://v2/regard-updated-link" as OkmReguL
+participant "NewApp://v1/update-operation-key" as NewAppUok
+participant "EaTL://v1/regard-application" as EatlRegaA
+  participant "EaTL://v1/record-service-request" as EatlRsr
+  participant "NewApp://v1/redirect-service-request-information" as NewAppRsri
+participant "OL://v1/regard-application" as OlRegaA
+  participant "OL://v1/record-oam-request" as OlRor
+  participant "NewApp://v1/redirect-oam-request-information" as NewAppRori
+participant "AA://v1/regard-application" as AaRegaA
+  participant "AA://v1/approve-oam-request" as AaAor
+  participant "NewApp://v1/inquire-oam-request-approvals" as NewAppIora
+participant "OKM://v1/regard-application" as OkmRegaA
+  participant "ALT:///v1/list-link-uuids" as AltLiu
+
+
+Admin -> NewAppRegYs : (default ApiKey)
+
+activate NewAppRegYs
+NewAppRegYs -> RoRegiA : (./.)
+deactivate NewAppRegYs
+
+activate RoRegiA
+RoRegiA -> TarRegaA : (known ApiKey)
+deactivate RoRegiA
+
+activate TarRegaA
+TarRegaA -> RoRegaUa : (known ApiKey)
+deactivate TarRegaA
+
+activate RoRegaUa
+RoRegaUa -> NewAppEmbYs : (default ApiKey)
+
+  activate NewAppEmbYs
+  NewAppEmbYs -> OrBydad : <font color=red> <b> (ApiKey)
+  deactivate NewAppEmbYs
+
+  note over OrBydad
+  Further processing
+  in casae of updates
+  end note
+  /' activate OrBydad
+  'RO://v1/relay-server-replacement'
+  'RO://v1/deregister-application'
+  deactivate OrBydad '/
+
+RoRegaUa -> AltRegaA : (known ApiKey)
+
+  activate AltRegaA
+  AltRegaA -> NewAppRtci : (default ApiKey)
+  NewAppRtci --> AltRegaA : {entire ControlConstruct}
+  deactivate AltRegaA
+
+    activate NewAppRtci
+    NewAppRtci -> AltUltp : <font color=red> <b> (ApiKey)
+    NewAppRtci -> EatlRsr : <font color=red> <b> (ApiKey) \n<font color=red> <b> (EaTL address and ApiKey unknow until \n<font color=red> <b> NewApp://v1/redirect-service-request-information received)
+
+    note over NewAppRtci
+    Sends info about
+    updated LTPs in future
+    end note
+    NewAppRtci -> AltUltp : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    deleted LTPs in future
+    end note
+    NewAppRtci -> AltDltpAd : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    updated FCs in future
+    end note
+    NewAppRtci -> AltUfc : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    updated FcPorts in future
+    end note
+    NewAppRtci -> AltUfcP : <font color=red> <b> (ApiKey)
+
+    note over NewAppRtci
+    Sends info about
+    deleted FcPorts in future
+    end note
+    NewAppRtci -> AltDfcP : <font color=red> <b> (ApiKey)
+
+    deactivate NewAppRtci
+
+RoRegaUa -> EatlRegaA : (known ApiKey)
+
+  activate EatlRegaA
+  note over EatlRegaA
+  Add EaTL to Link of
+  NewApplication://v1/redirect-service-request-information
+  end note
+  EatlRegaA -> AltAoctL : (known ApiKey)
+
+    activate AltAoctL
+    AltAoctL -> OkmReguL : (known ApiKey)
+    deactivate AltAoctL
+
+      activate OkmReguL
+      OkmReguL -> AltLepol : (known ApiKey)
+      AltLepol --> OkmReguL
+      OkmReguL -> NewAppUok : (default ApiKey)
+  note over EatlRegaA
+  Add new application to
+  Link of EaTL://v1/record-service-request
+  end note
+  EatlRegaA -> AltAoctL : (known ApiKey)
+
+    activate AltAoctL
+    AltAoctL -> OkmReguL : (known ApiKey)
+    deactivate AltAoctL
+
+      activate OkmReguL
+      OkmReguL -> AltLepol : (known ApiKey)
+      AltLepol --> OkmReguL
+      OkmReguL -> NewAppUok : (default ApiKey)
+
+  note over EatlRegaA
+  Request new application to
+  address EaTL://v1/record-service-request
+  end note
+  EatlRegaA -> NewAppRsri : (default ApiKey)
+  deactivate EatlRegaA
+
+    activate NewAppRsri
+    NewAppRsri -> AltUltp : <font color=red> <b> (ApiKey)
+    NewAppRsri -> EatlRsr : (ApiKey)
+    note over NewAppRsri
+    Sends service records
+    to EaTL in future
+    end note
+    NewAppRsri -> EatlRsr : (ApiKey)
+    deactivate NewAppRsri
+
+RoRegaUa -> OlRegaA : (known ApiKey)
+
+  activate OlRegaA
+  OlRegaA -> NewAppRori : (default ApiKey)
+  deactivate OlRegaA
+
+    activate NewAppRori
+    NewAppRori -> AltUltp : <font color=red> <b> (ApiKey)
+    NewAppRori -> EatlRsr : <font color=red> <b> (ApiKey)
+    note over NewAppRori
+    Sends oam records
+    to OL in future
+    end note
+    NewAppRori -> OlRor : <font color=red> <b> (ApiKey)
+    deactivate NewAppRori
+
+RoRegaUa -> AaRegaA : (known ApiKey)
+
+  activate AaRegaA
+  AaRegaA -> NewAppIora : (default ApiKey)
+  deactivate AaRegaA
+
+    activate NewAppIora
+    NewAppIora -> AltUltp : <font color=red> <b> (ApiKey)
+    NewAppIora -> EatlRsr : <font color=red> <b> (ApiKey)
+    note over NewAppIora
+    Inquires approvals of oam
+    request at AA in future
+    end note
+    NewAppIora -> AaAor : <font color=red> <b> (ApiKey)
+    deactivate NewAppIora
+
+RoRegaUa -> OkmRegaA : (known ApiKey)
+
+  note over OkmRegaA
+  As part of cyclic operation:
+  overwrites default ApiKeys
+  at all OperationServers of new application
+  end note
+  activate OkmRegaA
+  OkmRegaA -> AltLiu : (known ApiKey)
+  OkmRegaA -> AltLepol : (known ApiKey)
+  AltLepol --> OkmRegaA
+  OkmRegaA -> NewAppUok : <font color=red> <b> (ApiKey)
+  deactivate OkmRegaA
+
+deactivate RoRegaUa
+
+@enduml

@@ -76,8 +76,6 @@ In case of the **FileProfile** the following attributes get augmented:
   },
   "file-profile-configuration": {
     "file-path": "../application-data/application-data.json",
-    "user-name": "RegistryOffice",
-    "password": "Operations to add password",
     "operation": "file-profile-1-0:OPERATION_TYPE_READ_WRITE"
   }
 }
