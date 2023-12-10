@@ -124,7 +124,7 @@ profile-instances:
       value-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes'
 
   - profile-name: 'GenericResponseProfile'
-    uuid: 'xx-1-0-0-response-p-???' and ??? by SequenceNumber
+    uuid: 'xx-1-0-0-response-p-???'
     capability:
       operation-name: ## TODO: Add generic representation operation that shall provide this response
       static-field-name: ## TODO: Add the concrete name of the field as it shall be respresented in the GUI EXOR a reference from which the name of the field shall be taken. ...
@@ -139,7 +139,7 @@ profile-instances:
 
 
   - profile-name: 'FileProfile'
-    uuid: 'xx-1-0-0-file-p-???' and ??? by SequenceNumber
+    uuid: 'xx-1-0-0-file-p-???'
     capability:
       file-identifier: ## TODO: Add invariant identifier of the referenced file
       file-description: ## TODO: Add a description of the content of the referenced file
@@ -151,7 +151,7 @@ profile-instances:
 
 
   - profile-name: 'IntegerProfile'
-    uuid: 'xx-1-0-0-integer-p-???' and ??? by SequenceNumber
+    uuid: 'xx-1-0-0-integer-p-???'
     capability:
       integer-name: ## TODO: Add name of the Integer attribute
       purpose: ## TODO: Potentially add description of the Integer attribute
@@ -165,7 +165,7 @@ profile-instances:
 
 
   - profile-name: 'StringProfile'
-    uuid: 'xx-1-0-0-string-p-???' and ??? by SequenceNumber
+    uuid: 'xx-1-0-0-string-p-???'
     capability:
       string-name: ## TODO: Add name of the String attribute
       enumeration: ## TODO: Potentially add a set of allowed values in cornered brackets
