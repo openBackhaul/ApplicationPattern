@@ -1824,6 +1824,21 @@
                     "logical-termination-point": "xx-1-0-0-op-s-bm-012"
                   },
                   {
+                    "local-id": "113",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-013"
+                  },
+                  {
+                    "local-id": "114",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-014"
+                  },
+                  {
+                    "local-id": "115",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-015"
+                  },
+                  {
                     "local-id": "130",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                     "logical-termination-point": "xx-1-0-0-op-s-im-000"
