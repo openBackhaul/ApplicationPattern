@@ -36,7 +36,6 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 127.0.0.1 | 4003
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
-|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 127.0.0.1 | 4008
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
@@ -46,6 +45,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDG | MicroWaveDeviceGatekeeper | 1.0.0 | 1.1.4.14 | 4014
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.1 | 1.1.4.15 | 4015
 |  | MDIP | MultiDomainInventoryProxy | 1.0.0 | 1.1.4.16 | 4016 | 1.2.4.16 | 4216
+|  | AIPS | AirInterfacePowerSaver  | 0.0.9 | 127.0.0.1 | 4017
 
 \*) IP_1 + TCP_1 = address from **within** the GCP VPC (HTTP).  
 \*\*) IP_2 + TCP_2 = address from **outside** the GCP VPC (HTTP**S**).
@@ -79,3 +79,4 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
 |  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
 |  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
+|  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
