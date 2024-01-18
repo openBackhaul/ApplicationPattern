@@ -1975,16 +1975,28 @@ paths:
                   content:
                     application/json:
                       schema:
-                        type: object
-                        properties:
-                          basic-auth-request-is-approved:
-                            type: boolean
-                            description: 'If true, BasicAuth request can be executed'
-                          reason-of-objection:
-                            type: string
-                            description: >
-                              'if AUTHORIZATION_CODE_UNKNOWN BasicAuth request to be aborted and 401 to be sent
-                              else BasicAuth request to be aborted and 403 to be sent'
+                        oneOf:
+                          - description: 'AdministratorAdministration is responding'
+                            type: object
+                            properties:
+                              oam-request-is-approved:
+                                type: boolean
+                              reason-of-objection:
+                                type: string
+                                description: >
+                                  'This attribute to be represented, if response::oam-request-is-approved==false.
+                                  Reasons to be checked and indicated according to the sequence defined in the enumeration.'
+                          - description: 'AccessAdministration is responding'
+                            type: object
+                            properties:
+                              basic-auth-request-is-approved:
+                                type: boolean
+                                description: 'If true, BasicAuth request can be executed'
+                              reason-of-objection:
+                                type: string
+                                description: >
+                                  'if AUTHORIZATION_CODE_UNKNOWN BasicAuth request to be aborted and 401 to be sent
+                                  else BasicAuth request to be aborted and 403 to be sent'
                   headers:
                     x-correlator:
                       schema:
