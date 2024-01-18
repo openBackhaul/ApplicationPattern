@@ -3805,8 +3805,6 @@ paths:
       summary: 'Provides name and number of the preceding release'
       tags:
         - BasicServices
-      security:
-        - apiKeyAuth: []
       responses:
         '200':
           description: 'Name and number of the preceding release provided'

@@ -544,7 +544,7 @@
                   },
                   "operation-server-interface-configuration": {
                     "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                    "operation-key": "Operation key not yet provided."
+                    "operation-key": "n.a."
                   }
                 }
               }
