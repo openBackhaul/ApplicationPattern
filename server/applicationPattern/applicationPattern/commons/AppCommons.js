@@ -52,7 +52,8 @@ function setupExpressApp(app) {
  */
 // eslint-disable-next-line no-unused-vars
 async function validateOperationKey(request, scopes, schema) {
-    const operationUuid = await operationServerInterface.getOperationServerUuidAsync(request.url);
+    let pathDefinedInOpenApi = request.openapi.openApiRoute;
+    const operationUuid = await operationServerInterface.getOperationServerUuidAsync(pathDefinedInOpenApi);
     const operationKeyFromLoadfile = await operationServerInterface.getOperationKeyAsync(operationUuid);
     const isAuthorized = operationKeyFromLoadfile === request.headers['operation-key'];
     return isAuthorized;
