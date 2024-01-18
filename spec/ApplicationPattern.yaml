@@ -3936,7 +3936,7 @@ paths:
                       description: >
                         'Domain name to be used during the bequeath-your-data-and-die process
                         update [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                future-port:
+                port:
                   type: integer
                   minimum: 0
                   maximum: 65535
