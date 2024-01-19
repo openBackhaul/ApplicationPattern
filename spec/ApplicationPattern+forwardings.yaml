@@ -1,6 +1,25 @@
 forwardings:
 
   - forwarding-name: PromptForRegisteringCausesRegistrationRequest
+    uuid: xx-1-0-0-op-fc-bm-999
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/register-yourself
+          uuid: xx-1-0-0-op-s-bm-000
+      fc-port-update:
+        - server-name: /v1/register-yourself
+          uuid: xx-1-0-0-op-s-bm-000
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/register-yourself
+        uuid: xx-1-0-0-op-s-bm-000
+    consequent-requests:
+      - client-name: RegistryOffice://v2/register-application
+        uuid: xx-1-0-0-op-c-bm-ro-2-1-0-000
+
+  - forwarding-name: PromptForRegisteringCausesRegistrationRequest2
     uuid: xx-1-0-0-op-fc-bm-000
     forwarding-type: InvariantProcessSnippet
     management-requests:

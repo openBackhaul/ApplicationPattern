@@ -792,6 +792,16 @@ paths:
                   application/json:
                     schema:
                       type: object
+                      required:
+                        - application-name
+                        - release-number
+                        - embedding-operation
+                        - client-update-operation
+                        - operation-client-update-operation
+                        - dispose-remainders-operation
+                        - preceding-release-operation
+                        - subsequent-release-operation
+                        - tcp-server
                       properties:
                         application-name:
                           type: string
@@ -1941,6 +1951,12 @@ paths:
                   application/json:
                     schema:
                       type: object
+                      required:
+                        - Authorization
+                        - application-name
+                        - release-number
+                        - operation-name
+                        - method
                       properties:
                         Authorization:
                           type: string
@@ -3643,6 +3659,12 @@ paths:
                   application/json:
                     schema:
                       type: object
+                      required:
+                        - Authorization
+                        - application-name
+                        - release-number
+                        - operation-name
+                        - method
                       properties:
                         Authorization:
                           type: string
