@@ -40,7 +40,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
 |  | NP | NotificationProxy | 1.0.1 | 1.1.4.11 | 4011 | 1.2.4.11 | 4211
-|  | MB | MycomButler | 1.0.0 | 127.0.0.1 | 4012 |
+|  | MWPP | MicroWavePerformanceProxy | 1.0.0 | 127.0.0.1 | 4012 |
 |  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 127.0.0.1 | 4013
 |  | MWDG | MicroWaveDeviceGatekeeper | 1.0.0 | 1.1.4.14 | 4014
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.1 | 1.1.4.15 | 4015
