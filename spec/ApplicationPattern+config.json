@@ -544,7 +544,7 @@
                   },
                   "operation-server-interface-configuration": {
                     "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                    "operation-key": "Operation key not yet provided."
+                    "operation-key": "n.a."
                   }
                 }
               }
@@ -1691,7 +1691,7 @@
             "uuid": "xx-1-0-0-op-fd-000",
             "forwarding-construct": [
               {
-                "uuid": "xx-1-0-0-op-fc-bm-000",
+                "uuid": "xx-1-0-0-op-fc-bm-999",
                 "name": [
                   {
                     "value-name": "ForwardingKind",
@@ -1700,6 +1700,36 @@
                   {
                     "value-name": "ForwardingName",
                     "value": "PromptForRegisteringCausesRegistrationRequest"
+                  }
+                ],
+                "fc-port": [
+                  {
+                    "local-id": "000",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-000"
+                  },
+                  {
+                    "local-id": "100",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-000"
+                  },
+                  {
+                    "local-id": "200",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+                    "logical-termination-point": "xx-1-0-0-op-c-bm-ro-2-1-0-000"
+                  }
+                ]
+              },
+              {
+                "uuid": "xx-1-0-0-op-fc-bm-000",
+                "name": [
+                  {
+                    "value-name": "ForwardingKind",
+                    "value": "core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET"
+                  },
+                  {
+                    "value-name": "ForwardingName",
+                    "value": "PromptForRegisteringCausesRegistrationRequest2"
                   }
                 ],
                 "fc-port": [
@@ -1822,6 +1852,21 @@
                     "local-id": "112",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                     "logical-termination-point": "xx-1-0-0-op-s-bm-012"
+                  },
+                  {
+                    "local-id": "113",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-013"
+                  },
+                  {
+                    "local-id": "114",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-014"
+                  },
+                  {
+                    "local-id": "115",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-015"
                   },
                   {
                     "local-id": "130",
@@ -2072,6 +2117,11 @@
                     "local-id": "112",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                     "logical-termination-point": "xx-1-0-0-op-s-bm-012"
+                  },
+                  {
+                    "local-id": "115",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "xx-1-0-0-op-s-bm-015"
                   },
                   {
                     "local-id": "130",
