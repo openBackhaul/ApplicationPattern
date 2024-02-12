@@ -1,5 +1,8 @@
 # ApplicationPattern Specification
 
+### Diagrams  
+- [Collection of Diagrams](./diagrams)
+
 ### ServiceList
 - [ApplicationPattern+services](./ApplicationPattern+services.yaml)
 
