@@ -1,4 +1,4 @@
-@startuml Improved_EmbedNewApp
+@startuml old_Improved_EmbedNewApp
 skinparam responseMessageBelowArrow true
 
 title

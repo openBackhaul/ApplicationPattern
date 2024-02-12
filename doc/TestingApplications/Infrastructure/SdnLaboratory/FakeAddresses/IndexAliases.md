@@ -11,6 +11,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 6
 |  | MWDI | MicroWaveDeviceInventory | 1.0.0 | 7
 |  | AIPS | AirInterfacePowerSaver | 0.0.5 | 8
+|  | MB | MycomButler | 1.0.0 | 9
 
 
 # Historical Fake Index Aliases  

@@ -448,27 +448,143 @@ This class provides a stub to instantiate and generate a JSON object for a Appli
 |**getReleaseNumberAsync** <br> This function finds the http-client release-number of operation-client uuid|{String} **operationClientUuid** uuid of operation-client for which it's serving application's release-number to be found|{String} releaseNumber |
 
 #### **LogicalTerminationPointServices.js**
+([top &uarr;](#Outline)) This module provides functionalities to manipulate the /core-model-1-4:control-construct/logical-termination-point by creating/updating/deleting tcp, http, operation client instance groups for new or existing applications. 
+|**Method and description**|**Input parameters**|**Return type**|
+|---|---|---|
+|**createOrUpdateApplicationLtpsAsync** <br>This function creates the http, operation and tcp client if not available or updates the ltp instances if already exists.|{Object} **LogicalTerminationPointConfigurationInput** : object that contains all the necessary information to create or find the ltp instance<br>{list} **isApplicationRO** : true if the application to be changed is RegistryOffice|{Promise<LogicalTerminationPointConfigurationStatus>} object returns status of creation or updation |
+|**FindAndUpdateApplicationLtpsAsync** <br> This function finds and updates the http, tcp and operation client for already exisiting ltp instances.|{Object} **LogicalTerminationPointConfigurationInput** : object that contains all the necessary information to create or find the ltp instance<br>{list} **isApplicationRO** : true if the application to be changed is RegistryOffice|{Promise<LogicalTerminationPointConfigurationStatus>} object returns status of updation |
+|**deleteApplicationLtpsAsync** <br> This function deletes the tcp,http,operation client for the provided http client uuid.|{String} **httpClientUuid** http client uuid of the client application|{Promise<LogicalTerminationPointConfigurationStatus>} status of deletions|
+|**deleteOperationClientLtpAsync** <br> This function deletes the operation-client ltp instances and dependent fc-port instances.|{String} **operationClientUuid** uuid of the operation-client to be deleted. |{Promise<Boolean>} status of delete operation|
+|**createLtpInstanceGroupAsync** <br>This function creates logical termination points for the provided values.| {Object} **LogicalTerminationPointConfigurationInput** : object that contains all the necessary information to create or find the ltp instance<br>{list} **isApplicationRO** : true if the application to be changed is RegistryOffice|{Promise<LogicalTerminationPointConfigurationStatus>} object returns status of creation |
+|**updateLtpInstanceGroupAsync** <br>This function configures the existing logical termination point to the latest values.Also in case if the tcp,operation client are not available they will be created.|{Object} **LogicalTerminationPointConfigurationInput** : object that contains all the necessary information to create or find the ltp instance<br>{list} **isApplicationRO** : true if the application to be changed is RegistryOffice|{Promise<LogicalTerminationPointConfigurationStatus>} object returns status of updation |
+|**createHttpClientLtpAsync** <br>This function creates a http client interface.|{String} **applicationName** applicationName name of the client application <br> {String} **releaseNumber** release of the client application | {Promise<ConfigurationStatus>} returns status of creation|
+|**updateHttpClientLtpAsync** <br>This function updates the http client ltp.|{String} **httpClientUuid** uuid name of the http-client <br> {String} **releaseNumber** release of the client application <br> {Boolean} **isOperationClientChanged** if there was a change with any of this http-client's operation-client | {Promise<ConfigurationStatus>} returns status of updation|
+|**createOrUpdateTcpClientLtpAsync** <br>This function creates or updates a single tcp client interface.|{String} **httpClientUuid** uuid name of the tcp-client <br>{Object} **tcpObject** Object to be created or updated |{Promise<ConfigurationStatus>}returns status of creation/updation|
+|**createOrUpdateTcpClientLtpsAsync** <br>This function creates or updates a tcp client interface. In case of multiple TCP clients, the tcp-client is updated or created based on protocol value. | {String} **httpClientUuid** uuid of the http-client for which the tcp-clients to be created/updated. <br> {Array<Object>} **tcpList** list of tcp objects.| {Promise<Array<ConfigurationStatus>>} returns list of create/update status for each tcp-client input|
+|**createTcpClientLtpAsync** <br> This function creates a tcp client interface.|{String} **httpClientUuid** uuid of the http-client <br> {Object} **tcpObject** tcp object to be created | {Promise<ConfigurationStatus>} status of creation|
+|**updateTcpClientLtpAsync** <br> This function updates a tcp client interface. | {String} **tcpClientUuid** uuid of the tcp-client <br> {Object} **tcpObject** tcp object to be updated |  {Promise<ConfigurationStatus>} status of updation.|
+|**createOperationClientLtpAsync** <br> This function creates an operation client ltp.| {String} **httpClientUuid** uuid of the http-client <br> {String} **operationName** : name of the operation to be created <br> {String} **operationClientUuid** : uuid of the operation | {Promise<ConfigurationStatus>} status of creation.|
+|**createOrUpdateOperationClientLtpAsync** <br>This function creates or updates an operation client ltp for the provided input operation name list.| {String} **httpClientUuid** uuid of the http-client <br> {String} **operationServerName** caller operation <br> {Map} **operationNamesByAttributes** map of the client operation attributes (key) with client operation names (value) <br> {Object} **operationsMapping** map of hardcoded context values for operations | {Promise<Array<ConfigurationStatus>>} returns list of creation/updation status for each operation-client input. 
 
-#### **models**
+### **models**
 
 **ForwardingConstruct**
 
 _AutomationInput.js_
 
+This class provides a stub for the AutomationInput of a forwarding. This consolidates the name of forwarding, its corresponding request-body and the context for validation.  
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|String|forwardingName |
+|Object|attributeList |
+|String|context |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a new AutomationInput instance.|{String} **forwardingName** : name of the forwarding construct. <br>{Object} **attributeList** list of attributes in key value pairs. <br> {String}**context** it should be a string with the information of application name + release number|
+
 _ConfigurationInput.js_
+
+This class provides a stub for the forwarding construct configuration input. The provides the structure of the input that needs to be fed to the configureForwardingConstructAsync function which will further configure the forwarding-construct. 
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|String|forwardingName |
+|String|operationClientUuid |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a ConfigurationInput  object for the provided values.|{String} **forwardingName** : name of the forwarding construct. <br>{String} **operationClientUuid** operation client uuid of that needs to be configured in the fc-port|
 
 _ConfigurationStatus.js_
 
-**logicalTerminationPoint**x
+This class provides a stub for the ForwardingConstructConfigurationStatus.  This class consolidates the logical termination point configuration status for the protocol tcp-client,http-client and operation-client.
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|Array|forwardingConstructConfigurationStatusList |
+|Array|fcPortConfigurationStatusList |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a ConfigurationStatus object for the provided values.|{Array} **forwardingConstructConfigurationStatusList** : list of configuration status of fc <br>{Array} **fcPortConfigurationStatusList** list of configuration status of fc-port |
+
+**logicalTerminationPoint**
 
 _ConfigurationInput.js_
 
+This class provides a stub for the logical-termination-point configuration input. It provides the structure of the input that needs to be fed to the createOrUpdateApplicationLtpsAsync function which will further configure the tcp,http,operation clients of the logical-termination-point
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|String|httpClientUuid |
+|String|applicationName |
+|String|releaseNumber |
+|Array<TcpObject>| tcpList |
+|String| operationServerName |
+|Map|operationNamesByAttributes |
+|Object|operationsMapping |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a ConfigurationInputWithMapping object for the provided values.|{String} **httpClientUuid** : http client UUID of the client application <br>{String} **applicationName** : name of the client application <br> {String} **releaseNumber** : release of the client application <br> {Array<TcpObject>} **tcpList** : remote ipv4 address of the client application <br> {String} **operationServerName** : caller operation <br> {Map} **operationNamesByAttributes** : map of the client operation attribute (key) with client operation name (value) <br> {Object} **operationsMapping** : map of hardcoded context values for operations|
+
 _ConfigurationStatus.js_
+
+This class provides a stub for the LogicalTerminationPointConfigurationStatus. This class consolidates the logical termination point configuration status for the protocol tcp-client,http-client and operation-client.
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|Array|operationClientConfigurationStatusList |
+|Object|httpClientConfigurationStatus |
+|Array|tcpClientConfigurationStatusList |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a ConfigurationStatus object for the provided values. |{Array} **operationClientConfigurationStatusList** : configuration status list of operation clients. <br>{Object} **httpClientConfigurationStatus** : configuration status of http-clients <br> {Array} **tcpClientConfigurationStatusList** : configuration status of tcp-clients. |
 
 **ConfigurationStatus.js**
 
+This class provides a stub for the ConfigurationStatus. This class provides details about the uuid and its recent configuration status.
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|String|uuid |
+|String|localId |
+|Boolean|updated |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a ConfigurationStatus object for the provided values. |{String} **uuid** : unique identity of the configured entity. <br>{String} **localId** :local-id of the configured entity. <br> {Boolean} **updated** : true if the value is configured. |
+
 **TcpObject.js**
 
+This class provides a stub for the TcpObject. This class provides details about the address, protocol and port of a tcp-object.
+
+*Field summary*:
+|**Type**|**Field**|
+|---|---|
+|String|protocol |
+|Object|address |
+|String|port |
+
+*Constructor summary*:
+|**Constuctor and description**|**parameters**|
+|---|---|
+|This creates a tcp object for the provided values. |{String} **protocol** : protocol of client application. <br>{Object} **address** :address of client application. <br> {String} **port** : port of client application. |
 
 #### **Utility**
 
