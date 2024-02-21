@@ -179,8 +179,9 @@ class FileProfile extends profile {
                 for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
                     let uuid = profileUuid[profileUuidIndex];
                     let value = await FileProfile.getFilePath(uuid)
-                    if (fileSystem.existsSync(value)) {
-                        applicationDataFile = value;
+                    let completeFilePath = "./application-data/" + value;
+                    if (fileSystem.existsSync(completeFilePath)) {
+                        applicationDataFile = completeFilePath;
                     }
                 }
                 if (applicationDataFile !== undefined) {
@@ -210,7 +211,7 @@ class FileProfile extends profile {
                     if (uuidOfProfile === profileUuid) {
                         let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
                         let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                        filePath = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_PATH];
+                        filePath = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_NAME];
                     }
                 }
                 resolve(filePath);
