@@ -80,9 +80,7 @@ const FILE_PROFILE = {
     CONFIGURATION: "file-profile-configuration",
     FILE_IDENTIFIER: "file-identifier",
     FILE_DESCRIPTION: "file-description",
-    FILE_PATH: "file-path",
-    USER_NAME: "user-name",
-    PASSWORD: "password",
+    FILE_NAME: "file-name",
     OPERATION: "operation"
 };
 

@@ -145,6 +145,41 @@ class IntegerProfile extends Profile {
             }
         });
     }
+
+
+    static async maximumWaitTimeToReceiveOperationKey() {
+        let intervalInMinutes
+        let profileList = await ProfileCollection.getProfileListAsync();
+        for (let i = 0; i < profileList.length; i++) {
+            let profileInstance = profileList[i];
+            let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
+            if (profileName == "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE") {
+                let Integerval = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CAPABILITY][onfAttributes.INTEGER_PROFILE.INTEGER_NAME]
+                if (Integerval == 'maximumWaitTimeToReceiveOperationKey') {
+                    intervalInMinutes = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CONFIGURATION][onfAttributes.INTEGER_PROFILE.INTEGER_VALUE]
+                    break;
+                }
+            }
+        }
+        return intervalInMinutes;
+    }
+
+    static async maximumNumberOfAttemptsToCreateLink() {
+        let numberOfAttempt
+        let profileList = await ProfileCollection.getProfileListAsync();
+        for (let i = 0; i < profileList.length; i++) {
+            let profileInstance = profileList[i];
+            let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
+            if (profileName == "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE") {
+                let Integerval = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CAPABILITY][onfAttributes.INTEGER_PROFILE.INTEGER_NAME]
+                if (Integerval == 'maximumNumberOfAttemptsToCreateLink') {
+                    numberOfAttempt = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CONFIGURATION][onfAttributes.INTEGER_PROFILE.INTEGER_VALUE]
+                    break;
+                }
+            }
+        }
+        return numberOfAttempt;
+    }
 }
 
 module.exports = IntegerProfile;
