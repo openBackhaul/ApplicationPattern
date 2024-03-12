@@ -65,6 +65,8 @@ Several need to be added, and it is recommended to copy and paste the existing o
 - After you updated the OperationClients at all the HttpClients, double check whether the ordering of the OperationClients is consistent with the ServiceList.  
 - After assuring that, double check, whether the abbreviation of the application's name inside the UUIDs of all the OperationClients, HttpClients and TcpClients is correct.  
 - Finally, double check the sequence number inside the UUIDs of all the OperationClients, HttpClients and TcpClients.  
+
+- Also ensure that the [operationKey](./OperationKeys.md) fields of OperationClients and OperationServers are set correctly.
  
 #### ForwardingConstructs  
 
