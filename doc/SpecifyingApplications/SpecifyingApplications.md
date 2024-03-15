@@ -89,7 +89,8 @@ The ForwardingList must describe all relationships between events and reactions 
 The OpenApiSpecification (OAS) represents the detailed specification of the REST API of the application.
 
 **Concepts**
-- [Structure of the OAS](./StructureOfOas/StructureOfOas.md)  
+- [Structure of the OAS](./StructureOfOas/StructureOfOas.md)
+- [How to define error messages](./HowToDefineErrorMessages/HowToDefineErrorMessages.md)  
 
 **Step-by-Step Guidelines**
 - [Creating the OAS](./CreatingOas/CreatingOas.md)
