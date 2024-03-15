@@ -42,7 +42,7 @@ components:
               message:
                 type: string
                 enum:
-                  - 'The number of requests that can be handled by this service in parallel has been reached'
+                  - 'The maximum number of requests that can be handled by this service in parallel has been reached'
               expectation-to-the-client:
                 type: string
                 enum:
