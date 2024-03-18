@@ -19,7 +19,7 @@ How to define error responses in the OAS:
 7. It must begin with a **description statement**. 
     - The description statement is addressed to the implementor of the server (application under specification). 
     - It defines the conditions for sending a response with this code. 
-    - Example: *"Response to be sent whenever the number of currently executed requests reaches the maximum defined in the instance of IntegerProfile whose name contains limitOfParallelRequestsAt*\<ServiceName\>*."*
+    - Example: *"Response to be sent whenever the number of currently executed requests reaches the maximum defined in the instance of IntegerProfile whose name contains limitOfParallelRequestsAt and the service name."*
 6. Some "standard" response codes from the list above define **additional headers or parameters**.
      - Such additional headers and parameters must also be included in the response definition in the common components, even if they are not used within the scope of this application.
 7. If **additional attributes** are **required to manage the client's behavior**, they shall be **included in** the **body of the definitions** in the common components.
