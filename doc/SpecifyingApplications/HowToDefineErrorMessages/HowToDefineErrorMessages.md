@@ -14,7 +14,7 @@ How to define error responses in the OAS:
 4. If not already covered by the ApplicationPattern, **add** the **new responseCode to** the **responses of the affected service**.
 5. The **response definition for a specific responseCode must be homogeneous**
     - at least within the scope of the application (harmonization across all applications will be done at a later stage, by consolidating individual definitions into an updated applicationPattern).
-    - To ensure this, the response definition at an individual service should only reference a concrete definition in the common components section ($ref: '#/components/responses/{responseCode}).
+    - To ensure this, the response definition at an individual service should only reference a concrete definition in the common components section (`$ref: '#/components/responses/{responseCode}`).
 6. The **concrete definition in** the **common components section** is **identified by the responseCode**.
 7. It must begin with a **description statement**. 
     - The description statement is addressed to the implementor of the server (application under specification). 
