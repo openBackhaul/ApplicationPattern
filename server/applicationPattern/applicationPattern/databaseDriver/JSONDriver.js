@@ -13,6 +13,9 @@
 const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
 const AsyncLock = require('async-lock');
+const createHttpError = require('http-errors');
+
+
 
 global.databasePath;
 
@@ -88,6 +91,9 @@ function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfThe
             if (individualField !== "") {
                 if (individualField.includes("=")) {
                     coreModelJsonObject = findMatchingInstanceFromList(individualField, coreModelJsonObject);
+                    if(Array.isArray(coreModelJsonObject)){
+                        throw new Error(' UUID is not found')
+                    }
                 } else {
                     coreModelJsonObject = coreModelJsonObject[individualField];
                 }
@@ -96,7 +102,7 @@ function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfThe
         return coreModelJsonObject;
     } catch (error) {
         console.log(error);
-        return undefined;
+        throw new createHttpError.NotFound(" UUID is does not exit")
     }
 }
 
