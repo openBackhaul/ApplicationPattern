@@ -34,6 +34,68 @@ const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/
 const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 const genericRepresentation = require('./GenericRepresentation');
 const createHttpError = require('http-errors');
+const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const OperationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
+
+/**
+ * Removes application from configuration and application data
+ *
+ * body V1_disposeremaindersofderegisteredapplication_body 
+ * user String User identifier from the system starting the service call
+ * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]' 
+ * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
+ * traceIndicator String Sequence of request numbers along the flow
+ * customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * no response value expected for this operation
+ **/
+exports.disposeRemaindersOfDeregisteredApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseFWName) {
+  let applicationName = body["application-name"];
+  let applicationReleaseNumber = body["release-number"];
+
+  let httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+    applicationName,
+    applicationReleaseNumber,
+    newReleaseFWName
+  );
+  let ltpConfigurationStatus = await LogicalTerminationPointService.deleteApplicationLtpsAsync(
+    httpClientUuid
+  );
+
+  /****************************************************************************************
+   * Prepare attributes to remove fc-ports from forwarding-construct
+   ****************************************************************************************/
+
+  let forwardingConfigurationInputList = [];
+  let forwardingConstructConfigurationStatus;
+  let operationClientConfigurationStatusList = ltpConfigurationStatus.operationClientConfigurationStatusList;
+
+  if (operationClientConfigurationStatusList) {
+    forwardingConfigurationInputList = await prepareForwardingConfiguration.disposeRemaindersOfDeregisteredApplication(
+      operationClientConfigurationStatusList
+    );
+    forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
+      unConfigureForwardingConstructAsync(
+        operationServerName,
+        forwardingConfigurationInputList
+      );
+  }
+
+  /****************************************************************************************
+   * Prepare attributes to automate forwarding-construct
+   ****************************************************************************************/
+  let forwardingAutomationInputList = await prepareForwardingAutomation.disposeRemaindersOfDeregisteredApplication(
+    ltpConfigurationStatus,
+    forwardingConstructConfigurationStatus
+  );
+  ForwardingAutomationService.automateForwardingConstructAsync(
+    operationServerName,
+    forwardingAutomationInputList,
+    user,
+    xCorrelator,
+    traceIndicator,
+    customerJourney
+  );
+}
 
 /**
  * Embed yourself into the MBH SDN application layer
@@ -247,6 +309,33 @@ exports.informAboutApplicationInGenericRepresentation = async function (operatio
   });
 }
 
+
+/**
+ * Provides name and number of the preceding release
+ * If there is no OldRelease for this application , then a hardcoded applicationName "OldRelease" will be sent to smooth the ApprovingApplicationCausesPreparingTheEmbedding.RequestForOldRelease
+ * @oldReleaseForwardingName {String|undefined} forwardingName to identify a oldRelease , if there is no oldRelease then "undefined" shall be sent as a value.
+ * returns inline_response_200_3
+ **/
+exports.informAboutPrecedingRelease = async function (oldReleaseForwardingName) {
+  try {
+    let precedingApplicationInformation = {};
+
+    let oldApplicationNameAndReleaseNumber = await ServiceUtils.resolveApplicationNameAndReleaseNumberFromForwardingAsync(
+      oldReleaseForwardingName);
+
+    if (oldApplicationNameAndReleaseNumber) {
+      precedingApplicationInformation.applicationName = oldApplicationNameAndReleaseNumber.applicationName;
+      precedingApplicationInformation.releaseNumber = oldApplicationNameAndReleaseNumber.releaseNumber;
+    } else {
+      precedingApplicationInformation.applicationName = "OldRelease";
+      precedingApplicationInformation.releaseNumber = await HttpServerInterface.getReleaseNumberAsync();
+    }
+    return onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(precedingApplicationInformation);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /**
  * Returns release history
  *
@@ -268,6 +357,98 @@ exports.informAboutReleaseHistoryInGenericRepresentation = async function (opera
     consequentActionList,
     responseValueList
   });
+}
+
+
+/**
+ * Receives information about where to ask for approval of BasicAuth requests
+ *
+ * body V1_inquirebasicauthapprovals_body 
+ * user String User identifier from the system starting the service call
+ * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
+ * traceIndicator String Sequence of request numbers along the flow
+ * customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * operationServerName String Holds information about the url
+ * newReleaseFwName String Holds information about the new release forwarding name if exist
+ * no response value expected for this operation
+ **/
+exports.inquireBasicAuthRequestApprovals = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseFwName) {
+  let applicationName = body["application-name"];
+  let releaseNumber = body["release-number"];
+  let applicationProtocol = body["protocol"];
+  let applicationAddress = body["address"];
+  let applicationPort = body["port"];
+  let basicAuthApprovalOperation = body["operation-name"];
+  
+  
+  let httpClientUuid = await httpClientInterface.getHttpClientUuidFromForwarding("BasicAuthRequestCausesInquiryForAuthentication");
+  
+  let operationNamesByAttributes = new Map();
+  operationNamesByAttributes.set("basic-auth-approval-operation", basicAuthApprovalOperation);
+
+  let tcpObjectList = [new TcpObject(applicationProtocol, applicationAddress, applicationPort)];
+  
+  if (!httpClientUuid) {
+    httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      applicationName,
+      undefined,
+      newReleaseFwName
+    );
+  }
+  let ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
+    httpClientUuid,
+    applicationName,
+    releaseNumber,
+    tcpObjectList,
+    operationServerName,
+    operationNamesByAttributes,
+    basicServicesOperationsMapping.basicServicesOperationsMapping
+  );
+  let ltpConfigurationStatus;
+  if (httpClientUuid) {
+    ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(
+      ltpConfigurationInput, false
+    );
+  }
+
+  /****************************************************************************************
+   * Prepare attributes to configure forwarding-construct
+   ****************************************************************************************/
+
+  let forwardingConfigurationInputList = [];
+  let forwardingConstructConfigurationStatus;
+  let operationClientConfigurationStatusList;
+  if (ltpConfigurationStatus) {
+    operationClientConfigurationStatusList = ltpConfigurationStatus.operationClientConfigurationStatusList;
+  }
+
+  if (operationClientConfigurationStatusList) {
+    forwardingConfigurationInputList = await prepareForwardingConfiguration.inquireBasicAuthRequestApprovals(
+      operationClientConfigurationStatusList,
+      basicAuthApprovalOperation
+    );
+    forwardingConstructConfigurationStatus = await ForwardingConfigurationService.
+    configureForwardingConstructAsync(
+      operationServerName,
+      forwardingConfigurationInputList
+    );
+  }
+
+  /****************************************************************************************
+   * Prepare attributes to automate forwarding-construct
+   ****************************************************************************************/
+  let forwardingAutomationInputList = await prepareForwardingAutomation.inquireBasicAuthRequestApprovals(
+    ltpConfigurationStatus,
+    forwardingConstructConfigurationStatus
+  );
+  ForwardingAutomationService.automateForwardingConstructAsync(
+    operationServerName,
+    forwardingAutomationInputList,
+    user,
+    xCorrelator,
+    traceIndicator,
+    customerJourney
+  );
 }
 
 /**
@@ -1079,6 +1260,97 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     customerJourney
   );
 }
+
+
+/**
+ * Configures Http and TcpClient of the NewRelease
+ *
+ * body V1_updateclientofsubsequentrelease_body 
+ * user String User identifier from the system starting the service call
+ * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]' 
+ * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
+ * traceIndicator String Sequence of request numbers along the flow
+ * customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * returns inline_response_200_4
+ **/
+exports.updateClientOfSubsequentRelease = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseForwardingName) {
+  let futureApplicationName = body["application-name"];
+  let futureReleaseNumber = body["release-number"];
+  let futureProtocol = body["protocol"];
+  let futureAddress = body["address"];
+  let futurePort = body["port"];
+
+  let bequeathYourDataAndDieOperation;
+  let dataTransferOperationsList = [];
+  /****************************************************************************************
+   * Prepare logicalTerminatinPointConfigurationInput object to 
+   * configure logical-termination-point
+   ****************************************************************************************/
+
+  let ltpConfigurationStatus = {};
+  let newReleaseHttpClientLtpUuid = await httpClientInterface.getHttpClientUuidFromForwarding(newReleaseForwardingName);
+  if (newReleaseHttpClientLtpUuid != undefined) {
+    let isReleaseUpdated = await httpClientInterface.setReleaseNumberAsync(newReleaseHttpClientLtpUuid, futureReleaseNumber);
+    let isApplicationNameUpdated = await httpClientInterface.setApplicationNameAsync(newReleaseHttpClientLtpUuid, futureApplicationName);
+
+    if (isReleaseUpdated || isApplicationNameUpdated) {
+      let configurationStatus = new ConfigurationStatus(
+        newReleaseHttpClientLtpUuid,
+        '',
+        true);
+      ltpConfigurationStatus.httpClientConfigurationStatus = configurationStatus;
+    }
+
+    let newReleaseTcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(newReleaseHttpClientLtpUuid);
+    let newReleaseTcpClientUuid = newReleaseTcpClientUuidList[0];
+
+    let isProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(newReleaseTcpClientUuid, futureProtocol);
+    let isAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(newReleaseTcpClientUuid, futureAddress);
+    let isPortUpdated = await tcpClientInterface.setRemotePortAsync(newReleaseTcpClientUuid, futurePort);
+
+    if (isProtocolUpdated || isAddressUpdated || isPortUpdated) {
+      let configurationStatus = new ConfigurationStatus(
+        newReleaseTcpClientUuid,
+        '',
+        true);
+      ltpConfigurationStatus.tcpClientConfigurationStatusList = [configurationStatus];
+    }
+    let forwardingAutomationInputList;
+    if (ltpConfigurationStatus != undefined) {
+
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+      forwardingAutomationInputList = await prepareForwardingAutomation.updateClientOfSubsequentRelease(
+        ltpConfigurationStatus
+      );
+      ForwardingAutomationService.automateForwardingConstructAsync(
+        operationServerName,
+        forwardingAutomationInputList,
+        user,
+        xCorrelator,
+        traceIndicator,
+        customerJourney
+      );
+    }    
+  }
+
+  bequeathYourDataAndDieOperation =  await operationServerInterface.getInputOperationServerNameFromForwarding(newReleaseForwardingName);
+  let dataTransferOperationClientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(newReleaseHttpClientLtpUuid);
+  for (let i = 0; i < dataTransferOperationClientUuidList.length; i++) {
+    let operationClientUuid = dataTransferOperationClientUuidList[i];
+    let operationClientName = await OperationClientInterface.getOperationNameAsync(operationClientUuid);
+    dataTransferOperationsList.push(operationClientName);
+  }
+
+  /****************************************************************************************
+     * Prepare attributes for the response body
+     ****************************************************************************************/
+  var handOverAndDatatransferInformation = {};
+  handOverAndDatatransferInformation.bequeathYourDataAndDieOperation = bequeathYourDataAndDieOperation;
+  handOverAndDatatransferInformation.dataTransferOperationsList = dataTransferOperationsList;
+  return onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(handOverAndDatatransferInformation);
+} 
 
 /**
  * Allows updating operation clients to redirect to backward compatible services
