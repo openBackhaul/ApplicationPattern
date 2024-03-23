@@ -999,9 +999,6 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
     let httpAddress = body["http-address"];
     let httpPort = body["http-port"];
 
-    let httpsAddress = body["https-address"];
-    let httpsPort = body["https-port"];
-
     oldApplicationName = body["preceding-application-name"];
     oldReleaseNumber = body["preceding-release-number"];
 
@@ -1052,16 +1049,7 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
         let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
         tcpClientConfigurationStatusList.push(configurationStatus);
       }
-    }
-
-    let tcpServerWithHttpsUpdated = await updateTcpServerDetails("HTTPS", httpsAddress, httpsPort);
-    if (tcpServerWithHttpsUpdated.istcpServerUpdated) {
-      let configurationStatus = new ConfigurationStatus(tcpServerWithHttpsUpdated.tcpServerUuid, '', tcpServerWithHttpsUpdated.istcpServerUpdated);
-      if (ltpConfigurationStatus) {
-        let tcpClientConfigurationStatusList = ltpConfigurationStatus.tcpClientConfigurationStatusList;
-        tcpClientConfigurationStatusList.push(configurationStatus);
-      }
-    }
+    }    
 
     // update old release configuration
     let isOldApplicationIsUpdated = false;
