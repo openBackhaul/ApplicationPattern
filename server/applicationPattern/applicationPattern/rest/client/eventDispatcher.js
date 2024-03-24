@@ -61,7 +61,18 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             if (responseCode.toString().startsWith("2")) {
                 result = true;
             } else if (responseCode == 408) {
-                recordServiceRequestFromClient(serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, user, originator, operationName, responseCode, httpRequestBody, response.data)
+                recordServiceRequestFromClient(
+                    serverApplicationName, 
+                    serverApplicationReleaseNumber, 
+                    xCorrelator, 
+                    traceIndicator, 
+                    user, 
+                    originator, 
+                    operationName, 
+                    responseCode, 
+                    httpRequestBody, 
+                    response.data, 
+                    response.url)
                     .catch((error) => console.log(`record service request ${JSON.stringify({
                         xCorrelator,
                         traceIndicator,

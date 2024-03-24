@@ -56,7 +56,9 @@ exports.BuildAndTriggerRestRequest = async function (operationClientUuid, method
             return error.response;
         } else if (error.request) {
             console.log(`Request errored with ${error}`);
-            return new createHttpError.RequestTimeout();
+            let requestTimeoutError = new createHttpError.RequestTimeout();
+            requestTimeoutError.url = error.config ? error.config.url ? error.config.url : undefined : undefined;
+            return requestTimeoutError;
         }
         console.log(`Unknown request error: ${error}`);
         return new createHttpError.InternalServerError();
