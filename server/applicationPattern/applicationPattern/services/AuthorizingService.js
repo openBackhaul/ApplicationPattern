@@ -16,7 +16,7 @@ const FcPort = require('../onfModel/models/FcPort');
  * @param {String} method is the https method name
  * @returns {Promise<Object>} authStatus
  */
-exports.isAuthorized = async function (authorizationCode, method) {
+exports.isAuthorized = async function (authorizationCode, method, operationName) {
     let authStatus = {
         "isAuthorized": false
     }
@@ -26,8 +26,8 @@ exports.isAuthorized = async function (authorizationCode, method) {
     let applicationName = await HttpServerInterface.getApplicationNameAsync();
     let applicationReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
     let httpRequestHeader = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(new RequestHeader(userName, applicationName, "", "", "unknown", operationKey));
-    let httpRequestBody = formulateRequestBody(applicationName, applicationReleaseNumber, authorizationCode, method);
-    let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
+    let httpRequestBody = formulateRequestBody(applicationName, applicationReleaseNumber, authorizationCode, method, operationName);
+    let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody, undefined);
     if (response && response.status === 200) {
         if (response.data["oam-request-is-approved"] == true) {
             authStatus.isAuthorized = true;
@@ -50,18 +50,19 @@ exports.isAuthorized = async function (authorizationCode, method) {
   * @param {String} method HTTP method of the OAM layer call. It can be PUT,GET
   * @returns {Object} formulated requestBody
   */
- function formulateRequestBody(applicationName, releaseNumber, authorizationCode, method) {
+ function formulateRequestBody(applicationName, releaseNumber, authorizationCode, method, operationName) {
     return {
         "application-name": applicationName,
         "release-number": releaseNumber,
         "Authorization": authorizationCode,
-        "method": method
+        "method": method,
+        "operation-name": operationName
     };
 }
 
 async function getOperationClientToAuthenticateTheRequest() {
     let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
-        "OamRequestCausesInquiryForAuthentication");
+        "BasicAuthRequestCausesInquiryForAuthentication");
     if (forwardingConstruct) {
         let fcPortList = forwardingConstruct["fc-port"];
         for (let fcPort of fcPortList) {

@@ -69,7 +69,8 @@ async function validateOperationKey(request, scopes, schema) {
  */
 // eslint-disable-next-line no-unused-vars
 async function validateBasicAuth(request, scopes, schema) {
-    const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method);
+    let pathDefinedInOpenApi = request.openapi.openApiRoute;
+    const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method, pathDefinedInOpenApi);
     if (authStatus.isAuthorized == true) {
         return true;
     } else {
