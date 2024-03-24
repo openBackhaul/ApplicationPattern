@@ -116,12 +116,7 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   let deregisterOperation = body["deregistration-operation"];
   let relayOperationUpdateOperation = body["relay-operation-update-operation"];
   let relayServerReplacementOperation = body["relay-server-replacement-operation"];
-
-  let oldReleaseProtocol = body["old-release-protocol"];
-  let oldReleaseAddress = body["old-release-address"];
-  let oldReleasePort = body["old-release-port"];
-
-  
+    
   const registryOfficeApplicationName = await ServiceUtils.resolveRegistryOfficeApplicationNameFromForwardingAsync();
   if (registryOfficeApplicationName !== applicationName) {
     throw new createHttpError.BadRequest(`The registry-office-application ${applicationName} was not found.`);
@@ -162,29 +157,48 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
       ltpConfigurationInput, isApplicationRo
     );
   }
+
+  /***********************************************************************
+   * oldRelease information to be updated if provided in the requestBody
+   ***********************************************************************/
   let isOldApplicationTcpClientUpdated = false;
   let oldApplicationTcpClientUuid;
   let oldApplicationForwardingTag = "PromptForEmbeddingCausesRequestForBequeathingData";
   let isOldReleaseExist = await isForwardingNameExist(oldApplicationForwardingTag);
   let oldApplicationNameInConfiguration;
+  
   if (isOldReleaseExist) {
     let httpUuidOfOldApplication = await httpClientInterface.getHttpClientUuidFromForwarding(oldApplicationForwardingTag);
     oldApplicationNameInConfiguration = await ServiceUtils.resolveApplicationNameFromForwardingAsync(oldApplicationForwardingTag);
+    
     if (httpUuidOfOldApplication != undefined) {
       let tcpClientUuidList = await LogicalTerminationPoint.getServerLtpListAsync(httpUuidOfOldApplication);
+
       if (tcpClientUuidList != undefined) {
         oldApplicationTcpClientUuid = tcpClientUuidList[0];
         let tcpClientProtocolOfOldApplication = await tcpClientInterface.getRemoteProtocolAsync(oldApplicationTcpClientUuid);
-        if (oldReleaseProtocol != tcpClientProtocolOfOldApplication) {
+        if ("old-release-protocol" in body)
+        {
+          let oldReleaseProtocol = body["old-release-protocol"];
+          if(oldReleaseProtocol != tcpClientProtocolOfOldApplication) {
           isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteProtocolAsync(oldApplicationTcpClientUuid, oldReleaseProtocol);
         }
-        let tcpClientAddressOfOldApplication = await tcpClientInterface.getRemoteAddressAsync(oldApplicationTcpClientUuid);
-        if (oldReleaseAddress != tcpClientAddressOfOldApplication) {
+        }
+        if ("old-release-address" in body)
+        {
+          let oldReleaseAddress = body["old-release-address"];
+          let tcpClientAddressOfOldApplication = await tcpClientInterface.getRemoteAddressAsync(oldApplicationTcpClientUuid);
+          if (oldReleaseAddress != tcpClientAddressOfOldApplication) {
           isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemoteAddressAsync(oldApplicationTcpClientUuid, oldReleaseAddress);
         }
-        let tcpClientPortOfOldApplication = await tcpClientInterface.getRemotePortAsync(oldApplicationTcpClientUuid);
-        if (oldReleasePort != tcpClientPortOfOldApplication) {
-          isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemotePortAsync(oldApplicationTcpClientUuid, oldReleasePort);
+        }
+        if ("old-release-port" in body)
+        {
+          let oldReleasePort = body["old-release-port"];
+          let tcpClientPortOfOldApplication = await tcpClientInterface.getRemotePortAsync(oldApplicationTcpClientUuid);
+          if (oldReleasePort != tcpClientPortOfOldApplication) {
+            isOldApplicationTcpClientUpdated = await tcpClientInterface.setRemotePortAsync(oldApplicationTcpClientUuid, oldReleasePort);
+          }
         }
       }
     }
