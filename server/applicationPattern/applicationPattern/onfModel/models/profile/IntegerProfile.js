@@ -148,7 +148,7 @@ class IntegerProfile extends Profile {
 
     /**
      * @description This function returns the configured value for the integer profile.
-     * @param {String} integerProfileKey : name of the integer profile
+     * @param {String} integerProfileName : name of the integer profile
      * @returns {promise} string {integerValue}
      **/
     static async getIntegerValueForTheIntegerProfileNameAsync(integerProfileName) {

@@ -16,7 +16,9 @@ const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-
+global.operationKeyNotificationChannel = [];
+global.notificationChannelSubscriber = [];
+global.isNotificationChannelON = false;
 /**  
  * @extends LayerProtocol
  */
@@ -121,7 +123,7 @@ class OperationClientInterface extends LayerProtocol {
         }
         return undefined;
     }
-    
+
     /**
      * @description This function returns the detailedLoggingIsOn attribute of the operation client.
      * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
@@ -201,15 +203,23 @@ class OperationClientInterface extends LayerProtocol {
      * @param {String} operationClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} operationKey : key that needs to be updated.
-     * @returns {Promise<boolean>} true|false
+     * @returns {Promise<boolean>} isOperationKeySet
      **/
     static async setOperationKeyAsync(operationClientUuid, operationKey) {
-        let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
-            "{uuid}", operationClientUuid);
-        return await fileOperation.writeToDatabaseAsync(
-            operationKeyPath,
-            operationKey,
-            false);
+        let isOperationKeySet = false
+        let oldoperationKey = await this.getOperationKeyAsync(operationClientUuid);
+        if (oldoperationKey != operationKey) {
+            let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
+                "{uuid}", operationClientUuid);
+            isOperationKeySet = await fileOperation.writeToDatabaseAsync(
+                operationKeyPath,
+                operationKey,
+                false);
+        }
+        if (isOperationKeySet == true || oldoperationKey == operationKey) {
+            this.addOperationKeyUpdateToNotificationChannel(operationClientUuid);
+        }
+        return isOperationKeySet;
     }
 
     /**
@@ -289,6 +299,92 @@ class OperationClientInterface extends LayerProtocol {
         const layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
         return LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT === layerProtocolName;
     }
+
+    /** 
+     * @param {HRTime} timeStampIdentifier an identifier the process that turns ON the notification channel
+     * @return {boolean} result whether the notificationChannel is turned ON or not 
+     */
+    static turnONNotificationChannel(timeStampIdentifier) {
+        try {
+            if (!global.notificationChannelSubscriber.includes(timeStampIdentifier)) {
+                global.notificationChannelSubscriber.push(timeStampIdentifier);
+            }
+            global.isNotificationChannelON = true;
+            console.log("******* Notification channel for Operation key is turned ON ***************");
+            return global.isNotificationChannelON;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    /** 
+     * @param {HRTime} timeStampAsIdentifier an identifier the process that turns OFF the notification channel
+     * @return {boolean} result whether the notificationChannel is turned OFF or not 
+     */
+    static turnOFFNotificationChannel(timeStampAsIdentifier) {
+        try {
+            if (global.notificationChannelSubscriber.includes(timeStampAsIdentifier)) {
+                global.notificationChannelSubscriber.forEach((element, index) => {
+                    if (element == timeStampAsIdentifier) {
+                        global.notificationChannelSubscriber = global.notificationChannelSubscriber.splice(index, 1);
+                    }
+                });
+            }
+            if (global.notificationChannelSubscriber.length > 0) {
+                global.isNotificationChannelON = false;
+                console.log("******* Notification channel for Operation key is turned OFF ***************");
+            }
+            return !global.isNotificationChannelON;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    /**
+     * function to add notifications to the global operationKeyNotificationChannel
+     * @param {String} operationClientUuid of the operationKey updated instance
+     */
+    static async addOperationKeyUpdateToNotificationChannel(operationClientUuid) {
+        try {
+            if (global.isNotificationChannelON) {
+                let operationKeyNotification = {
+                    "eventTime": new Date(),
+                    "operationClientUuid": operationClientUuid
+                };
+                console.log("Notification pushed :" + operationKeyNotification.eventTime + "," + operationKeyNotification.operationClientUuid);
+                global.operationKeyNotificationChannel.push(operationKeyNotification);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    /**
+     * This function waits for a desired time until an operation-key updation is received for a client
+     * @param {String} operationClientUuid for which the an operation-key update is monitored 
+     * @param {Date} timestampOfCurrentRequest shall be used to monitor whether operation-key is updated after this event's occurance 
+     * @param {Integer} waitTime will be the maximum time to wait for an operation-key update in Seconds
+     * @returns {promise} boolean that represents an operation-key update
+     */
+    static async waitUntilOperationKeyIsUpdated(operationClientUuid, timestampOfCurrentRequest, waitTime) {
+        let startTime = process.hrtime();
+        console.log("Waiting to receive operation key update for the operationClientUuid " + operationClientUuid);
+        return await new Promise(resolve => {
+            const interval = setInterval(() => {
+                let operationKeyUpdated = isOperationKeyUpdated(operationClientUuid, timestampOfCurrentRequest);
+                let waitTimeExceeded = isWaitTimeExceeded(startTime, waitTime);
+                if (operationKeyUpdated == true) {
+                    console.log("Operation key update received for the operationClientUuid " + operationClientUuid);
+                    resolve(true);
+                    clearInterval(interval);
+                } else if (waitTimeExceeded == true) {
+                    console.log("Waiting time exceeded for receiving operation key for the operationClientUuid " + operationClientUuid);
+                    resolve(false);
+                    clearInterval(interval);
+                }
+            }, 100);
+        });
+    }
 }
 
 /**
@@ -307,6 +403,44 @@ function getConfiguredRemoteAddress(remoteAddress) {
         ];
     }
     return remoteAddress;
+}
+
+/**
+ * 
+ * @param {HRTime} startTime of the process
+ * @param {Integer} waitingTime of the process in Seconds
+ * @returns 
+ */
+function isWaitTimeExceeded(startTime, waitingTime) {
+    let NanoSecondPerSecond = 1e9;
+    let executionTime = process.hrtime(startTime);
+    let executionTimeInseconds = (executionTime[0] * NanoSecondPerSecond + executionTime[1]) / NanoSecondPerSecond
+    if (executionTimeInseconds >= waitingTime) {
+        return true
+    } else {
+        return false;
+    }
+}
+
+/**
+ * 
+ * @param {String} operationClientUuid uuid of the operation client interface
+ * @param {HRTime} eventTime of the process
+ * @returns 
+ */
+function isOperationKeyUpdated(operationClientUuid, eventTime) {
+    let result = false;
+    console.log(operationClientUuid + "," + eventTime);
+    let oKNotificationChannel = global.operationKeyNotificationChannel;
+    oKNotificationChannel.filter((notification) => {
+        console.log("*****************************************");
+        console.log(notification.operationClientUuid);
+        console.log(operationClientUuid);
+        if (notification.operationClientUuid == operationClientUuid && notification.eventTime > eventTime) {
+            result = true;
+        }
+    });
+    return result;
 }
 
 module.exports = OperationClientInterface;

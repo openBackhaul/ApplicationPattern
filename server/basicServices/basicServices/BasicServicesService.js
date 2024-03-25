@@ -37,6 +37,7 @@ const createHttpError = require('http-errors');
 const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const OperationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 
+const integerProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile'); 
 /**
  * Removes application from configuration and application data
  *
@@ -1416,25 +1417,14 @@ exports.updateOperationClient = async function (body, user, xCorrelator, traceIn
 exports.updateOperationKey = async function (body) {
   let operationUuid = body["operation-uuid"];
   let newOperationKey = body["new-operation-key"];
-
-  if (await operationServerInterface.isOperationServerAsync(operationUuid)) {
-    let OldoperationKey = await operationServerInterface.getOperationKeyAsync(operationUuid)
-    if (OldoperationKey != undefined) {
-      if (newOperationKey != OldoperationKey) {
-        await operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
-      }
-    } else {
-      throw new createHttpError.BadRequest("OperationServerUuid is not present");
-    }
-  } else if (await operationClientInterface.isOperationClientAsync(operationUuid)) {
-    let OldoperationKey = await operationClientInterface.getOperationKeyAsync(operationUuid)
-    if (OldoperationKey != undefined) {
-      if (newOperationKey != OldoperationKey) {
-        await operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
-      }
-    } else {
-      throw new createHttpError.BadRequest("OperationClientUuid is not present");
-    }
+  let isOperationServerUuid = await operationServerInterface.isOperationServerAsync(operationUuid);
+  let isOperationClientUuid = await operationClientInterface.isOperationClientAsync(operationUuid);
+  if (isOperationServerUuid) {
+    operationServerInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+  } else if (isOperationClientUuid) {
+    operationClientInterface.setOperationKeyAsync(operationUuid, newOperationKey);
+  }else {
+    throw new createHttpError.BadRequest("OperationClientUuid/OperationServerUuid is not present");
   }
 }
 

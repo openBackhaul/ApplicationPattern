@@ -19,7 +19,7 @@ class FileProfile extends profile {
     /**
      * FileProfilePac class holds the following properties,
      * 1.fileProfileCapability - class that holds the fileIdentifier, fileProfileConfiguration.
-     * 2.fileProfileConfiguration - class that holds the fileName, operation.
+     * 2.fileProfileConfiguration - class that holds the filePath, username, password, operation.
      */
     static FileProfilePac = class FileProfilePac {
         static profileName = profile.profileNameEnum.FILE_PROFILE;
@@ -43,7 +43,9 @@ class FileProfile extends profile {
         };
 
         static FileProfileConfiguration = class FileProfileConfiguration {
-            fileName;
+            filePath;
+            userName;
+            password;
             operation;
 
             static operationEnum = {
@@ -55,12 +57,16 @@ class FileProfile extends profile {
 
             /**
              * constructor 
-             * @param {string} fileName name of the file.
+             * @param {string} filePath path for the file.
+             * @param {string} userName user name to access the file.
+             * @param {string} password password name to access the file.
              * @param {string} operation operation.
              * This constructor will instantiate the fileProfileConfiguration class
              */
-            constructor(fileName, operation) {
-                this.fileName = fileName;
+            constructor(filePath, userName, password, operation) {
+                this.filePath = filePath;
+                this.userName = userName;
+                this.password = password;
                 this.operation = operation;
             }
         };
@@ -69,17 +75,19 @@ class FileProfile extends profile {
          * constructor 
          * @param {string} fileIdentifier Identifier for the file.
          * @param {string} fileDescription Description for the file.
-         * @param {string} fileName Name of the file.
+         * @param {string} filePath path for the file.
+         * @param {string} userName user name to access the file.
+         * @param {string} password password to access the file..
          * @param {string} operation operation.
          * This constructor will instantiate the FileProfilePac class
          */
-        constructor(fileIdentifier, fileDescription, fileName, operation) {
+        constructor(fileIdentifier, fileDescription, filePath, userName, password, operation) {
             this.fileProfileCapability = new FileProfilePac.
                 FileProfileCapability(
                     fileIdentifier, fileDescription);
             this.FileProfileConfiguration = new FileProfilePac.
                 FileProfileConfiguration(
-                    fileName, operation);
+                    filePath, userName, password, operation);
         }
     }
 
@@ -88,11 +96,13 @@ class FileProfile extends profile {
      * @param {string} uuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
      * @param {string} fileIdentifier Identifier for the file.
      * @param {string} fileDescription Description for the file.
-     * @param {string} fileName name of the file.
+     * @param {string} filePath path for the file.
+     * @param {string} userName user name to access the file.
+     * @param {string} password password to access the file..
      * @param {string} operation operation.
      * This constructor will instantiate the FileProfile class
      */
-    constructor(uuid, fileIdentifier, fileDescription, fileName, operation) {
+    constructor(uuid, fileIdentifier, fileDescription, filePath, userName, password, operation) {
         super(
             uuid,
             FileProfile.FileProfilePac.profileName
@@ -100,7 +110,9 @@ class FileProfile extends profile {
         this[onfAttributes.FILE_PROFILE.PAC] = new FileProfile.FileProfilePac(
             fileIdentifier,
             fileDescription,
-            fileName,
+            filePath,
+            userName,
+            password,
             operation
         );
     }
@@ -156,7 +168,7 @@ class FileProfile extends profile {
     }
 
     /**
-     * @description Fetch application data complete file path
+     * @description Fetch application data file path
      */
     static async getApplicationDataFileContent() {
         return new Promise(async function (resolve, reject) {
@@ -166,7 +178,7 @@ class FileProfile extends profile {
                 let profileUuid = profiles.flatMap(profile => profile[onfAttributes.GLOBAL_CLASS.UUID]);
                 for (let profileUuidIndex = 0; profileUuidIndex < profileUuid.length; profileUuidIndex++) {
                     let uuid = profileUuid[profileUuidIndex];
-                    let value = await FileProfile.getFileName(uuid)
+                    let value = await FileProfile.getFilePath(uuid)
                     let completeFilePath = "./application-data/" + value;
                     if (fileSystem.existsSync(completeFilePath)) {
                         applicationDataFile = completeFilePath;
@@ -185,24 +197,77 @@ class FileProfile extends profile {
     }
 
     /**
-     * @description This function returns the file name for the provided file profile uuid.
+     * @description This function returns the file path for the provided file profile uuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
-     * @returns {promise} string {fileName}
+     * @returns {promise} string {filePath}
      **/
-    static async getFileName(profileUuid) {
+    static async getFilePath(profileUuid) {
         return new Promise(async function (resolve, reject) {
             try {
-                let fileName;
+                let filePath;
                 let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
                 for (let profile of profileList) {
                     let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
                     if (uuidOfProfile === profileUuid) {
                         let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
                         let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
-                        fileName = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_NAME];
+                        filePath = fileProfileConfiguration[onfAttributes.FILE_PROFILE.FILE_NAME];
                     }
                 }
-                resolve(fileName);
+                resolve(filePath);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+
+
+    /**
+     * @description This function returns the user name for the provided file profile uuid.
+     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
+     * @returns {promise} string {userName}
+     **/
+    static async getUserName(profileUuid) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let userName;
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        userName = fileProfileConfiguration[onfAttributes.FILE_PROFILE.USER_NAME];
+                    }
+                }
+                resolve(userName);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+
+    /**
+     * @description This function returns the password for the provided file profile uuid.
+     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
+     * @returns {promise} string {password}
+     **/
+    static async getPassword(profileUuid) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let password;
+                let profileList = await profileCollection.getProfileListForProfileNameAsync(FileProfile.FileProfilePac.profileName);
+                for (let profile of profileList) {
+                    let uuidOfProfile = profile[onfAttributes.GLOBAL_CLASS.UUID];
+                    if (uuidOfProfile === profileUuid) {
+                        let fileProfilePac = profile[onfAttributes.FILE_PROFILE.PAC];
+                        let fileProfileConfiguration = fileProfilePac[onfAttributes.FILE_PROFILE.CONFIGURATION];
+                        password = fileProfileConfiguration[onfAttributes.FILE_PROFILE.PASSWORD];
+                    }
+                }
+                resolve(password);
             } catch (error) {
                 reject(error);
             }
@@ -235,22 +300,78 @@ class FileProfile extends profile {
     }
 
     /**
-     * @description This function sets the file name for the provided file profile uuid.
+     * @description This function sets the file path for the provided file profile uuid.
      * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
-     * @param {String} fileNameToBeUpdated : Value of file name that needs to be updated.
+     * @param {String} filePathValueToBeUpdated : Value of file path that needs to be updated.
      * @returns {promise} boolean {true|false}
      **/
-    static async setFileName(profileUuid, fileNameToBeUpdated) {
+    static async setFilePath(profileUuid, filePathValueToBeUpdated) {
         return new Promise(async function (resolve, reject) {
             try {
                 let isUpdated = false;
                 try {
-                    let fileName = onfPaths.FILE_PROFILE_FILE_NAME
+                    let filePath = onfPaths.FILE_PROFILE_FILE_PATH
                         .replace(
                             "{profileUuid}", profileUuid);
                     isUpdated = await fileOperation.writeToDatabaseAsync(
-                        fileName,
-                        fileNameToBeUpdated,
+                        filePath,
+                        filePathValueToBeUpdated,
+                        false);
+                    resolve(isUpdated);
+                } catch (error) {
+                    reject(error);
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
+     * @description This function sets the  user name for the provided file profile uuid.
+     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
+     * @param {String} userName : the value of user name
+     * @returns {promise} boolean {true|false}
+     **/
+    static async setUserName(profileUuid, userName) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let isUpdated = false;
+                try {
+                    let userNamePath = onfPaths.FILE_PROFILE_USER_NAME
+                        .replace(
+                            "{profileUuid}", profileUuid);
+                    isUpdated = await fileOperation.writeToDatabaseAsync(
+                        userNamePath,
+                        userName,
+                        false);
+                    resolve(isUpdated);
+                } catch (error) {
+                    reject(error);
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    /**
+     * @description This function sets the password for the provided file profile uuid.
+     * @param {String} profileUuid : the value should be a valid string in the pattern '-\d+-\d+-\d+-file-p-\d+$'
+     * @param {String} password : the value of password
+     * @returns {promise} boolean {true|false}
+     **/
+    static async setPassword(profileUuid, password) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let isUpdated = false;
+                try {
+                    let passwordPath = onfPaths.FILE_PROFILE_PASSWORD
+                        .replace(
+                            "{profileUuid}", profileUuid);
+                    isUpdated = await fileOperation.writeToDatabaseAsync(
+                        passwordPath,
+                        password,
                         false);
                     resolve(isUpdated);
                 } catch (error) {

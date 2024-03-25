@@ -38,11 +38,11 @@ class RequestHeader {
         }
         this.traceIndicator = traceIndicator;
         if (traceIndicator == undefined || traceIndicator.length == 0) {
-            this.traceIndicator = "1";
+            this.traceIndicator = 1;
         }
         this.customerJourney = customerJourney;
         if (customerJourney == undefined || customerJourney.length == 0) {
-            this.customerJourney = "unknown";
+            this.customerJourney = 1;
         }
         if (operationKey != undefined && operationKey.length > 0) {
             this.operationKey = operationKey;
