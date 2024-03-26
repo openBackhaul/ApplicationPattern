@@ -97,6 +97,30 @@ exports.resolveApplicationNameFromForwardingAsync = async function (forwardingNa
 }
 
 /**
+ * Resolves application name and release number from the forwarding name.
+ * @param {String} forwardingName
+ * @returns {Promise<Object|undefined>} application name and release number
+ */
+exports.resolveApplicationNameAndReleaseNumberFromForwardingAsync = async function (forwardingName) {
+    const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+    if (forwardingConstruct === undefined) {
+        return undefined;
+    }
+    const fcPortList = forwardingConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+    const roFcPort = fcPortList.find(fcPort =>
+        FcPort.portDirectionEnum.OUTPUT === fcPort[onfAttributes.FC_PORT.PORT_DIRECTION]
+    );
+    const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(roFcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT]);
+    let applicationName = await httpClientInterface.getApplicationNameAsync(httpLtpUuidList[0]);
+    let releaseNumber = await httpClientInterface.getReleaseNumberAsync(httpLtpUuidList[0]);
+    let result = {
+        "applicationName" : applicationName,
+        "releaseNumber" : releaseNumber
+    };
+    return result;
+}
+
+/**
  * Resolves registry office application name from forwarding name : "PromptForRegisteringCausesRegistrationRequest".
  * @returns {Promise<String|undefined>} application name
  */

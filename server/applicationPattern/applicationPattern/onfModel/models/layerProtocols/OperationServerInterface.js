@@ -12,6 +12,8 @@ const LayerProtocol = require('../LayerProtocol');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
+const ForwardingDomain = require('../../models/ForwardingDomain');
+const FcPort = require('../FcPort');
 /** 
  * @extends LayerProtocol
  */
@@ -207,6 +209,26 @@ class OperationServerInterface extends LayerProtocol {
                 }
             }
         }
+    }
+
+    /**
+     * @description This function returns the input operationServer operationName of the fowarding.
+     * @param {String} forwardingName: the value should be a valid forwardingName
+     * @returns {Promise<String|undefined>} operationServerName
+     **/
+
+    static async getInputOperationServerNameFromForwarding(forwardingName) {
+        let forwardConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName)
+        if (forwardConstruct === undefined) {
+            return undefined;
+        }
+        let fcPorts = forwardConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+        let fcPortOutput = fcPorts.filter(
+            fcPort => fcPort[onfAttributes.FC_PORT.PORT_DIRECTION] === FcPort.portDirectionEnum.INPUT
+        )[0];
+        let operationServerUuid = fcPortOutput[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+        let operationServerName = await this.getOperationNameAsync(operationServerUuid);
+        return operationServerName;
     }
 
     /**

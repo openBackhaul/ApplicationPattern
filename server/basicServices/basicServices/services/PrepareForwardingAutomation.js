@@ -14,6 +14,33 @@ const forwardingConstructAutomationInput = require('onf-core-model-ap/applicatio
 const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
 const TcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 
+exports.disposeRemaindersOfDeregisteredApplication = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConstructAutomationList = [];
+        try {
+            
+            /***********************************************************************************
+             * forwardings for application layer topology
+             ************************************************************************************/
+            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
+                logicalTerminationPointconfigurationStatus,
+                forwardingConstructConfigurationStatus
+            );
+
+            if (applicationLayerTopologyForwardingInputList) {
+                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
+                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
+                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
+                }
+            }
+
+            resolve(forwardingConstructAutomationList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 exports.embedYourself = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus, oldApplicationName = '') {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
@@ -138,6 +165,54 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
             forwardingConstructAutomationList.push(forwardingAutomation);
 
             /***********************************************************************************
+             * PromptForRegisteringCausesRegistrationRequest2 /v2/register-application
+             ***********************************************************************************/
+            let registrationRequest2ForwardingName = "PromptForRegisteringCausesRegistrationRequest2";
+            let registrationRequest2Context;
+            let registrationRequest2RequestBody = {};
+            let registrationRequest2TcpServerList = [];
+            registrationRequest2RequestBody.applicationName = await httpServerInterface.getApplicationNameAsync();
+            registrationRequest2RequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
+            registrationRequest2RequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
+            registrationRequest2RequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
+            registrationRequest2RequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
+            registrationRequest2RequestBody.disposeRemaindersOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-013");
+            registrationRequest2RequestBody.precedingReleaseOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-014");
+            registrationRequest2RequestBody.subsequentReleaseOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-015");
+
+            // formulate the tcp-server-list
+            let registrationRequest2TcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
+            let registrationRequest2TcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
+            if (registrationRequest2TcpHttpAddress != undefined && registrationRequest2TcpHttpPort != undefined) {
+                if ("ipv-4-address" in registrationRequest2TcpHttpAddress) {
+                    registrationRequest2TcpHttpAddress = {
+                        "ip-address": registrationRequest2TcpHttpAddress
+                    }
+                }
+                let registrationRequest2tcpServer = {
+                    protocol: "HTTP",
+                    port: registrationRequest2TcpHttpPort,
+                    address: registrationRequest2TcpHttpAddress
+                }
+                registrationRequest2TcpServerList.push(registrationRequest2tcpServer);
+            }
+
+            registrationRequest2RequestBody.tcpServerList = registrationRequest2TcpServerList;
+            if (oldApplicationName) {
+                registrationRequest2RequestBody.precedingApplicationName = oldApplicationName;
+            }
+            if (oldReleaseNumber) {
+                registrationRequest2RequestBody.precedingReleaseNumber = oldReleaseNumber;
+            }
+            registrationRequest2RequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationRequest2RequestBody);
+            let registrationRequest2forwardingAutomation = new forwardingConstructAutomationInput(
+                registrationRequest2ForwardingName,
+                registrationRequest2RequestBody,
+                registrationRequest2Context
+            );
+            forwardingConstructAutomationList.push(registrationRequest2forwardingAutomation);
+
+            /***********************************************************************************
              * forwardings for application layer topology
              ************************************************************************************/
             let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
@@ -163,6 +238,33 @@ exports.endSubscription = function (forwardingConstructConfigurationStatus) {
     return prepareALTForwardingAutomation.getFDUnconfigureForwardingAutomationInputList(
         forwardingConstructConfigurationStatus
     );
+}
+
+exports.inquireBasicAuthRequestApprovals = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConstructAutomationList = [];
+        try {
+
+            /***********************************************************************************
+             * forwardings for application layer topology
+             ************************************************************************************/
+            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
+                logicalTerminationPointconfigurationStatus,
+                forwardingConstructConfigurationStatus
+            );
+
+            if (applicationLayerTopologyForwardingInputList) {
+                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
+                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
+                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
+                }
+            }
+
+            resolve(forwardingConstructAutomationList);
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
 
 exports.inquireOamRequestApprovals = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
@@ -338,6 +440,33 @@ exports.updateClient = function (logicalTerminationPointconfigurationStatus, for
                     }
                 }
             }
+
+            /***********************************************************************************
+             * forwardings for application layer topology
+             ************************************************************************************/
+            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
+                logicalTerminationPointconfigurationStatus,
+                forwardingConstructConfigurationStatus
+            );
+
+            if (applicationLayerTopologyForwardingInputList) {
+                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
+                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
+                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
+                }
+            }
+
+            resolve(forwardingConstructAutomationList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+exports.updateClientOfSubsequentRelease = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConstructAutomationList = [];
+        try {
 
             /***********************************************************************************
              * forwardings for application layer topology

@@ -202,6 +202,7 @@ async function createLtpInstanceGroupAsync(logicalTerminationPointConfigurationI
 async function updateLtpInstanceGroupAsync(ltpConfigurationInput, isApplicationRO) {
   const httpClientUuid = ltpConfigurationInput.httpClientUuid;
   const releaseNumber = ltpConfigurationInput.releaseNumber;
+  const applicationName = ltpConfigurationInput.applicationName ? ltpConfigurationInput.applicationName : undefined;
   const tcpList = ltpConfigurationInput.tcpList;
   const operationServerName = ltpConfigurationInput.operationServerName;
   const operationNamesByAttributes = ltpConfigurationInput.operationNamesByAttributes;
@@ -235,7 +236,8 @@ async function updateLtpInstanceGroupAsync(ltpConfigurationInput, isApplicationR
   const httpClientConfigurationStatus = await updateHttpClientLtpAsync(
     httpClientUuid,
     releaseNumber,
-    operationClientListChanged
+    operationClientListChanged, 
+    applicationName
   )
   return new LogicalTerminationPointConfigurationStatus(
     operationClientConfigurationStatusList,
@@ -268,7 +270,7 @@ async function createHttpClientLtpAsync(applicationName, releaseNumber) {
  * @param {Boolean} isOperationClientChanged if there was a change with any of this http-client operation-client
  * @return {Promise<ConfigurationStatus>}
  **/
-async function updateHttpClientLtpAsync(httpClientUuid, releaseNumber, isOperationClientChanged) {
+async function updateHttpClientLtpAsync(httpClientUuid, releaseNumber, isOperationClientChanged, applicationName) {
   let isUpdated = false;
   if (isOperationClientChanged) {
     isUpdated = true;
@@ -277,6 +279,12 @@ async function updateHttpClientLtpAsync(httpClientUuid, releaseNumber, isOperati
   if (existingReleaseNumber !== releaseNumber) {
     isUpdated = await HttpClientInterface.setReleaseNumberAsync(
       httpClientUuid, releaseNumber
+    );
+  }
+  const existingApplicationName = await HttpClientInterface.getApplicationNameAsync(httpClientUuid);
+  if (applicationName && existingApplicationName !== applicationName) {
+    isUpdated = await HttpClientInterface.setApplicationNameAsync(
+      httpClientUuid, applicationName
     );
   }
   return new ConfigurationStatus(httpClientUuid, '', isUpdated);
