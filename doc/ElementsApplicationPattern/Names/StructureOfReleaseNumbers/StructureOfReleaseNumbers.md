@@ -10,8 +10,37 @@ Given a version number MAJOR.MINOR.PATCH, increment the ...:
 - ... MINOR version when you add functionality in a backwards compatible manner, and
 - ... PATCH version when you make backward compatible bug fixes.
 
+## Tag Selection and Management
 
-### Example
+1. *Final version of the software delivery*
+  - i.e. the delivery, which has been payed for and which has been approved for rollout in production
+  - shall have the the same version number as the specification release number it was implemented for, e.g. if the spec milestone is 1.1.0_spec, the implementation tag shall be 1.1.0_impl
+  - once the final software delivery has been approved of, the final tag with the milestone shall be set and all old pre-release tags for that version shall be deleted.
+
+2. *Pre-release test deliveries*
+  - vendors may deliver pre-release software versions for testing purposes
+  - these shall be marked accordingly with a pre-release identifier consisting of a single letter, which is increased for each testing version (e.g. a, b, c)
+  - the version number shall be selected in the same way as described under (1.)
+
+3. *Bugfix releases*
+  - if critical bugs are identified during operation of an application in production after the final acceptance, a hotfix shall be provided
+  - When major, minor, and patch are equal, a hotfix version has higher precedence than a normal version, e.g. 1.0.0 < 1.0.0-hotfix.1
+  - a hotfix milestone shall be created and assigned to the raised bug
+
+Tags must match the following description:
+```
+ a) final release: 
+    - <versionNumber>_impl = MAJOR.MINOR.PATCH_impl
+    - example: 1.1.0_impl
+ b) pre-release test version: 
+    - <versionNumber>.<preReleaseId>_impl = MAJOR.MINOR.PATCH.PRERELEASEID_impl
+    - example: 1.1.0.a_impl
+ c) bugfix version: 
+    - <versionNumber>-hotfix.<HOTFIX> = MAJOR.MINOR.PATCH-hotfix.HOTFIX_impl
+    - example: 1.1.0-hotfix.1_impl
+```
+
+### Version Number Example
 
 - Situation 1: A new application gets specified.  
 The specification will be identified by the _ReleaseNumber_ 1.0.0  
@@ -20,20 +49,32 @@ The specification will be identified by the _ReleaseNumber_ 1.0.0
 Comments get added and corrected in the existing 1.0.0 release (backward compatible bug fixes).  
 The resulting specification will be identified by the _ReleaseNumber_ 1.0.1  
 
-- Situation 3: After putting release 1.0.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
+- Situation 3: The implementer releases a pre-release testing version.  
+The implementation will be identified by the _ReleaseNumber_ 1.0.1.a
+
+- Situation 4: The release 1.0.1.a is approved for production.  
+The code is merged into the _main branch_. Tag "1.0.1_impl" is assigned to the _main branch_.
+The tag 1.0.1.a_impl will be deleted.  
+
+- Situation 5: After putting release 1.0.1 into operation a critical bug is identified.  
+A hotfix is provided by the implementer. It is merged into the _main branch_ with tag "1.0.1-hotfix.1_impl", 
+as the implementation is identified by the _ReleaseNumber_ 1.0.1-hotfix.1.  
+The specification will still be identified by the _ReleaseNumber_ 1.0.1
+
+- Situation 6: After putting release 1.0.1-hotfix.1 into operation, users are requesting for resulting temperature values to be provided in Celsius instead of Kelvin.  
 The existing _Operation_ gets specified and implemented for a second time, but now providing its result in Celsius instead of Kelvin.  
 The new _Operation_ for Celsius is added (backward compatible) and runs in parallel to the one for Kelvin, which just gets marked as deprecated (also backward compatible).  
 The resulting specification will be identified by the _ReleaseNumber_ 1.1.0  
 
-- Situation 4: After a while, several wishes for additional functionality have been addressed.  
+- Situation 7: After a while, several wishes for additional functionality have been addressed.  
 Further on, the existing _Operation_ providing its result in Kelvin shall be discontinued, because it permanently confuses users (incompatible API change).  
 The resulting specification will be identified by the _ReleaseNumber_ 2.0.0  
 
-- Situation 5: The specification 2.0.0 has been finished and _develop branch_ got merged into _main branch_ for publishing it to potential implementers.
+- Situation 8: The specification 2.0.0 has been finished and _develop branch_ got merged into _main branch_ for publishing it to potential implementers.
 The new content of the _main branch_ gets tagged with "2.0.0_spec" by the PlatformOwner (exclusively the _main branch_ gets tagged).
 
-- Situation 6: The specification 2.0.0 has been implemented and the implementer merged his code into the _main branch_.
-The new content of the _main branch_ gets tagged with "2.0.0_imp" by the PlatformOwner (exclusively the _main branch_ gets tagged).
+- Situation 9: The specification 2.0.0 has been implemented and the implementer merged his code into the _main branch_.
+The new content of the _main branch_ gets tagged with "2.0.0_impl" by the PlatformOwner (exclusively the _main branch_ gets tagged).
 
 
 ### Specification
