@@ -133,21 +133,6 @@ exports.registerYourself = function (logicalTerminationPointconfigurationStatus,
                 }
                 tcpServerList.push(tcpServer);
             }
-            let tcpHttpsAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTPS");
-            let tcpHttpsPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTPS");
-            if (tcpHttpsAddress != undefined && tcpHttpsPort != undefined) {
-                if ("ipv-4-address" in tcpHttpsAddress) {
-                    tcpHttpsAddress = {
-                        "ip-address": tcpHttpsAddress
-                    }
-                }
-                let tcpServer = {
-                    protocol: "HTTPS",
-                    port: tcpHttpsPort,
-                    address: tcpHttpsAddress
-                }
-                tcpServerList.push(tcpServer);
-            }
 
             registrationApplicationRequestBody.tcpServerList = tcpServerList;
             if (oldApplicationName) {

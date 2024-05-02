@@ -1,5 +1,4 @@
 /**
- * @deprecated please use LogicalTerminationPointServicesV2.js
  * This module provides functionalities to
  *      - manipulate the /core-model-1-4:control-construct/logical-termination-point
  *      - create tcp, http, operation client instance groups for new applications
@@ -21,51 +20,46 @@ const ForwardingDomain = require('../models/ForwardingDomain');
 const FcPort = require('../models/FcPort');
 const onfAttributes = require('../constants/OnfAttributes');
 // eslint-disable-next-line no-unused-vars
-const LogicalTerminationPointConfigurationInput = require('./models/logicalTerminationPoint/ConfigurationInput');
+const LogicalTerminationPointConfigurationInput = require('./models/logicalTerminationPoint/ConfigurationInputV2');
 // eslint-disable-next-line no-unused-vars
 const TcpObject = require('./models/TcpObject');
 
 /**
  * @description This function creates or finds the http, operation and tcp client if required.
  * @param {LogicalTerminationPointConfigurationInput} logicalTerminationPointConfigurationInput
- * @param {Boolean} isApplicationRO true if the application to be changed is RegistryOffice
  * @return {Promise<LogicalTerminationPointConfigurationStatus>}
  **/
-exports.createOrUpdateApplicationLtpsAsync = async function (logicalTerminationPointConfigurationInput, isApplicationRO) {
+exports.createOrUpdateApplicationLtpsAsync = async function (logicalTerminationPointConfigurationInput) {
   let logicalTerminationPointConfigurationStatus;
   const httpClientUuid = logicalTerminationPointConfigurationInput.httpClientUuid;
   if (!httpClientUuid) {
     logicalTerminationPointConfigurationStatus = await createLtpInstanceGroupAsync(
-      logicalTerminationPointConfigurationInput, isApplicationRO
+      logicalTerminationPointConfigurationInput
     );
   } else {
     logicalTerminationPointConfigurationStatus = await updateLtpInstanceGroupAsync(
-      logicalTerminationPointConfigurationInput, isApplicationRO
+      logicalTerminationPointConfigurationInput
     );
   }
   return logicalTerminationPointConfigurationStatus;
 }
 
 /**
-
  * @description This function creates or finds the http, operation and tcp client if required.
-
  * @param {LogicalTerminationPointConfigurationInput} logicalTerminationPointConfigurationInput
-
  * @return {Promise<LogicalTerminationPointConfigurationStatus>}
-
  **/
 
-exports.FindAndUpdateApplicationLtpsAsync = async function (logicalTerminationPointConfigurationInput,isApplicationRO) {
+exports.FindAndUpdateApplicationLtpsAsync = async function (logicalTerminationPointConfigurationInput) {
   let logicalTerminationPointConfigurationStatus;
   let httpClientConfigurationStatus;
   let tcpClientConfigurationStatusList = [];
   let operationClientConfigurationStatusList = [];
- 
+
   const httpClientUuid = logicalTerminationPointConfigurationInput.httpClientUuid;
   if (httpClientUuid) {
     logicalTerminationPointConfigurationStatus = await updateLtpInstanceGroupAsync(
-      logicalTerminationPointConfigurationInput,isApplicationRO
+      logicalTerminationPointConfigurationInput
     );
   } else {
     logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
@@ -148,16 +142,15 @@ async function deleteOperationClientLtpAsync(operationClientUuid) {
 /**
  * @description This function creates logical termination points for the provided values.
  * @param {LogicalTerminationPointConfigurationInput} logicalTerminationPointConfigurationInput
- * @param {Boolean} isApplicationRO true if the application to be changed is RegistryOffice
  * @return {Promise<LogicalTerminationPointConfigurationStatus>}
  **/
-async function createLtpInstanceGroupAsync(logicalTerminationPointConfigurationInput, isApplicationRO) {
+async function createLtpInstanceGroupAsync(logicalTerminationPointConfigurationInput) {
   let tcpClientConfigurationStatusList = [];
   let operationClientConfigurationStatusList = [];
 
   const applicationName = logicalTerminationPointConfigurationInput.applicationName;
   const releaseNumber = logicalTerminationPointConfigurationInput.releaseNumber;
-  const tcpList = logicalTerminationPointConfigurationInput.tcpList;
+  const tcpInformation = logicalTerminationPointConfigurationInput.tcpInformation;
   const operationServerName = logicalTerminationPointConfigurationInput.operationServerName;
   const operationNamesByAttributes = logicalTerminationPointConfigurationInput.operationNamesByAttributes;
   const operationsMapping = logicalTerminationPointConfigurationInput.operationsMapping;
@@ -167,15 +160,10 @@ async function createLtpInstanceGroupAsync(logicalTerminationPointConfigurationI
     releaseNumber
   );
   if (httpClientConfigurationStatus.updated) {
-    if (isApplicationRO) {
-      tcpClientConfigurationStatusList = await createOrUpdateTcpClientLtpsAsync(
-        httpClientConfigurationStatus.uuid,
-        tcpList
-      );
-    } else if (tcpList.length > 0) {
+    if (tcpInformation) {
       const tcpClientConfigurationStatus = await createOrUpdateTcpClientLtpAsync(
         httpClientConfigurationStatus.uuid,
-        tcpList[0]
+        tcpInformation
       );
       tcpClientConfigurationStatusList.push(tcpClientConfigurationStatus);
     }
@@ -197,28 +185,22 @@ async function createLtpInstanceGroupAsync(logicalTerminationPointConfigurationI
  * @description This function configures the existing logical termination pointd to the latest values.
  * Also in case if the tcp,operation client are not available they will be created.
  * @param {LogicalTerminationPointConfigurationInput} ltpConfigurationInput
- * @param {Boolean} isApplicationRO true if the application to be changed is RegistryOffice
  * @return {Promise<LogicalTerminationPointConfigurationStatus>}
  **/
-async function updateLtpInstanceGroupAsync(ltpConfigurationInput, isApplicationRO) {
+async function updateLtpInstanceGroupAsync(ltpConfigurationInput) {
   const httpClientUuid = ltpConfigurationInput.httpClientUuid;
   const releaseNumber = ltpConfigurationInput.releaseNumber;
   const applicationName = ltpConfigurationInput.applicationName ? ltpConfigurationInput.applicationName : undefined;
-  const tcpList = ltpConfigurationInput.tcpList;
+  const tcpInformation = ltpConfigurationInput.tcpInformation;
   const operationServerName = ltpConfigurationInput.operationServerName;
   const operationNamesByAttributes = ltpConfigurationInput.operationNamesByAttributes;
   const operationsMapping = ltpConfigurationInput.operationsMapping;
   let operationClientListChanged = false;
   let tcpClientConfigurationStatusList = [];
-  if (isApplicationRO) {
-    tcpClientConfigurationStatusList = await createOrUpdateTcpClientLtpsAsync(
-      httpClientUuid,
-      tcpList
-    );
-  } else if (tcpList.length > 0)  {
+  if (tcpInformation) {
     const tcpClientConfigurationStatus = await createOrUpdateTcpClientLtpAsync(
       httpClientUuid,
-      tcpList[0]
+      tcpInformation
     );
     tcpClientConfigurationStatusList.push(tcpClientConfigurationStatus);
   }
@@ -237,7 +219,7 @@ async function updateLtpInstanceGroupAsync(ltpConfigurationInput, isApplicationR
   const httpClientConfigurationStatus = await updateHttpClientLtpAsync(
     httpClientUuid,
     releaseNumber,
-    operationClientListChanged, 
+    operationClientListChanged,
     applicationName
   )
   return new LogicalTerminationPointConfigurationStatus(
@@ -294,7 +276,7 @@ async function updateHttpClientLtpAsync(httpClientUuid, releaseNumber, isOperati
 /**
  * @description This function creates or updates a single tcp client interface.
  * @param {String} httpClientUuid uuid of the http-client
- * @param {TcpObject} tcpObject
+ * @param {Object} tcpObject
  * @return {Promise<ConfigurationStatus>}
  **/
 async function createOrUpdateTcpClientLtpAsync(httpClientUuid, tcpObject) {
@@ -316,56 +298,6 @@ async function createOrUpdateTcpClientLtpAsync(httpClientUuid, tcpObject) {
 }
 
 /**
- * @description This function creates or updates a tcp client interface. In case of multiple
- * TCP clients, this algorithm is used:
- * 1. check for existing tcp-client-uuids in http-client server-ltps.
- * 2. if there are none, create tcp-client
- * 3. if there are existing tcp-clients, iterate over them and update the correct one
- * based on the protocol (there should be at most 2 clients, one for http and one for https)
- * 4. if no existing tcp-client matches the protocol, create new tcp-client
- * @param {String} httpClientUuid uuid of the http-client
- * @param {Array<TcpObject>} tcpList
- * @return {Promise<Array<ConfigurationStatus>>}
- **/
-async function createOrUpdateTcpClientLtpsAsync(httpClientUuid, tcpList) {
-  const configurationStatusList = [];
-  for (const tcpObject of tcpList) {
-    const serverLtpList = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuid);
-    const remoteProtocol = tcpObject.protocol;
-    let configurationStatus;
-    if (serverLtpList.length === 0) {
-      configurationStatus = await createTcpClientLtpAsync(
-        httpClientUuid,
-        tcpObject
-      );
-    } else {
-      let tcpClientUuid;
-      for (const serverLtpUuid of serverLtpList) {
-        const _remoteProtocol = await TcpClientInterface.getRemoteProtocolAsync(
-          serverLtpUuid
-        );
-        if (remoteProtocol === _remoteProtocol) {
-          tcpClientUuid = serverLtpUuid;
-        }
-      }
-      if (tcpClientUuid === undefined) {
-        configurationStatus = await createTcpClientLtpAsync(
-          httpClientUuid,
-          tcpObject
-        );
-      } else {
-        configurationStatus = await updateTcpClientLtpAsync(
-          tcpClientUuid,
-          tcpObject
-        );
-      }
-    }
-    configurationStatusList.push(configurationStatus);
-  }
-  return configurationStatusList;
-}
-
-/**
  * @description This function creates a tcp client interface.
  * @param {String} httpClientUuid uuid of the http-client
  * @param {TcpObject} tcpObject
@@ -379,14 +311,14 @@ async function createTcpClientLtpAsync(httpClientUuid, tcpObject) {
     httpClientUuid, remoteProtocol
   );
   const tcpClientLogicalTerminationPoint = await TcpClientInterface.
-    createTcpClientInterface(
-      httpClientUuid,
-      tcpClientUuid,
-      remoteIpV4Address,
-      remotePort,
-      remoteProtocol
-    );
-    const isCreated = await ControlConstruct.addLogicalTerminationPointAsync(
+  createTcpClientInterface(
+    httpClientUuid,
+    tcpClientUuid,
+    remoteIpV4Address,
+    remotePort,
+    remoteProtocol
+  );
+  const isCreated = await ControlConstruct.addLogicalTerminationPointAsync(
     tcpClientLogicalTerminationPoint
   );
   if (isCreated) {
@@ -456,11 +388,11 @@ async function updateTcpClientLtpAsync(tcpClientUuid, tcpObject) {
  **/
 async function createOperationClientLtpAsync(httpClientUuid, operationName, operationClientUuid) {
   const operationClientLogicalTerminationPoint = await OperationClientInterface.
-    createOperationClientInterface(
-      httpClientUuid,
-      operationClientUuid,
-      operationName
-    );
+  createOperationClientInterface(
+    httpClientUuid,
+    operationClientUuid,
+    operationName
+  );
   const isCreated = await ControlConstruct.addLogicalTerminationPointAsync(
     operationClientLogicalTerminationPoint
   );
