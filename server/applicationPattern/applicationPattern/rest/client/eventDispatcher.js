@@ -25,9 +25,12 @@ const LogicalTerminationPoint = require('../../onfModel/models/LogicalTerminatio
  * @param {String} traceIndicator Sequence number of the request. 
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies.
  * @param {String} httpMethod method of the request if undefined defaults to POST
- * @param {Object} params path and query params
+ * @param {Object} params path and query params 
+ * @param {Boolean} isresponseRequired should be true to receive responseBody along with the status 
+ * @returns {Boolean | Object} result If isresponseRequired is true , then the complete response will be provided if the request is success
 */
-exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod="POST", params) {
+exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xCorrelator, traceIndicator, customerJourney, httpMethod="POST", params
+, isresponseRequired) {
     return new Promise(async function (resolve, reject) {
         let result = false;
         try {
@@ -85,6 +88,9 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
                         reqBody: httpRequestBody,
                         resBody: response.data
                     })} failed with error: ${error.message}`));
+            }            
+            if(isresponseRequired && isresponseRequired==true){
+                result = response;
             }
             resolve(result);
         } catch (error) {

@@ -33,7 +33,7 @@ class ForwardingDomain {
      * and fcPortDirection.
      * @param {String} ltpUuid uuid of a logical-termination-point instance. It should be a valid string in the
      * pattern '-\d+-\d+-\d+-op-(s|c)-\d{4}$'.
-     * @param {Enumerator} fcPortDirection the value can be any one of the ForwardingConstruct.FcPort.portDirectionEnum
+     * @param {String} fcPortDirection the value can be any one of the ForwardingConstruct.FcPort.portDirectionEnum
      * @returns {Promise<Array>} filtered ForwardingConstructList
      **/
     static async getForwardingConstructListForTheFcPortAsync(ltpUuid, fcPortDirection) {
