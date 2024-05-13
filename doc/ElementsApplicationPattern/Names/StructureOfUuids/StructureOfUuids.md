@@ -63,6 +63,7 @@ Within the respective layers the following types of objects are defined:
 The _ApiSegment_ is contained in the UUIDs of _OperationServers_, _OperationClients_ and _FCs_.  
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
+_--- OperationServers ---_  
 The **OperationServers** are categorized according to the following two aspects:  
 - Own Management (receiving advice) vs. Offered Services (providing support)  
 - Basic to all applications vs. Individual to this application  
@@ -73,8 +74,10 @@ This results in four categories:
 - bs = Basic Service: Offering a service, which must be provided by all applications  
 - is = Individual Service: Offering a services, which is individual to this application  
 
+_--- HttpServer and TcpServer ---_  
 UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.  
 
+_--- OperationClients ---_  
 The **OperationClients** are categorized according to the following two aspects:  
 - Executed Management (giving advice) vs. Consumed Services (receiving support)  
 - Basic to all applications vs. Individual to this application  
@@ -85,11 +88,10 @@ This results in four categories:
 - bs = Basic Services: All applications are consuming the same service from the same application  
 - is = Individual Services: It's individual to this application to consume this service  
 
-UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.  
-
-**FCs** are inheriting the ApiSegment from the connected OperationClients.  
-
-UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
+_--- HttpClient, TCPClient, FCs, Profiles and FDs ---_  
+- UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.
+- **FCs** are inheriting the ApiSegment from the connected OperationClients.  
+- UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
 
 ---  
 
