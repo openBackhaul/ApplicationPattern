@@ -13,6 +13,10 @@ Unfortunately, it takes some training to properly put them together.
 
 ![UUID Structure](./pictures/uuid-structure.png)
 
+_Note that there are special cases where the format differs. The special case uuids are used for services directly accessing ElasticSearch with put/get/delete and are described further down._
+
+---  
+
 **OwnApplicationID**  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
 It is composed from the official abbreviation of the _ApplicationName_ composed from the uppercase letters of the _ApplicationName_ (e.g. RegistryOffice=>RO, TypeApprovalRegister=>TAR), but transferred into lowercase letters (e.g. RO=>ro, TAR=>tar) and the official _ReleaseNumber_ of the specification of the application that contains the data object.  
@@ -21,6 +25,8 @@ A hyphen is also used between abbreviation of the _ApplicationName_ and _Release
 Examples: ro-1-0-0, tar-1-0-1
 
 (Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
+
+---  
 
 **LayerID**  
 Currently the following layers are defined:  
@@ -41,6 +47,8 @@ The following _LayerIDs_ are already in use for _Profiles_:
 - response = For describing some response in a generic representation  
 - string = For storing a single String  
 
+---  
+
 **ObjectType**  
 Within the respective layers the following types of objects are defined:  
 - c = _Client_  
@@ -48,6 +56,8 @@ Within the respective layers the following types of objects are defined:
 - fd = _ForwardingDomain_ (potential forwarding inside applications)  
 - fc = _ForwardingConstruct_ (actual forwarding inside applications)  
 - p = _Profile_  
+
+---  
 
 **ApiSegment**  
 The _ApiSegment_ is contained in the UUIDs of _OperationServers_, _OperationClients_ and _FCs_.  
@@ -81,6 +91,8 @@ UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.
 
 UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
 
+---  
+
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
 It is **exclusively used with ObjectType c (Client)**.  
@@ -89,11 +101,19 @@ Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1) inside the release number.
 ElasticSearch would be identified by es-1-0-0.  
 A hyphen also to be used between abbreviation of the application name and release number.  
 
+---  
+
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
 It has three digits.  
 Counting is decimal.  
 
+---  
+**Special case: ElasticSearchOperationInfo**  
+E.g. in MWDI there are services for direct access to the Cache for topology information, which is not available from the Controller/devices (in contrast to the ressource paths).  
+These services have a slightly different uuid format, as they contain information about the related ElasticSearch operation.  
+
+![UUID Structure special case](./pictures/uuid-structure-specialcase.png)  
 
 ## Examples:  
 
@@ -105,7 +125,7 @@ Counting is decimal.
 | ol-1-0-0-http-c-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
 | aa-1-0-0-op-fc-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
-
+| mwdi-1-0-0-op-s-get-is-205 | Special case service offered by MWDI relase 1.0.0 to directly access ElasticSearch and get a data record |  
 
 ## UUIDs of Links:  
 
