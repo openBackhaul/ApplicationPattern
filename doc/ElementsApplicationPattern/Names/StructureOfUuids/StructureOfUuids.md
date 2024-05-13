@@ -64,15 +64,15 @@ The _ApiSegment_ is contained in the UUIDs of _OperationServers_, _OperationClie
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
 _--- OperationServers ---_  
-The **OperationServers** are categorized according to the following two aspects:  
-- Own Management (receiving advice) vs. Offered Services (providing support)  
-- Basic to all applications vs. Individual to this application  
+> The **OperationServers** are categorized according to the following two aspects:  
+> - Own Management (receiving advice) vs. Offered Services (providing support)  
+> - Basic to all applications vs. Individual to this application  
 
-This results in four categories:  
-- bm = Basic Management: _Operation_ for managing this application, but same _Operation_ is available at all other applications, too  
-- im = Individual Management: _Operation_, which is individual for managing this application  
-- bs = Basic Service: Offering a service, which must be provided by all applications  
-- is = Individual Service: Offering a services, which is individual to this application  
+> This results in four categories:  
+> - bm = Basic Management: _Operation_ for managing this application, but same _Operation_ is available at all other applications, too  
+> - im = Individual Management: _Operation_, which is individual for managing this application  
+> - bs = Basic Service: Offering a service, which must be provided by all applications  
+> - is = Individual Service: Offering a services, which is individual to this application  
 
 _--- HttpServer and TcpServer ---_  
 UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.  
@@ -92,23 +92,6 @@ _--- HttpClient, TCPClient, FCs, Profiles and FDs ---_
 - UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.
 - **FCs** are inheriting the ApiSegment from the connected OperationClients.  
 - UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
-
-
---------------------
-\ Table multipline text bla blabla
-bla bla ...
-
-The **OperationServers** are categorized according to the following two aspects:  
-- Own Management (receiving advice) vs. Offered Services (providing support)  
-- Basic to all applications vs. Individual to this application  
-
-This results in four categories:  
-- bm = Basic Management: _Operation_ for managing this application, but same _Operation_ is available at all other applications, too  
-- im = Individual Management: _Operation_, which is individual for managing this application  
-- bs = Basic Service: Offering a service, which must be provided by all applications  
-- is = Individual Service: Offering a services, which is individual to this application  
-
--------------------
 
 ---  
 
