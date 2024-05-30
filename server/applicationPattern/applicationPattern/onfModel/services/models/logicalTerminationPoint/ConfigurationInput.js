@@ -1,5 +1,4 @@
 /**
- * @deprecated please use ConfigurationInputV2.js
  * This class provides a stub for the logical-termination-point configuration input.
  * It provides the structure of the input that needs to be fed to the createOrUpdateApplicationLtpsAsync
  * function which will further configure the tcp,http,operation clients of the logical-termination-point

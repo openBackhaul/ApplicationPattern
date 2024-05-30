@@ -45,7 +45,7 @@ class LogicalTerminationPoint {
      * @description This function returns the server-ltp list for the given logical-termination-point uuid
      * @param {String} ltpUuid : the value should be a valid string in the pattern
      * '-\d+-\d+-\d+-(http|tcp|op)-(server|client)-\d+$'
-     * @returns {Promise<Array>}
+     * @returns {String}
      **/
     static async getServerLtpListAsync(ltpUuid) {
         let ltp = await controlConstruct.getLogicalTerminationPointAsync(ltpUuid);
