@@ -11,7 +11,7 @@ const operationServerInterface = require('onf-core-model-ap/applicationPattern/o
 const ControlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const forwardingConstructAutomationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/AutomationInput');
-const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomation');
+const prepareALTForwardingAutomation = require('./PrepareALTForwardingAutomationV2');
 const TcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 
 exports.disposeRemaindersOfDeregisteredApplication = function (logicalTerminationPointconfigurationStatus, forwardingConstructConfigurationStatus) {
