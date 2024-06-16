@@ -2,10 +2,7 @@
 'use strict';
 
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
-const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
-const TcpObject = require('onf-core-model-ap/applicationPattern/onfModel/services/models/TcpObject');
 const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServicesV2');
-const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
 const LayerProtocol = require('onf-core-model-ap/applicationPattern/onfModel/models/LayerProtocol');
 
 const ServiceUtils = require('./utility/LogicalTerminationPoint');
@@ -14,7 +11,6 @@ const ForwardingConfigurationService = require('onf-core-model-ap/applicationPat
 const ForwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const prepareForwardingConfiguration = require('./services/PrepareForwardingConfiguration');
 const prepareForwardingAutomation = require('./services/PrepareForwardingAutomation');
-const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
 
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
@@ -31,14 +27,9 @@ const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/con
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ControlConstruct');
 
-const basicServicesOperationsMapping = require('./BasicServicesOperationsMapping');
 const genericRepresentation = require('./GenericRepresentation');
 const createHttpError = require('http-errors');
 const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const OperationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
-
-const integerProfile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile');
-const HttpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 /**
  * Removes application from configuration and application data
  *
@@ -222,7 +213,7 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
   if (isOldReleaseExist) {
     let preceedingApplicationClientUuidStack = await ServiceUtils.resolveClientUuidStackFromForwardingAsync(beaqueathYourDataAndDieForwardingName);
 
-    oldApplicationNameInConfiguration = await HttpClientInterface.getApplicationNameAsync(preceedingApplicationClientUuidStack.httpClientUuid)
+    oldApplicationNameInConfiguration = await httpClientInterface.getApplicationNameAsync(preceedingApplicationClientUuidStack.httpClientUuid)
     let existingpreceedingApplicationAddress = await tcpClientInterface.getRemoteAddressAsync(preceedingApplicationClientUuidStack.tcpClientUuid);
     let existingpreceedingApplicationPort = await tcpClientInterface.getRemotePortAsync(preceedingApplicationClientUuidStack.tcpClientUuid);
     let existingpreceedingApplicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(preceedingApplicationClientUuidStack.tcpClientUuid);
@@ -1029,7 +1020,7 @@ exports.updateClientOfSubsequentRelease = async function (body, user, xCorrelato
     let dataTransferOperationClientUuidList = await LogicalTerminationPoint.getClientLtpListAsync(newReleaseHttpClientLtpUuid);
     for (let i = 0; i < dataTransferOperationClientUuidList.length; i++) {
       let operationClientUuid = dataTransferOperationClientUuidList[i];
-      let operationClientName = await OperationClientInterface.getOperationNameAsync(operationClientUuid);
+      let operationClientName = await operationClientInterface.getOperationNameAsync(operationClientUuid);
       dataTransferOperationsList.push(operationClientName);
     }
   }
