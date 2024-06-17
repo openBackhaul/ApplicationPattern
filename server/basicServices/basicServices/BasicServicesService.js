@@ -30,6 +30,9 @@ const controlConstruct = require('onf-core-model-ap/applicationPattern/onfModel/
 const genericRepresentation = require('./GenericRepresentation');
 const createHttpError = require('http-errors');
 const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+
+const eventDispatcher = require('onf-core-model-ap/applicationPattern/rest/client/eventDispatcher');
+const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
 /**
  * Removes application from configuration and application data
  *
@@ -606,8 +609,8 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
   await processInvariantSubscription(subscribingApplicationName, subscribingApplicationReleaseNumber, subscribingApplicationProtocol,
     subscribingApplicationIPAddress, subscribingApplicationPort, subscribingServiceAndCallbackUrlMap,
     operationServerName, user, xCorrelator, traceIndicator, customerJourney);
-  
-  let response = await  prepareResponseForRedirectTopologyChangeInformation();
+
+  let response = await prepareResponseForRedirectTopologyChangeInformation();
   return response;
 }
 
@@ -760,14 +763,23 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
   /****************************************************************************************
    * Prepare attributes to automate forwarding-construct
    ****************************************************************************************/
-  let forwardingAutomationInputList = await prepareForwardingAutomation.registerYourself(
-    ltpConfigurationList,
-    forwardingConstructConfigurationStatus,
-    preceedingApplicationName,
-    preceedingApplicationRelease
+  let forwardingAutomationToALTInputList = await prepareForwardingAutomation.updateLtpToALT(
+    ltpConfigurationList
   );
   ForwardingAutomationService.automateForwardingConstructAsync(
     operationServerName,
+    forwardingAutomationToALTInputList,
+    user,
+    xCorrelator,
+    traceIndicator,
+    customerJourney
+  );
+
+  let forwardingAutomationInputList = await prepareForwardingAutomation.registerYourself(
+    preceedingApplicationName,
+    preceedingApplicationRelease
+  );
+  automateRegisterApplicationAsync(
     forwardingAutomationInputList,
     user,
     xCorrelator,
@@ -776,6 +788,41 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
   );
 }
 
+async function automateRegisterApplicationAsync(forwardingAutomationInputList, user,
+  xCorrelator, traceIndicator, customerJourney) {
+  let response;
+  let newTraceIndicator = traceIndicator + ".0";
+  for (let forwardingAutomationInput of forwardingAutomationInputList) {
+    if (!(response && response.status == 204)) {
+      try {
+        let forwardingName = forwardingAutomationInput.forwardingName;
+        let attributeList = forwardingAutomationInput.attributeList;
+        let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
+          forwardingName);
+        let fcPortList = forwardingConstruct["fc-port"];
+        for (let fcPort of fcPortList) {
+          let fcPortDirection = fcPort["port-direction"];
+          if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
+            let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
+            response = eventDispatcher.dispatchEvent(
+              fcPortLogicalTerminationPoint,
+              attributeList,
+              user,
+              xCorrelator,
+              newTraceIndicator,
+              customerJourney,
+              undefined,
+              undefined,
+              true
+            );
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+}
 /**
  * Starts application in generic representation
  *

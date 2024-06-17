@@ -97,56 +97,12 @@ exports.embedYourself = function (ltpConfigurationList, oldApplicationName = '')
     });
 }
 
-exports.registerYourself = function (ltpConfigurationList, forwardingConstructConfigurationStatus, oldApplicationName, oldReleaseNumber) {
+exports.registerYourself = function (oldApplicationName, oldReleaseNumber) {
     return new Promise(async function (resolve, reject) {
         let forwardingConstructAutomationList = [];
         try {
             let forwardingAutomation;
-            let controlConstructUuid = await fileOperation.readFromDatabaseAsync(onfPaths.CONTROL_CONSTRUCT_UUID);
-            /***********************************************************************************
-             * PromptForRegisteringCausesRegistrationRequest /v1/register-application
-             ************************************************************************************/
-            let registrationApplicationForwardingName = "PromptForRegisteringCausesRegistrationRequest";
-            let registrationApplicationContext;
-            let registrationApplicationRequestBody = {};
-            let tcpServerList = [];
-            registrationApplicationRequestBody.applicationName = await httpServerInterface.getApplicationNameAsync();
-            registrationApplicationRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
-            registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
-            registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
-            registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
-
-            // formulate the tcp-server-list
-            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
-            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
-            if (tcpHttpAddress != undefined && tcpHttpPort != undefined) {
-                if ("ipv-4-address" in tcpHttpAddress) {
-                    tcpHttpAddress = {
-                        "ip-address": tcpHttpAddress
-                    }
-                }
-                let tcpServer = {
-                    protocol: "HTTP",
-                    port: tcpHttpPort,
-                    address: tcpHttpAddress
-                }
-                tcpServerList.push(tcpServer);
-            }
-
-            registrationApplicationRequestBody.tcpServerList = tcpServerList;
-            if (oldApplicationName) {
-                registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
-            }
-            if (oldReleaseNumber) {
-                registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
-            }
-            registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
-            forwardingAutomation = new forwardingConstructAutomationInput(
-                registrationApplicationForwardingName,
-                registrationApplicationRequestBody,
-                registrationApplicationContext
-            );
-            forwardingConstructAutomationList.push(forwardingAutomation);
+            let controlConstructUuid = await fileOperation.readFromDatabaseAsync(onfPaths.CONTROL_CONSTRUCT_UUID);            
 
             /***********************************************************************************
              * PromptForRegisteringCausesRegistrationRequest2 /v2/register-application
@@ -196,19 +152,49 @@ exports.registerYourself = function (ltpConfigurationList, forwardingConstructCo
             forwardingConstructAutomationList.push(registrationRequest2forwardingAutomation);
 
             /***********************************************************************************
-             * forwardings for application layer topology
+             * PromptForRegisteringCausesRegistrationRequest /v1/register-application
              ************************************************************************************/
-            let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
-                ltpConfigurationList,
-                forwardingConstructConfigurationStatus
-            );
+            let registrationApplicationForwardingName = "PromptForRegisteringCausesRegistrationRequest";
+            let registrationApplicationContext;
+            let registrationApplicationRequestBody = {};
+            let tcpServerList = [];
+            registrationApplicationRequestBody.applicationName = await httpServerInterface.getApplicationNameAsync();
+            registrationApplicationRequestBody.releaseNumber = await httpServerInterface.getReleaseNumberAsync();
+            registrationApplicationRequestBody.embeddingOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-001");
+            registrationApplicationRequestBody.clientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-007");
+            registrationApplicationRequestBody.operationClientUpdateOperation = await operationServerInterface.getOperationNameAsync(controlConstructUuid + "-op-s-bm-011");
 
-            if (applicationLayerTopologyForwardingInputList) {
-                for (let i = 0; i < applicationLayerTopologyForwardingInputList.length; i++) {
-                    let applicationLayerTopologyForwardingInput = applicationLayerTopologyForwardingInputList[i];
-                    forwardingConstructAutomationList.push(applicationLayerTopologyForwardingInput);
+            // formulate the tcp-server-list
+            let tcpHttpAddress = await tcpServerInterface.getLocalAddressOfTheProtocol("HTTP");
+            let tcpHttpPort = await tcpServerInterface.getLocalPortOfTheProtocol("HTTP");
+            if (tcpHttpAddress != undefined && tcpHttpPort != undefined) {
+                if ("ipv-4-address" in tcpHttpAddress) {
+                    tcpHttpAddress = {
+                        "ip-address": tcpHttpAddress
+                    }
                 }
+                let tcpServer = {
+                    protocol: "HTTP",
+                    port: tcpHttpPort,
+                    address: tcpHttpAddress
+                }
+                tcpServerList.push(tcpServer);
             }
+
+            registrationApplicationRequestBody.tcpServerList = tcpServerList;
+            if (oldApplicationName) {
+                registrationApplicationRequestBody.precedingApplicationName = oldApplicationName;
+            }
+            if (oldReleaseNumber) {
+                registrationApplicationRequestBody.precedingReleaseNumber = oldReleaseNumber;
+            }
+            registrationApplicationRequestBody = onfFormatter.modifyJsonObjectKeysToKebabCase(registrationApplicationRequestBody);
+            forwardingAutomation = new forwardingConstructAutomationInput(
+                registrationApplicationForwardingName,
+                registrationApplicationRequestBody,
+                registrationApplicationContext
+            );
+            forwardingConstructAutomationList.push(forwardingAutomation);
 
             resolve(forwardingConstructAutomationList);
         } catch (error) {
