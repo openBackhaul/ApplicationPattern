@@ -67,7 +67,7 @@ exports.addOperationKeyUpdateToNotificationChannel = async function(operationUui
  * This function waits for a desired time until an operation-key updation is received for a client or server
  * @param {String} operationUuid for which the an operation-key update is monitored 
  * @param {Date} timestampOfCurrentRequest shall be used to monitor whether operation-key is updated after this event's occurance 
- * @param {Integer} waitTime will be the maximum time to wait for an operation-key update in Seconds
+ * @param {Integer} waitTime will be the maximum time to wait for an operation-key update in milli seconds
  * @returns {promise} boolean that represents an operation-key update
  */
 exports.waitUntilOperationKeyIsUpdated = async function(operationUuid, timestampOfCurrentRequest, waitTime) {
@@ -94,14 +94,15 @@ exports.waitUntilOperationKeyIsUpdated = async function(operationUuid, timestamp
 /**
  * 
  * @param {HRTime} startTime of the process
- * @param {Integer} waitingTime of the process in Seconds
+ * @param {Integer} waitingTime of the process in milliSeconds
  * @returns 
  */
 function isWaitTimeExceeded(startTime, waitingTime) {
     let NanoSecondPerSecond = 1e9;
     let executionTime = process.hrtime(startTime);
+    let waitingTimeInSeconds = waitingTime/1000;
     let executionTimeInseconds = (executionTime[0] * NanoSecondPerSecond + executionTime[1]) / NanoSecondPerSecond
-    if (executionTimeInseconds >= waitingTime) {
+    if (executionTimeInseconds >= waitingTimeInSeconds) {
         return true
     } else {
         return false;

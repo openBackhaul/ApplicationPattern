@@ -791,8 +791,9 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
 async function automateRegisterApplicationAsync(forwardingAutomationInputList, user,
   xCorrelator, traceIndicator, customerJourney) {
   let response;
-  let newTraceIndicator = traceIndicator + ".0";
-  for (let forwardingAutomationInput of forwardingAutomationInputList) {
+  let traceIndicatorIncrementor = 1;
+  for (let forwardingAutomationInput of forwardingAutomationInputList) {    
+  let newTraceIndicator = traceIndicator + "." + traceIndicatorIncrementor++;
     if (!(response && response.status == 204)) {
       try {
         let forwardingName = forwardingAutomationInput.forwardingName;
@@ -804,7 +805,7 @@ async function automateRegisterApplicationAsync(forwardingAutomationInputList, u
           let fcPortDirection = fcPort["port-direction"];
           if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
             let fcPortLogicalTerminationPoint = fcPort["logical-termination-point"];
-            response = eventDispatcher.dispatchEvent(
+            response = await eventDispatcher.dispatchEvent(
               fcPortLogicalTerminationPoint,
               attributeList,
               user,
