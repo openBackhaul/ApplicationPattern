@@ -1,6 +1,6 @@
 {
   "name": "onf-core-model-ap-bs",
-  "version": "2.1.1-alpha.3",
+  "version": "2.1.1-alpha.7",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "js-yaml": "^3.3.0",
     "moment": "^2.29.1",
     "node-statsd": "^0.1.1",
-    "onf-core-model-ap": "2.1.1-alpha.3",
+    "onf-core-model-ap": "2.1.1-alpha.7",
     "openbackhaul-oas3-tools": "2.3.1-alpha.3",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2"

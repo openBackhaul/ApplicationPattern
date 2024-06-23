@@ -14,6 +14,7 @@ const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
 const ForwardingDomain = require('../../models/ForwardingDomain');
 const FcPort = require('../FcPort');
+const operationKeyUpdateNotificationService = require('../../services/OperationKeyUpdateNotificationService');
 /** 
  * @extends LayerProtocol
  */
@@ -64,9 +65,9 @@ class OperationServerInterface extends LayerProtocol {
          */
         constructor(operationName) {
             this.operationServerInterfaceCapability = new OperationServerInterfacePac.
-                OperationServerInterfaceCapability(operationName);
+            OperationServerInterfaceCapability(operationName);
             this.operationServerInterfaceConfiguration = new OperationServerInterfacePac.
-                OperationServerInterfaceConfiguration();
+            OperationServerInterfaceConfiguration();
         }
     }
 
@@ -78,7 +79,7 @@ class OperationServerInterface extends LayerProtocol {
         super(0,
             OperationServerInterface.OperationServerInterfacePac.layerProtocolName);
         this[onfAttributes.LAYER_PROTOCOL.OPERATION_SERVER_INTERFACE_PAC] = new
-            OperationServerInterface.OperationServerInterfacePac(operationName);
+        OperationServerInterface.OperationServerInterfacePac(operationName);
     }
 
     /**
@@ -162,12 +163,20 @@ class OperationServerInterface extends LayerProtocol {
      * @returns {Promise<boolean>} true | false
      **/
     static async setOperationKeyAsync(operationServerUuid, operationKey) {
-        let operationKeyPath = onfPaths.OPERATION_SERVER_OPERATION_KEY.replace(
-            "{uuid}", operationServerUuid);
-        return await fileOperation.writeToDatabaseAsync(
-            operationKeyPath,
-            operationKey,
-            false);
+        let isOperationKeySet = false
+        let oldoperationKey = await this.getOperationKeyAsync(operationServerUuid);
+        if (oldoperationKey != operationKey) {
+            let operationKeyPath = onfPaths.OPERATION_SERVER_OPERATION_KEY.replace(
+                "{uuid}", operationServerUuid);
+            isOperationKeySet = await fileOperation.writeToDatabaseAsync(
+                operationKeyPath,
+                operationKey,
+                false);
+        }
+        if (isOperationKeySet == true || oldoperationKey == operationKey) {
+            operationKeyUpdateNotificationService.addOperationKeyUpdateToNotificationChannel(operationServerUuid);
+        }
+        return isOperationKeySet;
     }
 
     /**
@@ -196,7 +205,7 @@ class OperationServerInterface extends LayerProtocol {
      **/
     static async getOperationServerUuidAsync(operationName) {
         let logicalTerminationPointList = await controlConstruct.
-            getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
+        getLogicalTerminationPointListAsync(LayerProtocol.layerProtocolNameEnum.OPERATION_SERVER);
         if (logicalTerminationPointList != undefined) {
             for (let i = 0; i < logicalTerminationPointList.length; i++) {
                 let logicalTerminationPoint = logicalTerminationPointList[i];

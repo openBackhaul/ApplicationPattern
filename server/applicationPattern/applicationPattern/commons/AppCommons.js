@@ -90,7 +90,7 @@ async function validateBasicAuth(request, scopes, schema) {
 function loggingErrorHandler(err, req, res, next) {
     const statusCode = err.status || 500;
     const errorBody = {
-        code : statusCode,
+        code: statusCode,
         message: err.message,
         errors: err.errors,
     }
@@ -102,7 +102,9 @@ function loggingErrorHandler(err, req, res, next) {
             const traceIndicator = req.headers['trace-indicator'];
             const user = req.headers.user;
             const originator = req.headers.originator;
-            executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, statusCode, req.body, errorBody);
+            if (!(originator == "ExecutionAndTraceLog" && req.url == "/v1/record-service-request")) {
+                executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, statusCode, req.body, errorBody);
+            }
         }
     }
     console.log(`loggingErrorHandler - caught error, returning response with status code "${statusCode}" and body ${JSON.stringify(errorBody)}`);
