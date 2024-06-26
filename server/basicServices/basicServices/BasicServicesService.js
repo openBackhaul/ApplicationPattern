@@ -874,9 +874,9 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
 
   if (httpClientUuidOfFutureApplication) {
     let tcpClientUuidOfFutureApplication = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuidOfFutureApplication);
-    let existingIpAddressOfFutureApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfFutureApplication);
-    let existingProtocolOfFutureApplication = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuidOfFutureApplication);
-    let existingPortOfFutureApplication = await tcpClientInterface.getRemotePortAsync(tcpClientUuidOfFutureApplication);
+    let existingIpAddressOfFutureApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfFutureApplication[0]);
+    let existingProtocolOfFutureApplication = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuidOfFutureApplication[0]);
+    let existingPortOfFutureApplication = await tcpClientInterface.getRemotePortAsync(tcpClientUuidOfFutureApplication[0]);
 
     let isIpAddressOfFutureApplicationUpdated = false;
     let isProtocolOfFutureApplicationUpdated = false;
@@ -884,22 +884,22 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
 
     if (JSON.stringify(futureAddress) != JSON.stringify(existingIpAddressOfFutureApplication)) {
       isIpAddressOfFutureApplicationUpdated = await tcpClientInterface.setRemoteAddressAsync(
-        tcpClientUuidOfFutureApplication,
+        tcpClientUuidOfFutureApplication[0],
         futureAddress);
     }
     if (futureProtocol != existingProtocolOfFutureApplication) {
       isProtocolOfFutureApplicationUpdated = await tcpClientInterface.setRemoteProtocolAsync(
-        tcpClientUuidOfFutureApplication,
+        tcpClientUuidOfFutureApplication[0],
         futureProtocol);
     }
     if (futurePort != existingPortOfFutureApplication) {
       isPortOfFutureApplicationUpdated = await tcpClientInterface.setRemotePortAsync(
-        tcpClientUuidOfFutureApplication,
+        tcpClientUuidOfFutureApplication[0],
         futurePort);
     }
 
     if (isIpAddressOfFutureApplicationUpdated || isProtocolOfFutureApplicationUpdated || isPortOfFutureApplicationUpdated) {
-      ltpConfigurationList.push(tcpClientUuidOfFutureApplication);
+      ltpConfigurationList.push(tcpClientUuidOfFutureApplication[0]);
     }
 
     if (httpClientUuidOfCurrentApplication) {
@@ -908,9 +908,9 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     }
   } else if (httpClientUuidOfCurrentApplication) {
     let tcpClientUuidOfCurrentApplication = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuidOfCurrentApplication);
-    let existingIpAddressOfCurrentApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfCurrentApplication);
-    let existingProtocolOfCurrentApplication = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuidOfCurrentApplication);
-    let existingPortOfCurrentApplication = await tcpClientInterface.getRemotePortAsync(tcpClientUuidOfCurrentApplication);
+    let existingIpAddressOfCurrentApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfCurrentApplication[0]);
+    let existingProtocolOfCurrentApplication = await tcpClientInterface.getRemoteProtocolAsync(tcpClientUuidOfCurrentApplication[0]);
+    let existingPortOfCurrentApplication = await tcpClientInterface.getRemotePortAsync(tcpClientUuidOfCurrentApplication[0]);
 
     let isIpAddressOfCurrentApplicationUpdated = false;
     let isProtocolOfCurrentApplicationUpdated = false;
@@ -918,17 +918,17 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
 
     if (JSON.stringify(futureAddress) != JSON.stringify(existingIpAddressOfCurrentApplication)) {
       isIpAddressOfCurrentApplicationUpdated = await tcpClientInterface.setRemoteAddressAsync(
-        tcpClientUuidOfCurrentApplication,
+        tcpClientUuidOfCurrentApplication[0],
         futureAddress);
     }
     if (futureProtocol != existingProtocolOfCurrentApplication) {
       isProtocolOfCurrentApplicationUpdated = await tcpClientInterface.setRemoteProtocolAsync(
-        tcpClientUuidOfCurrentApplication,
+        tcpClientUuidOfCurrentApplication[0],
         futureProtocol);
     }
     if (futurePort != existingPortOfCurrentApplication) {
       isPortOfCurrentApplicationUpdated = await tcpClientInterface.setRemotePortAsync(
-        tcpClientUuidOfCurrentApplication,
+        tcpClientUuidOfCurrentApplication[0],
         futurePort);
     }
 
@@ -941,7 +941,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
       futureReleaseNumber);
 
     if (isIpAddressOfCurrentApplicationUpdated || isProtocolOfCurrentApplicationUpdated || isPortOfCurrentApplicationUpdated) {
-      ltpConfigurationList.push(tcpClientUuidOfCurrentApplication);
+      ltpConfigurationList.push(tcpClientUuidOfCurrentApplication[0]);
     }
 
     if (isApplicationNameUpdated || isReleaseNumberUpdated) {
