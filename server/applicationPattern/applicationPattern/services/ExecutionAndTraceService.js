@@ -62,7 +62,7 @@ exports.recordServiceRequestFromClient = async function (serverApplicationName, 
  * @param {number} responseCode response code of the rest call execution<br>
  * @param {object} requestBody  request body<br>
  * @param {object} responseBody  response body<br>
- * @param {String} execTime time taken to execute this request
+ * @param {Number} execTime time taken to execute this request
  * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
 exports.recordServiceRequest = async function (xCorrelator, traceIndicator, userName, originator,
