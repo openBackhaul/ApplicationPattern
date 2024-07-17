@@ -46,6 +46,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.1 | 1.1.4.15 | 4015
 |  | MDIP | MultiDomainInventoryProxy | 1.0.0 | 1.1.4.16 | 4016 | 1.2.4.16 | 4216
 |  | AIPS | AirInterfacePowerSaver  | 0.0.9 | 127.0.0.1 | 4017
+|  | NEP | NetExplorerProxy  | 1.0.0 | 127.0.0.1 | 4018
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
