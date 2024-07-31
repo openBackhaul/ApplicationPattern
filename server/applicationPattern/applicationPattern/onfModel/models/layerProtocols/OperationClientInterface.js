@@ -16,7 +16,7 @@ const tcpClientInterface = require('./TcpClientInterface');
 const onfPaths = require('../../constants/OnfPaths');
 const onfAttributes = require('../../constants/OnfAttributes');
 const fileOperation = require('../../../databaseDriver/JSONDriver');
-
+const operationKeyUpdateNotificationService = require('../../services/OperationKeyUpdateNotificationService');
 /**  
  * @extends LayerProtocol
  */
@@ -121,7 +121,7 @@ class OperationClientInterface extends LayerProtocol {
         }
         return undefined;
     }
-    
+
     /**
      * @description This function returns the detailedLoggingIsOn attribute of the operation client.
      * @param {String} operationClientUuid : uuid of the operation client ,the value should be a valid string 
@@ -201,15 +201,23 @@ class OperationClientInterface extends LayerProtocol {
      * @param {String} operationClientUuid : uuid of the http client ,the value should be a valid string 
      * in the pattern '-\d+-\d+-\d+-op-client-\d+$'
      * @param {String} operationKey : key that needs to be updated.
-     * @returns {Promise<boolean>} true|false
+     * @returns {Promise<boolean>} isOperationKeySet
      **/
     static async setOperationKeyAsync(operationClientUuid, operationKey) {
-        let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
-            "{uuid}", operationClientUuid);
-        return await fileOperation.writeToDatabaseAsync(
-            operationKeyPath,
-            operationKey,
-            false);
+        let isOperationKeySet = false
+        let oldoperationKey = await this.getOperationKeyAsync(operationClientUuid);
+        if (oldoperationKey != operationKey) {
+            let operationKeyPath = onfPaths.OPERATION_CLIENT_OPERATION_KEY.replace(
+                "{uuid}", operationClientUuid);
+            isOperationKeySet = await fileOperation.writeToDatabaseAsync(
+                operationKeyPath,
+                operationKey,
+                false);
+        }
+        if (isOperationKeySet == true || oldoperationKey == operationKey) {
+            operationKeyUpdateNotificationService.addOperationKeyUpdateToNotificationChannel(operationClientUuid);
+        }
+        return isOperationKeySet;
     }
 
     /**
@@ -288,7 +296,7 @@ class OperationClientInterface extends LayerProtocol {
         const layerProtocol = ltp[onfAttributes.LOGICAL_TERMINATION_POINT.LAYER_PROTOCOL][0];
         const layerProtocolName = layerProtocol[onfAttributes.LAYER_PROTOCOL.LAYER_PROTOCOL_NAME];
         return LayerProtocol.layerProtocolNameEnum.OPERATION_CLIENT === layerProtocolName;
-    }
+    }    
 }
 
 /**
@@ -308,5 +316,6 @@ function getConfiguredRemoteAddress(remoteAddress) {
     }
     return remoteAddress;
 }
+
 
 module.exports = OperationClientInterface;

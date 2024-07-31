@@ -31,7 +31,7 @@ let httpRequestHeader = {
   "customer-journey": "unknown",
   "operation-key": "Not yet defined.",
   "originator": "RegistryOffice",
-  "trace-indicator": 1,
+  "trace-indicator": "1",
   "user": "dana"
 };
 
@@ -57,7 +57,8 @@ test("isAuthorized -- response true", async () => {
     "ol-2-0-1-op-c-bm-alt-1-0-0-005",
     "POST",
     expect.objectContaining(httpRequestHeader),
-    expect.objectContaining(httpRequestBody)
+    expect.objectContaining(httpRequestBody),
+    undefined
   );
   expect(res).toStrictEqual({"isAuthorized": true});
 });
@@ -87,7 +88,8 @@ test("isAuthorized -- authorization error", async () => {
     "ol-2-0-1-op-c-bm-alt-1-0-0-005",
     "POST",
     expect.objectContaining(httpRequestHeader),
-    expect.objectContaining(httpRequestBody)
+    expect.objectContaining(httpRequestBody),
+    undefined
   );
   expect(res).toStrictEqual({"isAuthorized": false});
 });

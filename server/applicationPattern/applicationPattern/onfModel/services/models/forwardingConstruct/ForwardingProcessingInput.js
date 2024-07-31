@@ -7,23 +7,20 @@
 // @ts-check
 'use strict';
 
-class AutomationInput {
+class ForwardingProcessingInput {
 
     forwardingName;
     attributeList;
-    context;
 
     /**
      * constructor 
      * @param {String} forwardingName : name of the forwarding construct.
      * @param {Object} attributeList : list of attributes in key value pairs.
-     * @param {String|undefined} context : it should be a string with the information of application name + release number
      */
-    constructor(forwardingName, attributeList, context) {
+    constructor(forwardingName, attributeList) {
         this.forwardingName = forwardingName;
         this.attributeList = attributeList;
-        this.context = context;
     }
 }
 
-module.exports = AutomationInput;
+module.exports = ForwardingProcessingInput;

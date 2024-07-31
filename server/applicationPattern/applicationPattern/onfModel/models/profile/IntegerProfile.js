@@ -122,7 +122,7 @@ class IntegerProfile extends Profile {
      * @deprecated should be removed
      * @description This function returns the maxmimum value for the integer profile.
      * @param {String} integerProfileUuid : the value should be a valid string in the pattern '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-integer-p-([0-9]{3})$'
-     * @returns {promise} string {approvalStatus}
+     * @returns {promise} string {integerValue}
      **/
     static async getIntegerValueAsync(integerProfileUuid) {
         return new Promise(async function (resolve, reject) {
@@ -145,6 +145,28 @@ class IntegerProfile extends Profile {
             }
         });
     }
+
+/**
+     * @description This function returns the configured value for the integer profile.
+     * @param {String} integerProfileName : name of the integer profile
+     * @returns {promise} string {integerValue}
+     **/
+    static async getIntegerValueForTheIntegerProfileNameAsync(integerProfileName) {
+        let integerValue
+        let profileList = await ProfileCollection.getProfileListAsync();
+        for (let i = 0; i < profileList.length; i++) {
+            let profileInstance = profileList[i];
+            let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
+            if (profileName == "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE") {
+                let Integerval = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CAPABILITY][onfAttributes.INTEGER_PROFILE.INTEGER_NAME]
+                if (Integerval == integerProfileName) {
+                    integerValue = profileInstance[onfAttributes.INTEGER_PROFILE.PAC][onfAttributes.INTEGER_PROFILE.CONFIGURATION][onfAttributes.INTEGER_PROFILE.INTEGER_VALUE]
+                    break;
+                }
+            }
+        }
+        return integerValue;
+    }    
 }
 
 module.exports = IntegerProfile;

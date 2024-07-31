@@ -8,6 +8,38 @@ const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/on
 
 
 
+exports.disposeRemaindersOfDeregisteredApplication = function (operationClientConfigurationStatusList) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConfigurationInputList = [];
+        try {
+            for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
+
+                let configurationStatus = operationClientConfigurationStatusList[i];
+                let operationClientUuid = configurationStatus.uuid;
+
+                let forwardingConstructList = await forwardingDomain.getForwardingConstructListForTheFcPortAsync(
+                    operationClientUuid,
+                    FcPort.portDirectionEnum.OUTPUT);
+
+                for (let j = 0; j < forwardingConstructList.length; j++) {
+                    let fcNameList = forwardingConstructList[j]["name"];
+                    let forwardingName = getValueFromKey(fcNameList, "ForwardingName");
+                    let forwardingConfigurationInput = new forwardingConstructConfigurationInput(
+                        forwardingName,
+                        operationClientUuid
+                    );
+                    forwardingConfigurationInputList.push(
+                        forwardingConfigurationInput
+                    );
+                }                
+            }
+            resolve(forwardingConfigurationInputList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 exports.embedYourself = function (operationClientConfigurationStatusList, deregisterOperation, relayServerReplacementOperation, relayOperationUpdateOperation) {
     return new Promise(async function (resolve, reject) {
         let forwardingConfigurationInputList = [];
@@ -82,6 +114,36 @@ exports.registerYourself = function (operationClientConfigurationStatusList, reg
     });
 }
 
+
+exports.inquireBasicAuthRequestApprovals = function (operationClientConfigurationStatusList, basicAuthApprovalOperation) {
+    return new Promise(async function (resolve, reject) {
+        let forwardingConfigurationInputList = [];
+        try {
+            for (let i = 0; i < operationClientConfigurationStatusList.length; i++) {
+                let configurationStatus = operationClientConfigurationStatusList[i];
+                let operationClientUuid = configurationStatus.uuid;
+                let operationClientName = await operationClientInterface.
+                getOperationNameAsync(operationClientUuid);
+                let forwardingConfigurationInput;
+                let forwardingName;
+                if (operationClientName == basicAuthApprovalOperation) {
+                    forwardingName =
+                        "BasicAuthRequestCausesInquiryForAuthentication";
+                    forwardingConfigurationInput = new forwardingConstructConfigurationInput(
+                        forwardingName,
+                        operationClientUuid
+                    );
+                }
+                forwardingConfigurationInputList.push(
+                    forwardingConfigurationInput
+                );
+            }
+            resolve(forwardingConfigurationInputList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
 exports.inquireOamRequestApprovals = function (operationClientConfigurationStatusList, oamApprovalOperation) {
     return new Promise(async function (resolve, reject) {
