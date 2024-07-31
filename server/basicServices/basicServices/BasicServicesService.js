@@ -228,17 +228,17 @@ exports.embedYourself = async function (body, user, xCorrelator, traceIndicator,
     let oldReleaseAddress = body["old-release-address"];
     let oldReleaseProtocol = body["old-release-protocol"];
     let oldReleasePort = body["old-release-port"];
-    if (JSON.stringify(oldReleaseAddress) != JSON.stringify(existingpreceedingApplicationAddress)) {
+    if (oldReleaseAddress!=undefined && JSON.stringify(oldReleaseAddress) != JSON.stringify(existingpreceedingApplicationAddress)) {
       isORAddressUpdated = await tcpClientInterface.setRemoteAddressAsync(
         preceedingApplicationClientUuidStack.tcpClientUuid,
         oldReleaseAddress);
     }
-    if (oldReleasePort != existingpreceedingApplicationPort) {
+    if (oldReleasePort!=undefined && oldReleasePort != existingpreceedingApplicationPort) {
       isORPortUpdated = await tcpClientInterface.setRemotePortAsync(
         preceedingApplicationClientUuidStack.tcpClientUuid,
         oldReleasePort);
     }
-    if (oldReleaseProtocol != existingpreceedingApplicationProtocol) {
+    if (oldReleaseProtocol!=undefined && oldReleaseProtocol != existingpreceedingApplicationProtocol) {
       isORProtocolUpdated = await tcpClientInterface.setRemoteProtocolAsync(
         preceedingApplicationClientUuidStack.tcpClientUuid,
         oldReleaseProtocol);
@@ -1404,7 +1404,7 @@ async function processInvariantSubscription(subscribingApplicationName, subscrib
   let forwardingAutomationInputList = await prepareForwardingAutomation.updateLtpToALT(
     ltpConfigurationList
   );
-  ForwardingAutomationService.automateForwardingConstructAsync(
+  await ForwardingAutomationService.automateForwardingConstructAsync(
     operationServerName,
     forwardingAutomationInputList,
     user,
