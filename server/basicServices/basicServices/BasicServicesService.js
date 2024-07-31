@@ -408,7 +408,7 @@ exports.informAboutReleaseHistoryInGenericRepresentation = async function (opera
  * newReleaseFwName String Holds information about the new release forwarding name if exist
  * no response value expected for this operation
  **/
-exports.inquireBasicAuthRequestApprovals = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseFwName) {
+exports.inquireBasicAuthRequestApprovals = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   let subscribingApplicationName = body["application-name"];
   let subscribingApplicationReleaseNumber = body["release-number"];
   let subscribingApplicationProtocol = body["protocol"];
@@ -436,7 +436,7 @@ exports.inquireBasicAuthRequestApprovals = async function (body, user, xCorrelat
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, newReleaseFwName) {
+exports.inquireOamRequestApprovals = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   let subscribingApplicationName = body["oam-approval-application"];
   let subscribingApplicationReleaseNumber = body["oam-approval-application-release-number"];
   let subscribingApplicationProtocol = body["oam-approval-protocol"];
@@ -628,7 +628,6 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
  **/
 exports.registerYourself = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   let ltpConfigurationList = [];
-  let forwardingConstructConfigurationStatus;
   let preceedingApplicationName;
   let preceedingApplicationRelease;
 
