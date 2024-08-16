@@ -47,7 +47,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | AIPS | AirInterfacePowerSaver  | 0.0.9 | 127.0.0.1 | 4017
 |  | NEP | NetExplorerProxy  | 1.0.0 | 127.0.0.1 | 4018
 |  | NDLP | NetworkDataLakeProxy  | 1.0.0 | 127.0.0.1 | 4019
-|  | APTP | AccessPlanningToolProxy  | 1.0.0 | 127.0.0.1 | 4020
+|  | APTP | AccessPlanningToolProxy  | 1.1.0 | 127.0.0.1 | 4020
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
