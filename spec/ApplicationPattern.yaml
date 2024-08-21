@@ -7166,7 +7166,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s-([bi][ms])-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s(-(get|put|post|del|pat))?-([bi][ms])-([0-9]{3})$'
           example: 'xy-15-3-2-op-s-bm-000'
     get:
       operationId: getOperationServerOperationName
@@ -7207,7 +7207,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s-([bi][ms])-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s(-(get|put|post|del|pat))?-([bi][ms])-([0-9]{3})$'
           example: 'xy-15-3-2-op-s-bm-000'
     get:
       operationId: getOperationServerLifeCycleState
@@ -7296,7 +7296,7 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s-([bi][ms])-([0-9]{3})$'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-s(-(get|put|post|del|pat))?-([bi][ms])-([0-9]{3})$'
           example: 'xy-15-3-2-op-s-bm-000'
     get:
       operationId: getOperationServerOperationKey
