@@ -13,6 +13,10 @@ Unfortunately, it takes some training to properly put them together.
 
 ![UUID Structure](./pictures/uuid-structure.png)
 
+_Note that there are special cases where the format differs. The special case uuids are used for services directly accessing ElasticSearch with put/get/delete and are described further down._
+
+---  
+
 **OwnApplicationID**  
 This application identifier relates to the application that contains the data object that is identified by the UUID (name space).  
 It is composed from the official abbreviation of the _ApplicationName_ composed from the uppercase letters of the _ApplicationName_ (e.g. RegistryOffice=>RO, TypeApprovalRegister=>TAR), but transferred into lowercase letters (e.g. RO=>ro, TAR=>tar) and the official _ReleaseNumber_ of the specification of the application that contains the data object.  
@@ -21,6 +25,8 @@ A hyphen is also used between abbreviation of the _ApplicationName_ and _Release
 Examples: ro-1-0-0, tar-1-0-1
 
 (Now, it should be clear why [Structure of ApplicationNames](../StructureOfApplicationNames/StructureOfApplicationNames.md) prescribes abbreviations to be unique within the modular application layer.)  
+
+---  
 
 **LayerID**  
 Currently the following layers are defined:  
@@ -41,6 +47,8 @@ The following _LayerIDs_ are already in use for _Profiles_:
 - response = For describing some response in a generic representation  
 - string = For storing a single String  
 
+---  
+
 **ObjectType**  
 Within the respective layers the following types of objects are defined:  
 - c = _Client_  
@@ -49,37 +57,41 @@ Within the respective layers the following types of objects are defined:
 - fc = _ForwardingConstruct_ (actual forwarding inside applications)  
 - p = _Profile_  
 
+---  
+
 **ApiSegment**  
 The _ApiSegment_ is contained in the UUIDs of _OperationServers_, _OperationClients_ and _FCs_.  
 Basically, identical letters are used, but there is a slight divergence in the deep details of the semantical meanings.
 
-The **OperationServers** are categorized according to the following two aspects:  
-- Own Management (receiving advice) vs. Offered Services (providing support)  
-- Basic to all applications vs. Individual to this application  
+_**OperationServers**_:  
+> The **OperationServers** are categorized according to the following two aspects:  
+>> - Own Management (receiving advice) vs. Offered Services (providing support)  
+>> - Basic to all applications vs. Individual to this application  
+>
+>This results in four categories:  
+>> - bm = Basic Management: _Operation_ for managing this application, but same _Operation_ is available at all other applications, too  
+>> - im = Individual Management: _Operation_, which is individual for managing this application  
+>> - bs = Basic Service: Offering a service, which must be provided by all applications  
+>> - is = Individual Service: Offering a services, which is individual to this application  
 
-This results in four categories:  
-- bm = Basic Management: _Operation_ for managing this application, but same _Operation_ is available at all other applications, too  
-- im = Individual Management: _Operation_, which is individual for managing this application  
-- bs = Basic Service: Offering a service, which must be provided by all applications  
-- is = Individual Service: Offering a services, which is individual to this application  
+_**OperationClients**_:  
+> The **OperationClients** are categorized according to the following two aspects:  
+> - Executed Management (giving advice) vs. Consumed Services (receiving support)  
+> - Basic to all applications vs. Individual to this application  
+>
+> This results in four categories:  
+>> - bm = Basic Management: All applications have this client for executing management on another application  
+>> - im = Individual Management: Only this application has this client for executing management on another application  
+>> - bs = Basic Services: All applications are consuming the same service from the same application  
+>> - is = Individual Services: It's individual to this application to consume this service  
 
-UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.  
+_**Others**_:  
+> - UUIDs of **HttpServer** and **TcpServer** don't contain an ApiSegment.
+> - UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.
+> - **FCs** are inheriting the ApiSegment from the connected OperationClients.
+> - UUIDs of **Profile** and **FD** don't contain an ApiSegment.
 
-The **OperationClients** are categorized according to the following two aspects:  
-- Executed Management (giving advice) vs. Consumed Services (receiving support)  
-- Basic to all applications vs. Individual to this application  
-
-This results in four categories:  
-- bm = Basic Management: All applications have this client for executing management on another application  
-- im = Individual Management: Only this application has this client for executing management on another application  
-- bs = Basic Services: All applications are consuming the same service from the same application  
-- is = Individual Services: It's individual to this application to consume this service  
-
-UUIDs of **HttpClient** and **TcpClient** don't contain an ApiSegment.  
-
-**FCs** are inheriting the ApiSegment from the connected OperationClients.  
-
-UUIDs of **Profile** and **FD** don't contain an ApiSegment.  
+---  
 
 **TargetApplicationID**  
 This application identifier relates to the application that is connected by the described client interface object.  
@@ -89,11 +101,19 @@ Dots to be replaced by hyphens (e.g. 1-0-0, 1-0-1) inside the release number.
 ElasticSearch would be identified by es-1-0-0.  
 A hyphen also to be used between abbreviation of the application name and release number.  
 
+---  
+
 **SequenceNumber**  
 The SequenceNumber is just distinguishing objects of the same kind.  
 It has three digits.  
 Counting is decimal.  
 
+---  
+**Special case: ElasticSearchOperationInfo**  
+E.g. in MWDI there are services for direct access to the Cache for topology information, which is not available from the Controller/devices (in contrast to the ressource paths).  
+These services have a slightly different uuid format, as they contain information about the related ElasticSearch operation.  
+
+![UUID Structure special case](./pictures/uuid-structure-specialcase.png)  
 
 ## Examples:  
 
@@ -105,7 +125,7 @@ Counting is decimal.
 | ol-1-0-0-http-c-alt-1-0-0-000 | HttpClient that is addressing the ApplicationLayerTopology release 1.0.0 inside the OamLog release 1.0.0 |  
 | aa-1-0-0-op-fc-003 | ForwardingConstruct for basic management tasks on the OperationLayer inside the AdministratorAdministration release 1.0.0 |  
 | eatl-1-0-1-integer-p-000 | Profile storing an Integer value inside the ExecutionAndTraceLog release 1.0.1 |  
-
+| mwdi-1-0-0-op-s-get-is-205 | Special case service offered by MWDI relase 1.0.0 to directly access ElasticSearch and get a data record |  
 
 ## UUIDs of Links:  
 

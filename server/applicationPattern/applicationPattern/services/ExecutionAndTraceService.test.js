@@ -28,7 +28,7 @@ let httpRequestHeader = {
   "customer-journey": "unknown",
   "operation-key": "Not yet defined.",
   "originator": "RegistryOffice",
-  "trace-indicator": 1,
+  "trace-indicator": "1",
   "user": "dana"
 };
 
@@ -61,7 +61,7 @@ test("recordServiceRequest -- response true, detailedLogging false", async () =>
     "ol-2-0-1-op-c-bm-alt-1-0-0-005",
     "POST",
     expect.objectContaining(httpRequestHeader),
-    httpRequestBody
+    expect.objectContaining(httpRequestBody)
   );
   expect(res).toBeTruthy();
 });
@@ -119,7 +119,7 @@ test("recordServiceRequestFromClient -- response true, detailedLogging false", a
     "ol-2-0-1-op-c-bm-alt-1-0-0-005",
     "POST",
     expect.objectContaining(httpRequestHeader),
-    httpRequestBody
+    expect.objectContaining(httpRequestBody)
   );
   expect(res).toBeTruthy();
 });

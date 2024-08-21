@@ -41,6 +41,13 @@ module.exports.basicServicesOperationsMapping =
             "sequence": "000"
         }
     },
+    "/v1/inquire-basic-auth-approvals":
+    {
+        "basic-auth-approval-operation": {
+            "api-segment": "bs",
+            "sequence": "000"
+        }
+    },
     "/v1/redirect-topology-change-information": {
         "topology-operation-application-update": {
             "api-segment": "bm",

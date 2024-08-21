@@ -22,10 +22,11 @@ const moment = require('moment');
  * @param {number} responseCode response code of the rest call execution<br>
  * @param {object} requestBody  request body<br>
  * @param {object} responseBody  response body<br>
+ * @param {String} url complete url of the request
  * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
 exports.recordServiceRequestFromClient = async function (serverApplicationName, serverApplicationReleaseNumber, xCorrelator, traceIndicator, userName, originator,
-    operationName, responseCode, requestBody, responseBody) {
+    operationName, responseCode, requestBody, responseBody, url) {
     let httpRequestBody = {};
     try {
         let operationClientUuid = await getOperationClientToLogServiceRequest();
@@ -37,7 +38,7 @@ exports.recordServiceRequestFromClient = async function (serverApplicationName, 
         let stringifiedRequestBody = JSON.stringify(requestBody);
         let stringifiedResponseBody = JSON.stringify(responseBody);
         let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, serverApplicationName, serverApplicationReleaseNumber,
-            operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
+            operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn, url);
         let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
         let responseCodeValue = response.status.toString();
         if (responseCodeValue.startsWith("2")) {
@@ -61,10 +62,11 @@ exports.recordServiceRequestFromClient = async function (serverApplicationName, 
  * @param {number} responseCode response code of the rest call execution<br>
  * @param {object} requestBody  request body<br>
  * @param {object} responseBody  response body<br>
+ * @param {Number} execTime time taken to execute this request
  * @returns {Promise<boolean>} returns true if the operation is successful. Promise is never rejected.<br>
  */
 exports.recordServiceRequest = async function (xCorrelator, traceIndicator, userName, originator,
-    operationName, responseCode, requestBody, responseBody) {
+    operationName, responseCode, requestBody, responseBody, execTime) {
     let httpRequestBody = {};
     try {
         let operationClientUuid = await getOperationClientToLogServiceRequest();
@@ -77,7 +79,7 @@ exports.recordServiceRequest = async function (xCorrelator, traceIndicator, user
         let stringifiedRequestBody = JSON.stringify(requestBody);
         let stringifiedResponseBody = JSON.stringify(responseBody);
         let httpRequestBody = formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
-            operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn);
+            operationName, responseCode, timestamp, stringifiedRequestBody, stringifiedResponseBody, detailedLoggingIsOn, undefined, execTime);
         let response = await RequestBuilder.BuildAndTriggerRestRequest(operationClientUuid, "POST", httpRequestHeader, httpRequestBody);
         let responseCodeValue = response.status.toString();
         if (responseCodeValue.startsWith("2")) {
@@ -108,7 +110,7 @@ exports.recordServiceRequest = async function (xCorrelator, traceIndicator, user
  * @returns {Object} return the formulated responseBody<br>
  */
 function formulateRequestBody(xCorrelator, traceIndicator, userName, originator, applicationName, applicationReleaseNumber,
-    operationName, responseCode, timestamp, stringifiedBody, stringifiedResponse, detailedLoggingIsOn) {
+    operationName, responseCode, timestamp, stringifiedBody, stringifiedResponse, detailedLoggingIsOn, Url, execTime) {
     let httpRequestBody = {
         "x-correlator": xCorrelator,
         "trace-indicator": traceIndicator,
@@ -117,10 +119,12 @@ function formulateRequestBody(xCorrelator, traceIndicator, userName, originator,
         "application-name": applicationName,
         "release-number": applicationReleaseNumber,
         "operation-name": operationName,
-        "response-code": responseCode
+        "response-code": responseCode,        
+        "timestamp" : timestamp,
+        "url": Url,
+        "exec-time": execTime
     };
     if (detailedLoggingIsOn) {
-        httpRequestBody["timestamp"] = timestamp;
         httpRequestBody["stringified-body"] = stringifiedBody;
         httpRequestBody["stringified-response"] = stringifiedResponse;
     }

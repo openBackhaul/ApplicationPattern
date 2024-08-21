@@ -9,11 +9,13 @@ const ForwardingConstruct = require('../models/ForwardingConstruct');
 const TcpClientInterface = require('../models/layerProtocols/TcpClientInterface');
 const OperationClientInterface = require("../models/layerProtocols/OperationClientInterface");
 const HttpClientInterface = require("../models/layerProtocols/HttpClientInterface");
+const fileOperation = require('../../databaseDriver/JSONDriver');
 
 jest.mock('../models/ControlConstruct');
 jest.mock('../models/LogicalTerminationPoint');
 jest.mock('../models/ForwardingDomain');
 jest.mock('../models/ForwardingConstruct');
+jest.mock('../../databaseDriver/JSONDriver');
 
 const fc = {
   "uuid": "ol-2-0-1-op-fc-bm-010",
@@ -130,6 +132,7 @@ const individualServicesOperationsMapping =
 beforeEach(() => {
   jest.spyOn(ControlConstruct, 'getUuidAsync').mockReturnValue('ol-2-0-1');
   jest.spyOn(ControlConstruct, 'addLogicalTerminationPointAsync').mockReturnValue(true);
+  jest.spyOn(fileOperation, 'writeToDatabaseAsync').mockImplementation(() => true);
 });
 
 describe("createOrUpdateApplicationLtpsAsync", () => {

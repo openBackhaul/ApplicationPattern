@@ -37,7 +37,6 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 1.1.4.5 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 127.0.0.1 | 4008
-|  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.0 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
 |  | NP | NotificationProxy | 1.0.1 | 1.1.4.11 | 4011 | 1.2.4.11 | 4211
 |  | MWPP | MicroWavePerformanceProxy | 1.0.0 | 127.0.0.1 | 4012 |
@@ -46,6 +45,11 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.1 | 1.1.4.15 | 4015
 |  | MDIP | MultiDomainInventoryProxy | 1.0.0 | 1.1.4.16 | 4016 | 1.2.4.16 | 4216
 |  | AIPS | AirInterfacePowerSaver  | 0.0.9 | 127.0.0.1 | 4017
+|  | NEP | NetExplorerProxy  | 1.0.0 | 127.0.0.1 | 4018
+|  | NDLP | NetworkDataLakeProxy  | 1.0.0 | 127.0.0.1 | 4019
+|  | APTP | AccessPlanningToolProxy  | 1.1.0 | 127.0.0.1 | 4020
+| Out of SDN Domain |  |  |  |  |  |
+|  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
 \*) IP_1 + TCP_1 = address from **within** the GCP VPC (HTTP).  
 \*\*) IP_2 + TCP_2 = address from **outside** the GCP VPC (HTTP**S**).
@@ -80,3 +84,4 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
 |  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
 |  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
+|  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.2 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209

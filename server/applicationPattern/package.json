@@ -1,6 +1,6 @@
 {
   "name": "onf-core-model-ap",
-  "version": "2.0.2-alpha.2",
+  "version": "2.1.1",
   "description": "onf core model application pattern",
   "main": "index.js",
   "scripts": {

@@ -69,7 +69,8 @@ async function validateOperationKey(request, scopes, schema) {
  */
 // eslint-disable-next-line no-unused-vars
 async function validateBasicAuth(request, scopes, schema) {
-    const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method);
+    let pathDefinedInOpenApi = request.openapi.openApiRoute;
+    const authStatus = await authorizingService.isAuthorized(request.headers.authorization, request.method, pathDefinedInOpenApi);
     if (authStatus.isAuthorized == true) {
         return true;
     } else {
@@ -89,7 +90,7 @@ async function validateBasicAuth(request, scopes, schema) {
 function loggingErrorHandler(err, req, res, next) {
     const statusCode = err.status || 500;
     const errorBody = {
-        code : statusCode,
+        code: statusCode,
         message: err.message,
         errors: err.errors,
     }
@@ -101,7 +102,9 @@ function loggingErrorHandler(err, req, res, next) {
             const traceIndicator = req.headers['trace-indicator'];
             const user = req.headers.user;
             const originator = req.headers.originator;
-            executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, statusCode, req.body, errorBody);
+            if (!(originator == "ExecutionAndTraceLog" && req.url == "/v1/record-service-request")) {
+                executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, statusCode, req.body, errorBody);
+            }
         }
     }
     console.log(`loggingErrorHandler - caught error, returning response with status code "${statusCode}" and body ${JSON.stringify(errorBody)}`);

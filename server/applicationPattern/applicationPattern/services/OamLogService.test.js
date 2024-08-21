@@ -4,6 +4,7 @@ const HttpServerInterface = require('../onfModel/models/layerProtocols/HttpServe
 const RequestBuilder = require('../rest/client/RequestBuilder');
 const ForwardingDomain = require('../onfModel/models/ForwardingDomain');
 
+
 jest.mock('../onfModel/models/ForwardingDomain');
 jest.mock('../onfModel/models/layerProtocols/OperationClientInterface');
 jest.mock('../onfModel/models/layerProtocols/HttpServerInterface');
@@ -42,8 +43,9 @@ test("recordOamRequest -- response true", async () => {
     "customer-journey": "unknown",
     "operation-key": "Not yet defined.",
     "originator": "RegistryOffice",
-    "trace-indicator": 1,
-    "user": "dana"
+    "trace-indicator": "1",
+    "user": "dana",
+    "x-correlator": expect.any(String)
   };
   let httpRequestBody = {
     "application-name": "RegistryOffice",
@@ -52,11 +54,12 @@ test("recordOamRequest -- response true", async () => {
     "resource": "{ testbody: foo }",
     "response-code": "200",
     "stringified-body": "{}",
-    "user-name": "dana",
+    "timestamp": expect.any(String),
+    "user-name": "dana"
   };
   expect(RequestBuilder.BuildAndTriggerRestRequest).toHaveBeenCalledWith(
     "ol-2-0-1-op-c-bm-alt-1-0-0-005",
-    "POST",
+    "POST",    
     expect.objectContaining(httpRequestHeader),
     expect.objectContaining(httpRequestBody)
   );

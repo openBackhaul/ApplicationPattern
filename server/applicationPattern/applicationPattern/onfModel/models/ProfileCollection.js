@@ -17,7 +17,6 @@ const Profile = require('./Profile');
 class ProfileCollection {
 
     /**
-     * @deprecated use getProfileListForProfileNameAsync
      * @description This function returns the profile list from /core-model-1-4:control-construct/profile-collection/profile.
      * @returns {promise} list {profile list}
      **/
