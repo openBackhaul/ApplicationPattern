@@ -637,148 +637,10 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
-        PromptForRegisteringCausesRegistrationRequest:
-          url: #[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://{[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address or /core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]}:[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-c-bm-ro-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-            description: >
-              'DEPRECATED
-              Callback shall be deleted with RO v3.0.0
-              Starting from RO v2.1.0, PromptForRegisteringCausesRegistrationRequest shall be executed first and PromptForRegisteringCausesRegistrationRequest2 second. Sequence shall be kept regardless of the respective HTTP response codes.'
-            post:
-              parameters:
-                - $ref: '#/components/parameters/user'
-                - $ref: '#/components/parameters/originator'
-                - $ref: '#/components/parameters/x-correlator'
-                - $ref: '#/components/parameters/trace-indicator'
-                - $ref: '#/components/parameters/customer-journey'
-              requestBody:
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      required:
-                        - application-name
-                        - release-number
-                        - embedding-operation
-                        - client-update-operation
-                        - operation-client-update-operation
-                        - tcp-server-list
-                      properties:
-                        application-name:
-                          type: string
-                          description: >
-                            'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
-                        release-number:
-                          type: string
-                          description: >
-                            'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
-                        preceding-application-name:
-                          type: string
-                          description: >
-                            'To be providede if application-name in *-http-c-or-* different from OldRelease
-                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
-                        preceding-release-number:
-                          type: string
-                          description: >
-                            'To be providede if application-name in *-http-c-or-* different from OldRelease
-                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
-                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                        embedding-operation:
-                          type: string
-                          description: >
-                            'Name of service for initiating embedding process
-                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        client-update-operation:
-                          type: string
-                          description: >
-                            'Name of service for broadcasting server changes
-                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        operation-client-update-operation:
-                          type: string
-                          description: >
-                            'Name of service for broadcasting replacements of operations by backward compatible substitutes
-                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        tcp-server-list:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                              - protocol
-                              - address
-                              - port
-                            properties:
-                              protocol:
-                                type: string
-                                description: >
-                                  'Own protocol (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                  from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
-                              address:
-                                type: object
-                                properties:
-                                  ip-address:
-                                    type: object
-                                    properties:
-                                      ipv-4-address:
-                                        type: string
-                                        description: >
-                                          'Own IPv4 address (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                          from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
-                                  domain-name:
-                                    type: string
-                                    description: >
-                                      'Own domain name (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                      from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
-                              port:
-                                type: integer
-                                description: >
-                                  'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
-                                  from[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
-              responses:
-                '204':
-                  description: 'Application registered'
-                  headers:
-                    x-correlator:
-                      schema:
-                        type: string
-                        example: '550e8400-e29b-11d4-a716-446655440000'
-                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-                    exec-time:
-                      schema:
-                        type: integer
-                        example: 1100
-                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-                    backend-time:
-                      schema:
-                        type: integer
-                        example: 850
-                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-                    life-cycle-state:
-                      schema:
-                        type: string
-                        enum:
-                          - 'EXPERIMENTAL'
-                          - 'OPERATIONAL'
-                          - 'DEPRECATED'
-                          - 'OBSOLETE'
-                          - 'UNKNOWN'
-                          - 'NOT_YET_DEFINED'
-                        example: 'EXPERIMENTAL'
-                      description: 'Life cycle state of the consumed service'
-                '400':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '403':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '404':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '500':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForRegisteringCausesRegistrationRequest2:
           url: #[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://{[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address or /core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]}:[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-c-bm-ro-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+            description: >
+              'Starting from RO v2.1.0, PromptForRegisteringCausesRegistrationRequest2 shall be executed first, only if HTTP response code different from 204 PromptForRegisteringCausesRegistrationRequest shall be executed, too.'
             post:
               parameters:
                 - $ref: '#/components/parameters/user'
@@ -884,6 +746,144 @@ paths:
                               description: >
                                 'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
                                 from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+              responses:
+                '204':
+                  description: 'Application registered'
+                  headers:
+                    x-correlator:
+                      schema:
+                        type: string
+                        example: '550e8400-e29b-11d4-a716-446655440000'
+                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+                    exec-time:
+                      schema:
+                        type: integer
+                        example: 1100
+                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+                    backend-time:
+                      schema:
+                        type: integer
+                        example: 850
+                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+                    life-cycle-state:
+                      schema:
+                        type: string
+                        enum:
+                          - 'EXPERIMENTAL'
+                          - 'OPERATIONAL'
+                          - 'DEPRECATED'
+                          - 'OBSOLETE'
+                          - 'UNKNOWN'
+                          - 'NOT_YET_DEFINED'
+                        example: 'EXPERIMENTAL'
+                      description: 'Life cycle state of the consumed service'
+                '400':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '403':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '404':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '500':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                default:
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+        PromptForRegisteringCausesRegistrationRequest:
+          url: #[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://{[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address or /core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]}:[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-c-bm-ro-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+            description: >
+              'DEPRECATED - Callback shall be deleted with RO v3.0.0'
+            post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      required:
+                        - application-name
+                        - release-number
+                        - embedding-operation
+                        - client-update-operation
+                        - operation-client-update-operation
+                        - tcp-server-list
+                      properties:
+                        application-name:
+                          type: string
+                          description: >
+                            'Own application name
+                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                        release-number:
+                          type: string
+                          description: >
+                            'Own release number
+                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                        preceding-application-name:
+                          type: string
+                          description: >
+                            'To be providede if application-name in *-http-c-or-* different from OldRelease
+                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                        preceding-release-number:
+                          type: string
+                          description: >
+                            'To be providede if application-name in *-http-c-or-* different from OldRelease
+                            for preparing RO for the new application addressing /v1/bequeath-your-data-and-die at the preceding application after receiving /v1/embed-yourself
+                            from [/core-model-1-4:control-construct/logical-termination-point=*-http-c-or-*/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                        embedding-operation:
+                          type: string
+                          description: >
+                            'Name of service for initiating embedding process
+                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                        client-update-operation:
+                          type: string
+                          description: >
+                            'Name of service for broadcasting server changes
+                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                        operation-client-update-operation:
+                          type: string
+                          description: >
+                            'Name of service for broadcasting replacements of operations by backward compatible substitutes
+                            from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                        tcp-server-list:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                              - protocol
+                              - address
+                              - port
+                            properties:
+                              protocol:
+                                type: string
+                                description: >
+                                  'Own protocol (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                  from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol]'
+                              address:
+                                type: object
+                                properties:
+                                  ip-address:
+                                    type: object
+                                    properties:
+                                      ipv-4-address:
+                                        type: string
+                                        description: >
+                                          'Own IPv4 address (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                          from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                                  domain-name:
+                                    type: string
+                                    description: >
+                                      'Own domain name (shall be taken (if available) from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                      from [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name]'
+                              port:
+                                type: integer
+                                description: >
+                                  'Own TCP port (shall be taken from the stored data, but not from the initiating request body, because attribute is not mandatory in the request body definition)
+                                  from[/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
               responses:
                 '204':
                   description: 'Application registered'
@@ -1256,7 +1256,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the service requests
-                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-eatl-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-eatl-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 service-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1501,7 +1501,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the OaM requests
-                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-ol-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-ol-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -1830,7 +1830,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall approve the OaM requests
-                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-aa-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-aa-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-approval-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -2379,7 +2379,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall document the application layer topology
-                    find, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-alt-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-alt-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 topology-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -3538,7 +3538,7 @@ paths:
                   type: string
                   description: >
                     'Name of the application that approves the BasicAuth requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-aa-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update [/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-http-c-aa-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
@@ -6554,7 +6554,7 @@ paths:
               properties:
                 file-profile-1-0:file-name:
                   type: string
-                  pattern: '^([A-Za-z0-9-_,\s]{3,})\.([A-Za-z]{3})$'
+                  pattern: '^([A-Za-z0-9-_,\s]{3,})\.([A-Za-z]{3,})$'
                   example: 'application-data.json'
       responses:
         '204':
@@ -9702,7 +9702,6 @@ components:
       schema:
         type: string
         pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
-        description: 'Empty string accepted from external applications.'
         example: '550e8400-e29b-11d4-a716-446655440000'
       description: 'UUID for the service execution flow that allows to correlate requests and responses'
     trace-indicator:
@@ -9712,7 +9711,6 @@ components:
       schema:
         type: string
         pattern: '^([0-9]+)(\.([0-9]+))*$'
-        description: 'Empty string accepted from external applications.'
         example: '1.3.1'
       description: 'Sequence of request numbers along the flow'
     customer-journey:
