@@ -1,4 +1,4 @@
-﻿openapi: 3.0.0
+openapi: 3.0.0
 info:
   title: ApplicationName
   version: 1.0.0
@@ -8014,7 +8014,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'xy-15-3-2-op-c-bm-or-2-1-1-000'
+          example: 'xy-15-3-2-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationName
       summary: 'Returns operation name'
@@ -8090,7 +8090,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'xy-15-3-2-op-c-bm-or-2-1-1-000'
+          example: 'xy-15-3-2-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationKey
       summary: 'Returns key used for connecting to server.'
@@ -8166,7 +8166,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'xy-15-3-2-op-c-bm-or-2-1-1-000'
+          example: 'xy-15-3-2-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationalState
       summary: 'Returns operational state of the operation'
@@ -8211,7 +8211,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-c-([bi][ms])-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'xy-15-3-2-op-c-bm-or-2-1-1-000'
+          example: 'xy-15-3-2-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientLifeCycleState
       summary: 'Returns life cycle state of the operation'
@@ -9263,7 +9263,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
-          example: 'xy-15-3-2-http-c-or-2-1-1-000'
+          example: 'xy-15-3-2-http-c-or-1-0-0-000'
     get:
       operationId: getHttpClientApplicationName
       summary: 'Returns name of application to be addressed'
@@ -9339,7 +9339,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-http-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
-          example: 'xy-15-3-2-http-c-or-2-1-1-000'
+          example: 'xy-15-3-2-http-c-or-1-0-0-000'
     get:
       operationId: getHttpClientReleaseNumber
       summary: 'Returns release number of application to be addressed'
@@ -9416,7 +9416,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
-          example: 'xy-15-3-2-tcp-c-or-2-1-1-000'
+          example: 'xy-15-3-2-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemoteProtocol
       summary: 'Returns protocol for addressing remote side'
@@ -9497,7 +9497,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
-          example: 'xy-15-3-2-tcp-c-or-2-1-1-000'
+          example: 'xy-15-3-2-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemoteAddress
       summary: 'Returns remote address'
@@ -9601,7 +9601,7 @@ paths:
         schema:
           type: string
           pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-tcp-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-000$'
-          example: 'xy-15-3-2-tcp-c-or-2-1-1-000'
+          example: 'xy-15-3-2-tcp-c-or-1-0-0-000'
     get:
       operationId: getTcpClientRemotePort
       summary: 'Returns target TCP port at server'
