@@ -5,7 +5,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 | Cathegory | Abbr. | Component | Release | Index |
 |---|---|---|---|---|
 | ElasticSearch 1.0.0 |  |  |  |  |
-|  | EaTL | ExecutionAndTraceLog | 2.0.0 | 3
+|  | EaTL | ExecutionAndTraceLog | 2.0.0 | eatl-2-0-1
 |  | OL | OamLog | 2.0.0 | 4
 |  | L2LT | Linkid2LtpTranslator | 1.0.0 | 5
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 6
