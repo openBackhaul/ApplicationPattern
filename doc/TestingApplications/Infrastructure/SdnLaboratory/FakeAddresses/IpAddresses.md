@@ -21,13 +21,13 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
 |  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
-|  | RO | RegistryOffice | 2.1.0 | 127.0.0.1 | 3024
-|  | TAR | TypeApprovalRegister | 2.1.0 | 127.0.0.1 | 3025
-|  | EaTL | ExecutionAndTraceLog | 2.1.0 | 127.0.0.1 | 3026
-|  | OL | OamLog | 2.1.0 | 127.0.0.1 | 3027
-|  | AA | AccessAdministration | 2.1.0 | 127.0.0.1 | 3028
-|  | ALT | ApplicationLayerTopology | 2.1.0 | 127.0.0.1 | 3029
-|  | OKM | OperationKeyManagement | 2.1.0 | 127.0.0.1 | 3030
+|  | RO | RegistryOffice | 2.1.2 | 127.0.0.1 | 3031
+|  | TAR | TypeApprovalRegister | 2.1.2 | 127.0.0.1 | 3032
+|  | EaTL | ExecutionAndTraceLog | 2.1.2 | 127.0.0.1 | 3033
+|  | OL | OamLog | 2.1.2 | 127.0.0.1 | 3034
+|  | AA | AccessAdministration | 2.1.2 | 127.0.0.1 | 3035
+|  | ALT | ApplicationLayerTopology | 2.1.2 | 127.0.0.1 | 3036
+|  | OKM | OperationKeyManagement | 2.1.2 | 127.0.0.1 | 3037
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 127.0.0.1 | 3015
 | Application |  |  |  |  |  |
@@ -83,5 +83,12 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | AA | AdministratorAdministration | 2.0.2 | 1.1.3.21 | 3021
 |  | ALT | ApplicationLayerTopology | 2.0.2 | 1.1.3.22 | 3022
 |  | OKM | OperationKeyManagement | 2.0.2 | 1.1.3.23 | 3023
+|  | RO | RegistryOffice | 2.1.1 | 127.0.0.1 | 3024
+|  | TAR | TypeApprovalRegister | 2.1.1 | 127.0.0.1 | 3025
+|  | EaTL | ExecutionAndTraceLog | 2.1.1 | 127.0.0.1 | 3026
+|  | OL | OamLog | 2.1.1 | 127.0.0.1 | 3027
+|  | AA | AccessAdministration | 2.1.1 | 127.0.0.1 | 3028
+|  | ALT | ApplicationLayerTopology | 2.1.1 | 127.0.0.1 | 3029
+|  | OKM | OperationKeyManagement | 2.1.1 | 127.0.0.1 | 3030
 |  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.2 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
