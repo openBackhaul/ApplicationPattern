@@ -63,7 +63,7 @@ exports.dispatchEvent = function (operationClientUuid, httpRequestBody, user, xC
             let responseCode = response.status;
             if (responseCode.toString().startsWith("2")) {
                 result = true;
-            } else if (responseCode == 408) {
+            } else if (responseCode == 408 || responseCode == 500) {
                 recordServiceRequestFromClient(
                     serverApplicationName, 
                     serverApplicationReleaseNumber, 
