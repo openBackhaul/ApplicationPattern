@@ -10,10 +10,10 @@ How to define error responses in the OAS:
     - e.g., *"try again later"*, *"make sure the device is mounted first"*.
 3. **Groups of failures** with the **same expected client behavior** should be **associated with a response code** 
     - according to https://developer.mozilla.org/en-US/docs/Web/HTTP/Status.
-    - If an appropriate response code could not be found, define a new one.
+    - If an appropriate response code could not be found in this public list, check the list of internally defined response codes down below. If successfull, copy/paste the required response code without changes into the common components section of your specification.
+    - If an appropriate response code could also not be found there, define a new one and add it to the list below.  
 4. If not already covered by the ApplicationPattern, **add** the **new responseCode to** the **responses of the affected service**.
-5. The **response definition for a specific responseCode must be homogeneous**
-    - at least within the scope of the application (harmonization across all applications will be done at a later stage, by consolidating individual definitions into an updated applicationPattern).
+5. The **response definition for a specific responseCode must be homogeneous** within the scope of the application.  
     - To ensure this, the response definition at an individual service should only reference a concrete definition in the common components section (`$ref: '#/components/responses/{responseCode}`).
 6. The **concrete definition in** the **common components section** is **identified by the responseCode**.
 7. It must begin with a **description statement**. 
@@ -30,12 +30,12 @@ How to define error responses in the OAS:
      - This attribute should be an **enumeration** with a single value. 
      - This value should contain a statement that is understood by both an automation implementer and a human user.
 
-Example:
+## List of internally defined response codes:
 ```
 components:
   responses:
-    429:
-      description: 'Response to be send whenever the number of currently executed requests reached the maximum defined in the instance of IntegerProfile with its name containing limitOfParallelRequestsAt and the service name.'
+    '429':
+      description: 'Response in case too many requests need to be executed in parallel or too many requests have been received within a time period. The maximum number of parallel requests is defined in an IntegerProfile with the service name as a prefix and MaxNumberOfParallelRequests as a suffix. Some time period to elapse for throttling incomming requests is defined in an IntegerProfile with the service name as a prefix and ThrottlingPeriod as a suffix'
       content:
         application/json:
           schema:
@@ -43,17 +43,90 @@ components:
             required:
               - code
               - message
-              - expectation-to-the-client
             properties:
               code:
                 type: integer
+                minimum: 429
+                maximum: 429
                 format: int32
               message:
                 type: string
                 enum:
-                  - 'The maximum number of requests that can be handled by this service in parallel has been reached'
-              expectation-to-the-client:
+                  - 'Too many requests'
+    '460':
+      description: 'Response in case the mountName provided in the request is not found in the list of connected devices'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 460
+                maximum: 460
+                format: int32
+              message:
                 type: string
                 enum:
-                  - 'Please try again later'
+                  - 'Not connected. Requested device is currently not in connected state at the controller'
+    '470':
+      description: 'Response in case the resource specified in the request does not exist within the connected device'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 470
+                maximum: 470
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Resource not existing. Device informs about addressed resource unknown'
+    '502':
+      description: 'Response in case the application that is expected to provide a consumed service is not responding'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 502
+                maximum: 502
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway'
+    '530':
+      description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, invalid, incomplete or corrupted'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 530
+                maximum: 530
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Data invalid. Response data not available, incomplete or corrupted'
 ```
