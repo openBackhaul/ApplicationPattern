@@ -102,7 +102,7 @@ function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfThe
         return coreModelJsonObject;
     } catch (error) {
         console.log(error);
-        throw new createHttpError.NotFound(" UUID is does not exit")
+        throw new createHttpError.NotFound("  UUID is not found")
     }
 }
 

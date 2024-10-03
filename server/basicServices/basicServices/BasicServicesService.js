@@ -624,9 +624,10 @@ exports.redirectTopologyChangeInformation = async function (body, user, xCorrela
  * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
  * traceIndicator String Sequence of request numbers along the flow
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * beaqueathYourDataAndDieForwardingName String Holds information of the "beaqueath your data and die forwarding name" from ALT
  * no response value expected for this operation
  **/
-exports.registerYourself = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.registerYourself = async function (body, user, xCorrelator, traceIndicator, customerJourney, operationServerName, beaqueathYourDataAndDieForwardingName = undefined) {
   let ltpConfigurationList = [];
   let preceedingApplicationName;
   let preceedingApplicationRelease;
@@ -720,8 +721,14 @@ exports.registerYourself = async function (body, user, xCorrelator, traceIndicat
     }
 
     // update old release configuration
-    let beaqueathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
-    let preceedingApplicationClientUuidStack = await ServiceUtils.resolveClientUuidStackFromForwardingAsync(beaqueathYourDataAndDieForwardingName);
+    let oldReleaseBeaqueathYourDataAndDieForwardingName
+    if (beaqueathYourDataAndDieForwardingName == undefined) {
+      oldReleaseBeaqueathYourDataAndDieForwardingName = "PromptForEmbeddingCausesRequestForBequeathingData";
+    } else {
+      oldReleaseBeaqueathYourDataAndDieForwardingName = beaqueathYourDataAndDieForwardingName
+    }
+
+    let preceedingApplicationClientUuidStack = await ServiceUtils.resolveClientUuidStackFromForwardingAsync(oldReleaseBeaqueathYourDataAndDieForwardingName);
 
     if (preceedingApplicationClientUuidStack.httpClientUuid) {
       let isPreceedingApplicationNameUpdated = false;
