@@ -871,7 +871,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     currentReleaseNumber,
     newReleaseFwName);
 
-if(currentReleaseNumber !== futureReleaseNumber){
+
   if (httpClientUuidOfFutureApplication) {
     let tcpClientUuidOfFutureApplication = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuidOfFutureApplication);
     let existingIpAddressOfFutureApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfFutureApplication[0]);
@@ -902,10 +902,11 @@ if(currentReleaseNumber !== futureReleaseNumber){
       ltpConfigurationList.push(tcpClientUuidOfFutureApplication[0]);
     }
 
-    if (httpClientUuidOfCurrentApplication) {
+    if (httpClientUuidOfCurrentApplication !== httpClientUuidOfFutureApplication) {
       let updateUuidList = await transferOperationClientFromOldToNewRelease(httpClientUuidOfCurrentApplication, httpClientUuidOfFutureApplication)
       ltpConfigurationList = ltpConfigurationList.concat(updateUuidList);
-    }
+    
+  }
   } else if (httpClientUuidOfCurrentApplication) {
     let tcpClientUuidOfCurrentApplication = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuidOfCurrentApplication);
     let existingIpAddressOfCurrentApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfCurrentApplication[0]);
@@ -948,7 +949,7 @@ if(currentReleaseNumber !== futureReleaseNumber){
       ltpConfigurationList.push(httpClientUuidOfCurrentApplication);
     }
   }
-}
+
   /****************************************************************************************
    * Prepare attributes to automate forwarding-construct
    ****************************************************************************************/
