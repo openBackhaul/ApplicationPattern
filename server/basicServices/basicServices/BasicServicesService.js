@@ -902,7 +902,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
       ltpConfigurationList.push(tcpClientUuidOfFutureApplication[0]);
     }
 
-    if (httpClientUuidOfCurrentApplication !== httpClientUuidOfFutureApplication) {
+    if (httpClientUuidOfCurrentApplication && (httpClientUuidOfCurrentApplication !== httpClientUuidOfFutureApplication)) {
       let updateUuidList = await transferOperationClientFromOldToNewRelease(httpClientUuidOfCurrentApplication, httpClientUuidOfFutureApplication)
       ltpConfigurationList = ltpConfigurationList.concat(updateUuidList);
     
