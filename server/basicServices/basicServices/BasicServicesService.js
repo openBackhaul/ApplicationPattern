@@ -871,7 +871,7 @@ exports.updateClient = async function (body, user, xCorrelator, traceIndicator, 
     currentReleaseNumber,
     newReleaseFwName);
 
-if((currentApplicationName == futureApplicationName || currentApplicationName !== futureApplicationName) && currentReleaseNumber !== futureReleaseNumber){
+if(currentReleaseNumber !== futureReleaseNumber){
   if (httpClientUuidOfFutureApplication) {
     let tcpClientUuidOfFutureApplication = await LogicalTerminationPoint.getServerLtpListAsync(httpClientUuidOfFutureApplication);
     let existingIpAddressOfFutureApplication = await tcpClientInterface.getRemoteAddressAsync(tcpClientUuidOfFutureApplication[0]);
