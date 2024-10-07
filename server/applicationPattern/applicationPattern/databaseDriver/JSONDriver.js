@@ -102,7 +102,7 @@ function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfThe
         return coreModelJsonObject;
     } catch (error) {
         console.log(error);
-        throw new createHttpError.NotFound(" UUID is does not exit")
+        throw new createHttpError.NotFound("  UUID is not found")
     }
 }
 
@@ -129,7 +129,6 @@ function putAttributeValueToDataBase(coreModelJsonObject, individualFieldOfTheOA
     try {
         let coreModelJsonObjectTemp;
         let i;
-
         coreModelJsonObjectTemp = coreModelJsonObject;
         for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
             if (individualFieldOfTheOAMPathList[i] != "") {
@@ -139,9 +138,17 @@ function putAttributeValueToDataBase(coreModelJsonObject, individualFieldOfTheOA
                     if (i === individualFieldOfTheOAMPathList.length - 1) {
                         if (isAList === true) {
                             coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
-                            coreModelJsonObjectTemp.push(newValue);
+                            if(coreModelJsonObjectTemp) {
+                                coreModelJsonObjectTemp.push(newValue);
+                            } else {
+                                return false;
+                            }
                         } else {
-                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
+                            if(Object.prototype.hasOwnProperty.call(coreModelJsonObjectTemp, individualFieldOfTheOAMPathList[i])) {
+                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
+                            } else {
+                                return false;
+                            }
                         }
                         writeToFile(coreModelJsonObject);
                     } else {
