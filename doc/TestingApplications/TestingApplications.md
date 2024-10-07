@@ -1,4 +1,15 @@
-# Applications Deployment and Testing 
+# Applications Deployment and Testing  
+## Structure of Testing  
+The following picture represents the updated proceeding for testing applications agreed on 4th of October 2024.  
+If there would be conflicts with other chapters of this documentation, these chapters would required updating.   
+**Essential aspect:**  
+Humans don't test.  
+Test case collections are coded and will be automatically executed.  
+They will just produce a binary result.  
+In case of pass, the applications are automatically instantiated in the next stage of the process (incl. live network at the end).  
+In case of failure, the test case collection is analysed for errors. If the application does not pass testing with a flawless test case collection, the application is rejected and returned back to the implementer for corrections.
+![StructureOfTesting](./pictures/241004_StructureOfTesting.png)
+
 ## Infrastructure
 ### SDN Laboratory
 Software Defined Networking (SDN) is an architecture that uses open protocols to provide centralized, programmatic control and network device monitoring. In SDN laboratory, applications deployment is performed on app server and related testing on test server.

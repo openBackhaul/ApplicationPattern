@@ -525,7 +525,7 @@ paths:
   /test:
     get:
       security:
-      - bearer: []
+        - bearer: []
       operationId: testMethod
       responses:
         200:
