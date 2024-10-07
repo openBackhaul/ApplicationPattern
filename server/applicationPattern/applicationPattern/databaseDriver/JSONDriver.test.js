@@ -56,7 +56,7 @@ describe("writeToDatabaseAsync", () => {
   test("new object", async () => {
     expect(await jsonDriver.writeToDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/new-value",
-      { "new-value": "value" },
+      { "new-value": "value" }
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/new-value"
@@ -66,7 +66,7 @@ describe("writeToDatabaseAsync", () => {
   test("rewrite object", async () => {
     expect(await jsonDriver.writeToDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/new-value",
-      { "new-value": { "another-value": [] } },
+      { "new-value": { "another-value": [] } }
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/new-value"
@@ -115,7 +115,7 @@ describe("deletefromDatabaseAsync", () => {
 
   test("delete item from list", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000",
+      "profile-collection/profile=aa-2-0-1-action-p-000"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile",

@@ -144,7 +144,7 @@ function putAttributeValueToDataBase(coreModelJsonObject, individualFieldOfTheOA
                                 return false;
                             }
                         } else {
-                            if(coreModelJsonObjectTemp.hasOwnProperty(individualFieldOfTheOAMPathList[i])) {
+                            if(Object.prototype.hasOwnProperty.call(coreModelJsonObjectTemp, individualFieldOfTheOAMPathList[i])) {
                                 coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
                             } else {
                                 return false;
