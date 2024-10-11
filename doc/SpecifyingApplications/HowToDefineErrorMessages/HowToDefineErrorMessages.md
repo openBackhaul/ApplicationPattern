@@ -92,7 +92,7 @@ components:
                 enum:
                   - 'Resource not existing. Device informs about addressed resource unknown'
     '502':
-      description: 'Response in case the application that is expected to provide a consumed service is not responding'
+      description: 'Response in case the server is acting as a gateway or proxy and received an invalid response from the upstream server (device or application providing a consumed service)'
       content:
         application/json:
           schema:
@@ -111,7 +111,7 @@ components:
                 enum:
                   - 'Bad Gateway'
     '530':
-      description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, invalid, incomplete or corrupted'
+      description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, incomplete or corrupted'
       content:
         application/json:
           schema:
@@ -129,4 +129,43 @@ components:
                 type: string
                 enum:
                   - 'Data invalid. Response data not available, incomplete or corrupted'
+    '531':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to authenticate at the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 531
+                maximum: 531
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Authentication at upstream server failed.'
+    '532':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to connect to the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 532
+                maximum: 532
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Upstream server not responding.'
+
 ```
