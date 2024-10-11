@@ -55,42 +55,42 @@ test("readFromDatabaseAsync", async () => {
 describe("writeToDatabaseAsync", () => {
   test("new object", async () => {
     expect(await jsonDriver.writeToDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/new-value",
-      { "new-value": "value" },
+      "profile-collection/profile=aa-2-0-1-action-p-001/action-profile-1-0:action-profile-pac",
+      { "action-profile-1-0:action-profile-pac": "value" }
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/new-value"
+      "profile-collection/profile=aa-2-0-1-action-p-001/action-profile-1-0:action-profile-pac"
     )).toBe("value");
   });
 
   test("rewrite object", async () => {
     expect(await jsonDriver.writeToDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/new-value",
-      { "new-value": { "another-value": [] } },
+      "profile-collection/profile=aa-2-0-1-action-p-001/action-profile-1-0:action-profile-pac",
+      { "action-profile-1-0:action-profile-pac": { "another-value": [] } }
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000/new-value"
+      "profile-collection/profile=aa-2-0-1-action-p-001/action-profile-1-0:action-profile-pac"
     )).toStrictEqual({ "another-value": [] });
   });
 
   test("new item in list", async () => {
     expect(await jsonDriver.writeToDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list",
-      { "item-key": "item-value" },
+      {"field-name": "Label of input field"},
       true
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list",
-    )).toStrictEqual([{ "item-key": "item-value" }]);
+    )).toStrictEqual([{ "field-name": "Label of input field" }]);
 
     expect(await jsonDriver.writeToDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list",
-      { "item-key-two": "item-value-two" },
+      { "field-name": "Label of input field-two" },
       true
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile=aa-2-0-1-action-p-000/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list",
-    )).toStrictEqual([{ "item-key": "item-value" }, { "item-key-two": "item-value-two" }]);
+    )).toStrictEqual([{ "field-name": "Label of input field" }, { "field-name": "Label of input field-two" }]);
   });
 });
 
@@ -115,11 +115,12 @@ describe("deletefromDatabaseAsync", () => {
 
   test("delete item from list", async () => {
     expect(await jsonDriver.deletefromDatabaseAsync(
-      "profile-collection/profile=aa-2-0-1-action-p-000",
+      "profile-collection/profile=aa-2-0-1-action-p-000"
     )).toBeTruthy();
     expect(await jsonDriver.readFromDatabaseAsync(
       "profile-collection/profile",
-    )).toStrictEqual( [{"action-profile-1-0:action-profile-pac": {}, "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE", "uuid": "aa-2-0-1-action-p-001"}]);
+    )).toStrictEqual([{"uuid": "aa-2-0-1-action-p-001", "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE", "action-profile-1-0:action-profile-pac": {"another-value": [] }}
+    ]);
   });
 
   test("delete list", async () => {
