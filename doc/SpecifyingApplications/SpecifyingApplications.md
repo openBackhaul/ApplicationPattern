@@ -106,11 +106,10 @@ The CONFIGfile describes the data structure inside the application and on the di
 
 ## TestCaseCollection
 
-The TestCaseCollection (TCC) must describe the business logic that must be implemented inside the application.  
-
 **Concepts**
 
 **Step-by-Step Guidelines**
+- [Creating Validator and Simulator for Completeness](./TestCaseCollection/CreatingValiSimuCompleteness/CreatingValiSimuCompleteness.md)
 - [Creating a Mock Server](./TestCaseCollection/CreatingMockServer/CreatingMockServer.md)
 - [Creating a TestCaseCollection](./TestCaseCollection/CreatingTestCaseCollection/CreatingTestCaseCollection.md)
 - [Creating a Test Case](./TestCaseCollection/CreatingTestCase/CreatingTestCase.md)
