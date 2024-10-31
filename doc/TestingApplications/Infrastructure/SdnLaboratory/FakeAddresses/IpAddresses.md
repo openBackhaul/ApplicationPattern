@@ -20,7 +20,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | SMIM | SiaeMediatorInstanceManager | 1.0.0 | 1.1.2.4 | 2004
 |  | ZMIM | ZteMediatorInstanceManager | 1.0.0 | 1.1.2.5 | 2005
 | TinyApplicationController |  |  |  |  |  |
-|  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
+|  | RSR | RequestSequenceRepresentation | 1.0.1 | 127.0.0.1 | 3038
 |  | RO | RegistryOffice | 2.1.2 | 127.0.0.1 | 3031
 |  | TAR | TypeApprovalRegister | 2.1.2 | 127.0.0.1 | 3032
 |  | EaTL | ExecutionAndTraceLog | 2.1.2 | 127.0.0.1 | 3033
@@ -92,3 +92,4 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | OKM | OperationKeyManagement | 2.1.1 | 127.0.0.1 | 3030
 |  | AIPS | AirInterfacePowerSaver  | 0.0.5 | 1.1.4.7 | 4007
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.2 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
+|  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
