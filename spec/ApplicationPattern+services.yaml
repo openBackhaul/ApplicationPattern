@@ -117,23 +117,23 @@ clients:
   - http-client:
       application-name: RegistryOffice
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-ro-2-1-0-000
+      uuid: xx-1-0-0-http-c-ro-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3024
-      uuid: xx-1-0-0-tcp-c-ro-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-ro-2-1-2-000
     operation-clients:
       own-oam:
         basic:
           - operation-name: /v2/register-application
-            uuid: xx-1-0-0-op-c-bm-ro-2-1-0-000
+            uuid: xx-1-0-0-op-c-bm-ro-2-1-2-000
           - operation-name: /v1/relay-server-replacement
-            uuid: xx-1-0-0-op-c-bm-ro-2-1-0-001
+            uuid: xx-1-0-0-op-c-bm-ro-2-1-2-001
           - operation-name: /v1/deregister-application
-            uuid: xx-1-0-0-op-c-bm-ro-2-1-0-002
+            uuid: xx-1-0-0-op-c-bm-ro-2-1-2-002
           - operation-name: /v1/relay-operation-update
-            uuid: xx-1-0-0-op-c-bm-ro-2-1-0-003
+            uuid: xx-1-0-0-op-c-bm-ro-2-1-2-003
         individual:
       service:
         basic:
@@ -142,12 +142,12 @@ clients:
   - http-client:
       application-name: TypeApprovalRegister
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-tar-2-1-0-000
+      uuid: xx-1-0-0-http-c-tar-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3025
-      uuid: xx-1-0-0-tcp-c-tar-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-tar-2-1-2-000
     operation-clients:
       own-oam:
         basic:
@@ -159,12 +159,12 @@ clients:
   - http-client:
       application-name: ExecutionAndTraceLog
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-eatl-2-1-0-000
+      uuid: xx-1-0-0-http-c-eatl-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3026
-      uuid: xx-1-0-0-tcp-c-eatl-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-eatl-2-1-2-000
     operation-clients:
       own-oam:
         basic:
@@ -172,18 +172,18 @@ clients:
       service:
         basic:
           - operation-name: /v1/record-service-request
-            uuid: xx-1-0-0-op-c-bs-eatl-2-1-0-000
+            uuid: xx-1-0-0-op-c-bs-eatl-2-1-2-000
         individual:
 
   - http-client:
       application-name: OamLog
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-ol-2-1-0-000
+      uuid: xx-1-0-0-http-c-ol-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3027
-      uuid: xx-1-0-0-tcp-c-ol-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-ol-2-1-2-000
     operation-clients:
       own-oam:
         basic:
@@ -191,18 +191,18 @@ clients:
       service:
         basic:
           - operation-name: /v1/record-oam-request
-            uuid: xx-1-0-0-op-c-bs-ol-2-1-0-000
+            uuid: xx-1-0-0-op-c-bs-ol-2-1-2-000
         individual:
 
   - http-client:
       application-name: AccessAdministration
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-aa-2-1-0-000
+      uuid: xx-1-0-0-http-c-aa-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3028
-      uuid: xx-1-0-0-tcp-c-aa-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-aa-2-1-2-000
     operation-clients:
       own-oam:
         basic:
@@ -210,33 +210,33 @@ clients:
       service:
         basic:
           - operation-name: /v1/approve-basic-auth-request
-            uuid: xx-1-0-0-op-c-bs-aa-2-1-0-000
+            uuid: xx-1-0-0-op-c-bs-aa-2-1-2-000
         individual:
 
   - http-client:
       application-name: ApplicationLayerTopology
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-alt-2-1-0-000
+      uuid: xx-1-0-0-http-c-alt-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3029
-      uuid: xx-1-0-0-tcp-c-alt-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-alt-2-1-2-000
     operation-clients:
       own-oam:
         basic:
           - operation-name: /v1/update-all-ltps-and-fcs
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-000
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-000
           - operation-name: /v1/update-ltp
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-001
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-001
           - operation-name: /v1/delete-ltp-and-dependents
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-002
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-002
           - operation-name: /v1/update-fc
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-003
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-003
           - operation-name: /v1/update-fc-port
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-004
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-004
           - operation-name: /v1/delete-fc-port
-            uuid: xx-1-0-0-op-c-bm-alt-2-1-0-005
+            uuid: xx-1-0-0-op-c-bm-alt-2-1-2-005
         individual:
       service:
         basic:
@@ -245,12 +245,12 @@ clients:
   - http-client:
       application-name: OperationKeyManagement
       release-number: 2.1.0
-      uuid: xx-1-0-0-http-c-okm-2-1-0-000
+      uuid: xx-1-0-0-http-c-okm-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 3030
-      uuid: xx-1-0-0-tcp-c-okm-2-1-0-000
+      uuid: xx-1-0-0-tcp-c-okm-2-1-2-000
     operation-clients:
       own-oam:
         basic:
