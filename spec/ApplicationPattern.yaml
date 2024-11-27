@@ -9936,7 +9936,7 @@ components:
               message:
                 type: string
                 enum:
-                  - 'Resource unknown. The resource for the connected device does not exist at the Controller    
+                  - 'Resource unknown. The resource for the connected device does not exist at the Controller
     '550':
       description: 'Response in case that the application wants to call a service specified by the requestor (e.g., to return data after a long taking  data retrieval) during a service call to the application and the service information cannot be found.'
       content:
