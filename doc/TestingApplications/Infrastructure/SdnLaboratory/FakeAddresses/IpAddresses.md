@@ -28,6 +28,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | AA | AccessAdministration | 2.1.2 | 127.0.0.1 | 3035
 |  | ALT | ApplicationLayerTopology | 2.1.2 | 127.0.0.1 | 3036
 |  | OKM | OperationKeyManagement | 2.1.2 | 127.0.0.1 | 3037
+|  | PM | PerformanceManagement | 2.1.2 | 127.0.0.1 | 3038
 | DataBases |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 127.0.0.1 | 3015
 | Application |  |  |  |  |  |
@@ -49,6 +50,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | NDLP | NetworkDataLakeProxy  | 1.0.0 | 127.0.0.1 | 4019
 |  | APTP | AccessPlanningToolProxy  | 1.1.0 | 127.0.0.1 | 4020
 |  | CP | ConnectionPreparation  | 1.0.0 | 127.0.0.1 | 4021
+|  | LILW | LinkIdIntoLtpWriter  | 1.0.0 | 127.0.0.1 | 4022
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
