@@ -30,7 +30,7 @@ How to define error responses in the OAS:
      - This attribute should be an **enumeration** with a single value. 
      - This value should contain a statement that is understood by both an automation implementer and a human user.
 
-## List of internally defined response codes:
+## List of internally defined response codes ready for being copied and pasted into the OAS according to individual demand:
 ```
 components:
   responses:
@@ -53,6 +53,18 @@ components:
                 type: string
                 enum:
                   - 'Too many requests'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '460':
       description: 'Response in case the mountName provided in the request is not found in the list of connected devices'
       content:
@@ -72,6 +84,18 @@ components:
                 type: string
                 enum:
                   - 'Not connected. Requested device is currently not in connected state at the controller'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '461':
       description: 'Response in case the (parent) topology object provided in the request (body or path) is not found in the cache.'
       content:
@@ -91,6 +115,18 @@ components:
                 type: string
                 enum:
                   - 'Not available. The topology (parent) object is currently not found in the cache.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '470':
       description: 'Response in case the resource specified in the request does not exist within the connected device'
       content:
@@ -110,6 +146,18 @@ components:
                 type: string
                 enum:
                   - 'Resource not existing. Device informs about addressed resource unknown'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '471':
       description: 'Response in case the (child) topology object specified in the request (body or path) does not exist within the cache.'
       content:
@@ -129,6 +177,18 @@ components:
                 type: string
                 enum:
                   - '(Child) topology object not existing. Cache informs about addressed resource unknown.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '502':
       description: 'Response in case the server is acting as a gateway or proxy and received an invalid response from the upstream server (device or application providing a consumed service)'
       content:
@@ -148,6 +208,18 @@ components:
                 type: string
                 enum:
                   - 'Bad Gateway'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '530':
       description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, incomplete or corrupted'
       content:
@@ -167,6 +239,18 @@ components:
                 type: string
                 enum:
                   - 'Data invalid. Response data not available, incomplete or corrupted'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '531':
       description: 'Response in case the server is acting as a gateway or proxy and was unable to authenticate at the upstream server (device or application providing a consumed service)'
       content:
@@ -186,6 +270,18 @@ components:
                 type: string
                 enum:
                   - 'Bad Gateway. Authentication at upstream server failed.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '532':
       description: 'Response in case the server is acting as a gateway or proxy and was unable to connect to the upstream server (device or application providing a consumed service)'
       content:
@@ -205,6 +301,18 @@ components:
                 type: string
                 enum:
                   - 'Bad Gateway. Upstream server not responding.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '533':
       description: 'Response in case the referenced resource for an connected device does not exist at the controller.'
       content:
@@ -224,6 +332,18 @@ components:
                 type: string
                 enum:
                   - 'Resource unknown. The resource for the connected device does not exist at the Controller.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '550':
       description: 'Response in case that the application wants to call a service specified by the requestor (e.g., to return data after a long taking  data retrieval) during a service call to the application and the service information cannot be found.'
       content:
@@ -243,4 +363,16 @@ components:
                 type: string
                 enum:
                   - 'Requestor information for callback execution not found.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
 ```
