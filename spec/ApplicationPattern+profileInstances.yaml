@@ -6,6 +6,7 @@ profile-instances:
       operation-name: '/v1/start-application-in-generic-representation'
       label: 'Inform about Application'
       display-in-new-browser-window: false
+      input-value-list: []
     configuration:
       consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
 
@@ -15,6 +16,7 @@ profile-instances:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       label: 'Release History'
       display-in-new-browser-window: false
+      input-value-list: []
     configuration:
       consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
 
@@ -24,6 +26,7 @@ profile-instances:
       operation-name: '/v1/inform-about-application-in-generic-representation'
       label: 'API Documentation'
       display-in-new-browser-window: true
+      input-value-list: []
     configuration:
       consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=xx-1-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
 
