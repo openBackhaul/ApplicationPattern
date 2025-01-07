@@ -1,0 +1,226 @@
+servers:
+
+  operation-servers:
+    own-oam:
+      basic:
+        - operation-name: /v1/register-yourself
+          uuid: cp-1-0-0-op-s-bm-000
+        - operation-name: /v1/embed-yourself
+          uuid: cp-1-0-0-op-s-bm-001
+        - operation-name: /v1/redirect-service-request-information
+          uuid: cp-1-0-0-op-s-bm-002
+        - operation-name: /v1/redirect-oam-request-information
+          uuid: cp-1-0-0-op-s-bm-003
+        - operation-name: /v1/end-subscription
+          uuid: cp-1-0-0-op-s-bm-004
+        - operation-name: /v1/inquire-oam-request-approvals
+          uuid: cp-1-0-0-op-s-bm-005
+        - operation-name: /v1/update-client
+          uuid: cp-1-0-0-op-s-bm-007
+        - operation-name: /v1/list-ltps-and-fcs
+          uuid: cp-1-0-0-op-s-bm-008
+        - operation-name: /v1/redirect-topology-change-information
+          uuid: cp-1-0-0-op-s-bm-009
+        - operation-name: /v1/update-operation-key
+          uuid: cp-1-0-0-op-s-bm-010
+        - operation-name: /v1/update-operation-client
+          uuid: cp-1-0-0-op-s-bm-011
+        - operation-name: /v1/inquire-basic-auth-approvals
+          uuid: cp-1-0-0-op-s-bm-012
+        - operation-name: /v1/dispose-remainders-of-deregistered-application
+          uuid: cp-1-0-0-op-s-bm-013
+        - operation-name: /v1/inform-about-preceding-release
+          uuid: cp-1-0-0-op-s-bm-014
+          operation-key: n.a.
+        - operation-name: /v1/update-client-of-subsequent-release
+          uuid: cp-1-0-0-op-s-bm-015
+      individual:
+        - operation-name: /v1/bequeath-your-data-and-die
+          uuid: cp-1-0-0-op-s-im-000
+    service:
+      basic:
+        - operation-name: /v1/start-application-in-generic-representation
+          uuid: cp-1-0-0-op-s-bs-000
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application
+          uuid: cp-1-0-0-op-s-bs-001
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application-in-generic-representation
+          uuid: cp-1-0-0-op-s-bs-002
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history
+          uuid: cp-1-0-0-op-s-bs-003
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history-in-generic-representation
+          uuid: cp-1-0-0-op-s-bs-004
+          operation-key: n.a.
+        - operation-name: /docs
+          uuid: cp-1-0-0-op-s-bs-005
+          operation-key: n.a.
+      individual:
+        - operation-name: /v1/prepare-connection-at-ericsson-traffic-node
+          uuid: cp-1-0-0-op-s-is-000
+        - operation-name: /v1/prepare-connection-at-ericsson-ml6352
+          uuid: cp-1-0-0-op-s-is-010
+        - operation-name: /v1/prepare-connection-at-ericsson-ml6600
+          uuid: cp-1-0-0-op-s-is-020
+        - operation-name: /v1/prepare-connection-at-huawei
+          uuid: cp-1-0-0-op-s-is-030
+        - operation-name: /v1/prepare-connection-at-siae-alcp2e
+          uuid: cp-1-0-0-op-s-is-040
+        - operation-name: /v1/prepare-connection-at-siae-ags20
+          uuid: cp-1-0-0-op-s-is-050
+        - operation-name: /v1/prepare-connection-at-siae-alfo80
+          uuid: cp-1-0-0-op-s-is-060
+  http-server:
+    own-application-name: ConnectionPreparation
+    own-release-number: 1.0.0
+    uuid: cp-1-0-0-http-s-000
+    application-purpose: Preparing the connection between device and mediator/controller
+    owner-name: Andreas Haack
+    owner-email-address: Andreas.Haack@telefonica.com
+    release-list:
+      - release-number: 1.0.0
+        release-date: 12.12.2024
+        changes: Initial version
+  tcp-server:
+    - description: Without TLS layer
+      local-protocol: http
+      own-ip-address: 127.0.0.1
+      own-tcp-port: 4021
+      uuid: cp-1-0-0-tcp-s-000
+
+
+clients:
+
+  - http-client:
+      application-name: OldRelease
+      release-number: 1.0.0
+      uuid: cp-1-0-0-http-c-or-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4021
+      uuid: cp-1-0-0-tcp-c-or-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/bequeath-your-data-and-die
+            uuid: cp-1-0-0-op-c-bm-or-1-0-0-000
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: RegistryOffice
+      release-number: 2.1.2
+      uuid: cp-1-0-0-http-c-ro-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3031
+      uuid: cp-1-0-0-tcp-c-ro-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v2/register-application
+            uuid: cp-1-0-0-op-c-bm-ro-2-1-2-000
+            operation-key: n.a.
+          - operation-name: /v1/relay-server-replacement
+            uuid: cp-1-0-0-op-c-bm-ro-2-1-2-001
+          - operation-name: /v1/deregister-application
+            uuid: cp-1-0-0-op-c-bm-ro-2-1-2-002
+          - operation-name: /v1/relay-operation-update
+            uuid: cp-1-0-0-op-c-bm-ro-2-1-2-003
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: ExecutionAndTraceLog
+      release-number: 2.1.2
+      uuid: cp-1-0-0-http-c-eatl-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3033
+      uuid: cp-1-0-0-tcp-c-eatl-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-service-request
+            uuid: cp-1-0-0-op-c-bs-eatl-2-1-2-000
+            detailed-logging-is-on: false
+        individual:
+
+  - http-client:
+      application-name: OamLog
+      release-number: 2.1.2
+      uuid: cp-1-0-0-http-c-ol-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3034
+      uuid: cp-1-0-0-tcp-c-ol-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-oam-request
+            uuid: cp-1-0-0-op-c-bs-ol-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: AccessAdministration
+      release-number: 2.1.2
+      uuid: cp-1-0-0-http-c-aa-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3035
+      uuid: cp-1-0-0-tcp-c-aa-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/approve-basic-auth-request
+            uuid: cp-1-0-0-op-c-bs-aa-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: ApplicationLayerTopology
+      release-number: 2.1.2
+      uuid: cp-1-0-0-http-c-alt-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3036
+      uuid: cp-1-0-0-tcp-c-alt-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/update-all-ltps-and-fcs
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-000
+          - operation-name: /v1/update-ltp
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-001
+          - operation-name: /v1/delete-ltp-and-dependents
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-002
+          - operation-name: /v1/update-fc
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-003
+          - operation-name: /v1/update-fc-port
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-004
+          - operation-name: /v1/delete-fc-port
+            uuid: cp-1-0-0-op-c-bm-alt-2-1-2-005
+        individual:
+      service:
+        basic:
+        individual:

@@ -1,0 +1,21 @@
+{
+  "name": "config_file_generator",
+  "version": "1.0.0",
+  "description": "Config file generator from the yaml files in the specification",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.14.1",
+    "oas3-tools": "^2.2.3",
+    "read-yaml-file": "^2.1.0"
+  }
+}

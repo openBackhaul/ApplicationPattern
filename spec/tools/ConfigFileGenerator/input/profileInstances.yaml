@@ -1,0 +1,679 @@
+profile-instances:
+
+  - profile-name: 'ActionProfile'
+    uuid: 'cp-1-0-0-action-p-000'
+    capability:
+      operation-name: '/v1/start-application-in-generic-representation'
+      label: 'Inform about Application'
+      display-in-new-browser-window: false
+      input-value-list: []
+    configuration:
+      consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+
+  - profile-name: 'ActionProfile'
+    uuid: 'cp-1-0-0-action-p-001'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      label: 'Release History'
+      display-in-new-browser-window: false
+      input-value-list: []
+    configuration:
+      consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+
+  - profile-name: 'ActionProfile'
+    uuid: 'cp-1-0-0-action-p-002'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      label: 'API Documentation'
+      display-in-new-browser-window: true
+      input-value-list: []
+    configuration:
+      consequent-operation-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-000'
+    capability:
+      operation-name: '/v1/start-application-in-generic-representation'
+      static-field-name: 'applicationName'
+      description: 'Own application name'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-001'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'applicationName'
+      description: 'Name of this application'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-002'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'releaseNumber'
+      description: 'Number of this release'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-003'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'applicationPurpose'
+      description: 'Purpose of this application'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-004'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'dataUpdatePeriod'
+      description: 'Period of updating the data inside this application'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-005'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'ownerName'
+      description: 'Name of the ApplicationOwner'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-006'
+    capability:
+      operation-name: '/v1/inform-about-application-in-generic-representation'
+      static-field-name: 'ownerEmailAddress'
+      description: 'Email address of the ApplicationOwner'
+      datatype: 'string'
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address'
+
+  - profile-name: 'GenericResponseProfile'
+    uuid: 'cp-1-0-0-response-p-007'
+    capability:
+      operation-name: '/v1/inform-about-release-history-in-generic-representation'
+      field-name-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number'
+      description: 'Represents the first entry in the list of releases'
+      datatype: string
+    configuration:
+      value-reference: '/core-model-1-4:control-construct/logical-termination-point=cp-1-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes'
+
+
+  # traffic-node
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-000'
+    capability:
+      integer-name: 'trafficNode_storage'
+      purpose: ''
+    configuration:
+      integer-value: '3'
+
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-001'
+    capability:
+      integer-name: 'trafficNode_stat'
+      purpose: ''
+    configuration:
+      integer-value: '1'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-000'
+    capability:
+      string-name: 'trafficNode_adminUserName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-001'
+    capability:
+      string-name: 'trafficNode_adminPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-002'
+    capability:
+      string-name: 'trafficNode_index'
+    configuration:
+      string-value: 'index4'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-003'
+    capability:
+      string-name: 'trafficNode_trTag'
+    configuration:
+      string-value: 'external'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-004'
+    capability:
+      string-name: 'trafficNode_communityName'
+    configuration:
+      string-value: 'sdnops'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-005'
+    capability:
+      string-name: 'trafficNode_securityName'
+    configuration:
+      string-value: 'ext_priv'
+
+
+  # ml6352
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-010'
+    capability:
+      string-name: 'ml6352_adminUserName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-011'
+    capability:
+      string-name: 'ml6352_adminPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-012'
+    capability:
+      string-name: 'ml6352_cliUserName'
+    configuration:
+      string-value: 'cli-user-name'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-013'
+    capability:
+      string-name: 'ml6352_deviceUserName'
+    configuration:
+      string-value: 'user'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-014'
+    capability:
+      string-name: 'ml6352_devicePassword'
+    configuration:
+      string-value: 'geheim123'
+
+
+  # ml6600
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-020'
+    capability:
+      integer-name: 'ml6600_storage'
+      purpose: ''
+    configuration:
+      integer-value: '3'
+
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-021'
+    capability:
+      integer-name: 'ml6600_stat'
+      purpose: ''
+    configuration:
+      integer-value: '1'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-020'
+    capability:
+      string-name: 'ml6600_adminUserName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-021'
+    capability:
+      string-name: 'ml6600_adminPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-022'
+    capability:
+      string-name: 'ml6600_index'
+    configuration:
+      string-value: 'index4'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-023'
+    capability:
+      string-name: 'ml6600_trTag'
+    configuration:
+      string-value: 'external'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-024'
+    capability:
+      string-name: 'ml6600_communityName'
+    configuration:
+      string-value: 'sdnops'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-025'
+    capability:
+      string-name: 'ml6600_securityName'
+    configuration:
+      string-value: 'ext_priv'
+
+
+  # huawei
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-030'
+    capability:
+      string-name: 'huawei_sdnUserName'
+      pattern: '^([a-zA-Z0-9]{4,16})$'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-031'
+    capability:
+      string-name: 'huawei_sdnPassword'
+      pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,16}$'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-032'
+    capability:
+      string-name: 'huawei_authorizationGroup'
+      enumeration: ['every', 'oper', 'maint', 'admin']
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-033'
+    capability:
+      string-name: 'huawei_passModify'
+      enumeration: ['enable', 'disable']
+    configuration:
+      string-value: 'enable'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-034'
+    capability:
+      string-name: 'huawei_cliUserName'
+      pattern: '^([a-zA-Z0-9]{4,16})$'
+    configuration:
+      string-value: 'user'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-035'
+    capability:
+      string-name: 'huawei_cliPassword'
+      pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,16}$'
+    configuration:
+      string-value: 'geheim123'
+
+
+  # alcp2e
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-040'
+    capability:
+      integer-name: 'alcp2e_timeoutInSeconds'
+      purpose: 'Timeout of the session'
+      unit: 's'
+    configuration:
+      integer-value: '300'
+
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-041'
+    capability:
+      integer-name: 'alcp2e_userProfile'
+      purpose: 'User profile, e.g. 2 = admin users'
+    configuration:
+      integer-value: '2'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-040'
+    capability:
+      string-name: 'alcp2e_snmpCommunity'
+    configuration:
+      string-value: ''
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-041'
+    capability:
+      string-name: 'alcp2e_snmpVersion'
+      enumeration: ['v1', 'v2c', 'v3']
+    configuration:
+      string-value: 'v1'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-042'
+    capability:
+      string-name: 'alcp2e_systemUser'
+    configuration:
+      string-value: 'system'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-043'
+    capability:
+      string-name: 'alcp2e_systemPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-044'
+    capability:
+      string-name: 'alcp2e_userName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-045'
+    capability:
+      string-name: 'alcp2e_password'
+    configuration:
+      string-value: 'geheim123'
+
+
+  # ags20
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-050'
+    capability:
+      integer-name: 'ags20_userTimeout'
+      purpose: 'Timeout of the session'
+      unit: 's'
+      minimum: '0'
+      maximum: '3600'
+    configuration:
+      integer-value: '300'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-050'
+    capability:
+      string-name: 'ags20_systemUser'
+    configuration:
+      string-value: 'system'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-051'
+    capability:
+      string-name: 'ags20_systemPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-052'
+    capability:
+      string-name: 'ags20_snmpCommunity'
+    configuration:
+      string-value: ''
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-053'
+    capability:
+      string-name: 'ags20_snmpVersion'
+      enumeration: ['v1', 'v2c', 'v3']
+    configuration:
+      string-value: 'v1'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-054'
+    capability:
+      string-name: 'ags20_groupName'
+    configuration:
+      string-value: 'group-name'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-055'
+    capability:
+      string-name: 'ags20_profileOption'
+      enumeration: ['admin', 'readwrite', 'maintenance', 'readonly']
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-056'
+    capability:
+      string-name: 'ags20_httpOption'
+      enumeration: ['deny', 'allow']
+    configuration:
+      string-value: 'allow'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-057'
+    capability:
+      string-name: 'ags20_httpsOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-058'
+    capability:
+      string-name: 'ags20_ftpOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-059'
+    capability:
+      string-name: 'ags20_sftpOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'allow'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-060'
+    capability:
+      string-name: 'ags20_sshOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-061'
+    capability:
+      string-name: 'ags20_snmpOption'
+      enumeration:  ['deny', 'allowV1', 'allowV2c', 'allowV3']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-062'
+    capability:
+      string-name: 'ags20_userName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-063'
+    capability:
+      string-name: 'ags20_password'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-064'
+    capability:
+      string-name: 'ags20_userSnmpAuthProtocol'
+      enumeration:  ['noAuth', 'md5', 'sha']
+    configuration:
+      string-value: 'noAuth'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-065'
+    capability:
+      string-name: 'ags20_userSnmpAuthKey'
+    configuration:
+      string-value: '0'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-066'
+    capability:
+      string-name: 'ags20_userSnmpPrivProt'
+      enumeration:  ['noPriv', 'des', 'aes']
+    configuration:
+      string-value: 'noPriv'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-067'
+    capability:
+      string-name: 'ags20_userSnmpPrivKey'
+      pattern: '^([0-9]{0,127})$'
+    configuration:
+      string-value: '0'
+
+  # alfo80
+  - profile-name: 'IntegerProfile'
+    uuid: 'cp-1-0-0-integer-p-070'
+    capability:
+      integer-name: 'alfo80_userTimeout'
+      purpose: 'Timeout of the session'
+      unit: 's'
+      minimum: '0'
+      maximum: '3600'
+    configuration:
+      integer-value: '300'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-070'
+    capability:
+      string-name: 'alfo80_systemUser'
+    configuration:
+      string-value: 'system'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-071'
+    capability:
+      string-name: 'alfo80_systemPassword'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-072'
+    capability:
+      string-name: 'alfo80_snmpCommunity'
+    configuration:
+      string-value: ''
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-073'
+    capability:
+      string-name: 'alfo80_snmpVersion'
+      enumeration: ['v1', 'v2c', 'v3']
+    configuration:
+      string-value: 'v1'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-074'
+    capability:
+      string-name: 'alfo80_groupName'
+    configuration:
+      string-value: 'group-name'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-075'
+    capability:
+      string-name: 'alfo80_profileOption'
+      enumeration: ['admin', 'readwrite', 'maintenance', 'readonly']
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-076'
+    capability:
+      string-name: 'alfo80_httpOption'
+      enumeration: ['deny', 'allow']
+    configuration:
+      string-value: 'allow'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-077'
+    capability:
+      string-name: 'alfo80_httpsOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-078'
+    capability:
+      string-name: 'alfo80_ftpOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-079'
+    capability:
+      string-name: 'alfo80_sftpOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'allow'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-080'
+    capability:
+      string-name: 'alfo80_sshOption'
+      enumeration:  ['deny', 'allow']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-081'
+    capability:
+      string-name: 'alfo80_snmpOption'
+      enumeration:  ['deny', 'allowV1', 'allowV2c', 'allowV3']
+    configuration:
+      string-value: 'deny'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-082'
+    capability:
+      string-name: 'alfo80_userName'
+    configuration:
+      string-value: 'admin'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-083'
+    capability:
+      string-name: 'alfo80_password'
+    configuration:
+      string-value: 'geheim123'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-084'
+    capability:
+      string-name: 'alfo80_userSnmpAuthProtocol'
+      enumeration:  ['noAuth', 'md5', 'sha']
+    configuration:
+      string-value: 'noAuth'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-085'
+    capability:
+      string-name: 'alfo80_userSnmpAuthKey'
+    configuration:
+      string-value: '0'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-086'
+    capability:
+      string-name: 'alfo80_userSnmpPrivProt'
+      enumeration:  ['noPriv', 'des', 'aes']
+    configuration:
+      string-value: 'noPriv'
+
+  - profile-name: 'StringProfile'
+    uuid: 'cp-1-0-0-string-p-087'
+    capability:
+      string-name: 'alfo80_userSnmpPrivKey'
+      pattern: '^([0-9]{0,127})$'
+    configuration:
+      string-value: '0'
