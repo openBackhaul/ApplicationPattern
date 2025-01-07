@@ -59,13 +59,13 @@ capability:
 
 
 # How to Run
-1. cd server
-2. Include services, forwardings, profileInstances to the corresponding named .yaml files in the folder named "input"
-3. Modify the base uuid of the application in the index.js 
+
+1. Include services, forwardings, profileInstances to the corresponding named .yaml files in the folder named "input"
+2. Modify the base uuid of the application in the index.js 
 ```
 let applicationUuid = "mm-1-0-0";
 ```
-1. npm install
-2. node .\index.js
-3. configuration file will be generated in the format <applicationUuid>config.json
+3. npm install
+4. node .\index.js
+5. configuration file will be generated in the output folder.
 
