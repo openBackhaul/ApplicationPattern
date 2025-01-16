@@ -330,7 +330,7 @@ function generateOperationClient(operationClientYamlInstance, httpClientYamlInst
     let operationKey = operationClientYamlInstance["operation-key"] ? operationClientYamlInstance["operation-key"] :
         "Operation key not yet provided.";
     let detailedLoggingIsOn = (operationClientYamlInstance["detailed-logging-is-on"] != null) ? operationClientYamlInstance["detailed-logging-is-on"] : undefined;
-    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED";
+    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
     let httpUuid = httpClientYamlInstance["uuid"];
 
     let operationClient = {
