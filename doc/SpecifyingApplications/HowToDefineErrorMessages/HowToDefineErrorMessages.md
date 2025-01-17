@@ -38,7 +38,7 @@ Please consider the following examples, in which the application sending the res
 | --------- | ------------ | ------------------ |  
 | Server does not respond, even on ping | nothing | 532 |  
 | Server responds, but service/resource doesn't exist | 404 | ? |  
-| Service exists, but authentication failed as user unknown | 401 | ? |  
+| Service exists, but authentication failed as user unknown | 401 | 531 |  
 | Service exists, but known user lacks rights | 403 | ? |  
 | Service/resource indicated to be locked by another user | 423 | ? |  
 | Service indicated to be busy (too many requests) | 429 | ? |  
