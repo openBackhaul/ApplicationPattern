@@ -1,0 +1,24 @@
+@startuml OrderOfApplications
+
+skinparam componentStyle rectangle
+
+title
+Overview
+end title
+
+package "completeness" {
+  component [Consumer] as C #Orange 
+  component [Application under specification] as A #LightBlue 
+  component [Server] as S #Gray
+ 
+
+  C -> A
+  A ..> C : ResponseCode\n we want to define
+
+  A -> S
+  S ..> A : ResponseCode\n we receive
+
+
+}
+
+@enduml

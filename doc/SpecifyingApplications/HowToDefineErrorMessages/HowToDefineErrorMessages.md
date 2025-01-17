@@ -32,10 +32,21 @@ How to define error responses in the OAS:
 
 ## List of internally defined response codes ready for being copied and pasted into the OAS according to individual demand:
 The meaning of response codes 532, 530 and 502 are quite close.  
-Please consider the following examples, in which the application sending the response codes has trouble reaching (e.g. callback) another application or device:
-- 532: Device does not respond on ping
-- 502: Application does respond on ping, the service exists, but the **datatypes** inside the responseBody don't match the expectation
-- 530: Application does respond on ping, the service exists, the datatypes inside the responseBody match the expectation, but the **data** (values) is corrupted
+Please consider the following examples, in which the application sending the response codes has trouble reaching (e.g. callback) another application or device:  
+![OrderOfApplications](./diagrams/OrderOfApplications.png)
+| Situation | server sends | application sendes |  
+| --------- | ------------ | ------------------ |  
+| Server does not respond, even on ping | nothing | 532 |  
+| Server responds, but service/resource doesn't exist | 404 | ? |  
+| Service exists, but authentication failed as user unknown | 401 | ? |  
+| Service exists, but known user lacks rights | 403 | ? |  
+| Service/resource indicated to be locked by another user | 423 | ? |  
+| Service indicated to be busy (too many requests) | 429 | ? |  
+| Service complains about faulty input data (syntax) | 400 | ? | 
+| Service complains about non-sense input data (semantic) | 422 | ? |  
+| Server lacks some resource for executing | 507 | ? |  
+| Service responded, but **datatypes** didn't match | 200 | 502 |  
+| Datatypes matched, but data (**values**) are corrupted | 200 | 530 |  
 
 ```
 components:
