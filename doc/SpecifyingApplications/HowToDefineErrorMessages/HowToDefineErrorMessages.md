@@ -42,9 +42,9 @@ Please consider the following examples, in which the application sending the res
 | Service exists, but known user lacks rights | 403 | ? |  
 | Service/resource indicated to be locked by another user | 423 | ? |  
 | Service indicated to be busy (too many requests) | 429 | ? |  
-| Service complains about faulty input data (syntax) | 400 | ? | 
-| Service complains about non-sense input data (semantic) | 422 | ? |  
-| Server lacks some resource for executing | 507 | ? |  
+| Service complained about faulty input data (syntax) | 400 | ? | 
+| Service complained about non-sense input data (semantic) | 422 | ? |  
+| Server lacks some resource (e.g. storage) for executing | 507 | ? |  
 | Service responded, but **datatypes** didn't match | 200 | 502 |  
 | Datatypes matched, but data (**values**) are corrupted | 200 | 530 |  
 
