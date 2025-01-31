@@ -12,7 +12,8 @@ Both changes shall be applied on applications that did not yet reach milestone v
 | Cathegory | Abbr. | Component | Release | IP_1* | TCP_1* | IP_2** | TCP_2** |
 |---|---|---|---|---|---|---|---|
 | Controller |  |  |  |  |  |  |  |
-|  | ODL | OpenDayLight | 4.0.2 | 1.1.1.1 | 1001
+|  | ODL | OpenDayLightMaster | 4.0.2 | 127.0.0.1 | 1001
+|  | ODL | OpenDayLightSlave | 4.0.2 | 127.0.0.1 | 1002
 | Mediator |  |  |  |  |  |
 |  | xMIM | xMediatorInstanceManager | 1.0.0 | 1.1.2.1 | 2001
 |  | EMIM | EricssonMediatorInstanceManager | 1.0.0 | 1.1.2.2 | 2002
