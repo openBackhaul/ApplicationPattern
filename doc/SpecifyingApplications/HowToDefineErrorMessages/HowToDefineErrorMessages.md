@@ -37,7 +37,7 @@ Please consider the following examples, in which the application sending the res
 | Situation | server sends | application sendes |  
 | --------- | ------------ | ------------------ |  
 | Server does not respond, even on ping | nothing | 532 |  
-| Server responds, but service/resource doesn't exist | 404 | ? |  
+| Server responds, but service/resource doesn't exist | 404 | 533 |  
 | Service exists, but authentication failed as user unknown | 401 | 531 |  
 | Service exists, but known user lacks rights | 403 | ? |  
 | Service/resource indicated to be locked by another user | 423 | ? |  
@@ -331,7 +331,7 @@ components:
             example: 1100
           description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
     '533':
-      description: 'Response in case the referenced resource for an connected device does not exist at the controller.'
+      description: 'Response in case the server is acting as a gateway or proxy and was able to connect to the upstream server (device or application), but the referenced resource or service does not exist.'
       content:
         application/json:
           schema:
@@ -348,7 +348,7 @@ components:
               message:
                 type: string
                 enum:
-                  - 'Resource unknown. The resource for the connected device does not exist at the Controller.'
+                  - 'Bad gateway. The resource/service that is addressed does not exist at the device/application.'
       headers:
         x-correlator:
           schema:
