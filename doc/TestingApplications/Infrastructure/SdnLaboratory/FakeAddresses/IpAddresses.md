@@ -37,7 +37,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | A2LT | Accessport2LtpTranslator  | 1.0.0 | 127.0.0.1 | 4003
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 127.0.0.1 | 4005 | 1.2.4.5 | 4205
 |  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
-|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 127.0.0.1 | 4008
+|  | LILW | LinkidIntoLtpWriter | 1.0.0 | 127.0.0.1 | 4008
 |  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
 |  | NP | NotificationProxy | 1.0.1 | 127.0.0.1 | 4011 | 1.2.4.11 | 4211
 |  | MWPP | MicroWavePerformanceProxy | 1.0.0 | 127.0.0.1 | 4012 |
