@@ -8,7 +8,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | EaTL | ExecutionAndTraceLog | 2.1.2 | eatl-2-0-1
 |  | OL | OamLog | 2.1.2 | ol-2-0-1
 |  | ALT | ApplicationLayerTopology | 2.1.2 | alt-2-0-1 & alt-links-2-0-1
-|  | L2LT | Linkid2LtpTranslator | 1.0.0 | 5
+|  | LILW | LinkIdIntoLtpWriter | 1.0.0 | 5
 |  | MATR | MacAddressTableRecorder | 1.0.0 | 6
 |  | MWDI | MicroWaveDeviceInventory | 1.0.0 | 7
 |  | AIPS | AirInterfacePowerSaver | 0.0.5 | 8
