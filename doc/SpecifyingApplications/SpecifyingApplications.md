@@ -84,13 +84,19 @@ The ForwardingList must describe all relationships between events and reactions 
 - [Creating the ForwardingList](./CreatingForwardingList/CreatingForwardingList.md)
 
 
+## ResponseCodes
+
+HTTP ResponseCodes are used for responding on requests that have been send by other applications and for managing functions inside of automation applications.  
+- [How to define error messages](./HowToDefineErrorMessages/HowToDefineErrorMessages.md)
+- [ErrorCodesForAutomation](./HowToDefineErrorMessages/ErrorCodesForAutomation.md)
+
+
 ## OpenApiSpecification
 
 The OpenApiSpecification (OAS) represents the detailed specification of the REST API of the application.
 
 **Concepts**
 - [Structure of the OAS](./StructureOfOas/StructureOfOas.md)
-- [How to define error messages](./HowToDefineErrorMessages/HowToDefineErrorMessages.md)  
 
 **Step-by-Step Guidelines**
 - [Creating the OAS](./CreatingOas/CreatingOas.md)
