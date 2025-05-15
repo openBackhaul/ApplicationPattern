@@ -393,12 +393,3 @@ components:
             example: 1100
           description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
 ```
-## ErrorCodes for Automation  
-The following ErrorCodes shall be used for management of functions inside automation applications.  
-
-| Code | Description |  
-| ---- | ----------- |  
-| 630 | Device does not answer on Ping |  
-| 631 | Device does not answer on HTTP request |  
-| 632 | Authentication at the device failed |  
-| 633 | Addressed resource does not exist on the device |  
