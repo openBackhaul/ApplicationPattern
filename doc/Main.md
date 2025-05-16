@@ -7,6 +7,7 @@
 4. [Specifying Applications](./SpecifyingApplications/SpecifyingApplications.md)
 5. [Testing Applications](./TestingApplications/TestingApplications.md)
 6. [Components of the TinyApplicationController](./TinyApplicationController/TinyApplicationController.md)
-7. [Implementing Applications](./ImplementingApplications/ImplementingApplications.md)
-8. [Deploying Applications](./DeployingApplications/DeployingApplications.md)
+7. [Shared components of the Application Layer](./SharedComponents/SharedComponents.md)
+8. [Implementing Applications](./ImplementingApplications/ImplementingApplications.md)
+9. [Deploying Applications](./DeployingApplications/DeployingApplications.md)
 
