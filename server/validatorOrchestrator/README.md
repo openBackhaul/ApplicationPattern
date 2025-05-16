@@ -1,7 +1,7 @@
 
 # Validator Orchestrator
 
-This Validator Orchestrator shall be included as a module to our application that can,
+This Validator Orchestrator shall be included as a module to our application that ,
  - Manages multiple validation programs (functions that check condition about input data).
  - Allows you to register any number of these validation programs.
  - Lets you run all validators, or a specific sequence of them, on a given data input.
