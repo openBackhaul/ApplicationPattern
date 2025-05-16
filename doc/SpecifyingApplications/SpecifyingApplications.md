@@ -87,8 +87,7 @@ The ForwardingList must describe all relationships between events and reactions 
 ## ResponseCodes
 
 HTTP ResponseCodes are used for responding on requests that have been send by other applications and for managing functions inside of automation applications.  
-- [How to define error messages](./HowToDefineErrorMessages/HowToDefineErrorMessages.md)
-- [ErrorCodesForAutomation](./HowToDefineErrorMessages/ErrorCodesForAutomation.md)
+- [How to define error messages](./HowToDefineErrorMessages/HowToDefineErrorMessages.md)  
 
 
 ## OpenApiSpecification
