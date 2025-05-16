@@ -3,9 +3,9 @@
 
 This Validator Orchestrator shall be included as a module to our application that ,
  - Manages multiple validation programs (functions that check condition about input data).
- - Allows you to register any number of these validation programs.
- - Lets you run all validators, or a specific sequence of them, on a given data input.
- - Returns a structured summary result showing which validations passed or failed, and why. (You can also customize your own summary)
+ - Allows us to register any number of these validation programs.
+ - Lets us run all validators, or a specific sequence of them, on a given data input.
+ - Returns a structured summary result showing which validations passed or failed, and why. (We can also customize your own summary)
 
 Following are the steps to implement this concept. Also a sample implementation shall be find in the example folder.
 
