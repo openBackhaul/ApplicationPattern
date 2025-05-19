@@ -32,7 +32,7 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
 
 | Parameter              | Example Value                          | Why it matters                                                              |
 |------------------------|----------------------------------------|------------------------------------------------------------------------------|
-| `advertised.listeners` | PLAINTEXT://kafka.vm.local:9092        | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
+| `advertised.listeners` | 172.28.127.15                          | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
 | `log.dirs`             | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
 | `num.partitions`       | 3                                      | Set >1 if you want parallel consumption (e.g., vendor-based scaling)         |
 | `log.retention.hours`  | 48                                     | Set based on how long MWDI needs access to notifications (e.g., 24–48h)     |
@@ -54,7 +54,7 @@ The NotificationProxy acts as a Kafka **producer**, sending all received notific
 
 | Parameter             | Example Value                          | Description                                                                 |
 |-----------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`   | `kafka.vm.local:9092`                  | Address of the Kafka broker the producer will connect to                    |
+| `bootstrap.servers`   | `172.28.127.15 `                       | Address of the Kafka broker the producer will connect to                    |
 | `acks`                | `all`                                  | Ensures that the message is considered "sent" only after full replication   |
 | `retries`             | `3`                                    | Number of retry attempts if sending fails                                   |
 | `key.serializer`      | `org.apache.kafka.common.serialization.StringSerializer` | Serializer for the message key (usually device ID or notification type)    |
@@ -70,7 +70,7 @@ Below are the key configuration parameters required to set up the consumer.
 
 | Parameter               | Example Value                          | Description                                                                 |
 |-------------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`     | `kafka.vm.local:9092`                  | Address of the Kafka broker the consumer will connect to                    |
+| `bootstrap.servers`     | `172.28.127.15      `                  | Address of the Kafka broker the consumer will connect to                    |
 | `group.id`              | `mwdi-consumer-group`                  | Consumer group ID for coordination and offset tracking                      |
 | `auto.offset.reset`     | `earliest`                             | Start from the beginning if no previous offset is found                     |
 | `enable.auto.commit`    | `true`                                 | Automatically commit offsets (can be set to `false` if manual handling is needed) |
