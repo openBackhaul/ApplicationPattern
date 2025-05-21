@@ -25,6 +25,8 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
      - `proper_notifications`, or
      - `proprietary_notifications`.
 3. **MWDI** subscribes only to `proper_notifications` and executes update logic based on the notification type.
+![alt text](image.png)
+
 
 ### ParameterDesign
 
@@ -32,7 +34,7 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
 
 | Parameter              | Example Value                          | Why it matters                                                              |
 |------------------------|----------------------------------------|------------------------------------------------------------------------------|
-| `advertised.listeners` | 172.28.127.15                          | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
+| `advertised.listeners` | 'localhost:9092'                        | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
 | `log.dirs`             | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
 | `num.partitions`       | 3                                      | Set >1 if you want parallel consumption (e.g., vendor-based scaling)         |
 | `log.retention.hours`  | 48                                     | Set based on how long MWDI needs access to notifications (e.g., 24–48h)     |
@@ -54,11 +56,7 @@ The NotificationProxy acts as a Kafka **producer**, sending all received notific
 
 | Parameter             | Example Value                          | Description                                                                 |
 |-----------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`   | `172.28.127.15 `                       | Address of the Kafka broker the producer will connect to                    |
-| `acks`                | `all`                                  | Ensures that the message is considered "sent" only after full replication   |
-| `retries`             | `3`                                    | Number of retry attempts if sending fails                                   |
-| `key.serializer`      | `org.apache.kafka.common.serialization.StringSerializer` | Serializer for the message key (usually device ID or notification type)    |
-| `value.serializer`    | `org.apache.kafka.common.serialization.StringSerializer` | Serializer for the notification message body                               |
+| `bootstrap.servers`   |  'localhost:9092'                      | Address of the Kafka broker the producer will connect to                    |                              |
 | `topic`               | `all_notifications`                    | The Kafka topic to which notifications will be published                    |
 
 
@@ -70,11 +68,6 @@ Below are the key configuration parameters required to set up the consumer.
 
 | Parameter               | Example Value                          | Description                                                                 |
 |-------------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`     | `172.28.127.15      `                  | Address of the Kafka broker the consumer will connect to                    |
-| `group.id`              | `mwdi-consumer-group`                  | Consumer group ID for coordination and offset tracking                      |
-| `auto.offset.reset`     | `earliest`                             | Start from the beginning if no previous offset is found                     |
-| `enable.auto.commit`    | `true`                                 | Automatically commit offsets (can be set to `false` if manual handling is needed) |
-| `key.deserializer`      | `org.apache.kafka.common.serialization.StringDeserializer` | Deserializer for the message key                                             |
-| `value.deserializer`    | `org.apache.kafka.common.serialization.StringDeserializer` | Deserializer for the message content                                        |
-| `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications                  |
+| `bootstrap.servers`     |  'localhost:9092'                      | Address of the Kafka broker the consumer will connect to                   
+| `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications              
 
