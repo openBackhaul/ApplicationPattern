@@ -34,20 +34,20 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
 
 | Parameter              | Example Value                          | Why it matters                                                              |
 |------------------------|----------------------------------------|------------------------------------------------------------------------------|
-| `advertised.listeners` | 'localhost:9092'                        | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
-| `log.dirs`             | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
+| `advertised.listeners` | PLAINTEXT://localhost:9092             | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
+| `log.dir`             | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
 | `num.partitions`       | 3                                      | Set >1 if you want parallel consumption (e.g., vendor-based scaling)         |
-| `log.retention.hours`  | 48                                     | Set based on how long MWDI needs access to notifications (e.g., 24–48h)     |
+
 
 ---
 
 ### Kafka Config -  General Parameters
 
-| Parameter            | Example Value                   | Comment                                      |
-|----------------------|----------------------------------|----------------------------------------------|
-| `broker.id`          | 0                                | Set to `0` for single broker                 |
-| `listeners`          | PLAINTEXT://0.0.0.0:9092         | Default listener for external access         |
-| `zookeeper.connect`  | localhost:2181                   | Use `localhost:2181` if using local Zookeeper |
+| Parameter              | Example Value                   | Comment                                                                 |
+|------------------------|----------------------------------|-------------------------------------------------------------------------|
+| `broker.id`            | 0                                | Set to `0` for single broker                                            |
+| `listeners`            | PLAINTEXT://0.0.0.0:9092         | Kafka listens on this address/port for incoming connections             |
+| `advertised.listeners` | PLAINTEXT://localhost:9092       | Kafka tells clients (like MWDI and NP) to connect using this address   |
 
 
 ### NotificationProxy – Kafka Producer Configuration
@@ -59,15 +59,8 @@ The NotificationProxy acts as a Kafka **producer**, sending all received notific
 | `bootstrap.servers`   |  'localhost:9092'                      | Address of the Kafka broker the producer will connect to                    |                              |
 | `topic`               | `all_notifications`                    | The Kafka topic to which notifications will be published                    |
 
-kafka:
-  bootstrap_servers: localhost:9092
-  topic: all_notifications
-  acks: all
-  retries: 3
-  key_serializer: string
-  value_serializer: string
 
-###  MWDI – Kafka Consumer Configuration
+### MWDI – Kafka Consumer Configuration
 
 The MWDI application acts as a Kafka **consumer**, subscribing to the `proper_notifications` topic. It processes only well-formed, standards-compliant notifications (e.g., AVCN, OCN, ODN).
 
@@ -75,14 +68,7 @@ Below are the key configuration parameters required to set up the consumer.
 
 | Parameter               | Example Value                          | Description                                                                 |
 |-------------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`     |  'localhost:9092'                      | Address of the Kafka broker the consumer will connect to                   
-| `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications              
-
-kafka:
-  bootstrap_servers: localhost:9092
-  topic: proper_notifications
-  group_id: mwdi-consumer-group
-  auto_offset_reset: earliest
-  enable_auto_commit: true
-  key_deserializer: string
-  value_deserializer: string
+| `bootstrap.servers`     | `localhost:9092`                       | Address of the Kafka broker the consumer will connect to                    |
+| `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications                  |
+| `group.id`              | `mwdi-consumer-group`                  | Defines the consumer group this instance belongs to for offset tracking     |
+| `client.id`             | `mwdi-instance-01`                     | Optional identifier for this client instance (useful for monitoring/logging)|                     |
