@@ -59,6 +59,13 @@ The NotificationProxy acts as a Kafka **producer**, sending all received notific
 | `bootstrap.servers`   |  'localhost:9092'                      | Address of the Kafka broker the producer will connect to                    |                              |
 | `topic`               | `all_notifications`                    | The Kafka topic to which notifications will be published                    |
 
+kafka:
+  bootstrap_servers: localhost:9092
+  topic: all_notifications
+  acks: all
+  retries: 3
+  key_serializer: string
+  value_serializer: string
 
 ###  MWDI – Kafka Consumer Configuration
 
@@ -71,3 +78,11 @@ Below are the key configuration parameters required to set up the consumer.
 | `bootstrap.servers`     |  'localhost:9092'                      | Address of the Kafka broker the consumer will connect to                   
 | `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications              
 
+kafka:
+  bootstrap_servers: localhost:9092
+  topic: proper_notifications
+  group_id: mwdi-consumer-group
+  auto_offset_reset: earliest
+  enable_auto_commit: true
+  key_deserializer: string
+  value_deserializer: string
