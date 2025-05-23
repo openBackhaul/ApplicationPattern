@@ -5383,6 +5383,74 @@ paths:
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                                  - description: 'ApacheKafka client'
+                                    type: object
+                                    required:
+                                      - local-id
+                                      - layer-protocol-name
+                                      - kafka-client-interface-1-0:kafka-client-interface-pac
+                                    properties:
+                                      local-id:
+                                        type: string
+                                      layer-protocol-name:
+                                        type: string
+                                        enum:
+                                          - 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                          - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
+                                          - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                      kafka-client-interface-1-0:kafka-client-interface-pac:
+                                        type: object
+                                        required:
+                                          - kafka-client-interface-configuration
+                                          - kafka-client-interface-status
+                                        properties:
+                                          kafka-client-interface-configuration:
+                                            type: object
+                                            required:
+                                              - auth
+                                              - topic-name
+                                            properties:
+                                              auth:
+                                                type: object
+                                                minProperties: 1
+                                                additionalProperties: false
+                                                properties:
+                                                  user-name:
+                                                    type: string
+                                                  password:
+                                                    type: string
+                                              topic-name:
+                                                type: string
+                                              client-id:
+                                                type: string
+                                              group-id:
+                                                type: string
+                                          kafka-client-interface-status:
+                                            type: object
+                                            required:
+                                              - operational-state
+                                              - life-cycle-state
+                                            properties:
+                                              operational-state:
+                                                type: string
+                                                enum:
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                                              life-cycle-state:
+                                                type: string
+                                                enum:
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
                                   - description: 'http client'
                                     type: object
                                     required:
@@ -10703,6 +10771,40 @@ components:
                           index-alias:
                             type: string
                       elasticsearch-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'kafka client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - kafka-client-interface-1-0:kafka-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  kafka-client-interface-1-0:kafka-client-interface-pac:
+                    type: object
+                    required:
+                      - kafka-client-interface-configuration
+                      - kafka-client-interface-status
+                    properties:
+                      kafka-client-interface-configuration:
+                        type: object
+                        required:
+                          - topic-name
+                        properties:
+                          topic-name:
+                            type: string
+                      kafka-client-interface-status:
                         type: object
                         required:
                           - operational-state
