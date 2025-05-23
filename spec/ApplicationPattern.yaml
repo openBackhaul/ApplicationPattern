@@ -4812,6 +4812,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-server-interface-1-0:operation-server-interface-pac:
@@ -4861,6 +4862,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-server-interface-1-0:http-server-interface-pac:
@@ -4932,6 +4934,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-server-interface-1-0:tcp-server-interface-pac:
@@ -4980,6 +4983,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-client-interface-1-0:operation-client-interface-pac:
@@ -5038,6 +5042,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
@@ -5395,6 +5400,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-client-interface-1-0:http-client-interface-pac:
@@ -5429,6 +5435,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-client-interface-1-0:tcp-client-interface-pac:
