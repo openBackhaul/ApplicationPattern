@@ -890,6 +890,84 @@
         ]
       },
       {
+        "uuid": "xx-1-0-0-mdb-c-mdb-1-0-0-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [
+        ],
+        "server-ltp": [
+          "xx-1-0-0-http-c-mdb-1-0-0-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER",
+            "mongodb-client-interface-1-0:mongodb-client-interface-pac": {
+              "mongodb-client-interface-configuration": {
+                "auth": {
+                    "auth-source":   " >>> source database of the user credentials <<< ",
+                    "user-name":   " >>> user name <<< ",
+                    "password":   " >>> password <<< " 
+                  }, 
+                "database-name": " >>> Application specific database name <<< ", 
+                "collection-name": ">>> collection name specific to database <<<"
+              },
+              "mongodb-client-interface-status": {
+                "operational-state": "mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
+                "life-cycle-state": "mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "xx-1-0-0-http-c-mdb-1-0-0-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [
+          "xx-1-0-0-md-c-mdb-1-0-0-000"
+        ],
+        "server-ltp": [
+          "xx-1-0-0-tcp-c-mdb-1-0-0-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
+            "http-client-interface-1-0:http-client-interface-pac": {
+              "http-client-interface-configuration": {
+                "application-name": "MongoDB",
+                "release-number": "1.0.0"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "xx-1-0-0-tcp-c-mdb-1-0-0-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [
+          "xx-1-0-0-http-c-mdb-1-0-0-000"
+        ],
+        "server-ltp": [
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
+            "tcp-client-interface-1-0:tcp-client-interface-pac": {
+              "tcp-client-interface-configuration": {
+                "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
+                "remote-address": {
+                  "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                  }
+                },
+                "remote-port": 27017
+              }
+            }
+          }
+        ]
+      },
+      {
         "uuid": "xx-1-0-0-op-c-bm-or-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [

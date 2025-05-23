@@ -4812,6 +4812,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-server-interface-1-0:operation-server-interface-pac:
@@ -4861,6 +4862,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-server-interface-1-0:http-server-interface-pac:
@@ -4932,6 +4934,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-server-interface-1-0:tcp-server-interface-pac:
@@ -4980,6 +4983,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-client-interface-1-0:operation-client-interface-pac:
@@ -5038,6 +5042,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
@@ -5378,6 +5383,75 @@ paths:
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                                  - description: 'mongodb client'
+                                    type: object
+                                    required:
+                                      - local-id
+                                      - layer-protocol-name
+                                      - mongodb-client-interface-1-0:mongodb-client-interface-pac
+                                    properties:
+                                      local-id:
+                                        type: string
+                                      layer-protocol-name:
+                                        type: string
+                                        enum:
+                                          - 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                          - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                      mongodb-client-interface-1-0:mongodb-client-interface-pac:
+                                        type: object
+                                        required:
+                                          - mongodb-client-interface-configuration
+                                          - mongodb-client-interface-status
+                                        properties:
+                                          mongodb-client-interface-configuration:
+                                            type: object
+                                            required:
+                                              - auth
+                                              - database-name
+                                              - collection-name
+                                            properties:
+                                              auth:
+                                                type: object
+                                                minProperties: 1
+                                                additionalProperties: false
+                                                properties:
+                                                  auth-source:
+                                                    type: string
+                                                  user-name:
+                                                    type: string
+                                                  password:
+                                                    type: string
+                                              database-name:
+                                                type: string
+                                              collection-name:
+                                                type: string
+                                          mongodb-client-interface-status:
+                                            type: object
+                                            required:
+                                              - operational-state
+                                              - life-cycle-state
+                                            properties:
+                                              operational-state:
+                                                type: string
+                                                enum:
+                                                  - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                                                  - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                                                  - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                                              life-cycle-state:
+                                                type: string
+                                                enum:
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                                                  - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
                                   - description: 'http client'
                                     type: object
                                     required:
@@ -5395,6 +5469,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-client-interface-1-0:http-client-interface-pac:
@@ -5429,6 +5504,7 @@ paths:
                                           - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-client-interface-1-0:tcp-client-interface-pac:
@@ -9256,6 +9332,470 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-configuration/auth/auth-source:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientAuthSource
+      summary: 'Returns auth source'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Auth Source provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:auth-source
+                properties:
+                  mongodb-client-interface-1-0:auth-source:
+                    type: string
+                    example: 'admin'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putMongodbClientAuthSource
+      summary: 'Configures auth source'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mongodb-client-interface-1-0:auth-source
+              properties:
+                mongodb-client-interface-1-0:auth-source:
+                  type: string
+      responses:
+        '204':
+          description: 'auth source configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-configuration/auth/user-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientUserName
+      summary: 'Returns user name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'user name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:user-name
+                properties:
+                  mongodb-client-interface-1-0:user-name:
+                    type: string
+                    example: 'someuser'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putMongodbClientUserName
+      summary: 'Configures user name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mongodb-client-interface-1-0:user-name
+              properties:
+                mongodb-client-interface-1-0:user-name:
+                  type: string
+      responses:
+        '204':
+          description: 'user name configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-configuration/auth/password:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientPassword
+      summary: 'Returns password'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'password provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:password
+                properties:
+                  mongodb-client-interface-1-0:password:
+                    type: string
+                    example: 'HhdiwdfbdkYgks'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putMongodbClientPassword
+      summary: 'Configures password'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mongodb-client-interface-1-0:password
+              properties:
+                mongodb-client-interface-1-0:password:
+                  type: string
+      responses:
+        '204':
+          description: 'password configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-configuration/database-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientDatabaseName
+      summary: 'Returns database name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'database name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:database-name
+                properties:
+                  mongodb-client-interface-1-0:database-name:
+                    type: string
+                    example: 'DatabaseName'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putMongodbClientDatabaseName
+      summary: 'Configures database name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mongodb-client-interface-1-0:database-name
+              properties:
+                mongodb-client-interface-1-0:database-name:
+                  type: string
+      responses:
+        '204':
+          description: 'database name configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-configuration/collection-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientCollectionName
+      summary: 'Returns collection name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'collection name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:collection-name
+                properties:
+                  mongodb-client-interface-1-0:collection-name:
+                    type: string
+                    example: 'collectionName'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putMongodbClientCollectionName
+      summary: 'Configures collection name'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mongodb-client-interface-1-0:collection-name
+              properties:
+                mongodb-client-interface-1-0:collection-name:
+                  type: string
+      responses:
+        '204':
+          description: 'collection name configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-status/operational-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientOperationalState
+      summary: 'Returns operational state of the connection towards Mongodb'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operational state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:operational-state
+                properties:
+                  mongodb-client-interface-1-0:operational-state:
+                    type: string
+                    enum:
+                      - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                      - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                      - 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/mongodb-client-interface-1-0:mongodb-client-interface-pac/mongodb-client-interface-status/life-cycle-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-mdb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-mdb-c-mdb-1-0-0-000'
+    get:
+      operationId: getMongodbClientLifeCycleState
+      summary: 'Returns life cycle state of the connection towards Mongodb'
+      tags:
+        - MongodbClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Life cycle state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mongodb-client-interface-1-0:life-cycle-state
+                properties:
+                  mongodb-client-interface-1-0:life-cycle-state:
+                    type: string
+                    enum:
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                      - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name:
     parameters:
       - in: path
@@ -10232,6 +10772,43 @@ components:
                           index-alias:
                             type: string
                       elasticsearch-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'mongodb client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - mongodb-client-interface-1-0:mongodb-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  mongodb-client-interface-1-0:mongodb-client-interface-pac:
+                    type: object
+                    required:
+                      - mongodb-client-interface-configuration
+                      - mongodb-client-interface-status
+                    properties:
+                      mongodb-client-interface-configuration:
+                        type: object
+                        required:
+                          - database-name
+                          - collection-name
+                        properties:
+                          database-name:
+                            type: string
+                          collection-name:
+                            type: string
+                      mongodb-client-interface-status:
                         type: object
                         required:
                           - operational-state
