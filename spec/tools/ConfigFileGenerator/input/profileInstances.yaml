@@ -448,7 +448,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-057'
     capability:
       string-name: 'ags20_httpsOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -456,7 +456,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-058'
     capability:
       string-name: 'ags20_ftpOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -464,7 +464,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-059'
     capability:
       string-name: 'ags20_sftpOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'allow'
 
@@ -472,7 +472,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-060'
     capability:
       string-name: 'ags20_sshOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -480,7 +480,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-061'
     capability:
       string-name: 'ags20_snmpOption'
-      enumeration:  ['deny', 'allowV1', 'allowV2c', 'allowV3']
+      enumeration: ['deny', 'allowV1', 'allowV2c', 'allowV3']
     configuration:
       string-value: 'deny'
 
@@ -502,7 +502,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-064'
     capability:
       string-name: 'ags20_userSnmpAuthProtocol'
-      enumeration:  ['noAuth', 'md5', 'sha']
+      enumeration: ['noAuth', 'md5', 'sha']
     configuration:
       string-value: 'noAuth'
 
@@ -517,7 +517,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-066'
     capability:
       string-name: 'ags20_userSnmpPrivProt'
-      enumeration:  ['noPriv', 'des', 'aes']
+      enumeration: ['noPriv', 'des', 'aes']
     configuration:
       string-value: 'noPriv'
 
@@ -597,7 +597,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-077'
     capability:
       string-name: 'alfo80_httpsOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -605,7 +605,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-078'
     capability:
       string-name: 'alfo80_ftpOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -613,7 +613,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-079'
     capability:
       string-name: 'alfo80_sftpOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'allow'
 
@@ -621,7 +621,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-080'
     capability:
       string-name: 'alfo80_sshOption'
-      enumeration:  ['deny', 'allow']
+      enumeration: ['deny', 'allow']
     configuration:
       string-value: 'deny'
 
@@ -629,7 +629,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-081'
     capability:
       string-name: 'alfo80_snmpOption'
-      enumeration:  ['deny', 'allowV1', 'allowV2c', 'allowV3']
+      enumeration: ['deny', 'allowV1', 'allowV2c', 'allowV3']
     configuration:
       string-value: 'deny'
 
@@ -651,7 +651,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-084'
     capability:
       string-name: 'alfo80_userSnmpAuthProtocol'
-      enumeration:  ['noAuth', 'md5', 'sha']
+      enumeration: ['noAuth', 'md5', 'sha']
     configuration:
       string-value: 'noAuth'
 
@@ -666,7 +666,7 @@ profile-instances:
     uuid: 'cp-1-0-0-string-p-086'
     capability:
       string-name: 'alfo80_userSnmpPrivProt'
-      enumeration:  ['noPriv', 'des', 'aes']
+      enumeration: ['noPriv', 'des', 'aes']
     configuration:
       string-value: 'noPriv'
 
