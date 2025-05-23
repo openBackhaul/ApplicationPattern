@@ -926,9 +926,9 @@
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
                 "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
-                "remote-addrkts": {
-                  "ip-addrkts": {
-                    "ipv-4-addrkts": "127.0.0.1"
+                "remote-address": {
+                  "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
                   }
                 },
                 "remote-port": 9092
