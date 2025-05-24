@@ -1,12 +1,13 @@
-# Kafka
 
-### Purpose
+# Kafka Integration for MWDI and NotificationProxy
+
+## Purpose
 
 The goal of integrating Kafka into the system is to decouple the flow of notifications between components and enable a scalable and robust message processing pipeline. Kafka acts as a central broker that receives all incoming notifications and distributes them to appropriate consumers.
 
 Instead of sending notifications directly to MWDI, all notifications are first sent to Kafka. This approach allows asynchronous processing, failure isolation, and better maintainability. MWDI is only responsible for consuming filtered, relevant notifications.
 
-### Design 
+## Design
 
 Kafka serves as the central notification hub. All incoming notifications, regardless of type, are first published to a single input topic (e.g., `all_notifications`). A Kafka Streams application is then responsible for filtering and routing these notifications to the appropriate output topics:
 
@@ -15,10 +16,10 @@ Kafka serves as the central notification hub. All incoming notifications, regard
 
 MWDI is configured to only consume from `proper_notifications`, ensuring that it processes only the notifications that conform to expected formats and types.
 
-#### Flow
+### Flow
 
 1. **NotificationProxy** sends all notifications to the Kafka topic `all_notifications`.
-2. A **Kafka Streams filtering application**:
+2. **Kafka Streams filtering application**:
    - Parses each message.
    - Applies logic to determine if the notification is proper or proprietary.
    - Routes the message to either:
@@ -27,21 +28,15 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
 3. **MWDI** subscribes only to `proper_notifications` and executes update logic based on the notification type.
 ![alt text](image.png)
 
-
-### ParameterDesign
-
-### Kafka Config -  Project-Specific Parameters
+## Kafka Configuration – Project-Specific Parameters
 
 | Parameter              | Example Value                          | Why it matters                                                              |
 |------------------------|----------------------------------------|------------------------------------------------------------------------------|
 | `advertised.listeners` | PLAINTEXT://localhost:9092             | Must match the hostname/IP MWDI and NP will use to connect to Kafka         |
-| `log.dir`             | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
+| `log.dir`              | /var/lib/kafka-logs                    | Must point to a writable, persistent directory on your VM                   |
 | `num.partitions`       | 3                                      | Set >1 if you want parallel consumption (e.g., vendor-based scaling)         |
 
-
----
-
-### Kafka Config -  General Parameters
+## Kafka Configuration – General Parameters
 
 | Parameter              | Example Value                   | Comment                                                                 |
 |------------------------|----------------------------------|-------------------------------------------------------------------------|
@@ -49,26 +44,67 @@ MWDI is configured to only consume from `proper_notifications`, ensuring that it
 | `listeners`            | PLAINTEXT://0.0.0.0:9092         | Kafka listens on this address/port for incoming connections             |
 | `advertised.listeners` | PLAINTEXT://localhost:9092       | Kafka tells clients (like MWDI and NP) to connect using this address   |
 
+---
 
-### NotificationProxy – Kafka Producer Configuration
+## NotificationProxy – Kafka Producer Configuration
 
-The NotificationProxy acts as a Kafka **producer**, sending all received notifications to the `all_notifications` topic. Below are the key configuration parameters required to set up the producer.
+The NotificationProxy acts as a Kafka **producer**, sending all received notifications to the `all_notifications` topic.
 
-| Parameter             | Example Value                          | Description                                                                 |
-|-----------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`   |  'localhost:9092'                      | Address of the Kafka broker the producer will connect to                    |                              |
-| `topic`               | `all_notifications`                    | The Kafka topic to which notifications will be published                    |
+### Operational Parameters
 
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `topic-name`  | Name of the Kafka topic to which notifications are published (e.g.,`all_notifications`)|
 
-### MWDI – Kafka Consumer Configuration
+### Configuration Parameters
 
-The MWDI application acts as a Kafka **consumer**, subscribing to the `proper_notifications` topic. It processes only well-formed, standards-compliant notifications (e.g., AVCN, OCN, ODN).
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `username`    | Kafka authentication username                                       |
+| `password`    | Kafka authentication password                                       |
 
-Below are the key configuration parameters required to set up the consumer.
+### Capability Parameters
 
-| Parameter               | Example Value                          | Description                                                                 |
-|-------------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| `bootstrap.servers`     | `localhost:9092`                       | Address of the Kafka broker the consumer will connect to                    |
-| `topic`                 | `proper_notifications`                 | The Kafka topic from which MWDI will consume notifications                  |
-| `group.id`              | `mwdi-consumer-group`                  | Defines the consumer group this instance belongs to for offset tracking     |
-| `client.id`             | `mwdi-instance-01`                     | Optional identifier for this client instance (useful for monitoring/logging)|                     |
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `client-id`   | Unique identifier for the producer application                      |
+
+### TCP Client Parameters
+
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `ip-address`  | IP address of the Kafka broker (e.g., `localhost`)                  |
+| `port`        | Kafka port (e.g., `9092`)                                           |
+
+---
+
+## MWDI – Kafka Consumer Configuration
+
+The MWDI application acts as a Kafka **consumer**, subscribing to the `proper_notifications` topic.
+
+### Operational Parameters
+
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `topic-name`  | Name of the Kafka topic from which to consume notifications (e.g.,`proper_notifications`)|
+
+### Configuration Parameters
+
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `username`    | Kafka authentication username                                       |
+| `password`    | Kafka authentication password                                       |
+| `group-id`    | Used to coordinate multiple consumers on the same topic             |
+
+### Capability Parameters
+
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `client-id`   | Unique identifier for the consumer application                      |
+
+### TCP Client Parameters
+
+| Parameter     | Description                                                         |
+|---------------|---------------------------------------------------------------------|
+| `ip-address`  | IP address of the Kafka broker (e.g., `localhost`)                  |
+| `port`        | Kafka port (e.g., `9092`)                                           |
