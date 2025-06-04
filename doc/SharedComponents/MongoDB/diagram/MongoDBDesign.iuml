@@ -1,1 +1,67 @@
+@startuml
+package "Data Storage Layer" {
+  component MongoDB {
+   package Databases{
+      [Database1]
+      [Database2]
+      [Database3]
+    }
+   package Database1{
+      [Collection1]
+    }
+   package Database2{
+      [Collection2]
+    }
+  package Database3{
+      [Collection3]
+    }
+    package RBAC {
+      [Security Module]
+    }
+  }
+  note left of MongoDB
+    Stores JSON data with
+    nested JSON updates
+    Validates credentials before update
+  end note
+
+  component ElasticSearch
+  note right of ElasticSearch
+    Stores JSON data
+    Create & Delete only
+    Read optimized
+  end note
+  
+
+}
+
+
+package "Applications with NMDA DS" {
+  component LILW
+  component DDM
+}
+
+' Application to Storage connections
+LILW --> MongoDB : Update nested JSON
+DDM --> MongoDB
+
+package "User Interface" {
+component MongoCompass
+}
+
+MongoCompass --> MongoDB : View and Query Data
+
+package "Applications" {
+  component EATL
+  component MWDI
+}
+
+EATL --> ElasticSearch : Create / Read / Delete
+MWDI --> ElasticSearch
+
+Database1 --> RBAC : Validation of authorization
+
+
+
+@enduml
 
