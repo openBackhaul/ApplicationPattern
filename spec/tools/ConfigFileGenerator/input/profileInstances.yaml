@@ -677,4 +677,3 @@ profile-instances:
       pattern: '^([0-9]{0,127})$'
     configuration:
       string-value: '0'
-      
