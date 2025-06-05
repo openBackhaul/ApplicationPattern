@@ -862,11 +862,11 @@
         ]
       },
       {
-        "uuid": "xx-1-0-0-ak-c-ak-1-0-0-000",
+        "uuid": "xx-1-0-0-kmb-c-kmb-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "xx-1-0-0-http-c-ak-1-0-0-000"
+          "xx-1-0-0-http-c-kmb-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -891,13 +891,13 @@
         ]
       },
       {
-        "uuid": "xx-1-0-0-http-c-ak-1-0-0-000",
+        "uuid": "xx-1-0-0-http-c-kmb-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "xx-1-0-0-ak-c-ak-1-0-0-000"
+          "xx-1-0-0-kmb-c-kmb-1-0-0-000"
         ],
         "server-ltp": [
-          "xx-1-0-0-tcp-c-ak-1-0-0-000"
+          "xx-1-0-0-tcp-c-kmb-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -905,7 +905,7 @@
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
-                "application-name": "ApacheKafka",
+                "application-name": "KafkaMessageBus",
                 "release-number": "1.0.0"
               }
             }
@@ -913,10 +913,10 @@
         ]
       },
       {
-        "uuid": "xx-1-0-0-tcp-c-ak-1-0-0-000",
+        "uuid": "xx-1-0-0-tcp-c-kmb-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "xx-1-0-0-http-c-ak-1-0-0-000"
+          "xx-1-0-0-http-c-kmb-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [

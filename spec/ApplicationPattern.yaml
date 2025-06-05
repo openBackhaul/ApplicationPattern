@@ -5383,7 +5383,7 @@ paths:
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
                                                   - 'elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
-                                  - description: 'ApacheKafka client'
+                                  - description: 'kafka client'
                                     type: object
                                     required:
                                       - local-id
@@ -9338,8 +9338,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientUserName
       summary: 'Returns UserName'
@@ -9412,8 +9412,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientPassword
       summary: 'Returns Password'
@@ -9486,8 +9486,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientTopicName
       summary: 'Returns topic name'
@@ -9560,8 +9560,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientClientId
       summary: 'Returns client id (Identifier of the application)'
@@ -9634,8 +9634,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientGroupId
       summary: 'Returns group id (Identifier for consumers consuming a topic)'
@@ -9708,8 +9708,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientOperationalState
       summary: 'Returns operational state of the connection towards Kafka'
@@ -9753,8 +9753,8 @@ paths:
         required: true
         schema:
           type: string
-          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-ak-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
-          example: 'yz-34-3-3-ak-c-ak-1-0-0-000'
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
     get:
       operationId: getKafkaClientLifeCycleState
       summary: 'Returns life cycle state of the connection towards Kafka'
