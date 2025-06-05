@@ -91,7 +91,7 @@ clients:
     elasticsearch-client:
       uuid: xx-1-0-0-es-c-es-1-0-0-000
       index-alias:
-    
+
   - http-client:
       application-name: MongoDB
       release-number: 1.0.0
@@ -300,4 +300,3 @@ clients:
       service:
         basic:
         individual:
-
