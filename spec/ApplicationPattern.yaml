@@ -4813,6 +4813,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-server-interface-1-0:operation-server-interface-pac:
@@ -4863,6 +4864,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-server-interface-1-0:http-server-interface-pac:
@@ -4935,6 +4937,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-server-interface-1-0:tcp-server-interface-pac:
@@ -4984,6 +4987,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       operation-client-interface-1-0:operation-client-interface-pac:
@@ -5043,6 +5047,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
@@ -5401,6 +5406,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       mongodb-client-interface-1-0:mongodb-client-interface-pac:
@@ -5452,6 +5458,75 @@ paths:
                                                   - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
                                                   - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
                                                   - 'mongodb-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                                  - description: 'kafka client'
+                                    type: object
+                                    required:
+                                      - local-id
+                                      - layer-protocol-name
+                                      - kafka-client-interface-1-0:kafka-client-interface-pac
+                                    properties:
+                                      local-id:
+                                        type: string
+                                      layer-protocol-name:
+                                        type: string
+                                        enum:
+                                          - 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                          - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
+                                          - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
+                                          - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
+                                          - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
+                                          - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
+                                      kafka-client-interface-1-0:kafka-client-interface-pac:
+                                        type: object
+                                        required:
+                                          - kafka-client-interface-configuration
+                                          - kafka-client-interface-status
+                                        properties:
+                                          kafka-client-interface-configuration:
+                                            type: object
+                                            required:
+                                              - auth
+                                              - topic-name
+                                            properties:
+                                              auth:
+                                                type: object
+                                                minProperties: 1
+                                                additionalProperties: false
+                                                properties:
+                                                  user-name:
+                                                    type: string
+                                                  password:
+                                                    type: string
+                                              topic-name:
+                                                type: string
+                                              client-id:
+                                                type: string
+                                              group-id:
+                                                type: string
+                                          kafka-client-interface-status:
+                                            type: object
+                                            required:
+                                              - operational-state
+                                              - life-cycle-state
+                                            properties:
+                                              operational-state:
+                                                type: string
+                                                enum:
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                                                  - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                                              life-cycle-state:
+                                                type: string
+                                                enum:
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                                                  - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
                                   - description: 'http client'
                                     type: object
                                     required:
@@ -5470,6 +5545,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       http-client-interface-1-0:http-client-interface-pac:
@@ -5505,6 +5581,7 @@ paths:
                                           - 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
                                           - 'elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER'
                                           - 'mongodb-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_MONGODB_LAYER'
+                                          - 'kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER'
                                           - 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
                                           - 'tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER'
                                       tcp-client-interface-1-0:tcp-client-interface-pac:
@@ -9796,6 +9873,470 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
 
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/auth/user-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientUserName
+      summary: 'Returns UserName'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'UserName provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:user-name
+                properties:
+                  kafka-client-interface-1-0:user-name:
+                    type: string
+                    example: 'kafkaBroker'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putKafkaClientUserName
+      summary: 'Configures UserName'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kafka-client-interface-1-0:user-name
+              properties:
+                kafka-client-interface-1-0:user-name:
+                  type: string
+      responses:
+        '204':
+          description: 'UserName configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/auth/password:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientPassword
+      summary: 'Returns Password'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Password provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:password
+                properties:
+                  kafka-client-interface-1-0:password:
+                    type: string
+                    example: 'YWRtaW46MTIzNDU2'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putKafkaClientPassword
+      summary: 'Configures Password'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kafka-client-interface-1-0:password
+              properties:
+                kafka-client-interface-1-0:password:
+                  type: string
+      responses:
+        '204':
+          description: 'Password configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/topic-name:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientTopicName
+      summary: 'Returns topic name'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'topic name provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:topic-name
+                properties:
+                  kafka-client-interface-1-0:topic-name:
+                    type: string
+                    example: 'NotificationTopic'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putKafkaClientTopicName
+      summary: 'Configures topic name'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kafka-client-interface-1-0:topic-name
+              properties:
+                kafka-client-interface-1-0:topic-name:
+                  type: string
+      responses:
+        '204':
+          description: 'TopicName configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/client-id:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientClientId
+      summary: 'Returns client id (Identifier of the application)'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'client id provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:client-id
+                properties:
+                  kafka-client-interface-1-0:client-id:
+                    type: string
+                    example: 'notification-proxy'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putKafkaClientClientId
+      summary: 'Configures client id'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kafka-client-interface-1-0:client-id
+              properties:
+                kafka-client-interface-1-0:client-id:
+                  type: string
+      responses:
+        '204':
+          description: 'client id configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/group-id:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientGroupId
+      summary: 'Returns group id (Identifier for consumers consuming a topic)'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'group id provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:group-id
+                properties:
+                  kafka-client-interface-1-0:group-id:
+                    type: string
+                    example: 'notification-consumer'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+    put:
+      operationId: putKafkaClientGroupId
+      summary: 'Configures group id'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kafka-client-interface-1-0:group-id
+              properties:
+                kafka-client-interface-1-0:group-id:
+                  type: string
+      responses:
+        '204':
+          description: 'group id configured'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-status/operational-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientOperationalState
+      summary: 'Returns operational state of the connection towards Kafka'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Operational state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:operational-state
+                properties:
+                  kafka-client-interface-1-0:operational-state:
+                    type: string
+                    enum:
+                      - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_AVAILABLE'
+                      - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_UNAVAILABLE'
+                      - 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'kafka-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-status/life-cycle-state:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+          example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+    get:
+      operationId: getKafkaClientLifeCycleState
+      summary: 'Returns life cycle state of the connection towards Kafka'
+      tags:
+        - KafkaClient
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'Life cycle state provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - kafka-client-interface-1-0:life-cycle-state
+                properties:
+                  kafka-client-interface-1-0:life-cycle-state:
+                    type: string
+                    enum:
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OPERATIONAL'
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED'
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE'
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN'
+                      - 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+                    example: 'kafka-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
+
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name:
     parameters:
       - in: path
@@ -10809,6 +11350,40 @@ components:
                           collection-name:
                             type: string
                       mongodb-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'kafka client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - kafka-client-interface-1-0:kafka-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  kafka-client-interface-1-0:kafka-client-interface-pac:
+                    type: object
+                    required:
+                      - kafka-client-interface-configuration
+                      - kafka-client-interface-status
+                    properties:
+                      kafka-client-interface-configuration:
+                        type: object
+                        required:
+                          - topic-name
+                        properties:
+                          topic-name:
+                            type: string
+                      kafka-client-interface-status:
                         type: object
                         required:
                           - operational-state

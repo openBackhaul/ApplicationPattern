@@ -29,8 +29,10 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | AA | AccessAdministration | 2.1.2 | 127.0.0.1 | 3035
 |  | ALT | ApplicationLayerTopology | 2.1.2 | 127.0.0.1 | 3036
 |  | OKM | OperationKeyManagement | 2.1.2 | 127.0.0.1 | 3037
-| DataBases |  |  |  |  |  |
+| DataBases & Buses |  |  |  |  |  |
 |  | ES | ElasticSearch | 1.0.0 | 127.0.0.1 | 3015
+|  | MDB | MongoDB | 1.0.0 | 127.0.0.1 | 3016
+|  | KMB | Kafka | 1.0.0 | 127.0.0.1 | 3017
 | Application |  |  |  |  |  |
 |  | CC | CurrentController | 1.0.0 | 127.0.0.1 | 4001
 |  | RESO | Resolver | 1.0.0 | 127.0.0.1 | 4002
