@@ -46,7 +46,7 @@ Ensure the MongoDB instance is **not publicly exposed**.
 - Automatic deletion is not desired; **retention policies (if any) will be handled via manual archival strategies**.
   
 ---
-# Other Recommandations
+# Other Recommendations
 ## Naming Standards
 
 - **Database names**: Use lowercase, underscore-separated names  
