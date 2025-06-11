@@ -41,7 +41,6 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MM | MediatorManager | 1.0.0 | 127.0.0.1 | 4006
 |  | LILW | LinkidIntoLtpWriter | 1.0.0 | 127.0.0.1 | 4008
 |  | MO | MountingOrchestrator | 1.0.0 | 127.0.0.1 | 4010
-|  | NP | NotificationProxy | 1.0.1 | 127.0.0.1 | 4011 | 1.2.4.11 | 4211
 |  | MWPP | MicroWavePerformanceProxy | 1.0.0 | 127.0.0.1 | 4012 |
 |  | HMWDI | HistoricalMicroWaveDeviceInventory | 1.0.0 | 127.0.0.1 | 4013
 |  | MWDG | MicroWaveDeviceGatekeeper | 1.0.0 | 127.0.0.1 | 4014
@@ -54,6 +53,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | CP | ConnectionPreparation  | 1.1.0 | 127.0.0.1 | 4022
 |  | MWDI | MicroWaveDeviceInventory  | 1.2.2 | 127.0.0.1 | 4023
 |  | MWDI | MicroWaveDeviceInventory  | 1.3.0 | 127.0.0.1 | 4024
+|  | NP | NotificationProxy | 1.1.0 | 127.0.0.1 | 4025
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
@@ -100,3 +100,4 @@ The following fake TCP/IP addresses have no longer to be used while writing new 
 |  | ALAP | AutomatedLinkAcceptanceProxy | 1.0.2 | 1.1.4.9 | 4009 | 1.2.4.9 | 4209
 |  | RSR | RequestSequenceRepresentation | 1.0.0 | 1.1.3.16 | 3016 | 1.2.3.16 | 3216
 |  | MWDI | MicroWaveDeviceInventory  | 1.1.2 | 127.0.0.1 | 4015
+|  | NP | NotificationProxy | 1.0.1 | 127.0.0.1 | 4011 | 1.2.4.11 | 4211
