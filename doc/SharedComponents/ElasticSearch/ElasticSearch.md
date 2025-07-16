@@ -1,26 +1,26 @@
 ### Purpose
-ElasticSearch in SDN enables to use at Application Layer for real-time data indexing, searching, and analysis. It Paired with Kibana, it gives SDN operators insightful dashboards for network observability, troubleshooting and automation. Each application data point is indexed as a JSON document and can be searched or aggregated in real time.
+Elasticsearch in SDN enables to use at Application Layer for real-time data indexing, searching, and analysis. It Paired with Kibana, it gives SDN operators insightful dashboards for network observability, troubleshooting and automation. Each application data point is indexed as a JSON document and can be searched or aggregated in real time.
 
 Integrating Elastic Stack and SDN applications offers a best solution for managing and accessing large amounts of data in an efficient, scalable way. It will give powerful search capabilities where can create a system which is fast, reliable, and capable of handling complex queries with ease and cached.
 
 ### Key Points:
-#### Setting up ElasticSearch and Applications:  
-This setup easily get started by installing ElasticSearch and setting up our SDN applications servers.
+#### Setting up Elasticsearch and Applications:  
+This setup easily get started by installing Elasticsearch and setting up our SDN applications servers.
 #### Indexing:
-ElasticSearch allows to index, search, and update content efficiently.
+Elasticsearch allows to index, search, and update content efficiently.
 #### Advanced Search Features: 
 With features like fuzzy search, filtering, full-text search, and pagination, users can find information quickly and accurately.
 #### Scaling and Monitoring: 
-As data grows, ElasticSearch scales which can monitor cluster health, handle large volumes of data with bulk indexing.
+As data grows, Elasticsearch scales which can monitor cluster health, handle large volumes of data with bulk indexing.
 #### Caching and Error Handling: 
 Implementing caching with Redis and ensuring graceful error handling ensures your knowledge base runs smoothly under heavy load.
 
-#### Brief introduction to ElasticSearch and components [Please refer here](https://github.com/openBackhaul/ApplicationPattern/blob/62d6386ed348ab028477155b81473f9604680f71/doc/ImplementingApplications/ConceptOfElasticsearch/ConceptOfElasticsearch.md#brief-introduction-to-es-buzzwords) 
+#### Brief introduction to Elasticsearch and components [Please refer here](https://github.com/openBackhaul/ApplicationPattern/blob/62d6386ed348ab028477155b81473f9604680f71/doc/ImplementingApplications/ConceptOfElasticsearch/ConceptOfElasticsearch.md#brief-introduction-to-es-buzzwords) 
 
 ![](./images/overview.png)
 
 ### Configuration of Elastic search in Applications 
-Each application configuration should contain at least three LTPs (ES client, HTTP client, TCP client) which are configured through applications with ES connection details (address, port, release-number etc.). Once applications deployed and tried to reach ElasticSearch.An index and its mapping should be created and defined in ElasticSearch respectively to save data that is send being through applications. After index is created in ElasticSearch, the same index can used to stash the data, visualize the through kibana.
+Each application configuration should contain at least three LTPs (ES client, HTTP client, TCP client) which are configured through applications with ES connection details (address, port, release-number etc.). Once applications deployed and tried to reach Elasticsearch.An index and its mapping should be created and defined in Elasticsearch respectively to save data that is send being through applications. After index is created in Elasticsearch, the same index can used to stash the data, visualize the through kibana.
 
 #### Configuration 
 To configure the applications, please refer documentation of [Applications configuration](https://github.com/openBackhaul/ApplicationPattern/blob/62d6386ed348ab028477155b81473f9604680f71/doc/ImplementingApplications/ConceptOfElasticsearch/ConceptOfElasticsearch.md#configuration) here.
@@ -39,7 +39,7 @@ Here all the list of indices shown and click on the index name to view its detai
 
 #### Steps to execute query in Kibana console
 
-To Query/execute API requests in Kibana Dev Tools, Console is a built-in tool for sending REST API requests directly to ElasticSearch and retrives & view data based on query.
+To Query/execute API requests in Kibana Dev Tools, Console is a built-in tool for sending REST API requests directly to Elasticsearch and retrives & view data based on query.
 
 ![](./images/console.png)
 
@@ -67,7 +67,7 @@ GET alt-stdapp-v2.1.2/_search
 ```
 
 Here is standard documentation to find all GET, PUT, and other API documentation here: [Main REST API Reference](
-https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html) 
+https://www.elastic.co/guide/en/Elasticsearch/reference/current/rest-apis.html) 
 
 For more information about
-ElasticSearch, go to [official documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index.html) here.
+Elasticsearch, go to [official documentation](https://www.elastic.co/guide/en/Elasticsearch/reference/7.17/index.html) here.
