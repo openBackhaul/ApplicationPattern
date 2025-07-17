@@ -30,24 +30,39 @@ Output:
 - `device_alarm_notifications`:
   - contains all notifications about alarm changes from `all_notifications` topic
   - alarm notifications are provided in a separate topic as they may also be relevant to other (external) tools, like e.g. Netcool
-- `others`:
+- `other_notifications`:
   - in case notifications from `all_notifications` cannot be mapped to either of the other output categories, they are written to this topic
 
 #### Processing
 
-The NotificationProxy continuously publishes device notifications (including alarms) in ONF TR-532 format to the Kafka topic `all_notifications`.  
-- controller notifications (at least currently) are out of scope, as they will be handled by the  in the future
-- also: proprietary notifications not following the agreed ONF TR-532 format currently are also not handled
+The following diagram provides an overview about the processing of notifications by KafkaStreams.  
+![KafkaStreamsOverview](./images/kafkaStreamsSetup.png)  
 
-A Kafka Streams processor subscribes to this topic and analyzes the content of each notification.  
-Based on predefined classification rules (e.g. keywords, message structure or metadata), it assigns each notification to a category.  
-Kafka Streams then routes the categorized notifications to one of the three output topics:  
-- `device_change_notifications`: containing all notifications about device changes in ONF TR-532 format, excluding alarms
-- `device_alarm_notifications`: containing all notifications in ONF TR-532 format about device alarm changes
+NotificationProxy (Producer):
+- The NotificationProxy continuously receives device notifications (including alarms) and controller notifications.  
+- After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `all notifications`.
+- Controller notifications are not being sent to Kafka.
+
+Kafka Streams (Producer and Consumer):
+- a Kafka Streams processor subscribes to `all_notifications` topic and analyzes the content of each notification.
+- based on predefined classification rules (which e.g. can be keywords, message structures or metadata), it assigns each notification to a category
+  - processing rules would also allow for filtering and aggregating notifications, this may be added at a later stage as well
+- After categorization of the notifications, Kafka Streams routes them to the three output topics
+  - `device_change_notifications`: containing all notifications about device changes in ONF TR-532 format, excluding alarms
+  - `device_alarm_notifications`: containing all notifications in ONF TR-532 format about device alarm changes
+  - `other_notifications`: notifications from `all_notifications`, which cannot be mapped to the other two topics, will be published to this topic
+
+Consumers:
+- For the start MWDI will be the only consumer for both `device_change_notifications` and `device_alarm_notifications`
+- additional applications could also subscribe to those topics
+  - e.g. a possible SDN alarm application could subscribe to `device_alarm_notifications`
+  - or an SDN-external tool like Netcool
+
+In the future additional producers, consumers and topics can be added as required, along with possible extensions to the Kafka Streams processing rules.  
+
+### Categorization, filtering and aggregation rules
 
 
-
-### Categorization rules
 
 
 ### ParameterDesign
