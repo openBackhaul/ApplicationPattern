@@ -62,7 +62,15 @@ In the future additional producers, consumers and topics can be added as require
 
 ### Categorization, filtering and aggregation rules
 
+**To be provided by Iswaryaa**
 
 
+## Kafka Streams Deployment and Parameter Design
 
-### ParameterDesign
+**Infos to be requested by Iswaryaa**
+
+- Both Kafka and Kafka Streams run in same env/on same machine
+- Kafka Streams = executable java library
+- ports for preprod and prod
+- What parameters are required for configuration
+- applications do not require any configuration for Kafka Streams, only for Kafka (see Kafka doc)
