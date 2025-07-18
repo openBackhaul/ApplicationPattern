@@ -43,25 +43,25 @@ The following diagram provides an overview about the processing of notifications
 
 **NotificationProxy (Producer)**
 - The NotificationProxy continuously receives device notifications (including alarms) and controller notifications.  
-- After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `allnotifications`.
+- After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `all_notifications`.
 - Controller notifications are not being sent to Kafka.
 
 **Kafka Streams (Consumer and Producer)**
-- a Kafka Streams processor subscribes to `all_notifications` topic and analyzes the content of each notification.
-- based on predefined classification rules (which e.g. can be keywords, message structures or metadata), it assigns each notification to a category
+- A Kafka Streams processor subscribes to `all_notifications` topic and analyzes the content of each notification.
+- Based on predefined classification rules (which e.g. can be keywords, message structures or metadata), it assigns each notification to a category
   - processing rules would also allow for filtering and aggregating notifications, this may be added at a later stage as well
-- After categorization of the notifications, Kafka Streams routes them to the three output topics
-  - `device_change_notifications`: containing all notifications about device changes in ONF TR-532 format, excluding alarms
-  - `device_alarm_notifications`: containing all notifications in ONF TR-532 format about device alarm changes
+- After categorizing the notifications, Kafka Streams routes them to the three output topics
+  - `device_change_notifications`: all notifications about device changes in ONF TR-532 format, excluding alarms
+  - `device_alarm_notifications`: all notifications in ONF TR-532 format about device alarm changes
   - `other_notifications`: notifications from `all_notifications`, which cannot be mapped to the other two topics, will be published to this topic
 
 **Consumers**
 - For the start MWDI will be the only consumer for both `device_change_notifications` and `device_alarm_notifications`
-- additional applications could also subscribe to those topics
+- Additional applications could also subscribe to those topics
   - e.g. a possible SDN alarm application could subscribe to `device_alarm_notifications`
   - or an SDN-external tool like Netcool
 
-In the future additional producers, consumers and topics can be added as required, along with possible extensions to the Kafka Streams processing rules.  
+In the future, additional producers, consumers and topics can be added as required, along with possible extensions to the Kafka Streams processing rules.  
 
 ### Categorization, filtering and aggregation rules
 
@@ -91,10 +91,9 @@ spring.kafka.streams.default.value.serde=com.start.kafkastreams.JsonNodeSerde
 spring.kafka.streams.auto-startup=false
 ```
 
-Also the input request-body shall be given as ... for starting the stream:
-**Iswaryaa will provide an update requestBody: multiple keywords for filtering to same topic**
-
-**Below is just a sample; actual topic names to be used**
+Also for starting the stream with the related POST operation, the following request body shall be provided:  
+**Iswaryaa will provide an update requestBody: multiple keywords for filtering to same topic**  
+**Below is just a sample; actual topic names to be used**  
 ```
 POST http://localhost:8088/stream/start:
 
@@ -121,6 +120,6 @@ POST http://localhost:8088/stream/start:
 }
 ```
 
-There are also further support APIs like, e.g.
+There are also further support APIs like, e.g.:  
 - POST http://localhost:8085/stream/stop
 - GET http://localhost:8088/stream/status
