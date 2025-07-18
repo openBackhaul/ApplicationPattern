@@ -34,15 +34,15 @@ The categorized notifications are written to specific output topics on the Kafka
 
 #### Processing
 
-The following diagram provides an overview about the processing of notifications by KafkaStreams.  
+The following diagram provides an overview about the processing of notifications by Kafka Streams.  
 ![KafkaStreamsOverview](./images/kafkaStreamsSetup.png)  
 
-NotificationProxy (Producer):
+***NotificationProxy (Producer)***
 - The NotificationProxy continuously receives device notifications (including alarms) and controller notifications.  
 - After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `allnotifications`.
 - Controller notifications are not being sent to Kafka.
 
-Kafka Streams (Producer and Consumer):
+***Kafka Streams (Consumer and Producer)***
 - a Kafka Streams processor subscribes to `all_notifications` topic and analyzes the content of each notification.
 - based on predefined classification rules (which e.g. can be keywords, message structures or metadata), it assigns each notification to a category
   - processing rules would also allow for filtering and aggregating notifications, this may be added at a later stage as well
@@ -51,7 +51,7 @@ Kafka Streams (Producer and Consumer):
   - `device_alarm_notifications`: containing all notifications in ONF TR-532 format about device alarm changes
   - `other_notifications`: notifications from `all_notifications`, which cannot be mapped to the other two topics, will be published to this topic
 
-Consumers:
+***Consumers***
 - For the start MWDI will be the only consumer for both `device_change_notifications` and `device_alarm_notifications`
 - additional applications could also subscribe to those topics
   - e.g. a possible SDN alarm application could subscribe to `device_alarm_notifications`
