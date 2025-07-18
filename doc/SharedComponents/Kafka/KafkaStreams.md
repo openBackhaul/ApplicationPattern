@@ -40,7 +40,7 @@ The following diagram provides an overview about the processing of notifications
 
 NotificationProxy (Producer):
 - The NotificationProxy continuously receives device notifications (including alarms) and controller notifications.  
-- After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `all notifications`.
+- After having transformed the device notifications into ONF TR-532 format, it publishes them to the Kafka Message Bus to topic `allnotifications`.
 - Controller notifications are not being sent to Kafka.
 
 Kafka Streams (Producer and Consumer):
@@ -62,15 +62,60 @@ In the future additional producers, consumers and topics can be added as require
 
 ### Categorization, filtering and aggregation rules
 
-**To be provided by Iswaryaa**
-
+tb discussed
 
 ## Kafka Streams Deployment and Parameter Design
 
-**Infos to be requested by Iswaryaa**
+Kafka is the message bus maintaining all the notifications which are transacted. Kafka Streams is a supporting library, which is introduced to categorize the notifications easily and centralized. 
+The Kafka Streams library will be integrated into a spring-boot application and provided as an executable jar, which will run inside a docker container.  
 
-- Both Kafka and Kafka Streams run in same env/on same machine
-- Kafka Streams = executable java library
-- ports for preprod and prod
-- What parameters are required for configuration
-- applications do not require any configuration for Kafka Streams, only for Kafka (see Kafka doc)
+**more infos about deployment like port, vms etc. to be added**
+
+
+The following configuration shall be provided in application.properties file:
+
+```
+spring.application.name=kafkastream
+server.port=8085
+# Kafka Bootstrap Server
+spring.kafka.streams.bootstrap-servers=localhost:9092
+# Default Serdes (optional if you use custom ones manually)
+spring.kafka.streams.default.key.serde=org.apache.kafka.common.serialization.Serdes$StringSerde
+spring.kafka.streams.default.value.serde=com.start.kafkastreams.JsonNodeSerde
+# Optional: Disable auto-start (if you're also using Spring-managed beans)
+spring.kafka.streams.auto-startup=false
+```
+
+Also the input request-body shall be given as ... for starting the stream:
+**Iswaryaa will provide an update requestBody: multiple keywords for filtering to same topic**
+
+**Below is just a sample; actual topic names to be used**
+```
+POST http://localhost:8088/stream/start:
+
+{
+  "inputTopic": "all_notifications",
+  "outputs": [
+    {
+      "outputTopic": "attribute-notifications-topic",
+      "filter": "notifications-1-0:attribute-value-changed-notification"
+    },
+    {
+      "outputTopic": "alarm-notifications-topic",
+      "filter": "alarms-1-0:alarm-event-notification"
+    },
+    {
+      "outputTopic": "object-notifications-topic",
+      "filter": "notifications-1-0:object-creation-notification"
+    },
+    {
+      "outputTopic": "object-notifications-topic",
+      "filter": "notifications-1-0:object-deletion-notification"
+    }
+  ]
+}
+```
+
+There are also further support APIs like, e.g.
+- POST http://localhost:8085/stream/stop
+- GET http://localhost:8088/stream/status
