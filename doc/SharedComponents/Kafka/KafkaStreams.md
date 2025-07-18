@@ -6,25 +6,26 @@
 
 ### Design 
 
-#### General design
-Notifications are continously published by producer applications to Kafka input topics.  
-From there, they are read by Kafka Streams, which categorizes the notifications. (Filtering and aggregation are not yet implemented, by may be added in the future if they prove to be useful.)  
+#### General design  
+Notifications are continously published by producer applications to Kafka topics.  
+From there, they are read by Kafka Streams, which categorizes the notifications.  
+(Filtering and aggregation are not yet implemented, by may be added in the future if they prove to be useful.)  
 The categorized notifications are written to specific output topics on the Kafka message bus.  
 
-#### Notification types and topics
+*Note that, additional topics may be added in the future. These could be also be served and/or read by external producers and consumers and the related messages on those topics would not necessarily need to be processed by Kafka Streams. Also the related messages would not have to be notifications.*
 
-**Notification types**:
+#### Notification types
 - *controller notifications*: out of scope, as they will be handled by [ControllerDomainManager](https://github.com/openBackhaul/ControllerDomainManager) in the future (currently they are still handled by NotificationProxy)
 - *device notifications*: handled by NotificationProxy, include notifications about device changes and alarms
 - *proprietary notifications*:
   - these notifications do not follow the agreed upon notification format, they e.g. are created when a user performs a configuration change using another management interface like e.g. WebLCT or CLI.
   - they are not handled by NotificationProxy and currently are not sent to a Kafka input topic
 
-**Topics**:
-Input:  
+#### Topics  
+**Input**:  
 - `all_notifications`: the NotificationProxy publishes the device notifications (including alarms) to this topic, after it has transformed them into the required ONF TR-532 format.
 
-Output:  
+**Output**:  
 - `device_change_notifications`:
   - contains all notifications about device changes from `all_notifications` topic, excluding notifications about alarms
 - `device_alarm_notifications`:
