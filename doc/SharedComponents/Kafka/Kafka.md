@@ -59,8 +59,8 @@ For the producer parameters for the following categories need to be considered:
 | `broker`    | Kafka bootstrap server (e.g., `localhost:9023`)                        |
 | `oauth-key` | OAuth token used for authenticating with Kafka (if applicable)         |
 
-***Security Note:***
-Kafka authentication can use **SASL/SCRAM** for secure credential-based access.
+***Security Note:***  
+Kafka authentication can use **SASL/SCRAM** for secure credential-based access.  
 In this case, additional parameters must be included:
 
 ```yaml
@@ -81,6 +81,7 @@ sasl_password:
 | `ip-address` | IP address of the Kafka broker (e.g., `localhost`) |
 | `port`       | Kafka port (e.g., `9092`)                          |
 
+---
 
 ### Kafka consumer configuration
 
@@ -104,8 +105,8 @@ For the consumer parameters for the same categories as for producers need to be 
 | `broker_id` | Kafka bootstrap server (e.g., `localhost:9023`)                              |
 | `oauth-key` | OAuth token used for authenticating with Kafka (if applicable)               |
 
-***Security Note:***
-Kafka authentication can use **SASL/SCRAM** for secure credential-based access.
+***Security Note:***  
+Kafka authentication can use **SASL/SCRAM** for secure credential-based access.  
 In this case, additional parameters must be included:
 
 ```yaml
