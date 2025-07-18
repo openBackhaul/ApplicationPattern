@@ -18,7 +18,7 @@ It uses a pull-based model, allowing consumers to read messages at their own pac
 
 Configurations must be applied at various components. This includes configuration of Kafka itself, as well as configurations at producer and consumer applications.  
 
-## Kafka configuration
+### Kafka configuration
 
 When configuring Kafka, the following parameters must be set.  
 
