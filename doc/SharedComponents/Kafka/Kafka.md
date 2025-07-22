@@ -5,14 +5,18 @@
 The goal of integrating Kafka into the system is to decouple the flow of messages between components and enable a scalable and robust message processing pipeline. Kafka acts as a central broker that receives all incoming messages and distributes them to appropriate consumers.
 
 The Kafka message bus has been introduced to improve the handling of notifications provided to MicroWaveDeviceInventory (MWDI) by NotificationProxy (NP). Instead of sending notifications directly to MWDI, all notifications are first sent to Kafka. This approach allows asynchronous processing, failure isolation, and better maintainability.  
-Also, additional topics can be created when needed to serve future purposes. Messages (not necessarily notifications) thereby could be both produced or consumed by other SDN applications, as well as SDN-external applications.  
+Also, when needed additional topics can be created to serve future purposes. Messages (not necessarily notifications) thereby could be both produced or consumed by other SDN applications, as well as SDN-external applications.  
 
 ## General Design 
 
-As a distributed message broker, [Apache Kafka](https://kafka.apache.org/documentation/) enables high-throughput, fault-tolerant communication between producers and consumers. It organizes messages into topics, which are split into partitions for parallel processing. Producers send messages to topics, and consumers subscribe to them, reading data in real time or later. Kafka ensures durability and scalability by storing messages on disk and replicating them across multiple servers.  
-It uses a pull-based model, allowing consumers to read messages at their own pace, making it ideal for real-time analytics, event sourcing, and decoupled microservices communication.
+As a distributed message broker, [Apache Kafka](https://kafka.apache.org/documentation/) enables high-throughput, fault-tolerant communication between producers and consumers. 
+- It organizes messages into *topics*. Producers send messages to these topics and consumers can subscribe to the topics they are interested in to retrieve the information they need.  
+- Each topic is split into *partitions* which allow Kafka to scale horizontally and process data in parallel. Messages within a partition are stored in the order they arrive, providing a consistent sequence through offset tracking. Messages distribution across partitions can be customized - note that the distribution is a technical one, not a content-based on (i.e. partitions are not subtopics). Thus, e.g. multiple consumer instances of an application can access the same topic in parallel to speed up processing.  
+- To manage how consumers read these messages, Kafka uses *consumer groups*. A consumer group is a set of consumers working together to read from a topic; each partition is assigned to only one consumer within the group, ensuring that messages are processed once per group. Multiple consumer groups can access the same topic independently, enabling different applications or services to consume the same data without interfering with each other.  
+- Kafka ensures durability and scalability by storing messages on disk and replicating them across multiple servers.  
+- The pull-based model allows consumers to read messages at their own pace, making it ideal for real-time analytics, event sourcing, and decoupled microservices communication.
 
-**BILD**
+![KafkaCluster](./images/kafkaCluster.png)
 
 ## Configuration
 
@@ -94,9 +98,9 @@ For the consumer parameters for the same categories as for producers need to be 
 **Operational Parameters:**  
 | Parameter    | Description                                                                               |
 | ------------ | ----------------------------------------------------------------------------------------- |
-| `topic-name` | Name of the Kafka topic from which to consume notifications (e.g.,`proper_notifications`) |
+| `topic-name` | Name of the Kafka topic from which to consume notifications (e.g.,`device_change_notifications`) |
 
-**Configuration Parameters:  **
+**Configuration Parameters:**  
 | Parameter   | Description                                                                  |
 | ----------- | ---------------------------------------------------------------------------- |
 | `username`  | Kafka authentication username — must be passed via config (SASL/SCRAM)       |
@@ -134,4 +138,4 @@ Kafka serves as the central notification hub. All incoming notifications forward
 
 Via [Kafka Streams](./KafkaStreams.md) the notifications from the input topic are categorized and moved to one of the following topics: `device_change_notifications`, `device_alarm_notifications` or `other_notifications` (for those which cannot be categorized properly).  
 
-MWDI has subscriptions to both `device_change_notifications` and `device_alarm_notifications` and reads the notifications there in its own pace.
+MWDI has subscriptions to both `device_change_notifications` and `device_alarm_notifications` topic and reads the notifications from them in its own pace.
