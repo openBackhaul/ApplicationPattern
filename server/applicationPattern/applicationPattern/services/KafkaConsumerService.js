@@ -1,4 +1,4 @@
-const { Kafka, logLevel } = require('kafkajs');
+const { Kafka } = require('kafkajs');
 
 let consumer = undefined;
 
@@ -15,7 +15,6 @@ exports.connect = async function (groupId, clientId, brokers) {
         });
         consumer = kafka.consumer({ groupId: groupId });
         await consumer.connect();
-
         console.log("Consumer successfully connected to kafka client");
         return true;
     } catch (error) {
@@ -51,7 +50,6 @@ exports.subscribeMessages = async function ({ topics, routeMessage }) {
                     }
                 }
             })
-
         } else {
             console.log(`message could not be sent to kafka: producer connection error`);
         }
