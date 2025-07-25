@@ -20,11 +20,11 @@ exports.connect = async function (clientId, brokers) {
         });
         producer.on(producer.events.DISCONNECT, ()=>{
             console.log("Producer connection to kafka failed !!");
-            throw new error(532, "Could not connect to Kafka broker!!");
+            throw new Error(532, "Could not connect to Kafka broker!!");
         });
         producer.on(producer.events.REQUEST_TIMEOUT, ()=>{
             console.log("Producer connection to kafka request timeout !!");
-            throw new error(532, "Could not connect to Kafka broker!!");
+            throw new Error(532, "Could not connect to Kafka broker!!");
         });
         await producer.connect();
     } catch (error) {
@@ -53,12 +53,12 @@ exports.sendMessage = async function (topic, message) {
             response.status = 200;
         } else {
             console.log(`message could not be sent to kafka: producer connection error`);
-            throw new error(532, "Could not send message to kafka");
+            throw new Error(532, "Could not send message to kafka");
         }
     } catch (error) {
         console.log(error);
         console.log(`message could not be sent to kafka: producer connection error`);
-        throw new error(532, "Could not send message to kafka");
+        throw new Error(532, "Could not send message to kafka");
     }
     return response;
 }

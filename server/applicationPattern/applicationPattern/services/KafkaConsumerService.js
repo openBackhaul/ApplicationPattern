@@ -20,15 +20,15 @@ exports.connect = async function (groupId, clientId, brokers) {
         });
         consumer.on(consumer.events.DISCONNECT, ()=>{
             console.log("Consumer connection to kafka failed !!");
-            throw new error(532, "Could not connect to Kafka broker!!");
+            throw new Error(532, "Could not connect to Kafka broker!!");
         });
         consumer.on(consumer.events.REQUEST_TIMEOUT, ()=>{
             console.log("Consumer connection to kafka request timeout !!");
-            throw new error(532, "Could not connect to Kafka broker!!");
+            throw new Error(532, "Could not connect to Kafka broker!!");
         });
         consumer.on(consumer.events.STOP, ()=>{
             console.log("Consumer connection to kafka stopped !!");
-            throw new error(532, "Could not connect to Kafka broker!!");
+            throw new Error(532, "Could not connect to Kafka broker!!");
         });
         await consumer.connect();
     } catch (error) {
@@ -78,7 +78,7 @@ exports.subscribeMessages = async function ( topics, routingFunction ) {
  */
 exports.disconnectKafka = async function () {
     try {
-        await producer.disconnect();
+        await consumer.disconnect();
         console.log("consumer connection to kafka disconnected successfully!!");
     } catch (error) {
         console.log(error);
