@@ -91,9 +91,7 @@ spring.kafka.streams.default.value.serde=com.start.kafkastreams.JsonNodeSerde
 spring.kafka.streams.auto-startup=false
 ```
 
-Also for starting the stream with the related POST operation, the following request body shall be provided:  
-**Iswaryaa will provide an update requestBody: multiple keywords for filtering to same topic**  
-**Below is just a sample; actual topic names to be used**  
+Also for starting the stream with the related POST operation, the following request body shall be provided:    
 ```
 POST http://localhost:8088/stream/start:
 
@@ -101,23 +99,24 @@ POST http://localhost:8088/stream/start:
   "inputTopic": "all_notifications",
   "outputs": [
     {
-      "outputTopic": "attribute-notifications-topic",
-      "filter": "notifications-1-0:attribute-value-changed-notification"
+      "outputTopic": "device_alarm_notifications",
+      "filter": "notification-proxy-1-0:alarm-event-notification"
     },
     {
-      "outputTopic": "alarm-notifications-topic",
-      "filter": "alarms-1-0:alarm-event-notification"
+      "outputTopic": "device_change_notifications",
+      "filter": "notification-proxy-1-0:object-creation-notification"
     },
     {
-      "outputTopic": "object-notifications-topic",
-      "filter": "notifications-1-0:object-creation-notification"
+      "outputTopic": "device_change_notifications",
+      "filter": "nnotification-proxy-1-0:object-deletion-notification"
     },
     {
-      "outputTopic": "object-notifications-topic",
-      "filter": "notifications-1-0:object-deletion-notification"
+      "outputTopic": "attribute-value-changed-notification",
+      "filter": "notification-proxy-1-0:attribute-value-changed-notification"
     }
   ]
 }
+
 ```
 
 There are also further support APIs like, e.g.:  
