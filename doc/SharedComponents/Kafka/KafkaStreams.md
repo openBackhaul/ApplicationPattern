@@ -65,7 +65,20 @@ In the future, additional producers, consumers and topics can be added as requir
 
 ### Categorization, filtering and aggregation rules
 
-tb discussed
+Notifications are mapped to output topics according to the following rules:
+- (1) all (device) notifications that NotificationProxy pushes to Kafka shall have the root attribute `notification-proxy-1-0:xxxx`; they are categorized depending on the actual `xxxx` part 
+- (2) invalid notifications: are written to topic *other_notifications*
+  - the notification does not contain any of the allowed root attributes
+  - the notification is not a valid json object (the invalid json object will be represented in the topic like *{"error-data": ${invalidJsonMessage}}*
+  - note: additional checks have not yet been defined and implemented (e.g. the notification could be a valid json object, but some attribute value could be empty)
+
+For valid notifications the mappings are as follows:
+| events                 | root attribute                                                | topic                                  |
+|------------------------|---------------------------------------------------------------|----------------------------------------|
+| alarm                  | `notification-proxy-1-0:alarm-event-notification`             | *device_alarm_notifications*           |
+| object creation        | `notification-proxy-1-0:object-creation-notification`         | *device_change_notifications*          |
+| object deletion        | `notification-proxy-1-0:object-deletion-notification`         | *device_change_notifications*          |
+| attribute value change | `notification-proxy-1-0:attribute-value-changed-notification` | *attribute_value_change_notifications* |
 
 ---
 
@@ -111,7 +124,7 @@ POST http://localhost:8088/stream/start:
       "filter": "nnotification-proxy-1-0:object-deletion-notification"
     },
     {
-      "outputTopic": "attribute-value-changed-notification",
+      "outputTopic": "attribute-value-change-notification",
       "filter": "notification-proxy-1-0:attribute-value-changed-notification"
     }
   ]
@@ -122,3 +135,4 @@ POST http://localhost:8088/stream/start:
 There are also further support APIs like, e.g.:  
 - POST http://localhost:8085/stream/stop
 - GET http://localhost:8088/stream/status
+
