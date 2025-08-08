@@ -152,6 +152,6 @@ The following topics have been created:
 - *other_notifications*
 
 Connection details:
-- Kafka broker: <preprod-ip x.x.x.14>:9092
-- Kafka jar stream: <preprod-ip x.x.x.14>:8083
-- Kafka UI: <loadbalancer-domain-name>:4059/ui/kafka-cluster/topic
+- Kafka broker: `<preprod-ip x.x.x.14>`:9092
+- Kafka jar stream: `<preprod-ip x.x.x.14>`:8083
+- Kafka UI: `<loadbalancer-domain-name>`:4059/ui/kafka-cluster/topic
