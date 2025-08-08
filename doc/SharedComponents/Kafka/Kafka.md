@@ -139,3 +139,19 @@ Kafka serves as the central notification hub. All incoming notifications forward
 Via [Kafka Streams](./KafkaStreams.md) the notifications from the input topic are categorized and moved to one of the following topics: `device_change_notifications`, `device_alarm_notifications` or `other_notifications` (for those which cannot be categorized properly).  
 
 MWDI has subscriptions to both `device_change_notifications` and `device_alarm_notifications` topic and reads the notifications from them in its own pace.
+
+## Kafka deployment
+
+**Preprod**:  
+Kafka has been installed on *preprod* enviroment and been deployed as a Kafka jar file.  
+
+The following topics have been created:
+- *alarm_event_notifications*
+- *device_change_notifications*
+- *attribute_value_change_notifications*
+- *other_notifications*
+
+Connection details:
+- Kafka broker: <preprod-ip x.x.x.14>:9092
+- Kafka jar stream: <preprod-ip x.x.x.14>:8083
+- Kafka UI: <loadbalancer-domain-name>:4059/ui/kafka-cluster/topic
