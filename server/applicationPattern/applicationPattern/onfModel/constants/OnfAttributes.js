@@ -157,6 +157,8 @@ const REGEX_PATTERN_MAPPING_PROFILE = {
     MAPPING_NAME: "mapping-name",
     PURPOSE: "purpose",
     MAPPING_LIST: "mapping-list",
+    REGEX_STRING: "regex-string",
+    MAP_TO_STRING: "map-to-string"
 }
 
 /******************************************
