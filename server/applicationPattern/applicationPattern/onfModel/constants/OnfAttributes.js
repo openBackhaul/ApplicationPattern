@@ -251,8 +251,6 @@ const ES_CLIENT = {
 const KAFKA_CLIENT = {
     CONFIGURATION: "kafka-client-interface-configuration",
     AUTH: "auth",
-    USER_NAME: "user-name",
-    PASSWORD: "password",
     TOPIC_NAME: "topic-name",
     CLIENT_ID: "client-id",
     GROUP_ID: "group-id"
