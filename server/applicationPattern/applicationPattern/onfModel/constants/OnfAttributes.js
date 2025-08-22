@@ -35,7 +35,7 @@ const CONTROL_CONSTRUCT = {
  ********************link******************
  *****************************************/
 
- const LINK = {
+const LINK = {
     LINK_PORT: "link-port",
     PORT_DIRECTION: "port-direction",
     LOGICAL_TERMINATION_POINT: "logical-termination-point"
@@ -150,6 +150,17 @@ const STRING_PROFILE = {
     STRING_VALUE: "string-value"
 }
 
+const REGEX_PATTERN_MAPPING_PROFILE = {
+    PAC: "regex-pattern-mapping-profile-1-0:regex-pattern-mapping-profile-pac",
+    CAPABILITY: "regex-pattern-mapping-capability",
+    CONFIGURATION: "regex-pattern-mapping-configuration",
+    MAPPING_NAME: "mapping-name",
+    PURPOSE: "purpose",
+    MAPPING_LIST: "mapping-list",
+    REGEX_STRING: "regex-string",
+    MAP_TO_STRING: "map-to-string"
+}
+
 /******************************************
  ********logical-termination-point*********
  *****************************************/
@@ -240,17 +251,20 @@ const ES_CLIENT = {
 const KAFKA_CLIENT = {
     CONFIGURATION: "kafka-client-interface-configuration",
     AUTH: "auth",
+    USER_NAME: "user-name",
+    PASSWORD: "password",
     TOPIC_NAME: "topic-name",
     CLIENT_ID: "client-id",
     GROUP_ID: "group-id"
 }
+
 
 const AUTH = {
     USER_NAME: "user-name",
     PASSWORD: "password",
     AUTH_SOURCE: "auth-source"
 }
-
+ 
 const MONGODB_CLIENT = {
     CONFIGURATION: "mongodb-client-interface-configuration",
     AUTH: "auth",
@@ -292,14 +306,15 @@ module.exports = {
     OAM_RECORD_PROFILE,
     RESPONSE_PROFILE,
     STRING_PROFILE,
+    REGEX_PATTERN_MAPPING_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,
     HTTP_CLIENT,
     ES_CLIENT,
-    KAFKA_CLIENT,
-    MONGODB_CLIENT,
     AUTH,
+    MONGODB_CLIENT,
+    KAFKA_CLIENT,
     OPERATION_SERVER,
     OPERATION_CLIENT,
     TCP_SERVER,
