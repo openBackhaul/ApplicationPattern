@@ -178,7 +178,9 @@ const LAYER_PROTOCOL = {
     OPERATION_CLIENT_INTERFACE_PAC: "operation-client-interface-1-0:operation-client-interface-pac",
     HTTP_CLIENT_INTERFACE_PAC: "http-client-interface-1-0:http-client-interface-pac",
     TCP_CLIENT_INTERFACE_PAC: "tcp-client-interface-1-0:tcp-client-interface-pac",
-    ES_CLIENT_INTERFACE_PAC: "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac"
+    ES_CLIENT_INTERFACE_PAC: "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac",
+    KAFKA_CLIENT_INTERFACE_PAC: "kafka-client-interface-1-0:kafka-client-interface-pac",
+    MONGODB_CLIENT_INTERFACE_PAC: "mongodb-client-interface-1-0:mongodb-client-interface-pac"
 };
 
 const HTTP_SERVER = {
@@ -244,6 +246,30 @@ const ES_CLIENT = {
     INDEX_ALIAS: "index-alias"
 }
 
+const KAFKA_CLIENT = {
+    CONFIGURATION: "kafka-client-interface-configuration",
+    AUTH: "auth",
+    USER_NAME: "user-name",
+    PASSWORD: "password",
+    TOPIC_NAME: "topic-name",
+    CLIENT_ID: "client-id",
+    GROUP_ID: "group-id"
+}
+
+
+const AUTH = {
+    USER_NAME: "user-name",
+    PASSWORD: "password",
+    AUTH_SOURCE: "auth-source"
+}
+ 
+const MONGODB_CLIENT = {
+    CONFIGURATION: "mongodb-client-interface-configuration",
+    AUTH: "auth",
+    DATABASE_NAME: "database-name",
+    COLLECTION_ID: "collection-name"
+}
+
 /******************************************
  ********forwarding-domain**************
  *****************************************/
@@ -284,6 +310,9 @@ module.exports = {
     HTTP_SERVER,
     HTTP_CLIENT,
     ES_CLIENT,
+    AUTH,
+    MONGODB_CLIENT,
+    KAFKA_CLIENT,
     OPERATION_SERVER,
     OPERATION_CLIENT,
     TCP_SERVER,
