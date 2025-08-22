@@ -35,7 +35,7 @@ const CONTROL_CONSTRUCT = {
  ********************link******************
  *****************************************/
 
- const LINK = {
+const LINK = {
     LINK_PORT: "link-port",
     PORT_DIRECTION: "port-direction",
     LOGICAL_TERMINATION_POINT: "logical-termination-point"
@@ -148,6 +148,15 @@ const STRING_PROFILE = {
     ENUMERATION: "enumeration",
     PATTERN: "pattern",
     STRING_VALUE: "string-value"
+}
+
+const REGEX_PATTERN_MAPPING_PROFILE = {
+    PAC: "regex-pattern-mapping-profile-1-0:regex-pattern-mapping-profile-pac",
+    CAPABILITY: "regex-pattern-mapping-capability",
+    CONFIGURATION: "regex-pattern-mapping-configuration",
+    MAPPING_NAME: "mapping-name",
+    PURPOSE: "purpose",
+    MAPPING_LIST: "mapping-list",
 }
 
 /******************************************
@@ -269,6 +278,7 @@ module.exports = {
     OAM_RECORD_PROFILE,
     RESPONSE_PROFILE,
     STRING_PROFILE,
+    REGEX_PATTERN_MAPPING_PROFILE,
     LOGICAL_TERMINATION_POINT,
     LAYER_PROTOCOL,
     HTTP_SERVER,
