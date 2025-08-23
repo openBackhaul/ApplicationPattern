@@ -54,6 +54,11 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDI | MicroWaveDeviceInventory  | 1.2.2 | 127.0.0.1 | 4023
 |  | MWDI | MicroWaveDeviceInventory  | 1.3.0 | 127.0.0.1 | 4024
 |  | NP | NotificationProxy | 1.1.0 | 127.0.0.1 | 4025
+|  | ALM | ApplicationLayerManager | 1.0.0 | 127.0.0.1 | 4026
+|  | CDM | ControllerDomainManager | 1.0.0 | 127.0.0.1 | 4027
+|  | DDM | DeviceDomainManager | 1.0.0 | 127.0.0.1 | 4028
+|  | MPM | ManagementPlaneManager | 1.0.0 | 127.0.0.1 | 4029
+
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
