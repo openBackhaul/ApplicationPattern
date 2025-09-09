@@ -157,12 +157,12 @@ clients:
 
   - http-client:
       application-name: RegistryOffice
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-ro-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3024
+      tcp-port: 3031
       uuid: xx-1-0-0-tcp-c-ro-2-1-2-000
     operation-clients:
       own-oam:
@@ -182,12 +182,12 @@ clients:
 
   - http-client:
       application-name: TypeApprovalRegister
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-tar-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3025
+      tcp-port: 3032
       uuid: xx-1-0-0-tcp-c-tar-2-1-2-000
     operation-clients:
       own-oam:
@@ -199,12 +199,12 @@ clients:
 
   - http-client:
       application-name: ExecutionAndTraceLog
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-eatl-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3026
+      tcp-port: 3033
       uuid: xx-1-0-0-tcp-c-eatl-2-1-2-000
     operation-clients:
       own-oam:
@@ -219,12 +219,12 @@ clients:
 
   - http-client:
       application-name: OamLog
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-ol-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3027
+      tcp-port: 3034
       uuid: xx-1-0-0-tcp-c-ol-2-1-2-000
     operation-clients:
       own-oam:
@@ -238,12 +238,12 @@ clients:
 
   - http-client:
       application-name: AccessAdministration
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-aa-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3028
+      tcp-port: 3035
       uuid: xx-1-0-0-tcp-c-aa-2-1-2-000
     operation-clients:
       own-oam:
@@ -257,12 +257,12 @@ clients:
 
   - http-client:
       application-name: ApplicationLayerTopology
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-alt-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3029
+      tcp-port: 3036
       uuid: xx-1-0-0-tcp-c-alt-2-1-2-000
     operation-clients:
       own-oam:
@@ -286,12 +286,12 @@ clients:
 
   - http-client:
       application-name: OperationKeyManagement
-      release-number: 2.1.0
+      release-number: 2.1.2
       uuid: xx-1-0-0-http-c-okm-2-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 3030
+      tcp-port: 3037
       uuid: xx-1-0-0-tcp-c-okm-2-1-2-000
     operation-clients:
       own-oam:

@@ -14,6 +14,10 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | AIPS | AirInterfacePowerSaver | 0.0.5 | 8
 |  | MB | MycomButler | 1.0.0 | 9
 |  | NEP | NetExplorerProxy | 1.1.0 | 10
+|  | ALM | ApplicationLayerManager | 1.0.0 | 11
+|  | CDM | ControllerDomainManager | 1.0.0 | 12
+|  | DDM | DeviceDomainManager | 1.0.0 | 13
+|  | MPM | ManagementPlaneManager | 1.0.0 | 14
 
 # Historical Fake Index Aliases  
 

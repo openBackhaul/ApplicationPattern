@@ -372,7 +372,7 @@ async function configureClientAsync(uuid) {
     auth: {
       apiKey: apiKey
     },
-    requestTimeout: 2000,
+    requestTimeout: 60000,
     tls: {
       // required if elasticsearch has a self-signed certificate
       rejectUnauthorized: false
