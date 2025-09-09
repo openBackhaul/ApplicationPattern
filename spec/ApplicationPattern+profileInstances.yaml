@@ -177,3 +177,15 @@ profile-instances:
       string-value: ## TODO: Add current value of the attribute
 
   ## TODO: Potentially add further instances of StringProfile
+
+  - profile-name: 'RegexPatternMappingProfile'
+    uuid: 'xx-1-0-0-mapping-p-???'
+    capability:
+      mapping-name: ## TODO: Add name of the mapping
+      purpose: ## TODO: Add purpose description for the mapping
+    configuration:
+      mapping-list:
+        - regex-to-string: ## TODO: Add a regex expression that shall be mapped
+          map-to-string: ## TODO: Add what the regex expression shall be mapped to
+
+  ## TODO: Potentially add further instances of RegexPatternMappingProfile
