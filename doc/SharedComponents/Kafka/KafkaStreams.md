@@ -13,6 +13,10 @@ The categorized notifications are written to specific output topics on the Kafka
 
 ---
 
+## Usage of Kafka Streams with Kafka for device notification provisioning
+
+In the following it is described how Kafka Streams is used together with Kafka to efficiently provision MWDI with device notifications forwarded by NotificationProxy.  
+
 ### Notification types and topics
 
 **Notification types**:  
@@ -87,9 +91,6 @@ For valid notifications the mappings are as follows:
 Kafka is the message bus maintaining all the notifications which are transacted. Kafka Streams is a supporting library, which is introduced to categorize the notifications easily and centralized. 
 The Kafka Streams library will be integrated into a spring-boot application and provided as an executable jar, which will run inside a docker container.  
 
-**more infos about deployment like port, vms etc. to be added**
-
-
 The following configuration shall be provided in application.properties file:
 
 ```
@@ -104,7 +105,7 @@ spring.kafka.streams.default.value.serde=com.start.kafkastreams.JsonNodeSerde
 spring.kafka.streams.auto-startup=false
 ```
 
-Also for starting the stream with the related POST operation, the following request body shall be provided:    
+Also for starting the stream with the related POST operation for device notification management, the following request body shall be provided:  
 ```
 POST http://localhost:8088/stream/start:
 
@@ -131,6 +132,7 @@ POST http://localhost:8088/stream/start:
 }
 
 ```
+
 
 There are also further support APIs like, e.g.:  
 - POST http://localhost:8085/stream/stop
