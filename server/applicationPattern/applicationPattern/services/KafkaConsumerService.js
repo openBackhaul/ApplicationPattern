@@ -32,6 +32,7 @@ exports.connect = async function (groupId, clientId, brokers) {
             throw new Error(532, "Could not connect to Kafka broker!!");
         });
         await consumer.connect();
+        return consumer;
     } catch (error) {
         console.log(error);
         console.log("Consumer connection to kafka failed !!");
@@ -78,9 +79,13 @@ exports.subscribeMessages = async function (topics, routingFunction) {
 /**
  * This function disconnects the communication with kafka <br>
  */
-exports.disconnectKafka = async function () {
+exports.disconnectKafka = async function (consumerObject) {
     try {
+        if(consumerObject){
+        await consumerObject.disconnect();
+        }else{
         await consumer.disconnect();
+        }
         console.log("consumer connection to kafka disconnected successfully!!");
     } catch (error) {
         console.log(error);
