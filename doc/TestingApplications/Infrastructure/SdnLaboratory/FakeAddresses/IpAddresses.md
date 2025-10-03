@@ -59,6 +59,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | CDM | ControllerDomainManager | 1.0.0 | 127.0.0.1 | 4027
 |  | DDM | DeviceDomainManager | 1.0.0 | 127.0.0.1 | 4028
 |  | MPM | ManagementPlaneManager | 1.0.0 | 127.0.0.1 | 4029
+|  | MWDD | MicroWaveDomainDictionary | 1.0.0 | 127.0.0.1 | 4030
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
