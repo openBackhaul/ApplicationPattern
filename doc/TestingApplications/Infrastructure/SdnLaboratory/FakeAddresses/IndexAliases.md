@@ -18,6 +18,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | CDM | ControllerDomainManager | 1.0.0 | 12
 |  | DDM | DeviceDomainManager | 1.0.0 | 13
 |  | MPM | ManagementPlaneManager | 1.0.0 | 14
+|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 15
 
 # Historical Fake Index Aliases  
 
