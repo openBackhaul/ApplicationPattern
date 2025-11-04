@@ -97,7 +97,13 @@ Ensure the MongoDB instance is **not publicly exposed**.
                     "password":   " >>> password <<< " 
                   }, 
                 "database-name": " >>> Application specific database name <<< ", 
-                "collection-name": ">>> collection name specific to database <<<"
+                "collection-list": [
+                  {
+                  "local-id" :" >>> unique local identifier <<< ",
+                  "collection-name" : " >>> datastore name <<< ",
+                  "purpose" : " >>> purpose of the datastore <<< "
+                  }
+                ]
               },
               "mongodb-client-interface-status": {
                 "operational-state": "mongodb-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
