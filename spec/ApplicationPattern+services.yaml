@@ -105,7 +105,8 @@ clients:
       uuid: xx-1-0-0-mdb-c-mdb-1-0-0-000
       database-name:
       collection-list:
-        - collection-name: 
+        - local-id:
+          collection-name: 
           purpose:
 
   - http-client:
