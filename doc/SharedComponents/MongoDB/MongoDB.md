@@ -1,6 +1,6 @@
 
 # Purpose
-Our current SDN ApplicationLayer architecture uses Elasticsearch to store and query JSON objects. While Elasticsearch provides powerful capabilities for search and analytics, it is not well-suited for use cases involving frequent updates to JSON documents, especially when those updates involve nested fields(like the one in the new NMDA datastore concepts).
+Our current SDN ApplicationLayer architecture uses Elasticsearch to store and query JSON objects. While Elasticsearch provides powerful capabilities for search and analytics, it is not well-suited for use cases involving frequent updates to JSON documents, especially when those updates involve nested fields (like the one in the new NMDA datastore concepts).
 
 In Elasticsearch, any update, even to a single nested field results in the entire document being reindexed. This leads to:
 
