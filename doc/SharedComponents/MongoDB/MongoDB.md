@@ -1,6 +1,5 @@
 
 # Purpose
-
 Our current SDN ApplicationLayer architecture uses Elasticsearch to store and query JSON objects. While Elasticsearch provides powerful capabilities for search and analytics, it is not well-suited for use cases involving frequent updates to JSON documents, especially when those updates involve nested fields(like the one in the new NMDA datastore concepts).
 
 In Elasticsearch, any update, even to a single nested field results in the entire document being reindexed. This leads to:
@@ -16,7 +15,7 @@ To overcome these challenges, we are introducing **MongoDB** as an alternate. Mo
 
 This change aligns well with our evolving requirements for applications (like **LILW**, **DDM**) with **NMDA datastore** concepts where the information models have nested JSON objects that undergo frequent updates (e.g., adding an entry to the `ControlConstruct` array inside the `NetworkControllerDomain`), where JSON objects are modified frequently and consistency of structure must be maintained.
 
-MongoDB will thus serve as a **highly performant, update-friendly datastore**, while Elasticsearch can continue to serve its strengths in **search and analytics**.
+MongoDB will thus serve as a **highly performant, update-friendly datastore** for NMDA based datastores , while Elasticsearch can continue to serve its strengths in **search and analytics**.
 
 ![your-UML-diagram-name](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/openBackhaul/ApplicationPattern/refs/heads/PrathibaJee/MongoDB/doc/SharedComponents/MongoDB/diagram/MongoDBDesign.iuml)
 
