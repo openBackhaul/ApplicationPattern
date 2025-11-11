@@ -1,0 +1,1611 @@
+openapi: 3.0.0
+info:
+  title: p1ExampleForGenericFunctionFolder
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ExampleForGenericFunctionFolder:
+    summary: 'Reads a complete device ControlConstruct and creates the DataStructureForProcessing output object from it'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - mount-name
+            properties:
+              mount-name:
+                type: string
+                example: '513250010'
+                description: > 
+                  'The mount-name of the device that is addressed by this function'
+    output:
+      success:
+        description: 'DataStructureForProcessing output object containing new 15min PM data'
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 'The output is only generated if relevant AirInterface and/or EthernetContainer data remains after filtering. Otherwise the 204 is to be returned.'
+              properties:
+                data-handle:
+                  type: string
+                  example: '513250010-2024-03-06T13:00:00+01:00-a0893b37'
+                  description: >
+                    'This id is used to uniquely identify the output object in the DPMDP memory.'
+                output:
+                  type: object
+                  description: 'This object is written to [/data-structure-for-processing/output]'
+                  properties:
+                    air-interface-list:
+                      description: >
+                        'List of relevant microwave air interfaces found in the given devices
+                        from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces}.
+                        A new array element is to be added for every item in {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces}
+                        where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data-list} contains entries'
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          air-interface-identifiers:
+                            type: object
+                            properties:
+                              mount-name:
+                                type: string
+                                description: > 
+                                  'Identifier of the device at the controller and in the Telefónica planning tools
+                                  from {request.body#mount-name}'
+                              link-endpoint-id:
+                                type: string
+                                description: >
+                                  'Identifier of the microwave link endpoint as used in the Telefonica planning tools
+                                  from {$CreatingDsfpOutputCausesComputingInterfaceNames.LtpDesignation.response.body#list-of-air-interface-names/link-endpoint-id},
+                                  for the given combination of uuid and local-id, if none found set to default=null'
+                              link-id:
+                                type: string
+                                description: >
+                                  'Identifier of the microwave link as used in the Telefonica planning tools.
+                                  from {$CreatingDsfpOutputCausesComputingInterfaceNames.LtpDesignation.response.body#list-of-air-interface-names/link-id},
+                                  for the given combination of uuid and local-id, if none found set to default=null'
+                              logical-termination-point-id:
+                                type: string
+                                description: > 
+                                  'Identifier of the microwave link endpoint within the MW SDN domain
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/uuid}'
+                              link-aggregation-identifiers:
+                                type: array
+                                description: > 
+                                  'Name of the physically aggregated resources, of type AirInterface or WireInterface, that are transporting fragments of the same Ethernet frames
+                                  from {$CreatingDsfpOutputCausesComputingLagInformation.LtpDesignation.response.body#link-aggregation-identifiers}
+                                  for the given combination of uuid and local-id'
+                                items:
+                                  oneOf:
+                                    - description: 'AirInterfaces'
+                                      type: object
+                                      required:
+                                        - link-id
+                                      properties:
+                                        link-id:
+                                          type: string
+                                          description: 'Identifier of the microwave link as used in the Telefonica planing tools'
+                                    - description: 'WireInterface'
+                                      type: object
+                                      required:
+                                        - interface-name
+                                      properties:
+                                        interface-name:
+                                          type: string
+                                          description: 'Interface name as it is represented at the own management interface of the vendor'
+                          air-interface-configuration:
+                            type: object
+                            properties:
+                              configured-atpc-is-on:
+                                type: boolean
+                                description: >
+                                  'This configuration value is true, if automatic transmit power control (ATPC) is configured to be switched on
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/atpc-is-on}'
+                              configured-atpc-threshold-upper:
+                                type: integer
+                                nullable: true
+                                description: >
+                                  'Configured upper automatic transmit power control (ATPC) threshold in dBm
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/atpc-thresh-upper}'
+                              configured-atpc-threshold-lower:
+                                type: integer
+                                nullable: true
+                                description: >
+                                  'Configured lower automatic transmit power control (ATPC) threshold in dBm
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/atpc-thresh-lower}'
+                              configured-tx-power:
+                                type: integer
+                                nullable: true
+                                description: >
+                                  'Configured transmit power that will be operated in maximum in dBm
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/tx-power}'
+                              configured-modulation-minimum:
+                                type: object
+                                description: 'Configured minimum modulation scheme'
+                                properties:
+                                  number-of-states:
+                                    type: integer
+                                    nullable: true
+                                    description: >
+                                      'Number of states in the phase diagram (e.g. BPSK->2 or 256QAM->256)
+                                      transmissionModeMin = {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/transmission-mode-min}
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/modulation-scheme}
+                                      where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/transmission-mode-name} == transmissionModeMin'
+                                  name-at-lct:
+                                    type: string
+                                    description: >
+                                      'Name identifying this transmission mode on the graphical user interface of the local craft terminal
+                                      transmissionModeMin = {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/transmission-mode-min}
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/modulation-scheme-name-at-lct}
+                                      where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/transmission-mode-name} == transmissionModeMin'
+                                  configured-capacity-minimum:
+                                    type: integer
+                                    nullable: true
+                                    description: >
+                                      'Channel capacity in kbps of the configured minimum modulation scheme (KPI). Set to default=-1.'
+                              configured-modulation-maximum:
+                                type: object
+                                description: 'Configured maximum modulation scheme'
+                                properties:
+                                  number-of-states:
+                                    type: integer
+                                    nullable: true
+                                    description: >
+                                      'Number of states in the phase diagram (e.g. BPSK->2 or 256QAM->256)
+                                      transmissionModeMax = {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/transmission-mode-max}
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/modulation-scheme}
+                                      where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/transmission-mode-name} == transmissionModeMax'
+                                  name-at-lct:
+                                    type: string
+                                    description: >
+                                      'Name identifying this transmission mode on the graphical user interface of the local craft terminal
+                                      transmissionModeMax = {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-configuration/transmission-mode-max}
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/modulation-scheme-name-at-lct}
+                                      where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/transmission-mode-name} == transmissionModeMax'
+                                  configured-capacity-maximum:
+                                    type: integer
+                                    nullable: true
+                                    description: >
+                                      'Channel capacity in kbps of the configured maximum modulation scheme (KPI). Set to default=-1.'
+                          air-interface-performance-measurements-list:
+                            type: array
+                            description: >
+                              'An own array item is added for every array item
+                              from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data}'
+                            items:
+                              type: object
+                              properties:
+                                granularity-period:
+                                  type: string
+                                  description: >
+                                    'Time period between reset of the underlying counter
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/granularity-period}'
+                                period-end-time:
+                                  type: string
+                                  description: >
+                                    'Time when the counter values have been recorded and the counter reset
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/period-end-time}'
+                                transmit-level-minimum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Minimum transmit power in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/tx-level-min}'
+                                transmit-level-maximum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Maximum transmit power in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/tx-level-max}'
+                                transmit-level-average:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Averaged transmit power in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/tx-level-avg}'
+                                receive-level-minimum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Minimum receive level in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/rx-level-min}'
+                                receive-level-maximum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Maximum receive level in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/rx-level-max}'
+                                receive-level-average:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Averaged receive level in dBm
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/rx-level-avg}'
+                                signal-to-noise-ratio-minimum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Minimum signal to noise + interference ratio (SNIR)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/snir-min}'
+                                signal-to-noise-ratio-maximum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Maximum signal to noise + interference ratio (SNIR)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/snir-max}'
+                                signal-to-noise-ratio-average:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Averaged signal to noise + interference ratio (SNIR)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/snir-avg}'
+                                cross-polarization-discrimination-minimum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Minimum cross polarization discrimination (XPD)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/xpd-min}'
+                                cross-polarization-discrimination-maximum:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Maximum cross polarization discrimination (XPD)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/xpd-max}'
+                                cross-polarization-discrimination-average:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Averaged cross polarization discrimination (XPD)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/xpd-avg}'
+                                operated-transmission-modes-list: 
+                                  description: 'List of operated transmission modes with respective operation time periods. Only those entries where operation time is greater than 0 seconds are listed'
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      transmission-mode-name:
+                                        type: string
+                                        description: >
+                                          'Key attribute, name of the transmission mode
+                                          from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/time-xstates-list/transmission-mode}'
+                                      modulation-scheme-name-at-lct:
+                                        type: string
+                                        description: >
+                                          'Name identifying this transmission mode on the graphical user interface of the local craft terminal
+                                          transmissionMode = {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/time-xstates-list/transmission-mode}'
+                                          from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/modulation-scheme-name-at-lct}
+                                          where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/air-interface-capability/transmission-mode-list/transmission-mode-name} == transmissionMode'
+                                      time:
+                                        type: integer
+                                        nullable: true
+                                        description: >
+                                          'Name identifying this transmission mode on the graphical user interface of the local craft terminal
+                                          from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/time-xstates-list/time}'
+                                      capacity:
+                                        type: integer
+                                        nullable: true
+                                        description: >
+                                          'Channel capacity in kbps of the modulation scheme (KPI). Set to default=-1.'
+                                interval-capacity:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Channel capacity over the entire performance measurement interval in kbps. Calculated from the capacities of the operated transmission modes, by weighting the duration of each operated mode over the entire measurement period. To be filled with default value -1'
+                                errorred-seconds:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Number of errored seconds
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/es}'
+                                severely-errorred-seconds:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Number of severily errored seconds
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/ses}'
+                                consecutive-severely-errorred-seconds:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Number of consecutive severily errored seconds
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/cses}'
+                                total-unavailability:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Total time of unavailability in seconds
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/unavailability}'
+                                defect-blocks:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Total number of blocks that were defect after receiving and could not be corrected by the FEC
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/defect-blocks-sum}'
+                                time-period:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    'Total (actual) length of the measurement period
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-air-interfaces/filtered-historical-performance-data/time-period}'
+                          transmission-mode-list:
+                            description: 'List of supported Transmission Modes'
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                transmission-mode-name:
+                                  type: string
+                                  description: >
+                                    'Key attribute, name of the transmission mode'
+                                number-of-states:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    ''Number of states in the phase diagram (e.g. BPSK->2 or 256QAM->256)'
+                                modulation-scheme-name-at-lct:
+                                  type: string
+                                  description: >
+                                    ''Name identifying this transmission mode on the graphical user interface of the local craft terminal'
+                                channel-bandwidth:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    ''Bandwidth of the transmit channel in kHz'
+                                code-rate:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    ''Code rate of the coding scheme in %'
+                                symbol-rate-reduction-factor:
+                                  type: integer
+                                  nullable: true
+                                  description: >
+                                    ''Reduction factor for the symbol rate. Example: value would be 4 for 1/4BPSK'
+                    ethernet-container-list:
+                      description: >
+                        'List of relevant EthernetContainers found in the given devices
+                        from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers}.
+                        A new array element is to be added for every item in {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers}
+                        where {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data-list} contains entries'
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ethernet-container-identifiers:
+                            type: object
+                            properties:
+                              mount-name:
+                                type: string
+                                description: >
+                                  'Identifier of the device at the controller and in the Telefónica planning tools
+                                  from {request.body#mount-name}'
+                              interface-name:
+                                type: string
+                                description: > 
+                                  'Interface name of the EthernetContainer as it is represented at the vendors own management interface, e.g. LAN 1/6/6
+                                  from {$CreatingDsfpOutputCausesComputingInterfaceNames.LtpDesignation.response.body#list-of-ethernet-container-names/interface-name},
+                                  for the given combination of uuid and local-id, if none found set to default=null'
+                              logical-termination-point-id:
+                                type: string
+                                description: > 
+                                  'Identifier of the ethernet container within the MW SDN domain
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/uuid}'
+                          ethernet-container-performance-measurements-list:
+                            type: array
+                            description: >
+                              'An own array item is added for every array item
+                              from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data}'
+                            items:
+                              type: object
+                              properties:
+                                granularity-period:
+                                  type: string
+                                  description: > 
+                                    'Time period between reset of the underlying counter
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/granularity-period}'
+                                period-end-time:
+                                  type: string
+                                  description: > 
+                                    'Time when the counter values have been recorded and the counter reset
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/period-end-time}'
+                                max-bytes-per-second-output:
+                                  type: string
+                                  description: > 
+                                    'Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/max-bytes-per-second-output}'
+                                total-bytes-input:
+                                  type: string
+                                  description: > 
+                                    'Total number of Bytes of Ethernet traffic (before header compression) received during the measurement period
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/total-bytes-input}'
+                                total-bytes-output:
+                                  type: string
+                                  description: > 
+                                    'Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/total-bytes-output}'
+                                total-frames-input:
+                                  type: string
+                                  description: > 
+                                    'The total number of Ethernet frames received at this interface (including those received in error)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/total-frames-input}'
+                                total-frames-output:
+                                  type: string
+                                  description: > 
+                                    'The total number of Ethernet frames sent at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/total-frames-output}'
+                                forwarded-frames-input:
+                                  type: string
+                                  description: > 
+                                    'Number of input frames at this interface, for which the device was not their final destination and for which the device attempted to find a route to forward them to that final destination
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/forwarded-frames-input}'
+                                forwarded-frames-output:
+                                  type: string
+                                  description: > 
+                                    'Number of frames at this interface, for which the device was not their final destination and for which it was successful in finding a path to their final destination
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/forwarded-frames-output}'
+                                unicast-frames-input:
+                                  type: string
+                                  description: > 
+                                    'Total number of unicast frames received at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/unicast-frames-input}'
+                                unicast-frames-output:
+                                  type: string
+                                  description: > 
+                                    'Total number of unicast frames sent at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/unicast-frames-output}'
+                                multicast-frames-input:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of multicast frames received at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/multicast-frames-input}'
+                                multicast-frames-output:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of multicast frames sent at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/multicast-frames-output}'
+                                broadcast-frames-input:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of broadcast frames received at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/broadcast-frames-input}'
+                                broadcast-frames-output:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of broadcast frames sent at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/broadcast-frames-output}'
+                                fragmented-frames-input:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'The total number of frames received that were less than 64 octets in length (excluding framing bits but including FCS octets) and had either a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error) or a bad FCS with a non-integral number of octets (Alignment Error)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/fragmented-frames-input}'
+                                errored-frames-input:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of errored frames received at this interface
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/errored-frames-input}'
+                                errored-frames-output:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Number of Ethernet frames, which were locally generated and discarded due to errors, including no route found to the destination
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/errored-frames-output}'
+                                dropped-frames-input:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total number of Ethernet frames dropped at the receiver. The number of input Ethernet frames, for which no problems were encountered to prevent their continued processing, but were discarded (e.g., for lack of buffer space)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/dropped-frames-input}'
+                                dropped-frames-output:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'The number of output Ethernet frames, for which no problem was encountered to prevent their transmission to their destination, but were discarded (e.g., for lack of buffer space)
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/dropped-frames-output}'
+                                oversized-frames-ingress:
+                                  type: string
+                                  description: > 
+                                    'The total number of frames received that were longer than 1518 octets (excluding framing bits, but including FCS octets) and were otherwise well formed
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/oversized-frames-ingress}'
+                                undersized-frames-ingress:
+                                  type: string
+                                  description: > 
+                                    'The total number of frames received that were less than 64 octets long (excluding framing bits, but including FCS octets) and were otherwise well formed
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/undersized-frames-ingress}'
+                                jabber-frames-ingress:
+                                  type: string
+                                  description: > 
+                                    'Number of jabber frames received on the interface. Jabber frames are typically defined as oversize frames which also have a bad CRC. Implementations may use slightly different definitions of what constitutes a jabber frame. Often indicative of a NIC hardware problem
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/jabber-frames-ingress}'
+                                unknown-protocol-frames-input:
+                                  type: string
+                                  description: > 
+                                    'Total number of received frames that were transporting an unknown protocol
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/unknown-protocol-frames-input}'
+                                time-period:
+                                  type: integer
+                                  nullable: true
+                                  description: > 
+                                    'Total (actual) length of the measurement period
+                                    from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#list-of-filtered-ethernet-containers/filtered-historical-performance-data/time-period:}'
+                                transmit-traffic:
+                                  type: number
+                                  format: float
+                                  nullable: true
+                                  description: 'TX Traffic [Mbps] (KPI). Set to default=-1.'
+                                receive-traffic:
+                                  type: number
+                                  format: float
+                                  nullable: true
+                                  description: 'RX Traffic [Mbps] (KPI). Set to default=-1.'
+                                frame-loss:
+                                  type: integer
+                                  nullable: true
+                                  description: 'The number of lost frames (KPI). Set to default=-1.'
+                  example:
+                    data-handle: '513250010-2024-03-06T13:00:00+01:00-a0893b37'
+                    output:
+                      air-interface-list:
+                        - air-interface-identifiers:
+                            mount-name: '513250010'
+                            link-endpoint-id: '325557888A'
+                            link-id: '325557888'
+                            logical-termination-point-id: 'RF-2146697744'
+                            link-aggregation-identifiers:
+                              - link-id: '325557888'
+                              - link-id: '325557889'
+                          air-interface-configuration:
+                            configured-atpc-is-on: true
+                            configured-atpc-threshold-upper: 99
+                            configured-atpc-threshold-lower: -45
+                            configured-tx-power: 4
+                            configured-modulation-minimum:
+                              number-of-states: 4
+                              name-at-lct: '4 QAM'
+                              configured-capacity-minimum: -1
+                            configured-modulation-maximum:
+                              number-of-states: 1024
+                              name-at-lct: '1024 QAM'
+                              configured-capacity-maximum: -1
+                          air-interface-performance-measurements-list:
+                            - granularity-period: 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                              period-end-time: '2024-03-06T13:00:00+01:00'
+                              transmit-level-minimum: -4
+                              transmit-level-maximum: -4
+                              transmit-level-average: 99
+                              receive-level-minimum: -450
+                              receive-level-maximum: -44
+                              receive-level-average: 99
+                              signal-to-noise-ratio-minimum: -1
+                              signal-to-noise-ratio-maximum: 41
+                              signal-to-noise-ratio-average: -99
+                              cross-polarization-discrimination-minimum: 30
+                              cross-polarization-discrimination-maximum: 31
+                              cross-polarization-discrimination-average: 99
+                              operated-transmission-modes-list:
+                                - transmission-mode-name: '56000-1024-v2'
+                                  modulation-scheme-name-at-lct: '1024 QAM'
+                                  time: 897
+                                  capacity: -1
+                              interval-capacity: -1
+                              errorred-seconds: 10
+                              severely-errorred-seconds: 0
+                              consecutive-severely-errorred-seconds: 0
+                              total-unavailability: 2
+                              defect-blocks: 14
+                              time-period: 898
+                          transmission-mode-list:
+                            - transmission-mode-name: '56000-1024-v2'
+                              number-of-states: 1024
+                              modulation-scheme-name-at-lct: '1024 QAM'
+                              channel-bandwidth: 56000
+                              code-rate: 94
+                              symbol-rate-reduction-factor: 1
+                      ethernet-container-list:
+                        - ethernet-container-identifiers:
+                            mount-name: '513250010'
+                            interface-name: 'WAN 1/1/1'
+                            logical-termination-point-id: 'ETH-2134646913'
+                          ethernet-container-performance-measurements-list:
+                            - granularity-period: 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                              period-end-time: '2024-03-07T00:15:00.0+00:00'
+                              max-bytes-per-second-output: '10'
+                              total-bytes-input: '0'
+                              total-bytes-output: '0'
+                              total-frames-input: '0'
+                              total-frames-output: '0'
+                              forwarded-frames-input: '-1'
+                              forwarded-frames-output: '-1'
+                              unicast-frames-input: '0'
+                              unicast-frames-output: '0'
+                              multicast-frames-input: 0
+                              multicast-frames-output: 0
+                              broadcast-frames-input: 0
+                              broadcast-frames-output: 0
+                              fragmented-frames-input: -1
+                              errored-frames-input: 0
+                              errored-frames-output: 0
+                              dropped-frames-input: 0
+                              dropped-frames-output: 0
+                              oversized-frames-ingress: 10
+                              undersized-frames-ingress: 11
+                              jabber-frames-ingress: 2
+                              unknown-protocol-frames-input: 5
+                              time-period: 899
+                              transmit-traffic: -1
+                              receive-traffic: -1
+                              frame-loss: -1
+      error:
+        description: 'No DataStructureForProcessing output object created due to lack of new PM data'
+    processing:
+      CreatingDsfpOutputCausesReadingControlConstructFromCache:
+        # directly read from ElasticSearch
+        ReadCc:  #[/core-model-1-4:control-construct/logical-termination-point=dpmdp-1-0-0-tcp-c-es-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=dpmdp-1-0-0-tcp-c-es-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address or /core-model-1-4:control-construct/logical-termination-point=dpmdp-1-0-0-tcp-c-es-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]:[/core-model-1-4:control-construct/logical-termination-point=dpmdp-1-0-0-tcp-c-es-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=dpmdp-1-0-0-tcp-c-es-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+          description: 'The complete CC shall be read from ElasticSearch directly.'
+          get:
+            parameters:
+              - name: mount-name
+                in: path
+                required: true
+                schema:
+                  type: string
+                  example: '222250001'
+                description: >
+                  'The mount-name of the device that is addressed by this callback
+                  from {$request.body#mount-name}'
+            responses:
+              '200':
+                description: 'ControlConstruct provided from cache'
+                content:
+                  application/json:
+                    schema:
+                      description: 'Only relevant attributes listed'
+                      type: object
+                      properties:
+                        core-model-1-4:control-construct:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              logical-termination-point:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    uuid:
+                                      type: string
+                                    client-ltp:
+                                      type: array
+                                      items:
+                                        type: string
+                                    server-ltp:
+                                      type: array
+                                      items:
+                                        type: string
+                                    ltp-augment-1-0:ltp-augment-pac:
+                                      type: object
+                                      properties:
+                                        external-label:
+                                          type: string
+                                        original-ltp-name:
+                                          type: string
+                                    layer-protocol:
+                                      type: array
+                                      items:
+                                        anyOf:
+                                          - description: 'default, (not required, included only for correct validation)'
+                                            type: object
+                                            required:
+                                              - local-id
+                                              - layer-protocol-name
+                                            properties:
+                                              local-id:
+                                                type: string
+                                              layer-protocol-name:
+                                                type: string
+                                          - description: 'air-interface'
+                                            type: object
+                                            required:
+                                              - local-id
+                                              - layer-protocol-name
+                                              - air-interface-2-0:air-interface-pac
+                                            properties:
+                                              local-id:
+                                                type: string
+                                              layer-protocol-name:
+                                                type: string
+                                                enum:
+                                                  - 'air-interface-2-0:LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER'
+                                              air-interface-2-0:air-interface-pac:
+                                                type: object
+                                                properties:
+                                                  air-interface-configuration:
+                                                    type: object
+                                                    properties:
+                                                      transmission-mode-min:
+                                                        type: string
+                                                      transmission-mode-max:
+                                                        type: string
+                                                      tx-power:
+                                                        type: integer
+                                                      atpc-is-on:
+                                                        type: boolean
+                                                      atpc-thresh-upper:
+                                                        type: integer
+                                                      atpc-thresh-lower:
+                                                        type: integer
+                                                  air-interface-capability:
+                                                    type: object
+                                                    properties:
+                                                      transmission-mode-list:
+                                                        type: array
+                                                        items:
+                                                          type: object
+                                                          properties:
+                                                            transmission-mode-name:
+                                                              type: string
+                                                            channel-bandwidth:
+                                                              type: integer
+                                                            modulation-scheme:
+                                                              type: integer
+                                                            modulation-scheme-name-at-lct:
+                                                              type: string
+                                                            code-rate:
+                                                              type: integer
+                                                            symbol-rate-reduction-factor:
+                                                              type: integer
+                                                  air-interface-historical-performances:
+                                                    type: object
+                                                    properties:
+                                                      historical-performance-data-list:
+                                                        type: array
+                                                        items:
+                                                          type: object
+                                                          properties:
+                                                            granularity-period:
+                                                              type: string
+                                                              enum:
+                                                                - 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                                                - 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS'
+                                                                - 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-UNKNOWN'
+                                                                - 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-NOT_YET_DEFINED'
+                                                            period-end-time:
+                                                              type: string
+                                                            tx-level-min:
+                                                              type: integer
+                                                            tx-level-max:
+                                                              type: integer
+                                                            tx-level-avg:
+                                                              type: integer
+                                                            rx-level-min:
+                                                              type: integer
+                                                            rx-level-max:
+                                                              type: integer
+                                                            rx-level-avg:
+                                                              type: integer
+                                                            snir-min:
+                                                              type: integer
+                                                            snir-max:
+                                                              type: integer
+                                                            snir-avg:
+                                                              type: integer
+                                                            xpd-min:
+                                                              type: integer
+                                                            xpd-max:
+                                                              type: integer
+                                                            xpd-avg:
+                                                              type: integer
+                                                            time-xstates-list:
+                                                              type: array
+                                                              items:
+                                                                type: object
+                                                                properties:
+                                                                  transmission-mode:
+                                                                    type: string
+                                                                  time:
+                                                                    type: integer
+                                                            es:
+                                                              type: integer
+                                                            ses:
+                                                              type: integer
+                                                            cses:
+                                                              type: integer
+                                                            unavailability:
+                                                              type: integer
+                                                            defect-blocks-sum:
+                                                              type: integer
+                                                            time-period:
+                                                              type: integer
+                                          - description: 'ethernet-container'
+                                            type: object
+                                            required:
+                                              - local-id
+                                              - layer-protocol-name
+                                              - ethernet-container-2-0:ethernet-container-pac
+                                            properties:
+                                              local-id:
+                                                type: string
+                                              layer-protocol-name:
+                                                type: string
+                                                enum:
+                                                  - 'ethernet-container-2-0:LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER'
+                                              ethernet-container-2-0:ethernet-container-pac:
+                                                type: object
+                                                properties:
+                                                  ethernet-container-historical-performances:
+                                                    type: object
+                                                    properties:
+                                                      historical-performance-data-list:
+                                                        type: array
+                                                        items:
+                                                          type: object
+                                                          properties:
+                                                            granularity-period:
+                                                              type: string
+                                                              enum:
+                                                                - 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                                                - 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS'
+                                                                - 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-UNKNOWN'
+                                                                - 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-NOT_YET_DEFINED'
+                                                            period-end-time:
+                                                              type: string
+                                                              description: 'If the period-end-time is not newer than the provided timestamp from the requestBody, the complete array item is to be ignored'
+                                                            max-bytes-per-second-output:
+                                                              type: integer
+                                                            total-bytes-input:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            total-bytes-output:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            total-frames-input:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            total-frames-output:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            forwarded-frames-input:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            forwarded-frames-output:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            unicast-frames-input:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            unicast-frames-output:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            multicast-frames-input:
+                                                              type: integer
+                                                            multicast-frames-output:
+                                                              type: integer
+                                                            broadcast-frames-input:
+                                                              type: integer
+                                                            broadcast-frames-output:
+                                                              type: integer
+                                                            fragmented-frames-input:
+                                                              type: integer
+                                                            errored-frames-input:
+                                                              type: integer
+                                                            errored-frames-output:
+                                                              type: integer
+                                                            dropped-frames-input:
+                                                              type: integer
+                                                            dropped-frames-output:
+                                                              type: integer
+                                                            oversized-frames-ingress:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            undersized-frames-ingress:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            jabber-frames-ingress:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            unknown-protocol-frames-input:
+                                                              type: string
+                                                              description: 'String representation of int64 value'
+                                                            time-period:
+                                                              type: integer
+                            example:
+                              # example only contains relevant attributes
+                              core-model-1-4:control-construct:
+                                - logical-termination-point:
+                                    - uuid: '513250010-PureEthStruc-45743677'
+                                      client-ltp:
+                                        - '513250010-EthContainer-13535345'
+                                      server-ltp:
+                                        - '513250010-AirInterface-34534563'
+                                      layer-protocol:
+                                        - local-id: '45743677'
+                                          layer-protocol-name: 'LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER'
+                                    - uuid: 'RF-819.1.2'
+                                      client-ltp:
+                                        - '513250010-PureEthStruc-45743677'
+                                      server-ltp:
+                                      layer-protocol:
+                                        - local-id: '34534563'
+                                          layer-protocol-name: 'air-interface-2-0:LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER'
+                                          air-interface-2-0:air-interface-pac:
+                                            air-interface-configuration:
+                                              transmission-mode-min: '0056-QPSK-52680/61762-1'
+                                              transmission-mode-max: '0056-128QAM-196320/216167-1'
+                                              tx-power: 10
+                                              atpc-is-on: true
+                                              atpc-thresh-upper: -40
+                                              atpc-thresh-lower: -45
+                                            air-interface-capability:
+                                              transmission-mode-list:
+                                                - transmission-mode-name: '0028-4QAM-188/204-1'
+                                                  channel-bandwidth: 28000
+                                                  modulation-scheme: 4
+                                                  modulation-scheme-name-at-lct: '4 QAM'
+                                                  code-rate: -1
+                                                  symbol-rate-reduction-factor: 1
+                                                  air-interface-historical-performance:
+                                            historical-performance-data-list:
+                                              - granularity-period: 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                                period-end-time: '2024-03-07T00:15:00.0+00:00'
+                                                tx-level-min: 13
+                                                tx-level-max: 13
+                                                tx-level-avg: 13
+                                                rx-level-min: -35
+                                                rx-level-max: -35
+                                                rx-level-avg: -35
+                                                snir-min: 39
+                                                snir-max: 40
+                                                snir-avg: -99
+                                                xpd-min: -99
+                                                xpd-max: -99
+                                                xpd-avg: -99
+                                                time-xstates-list:
+                                                  - transmission-mode: '0028-4QAM-188/204-1'
+                                                    time: 897
+                                                es: 0
+                                                ses: 0
+                                                cses: -1
+                                                unavailability: 0
+                                                defect-blocks-sum: -1
+                                                time-period: 900
+                                    - uuid: 'ETH-765.1.3'
+                                      client-ltp:
+                                        - 'SYNC-765.1.3'
+                                        - 'PTP-123.12.4'
+                                      server-ltp:
+                                        - 'PES-819.2.2'
+                                      layer-protocol:
+                                        - local-id: '765.1.3'
+                                          layer-protocol-name: 'ethernet-container-2-0:LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER'
+                                          ethernet-container-2-0:ethernet-container-pac:
+                                            historical-performance-data-list:
+                                              - granularity-period: 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                                period-end-time: '2024-03-07T00:15:00.0+00:00'
+                                                max-bytes-per-second-output: 0
+                                                total-bytes-input: '0'
+                                                total-bytes-output: '0'
+                                                total-frames-input: '-1'
+                                                total-frames-output: '-1'
+                                                forwarded-frames-input: '-1'
+                                                forwarded-frames-output: '-1'
+                                                unicast-frames-input: '0'
+                                                unicast-frames-output: '0'
+                                                multicast-frames-input: 0
+                                                multicast-frames-output: 0
+                                                broadcast-frames-input: 0
+                                                broadcast-frames-output: 0
+                                                fragmented-frames-input: -1
+                                                errored-frames-input: 0
+                                                errored-frames-output: 0
+                                                dropped-frames-input: 0
+                                                dropped-frames-output: 0
+                                                oversized-frames-ingress: '-1'
+                                                undersized-frames-ingress: '-1'
+                                                jabber-frames-ingress: '-1'
+                                                unknown-protocol-frames-input: '-1'
+                                                time-period: 899
+      CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable:
+        GetTimestamps: #[dpmdpIpAddress]:[dpmdpPort]/dpmdp-internal-memory:deviceTable]
+          description: >
+            'The DPMDP keeps an internal deviceTable, where it stores for every device, which interfaces it has seen before.
+            For each interface there is a timestamp indicating the most recent timestamp that was seen in historical PM data from the last data retrieval for that interface.
+            The list of these timestamps is read here for the given device'
+          get:
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      mount-name:
+                        type: string
+                        description: >
+                          'The mount-name of the device
+                          from {$requst.body#mount-name}'
+            responses:
+              '200':
+                description: 'List of most recent PM data timestamps for the devices interfaces provided'
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                          description: 'The uuid of the LTP'
+                        local-id:
+                          type: string
+                          description: 'The local-id of the LTP, which together with the uuid forms the lookup key for the interfaces'
+                        most-recent-timestamp:
+                          type: string
+                          description: 'The most recent timestamp for this interface seen in previous retrievals'
+                    example:
+                      uuid: '2146697744'
+                      local-id: 'RF-2146697744'
+                      most-recent-timestamp: '2024-03-07T00:15:00.0+00:00'
+      CreatingDsfpOutputCausesFilteringAndClusteringInputData:
+        PrepInputData: #[dpmdpIpAddress]:[dpmdpPort]/[dpmdp-internal-memory]
+          description: >
+            'The input data from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body} is to be traversed
+            and prepared for subsequent processing steps'
+          get:
+            responses:
+              '200':
+                description: 'Input CC data filtered and clustered'
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        ltp-structure-and-augment:
+                          description: >
+                            'The control-construct data from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body}
+                              is to be traversed, the encountered ltp-structure and augment information are to be written into this array, there is no filtering.'
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              logical-termination-point:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    uuid:
+                                      type: string
+                                      description: >
+                                        'The uuid of the currently traversed LTP
+                                        from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/uuid}'
+                                    client-ltp:
+                                      type: array
+                                      description: >
+                                        'The client-ltp array of the currently traversed LTP
+                                        from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/client-ltp}'
+                                      items:
+                                        type: string
+                                    server-ltp:
+                                      type: array
+                                      description: >
+                                        'The server-ltp of the currently traversed LTP
+                                        from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/server-ltp}'
+                                      items:
+                                        type: string
+                                    layer-protocol:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          local-id:
+                                            type: string
+                                            description: >
+                                              'The local-id of the currently traversed LTP/layer-protocol
+                                              from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protcol/local-id}'
+                                          layer-protocol-name:
+                                            type: string
+                                            description: >
+                                              'The layer-protocol-name of the currently traversed LTP/layer-protocol
+                                              from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protcol/layer-protocol-name}'
+                                    ltp-augment-1-0:ltp-augment-pac:
+                                      type: object
+                                      description: >
+                                        'The ltp-augment of the currently traversed LTP
+                                        from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/ltp-augment}'
+                                      properties:
+                                        external-label:
+                                          type: string
+                                        original-ltp-name:
+                                          type: string
+                        list-of-filtered-ethernet-containers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              uuid:
+                                type: string
+                                description: >
+                                  'The uuid of the currently traversed LTP
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/uuid}
+                                  where {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/layer-protocol-name} indicates EthernetContainer'
+                              local-id:
+                                type: string
+                                description: >
+                                  'The local-id of the currently traversed LTP/layer-protocol
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/local-id}
+                                  where {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/layer-protocol-name} indicates EthernetContainer'
+                              filtered-historical-performance-data-list:
+                                type: array
+                                description: >
+                                  'This list contains only those historical PM records from the EthernetContainer instance identified by uuid/local-id, which have 15min granularity and which are newer than the newest record from previous retrievals
+                                  If there are no new relevant historical PM records, the list remains empty for the given EthernetContainer instance.
+                                  If the data contains interfaces, for which no mostRecentTimestamp was found, the data of the interface is to treated as new data (i.e. not filtered out).
+                                  
+                                  Filtering rules:
+                                  WITH ETHERNET_CONTAINER = {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/ethernet-container-2-0:ethernet-container-pac/ethernet-container-historical-performances}
+                                    for the currently traversed EthernetContainer identified by current uuid/local-id combination
+                                  WITH mostRecentTimestamp = {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#most-recent-timestamp}
+                                        WHERE {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#uuid} == current uuid
+                                              AND {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#local-id} == current local-id
+
+                                  IF {$ETHERNET_CONTAINER/granularity-period} for the EthernetContainer instance does not contain PERIOD_TYPE_PERIOD-15-MIN
+                                    THEN array item is discarded
+                                  ELSE IF {$ETHERNET_CONTAINER/period-end-time} is not newer than mostRecentTimestamp
+                                    THEN array item is discarded
+                                  ELSE
+                                    array item is added to the array
+                                items:
+                                  type: object
+                                  description: >
+                                    'the currently processed record
+                                    from {$ETHERNET_CONTAINER/historical-performance-data-list}'
+                                  properties:
+                                    granularity-period:
+                                      type: string
+                                      enum:
+                                        - 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                    period-end-time:
+                                      type: string
+                                    max-bytes-per-second-output:
+                                      type: integer
+                                    total-bytes-input:
+                                      type: string
+                                    total-bytes-output:
+                                      type: string
+                                    total-frames-input:
+                                      type: string
+                                    total-frames-output:
+                                      type: string
+                                    forwarded-frames-input:
+                                      type: string
+                                    forwarded-frames-output:
+                                      type: string
+                                    unicast-frames-input:
+                                      type: string
+                                    unicast-frames-output:
+                                      type: string
+                                    multicast-frames-input:
+                                      type: integer
+                                    multicast-frames-output:
+                                      type: integer
+                                    broadcast-frames-input:
+                                      type: integer
+                                    broadcast-frames-output:
+                                      type: integer
+                                    fragmented-frames-input:
+                                      type: integer
+                                    errored-frames-input:
+                                      type: integer
+                                    errored-frames-output:
+                                      type: integer
+                                    dropped-frames-input:
+                                      type: integer
+                                    dropped-frames-output:
+                                      type: integer
+                                    oversized-frames-ingress:
+                                      type: string
+                                    undersized-frames-ingress:
+                                      type: string
+                                    jabber-frames-ingress:
+                                      type: string
+                                    unknown-protocol-frames-input:
+                                      type: string
+                                    time-period:
+                                      type: string
+                        list-of-filtered-air-interfaces:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              uuid:
+                                type: string
+                                description: >
+                                  'The uuid of the currently traversed LTP
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/uuid}
+                                  where {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/layer-protocol-name} indicates AirInterface'
+                              local-id:
+                                type: string
+                                description: >
+                                  'The local-id of the currently traversed LTP/layer-protocol
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/local-id}
+                                  where {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/layer-protocol-name} indicates AirInterface'
+                              filtered-historical-performance-data-list:
+                                type: array
+                                description: >
+                                  'This list contains only those historical PM records from the AirInterface instance identified by uuid/local-id, which have 15min granularity and which are newer than the newest record from previous retrievals
+                                  If there are no new relevant historical PM records, the list remains empty for the given AirInterface instance.
+                                  If the data contains interfaces, for which no mostRecentTimestamp was found, the data of the interface is to treated as new data (i.e. not filtered out).
+                                  
+                                  Filtering rules:
+                                  WITH AIR_INTERFACE = {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/air-interface-2-0:air-interface-pac/air-interface-historical-performances}
+                                    for the currently traversed AirInterface identified by current uuid/local-id combination
+                                  WITH mostRecentTimestamp = {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#most-recent-timestamp}
+                                        WHERE {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#uuid} == current uuid
+                                              AND {$CreatingDsfpOutputCausesReadingMostRecentTimestampsForDeviceInterfacesFromDeviceTable.GetTimestamps.response.body#local-id} == current local-id
+
+                                  IF {$AIR_INTERFACE/granularity-period} for the AirInterface instance does not contain PERIOD_TYPE_PERIOD-15-MIN
+                                    THEN array item is discarded
+                                  ELSE IF {$AIR_INTERFACE/period-end-time} is not newer than mostRecentTimestamp
+                                    THEN array item is discarded
+                                  ELSE
+                                    array item is added to the array
+                                items:
+                                  type: object
+                                  description: >
+                                    'the currently processed record
+                                    from {$AIR_INTERFACE/historical-performance-data-list}'
+                                  properties:
+                                    granularity-period:
+                                      type: string
+                                      enum:
+                                        - 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                                    period-end-time:
+                                      type: string
+                                    tx-level-min:
+                                      type: integer
+                                    tx-level-max:
+                                      type: integer
+                                    tx-level-avg:
+                                      type: integer
+                                    rx-level-min:
+                                      type: integer
+                                    rx-level-max:
+                                      type: integer
+                                    rx-level-avg:
+                                      type: integer
+                                    snir-min:
+                                      type: integer
+                                    snir-max:
+                                      type: integer
+                                    snir-avg:
+                                      type: integer
+                                    xpd-min:
+                                      type: integer
+                                    xpd-max:
+                                      type: integer
+                                    xpd-avg:
+                                      type: integer
+                                    time-xstates-list:
+                                      type: array
+                                      items:
+                                        type: object
+                                        description: >
+                                          'Only keep array items, where time > 0'
+                                        properties:
+                                          transmission-mode:
+                                            type: string
+                                          time:
+                                            type: integer
+                                    es:
+                                      type: integer
+                                    ses:
+                                      type: integer
+                                    cses:
+                                      type: integer
+                                    unavailability:
+                                      type: integer
+                                    defect-blocks-sum:
+                                      type: integer
+                                    time-period:
+                                      type: integer
+                              air-interface-configuration:
+                                type: object
+                                description: >
+                                  'Relevant air interface configuration attributes
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/air-interface-2-0:air-interface-pac/air-interface-configuration}'
+                                properties:
+                                  transmission-mode-min:
+                                    type: string
+                                  transmission-mode-max:
+                                    type: string
+                                  tx-power:
+                                    type: integer
+                                  atpc-is-on:
+                                    type: boolean
+                                  atpc-thresh-upper:
+                                    type: integer
+                                  atpc-thresh-lower:
+                                    type: integer
+                              air-interface-capability:
+                                type: object
+                                description: >
+                                  'Relevant air interface configuration attributes
+                                  from {$CreatingDsfpOutputCausesReadingControlConstructFromCache.ReadCc.response.body#core-model-1-4:control-construct/logical-termination-point/layer-protocol/air-interface-2-0:air-interface-pac/air-interface-capability}'
+                                properties:
+                                  transmission-mode-list:
+                                    type: array
+                                    description: >
+                                      'Transmission mode list items shall not be added, if code-rate is -1'
+                                    items:
+                                      type: object
+                                      properties:
+                                        transmission-mode-name:
+                                          type: string
+                                        channel-bandwidth:
+                                          type: integer
+                                        modulation-scheme:
+                                          type: integer
+                                        modulation-scheme-name-at-lct:
+                                          type: string
+                                        code-rate:
+                                          type: integer
+                                        symbol-rate-reduction-factor:
+                                          type: integer
+                    example:
+                      ltp-structure-and-augment:
+                        - logical-termination-point:
+                            - uuid: '513250010-PureEthStruc-45743677'
+                              client-ltp:
+                                - '513250010-EthContainer-13535345'
+                              server-ltp:
+                                - '513250010-AirInterface-34534563'
+                              layer-protocol:
+                                - local-id: '45743677'
+                                  layer-protocol-name: 'LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER'
+                              ltp-augment-1-0:ltp-augment-pac:
+                                external-label: '325557888A'
+                                original-ltp-name: 'WAN 1/1/1'
+                      list-of-filtered-ethernet-containers:
+                        - uuid: 'ETH-765.1.5'
+                          local-id: '765.1.5'
+                          filtered-historical-performance-data-list:
+                            - granularity-period: 'ethernet-container-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                              period-end-time: '2024-03-07T00:15:00.0+00:00'
+                              max-bytes-per-second-output: '10'
+                              total-bytes-input: '0'
+                              total-bytes-output: '0'
+                              total-frames-input: '0'
+                              total-frames-output: '0'
+                              forwarded-frames-input: '-1'
+                              forwarded-frames-output: '-1'
+                              unicast-frames-input: '0'
+                              unicast-frames-output: '0'
+                              multicast-frames-input: 0
+                              multicast-frames-output: 0
+                              broadcast-frames-input: 0
+                              broadcast-frames-output: 0
+                              fragmented-frames-input: -1
+                              errored-frames-input: 0
+                              errored-frames-output: 0
+                              dropped-frames-input: 0
+                              dropped-frames-output: 0
+                              oversized-frames-ingress: 10
+                              undersized-frames-ingress: 11
+                              jabber-frames-ingress: 2
+                              unknown-protocol-frames-input: 5
+                              time-period: 899
+                      list-of-filtered-air-interfaces:
+                        - uuid: '2146697744'
+                          local-id: 'RF-2146697744'
+                          filtered-historical-performance-data-list:
+                            - granularity-period: 'air-interface-2-0:GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN'
+                              period-end-time: '2024-03-06T13:00:00+01:00'
+                              tx-level-min: 0
+                              tx-level-max: 0
+                              tx-level-avg: 0
+                              rx-level-min: 0
+                              rx-level-max: 0
+                              rx-level-avg: 0
+                              snir-min: 0
+                              snir-max: 0
+                              snir-avg: 0
+                              xpd-min: 0
+                              xpd-max: 0
+                              xpd-avg: 0
+                              time-xstates-list:
+                                - transmission-mode: '56000-1024-v2'
+                                  time: 800
+                              es: 0
+                              ses: 0
+                              cses: 0
+                              unavailability: 0
+                              defect-blocks-sum: 0
+                              time-period: 900
+                          air-interface-configuration:
+                            transmission-mode-min: '12800-004-v1'
+                            transmission-mode-max: '56000-1024-v2'
+                            tx-power: 0
+                            atpc-is-on: true
+                            atpc-thresh-upper: 0
+                            atpc-thresh-lower: 0
+                          air-interface-capability:
+                            transmission-mode-list:
+                              - transmission-mode-name: '56000-1024-v2'
+                                channel-bandwidth: 120
+                                modulation-scheme: 1024
+                                modulation-scheme-name-at-lct: '1024 QAM'
+                                code-rate: 1
+                                symbol-rate-reduction-factor: 1
+              '400':
+                description: ''
+              '401':
+                description: ''
+              '403':
+                description: ''
+              '404':
+                description: ''
+              '500':
+                description: ''
+              default:
+                description: ''
+      CreatingDsfpOutputCausesComputingInterfaceNames:
+        LtpDesignation: #[dpmdpIpAddress]:[dpmdpPort]/dpmdp-internal-memory
+          description: >
+            'This callback determines the interface names for all AirInterface and EthernetContainer instances of the device from the ltp-structure-and-augment
+              information compiled in CreatingDsfpOutputCausesFilteringAndClusteringInputData.
+              Therefore it shall iterate over the all {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point}
+              array items and compute the interface names where layer-protocol-name indicates AIR_LAYER or ETHERNET_CONTAINER_LAYER.'
+          get:
+            responses:
+              '200':
+                description: 'Interface names compiled'
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        list-of-air-interface-names:
+                          description: >
+                            'This list holds the computed Ids where layer-protocol-name indicates AIR_LAYER.'
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              uuid:
+                                type: string
+                                description: >
+                                  'The uuid of the currently traversed AirInterface LTP/LP
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/uuid}'
+                              local-id:
+                                type: string
+                                description: >
+                                  'The local-id of the currently traversed AirInterface LTP/LP
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/layer-protocol/local-id}'
+                              link-endpoint-id:
+                                type: string
+                                example: '513550010B'
+                                description: >
+                                  'The unit-ID of the currently traversed AirInterface LTP/LP
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/ltp-augment-1-0:ltp-augment-pac/external-label}'
+                              link-id:
+                                type: string
+                                example: '513550010'
+                                description: >
+                                  'The link-ID of the currently traversed AirInterface LTP/LP. To be obtained by extracting the substring constituted by the 9 first characters
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/ltp-augment-1-0:ltp-augment-pac/external-label}'
+                        list-of-ethernet-container-names:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              uuid:
+                                type: string
+                                description: >
+                                  'The uuid of the currently traversed EthernetContainer LTP/LP
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/uuid}'
+                              local-id:
+                                type: string
+                                description: >
+                                  'The local-id of the currently traversed EthernetContainer LTP/LP
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/layer-protocol/local-id}'
+                              interface-name:
+                                type: string
+                                example: 'LAN 1/6/6'
+                                description: >
+                                  'Interface name of the currently traversed EthernetContainer as it is represented at the vendors own management interface
+                                  from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/ltp-augment-1-0:ltp-augment-pac/original-ltp-name}'
+              '400':
+                description: ''
+              '401':
+                description: ''
+              '403':
+                description: ''
+              '404':
+                description: ''
+              '500':
+                description: ''
+              default:
+                description: ''
+      CreatingDsfpOutputCausesComputingLagInformation:
+        LtpDesignation: #[dpmdpIpAddress]:[dpmdpPort]/dpmdp-internal-memory
+          description: >
+            'This callback determines the Link aggregation information for all air-interface instances of the device from the ltp-structure-and-augment
+              information compiled in CreatingDsfpOutputCausesFilteringAndClusteringInputData.
+              Therefore it shall iterate over the all {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point}
+              array items and compute the link aggregation information where layer-protocol-name indicates AIR_LAYER.
+              The uuid for the retrieval from ltp-augment information is not the one of the AirInterface itself, but has to be determined by stepping through the hierarchy of LTPs on top of the AirInterface
+              as follows:
+              ClientLtp OF AirInterfaceUuid = ClientStructureUuid
+              ClientLtp OF ClientStructureUuid = ClientEthernetContainerUuid
+              ServerLtp OF ClientEthernetContainerUuid = LIST-OF ServingStructureUuid
+
+              FOR EACH ServingStructureUuid in LIST-OF ServingStructureUuid:
+              ServerLtp OF ServingStructureUuid = Wire/AirInterfaceUuid
+              
+              Result = List-of-Wire/AirInterfaceUuid'
+          get:
+            responses:
+              '200':
+                description: 'Ltp augment for LAGs provided'
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                          description: >
+                            'The uuid of the currently traversed EthernetContainer LTP/LP
+                            from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/uuid}'
+                        local-id:
+                          type: string
+                          description: >
+                            'The local-id of the currently traversed EthernetContainer LTP/LP
+                            from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/layer-protocol/local-id}'
+                        link-aggregation-identifiers:
+                          type: array
+                          items:
+                            oneOf:
+                              - description: 'AirInterfaces'
+                                type: object
+                                required:
+                                  - link-id
+                                properties:
+                                  link-id:
+                                    type: string
+                                    example: '513550010'
+                                    description: >
+                                      'The link-ID for the current AirInterface uuid from List-of-Wire/AirInterfaceUuids to be obtained by extracting the substring constituted by the 9 first characters
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/ltp-augment-1-0:ltp-augment-pac/external-label}'
+                              - description: 'WireInterface'
+                                type: object
+                                required:
+                                  - interface-name
+                                properties:
+                                  interface-name:
+                                    type: string
+                                    description: >
+                                      'Interface name for the current WireInterface uuid from List-of-Wire/InterfaceUuids
+                                      from {$CreatingDsfpOutputCausesFilteringAndClusteringInputData.PrepInputData.response.body#ltp-structure-and-augment/logical-termination-point/ltp-augment-1-0:ltp-augment-pac/original-ltp-name}'
+              '400':
+                description: ''
+              '401':
+                description: ''
+              '403':
+                description: ''
+              '404':
+                description: ''
+              '500':
+                description: ''
+              default:
+                description: ''
+
+paths:
+  /:
+    description: 'no rest path provided by this module'
