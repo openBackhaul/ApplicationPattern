@@ -1,7 +1,7 @@
 # Integrating Applications into Telefónica's API Gateway
 
 ### Overview
-Th  
+The  
 
 ### Description
 The
