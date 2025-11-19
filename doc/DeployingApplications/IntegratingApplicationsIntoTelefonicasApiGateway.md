@@ -1,7 +1,11 @@
 # Integrating Applications into Telefónica's API Gateway
 
 ### Overview
+<<<<<<< HEAD
   
+=======
+The  
+>>>>>>> face8a0040575d10462839266f9d53119a1ada88
 
 ### Description
 This page provides a concise overview of the prerequisites and procedures for integrating applications into Telefónica’s API Gateway.
