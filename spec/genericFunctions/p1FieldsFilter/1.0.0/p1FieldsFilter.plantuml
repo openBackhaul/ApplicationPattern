@@ -1,0 +1,26 @@
+@startuml p1FieldsFilter
+skinparam responseMessageBelowArrow true
+
+title
+p1FieldsFilter
+end title
+
+database "appDb" as appDb #LightCyan
+participant "requestor" as requestor #LightCyan
+participant "p1FieldsFilter" as pFF #LightCyan
+
+requestor -> appDb
+requestor <-- appDb : {DataStructure}
+
+requestor -> pFF : {DataStructure, fieldsFilterString}
+activate pFF #LightCyan
+  note over pFF
+    Applies the fieldsFilterString to the given DataStructure,
+    following the NETCONF FieldsFilter syntax and semantics.
+    This includes the uuids and localIds being present in the filtered
+    DataStructure, if any of their child elements are kept by the filter.
+  end note
+
+requestor <-- pFF : {filteredDataStructure}
+deactivate pFF
+

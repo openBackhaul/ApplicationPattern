@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: p1FieldsFilter
+  version: 1.0.0
+
+x-javascript-interface:
+  p1FieldsFilter:
+    summary: 'Filters a provided data structure according to a provided fields filter string, while following the syntax and function of the NETCONF definitions.'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data-structure
+              - fields-filter-string
+            properties:
+              data-structure:
+                type: object
+                description: 'The data structure to be filtered according to the provided fields filter string'
+              fields-filter-string:
+                type: string
+                description: 'Fields filter string following NETCONF FieldsFilter syntax and semantics to be applied to the data structure'
+    output:
+      success:
+        description: 'Data structure successfully filtered according to the provided fields filter string'
+        content:
+          application/json:
+            schema:
+              type: object
+            required:
+              - filtered-data-structure
+            properties:
+              filtered-data-structure:
+                type: object
+                description: 'The data structure after filtering according to the provided fields filter string'
+      error:
+        description: 'Data structure could not be filtered according to the provided fields filter string'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'Data structure is missing or invalid'
+                - 'Invalid fields filter string syntax'
+                - 'General processing error during filtering'
+    processing:
+      description: 'No requests or calls to other Functions'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'
