@@ -10,283 +10,149 @@
  * @copyright   Telefónica Germany GmbH & Co. OHG
  * @module FileOperation
  **/
-
-const fs = require('fs');
-const path = require('path');
+const fileSystem = require('fs');
 const primaryKey = require('./PrimaryKey');
 const AsyncLock = require('async-lock');
 const createHttpError = require('http-errors');
 
-global.databasePath; 
+
+
+global.databasePath;
 
 const lock = new AsyncLock();
 
-// in-memory cache and metadata
-let cachedData = null;
-let cacheTimestamp = 0;
-const CACHE_TTL_MS = 5 * 60 * 1000; // not strictly used for reactive approach but kept if desired
-
-// file watcher and debounce
-let watcher = null;
-let reloadTimer = null;
-const RELOAD_DEBOUNCE_MS = 200;
-
 /**
- * Internal: load JSON from disk into memory.
- * Called lazily on first read or write, and on external change events.
- */
-async function loadDatabaseFromDisk() {
-    if (!global.databasePath) {
-        throw new createHttpError.InternalServerError('Database path not configured');
-    }
-
-    try {
-        const data = await fs.promises.readFile(global.databasePath, 'utf8');
-        const parsed = JSON.parse(data);
-        cachedData = parsed;
-        cacheTimestamp = Date.now();
-
-        // ensure watcher started when cache first populated
-        if (!watcher) {
-            startFileWatcher();
-        }
-
-        return cachedData;
-    } catch (err) {
-        // if file not found or JSON invalid, bubble an informative HttpError for callers
-        if (err.code === 'ENOENT') {
-            throw new createHttpError.InternalServerError(`Database file not found: ${global.databasePath}`);
-        }
-        if (err instanceof SyntaxError) {
-            throw new createHttpError.InternalServerError(`Database file JSON parse error: ${err.message}`);
-        }
-        throw err;
-    }
-}
-
-/**
- * Starts fs.watch on the database file to reload cache on external changes.
- * Debounced to avoid multiple reloads on rapid successive events.
- */
-function startFileWatcher() {
-    if (!global.databasePath) return;
-
-    // if file missing, do nothing; watcher will be attempted again on next load
-    try {
-        watcher = fs.watch(global.databasePath, (eventType) => {
-            // eventType is 'change' or 'rename'
-            // debounce reload
-            if (reloadTimer) clearTimeout(reloadTimer);
-            reloadTimer = setTimeout(async () => {
-                try {
-                    // reload from disk, but preserve cachedData until new data successfully parsed
-                    const data = await fs.promises.readFile(global.databasePath, 'utf8');
-                    const parsed = JSON.parse(data);
-                    cachedData = parsed;
-                    cacheTimestamp = Date.now();
-                    console.info(`[JSON-Driver] Cache reloaded from disk due to external change (${eventType})`);
-                } catch (err) {
-                    console.error(`[JSON-Driver] Failed to reload database after change event: ${err.message}`);
-                    // keep old cache if reload fails (avoid replacing with broken JSON)
-                }
-            }, RELOAD_DEBOUNCE_MS);
-        });
-
-        watcher.on('error', (err) => {
-            console.error(`[JSON-Driver] File watcher error for ${global.databasePath}: ${err.message}`);
-            // we don't throw here; watcher failure is non-fatal. Next read/write will attempt to recreate watcher.
-            watcher = null;
-        });
-
-        console.info(`[JSON-Driver] Watching ${global.databasePath} for external changes`);
-    } catch (err) {
-        // if watch fails (permissions etc.), log and continue; cache still works
-        console.error(`[JSON-Driver] Failed to start file watcher for ${global.databasePath}: ${err.message}`);
-        watcher = null;
-    }
-}
-
-/**
- * Persist current in-memory coreModelJsonObject to disk.
- * Uses atomic write: write to temp file then rename.
- */
-async function persistCacheToDisk(coreModelJsonObject) {
-    if (!global.databasePath) {
-        throw new createHttpError.InternalServerError('Database path not configured');
-    }
-    const dir = path.dirname(global.databasePath);
-    const tempName = path.join(dir, `.tmp-${path.basename(global.databasePath)}-${Date.now()}`);
-    const data = JSON.stringify(coreModelJsonObject);
-
-    // write temp file then rename to be atomic-ish
-    await fs.promises.writeFile(tempName, data, 'utf8');
-    await fs.promises.rename(tempName, global.databasePath);
-    cacheTimestamp = Date.now();
-}
-
-/**
- * Ensure cache is loaded (lazy load).
- */
-async function ensureCacheLoaded() {
-    if (cachedData !== null) return cachedData;
-    return await loadDatabaseFromDisk();
-}
-
-/* =================== Public API =================== */
-
-/**
- * Read value from cache for given oamPath.
- * Reads served from memory (fast). If cache is empty, it will be loaded first.
- *
- * @param {String} oamPath
- * @returns {Promise<any>}
+ * This function reads the requested oam path from the core-model<br>
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @returns {Promise<any>} return the requested value
  */
 exports.readFromDatabaseAsync = async function (oamPath) {
-    const coreModelJsonObject = await ensureCacheLoaded();
-    // path resolution is synchronous and fast (operates on in-memory object)
-    const pathList = oamPath.split('/');
-    try {
-        // use defensive traversal (same semantics as original)
-        return getAttributeValueFromDataBase(JSON.parse(JSON.stringify(coreModelJsonObject)), pathList);
-    } catch (err) {
-        // normalize NotFound
-        if (err instanceof createHttpError.HttpError) throw err;
-        throw new createHttpError.NotFound('UUID not found');
-    }
-};
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        return getAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
+    });
+}
 
 /**
- * Write to cache and persist to disk.
- * Serializes writes using AsyncLock on the databasePath.
- *
- * @param {String} oamPath
- * @param {JSON|String} valueToBeUpdated
- * @param {Boolean} isAList
- * @returns {Promise<Boolean>}
+ * This function writes the requested data to the path in the core-model<br>
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @param {JSON|String} valueToBeUpdated value that needs to be updated
+ * @param {Boolean} isAList a boolean flag that represents whether the value to be updated is a list
+ * @returns {Promise<Boolean>} return true if the value is updated, otherwise returns false
  */
 exports.writeToDatabaseAsync = async function (oamPath, valueToBeUpdated, isAList) {
-    // normalize value as original code did
-    if (isAList !== true && typeof valueToBeUpdated !== 'string') {
+    if (isAList !== true && typeof valueToBeUpdated !== "string") {
         for (let keyAttributeOfTheList in valueToBeUpdated) {
             valueToBeUpdated = valueToBeUpdated[keyAttributeOfTheList];
         }
     }
-
-    // acquire write lock so multiple writes don't interleave
-    return await lock.acquire('write', async () => {
-        const coreModelJsonObject = await ensureCacheLoaded();
-
-        const pathList = oamPath.split('/');
-        const result = putAttributeValueToDataBase(coreModelJsonObject, pathList, valueToBeUpdated, isAList);
-
-        if (result) {
-            try {
-                await persistCacheToDisk(coreModelJsonObject);
-                // after successful persist, ensure watcher is active
-                if (!watcher) startFileWatcher();
-                return true;
-            } catch (err) {
-                console.error(`[JSON-Driver] Failed to persist DB to disk: ${err.message}`);
-                // return false or throw? Keep behavior similar to prior: return false
-                return false;
-            }
-        } else {
-            return false;
-        }
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = putAttributeValueToDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList, valueToBeUpdated, isAList);
+        return result;
     });
-};
+}
 
 /**
- * Delete from cache and persist to disk.
- *
- * @param {String} oamPath
- * @returns {Promise<Boolean>}
+ * This function deletes the requested data in the oam path from the core-model<br>
+ * @deprecated remove unused params valueToBeDeleted and isAList
+ * @param {String} oamPath json path that leads to the destined attribute
+ * @returns {Promise<Boolean>} return true if the value is deleted, otherwise returns false
  */
 exports.deletefromDatabaseAsync = async function (oamPath) {
-    return await lock.acquire('write', async () => {
-        const coreModelJsonObject = await ensureCacheLoaded();
-        const pathList = oamPath.split('/');
-        const result = deleteAttributeValueFromDataBase(coreModelJsonObject, pathList);
-        if (result) {
-            try {
-                await persistCacheToDisk(coreModelJsonObject);
-                if (!watcher) startFileWatcher();
-                return true;
-            } catch (err) {
-                console.error(`[JSON-Driver] Failed to persist DB to disk after delete: ${err.message}`);
-                return false;
-            }
-        } else {
-            return false;
-        }
+    return await lock.acquire(global.databasePath, async () => {
+        let coreModelJsonObject = await fileSystem.promises.readFile(global.databasePath, 'utf-8');
+        let individualFieldOfTheOAMPathList = oamPath.split('/');
+        let result = deleteAttributeValueFromDataBase(JSON.parse(coreModelJsonObject), individualFieldOfTheOAMPathList);
+        return result;
     });
-};
-
-/* ============ Core traversal and mutators (same semantics as original) ============ */
+}
 
 /**
- * Defensive traversal: ensures lists/fields exist before iterating/accessing.
- */
-function getAttributeValueFromDataBase(coreModelJsonObject, pathList) {
+ * Reads the value of the oam path that exists in the core-model in json format.<br>
+ * <b><u>Procedure : </u></b><br>
+ * <b>step 1 : </b>split the oam Path string with the delimiter "/" and get individual element of the oam path<br>
+ * <b>step 2 : </b>Then, for each individual element in the path , the following steps will happen , <br>
+ * <b>step 3 : </b>If the element contains "=" , then this element will be considered as a list.<br>
+ *          The following sequence will happen<br>
+ *          3.1: By using the findKeyAttributeForList function , the corresponding key attribute for the list will be figured out<br>
+ *          3.2: Then, by iterating each entry of the list , the correct match will be identified based on comparing the key attribute to the value present in the path attribute<br>
+ * <b>step 4 : </b>If the element doesn't contain "=" , then it will be considered as scalar and its value will be access by the reference within square bracket.<br>
+ * <b>step 5 : </b>Once reaching the final element of the oam path , the value of this attribute will be returned.  <br> 
+ * @param {JSON} coreModelJsonObject Json data to use for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList the path used to find the value.
+ * @returns {any|undefined}
+ **/
+function getAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList) {
     try {
-        let current = coreModelJsonObject;
-        for (let field of pathList) {
-            if (field !== '') {
-                if (field.includes('=')) {
-                    if (!current || typeof current !== 'object') {
-                        throw new createHttpError.NotFound(`List context not found for ${field}`);
+        for (let individualField of individualFieldOfTheOAMPathList) {
+            if (individualField !== "") {
+                if (individualField.includes("=")) {
+                    coreModelJsonObject = findMatchingInstanceFromList(individualField, coreModelJsonObject);
+                    if(Array.isArray(coreModelJsonObject)){
+                        throw new Error(' UUID is not found')
                     }
-                    current = findMatchingInstanceFromList(field, current);
-                    if (Array.isArray(current)) throw new Error('UUID not found');
                 } else {
-                    if (!current || typeof current !== 'object' || !(field in current)) {
-                        throw new createHttpError.NotFound(`Path ${field} not found`);
-                    }
-                    current = current[field];
+                    coreModelJsonObject = coreModelJsonObject[individualField];
                 }
             }
         }
-        return current;
+        return coreModelJsonObject;
     } catch (error) {
-        if (error instanceof createHttpError.HttpError) throw error;
         console.log(error);
-        throw new createHttpError.NotFound('UUID not found');
+        throw new createHttpError.NotFound("  UUID is not found")
     }
 }
 
 /**
- * Put (update) value in JSON object following onf path.
- */
-function putAttributeValueToDataBase(coreModelJsonObject, pathList, newValue, isAList) {
+ * Write the new value to the oam path exists in a core-model.<br> 
+ * <b><u>Procedure : </u></b><br>
+ * <b>step 1 : </b>split the oam Path string with the delimiter "/" and get individual element of the oam path<br> 
+ * <b>step 2 : </b>Then, for each individual element in the path , the following steps will happen , <br> 
+ * <b>step 3 : </b>If the element contains "=" , then this element will be considered as a list.<br> 
+ *          The following sequence will happen<br> 
+ *          3.1: By using the findKeyAttributeForList function , the corresponding key attribute for the list will be figured out<br> 
+ *          3.2: Then, by iterating each entry of the list , the correct match will be identified based on comparing the key attribute to the value present in the path attribute<br> 
+ * <b>step 4 : </b>If the element doesn't contain "=" , then it will be considered as scalar and its value will be access by the reference within square bracket.<br> 
+ * <b>step 5 : </b>Once reaching the final element of the path , new value will overwrite the old value. <br> 
+ * <b>step 6 : </b>Finally the entire JSON data will be written to the load file.<br> 
+ * 
+ * @param {JSON} coreModelJsonObject Json data for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList  path to find the value.
+ * @param {JSON|String} newValue new value to be changed or added
+ * @param {Boolean} isAList whether the newValue to be updated is an entry to a List or it is updating a scalar value
+ * @returns {Boolean} if the updation is successful , returns true , otherwise returns false.
+ **/
+function putAttributeValueToDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList, newValue, isAList) {
     try {
-        let temp = coreModelJsonObject;
-        for (let i = 0; i < pathList.length; i++) {
-            const field = pathList[i];
-            if (field !== '') {
-                if (field.includes('=')) {
-                    if (!temp || typeof temp !== 'object') return false;
-                    temp = findMatchingInstanceFromList(field, temp);
+        let coreModelJsonObjectTemp;
+        let i;
+        coreModelJsonObjectTemp = coreModelJsonObject;
+        for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
+            if (individualFieldOfTheOAMPathList[i] != "") {
+                if (individualFieldOfTheOAMPathList[i].includes("=")) {
+                    coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
                 } else {
-                    if (i === pathList.length - 1) {
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
                         if (isAList === true) {
-                            if (!temp || typeof temp !== 'object') return false;
-                            const listRef = temp[field];
-                            if (Array.isArray(listRef)) {
-                                listRef.push(newValue);
+                            coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
+                            if(coreModelJsonObjectTemp) {
+                                coreModelJsonObjectTemp.push(newValue);
                             } else {
                                 return false;
                             }
                         } else {
-                            if (!temp || typeof temp !== 'object') return false;
-                            if (Object.prototype.hasOwnProperty.call(temp, field)) {
-                                temp[field] = newValue;
+                            if(Object.prototype.hasOwnProperty.call(coreModelJsonObjectTemp, individualFieldOfTheOAMPathList[i])) {
+                                coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = newValue;
                             } else {
                                 return false;
                             }
                         }
+                        writeToFile(coreModelJsonObject);
                     } else {
-                        if (!temp || typeof temp !== 'object') return false;
-                        temp = temp[field];
+                        coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
                     }
                 }
             }
@@ -299,29 +165,45 @@ function putAttributeValueToDataBase(coreModelJsonObject, pathList, newValue, is
 }
 
 /**
- * Delete an attribute or list element.
- */
-function deleteAttributeValueFromDataBase(coreModelJsonObject, pathList) {
+ * Deletes the existing value in the specified oam path in the core-model.<br>
+ * <b><u>Procedure : </u></b><br>
+ * <b>step 1 : </b>split the oam Path string with the delimiter "/" and get individual element of the oam path <br>
+ * <b>step 2 : </b>Then, for each individual element in the path , the following steps will happen , <br>
+ * <b>step 3 : </b>If the element contains "=" , then this element will be considered as a list.<br>
+ *          The following sequence will happen<br>
+ *          3.1: By using the findKeyAttributeForList function , the corresponding key attribute for the list will be figured out<br>
+ *          3.2: Then, by iterating each entry of the list , the correct match will be identified based on comparing the key attribute to the value present in the path attribute<br>
+ * <b>step 4 : </b>If the element doesn't contain "=" , then it will be considered as scalar and its value will be access by the reference within square bracket.<br>
+ * <b>step 5 : </b>Once reaching the final element of the path , the value will be removed from the jsonObject <br>
+ * <b>step 6 : </b>Finally the entire JSON data will be written to the load file.<br>
+ * 
+ * @param {JSON} coreModelJsonObject Json data for searching the value.
+ * @param {Array<String>} individualFieldOfTheOAMPathList  path to find the value.
+ * @returns {Boolean} if the deletion is successful , returns true , otherwise returns false.
+ **/
+function deleteAttributeValueFromDataBase(coreModelJsonObject, individualFieldOfTheOAMPathList) {
     try {
-        let temp = coreModelJsonObject;
-        for (let i = 0; i < pathList.length; i++) {
-            const field = pathList[i];
-            if (field !== '') {
-                if (field.includes('=')) {
-                    if (i === pathList.length - 1) {
-                        temp = findMatchingInstanceAndDeleteFromList(field, temp);
+        let coreModelJsonObjectTemp = coreModelJsonObject;
+        let i;
+        for (i = 0; i < individualFieldOfTheOAMPathList.length; i++) {
+            if (individualFieldOfTheOAMPathList[i] !== "") {
+                if (individualFieldOfTheOAMPathList[i].includes("=")) {
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
+                        coreModelJsonObjectTemp = findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
+                        writeToFile(coreModelJsonObject);
                     } else {
-                        temp = findMatchingInstanceFromList(field, temp);
+                        coreModelJsonObjectTemp = findMatchingInstanceFromList(individualFieldOfTheOAMPathList[i], coreModelJsonObjectTemp);
                     }
                 } else {
-                    if (i === pathList.length - 1) {
-                        if (Array.isArray(temp[field])) {
-                            temp[field] = [];
+                    if (i === individualFieldOfTheOAMPathList.length - 1) {
+                        if (Array.isArray(coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]])) {
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = [];
                         } else {
-                            temp[field] = undefined;
+                            coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]] = undefined;
                         }
+                        writeToFile(coreModelJsonObject);
                     } else {
-                        temp = temp[field];
+                        coreModelJsonObjectTemp = coreModelJsonObjectTemp[individualFieldOfTheOAMPathList[i]];
                     }
                 }
             }
@@ -333,77 +215,56 @@ function deleteAttributeValueFromDataBase(coreModelJsonObject, pathList) {
     }
 }
 
-/**
- * Find list element by primary key mapping.
- */
-function findMatchingInstanceFromList(field, obj) {
+/** 
+ * Write to the filesystem.<br>
+ * @param {JSON} coreModelJsonObject json object that needs to be updated
+ * @returns {Boolean} return true if the value is updated, otherwise returns false
+ **/
+function writeToFile(coreModelJsonObject) {
     try {
-        const [listName, value] = field.split('=');
-        if (!obj || typeof obj !== 'object') {
-            throw new createHttpError.NotFound(`Context object missing for ${listName}`);
-        }
-        const key = primaryKey.keyAttributeOfList[listName];
-        if (!key) {
-            throw new createHttpError.NotFound(`Key attribute mapping not found for list ${listName}`);
-        }
-        const list = obj[listName];
-        if (!Array.isArray(list)) {
-            throw new createHttpError.NotFound(`List ${listName} not found`);
-        }
-        for (let item of list) {
-            if (item && typeof item === 'object' && item[key] == value) {
-                return item;
-            }
-        }
-        throw new createHttpError.NotFound(`UUID ${value} not found in ${listName}`);
+        fileSystem.writeFileSync(global.databasePath, JSON.stringify(coreModelJsonObject));
+        return true;
     } catch (error) {
-        if (error instanceof createHttpError.HttpError) throw error;
+        console.log('write failed:', error)
+        return false;
+    }
+}
+
+function findMatchingInstanceFromList(individualFieldOfTheOAMPath, coreModelJsonObject) {
+    let nameOfTheList;
+    let valueOfTheKeyAttributeOfTheList;
+    let keyAttributeOfTheList;
+    try {
+        nameOfTheList = individualFieldOfTheOAMPath.split("=")[0];
+        valueOfTheKeyAttributeOfTheList = individualFieldOfTheOAMPath.split("=")[1];
+        keyAttributeOfTheList = primaryKey.keyAttributeOfList[nameOfTheList];
+        coreModelJsonObject = coreModelJsonObject[nameOfTheList];
+        coreModelJsonObject.forEach(element => {
+            if (element[keyAttributeOfTheList] == valueOfTheKeyAttributeOfTheList) {
+                coreModelJsonObject = element;
+            }
+        });
+    } catch (error) {
         console.log(error);
-        console.log(field);
-        throw new createHttpError.NotFound(`UUID not found for ${field}`);
+        console.log(individualFieldOfTheOAMPath);
     }
+    return coreModelJsonObject;
 }
 
-/**
- * Remove matched element from list.
- */
-function findMatchingInstanceAndDeleteFromList(field, obj) {
-    const [listName, value] = field.split('=');
-    const key = primaryKey.keyAttributeOfList[listName];
-    if (!key) {
-        throw new createHttpError.NotFound(`Key attribute mapping not found for list ${listName}`);
-    }
-    const list = obj[listName];
-    if (!Array.isArray(list)) {
-        throw new createHttpError.NotFound(`List ${listName} not found`);
-    }
-    const index = list.findIndex((element) => element && element[key] == value);
-    if (index >= 0) {
-        list.splice(index, 1);
-    } else {
-        throw new createHttpError.NotFound(`UUID ${value} not found in ${listName}`);
-    }
-    return obj;
-}
+function findMatchingInstanceAndDeleteFromList(individualFieldOfTheOAMPath, coreModelJsonObject) {
+    let nameOfTheList;
+    let valueOfTheKeyAttributeOfTheList;
+    let keyAttributeOfTheList;
 
-/* ========== Optional helpers ========== */
-
-/**
- * Force reload cache from disk (for admin/debug usage).
- */
-exports.reloadCacheNow = async function () {
-    return await lock.acquire('admin-reload', async () => {
-        return await loadDatabaseFromDisk();
+    nameOfTheList = individualFieldOfTheOAMPath.split("=")[0];
+    valueOfTheKeyAttributeOfTheList = individualFieldOfTheOAMPath.split("=")[1];
+    keyAttributeOfTheList = primaryKey.keyAttributeOfList[nameOfTheList];
+    coreModelJsonObject = coreModelJsonObject[nameOfTheList];
+    coreModelJsonObject.forEach((element, index) => {
+        if (element[keyAttributeOfTheList] == valueOfTheKeyAttributeOfTheList) {
+            coreModelJsonObject = coreModelJsonObject.splice(index, 1);
+        }
     });
-};
+    return coreModelJsonObject;
+}
 
-/**
- * Return cache stats (for health checks / logging)
- */
-exports.cacheStats = function () {
-    return {
-        loaded: cachedData !== null,
-        cacheTimestamp,
-        path: global.databasePath
-    };
-};
