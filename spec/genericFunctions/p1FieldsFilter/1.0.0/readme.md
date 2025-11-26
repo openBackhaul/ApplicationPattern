@@ -3,8 +3,9 @@
 
 ### Overview  
 
-The FieldsFilter Function shall filter a provided data structure.  
-Its syntax and its filtering of data shall follow the FieldsFilter of the NETCONF definitions.  
+The FieldsFilter Function filters a provided data structure.  
+Its syntax and its filtering of data follows the FieldsFilter of the NETCONF definitions.  
+The fieldsFilterString, which is provided as an input parameter, is not required to be url-encoded.
 
 
 ### Diagram  
