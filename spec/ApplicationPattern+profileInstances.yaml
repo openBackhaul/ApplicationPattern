@@ -171,6 +171,7 @@ profile-instances:
     uuid: 'xx-1-0-0-string-p-???'
     capability:
       string-name: ## TODO: Add name of the String attribute
+      purpose: ## TODO: Add description of the String attribute
       enumeration: ## TODO: Potentially add a set of allowed values in cornered brackets
       pattern: ## TODO: Potentially add a regex for validating configuration values
     configuration:

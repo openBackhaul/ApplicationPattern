@@ -7144,6 +7144,47 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
+  /core-model-1-4:control-construct/profile-collection/profile={uuid}/string-profile-1-0:string-profile-pac/string-profile-capability/purpose:
+    parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+          pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-string-p-([0-9]{3})$'
+          example: 'xy-15-3-2-string-p-000'
+    get:
+      operationId: getStringProfilePurpose
+      summary: 'Returns the purpose of the String'
+      tags:
+        - StringProfile
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'String purpose provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - string-profile-1-0:purpose
+                properties:
+                  string-profile-1-0:purpose:
+                    type: string
+                    example: 'operationMode parameter of p1SlidingWindow'
+        '400':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredOamRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredOamRequests'
   /core-model-1-4:control-construct/profile-collection/profile={uuid}/string-profile-1-0:string-profile-pac/string-profile-capability/enumeration:
     parameters:
       - in: path

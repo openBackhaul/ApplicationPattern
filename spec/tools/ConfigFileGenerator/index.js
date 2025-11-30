@@ -50,6 +50,7 @@ function generateProfileList(ProfileData) {
                 "string-profile-1-0:string-profile-pac": {
                     "string-profile-capability": {
                         "string-name": profileInstance['capability']['string-name'],
+                        "string-name": profileInstance['capability']['purpose'],
                         "enumeration": profileInstance['capability']['enumeration'],
                         "pattern": profileInstance['capability']['pattern'],
                     },
