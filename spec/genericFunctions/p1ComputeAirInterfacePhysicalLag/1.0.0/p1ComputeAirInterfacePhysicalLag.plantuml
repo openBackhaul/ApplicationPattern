@@ -1,0 +1,71 @@
+@startuml p1ComputeAirInterfacePhysicalLag
+skinparam responseMessageBelowArrow true
+
+title
+p1ComputeAirInterfacePhysicalLag
+end title
+
+participant "requestor" as requestor
+participant "p1ComputeAirInterfacePhysicalLag" as cur #LightCyan
+
+note over requestor
+  The requestor can hand over either of the following two
+  - reference to the data structure in ONF format, which
+    contains required information about LtpStructure and LtpAugment
+  - or the LtpStructure and LtpAugment data itself
+
+  - This data is input for looking up the interface names
+    for the input LTP (uuid)
+end note
+
+requestor -> cur: {_CC | LtpStructureAndAugment, uuid, {input}, {parameters}}
+activate cur #LightCyan
+
+note over cur
+  Lookup the layer-protocol-name for the layer-protocol
+  beloning to the input uuid.
+  IF layer-protocol-name does not indicate AIR_LAYER
+  <u>Exit</u>
+end note
+
+group For the input AirInterface uuid prepare lookup list
+  note over getLag
+  <u>PrepareLagLookupMap</u>
+	Starting from the input AirInterfaceUuid, navigate recursively upwards through the hierarchy of client ltps up to the associated EthernetContainerUuid:
+	AirInterface -> HybridMWStructure/PureEthernetStructure -> EthernetContainer
+	Then from this EthernetContainerUuid, navigate downwards thru the hierarchy of server ltps, in order to determine 
+	all the AirInterfaces/WireInterfaces that (also) point to this EthernetContainer
+	EthernetContainer ->List-of HybridMWStructure/PureEthernetStructure -> AirInterface/WireInterface
+	As follows:
+
+		ClientLtp OF **AirInterfaceUuid** = **ClientStructureUuid** 
+		ClientLtp OF **ClientStructureUuid** = **ClientEthernetContainerUuid**
+		ServerLtp OF **ClientEthernetContainerUuid** = LIST-OF **ServingStructureUuid**	
+
+		FOR EACH **ServingStructureUuid** in LIST-OF **ServingStructureUuid**:	
+				ServerLtp OF **ServingStructureUuid** = **Wire/AirInterfaceUuid**
+
+	(Result: LIST-OF **Wire/AirInterfaceUuid**)
+  end note
+end group
+
+note over cur
+  <u>FetchLagInfoFromLookupList</u>
+  Lookup the LAG for the input uuid in the previously computed
+  LIST-OF **Wire/InterfaceUuid** as follows:
+
+  For the currently traversed LTP uuid:
+  IF (LayerProtocolName for this uuid):
+  - is WIRE_LAYER
+    THEN interfaceName = originalLtpName
+  - is AIR_LAYER
+    THEN linkId = externalLabel.substring(0,9)
+
+  Return the list of LAG identifiers for the
+  input uuid
+end note
+
+
+requestor <-- cur: {list-of(linkId/interfaceName)}
+
+deactivate cur

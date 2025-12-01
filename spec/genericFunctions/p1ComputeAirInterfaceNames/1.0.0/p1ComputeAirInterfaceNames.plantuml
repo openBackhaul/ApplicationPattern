@@ -1,0 +1,35 @@
+@startuml p1ComputeAirInterfaceNames
+skinparam responseMessageBelowArrow true
+
+title
+p1ComputeAirInterfaceNames
+end title
+
+participant "requestor" as requestor
+participant "p1ComputeAirInterfaceNames" as cur #LightCyan
+
+note over requestor
+  The requestor can hand over either of the following two
+  - reference to the data structure in ONF format, which
+    contains information about LtpStructure and LtpAugmentD
+  - or the LtpStructure and LtpAugment data itself
+
+  - This data is input for looking up the interface names
+    for the input LTP (uuid)
+end note
+
+requestor -> cur: {_CC | LtpStructureAndAugment, uuid, {input}, {parameters}}
+activate cur #LightCyan
+
+note over cur
+  <u>ReadIfNames</u>
+  For the given uuid read the interface names
+  from the Ltp/LtpAugment:
+
+  linkEndpointName = externalLabel
+  linkId = externalLabel.substring(0,9)
+end note
+
+requestor <-- cur: {linkEndpointName, linkId}
+
+deactivate cur
