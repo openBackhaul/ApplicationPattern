@@ -4,14 +4,14 @@
 
 The function p1ComputeAirInterfacePhysicalLag looks up Physical Linkaggregation (LAG) information in LtpStructureAndAugment information for a given AirInterface uuid.  
 
-*Input:*  
+**Input:**  
 Function inputs are:
 - either a reference to the data structure storing Ltps and LtpAugment information in ONF format
 - or the Ltp and LtpAugment information directly (the format is the same as for the reference option)
 - the uuid for which the lookup shall be executed (if this is not an AirInterface LAG information will not be compiled)
 - optional input and function parameters (currently unused)  
 
-*Output:*  
+**Output:**  
 From the LTP structure and augment the function compiles a lookup list of WireInterface and AirInterface uuids related to the input uuid.  
 This list is then traversed to retrieve the LAG information. For every uuid in the lookup list, which belongs to
 - a WireInterface: compute an interfaceName (from the augments original-ltp-name)
