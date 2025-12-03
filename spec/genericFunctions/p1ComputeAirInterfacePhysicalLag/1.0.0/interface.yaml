@@ -23,15 +23,10 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the LAG information shall be computed'
-                  function-input:
+                  parameters:
                     type: object
                     description: >
-                      'Additional formatting input.
-                      Currently not used'
-                  function-parameters:
-                    type: object
-                    description: >
-                      'Parameters to configure the function.
+                      'Parameters for configuring this function.
                       Currently not used.'
               - description: 'LtpStructureAndAugment'
                 type: object
@@ -78,15 +73,10 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the LAG information shall be computed'
-                  function-input:
+                  parameters:
                     type: object
                     description: >
-                      'Additional formatting input.
-                      Currently not used'
-                  function-parameters:
-                    type: object
-                    description: >
-                      'Parameters to configure the function.
+                      'Parameters for configuring this function.
                       Currently not used.'
     output:
       success:
@@ -141,9 +131,17 @@ x-javascript-interface:
                               'Interface name for the current WireInterface uuid from List-of-Wire/InterfaceUuids
                               from {$input#control-construct/logical-termination-point[currentUuid]/ltp-augment-1-0:ltp-augment-pac/original-ltp-name}'
       error:
-        description: 'just for preventing an error in VSCode'
-        # todo: description potentially to be deleted; behavior in case of errors to be described
-
+        description: 'AirInterface physical LinkAggregation information could not be computed'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'Input data incomplete or invalid'
+                - 'Lookup key (uuid) not found in input data'
+                - 'General processing error during computation'
+    processing:
+      description: 'No requests or calls to other Functions'
 paths:
   /:
     description: 'no rest path provided by this module'
