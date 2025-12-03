@@ -37,15 +37,15 @@ Functions with JavaScript interface that are provided as a part of the NPM packa
 
 Functions with JavaScript interface that are provided as individual NPM packages for being used in multiple applications.  
 
-- [ComputeAirInterfaceNames](genericFunctions/p1ComputeAirInterfaceNames/1.0.0/readme.md)
-- [ComputeAirInterfacePhysicalLag](genericFunctions/p1ComputeAirInterfacePhysicalLag/1.0.0/readme.md)
-- [ComputeEthContainerNames](genericFunctions/p1ComputeEthContainerNames/1.0.0/readme.md)
-- [FieldsFilter](genericFunctions/p1FieldsFilter/1.0.0/readme.md)
+- [ComputeAirInterfaceNames](genericFunctions/p1ComputeAirInterfaceNames/1.0.0)
+- [ComputeAirInterfacePhysicalLag](genericFunctions/p1ComputeAirInterfacePhysicalLag/1.0.0)
+- [ComputeEthContainerNames](genericFunctions/p1ComputeEthContainerNames/1.0.0)
+- [FieldsFilter](genericFunctions/p1FieldsFilter/1.0.0)
 
 
 ### Tools  
 
 Tools that help automating the specification work.  
 
-- [CONFIGfile Generator](./tools/configfileGenerator/1.0.0/readme.md)
+- [CONFIGfile Generator](./tools/configfileGenerator/1.0.0)
 
