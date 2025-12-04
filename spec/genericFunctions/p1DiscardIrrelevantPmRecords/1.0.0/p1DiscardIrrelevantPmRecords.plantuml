@@ -1,0 +1,54 @@
+@startuml p1DiscardIrrelevantPmRecords
+skinparam responseMessageBelowArrow true
+
+title
+p1DiscardIrrelevantPmRecords
+end title
+
+participant "requestor\n(e.g. p1LoadRawCc)" as requestor
+participant "p1DiscardIrrelevantPmRecords" as cur #LightCyan
+
+note over requestor
+  Requestor hands over:
+  - required:
+    - a list of historical PM data records
+    - parameters: historicalPmDataGranularitiesToBeKept (regex)
+      - denotes for which granularityPeriods data should be kept
+  - optional:
+    - mostRecentPeriodEndTime: filter timestamp for 15min data
+    - mostRecentPeriodEndTime24: filter timestamp for 24h data
+end note
+
+
+note over cur
+  The function shall discard all records where
+  granularityPeriod mismatches 
+  parameters.historicalPmDataGranularitiesToBeKept,
+  the remaining records are to be filtered according
+  to the input filter timestamps
+end note
+
+requestor -> cur: {historicalPerformanceDataList, [mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], {parameters}}
+activate cur #LightCyan
+
+note over cur
+  Iterate over each record in the historicalPerformanceDataList.
+
+  granularity:
+  - 15min: IF (granularityPeriod) indicates 15-MIN
+  - 24h: IF (granularityPeriod) indicates 24-HOURS
+
+  Discard the current record
+  - IF the granularityPeriod mismatches <i>historicalPmDataGranularitiesToBeKept</i>
+  - ELSE periodEndTime is not newer than:
+    - 15min: mostRecentPeriodEndTime
+    - 24h: mostRecentPeriodEndTime24
+
+  If mostPeriodEndTime or mostPeriodEndTime24 is not
+  provided as an input, all found records of the
+  respective granularity (15min/24h) are treated as newer.
+end note
+
+requestor <-- cur: {filtered historicalPerformanceDataList}
+
+deactivate cur
