@@ -54,15 +54,18 @@ The p1DiscardIrrelevantPmRecords requires the following parameters:
   - they may still be filtered depending on the mostRecentPeriodEndTime input attributes
 
 
-historicalPmDataGranularitiesToBeKept (example pattern for keeping 15min and 24h records)
+historicalPmDataGranularitiesToBeKept:
+- example pattern for keeping 15min and 24h records
+- *callerName* is to be replaced with the service/function calling it the actual application where the function is used 
 
 ```
   - profile-name: 'StringProfile'
     uuid: 'xxx-x-x-x-string-p-???'
     capability:
-      string-name: 'historicalPmDataGranularitiesToBeKept'
+      string-name: 'callerName.historicalPmDataGranularitiesToBeKept'
       purpose: 'Only keep historical PM records, where granularity period matches the pattern'
       pattern: '^[^:]+:GRANULARITY_PERIOD_TYPE_PERIOD-(?:15-MIN|24-HOURS)$'
     configuration:
       string-value: ''
+
 ```
