@@ -14,7 +14,6 @@ x-javascript-interface:
             type: object
             required:
             - historical-performance-data-list
-            - parameters
             properties:
               historical-performance-data-list:
                 type: array
@@ -41,15 +40,12 @@ x-javascript-interface:
               most-recent-period-end-time-24:
                 type: string
                 description: 'The (optional) timestamp for filtering 24h PM records. If not provided a 24h record is treated as newer'
-              parameters:
-                type: object
-                description: 'Parameters to configure this function.'
-                properties:
-                  relevant-granularities:
-                    type: string
-                    description: >
-                      'This parameter is a regex pattern, that indicates which granularity periods are relevant. Filled
-                      from stringProfile parameters.historicalPmDataGranularitiesToBeKept.'
+              granularities-to-be-kept:
+                type: string
+                description: >
+                  'An (optional) regex pattern indicating which data granularities are to be kept (compare against granularity-period attribute values).
+                  If not handed over as input, the following default pattern shall be applied (keep 15min and 24h data):
+                  ^[^:]+:GRANULARITY_PERIOD_TYPE_PERIOD-(?:15-MIN|24-HOURS)$'
     output:
       success:
         description: 'Filtered historicalPerformanceDataList provided'
@@ -64,7 +60,7 @@ x-javascript-interface:
                   type: array
                   description: >
                     'The output historicalPerformanceDataList only contains relevant records; irrelevant records are discarded. A record is considered irrelevant
-                     IF {$input#historical-performance-data-list/granularity-period} does not match the pattern {$input#parameters.relevant-granularities}
+                     IF {$input#historical-performance-data-list/granularity-period} does not match the pattern {$input#granularities-to-be-kept}
 
                      In case the record has the expected granularity, the timestamp filter is applied. Discard the record,
                      - IF ({$input#historical-performance-data-list/granularity-period} indicates 15min) AND ({$input#historical-performance-data-list/granularity-period} is not newer than {$input#most-recent-period-end-time})

@@ -17,18 +17,19 @@ note over requestor
   - optional:
     - mostRecentPeriodEndTime: filter timestamp for 15min data
     - mostRecentPeriodEndTime24: filter timestamp for 24h data
+    - granularitiesToBeKept: indicates which data granularity shall be kept,
+      if not provided a default pattern is used (keep 15min & 24h data)
 end note
 
 
 note over cur
   The function shall discard all records where
-  granularityPeriod mismatches 
-  parameters.historicalPmDataGranularitiesToBeKept,
+  granularityPeriod mismatches granularitiesToBeKept,
   the remaining records are to be filtered according
   to the input filter timestamps
 end note
 
-requestor -> cur: {historicalPerformanceDataList, [mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], {parameters}}
+requestor -> cur: {historicalPerformanceDataList, [mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], [granularitiesToBeKept]}
 activate cur #LightCyan
 
 note over cur
@@ -39,7 +40,7 @@ note over cur
   - 24h: IF (granularityPeriod) indicates 24-HOURS
 
   Discard the current record
-  - IF the granularityPeriod mismatches <i>historicalPmDataGranularitiesToBeKept</i>
+  - IF the granularityPeriod mismatches granularitiesToBeKept
   - ELSE periodEndTime is not newer than:
     - 15min: mostRecentPeriodEndTime
     - 24h: mostRecentPeriodEndTime24
