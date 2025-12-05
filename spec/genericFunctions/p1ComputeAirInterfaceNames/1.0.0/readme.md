@@ -9,7 +9,6 @@ Function inputs are:
 - either a reference to the data structure storing Ltps and LtpAugment information in ONF format
 - or the Ltp and LtpAugment information directly (the format is the same as for the reference option)
 - the uuid for which the lookup shall be executed (it is not verified here, that the LTP is actually an AirInterface, this check has to be carried out on caller side)
-- parameters for configuring the function (currently no configuration required, therefore not used)
 
 **Output:**  
 The function reads the list of LTPs from the input until it finds the input uuid.  

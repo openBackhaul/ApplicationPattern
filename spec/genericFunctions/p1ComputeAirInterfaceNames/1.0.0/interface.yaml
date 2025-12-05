@@ -23,11 +23,6 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the interfaceNames shall be computed'
-                  parameters:
-                    type: object
-                    description: >
-                      'Parameters for configuring this function.
-                      Currently not used.'
               - description: 'LtpStructureAndAugment'
                 type: object
                 properties:
@@ -52,11 +47,6 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the interfaceNames shall be computed'
-                  parameters:
-                    type: object
-                    description: >
-                      'Parameters to configure this function.
-                      Currently not used.'
     output:
       success:
         description: 'AirInterfaceNames provided'

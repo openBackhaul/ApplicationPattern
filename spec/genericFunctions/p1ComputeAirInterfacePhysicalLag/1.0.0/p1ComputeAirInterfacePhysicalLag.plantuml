@@ -18,7 +18,7 @@ note over requestor
     for the input LTP (uuid)
 end note
 
-requestor -> cur: {(_CC | LtpStructureAndAugment), uuid, {parameters}}
+requestor -> cur: {(_CC | LtpStructureAndAugment), uuid}
 activate cur #LightCyan
 
 note over cur

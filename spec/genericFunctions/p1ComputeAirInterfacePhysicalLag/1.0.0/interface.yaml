@@ -23,11 +23,6 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the LAG information shall be computed'
-                  parameters:
-                    type: object
-                    description: >
-                      'Parameters for configuring this function.
-                      Currently not used.'
               - description: 'LtpStructureAndAugment'
                 type: object
                 properties:
@@ -73,11 +68,6 @@ x-javascript-interface:
                   uuid:
                     type: string
                     description: 'The uuid of the target AirInterface, for which the LAG information shall be computed'
-                  parameters:
-                    type: object
-                    description: >
-                      'Parameters for configuring this function.
-                      Currently not used.'
     output:
       success:
         description: 'AirInterface Physical LAG provided'
