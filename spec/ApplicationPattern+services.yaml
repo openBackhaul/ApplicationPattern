@@ -91,7 +91,7 @@ clients:
     elasticsearch-client:
       uuid: xx-1-0-0-es-c-es-1-0-0-000
       index-alias:
-    
+
   - http-client:
       application-name: MongoDB
       release-number: 1.0.0
@@ -101,10 +101,13 @@ clients:
       ip-address: 127.0.0.1
       tcp-port: 27017
       uuid: xx-1-0-0-tcp-c-mdb-1-0-0-000
-    elasticsearch-client:
-      uuid: xx-1-0-0-es-c-mdb-1-0-0-000
+    mongodb-client:
+      uuid: xx-1-0-0-mdb-c-mdb-1-0-0-000
       database-name:
-      collection-name:
+      collection-list:
+        - local-id:
+          collection-name: 
+          purpose:
 
   - http-client:
       application-name: KafkaMessageBus
