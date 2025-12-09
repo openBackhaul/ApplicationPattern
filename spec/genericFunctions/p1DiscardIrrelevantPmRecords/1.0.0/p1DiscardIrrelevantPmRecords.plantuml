@@ -12,24 +12,22 @@ note over requestor
   Requestor hands over:
   - required:
     - a list of historical PM data records
-    - parameters: historicalPmDataGranularitiesToBeKept (regex)
-      - denotes for which granularityPeriods data should be kept
   - optional:
     - mostRecentPeriodEndTime: filter timestamp for 15min data
     - mostRecentPeriodEndTime24: filter timestamp for 24h data
-    - granularitiesToBeKept: indicates which data granularity shall be kept,
+    - relevantGranularities: regex pattern indicating which data granularity shall be kept,
       if not provided a default pattern is used (keep 15min & 24h data)
 end note
 
 
 note over cur
   The function shall discard all records where
-  granularityPeriod mismatches granularitiesToBeKept,
+  granularityPeriod mismatches relevantGranularities,
   the remaining records are to be filtered according
   to the input filter timestamps
 end note
 
-requestor -> cur: {historicalPerformanceDataList, [mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], [granularitiesToBeKept]}
+requestor -> cur: {historicalPerformanceDataList, \n[mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], [relevantGranularities]}
 activate cur #LightCyan
 
 note over cur
@@ -40,7 +38,7 @@ note over cur
   - 24h: IF (granularityPeriod) indicates 24-HOURS
 
   Discard the current record
-  - IF the granularityPeriod mismatches granularitiesToBeKept
+  - IF the granularityPeriod mismatches relevantGranularities
   - ELSE periodEndTime is not newer than:
     - 15min: mostRecentPeriodEndTime
     - 24h: mostRecentPeriodEndTime24

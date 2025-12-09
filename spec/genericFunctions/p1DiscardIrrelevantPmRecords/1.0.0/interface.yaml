@@ -40,7 +40,7 @@ x-javascript-interface:
               most-recent-period-end-time-24:
                 type: string
                 description: 'The (optional) timestamp for filtering 24h PM records. If not provided a 24h record is treated as newer'
-              granularities-to-be-kept:
+              relevant-granularities:
                 type: string
                 description: >
                   'An (optional) regex pattern indicating which data granularities are to be kept (compare against granularity-period attribute values).
@@ -60,7 +60,7 @@ x-javascript-interface:
                   type: array
                   description: >
                     'The output historicalPerformanceDataList only contains relevant records; irrelevant records are discarded. A record is considered irrelevant
-                     IF {$input#historical-performance-data-list/granularity-period} does not match the pattern {$input#granularities-to-be-kept}
+                     IF {$input#historical-performance-data-list/granularity-period} does not match the pattern {$input#relevant-granularities}
 
                      In case the record has the expected granularity, the timestamp filter is applied. Discard the record,
                      - IF ({$input#historical-performance-data-list/granularity-period} indicates 15min) AND ({$input#historical-performance-data-list/granularity-period} is not newer than {$input#most-recent-period-end-time})

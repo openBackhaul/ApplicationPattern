@@ -5,7 +5,7 @@
 The p1DiscardIrrelevantPmRecords function receives a list of historical performance data records as input.  
 It iterates over this list and discards all irrelevant records. The list with the remaining records is returned as output.
 Records are considered irrelevant, if:
-- their granularityPeriod does not match the pattern in granularitiesToBeKept (if this optional parameter is not provided, a default pattern is to be applied, which filters for 15min and 24h data),
+- their granularityPeriod does not match the pattern in *relevantGranularities* (if this optional parameter is not provided, a default pattern is to be applied, which filters for 15min and 24h data),
 - or if their periodEndTime is not newer than the filter timestamp
 
 **Inputs:**  
@@ -15,17 +15,17 @@ Required inputs are:
 Optional inputs are:
 - *mostRecentPeriodEndTime*: if 15min records are denoted as relevant, they shall be filtered using this timestamp
 - *mostRecentPeriodEndTime24*: if 24min records are denoted as relevant, they shall be filtered using this timestamp
-- *granularitiesToBeKept*: indicates for which granularities data shall be kept, default is 15min and 24h
+- *relevantGranularities*: indicates for which granularities data shall be kept, default is 15min and 24h
+
 
 **Processing:**  
 The function iterates over all records in the historicalPmDataList and discards them, if:
-- the are irrelevant according to *granularitiesToBeKept*
+- the are irrelevant according to *relevantGranularities*
 - or else if they are relevant in general, but are not newer than the timestamp filter (*mostPeriodEndTime/mostPeriodEndTime24*)
   - if for the respective granularity no timestamp filter is provided as input, all records for that granularity are treated as newer (i.e. not discarded)
 
 Note that, filtering is independent from the provided interface type (e.g. AirInterfaces and EthernetContainers are treated the same), as the filtering
 is only applied on the complete PM record, not on attribute level.  
-Also note that the function does not receive or return a reference to the input/output data, but actual data objects.  
 
 
 ### Diagram  
