@@ -42,10 +42,14 @@ x-javascript-interface:
                 description: 'The (optional) timestamp for filtering 24h PM records. If not provided a 24h record is treated as newer'
               relevant-granularities:
                 type: string
+                enum:
+                  - ':GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN$'
+                  - ':GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS$'
+                  - ':GRANULARITY_PERIOD_TYPE_PERIOD-(?:15-MIN|24-HOURS)$'
                 description: >
                   'An (optional) regex pattern indicating which data granularities are to be kept (compare against granularity-period attribute values).
                   If not handed over as input, the following default pattern shall be applied (keep 15min and 24h data):
-                  ^[^:]+:GRANULARITY_PERIOD_TYPE_PERIOD-(?:15-MIN|24-HOURS)$'
+                  :GRANULARITY_PERIOD_TYPE_PERIOD-(?:15-MIN|24-HOURS)$'
     output:
       success:
         description: 'Filtered historicalPerformanceDataList provided'

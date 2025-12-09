@@ -27,7 +27,7 @@ note over cur
   to the input filter timestamps
 end note
 
-requestor -> cur: {historicalPerformanceDataList, \n[mostRecentPeriodEndTime], [mostRecentPeriodEndTime24], [relevantGranularities]}
+requestor -> cur: {[historicalPerformanceDataList],\nmostRecentPeriodEndTime,\nmostRecentPeriodEndTime24,\nrelevantGranularities}
 activate cur #LightCyan
 
 note over cur
@@ -48,6 +48,6 @@ note over cur
   respective granularity (15min/24h) are treated as newer.
 end note
 
-requestor <-- cur: {filtered historicalPerformanceDataList}
+requestor <-- cur: {[filtered historicalPerformanceDataList]}
 
 deactivate cur
