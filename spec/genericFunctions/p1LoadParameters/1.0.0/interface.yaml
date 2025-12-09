@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: p1LoadParameters
+  version: 1.0.0
+
+x-javascript-interface:
+  p1LoadParameters:
+    summary: 'Loads the parameters of the defined Function (input) and its sub-Functions from the configFile and returns them in the internal parameters format.'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - function-name
+            properties:
+              function-name:
+                type: string
+                description: 'Name of the Function whose parameters are to be loaded from the configFile'
+    output:
+      success:
+        description: 'Parameters successfully loaded'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - parameters
+                - config-file
+              properties:
+                parameters:
+                  description: >
+                    'search for uuid = [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/uuid]
+                    with [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/function-name] == {$input#/function-name}
+                    and start applying the following recursive schema'
+                  $ref: '#/components/schemas/parameters-schema'
+                config-file:
+                  type: object
+                  description: 'configFile content'
+      error:
+        description: 'Parameters could not be loaded'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'configFile not found or not accessible'
+                - 'configFile is not valid JSON'
+                - 'configFile does not conform to the expected schema'
+                - 'functionName not found in configFile'
+                - 'unknown error occurred'
+    processing:
+      description: 'No requests or calls to other Functions'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'
+
+components:
+  schemas:
+    parameters-schema:
+      type: object
+      required:
+        - function-name
+        - description
+        - is-active
+        - parameter
+        - sub-function
+      properties:
+        function-name:
+          type: string
+          description: >
+            'operationId (from the OAS) as a unique and invariant identifier of the module
+            from [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/function-name]'
+        description:
+          type: string
+          description: >
+            'Human readable description of the Function
+            from [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/function-description]'
+        is-active:
+          type: boolean
+          description: >
+            'true = the Function shall be executed
+            from [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-configuration/is-active]'
+        parameter:
+          type: array
+          x-key: parameter-name
+          description: >
+            'List of Parameters of the Function
+            _StringProfile=[configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/parameter-list=*/parameter]'
+          items:
+            type: object
+            required:
+              - parameter-name
+              - purpose
+              - owner
+              - value
+            properties:
+              parameter-name:
+                type: string
+                description: >
+                  'Locally unique and invariant name of the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=_StringProfile/string-profile-1-0:string-profile-pac/string-profile-capability/string-name]'
+              purpose:
+                type: string
+                description: >
+                  'Invariant description of the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=_StringProfile/string-profile-1-0:string-profile-pac/string-profile-capability/purpose]'
+              owner:
+                type: string
+                description: >
+                  'Owner of the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/parameter-list=*/owner]'
+                enum:
+                  - platform
+                  - engineering
+                  - user
+              value:
+                type: string
+                description: >
+                  'Configurable value of the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=_StringProfile/string-profile-1-0:string-profile-pac/string-profile-configuration/string-value]'
+              enumeration:
+                type: array
+                description: >
+                  'Optional: List of valid values for the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=_StringProfile/string-profile-1-0:string-profile-pac/string-profile-capability/enumeration]'
+                items:
+                  type: string
+              pattern:
+                type: string
+                description: >
+                  'Optional: Regular expression defining valid values of the parameter
+                  from [configFile://core-model-1-4:control-construct/profile-collection/profile=_StringProfile/string-profile-1-0:string-profile-pac/string-profile-capability/pattern]'
+        sub-function:
+          type: array
+          x-key: function-name
+          description: 'List of sub-Functions incl. their parameter settings'
+          items:
+            description: >
+              'take next uuid from [configFile://core-model-1-4:control-construct/profile-collection/profile=uuid/function-profile-1-0:function-profile-pac/function-profile-capability/sub-function-list]
+              and again apply the same recursive schema'
+            $ref: '#/components/schemas/parameters-schema'
