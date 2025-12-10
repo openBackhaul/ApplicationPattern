@@ -9,7 +9,7 @@ There integration of applications into the API Gateway comprises two distinct pr
 
 1. Publishing (and managing) an Application:
 * Responsibility: Application Owner
-* Where it happens: **Publisher Portal**
+* Where it happens: **Publisher Portal** 
 * Full documentation and instructions: TEF Internal Link 1
 
 2. Subscribing to an Application
@@ -21,20 +21,6 @@ There integration of applications into the API Gateway comprises two distinct pr
  ### Purpose
 
 To securely expose APIs across the Telefónica organization, a reliable and centralized platform is essential. Telefónica uses the WSO2 API-Manager. The API Gateway fulfills this need by providing a unified environment to publish, manage, secure, and monitor APIs throughout their lifecycle. It is designed for any Telefónica team or application that needs to expose REST APIs to internal or external consumers.
-
-### MW-SDN Application Group on TEF's API-Gateway
-
-On the API Gateway, the Microwave SDN domain has been assigned the Application-Group identifier (U-Number) U-1792. Application Owners will publish their applications under this application group.
-
-The Application-Group U-1792 has two roles: Publisher and Subscriber, each with a corresponding credential pairs Client ID and Client Secret:
-
-* Publisher credentials will be needed to publish applications ('Import API @ Gateway' Service).
-
-* Subscriber credentials will be used to obtain user authentication when subscribing to APIs.
-
-If you wish to obtain these credentials, please write an eMail to : ana.cabello-barrera@telefonica.com
-
-Remark: In addition to the Client ID and Client Secret credentials associated with the U-1792 Group, individual user credentials are required to access the Publisher and Developer Portals.
 
  ### Environments
 
@@ -60,6 +46,22 @@ The following table displays the **current** mapping between API Gateway environ
 | E2E1                     | MW-SDN TestLab     | [Publisher Portal](#) | [DevPortal](#)      |
 | E2E2 (_Currently not in use_)|   _NONE_       | [Publisher Portal](#) | [DevPortal](#)      |
 | PROD                     | MW-SDN Production  | [Publisher Portal](#) | [DevPortal](#)      |
+
+
+### MW-SDN Application Group on TEF's API-Gateway
+
+On the API Gateway, the Microwave SDN domain has been assigned the "Application-Group identifier" (U-Number) U-1792. Application Owners will publish their applications under this application group.
+
+The Application-Group U-1792 has two assigned roles (Publisher and Subscriber), each with a corresponding pair of credentials "Client-Name" and "Client-Secret":
+
+* Publisher credentials will be needed to publish applications ('Import API @ Gateway' Service).
+
+* Subscriber credentials will be used to obtain user authentication when subscribing to APIs.
+
+If you wish to obtain these credentials, please write an eMail to : ana.cabello-barrera@telefonica.com
+
+Remark: In addition to the Client ID and Client Secret credentials associated with the U-1792 Group, individual user credentials are required to access the Publisher and Developer Portals.
+
 
 
 ### User Onboard
@@ -101,7 +103,7 @@ User access deactivation and removal is managed through IDAM for secure and cons
   [User Offboarding](https://confluence.telefonica.de/spaces/AG/pages/990569399/NEW+-+Application+and+User+onboarding+and+offboarding+in+API+Gateway#NEWApplicationandUseronboardingandoffboardinginAPIGateway-UseroffboardinginSailpoint) .
 
 
-### OAS Requirements and Guidelines
+### OpenAPI Specification (OAS) Requirements and Guidelines
 Once an application is published in the API Gateway, subscribers can view and test the application in the DevPortal using the Swagger UI. This interface provides the URLs and displays all available API paths and resources that can be consumed.
 
 The Application Owner (API Publisher) is responsible for publishing the API by uploading, among other things, an OpenAPI Specification (OAS) file. This OAS file defines the Swagger documentation visible to subscribers.
@@ -109,10 +111,27 @@ The Application Owner (API Publisher) is responsible for publishing the API by u
 The OAS to be uploaded towards the API-GW via 'import-API' must comply with specific requirements. Typically, it is created by making a few adjustments to the original OAS produced by the Application Owner, which followwed the structure defined in the Application Pattern of OpenBackhaul.
 
 Guidelines:
+* The OAS must include an info section. This section contains the metadata that describes the API as a product. It does not define servers, endpoints, or technical behaviors; instead, it provides descriptive information that helps users understand what the API is, who owns it, and which version it represents. The minimum required structure is:
 
-* The OAS must be in .json format.  (Conversion from .yaml to .json can be easily done with [online converter](https://onlineyamltools.com/convert-yaml-to-json))
-* The OAS must contain an 
-*
+>>
+    info:
+      title: <API name>
+      description: <Explanation of the API’s purpose>
+      contact:
+        name: <Responsible person or team>
+        email: <Contact email>
+      version: <API version>
+>>
+
+* The OAS must be uploaded in .json format.  (Conversion from .yaml to .json can be easily done,  e.g. with [online converter](https://onlineyamltools.com/convert-yaml-to-json))
+* The OAS must include only those resource and service paths that are intended to be publicly exposed. All BasicServices, OAM-paths and any internal services meant solely for consumption by the application itself must be removed from the OAS.
+* Resource and service paths must not include version numbers. Instead, versioning must be applied at the endpoint base URL level.
+  IN MW-SDN : https://mw-sdn-domain-name:PORT**/v1/provide-device-configuration**
+
+  IN THE API-GW : https://mw-sdn-domain-name:PORT/v1/**provide-device-configuration**
+
+  To support multiple API versions in parallel, each version must have its own separate OAS document and be uploaded and published as separate instances. Each OAS file will reference the corresponding versioned base path of the same backend application.
+* The security configuration must be updated to use OAuth. The required scopes must then be assigned either individually to each protected path or defined globally to apply to all operations.
 
 ### Configuration-file Requirements and Guidelines
 
