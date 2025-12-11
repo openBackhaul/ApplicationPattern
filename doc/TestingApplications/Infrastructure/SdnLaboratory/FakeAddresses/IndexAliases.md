@@ -20,6 +20,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | MPM | ManagementPlaneManager | 1.0.0 | 14
 |  | MWDIR | MicroWaveDeviceInventory Replica<br>for DevicePerformanceManagementDataProcessor | 1.0.0 | 15
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 16
+|  | NEP | NetExplorerProxy | 1.2.0 | 17
 
 # Historical Fake Index Aliases  
 
