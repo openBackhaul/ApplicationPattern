@@ -48,7 +48,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MDIP | MultiDomainInventoryProxy | 1.0.0 | 127.0.0.1 | 4016 | 1.2.4.16 | 4216
 |  | AIPS | AirInterfacePowerSaver  | 0.0.9 | 127.0.0.1 | 4017
 |  | NEP | NetExplorerProxy  | 1.0.0 | 127.0.0.1 | 4018
-|  | NDLP | NetworkDataLakeProxy  | 1.0.0 | 127.0.0.1 | 4019
+|  | NDLP | NetworkDataLakeProxy  | 1.1.0 | 127.0.0.1 | 4019
 |  | APTP | AccessPlanningToolProxy  | 1.1.0 | 127.0.0.1 | 4020
 |  | CP | ConnectionPreparation  | 1.0.0 | 127.0.0.1 | 4021
 |  | CP | ConnectionPreparation  | 1.1.0 | 127.0.0.1 | 4022
@@ -61,6 +61,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MPM | ManagementPlaneManager | 1.0.0 | 127.0.0.1 | 4029
 |  | MWDD | MicroWaveDomainDictionary | 1.0.0 | 127.0.0.1 | 4030
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 127.0.0.1 | 4031
+|  | NEP | NetExplorerProxy  | 1.2.0 | 127.0.0.1 | 4032
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
