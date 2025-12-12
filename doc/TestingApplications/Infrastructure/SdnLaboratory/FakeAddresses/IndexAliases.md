@@ -19,8 +19,11 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | DDM | DeviceDomainManager | 1.0.0 | 13
 |  | MPM | ManagementPlaneManager | 1.0.0 | 14
 |  | MWDIR | MicroWaveDeviceInventory Replica<br>for DevicePerformanceManagementDataProcessor | 1.0.0 | 15
-|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 16
 |  | NEP | NetExplorerProxy | 1.2.0 | 17
+|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 
+|  | DPMDP | Replica | 1.0.0 | 18
+|  | DPMDP | Logging | 1.0.0 | 19
+|  | DPMDP | DataStore | 1.0.0 | 20
 
 # Historical Fake Index Aliases  
 
