@@ -22,7 +22,6 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | NEP | NetExplorerProxy | 1.2.0 | 17
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 
 |  |  |    Replica | | 18
-|  |  |    SynchState | | 19
 |  |  |    Logging | | 20
 |  |  |    DataStore | | 21
 
