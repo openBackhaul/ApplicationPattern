@@ -1,0 +1,19 @@
+@startuml p1ResolveEsAddress
+skinparam responseMessageBelowArrow true
+
+title
+  p1ResolveEsAddress
+end title
+
+participant "p1StreamPmData\n" as p1RMWDI
+participant "p1ResolveEsAddress\n" as p1REA #LightCyan
+
+  p1RMWDI -> p1REA : {esName,\n{parameters},\n{configFile}}
+  activate p1REA #LightCyan
+    note over p1REA
+      Resolve ES address
+    end note
+  p1RMWDI <-- p1REA : {{esAddress}}
+  deactivate p1REA
+
+@enduml

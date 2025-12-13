@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: p1ResolveEsAddress
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ResolveEsAddress:
+    summary: 'Resolves ElasticSearch address'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - es-name
+              - parameters
+              - config-file
+            properties:
+              es-name:
+                type: string
+                description: >
+                  'ElasticSearch name'
+              parameters:
+                type: object
+                description: >
+                  'Hierarchical object holding the parameter settings'
+              config-file:
+                type: object
+                description: >
+                  'configFile content'
+    output:
+      success:
+        description: 'ES address successfully resolved'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - es-address
+              properties:
+                es-address:
+                  type: object
+                  description: 'ElasticSearch address composed from input parameters and config-file'
+                  required:
+                    - url
+                    - api-key
+                    - index-alias
+                    - service-records-policy
+                    - operational-state
+                    - life-cycle-state
+                  properties:
+                    url:
+                      type: string
+                      description: > 
+                        'ElasticSearch URL
+                        from [/resolve-es-address/tcp-client/logical-termination-point/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/resolve-es-address/tcp-client/logical-termination-point/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /resolve-es-address/tcp-client/logical-termination-point/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/resolve-es-address/tcp-client/logical-termination-point/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    api-key:
+                      type: string
+                      description: >
+                        'ElasticSearch API key
+                        from [/resolve-es-address/es-client/logical-termination-point/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/auth/api-key]'
+                    index-alias:
+                      type: string
+                      description: >
+                        'ElasticSearch index alias
+                        from [/resolve-es-address/es-client/logical-termination-point/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/index-alias]'
+                    service-records-policy:
+                      type: string
+                      description: >
+                        'Service records policy
+                        from [/resolve-es-address/es-client/logical-termination-point/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-configuration/service-records-policy]'
+                    operational-state:
+                      type: string
+                      description: >
+                        'Operational state
+                        from [/resolve-es-address/es-client/logical-termination-point/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/operational-state]'
+                    life-cycle-state:
+                      type: string
+                      description: >
+                        'Life cycle state
+                        from [/resolve-es-address/es-client/logical-termination-point/layer-protocol=0/elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac/elasticsearch-client-interface-status/life-cycle-state]'
+      error:
+        description: 'ES address could not be resolved'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+              - 'es-name not found in parameters'
+              - 'es-client-uuid could not be resolved'
+              - 'es-client LTP could not be found in config-file'
+              - 'http-client-uuid could not be resolved'
+              - 'http-client LTP could not be found in config-file'
+              - 'tcp-client-uuid could not be resolved'
+              - 'tcp-client LTP could not be found in config-file'
+              - 'url could not be resolved'
+              - 'api-key could not be resolved'
+              - 'index-alias could not be resolved'
+              - 'service-records-policy could not be resolved'
+              - 'operational-state could not be resolved'
+              - 'life-cycle-state could not be resolved'
+              - 'unknown error occurred'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

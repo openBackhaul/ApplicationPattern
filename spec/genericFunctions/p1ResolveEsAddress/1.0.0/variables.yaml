@@ -1,0 +1,53 @@
+resolve-es-address:
+  type: object
+  required:
+    - es-name
+    - parameters
+    - config-file
+  properties:
+    es-name:
+      type: string
+      description: >
+        'ElasticSearch name
+        from {$input#/es-name}'
+    parameters:
+      type: object
+      description: >
+        'Hierarchical object holding the parameter settings
+        from {$input#/parameters}'
+    config-file:
+      type: object
+      description: >
+        'configFile content
+        from {$input#/config-file}'
+    es-client-uuid:
+      type: string
+      description: >
+        'ElasticSearch client UUID
+        find [/resolve-es-address/parameters/parameter=*/parameter-name]==[resolve-es-address/es-name]
+        from [/resolve-es-address/parameters/parameter=*/value]'
+    es-client:
+      type: object
+      description: >
+        'ElasticSearch client LTP object
+        from [/resolve-es-address/config-file/core-model-1-4:control-construct/logical-termination-point=es-client-uuid]'
+    http-client-uuid:
+      type: string
+      description: >
+        'HTTP client UUID
+        from [/resolve-es-address/es-client/logical-termination-point/server-ltp[0]]'
+    http-client:
+      type: object
+      description: >
+        'HTTP client LTP object
+        from [/resolve-es-address/config-file/core-model-1-4:control-construct/logical-termination-point=http-client-uuid]'
+    tcp-client-uuid:
+      type: string
+      description: >
+        'TCP client UUID
+        from [/resolve-es-address/http-client/logical-termination-point/server-ltp[0]]'
+    tcp-client:
+      type: object
+      description: >
+        'TCP client LTP object
+        from [/resolve-es-address/config-file/core-model-1-4:control-construct/logical-termination-point=tcp-client-uuid]'
