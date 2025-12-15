@@ -1,0 +1,35 @@
+@startuml deletefromDatabaseAsync
+skinparam responseMessageBelowArrow true
+
+title
+deletefromDatabaseAsync – Delete flow
+end title
+
+participant "requestor" as requestor
+participant "deletefromDatabaseAsync" as fo #LightCyan
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+     OAM path.
+end note
+
+requestor -> fo: (oamPath)
+activate fo
+
+note over fo
+  <u>Steps</u>
+  - Load JSON from config.json  
+  - Parse OAM path  
+  - Locate target attribute  
+  - Delete attribute or list item  
+  - Save updated JSON
+end note
+
+fo -> cfg: load JSON
+cfg --> fo: jsonData
+
+fo -> cfg: save updated JSON
+cfg --> fo: writeComplete
+
+fo --> requestor: true (deleted)
+deactivate fo

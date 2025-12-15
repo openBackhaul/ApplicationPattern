@@ -40,8 +40,10 @@ NA
 
 ### Diagram  
 
-<YTD> 
-
+<p align="center">
+  <img src="./diagrams/getProfileListForProfileNameAsync.png" alt="getProfileListForProfileNameAsync diagram" 
+  width="400" />
+</p> 
 
 ### NPM Module  
 

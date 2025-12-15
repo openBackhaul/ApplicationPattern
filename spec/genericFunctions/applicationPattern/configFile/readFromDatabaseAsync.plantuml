@@ -1,0 +1,32 @@
+@startuml
+skinparam responseMessageBelowArrow true
+
+title
+readFromDatabaseAsync – Read flow
+end title
+
+participant "requestor" as requestor
+participant "readFromDatabaseAsync" as fo #LightCyan
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+   OAM path.
+end note
+
+requestor -> fo: (oamPath)
+activate fo
+
+note over fo
+  <u>Steps</u>
+  - Load JSON object from config.json
+  - Parse OAM path into keys
+  - Traverse ONF structure using keys
+  - Retrieve final value
+end note
+
+fo -> cfg: load JSON object
+cfg --> fo: jsonData
+
+fo --> requestor: resolvedValue
+deactivate fo
+@enduml

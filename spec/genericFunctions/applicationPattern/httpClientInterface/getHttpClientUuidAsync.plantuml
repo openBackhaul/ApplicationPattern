@@ -1,0 +1,39 @@
+@startuml getHttpClientUuidAsync
+skinparam responseMessageBelowArrow true
+
+title
+getHttpClientUuidAsync – Retrieve HTTP Client UUID
+end title
+
+participant "requestor" as requestor
+participant "HTTP Client Interface" as hci #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+     - applicationName
+     - releaseNumber(optional)
+end note
+
+requestor -> hci: (applicationName, releaseNumber)
+activate hci
+
+hci -> jd: read logicalTerminationPoint 
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> hci: HTTP client List
+deactivate jd
+
+note over hci
+  <u>Processing</u>
+  - Compare application-name and release-number (if provided)  
+  - Return matching HTTP client UUID if found  
+  - Return undefined if no match exists
+end note
+
+hci --> requestor: httpClientUuid | undefined
+deactivate hci
+
+@enduml

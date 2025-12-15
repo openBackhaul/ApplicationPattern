@@ -1,0 +1,45 @@
+@startuml getTcpClientConnectionInfoAsync
+skinparam responseMessageBelowArrow true
+
+title
+getTcpClientConnectionInfoAsync – Retrieve TCP Client Connection Info
+end title
+
+participant "requestor" as requestor
+participant "TCP Client interface" as tcr #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  - operationClientUuid
+end note
+
+requestor -> tcr: (operationClientUuid)
+activate tcr
+
+tcr -> jd: read logical-termination-points
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> tcr: LTP lists (operation-client, http-client, tcp-client)
+deactivate jd
+
+note over tcr
+  <u>Processing</u>
+  - Resolve HTTP client UUID from operation-client UUID  
+  - Resolve TCP client UUID from HTTP client UUID  
+  - Read TCP client attributes:
+      * protocol  
+      * ip-address  
+      * port  
+  - Construct full connection URL  
+    (e.g., protocol://ip:port)  
+  - Return connection URL  
+  - Return undefined if resolution fails
+end note
+
+tcr --> requestor: fullConnectionUrl | undefined
+deactivate tcr
+
+@enduml

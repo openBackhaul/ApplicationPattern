@@ -1,0 +1,39 @@
+@startuml getForwardingConstructAsync
+skinparam responseMessageBelowArrow true
+
+title
+getForwardingConstructAsync – Retrieve Forwarding-Construct by UUID
+end title
+
+participant "requestor" as requestor
+participant "ForwardingDomain" as fdRes #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  - forwardingConstructUuid
+end note
+
+requestor -> fdRes: (forwardingConstructUuid)
+activate fdRes
+
+fdRes -> jd: read forwarding-domain list
+activate jd
+
+jd <-> cfg: retrieve control-construct
+jd --> fdRes: list of forwarding-constructs
+deactivate jd
+
+note over fdRes
+  <u>Processing</u>
+  - Iterate through forwarding-constructs
+  - Match each forwarding-construct's UUID 
+    with input forwardingConstructUuid
+  - Return forwarding-construct object if match found
+  - Return undefined if no match exists
+end note
+
+fdRes --> requestor: forwardingConstruct | undefined
+deactivate fdRes
+
+@enduml

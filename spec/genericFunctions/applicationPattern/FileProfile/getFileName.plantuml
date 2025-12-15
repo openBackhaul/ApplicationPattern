@@ -1,0 +1,40 @@
+@startuml getFileName
+skinparam responseMessageBelowArrow true
+
+title
+getFileName – Retrieve File Name
+end title
+
+participant "requestor" as requestor
+participant "FileProfile" as fp #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+   FileProfile UUID
+end note
+
+requestor -> fp: (profileUuid)
+activate fp
+
+fp -> jd: read profile-collection
+activate jd
+
+jd <-> cfg: read & return complete control-construct
+
+jd --> fp: Profile-list
+deactivate jd
+
+note over fp
+  <u>Processing</u>
+  - Extract profile list  
+  - Identify FileProfile entries  
+  - Match profileUuid  
+  - Read file-name attribute  
+  - Prepare response
+end note
+
+fp --> requestor: fileName | undefined
+deactivate fp
+
+@enduml

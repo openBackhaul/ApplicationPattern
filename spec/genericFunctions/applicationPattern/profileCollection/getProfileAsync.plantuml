@@ -1,0 +1,41 @@
+@startuml GetProfileAsync
+skinparam responseMessageBelowArrow true
+
+title
+GetProfileAsync – Retrieve Profile by UUID
+end title
+
+participant "requestor" as requestor
+participant "Profile" as prof #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+    profile UUID
+end note
+
+requestor -> prof: (profileUuid)
+activate prof
+
+prof -> jd: read profile-collection
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> prof: profile-collection
+deactivate jd
+
+note over prof
+  <u>Processing</u>
+  - Load profiles from ProfileCollection  
+  - Parse the profile list  
+  - Find profile where UUID matches profileUuid  
+  - Return profile object if found  
+  - Return undefined if not found
+  
+end note
+
+prof --> requestor: Profile Object | undefined
+deactivate prof
+
+@enduml
