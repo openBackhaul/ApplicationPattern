@@ -1,4 +1,4 @@
-# getFileIdentifier  
+# GetFileIdentifier  
 
 
 ### Overview  
@@ -7,7 +7,7 @@ Retrieves the file identifier associated with a FileProfile.
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve attributes of a file profile such as file identifier for a particular FileProfile UUID this function will be used,
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve attributes of a file profile such as **file identifier** for a particular FileProfile UUID this function will be used,
 
 
 This function reads the FileProfile identified by the given UUID and returns its configured file-identifier value.

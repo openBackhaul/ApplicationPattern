@@ -8,7 +8,7 @@ Retrieves profiles that match the given profileNameType.
 
 ### Description  
 
-core-model-1-4:control-construct/profile-collection holds all the profile. To retrieve the list of profiles belong to a particular profileNameType , this function shall be used.
+core-model-1-4:control-construct/profile-collection holds all the profile. To retrieve the list of profiles belong to a particular **profileNameType** , this function shall be used.
 
 **Module:**  
 applicationPattern/onfModel/models/ProfileCollection.js

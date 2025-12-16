@@ -1,4 +1,4 @@
-# getFcPortAsync  
+# GetFcPortAsync  
 
 
 ### Overview  
@@ -8,14 +8,18 @@ Retrieves an fc-port instance that matches the given localId from its forwarding
 
 ### Description  
 
-Each forwarding-construct contains a list of fc-port entries identified by a local-id.
+### Description
 
-This function reads the forwarding-construct under:
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port
+Each **forwarding-construct** contains a list of **fc-port** entries identified by a **local-id**.
 
-Retrieves a specific FcPort instance that matches the given localId from the forwarding-construct identified by its UUID.
+This function reads the forwarding-construct under:  
+**`core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port`**
 
-If no matching fc-port is found, the function returns undefined.
+It retrieves a **specific FcPort instance** that matches the given **localId**
+from the forwarding-construct identified by its **UUID**.
+
+If **no matching fc-port** is found, the function returns **`undefined`**.
+
 
 **Module:**  
 applicationPattern/onfModel/models/ForwardingConstruct.js

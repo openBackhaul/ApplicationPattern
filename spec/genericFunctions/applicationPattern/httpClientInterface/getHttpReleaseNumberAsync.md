@@ -1,4 +1,4 @@
-# getReleaseNumberAsync  
+# GetReleaseNumberAsync  
 
 
 ### Overview  
@@ -11,8 +11,7 @@ Retrieves the release number of an HTTP client application.
 This function retrieves the  release-number configured for a specific HTTP client interface.
 
 It locates the HTTP client Logical Termination Point (LTP) using the provided httpClientUuid, then accesses the
-http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number
-attribute.
+**http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number attribute.**
 
 If the HTTP client interface or the application name attribute is not present, the function returns undefined.
 

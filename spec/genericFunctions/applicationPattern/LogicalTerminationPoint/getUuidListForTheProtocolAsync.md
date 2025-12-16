@@ -1,4 +1,4 @@
-# getUuidListForTheProtocolAsync  
+# GetUuidListForTheProtocolAsync  
 
 
 ### Overview  
@@ -7,9 +7,9 @@ Returns the list of LTP UUIDs that contain a specific LayerProtocol type.
 
 ### Description  
 
-core-model-1-4:control-construct/logical-termination-point holds all logical termination points (LTPs) 
+**core-model-1-4:control-construct/logical-termination-point** holds all logical termination points (LTPs) 
 
-This function scans all logical termination points under the control construct and returns the UUIDs of those whose layer-protocol-name matches the provided value.
+This function scans all logical termination points under the control construct and returns the UUIDs of those whose **layer-protocol-name** matches the provided value.
 
 It is useful for identifying all LTPs that implement a specific protocol layer (e.g., TCP client, HTTP server).
 

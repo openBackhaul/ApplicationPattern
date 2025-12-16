@@ -1,4 +1,4 @@
-# getProfileCollectionAsync  
+# GetProfileCollectionAsync  
 
 
 ### Overview  
@@ -6,21 +6,19 @@ Retrieves the complete profile-collection object from the control-construct.
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection  holds all ONF profiles, including:
 
-ActionProfile
+`core-model-1-4:control-construct/profile-collection` holds all ONF profile
+instances, including:
 
-FileProfile
+- **ActionProfile**
+- **FileProfile**
+- **IntegerProfile**
+- **StringProfile**
+- **ResponseProfile**
+- Other supported profile types
 
-IntegerProfile
-
-StringProfile
-
-ResponseProfile
-
-Other profile types
-
-This function returns the full profile-collection object without modification or filtering.
+This function returns the **entire profile-collection object** exactly as stored,
+without any modification or filtering.
 
 **Module:**  
 applicationPattern/onfModel/models/ControlConstruct.js

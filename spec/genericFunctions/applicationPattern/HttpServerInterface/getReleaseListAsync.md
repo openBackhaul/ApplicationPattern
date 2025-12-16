@@ -1,4 +1,4 @@
-# getReleaseNumberAsync  
+# GetReleaseNumberAsync  
 
 
 ### Overview  
@@ -10,20 +10,19 @@ Retrieves all release history entries for the HTTP server application.
 
 The release history is stored under:
 
+```text
 core-model-1-4:control-construct/logical-termination-point/layer-protocol/
   http-server-interface-1-0:http-server-interface-pac/
     http-server-interface-capability/
       release-list
+```
 
-
-This function reads the release-list array from the HTTP server capability
+This function reads the **release-list array** from the HTTP server capability
 and returns a cleaned list of release entries.
 
 For each release entry:
 
 release-number, release-date, and changes are preserved
-
-
 If no release list is configured, the function returns an empty array.
 
 **Module:**  

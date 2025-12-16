@@ -1,5 +1,4 @@
-# getFcPortListAsync  
-
+# GetFcPortListAsync  
 
 ### Overview  
 
@@ -9,12 +8,12 @@ Returns the complete list of fc-ports for a forwarding-construct.
 ### Description  
 
 
-Each forwarding-construct contains a list of fc-port entries identified by a local-id.
+Each **forwarding-construct** contains a list of **fc-port** entries identified by a **local-id**.
 
-This function reads the forwarding-construct under:
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port
+This function reads the forwarding-construct under:  
+**`core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port`**
 
-This function retrieves all fc-port entries without filtering by direction.
+It retrieves **all fc-port entries** without filtering by **port direction**.
 
 **Module:**  
 applicationPattern/onfModel/models/ForwardingConstruct.js

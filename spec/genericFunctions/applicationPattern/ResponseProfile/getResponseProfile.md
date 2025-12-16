@@ -1,4 +1,4 @@
-# getResponseProfile  
+# GetResponseProfile  
 
 
 ### Overview  
@@ -7,7 +7,8 @@ Retrieves the complete ResponseProfile configuration and capability for a given 
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the full ResponseProfile object for a given profileUuid that belongs to a particular profileNameType, this function shall be used. It returns the complete capability and configuration, including operationName, fieldName, description, datatype, and value.
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the full **ResponseProfile object** for a given **profileUuid** that belongs to a particular profileNameType, 
+This function shall be used. It returns the complete capability and configuration, including operationName, fieldName, description, datatype, and value.
 
 **Module:**  
 applicationPattern/onfModel/models/profile/ResponseProfile.js

@@ -1,4 +1,4 @@
-# getOperationNameAsync  
+# GetOperationNameAsync  
 
 
 ### Overview  
@@ -14,15 +14,16 @@ operation-client-interface.
 The configured operation name is stored inside the operation-client
 interface configuration under:
 
+```text
 /core-model-1-4:control-construct
   /logical-termination-point
     /layer-protocol
       /operation-client-interface-1-0:operation-client-interface-pac
         /operation-client-interface-configuration
           /operation-name
+```
 
-
-This function reads the operation-client LTP identified by the provided UUID,
+This function reads the **operation-client** LTP identified by the provided UUID,
 extracts the configured operation-name, and returns it.
 
 If the operation name is not configured or the LTP does not exist,

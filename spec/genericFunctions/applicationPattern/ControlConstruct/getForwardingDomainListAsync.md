@@ -1,4 +1,4 @@
-# getForwardingDomainListAsync  
+# GetForwardingDomainListAsync  
 
 
 ### Overview  
@@ -6,10 +6,13 @@
 Retrieves the complete list of forwarding-domain entries configured in the control-construct.
 
 
-### Description  
-core-model-1-4:control-construct/forwarding-domain holds all forwarding-domain instances.
+### Description 
 
-This function returns the forwarding-domain list entries from the core-model-1-4:control-construct
+The `core-model-1-4:control-construct/forwarding-domain` container holds all
+**forwarding-domain** instances defined in the ONF core-model.
+
+This function retrieves and returns the list of **forwarding-domain** entries
+from the `core-model-1-4:control-construct`.
 
 **Module:**  
 applicationPattern/onfModel/models/ControlConstruct.js

@@ -1,18 +1,19 @@
-# getLayerProtocolName  
+# GetLayerProtocolName  
 
 
 ### Overview  
 
-Retrieves the layer-protocol name for a given logical termination point UUID.
+Retrieves the **layer-protocol name** for a given logical termination point UUID.
 
 
 ### Description  
-Logical termination points store one or more layer-protocol entries under:
+Logical termination points store one or more **layer-protocol** entries under:
 
+```text
 core-model-1-4:control-construct
  └─ logical-termination-point
     └─ layer-protocol
-
+```
 
 This function reads the layer-protocol list of the specified LTP and returns the corresponding layer-protocol-name.
 
@@ -45,25 +46,6 @@ applicationPattern/onfModel/models/LayerProtocol.js
         HTTP_SERVER: "http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
         TCP_SERVER: "tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER"
     
-
-
-
-#### Layer protocol names are defined below 
-
-Description
-
-Defines all supported ONF LayerProtocol types used to classify LTP projections.
-
-|Enum Name |	Value|
-|------|--------|
-|OPERATION_CLIENT |	operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER |
-|HTTP_CLIENT |	http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER |
-|TCP_CLIENT |	tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER |
-|ES_CLIENT |elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER |
-|OPERATION_SERVER |	operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER |
-|HTTP_SERVER|	http-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER |
-|TCP_SERVER	| tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER |
-
 
 ### Interface  
 

@@ -1,4 +1,4 @@
-# getLogicalTerminationPointListAsync  
+# GetLogicalTerminationPointListAsync  
 
 
 ### Overview  
@@ -7,12 +7,15 @@ Retrieves all logical-termination-point entries. Filters by `layerProtocolName` 
 
 
 ### Description  
-core-model-1-4:control-construct/logical-termination-point contains all LTP instances.
+
+`core-model-1-4:control-construct/logical-termination-point` contains all
+Logical Termination Point (LTP) instances.
+
 This function returns:
 
-all LTPs if layerProtocolName is not provided, or
+- **All LTPs** if `layerProtocolName` is not provided, or
+- **Only those LTPs** whose `layer-protocol-name` matches the provided value.
 
-only those LTPs whose layer-protocol name matches the provided value.
 
 **Module:**  
 applicationPattern/onfModel/models/ControlConstruct.js

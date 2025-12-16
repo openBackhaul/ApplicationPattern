@@ -1,4 +1,4 @@
-# getOperationClientUuidAsync 
+# GetOperationClientUuidAsync 
 
 
 ### Overview  
@@ -8,7 +8,7 @@ Retrieves the UUID of an operation-client under an HTTP client matching the give
 
 ### Description  
 
-This function returns the operation client uuid information for the given http-client uuid and operation name.
+This function returns the operation client uuid information for the given **http-client uuid and operation name**.
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/OperationClientInterface.js

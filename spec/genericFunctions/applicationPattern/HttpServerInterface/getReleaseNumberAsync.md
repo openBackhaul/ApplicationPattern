@@ -1,4 +1,4 @@
-# getReleaseNumberAsync  
+# GetReleaseNumberAsync  
 
 
 ### Overview  
@@ -13,10 +13,13 @@ layer-protocol with a capability block that describes the owning application.
 
 The release-number is stored at:
 
+```text   
 core-model-1-4:control-construct/logical-termination-point/layer-protocol/
   http-server-interface-1-0:http-server-interface-pac/
     http-server-interface-capability/
      release-number
+```
+  
 
 
 To retrieve the server release-number this function shall be used.

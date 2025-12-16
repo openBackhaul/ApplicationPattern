@@ -8,14 +8,19 @@ Writes or updates values in the JSON ONF-format database (config.json) at the sp
 
 ### Description  
 
-This function locates the correct position inside the JSON database by splitting and navigating the given oamPath.
-Depending on the input:
+This function updates or appends data in the ONF **core-model** JSON configuration
+file (`config.json`) at the location specified by the given **OAM-style path**.
 
-It updates an existing attribute,
+It reads the JSON database (config.json), resolves the `oamPath`, and updates the
+target attribute accordingly.
 
-or adds a new item when the target is a list (isAList = true).
+- If `isAList` is set to `true`, the value is **appended** to the target list  
+- Otherwise, the existing attribute value is **replaced**
 
-After modification, the updated JSON structure is written back to the file safely using concurrency-controlled operations.
+All write operations are synchronized using a **lock mechanism** to prevent
+concurrent file access issues.
+
+The function returns `true` if the update succeeds; otherwise, it returns `false`.
 
 
 **Module:**  

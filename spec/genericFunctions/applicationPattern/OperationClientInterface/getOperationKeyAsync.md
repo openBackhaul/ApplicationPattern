@@ -1,5 +1,4 @@
-# getOperationKeyAsync  
-
+# GetOperationKeyAsync  
 
 ### Overview  
 
@@ -10,13 +9,14 @@ Retrieves the operation key configured for an operation-client.
 
 The operation key is stored inside:
 
-
+```text
 /core-model-1-4:control-construct
   /logical-termination-point
     /layer-protocol
       /operation-client-interface-1-0:operation-client-interface-pac
         /operation-client-interface-configuration
           /operation-key
+```          
 
 The function returns that value for the given UUID.
 
@@ -38,7 +38,6 @@ applicationPattern/onfModel/models/layerProtocols/OperationClientInterface.js
 ### Interface  
 
 NA 
-
 
 ### Diagram  
 

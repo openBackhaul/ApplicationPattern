@@ -1,4 +1,4 @@
-# getForwardingConstructListForTheFcPortAsync  
+# GetForwardingConstructListForTheFcPortAsync  
 
 
 ### Overview  
@@ -8,7 +8,7 @@ Retrieves forwarding-constructs that contain an fc-port matching a given LTP UUI
 
 ### Description  
 
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct contains a list of fc-ports, where each fc-port references a logical-termination-point (LTP) and defines a port direction (INPUT, OUTPUT, or MANAGEMENT).
+core-model-1-4:control-construct/forwarding-domain/forwarding-construct contains multiple fc-ports, each linked to a logical-termination-point (LTP) and a port direction (INPUT, OUTPUT, MANAGEMENT).
 
 This function returns all forwarding-constructs that include an fc-port whose logical-termination-point matches the given ltpUuid and whose port direction matches the specified direction.
 
@@ -26,7 +26,7 @@ Function inputs are:
 **Output:**  
 | Type | Description |
 |------|-------------|
-| `Array<Object>` |List of matching forwarding-construct instances|
+| `Array of Object` |List of matching forwarding-construct instances|
 
 
 ### Interface  

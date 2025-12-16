@@ -8,12 +8,23 @@ Checks if a given operation has the specified port direction in a forwarding-con
 
 ### Description 
 
+`core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port`
+contains all **fc-port** instances of a forwarding-construct.
 
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port holds all the fc-ports. To update the logical-termination-point of a specific fc-port in a forwarding-construct, this function shall be used.
+This function updates the **logical-termination-point (LTP)** assigned to a
+specific fc-port within a forwarding-construct.
 
-This function checks whether the provided operation UUID is associated with an fc-port in the given forwarding-construct and whether that fc-port has the specified direction (INPUT, OUTPUT, or MANAGEMENT).
+It also validates that the provided **operation UUID** is associated with an
+fc-port in the given forwarding-construct and that the fc-port has the specified
+port direction:
 
-It is typically used to validate operation roles within forwarding logic.
+- `INPUT`
+- `OUTPUT`
+- `MANAGEMENT`
+
+This function is typically used to **validate operation roles** and ensure
+correct port-direction mapping within forwarding logic.
+
 
 **Module:**  
 applicationPattern/onfModel/models/FcPort.js

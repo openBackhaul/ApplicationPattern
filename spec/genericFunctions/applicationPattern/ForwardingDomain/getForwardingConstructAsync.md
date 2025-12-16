@@ -1,4 +1,4 @@
-# getForwardingConstructAsync  
+# GetForwardingConstructAsync  
 
 
 ### Overview  
@@ -6,8 +6,10 @@
 Returns a ForwardingConstruct instance from the forwarding-domain list that matches the given forwardingConstructUuid.
 
 
-### Description  
+### Description 
+
 core-model-1-4:control-construct/forwarding-domain/forwarding-construct uniquely identifies each forwarding relationship using a UUID.
+
 This function retrieves the forwarding-construct that matches the specified forwarding-construct UUID.
 
 

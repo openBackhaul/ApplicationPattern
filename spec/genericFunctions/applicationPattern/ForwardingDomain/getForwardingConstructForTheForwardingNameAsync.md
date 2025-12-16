@@ -1,4 +1,4 @@
-# getForwardingConstructForTheForwardingNameAsync  
+# GetForwardingConstructForTheForwardingNameAsync  
 
 
 ### Overview  
@@ -7,7 +7,7 @@ Returns a ForwardingConstruct instance from the forwarding-domain list that matc
 
 ### Description  
 
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct contains a name list where each forwarding-construct is identified by a ForwardingName.
+core-model-1-4:control-construct/forwarding-domain/forwarding-construct contains a name list where each forwarding-construct is identified by a **ForwardingName.**
 
 This function retrieves the forwarding-construct whose value-name is ForwardingName and whose value matches the provided forwardingName.
 

@@ -1,4 +1,4 @@
-# getHttpClientUuidExcludingOldReleaseAndNewRelease  
+# GetHttpClientUuidExcludingOldReleaseAndNewRelease  
 
 
 ### Overview  
@@ -10,22 +10,25 @@ Return the HTTP client UUID for an application while ignoring both its old relea
 
 ### Description  
 
-This function retrieves an HTTP client UUID for the specified application name while explicitly excluding:
+This function retrieves an **HTTP client UUID** for the specified **application name** while explicitly excluding:
 
-the old release, identified by the provided releaseNumber, and
-
-the new release, identified via the forwarding construct name newReleaseForwardingName.
+- The **old release**, identified by the provided `releaseNumber`  
+- The **new release**, identified via the forwarding construct name `newReleaseForwardingName`  
 
 In environments where multiple versions of the same application coexist (for example during rolling upgrades), this function ensures that neither the currently deployed old version nor the newly introduced version is selected.
 
-The function scans all HTTP client layer-protocol instances, evaluates their configured application-name and release-number, and filters out HTTP client interfaces associated with:
+The function scans all **HTTP client layer-protocol instances**, evaluates their configured:
 
-the specified releaseNumber, and
+- **application-name**  
+- **release-number**  
 
-the forwarding construct representing the new release.
+and filters out HTTP client interfaces associated with:
 
-If another valid HTTP client interface for the application exists, its UUID is returned.
-If no eligible match is found, the function returns undefined.
+- The specified `releaseNumber`  
+- The forwarding construct representing the new release  
+
+If another valid HTTP client interface for the application exists, its **UUID** is returned.  
+If no eligible match is found, the function returns **undefined**.
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/HttpClientInterface.js

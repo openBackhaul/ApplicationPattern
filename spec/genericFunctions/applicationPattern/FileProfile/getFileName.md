@@ -1,5 +1,4 @@
-# getFileName  
-
+# GetFileName  
 
 ### Overview  
 
@@ -7,7 +6,7 @@ Returns the file name for the given FileProfile UUID.
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve attributes of a file profile  file name for a particular FileProfile UUID this function will be used,
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve attributes of a file profile  **file name** for a particular FileProfile UUID this function will be used,
 
 **Module:**  
 applicationPattern/onfModel/models/profile/FileProfile.js

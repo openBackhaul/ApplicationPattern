@@ -1,4 +1,4 @@
-# getApplicationNameAsync  
+# GetApplicationNameAsync  
 
 
 ### Overview  
@@ -11,8 +11,8 @@ Fetches the application name configured under the given HTTP client UUID.
 This function retrieves the application name configured for a specific HTTP client interface.
 
 It locates the HTTP client Logical Termination Point (LTP) using the provided httpClientUuid, then accesses the
-http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name
-attribute.
+
+**http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name attribute.**
 
 If the HTTP client interface or the application name attribute is not present, the function returns undefined.
 

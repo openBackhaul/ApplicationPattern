@@ -8,7 +8,7 @@ Returns a profile instance matching the given UUID.
 
 ### Description  
 
-This function returns a profile instance from /core-model-1-4:control-construct/profile-collection/profile list 
+This function returns a profile instance from **/core-model-1-4:control-construct/profile-collection/profile** list 
  that matches the profileUuid.
 
 **Module:**  
@@ -25,7 +25,7 @@ applicationPattern/onfModel/models/ProfileCollection.js
 | Type | Description |
 |------|-------------|
 | Object| Profile object |
-|  undefined|  undefined if no object  found |
+| undefined|  undefined if no object  found |
 
 
 ### Interface  

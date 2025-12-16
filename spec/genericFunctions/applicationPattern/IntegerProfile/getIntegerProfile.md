@@ -1,4 +1,4 @@
-# getIntegerProfile
+# GetIntegerProfile
 
 
 ### Overview  
@@ -8,8 +8,7 @@ Retrieves the complete IntegerProfile configuration and capability for a given p
 
 ### Description  
 
-
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve  the full IntegerProfile object this function shall be used.
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve  the full **IntegerProfile object** this function shall be used.
 
 
 **Module:**  

@@ -9,13 +9,13 @@ Retrieves all OUTPUT fc-ports from a forwarding-construct.
 ### Description  
 
 This function reads the forwarding-construct under:
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct
+**core-model-1-4:control-construct/forwarding-domain/forwarding-construct**
 
 Forwarding-constructs may contain multiple fc-ports with different port directions as mentioned  below 
 
-  MANAGEMENT: "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-  INPUT: "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-  OUTPUT: "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT"
+ **MANAGEMENT: "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",**
+  **INPUT: "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",**
+  **OUTPUT: "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT"**
 
 This function filters the fc-port list and returns only those ports whose:
 

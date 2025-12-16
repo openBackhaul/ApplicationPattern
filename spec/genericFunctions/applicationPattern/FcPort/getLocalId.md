@@ -1,4 +1,4 @@
-# getLocalId  
+# GetLocalId  
 
 
 ### Overview  
@@ -8,11 +8,13 @@ Returns the `localId` of the fc-port in a forwarding-construct that matches the 
 
 ### Description  
 
-/core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port  holds fcportlist
+`/core-model-1-4:control-construct/forwarding-domain/forwarding-construct/fc-port`
+holds the list of all **fc-port** instances for a forwarding-construct.
 
-This function Returns the local-id of a fc-port if the provided logical-termination-point UUID exists in the forwarding-construct.
+This function searches the fc-port list and returns the **local-id** of the
+fc-port whose **logical-termination-point UUID** matches the provided value.
 
-the localId of the fc-port whose logical-termination-point matches the given LTP UUID or  undefined.
+If no matching fc-port is found, the function returns **undefined**.
 
 **Module:**  
 applicationPattern/onfModel/models/FcPort.js

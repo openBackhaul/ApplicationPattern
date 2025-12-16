@@ -1,4 +1,4 @@
-# getActionProfile  
+# GetActionProfile  
 
 
 ### Overview  
@@ -15,12 +15,12 @@ applicationPattern/onfModel/models/profile/ActionProfile.js
 ### **Inputs**
 | Name | Type | Description |
 |------|------|-------------|
-| profileUuid | String |ActionProfile UUID (*-action-p-*)|
+| profileUuid | String |ActionProfile UUID |
 
 ### **Output**
 | Type | Description |
 |------|-------------|
-| ActionProfile| undefined| ActionProfile object if found; otherwise `undefined` |
+| ActionProfile/ undefined| ActionProfile object if found; otherwise `undefined` |
 
 
 ### Interface  

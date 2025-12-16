@@ -1,4 +1,4 @@
-# getHttpClientUuidAsync  
+# GetHttpClientUuidAsync  
 
 
 ### Overview  
@@ -7,19 +7,18 @@ Finds the HTTP client UUID that matches the specified application name and optio
 
 ### Description  
 
-This function identifies the HTTP client UUID that matches the given application name and an optional release number.
+This function identifies the **HTTP client UUID** that matches the given **application name** and an optional **release number**.
 
-It iterates through all Logical Termination Points containing a
-http-client-interface-1-0:http-client-interface-pac, and compares the configured:
+It iterates through all **Logical Termination Points** containing a  
+**`http-client-interface-1-0:http-client-interface-pac`**, and compares the configured:
 
-application-name
-
-release-number (if provided)
+- **application-name**  
+- **release-number** (if provided)  
 
 against the input parameters.
 
-If a matching HTTP client interface is found, the corresponding HTTP client UUID is returned.
-If no match exists, the function returns undefined.
+If a matching HTTP client interface is found, the corresponding **HTTP client UUID** is returned.  
+If no match exists, the function returns **undefined**.
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/HttpClientInterface.js

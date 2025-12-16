@@ -8,13 +8,16 @@ Reads a value from the ONF JSON configuration file (config.json) using an OAM-st
 
 ### Description  
 
-This function uses the given oamPath starting from
-core-model-1-4:control-construct and walks through the JSON configuration structure.
+This function reads data from the ONF **core-model** JSON configuration file
+(`config.json`) using the provided **OAM-style path**.
 
-It moves through nested objects and list entries, resolving list items using their primary keys when needed.
+It loads the JSON database (Config.json), splits the given `oamPath`, and traverses
+the `core-model-1-4:control-construct` structure to locate the requested
+attribute or list entry.
 
-If the value exists, it is returned.
-If the path is invalid or the value is not found, the function throws an HTTP NOT_FOUND error.
+- If the value exists, it is returned  
+- If the path is invalid or the value cannot be resolved, an appropriate
+  **HTTP error** is thrown
 
 **Module:**  
 applicationPattern/databaseDriver/JSONDriver.js

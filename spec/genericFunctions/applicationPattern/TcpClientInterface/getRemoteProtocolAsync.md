@@ -1,4 +1,4 @@
-# getRemoteProtocolAsync  
+# GetRemoteProtocolAsync  
 
 
 ### Overview  
@@ -8,9 +8,9 @@ Retrieves the the tcp protocol where the application is running .
 
 ### Description  
 
-The protocol is read from tcp-client-interface-configuration/remote-protocol
+The protocol is read from  core-model-1-4:control-construct/logical-termination-point/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol
 
-The TCP client interface stores the protocol as an ONF enum value.
+The TCP client interface stores the **protocol** as an ONF enum value.
 This function converts that enum into a readable protocol key and returns it.
 
 **Module:**  

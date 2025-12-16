@@ -1,5 +1,4 @@
-# getRemoteAddressAsync  
-
+# GetRemoteAddressAsync  
 
 ### Overview  
 
@@ -8,9 +7,9 @@ This  returns the tcp ip address where the application is running .
 
 ### Description  
 
-Each TCP client LTP stores its address in tcp-client-interface-configuration/remote-address.
+Each TCP client LTP stores its address in core-model-1-4:control-construct/logical-termination-point/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address.
 
-This function reads and returns that value for the provided TCP client UUID.
+This function reads and returns that value for the provided **TCP client UUID.**
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/TcpClientInterface.js

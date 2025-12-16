@@ -1,4 +1,4 @@
-# getHttpServerCapabilityAsync  
+# GetHttpServerCapabilityAsync  
 
 
 ### Overview  
@@ -10,11 +10,13 @@ Retrieves the complete HTTP Server Interface capability, including application m
 
 This function reads and returns the full capability object stored under:
 
+```text
 /core-model-1-4:control-construct
   /logical-termination-point
     /layer-protocol
       /http-server-interface-1-0:http-server-interface-pac
-        /http-server-interface-capability
+        /http-server-interface-capability 
+ ```
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/HttpServerInterface.js

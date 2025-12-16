@@ -7,7 +7,9 @@ Retrieves the complete StringProfile configuration and capability for a given pr
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the full StringProfile object  this function shall be used. It returns the complete capability and configuration, including stringName, enumeration, pattern, and stringValue.
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the **Complete StringProfile object**  this function shall be used.
+
+ It returns the complete capability and configuration, including stringName, enumeration, pattern, and stringValue.
 
 If no matching profile exists, the function returns undefined.
 

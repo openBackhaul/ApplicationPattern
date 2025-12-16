@@ -1,4 +1,4 @@
-# getClientLtpListAsync  
+# GetClientLtpListAsync  
 
 
 ### Overview  
@@ -6,9 +6,8 @@
 Retrieves the list of client Logical Termination Points for a given LTP.
 
 ### Description  
-Client LTPs represent upper-layer dependencies of a logical termination point.
 
-This function reads the client-ltp relationship under the specified LTP and returns all referenced client LTP UUIDs.
+This function reads the **client-ltp** relationship under the specified LTP and returns all referenced **client LTP UUIDs.**
 
 If no client relationships exist, an empty array is returned.
 

@@ -1,4 +1,4 @@
-# getForwardingConstructListAsync  
+# GetForwardingConstructListAsync  
 
 
 ### Overview  
@@ -26,7 +26,7 @@ Function inputs are:
 **Output:**  
 | Type | Description |
 |------|-------------|
-| `Array<Object>` |List of all forwarding-construct instances|
+| `Array of objects` |List of all forwarding-construct instances|
 
 
 ### Interface  

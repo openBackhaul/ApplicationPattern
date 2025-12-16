@@ -7,7 +7,8 @@ Finds the ResponseProfile UUID associated with a given field-name reference.
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To find the UUID of a ResponseProfile that corresponds to a given fieldNameReference, this function shall be used. It searches all profiles of the ResponseProfile type and returns the UUID of the matching profile if found.
+core-model-1-4:control-construct/profile-collection holds all the profiles. To find the UUID of a **ResponseProfile** that corresponds to a given **fieldNameReference**, this function shall be used. 
+It searches all profiles of the ResponseProfile type and returns the UUID of the matching profile if found.
 
 **Module:**  
 applicationPattern/onfModel/models/profile/ResponseProfile.js

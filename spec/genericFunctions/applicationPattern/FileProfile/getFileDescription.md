@@ -1,4 +1,4 @@
-# getFileDescription  
+# GetFileDescription  
 
 
 ### Overview  
@@ -8,7 +8,8 @@ Returns the file description for the given FileProfile UUID.
 
 ### Description  
 
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the file-description value for a given  FileProfile UUID. that belongs to a particular  FileProfile , this function shall be used.
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the **file-description** value for a given  **FileProfile UUID**. that belongs to a particular  FileProfile , this function shall be used.
+
 
 **Module:**  
 applicationPattern/onfModel/models/profile/FileProfile.js

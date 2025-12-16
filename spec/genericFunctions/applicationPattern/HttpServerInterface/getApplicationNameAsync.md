@@ -1,4 +1,4 @@
-# getApplicationNameAsync  
+# GetApplicationNameAsync  
 
 
 ### Overview  
@@ -13,19 +13,21 @@ layer-protocol with a capability block that describes the owning application.
 
 The application name is stored at:
 
+```text
 core-model-1-4:control-construct/logical-termination-point/layer-protocol/
   http-server-interface-1-0:http-server-interface-pac/
     http-server-interface-capability/
       application-name
+```
 
-
-To retrieve the server application-name  this function shall be used.
+To retrieve the **server application-name**  this function shall be used.
 
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/HttpServerInterface.js.js
 
 **Input:**  
+
 None
 
 

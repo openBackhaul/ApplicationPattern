@@ -9,7 +9,7 @@ Retrieves the configured integer value for an IntegerProfile identified by its p
 ### Description  
 core-model-1-4:control-construct/profile-collection/profile holds all profile instances, including IntegerProfile entries.
 
-This function searches the profile collection for an IntegerProfile whose integer-name matches the provided integerProfileName and returns its configured **integer-value`.
+This function searches the profile collection for an IntegerProfile whose integer-name matches the provided integerProfileName and returns its configured **integer-value**.
 
 If no matching IntegerProfile is found, the function returns undefined.
 

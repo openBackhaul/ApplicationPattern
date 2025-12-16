@@ -8,17 +8,17 @@ Deletes a value or list entry from the  JSON configuration file (config.json).
 
 ### Description  
 
-This function reads the provided oamPath and navigates through the config.json file to find the target data.
+### Description
 
-Depending on the path, it:
+This function reads the provided `oamPath` and navigates through the `config.json` file to locate the target data.
 
-1.Removes a specific attribute from an object, or
+Depending on the path, it performs one of the following actions:
 
-2.Deletes a matching entry from a list using its primary key.
+1. Removes a specific attribute from an object  
+2. Deletes a matching entry from a list using its primary key  
+3. Saves the updated configuration back to the JSON file after deletion  
 
-3.After the deletion, the updated configuration is saved back to the JSON file.
-
-If the given path is invalid or the target data does not exist, an appropriate HTTP error is thrown.
+If the given path is invalid or the target data does not exist, an appropriate **HTTP error** is thrown.
 
 **Module:**  
 applicationPattern/databaseDriver/JSONDriver.js

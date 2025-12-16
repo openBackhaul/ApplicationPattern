@@ -10,7 +10,7 @@ This function returns true if a fc-port is available in the forwarding-construct
 ### Description  
 
 forwarding-construct under:
-core-model-1-4:control-construct/forwarding-domain/forwarding-construct
+**core-model-1-4:control-construct/forwarding-domain/forwarding-construct**
 
 Each forwarding-construct maintains a list of fc-port entries, where each fc-port is linked to a specific
 logical-termination-point.

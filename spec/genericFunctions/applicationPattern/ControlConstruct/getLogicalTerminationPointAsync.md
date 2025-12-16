@@ -1,4 +1,4 @@
-# getLogicalTerminationPointAsync  
+# GetLogicalTerminationPointAsync  
 
 
 ### Overview  
@@ -7,12 +7,14 @@ Returns the LTP instance that matches the provided UUID.
 
 
 ### Description  
-Each logical termination point under
-core-model-1-4:control-construct/logical-termination-point
+
+Each **Logical Termination Point (LTP)** under  
+`core-model-1-4:control-construct/logical-termination-point`  
 is uniquely identified by a UUID.
 
-This function locates and returns the LTP matching the provided UUID.
-If no matching LTP exists, it returns undefined.
+This function locates and returns the LTP instance that matches the provided UUID.  
+If no matching LTP exists, the function returns `undefined`.
+
 
 **Module:**  
 applicationPattern/onfModel/models/ControlConstruct.js

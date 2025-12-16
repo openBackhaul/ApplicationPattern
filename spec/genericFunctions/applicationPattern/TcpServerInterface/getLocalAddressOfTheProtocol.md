@@ -1,4 +1,4 @@
-# getLocalAddressOfTheProtocol  
+# GetLocalAddressOfTheProtocol  
 
 
 ### Overview  
@@ -11,9 +11,10 @@ Retrieves the local address (IP or domain name) of the TCP server for the given 
 This function returns the IPv4 address or domain name of the current application.
 
 The address is read from
-core-model-1-4:control-construct/logical-termination-point/tcp-server-interface-configuration/local-address
-for the TCP server interface matching the given protocol.
 
+core-model-1-4:control-construct/logical-termination-point/tcp-server-interface-configuration/local-address
+
+for the TCP server interface matching the given protocol.
 If no matching TCP server exists, undefined is returned.
 
 **Module:**  

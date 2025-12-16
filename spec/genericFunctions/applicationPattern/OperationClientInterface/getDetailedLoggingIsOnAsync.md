@@ -1,4 +1,4 @@
-# getDetailedLoggingIsOnAsync  
+# GetDetailedLoggingIsOnAsync  
 
 
 ### Overview  
@@ -11,14 +11,16 @@ Returns whether detailed logging mode is enabled for the operation-client.
 The configured detailed-logging-is-on is stored inside the operation-client
 interface configuration under:
 
+```text
 /core-model-1-4:control-construct
   /logical-termination-point
     /layer-protocol
       /operation-client-interface-1-0:operation-client-interface-pac
         /operation-client-interface-configuration
           /detailed-logging-is-on
+```          
 
-This function returns the detailedLoggingIsOn attribute of the operation client.
+This function returns the **detailedLoggingIsOn** attribute of the operation client.
 
 **Module:**  
 applicationPattern/onfModel/models/layerProtocols/OperationClientInterface.js
