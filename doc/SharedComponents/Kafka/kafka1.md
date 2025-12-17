@@ -14,11 +14,13 @@ In a single‑partition setup, only one consumer per group is active, preserving
 
 The model supports decoupling, flexibility, and easy integration of new consumers. It also enables asynchronous workflows and failure isolation. Overall, Kafka’s hybrid messaging approach fits well with our need to distribute data to both SDN and non‑SDN applications.
 
-### Main concepts and terminologies
+### Core concepts and terminologies
 
-**Topic**: A topic is a category or feed name to which records are stored and published. Producers write to topics, and consumers read from them.
+**Topic**: A topic is a category or feed name to which records are stored and published. It’s the fundamental unit for organizing data in Kafka. Topics group messages that belong to the same business domain or purpose. Producers write to topics, and consumers read from them.
 
 **Partition**: Each topic is split into partitions, which allow Kafka to scale horizontally and process data in parallel. Partitions also preserve the order of messages within each partition.
+
+**Offset**: Each message in a partition has a unique offset. This identifies the position of a message in the log which is used by consumers to track progress.
 
 **Broker**: A broker is a Kafka server that stores data and serves client requests. A Kafka cluster consists of multiple brokers working together.
 
@@ -32,18 +34,16 @@ To achieve this:
 - When consumers join or leave the group, Kafka automatically rebalances the partition assignments.
 - This design allows the system to scale horizontally, because adding more consumers increases the group’s ability to process data in parallel.
 
-**Offset**: Is a unique identifier for each record within a partition. Consumers use offsets to track their progress.
-
-**Zookeeper (Legacy) / Kafka Raft (KRaft)**: Historically, Kafka used Zookeeper for cluster coordination. Modern Kafka versions use KRaft, Kafka’s built‑in consensus mechanism (not in the search results but widely known).
+**Zookeeper (Legacy) / Kafka Raft (KRaft)**: Historically, Kafka used Zookeeper for cluster coordination. Modern Kafka versions use KRaft, Kafka’s built‑in consensus mechanism.
 
 **Log**: Kafka stores messages in an append-only log on disk. This design enables high throughput and durability.
 
 **Retention**: Kafka retains data for a configurable period (time-based or size-based), regardless of whether it has been consumed.
 
 **Stream processing**: Kafka supports real‑time stream processing through the Kafka Streams API and ksqlDB, enabling transformations, aggregations, and joins on streaming data.
-Our system specifically uses Kafka Streams for processing which is a lightweight, client‑side library for building real‑time, event‑driven applications on top of Kafka
+Our system specifically uses Kafka Streams for processing, which is a lightweight client‑side library for building real‑time event‑driven applications on top of Kafka
 
-On short, Kafka is essentially a distributed, durable, scalable commit log where:
+In short, Kafka is essentially a distributed, durable, scalable commit log where:
 
 - Producers write events,
 - Consumers read them,
@@ -66,42 +66,39 @@ On short, Kafka is essentially a distributed, durable, scalable commit log where
 
 ### System Architecture
 
-Kafka is deployed on a virtual machine, either by downloading and extracting a kafka executable or by pulling a docker image by following the steps provided in <https://kafka.apache.org/quickstart>.
+Kafka is deployed on a virtual machine, either by downloading and extracting a Kafka executable or pulling a Docker image by following the steps provided in <https://kafka.apache.org/quickstart>.
 
 ![KafkaCluster](./images/kafkaCluster.png)
 
-#### Kafka Configuration
+### kafka Configuration
+
+Configuration shall be made in config/server.properties file.
 
 **Project-specific parameters:**  
+
 | Parameter              | Example Value              | Why it matters                                                       |
 | ---------------------- | -------------------------- | -------------------------------------------------------------------- |
 | `advertised.listeners` | PLAINTEXT://localhost:9092 | Must match the hostname/IP MWDI and NP will use to connect to Kafka  |
 | `log.dir`              | /var/lib/kafka-logs        | Must point to a writable, persistent directory on your VM            |
-| `num.partitions`       | 3                          | The default number of partitions for new topics. Number defaults to 1. |
+| `num.partitions`       | 3                          | The default number of partitions for new topics. The number defaults to 1. |
 | `log.retention.hours (or minutes/ms)`       | 24                          | How long messages are retained before deletion. |
 | `auto.create.topics.enable`       | false                        | Defaults to false. Set to true if the producer is allowed to create new topics. However, it is set to false to prevent Kafka from automatically creating topics, allowing for better control over topic creation and configuration. |
 
 **General parameters:**  
+
 | Parameter              | Example Value              | Comment                                                              |
 | ---------------------- | -------------------------- | -------------------------------------------------------------------- |
 | `broker.id`            | 0                          | Set to `0` for single broker                                         |
 | `listeners`            | PLAINTEXT://0.0.0.0:9092   | Kafka listens on this address/port for incoming connections          |
 | `advertised.listeners` | PLAINTEXT://localhost:9092 | Kafka tells clients (like MWDI and NP) to connect using this address |
 
+Note: Most Kafka broker configuration changes require a full broker restart to take effect.
+
 #### Security Configuration
 
 Apache Kafka provides comprehensive security features designed to safeguard data and control access across the platform. These include support for multiple authentication mechanisms such as SASL (PLAIN, SCRAM, OAUTH) and SSL certificate–based authentication, SSL/TLS encryption to protect data in transit, and fine-grained authorization through Access Control Lists (ACLs).
 
-At present, authentication and authorization controls are not enabled in the current deployment. While this configuration facilitates ease of connectivity and reduces initial setup complexity, it does not enforce identity verification or access restrictions. As a result, the environment remains open to all clients with network access.
-
-#### Kafka Streams processing application
-
-[Apache Kafka Streams](https://kafka.apache.org/documentation/streams/) is a client‑side, Java‑based library that integrates directly with Kafka topics to enable real‑time data processing. It is designed to handle operations such as filtering, categorization, aggregation, and stream transformations without requiring a separate processing cluster.
-
-In our environment, Kafka Streams is provisioned inside a Java Spring Boot application. This application exposes REST APIs to start, stop, and retrieve the status of the running Kafka Streams instance, providing operational control and flexibility.
-
-**Current Customization**: The Kafka Streams implementation is customized to filter and segregate incoming messages dynamically. Conditions for filtering are provided in the request body of the /start API, allowing runtime configuration without redeployment. Based on these conditions, messages are routed to the appropriate output topics.
-**Future Enhancements**: Multi‑tasking capabilities to support multiple processing pipelines within the same instance. Also, Multi‑threading support to improve throughput and parallelism for high‑volume workloads.
+At present, authentication and authorization controls are not enabled in the current deployment. While this configuration facilitates ease of connectivity and reduces initial setup complexity, it does not enforce identity verification or access restrictions. As a result, the environment remains open to any clients with network access.
 
 #### Kafka producer configuration
 
@@ -113,13 +110,13 @@ To ensure reliable and secure message publishing, the following producer paramet
 | `username`  | Kafka authentication username — must be passed via config (SASL/SCRAM) (if security enabled in kafka broker) |
 | `password`  | Kafka authentication password — must be passed via config (SASL/SCRAM) (if security enabled in kafka broker) |
 | `oauth-key` | OAuth token used for authenticating with Kafka (if applicable)         |
-| `client-id` | Unique identifier for the producer application. Unique client id per producer instance aids easier monitoring and troubleshooting |
+| `client-id` | Unique identifier for the producer application. Unique client ID per producer instance aids easier monitoring and troubleshooting |
 | `ip-address` | IP address of the Kafka broker |
 | `port`       | Kafka port (e.g., `9092`). ip.address, and port must align with the Kafka broker listener configuration                         |
 
 #### Kafka consumer configuration
 
-To support consistent and secure message consumption, the following categories of consumer parameters must be taken into account
+To support consistent and secure message consumption, the following consumer parameters must be taken into account
 
 | Parameter    | Description                                                                               |
 | ------------ | ----------------------------------------------------------------------------------------- |
@@ -131,6 +128,40 @@ To support consistent and secure message consumption, the following categories o
 | `client-id` | Unique identifier for the consumer application |
 | `ip-address` | IP address of the Kafka broker (e.g., `localhost`) |
 | `port`       | Kafka port (e.g., `9092`) ip.address, and port must align with the Kafka broker listener configuration   |
+
+### Kafka Health and logging
+
+Kafka generates logs at multiple levels, including broker logs — such as startup events, partition leadership changes, replication issues, and network errors — as well as producer and consumer logs. By default, these logs are stored in:
+
+```
+/var/log/kafka/server.log
+/var/log/kafka/controller.log
+```
+
+The log directory can be customized using the *log.dir* parameter in the *config/server.properties* file.
+
+In addition to log management, it’s important to continuously monitor the Kafka server’s CPU, memory, disk usage, and consumer lag to ensure healthy performance. Tools like Kafka UI can help visualize and track consumer lags, and maintain topics and partitions effectively.
+
+### Other potential enhancements
+
+#### Monitoring and Alerting
+Kafka can be integrated with monitoring and alerting platforms such as Prometheus and Grafana to continuously observe cluster health and performance. These tools collect and visualize key metrics including throughput, latency, consumer lag, broker resource usage, and replication status. With dashboards and alerting rules in place, teams can proactively detect issues and maintain cluster stability.
+
+#### High Availability Through Clustering and Replication
+Kafka is typically be deployed as a cluster of multiple brokers, allowing data to be distributed and replicated across nodes. Using in‑sync replication (ISR), Kafka ensures that messages are copied to multiple brokers, reducing the risk of data loss in the event of a single broker or disk failure. This replication model provides strong resilience and enables the cluster to continue operating even when individual nodes become unavailable.
+
+### Kafka Streams processing application
+
+[Apache Kafka Streams](https://kafka.apache.org/documentation/streams/) is a client‑side, Java‑based library that integrates directly with Kafka topics to enable real‑time data processing. It is designed to handle operations such as filtering, categorization, aggregation, and stream transformations without requiring a separate processing cluster.
+
+In our environment, Kafka Streams is provisioned inside a Java Spring Boot application. This application exposes REST APIs to start, stop, and retrieve the status of the running Kafka Streams instance, providing operational control and flexibility.
+
+**Current Customization**: The Kafka Streams implementation is customized to filter and segregate incoming messages dynamically. Conditions for filtering are provided in the request body of the */start* API, allowing runtime configuration without redeployment. Based on these conditions, messages are routed to the appropriate output topics.
+**Future Enhancements**: Multi‑tasking capabilities to support multiple processing pipelines within the same instance. Also, multi‑threading support to improve throughput and parallelism for high‑volume workloads.
+
+**A usecase of Kafka streams in SDN architecture:**
+
+![Kafka Stream](./images/kafkaStreamsSetup.png)
 
 #### Documentations
 
