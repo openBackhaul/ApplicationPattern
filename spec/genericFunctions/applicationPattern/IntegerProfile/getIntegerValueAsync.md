@@ -8,7 +8,7 @@ Returns the configured integer value for the given integer profile UUID.
 
 
 ### Description  
-core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve the full Integer Profile object for a given profileUuid , this function shall be used. 
+core-model-1-4:control-construct/profile-collection holds all the profiles. To retrieve integer-value of an integer Profile object for a given profileUuid , this function shall be used. 
 
 **Module:**  
 applicationPattern/onfModel/models/profile/IntegerProfile.js
