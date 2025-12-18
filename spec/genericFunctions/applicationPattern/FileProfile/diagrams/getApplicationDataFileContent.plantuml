@@ -1,0 +1,42 @@
+@startuml getApplicationDataFileContent
+skinparam responseMessageBelowArrow true
+
+title
+getApplicationDataFileContent – Retrieve Application Data File Path
+end title
+
+participant "requestor" as requestor
+participant "FileProfile" as fp #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  Requests application data file path
+end note
+
+requestor -> fp: (none)
+activate fp
+
+fp -> jd: read profile-collection
+activate jd
+
+jd <-> cfg: read & return complete control-construct
+
+jd --> fp: Profile-list
+deactivate jd
+
+note over fp
+  <u>Processing</u>
+  - Extract profile list  
+  - Iterate through FileProfile entries  
+  - Read file-name attribute  
+  - Build full path using applicationDataPath  
+  - Check file existence  
+  - Select valid application data file  
+  - Prepare response
+end note
+
+fp --> requestor: absoluteFilePath | undefined
+deactivate fp
+
+@enduml

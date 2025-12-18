@@ -1,0 +1,41 @@
+@startuml getLocalAddressOfTheProtocol
+skinparam responseMessageBelowArrow true
+
+title
+getLocalAddressOfTheProtocol – Retrieve Local Address by Protocol
+end title
+
+participant "requestor" as requestor
+participant "TCP Server Interface " as tsr #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  - protocol (HTTP / HTTPS / NOT_YET_DEFINED)
+end note
+
+requestor -> tsr: (protocol)
+activate tsr
+
+tsr -> jd: read logical-termination-points
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> tsr: TCP server LTP list
+deactivate jd
+
+note over tsr
+  <u>Processing</u>
+  - Iterate through TCP server LTPs  
+  - Match tcp-server-interface protocol with input protocol  
+  - Read local-address from:
+    tcp-server-interface-configuration  
+  - Return local IPv4 address or domain name  
+  - Return undefined if no matching protocol exists
+end note
+
+tsr --> requestor: localAddress | undefined
+deactivate tsr
+
+@enduml

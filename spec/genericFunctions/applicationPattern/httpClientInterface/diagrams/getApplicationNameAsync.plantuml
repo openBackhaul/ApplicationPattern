@@ -1,0 +1,39 @@
+@startuml getApplicationNameAsync
+skinparam responseMessageBelowArrow true
+
+title
+getApplicationNameAsync – Retrieve Application Name
+end title
+
+participant "requestor" as requestor
+participant "HTTP Client Interface" as hci #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+             HTTP client UUID
+end note
+
+requestor -> hci: (httpClientUuid)
+activate hci
+
+hci -> jd: read HTTP client interface list
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> hci: HTTP client interface data
+deactivate jd
+
+note over hci
+  <u>Processing</u>
+  - Locate LTP with matching httpClientUuid  
+  - Read attribute: application-name  
+  - Return application name if present  
+  - Return undefined if not found
+end note
+
+hci --> requestor: applicationName | undefined
+deactivate hci
+
+@enduml

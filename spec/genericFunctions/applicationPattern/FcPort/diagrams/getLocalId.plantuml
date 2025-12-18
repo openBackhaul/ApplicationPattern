@@ -1,0 +1,39 @@
+@startuml getLocalId
+skinparam responseMessageBelowArrow true
+
+title
+getLocalId – Retrieve localId of fc-port by LTP UUID
+end title
+
+participant "requestor" as requestor
+participant "FcPort " as fcPortRes #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json " as cfg #LightGrey
+
+note over requestor
+  - forwardingConstruct 
+  - ltpUuid
+end note
+
+requestor -> fcPortRes: (forwardingConstruct, ltpUuid)
+activate fcPortRes
+
+fcPortRes -> jd: read ForwardingConstruct
+activate jd
+
+jd <-> cfg: retrieve Complete LTP
+jd --> fcPortRes: fc-port list
+deactivate jd
+
+note over fcPortRes
+  <u>Processing</u>
+  - Iterate through fc-port entries in forwardingConstruct  
+  - Check if fc-port's logical-termination-point matches ltpUuid  
+  - Return localId of matching fc-port  
+  - Return undefined if no match exists
+end note
+
+fcPortRes --> requestor: localId | undefined
+deactivate fcPortRes
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml writeToDatabaseAsync
+skinparam responseMessageBelowArrow true
+
+title
+writeToDatabaseAsync – Write / Update flow
+end title
+
+participant "requestor" as requestor
+participant "writeToDatabaseAsync" as fo #LightCyan
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  writes/updates a value using an OAM path.
+end note
+
+requestor -> fo: (oamPath, value, isAList)
+activate fo
+
+note over fo
+  <u>Steps</u>
+  - Load JSON from config.json  
+  - Parse OAM path  
+  - Navigate to the target node  
+  - If isAList → Append to list  
+  - Else → Overwrite  
+  - Save updated JSON
+end note
+
+fo -> cfg: load JSON
+cfg --> fo: jsonData
+
+fo -> cfg: save updated JSON
+cfg --> fo: writeComplete
+
+fo --> requestor: true (success)
+deactivate fo
+
+@enduml

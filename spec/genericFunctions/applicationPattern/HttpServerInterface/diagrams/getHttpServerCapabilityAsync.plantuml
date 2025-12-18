@@ -1,0 +1,41 @@
+@startuml getHttpServerCapabilityAsync
+skinparam responseMessageBelowArrow true
+
+title
+getHttpServerCapabilityAsync – Retrieve HTTP Server Capability
+end title
+
+participant "requestor" as requestor
+participant "HTTP Server Interface" as hsi #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  The requestor wants to retrieve the full HTTP Server Interface capability
+end note
+
+requestor -> hsi: (none)
+activate hsi
+
+hsi -> jd: read logical-termination-point
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> hsi: HTTP server LTP List with capability
+deactivate jd
+
+note over hsi
+  <u>Processing</u>
+  - Access http-server-interface capability for each LTP  
+  - Compile complete capability object including:
+      * application metadata
+      * owner information
+      * release history
+  - Prepare response
+end note
+
+hsi --> requestor: httpServerCapabilityObject
+deactivate hsi
+
+@enduml

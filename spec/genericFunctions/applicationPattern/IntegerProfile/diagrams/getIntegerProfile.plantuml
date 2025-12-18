@@ -1,0 +1,40 @@
+@startuml getIntegerProfile
+skinparam responseMessageBelowArrow true
+
+title
+getIntegerProfile – Retrieve IntegerProfile
+end title
+
+participant "requestor" as requestor
+participant "IntegerProfile" as ip #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+    IntegerProfile UUID
+end note
+
+requestor -> ip: (profileUuid)
+activate ip
+
+ip -> jd: access profile-collection
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> ip: Profile-list
+deactivate jd
+
+note over ip
+  <u>Processing</u>
+  - Extract profile list  
+  - Identify IntegerProfile entries  
+  - Match profileUuid  
+  - Return IntegerProfile object if found  
+  - Return undefined if not found
+end note
+
+ip --> requestor: IntegerProfile | undefined
+deactivate ip
+
+@enduml

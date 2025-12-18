@@ -1,0 +1,40 @@
+@startuml isApplicationExists
+skinparam responseMessageBelowArrow true
+
+title
+isApplicationExists – Check if HTTP Client Application Exists
+end title
+
+participant "requestor" as requestor
+participant "HTTP Client Interface" as hci #LightCyan
+participant "JSON Driver" as jd #LightYellow
+participant "config.json" as cfg #LightGrey
+
+note over requestor
+  - applicationName
+  - releaseNumber (optional)
+end note
+
+requestor -> hci: (applicationName, releaseNumber)
+activate hci
+
+hci -> jd: read logical-termination-point
+activate jd
+
+jd <-> cfg: retrieve control-construct
+
+jd --> hci: HTTP client List
+deactivate jd
+
+note over hci
+  <u>Processing</u>
+  - Filter by application-name  
+  - If releaseNumber provided, filter by release-number  
+  - Return true if match exists  
+  - Return false if no match
+end note
+
+hci --> requestor: true | false
+deactivate hci
+
+@enduml
