@@ -55,7 +55,7 @@ NA
 ### Diagram  
 
 <p align="center">
-  <img src="./getLayerProtocolName.png" alt="getLayerProtocolName diagram" width="400" />
+  <img src="./diagrams/getLayerProtocolName.png" alt="getLayerProtocolName diagram" width="400" />
 </p> 
 
 ### NPM Module  
