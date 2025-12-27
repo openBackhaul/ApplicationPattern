@@ -10269,6 +10269,90 @@ paths:
           $ref: '#/components/responses/responseForErroredOamRequests'
         default:
           $ref: '#/components/responses/responseForErroredOamRequests'
+  # 
+  # Proposed in issue #1085
+  #
+  # /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/client-type:
+  #   parameters:
+  #     - in: path
+  #       name: uuid
+  #       required: true
+  #       schema:
+  #         type: string
+  #         pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-kmb-c-([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{3})$'
+  #         example: 'yz-34-3-3-kmb-c-kmb-1-0-0-000'
+  #   get:
+  #     operationId: getClientType
+  #     summary: 'Returns client type'
+  #     tags:
+  #       - KafkaClient
+  #     security:
+  #       - basicAuth: []
+  #     responses:
+  #       '200':
+  #         description: 'Client type provided'
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               required:
+  #                 - kafka-client-interface-1-0:client-type
+  #               properties:
+  #                 kafka-client-interface-1-0:client-type:
+  #                   type: string
+  #                   enum:
+  #                     - 'kafka-client-interface-1-0:CLIENT_TYPE_PRODUCER'
+  #                     - 'kafka-client-interface-1-0:CLIENT_TYPE_CONSUMER'
+  #                     - 'kafka-client-interface-1-0:CLIENT_TYPE_NOT_YET_DEFINED'
+  #       '400':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '401':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '403':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '404':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '500':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       default:
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #   put:
+  #     operationId: putClientType
+  #     summary: 'Configures client type'
+  #     tags:
+  #       - KafkaClient
+  #     security:
+  #       - basicAuth: []
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             required:
+  #               - kafka-client-interface-1-0:client-type
+  #             properties:
+  #               kafka-client-interface-1-0:client-type:
+  #                 type: string
+  #                 enum:
+  #                   - 'kafka-client-interface-1-0:CLIENT_TYPE_PRODUCER'
+  #                   - 'kafka-client-interface-1-0:CLIENT_TYPE_CONSUMER'
+  #                   - 'kafka-client-interface-1-0:CLIENT_TYPE_NOT_YET_DEFINED'
+  #     responses:
+  #       '204':
+  #         description: 'Client type configured'
+  #       '400':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '401':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '403':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '404':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       '500':
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
+  #       default:
+  #         $ref: '#/components/responses/responseForErroredOamRequests'
   /core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/kafka-client-interface-1-0:kafka-client-interface-pac/kafka-client-interface-configuration/topic-name:
     parameters:
       - in: path
