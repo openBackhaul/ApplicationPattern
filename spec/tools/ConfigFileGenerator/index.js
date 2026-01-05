@@ -161,8 +161,10 @@ function generateLogicalTerminationPointList(serviceData) {
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['basic']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['individual']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['basic']);
-    consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['individual']);
-
+   if (operationServers['service']?.['individual']) {
+    consolidatedOperationServersList =
+        consolidatedOperationServersList.concat(operationServers['service']['individual']);
+   }
     consolidatedOperationServersList.forEach(operationServer => {
         translatedLTPList.push(generateOperationServers(operationServer, httpServer));
     });
