@@ -97,7 +97,69 @@ function generateProfileList(ProfileData) {
                 }
             }
             translatedProfileInstanceList.push(actionProfileInstance);
-        } else if (profileName == "GenericResponseProfile") {
+
+        }
+        else if (profileName === "RegexPatternMappingProfile") {
+            let regexPatternMappingProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "regex-pattern-mapping-profile-1-0:PROFILE_NAME_TYPE_REGEX_PATTERN_MAPPING_PROFILE",
+                "regex-pattern-mapping-profile-1-0:regex-pattern-mapping-profile-pac": {
+                    "regex-pattern-mapping-profile-capability": {
+                        "mapping-name": profileInstance['capability']['mapping-name'],
+                        "purpose": profileInstance['capability']['purpose']
+                    },
+                    "regex-pattern-mapping-profile-configuration": {
+                        "mapping-list": Array.isArray(profileInstance['configuration']['mapping-list'])
+                            ? profileInstance['configuration']['mapping-list']
+                            : []
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(regexPatternMappingProfileInstance);
+        }
+        else if (profileName === "FunctionProfile") {
+            let functionProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
+                "function-profile-1-0:function-profile-pac": {
+                    "function-profile-capability": {
+                        "function-name": profileInstance['capability']['function-name'],
+                        "function-description": profileInstance['capability']['function-description'],
+                        "parameter-list": Array.isArray(profileInstance['capability']['parameter-list'])
+                            ? profileInstance['capability']['parameter-list']
+                            : [],
+                        "sub-function-list": Array.isArray(profileInstance['capability']['sub-function-list'])
+                            ? profileInstance['capability']['sub-function-list']
+                            : []
+                    },
+                    "function-profile-configuration": {
+                        "is-active": profileInstance['configuration']['is-active']
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(functionProfileInstance);
+        }
+        else if (profileName === "FileProfile") {
+            let fileProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",
+                "file-profile-1-0:file-profile-pac": {
+                    "file-profile-capability": {
+                        "file-identifier": profileInstance['capability']['file-identifier'],
+                        "file-description": profileInstance['capability']['file-description']
+                    },
+                    "file-profile-configuration": {
+                        "file-path": profileInstance['configuration']['file-path'],
+                        "operation": profileInstance['configuration']['operation']
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(fileProfileInstance);
+        }
+        else if (profileName == "GenericResponseProfile") {
             let responseProfileInstance;
             if (profileInstance['capability']['static-field-name']) {
                 responseProfileInstance = {
@@ -161,8 +223,10 @@ function generateLogicalTerminationPointList(serviceData) {
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['basic']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['individual']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['basic']);
-    consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['individual']);
-
+    if (operationServers['service']?.['individual']) {
+        consolidatedOperationServersList =
+            consolidatedOperationServersList.concat(operationServers['service']['individual']);
+    }
     consolidatedOperationServersList.forEach(operationServer => {
         translatedLTPList.push(generateOperationServers(operationServer, httpServer));
     });
@@ -325,13 +389,13 @@ function generateClients(clientList) {
             consolidatedOperationClientList = (elasticsearchClient && elasticsearchClient.length != 0) ?
                 consolidatedOperationClientList.concat(elasticsearchClient) : consolidatedOperationClientList;
             if (consolidatedOperationClientList.length > 0) {
-            consolidatedOperationClientList.forEach(esClient => {
-                translatedLTPClientList.push(generateElasticsearchClient(esClient, httpClient));
-            });
+                consolidatedOperationClientList.forEach(esClient => {
+                    translatedLTPClientList.push(generateElasticsearchClient(esClient, httpClient));
+                });
 
-            translatedLTPClientList.push(generateHttpClient(consolidatedOperationClientList, httpClient, tcpClient));
-            translatedLTPClientList.push(generateTcpClient(httpClient, tcpClient));
-        }
+                translatedLTPClientList.push(generateHttpClient(consolidatedOperationClientList, httpClient, tcpClient));
+                translatedLTPClientList.push(generateTcpClient(httpClient, tcpClient));
+            }
         }
 
 
@@ -398,7 +462,7 @@ function generateElasticsearchClient(elasticsearchClientYamlInstance, httpClient
                         "auth": {
                             "api-key": apiKey
                         },
-                        "index-alias": indexAlis
+                        "index-alias": indexAlis.toString()
                     },
                     "elasticsearch-client-interface-status": {
                         "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
