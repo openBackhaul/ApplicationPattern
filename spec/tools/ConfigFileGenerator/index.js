@@ -29,7 +29,7 @@ readYamlFile(profileInstancesFileName).then(ProfileData => {
                 }
             }
 
-            fs.writeFile("output/" + applicationUuid + "_config_autogen.json", JSON.stringify(controlConstruct, null, 4), function (err) {
+            fs.writeFile("output/" + applicationUuid + "_config_autogen.json", JSON.stringify(controlConstruct, null, 2), function (err) {
                 if (err) throw err;
                 console.log('complete');
             });
@@ -410,7 +410,7 @@ function generateOperationClient(operationClientYamlInstance, httpClientYamlInst
     let operationKey = operationClientYamlInstance["operation-key"] ? operationClientYamlInstance["operation-key"] :
         "Operation key not yet provided.";
     let detailedLoggingIsOn = (operationClientYamlInstance["detailed-logging-is-on"] != null) ? operationClientYamlInstance["detailed-logging-is-on"] : undefined;
-    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
+    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase() : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED";
     let httpUuid = httpClientYamlInstance["uuid"];
 
     let operationClient = {
@@ -549,8 +549,8 @@ function generateTcpClient(httpClientYamlInstance, tcpClientYamlInstance) {
 function generateOperationServers(operationServerYamlInstance, httpServerYamlInstance) {
     let operationName = operationServerYamlInstance['operation-name'];
     let operationServerUuid = operationServerYamlInstance['uuid'];
-    let lifeCycleState = (operationServerYamlInstance["life-cycle-state"] != null) ? "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationServerYamlInstance["life-cycle-state"].toUpperCase : "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED";
-
+    let lifeCycleState = (operationServerYamlInstance["life-cycle-state"] != null) ? "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationServerYamlInstance["life-cycle-state"].toUpperCase() : "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
+   
     let operationKey = operationServerYamlInstance["operation-key"] ? operationServerYamlInstance["operation-key"] : "Operation key not yet provided.";
 
     let httpUuid = httpServerYamlInstance["uuid"];
