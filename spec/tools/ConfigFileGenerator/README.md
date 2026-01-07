@@ -36,6 +36,13 @@ Example :
     uuid: mm-1-0-0-op-s-bs-003
     operation-key: n.a.
 ```
+Incase if the life-cycle-state is different from "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL" , include an optional attribute called "life-cycle-state" to include the type
+Example :
+```
+  - operation-name: /v1/inquire-oam-request-approvals
+    uuid: cp-1-0-0-op-s-bm-005
+    life-cycle-state: deprecated
+```
 
 ### operation-client :
 For EATL application's operation-client , to automate the detailed-logging-is-on attribute, include an optional attribute called "detailed-logging-is-on"
