@@ -18,9 +18,15 @@ The model supports decoupling, flexibility, and easy integration of new consumer
 
 **Topic**: A topic is a category or feed name to which records are stored and published. It’s the fundamental unit for organizing data in Kafka. Topics group messages that belong to the same business domain or purpose. Producers write to topics, and consumers read from them.
 
+![Topic](./images/kafka.png)
+
 **Partition**: Each topic is split into partitions, which allow Kafka to scale horizontally and process data in parallel. Partitions also preserve the order of messages within each partition.
 
+![Partition](./images/topic.png)
+
 **Offset**: Each message in a partition has a unique offset. This identifies the position of a message in the log which is used by consumers to track progress.
+
+![Offset](./images/partition.png)
 
 **Broker**: A broker is a Kafka server that stores data and serves client requests. A Kafka cluster consists of multiple brokers working together.
 
@@ -33,8 +39,6 @@ To achieve this:
 - Each partition of a topic is assigned to exactly one consumer in the group.
 - When consumers join or leave the group, Kafka automatically rebalances the partition assignments.
 - This design allows the system to scale horizontally, because adding more consumers increases the group’s ability to process data in parallel.
-
-**Zookeeper (Legacy) / Kafka Raft (KRaft)**: Historically, Kafka used Zookeeper for cluster coordination. Modern Kafka versions use KRaft, Kafka’s built‑in consensus mechanism.
 
 **Log**: Kafka stores messages in an append-only log on disk. This design enables high throughput and durability.
 
@@ -68,7 +72,13 @@ In short, Kafka is essentially a distributed, durable, scalable commit log where
 
 Kafka is deployed on a virtual machine, either by downloading and extracting a Kafka executable or pulling a Docker image by following the steps provided in <https://kafka.apache.org/quickstart>.
 
-![KafkaCluster](./images/kafkaCluster.png)
+#### Single consumer design
+
+![singleTopic](./images/singleTopic.png)
+
+#### Multi consumer design
+
+![prodConsComm](./images/prod-cons-comm.png)
 
 ### kafka Configuration
 
