@@ -1,0 +1,35 @@
+@startuml producerConnect
+skinparam responseMessageBelowArrow true
+
+title
+connect – Establish Kafka Producer Connection
+end title
+
+
+participant "Requestor" as requestor
+participant "p1KafkaProducer" as connect #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> connect: connect(clientId, brokers)
+activate connect
+
+connect -> kafka: {CONNECT event} 
+activate kafka
+
+kafka --> connect
+deactivate kafka
+
+note over connect
+  <u>Processing</u>
+  - Create Kafka client  
+  - Initialize producer instance   
+   - Connect to Kafka broker 
+  - Register lifecycle events  
+    (connect, disconnect, timeout)  
+  - Establish connection  
+end note
+
+connect --> requestor: true | false
+deactivate connect
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml pauseKafkaConnection
+skinparam responseMessageBelowArrow true
+
+title
+pauseKafkaConnection – Pause Kafka Message Consumption
+end title
+
+participant "Requestor" as requestor
+participant "p1KafkaConsumer" as pause #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> pause: pauseKafkaConnection()
+activate pause
+
+pause -> kafka
+activate kafka
+
+note right of pause
+pause subscribed
+ topics
+end note
+
+kafka --> pause: 
+deactivate kafka
+
+note over pause
+  <u>Processing</u>
+  - Verify consumer status  
+  - Pause all subscribed topics  
+  - Stop fetching new messages  
+  - Keep Kafka connection alive  
+  - Allow resume without reconnect  
+end note
+
+pause --> requestor
+deactivate pause
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml subscribeMessages
+skinparam responseMessageBelowArrow true
+
+title
+subscribeMessages – Subscribe to Kafka Topics
+end title
+
+participant "Requestor" as requestor
+participant "p1KafkaConsumer" as subscribe #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> subscribe: subscribeMessages(topics, routingFunction)
+activate subscribe
+
+subscribe -> kafka
+activate kafka
+
+note right of subscribe 
+ subscribe [topics]
+end note
+
+kafka --> subscribe
+deactivate kafka
+
+note over subscribe
+  <u>Processing</u>
+  - Store topic list  
+  - Subscribe to provided topics  
+  - Start listening to messages  
+  - Route messages to handler  
+end note
+
+subscribe --> requestor
+deactivate subscribe
+
+@enduml

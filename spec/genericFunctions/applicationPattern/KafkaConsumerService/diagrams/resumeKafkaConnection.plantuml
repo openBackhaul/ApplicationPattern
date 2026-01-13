@@ -1,0 +1,38 @@
+@startuml resumeKafkaConnection
+skinparam responseMessageBelowArrow true
+
+title
+resumeKafkaConnection – Resume Kafka Message Consumption
+end title
+
+participant "Requestor" as requestor
+participant "p1KafkaConsumer" as resume #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> resume: resumeKafkaConnection()
+activate resume
+
+resume -> kafka
+activate kafka
+note right of resume
+resume subscribed 
+ topics
+end note
+
+kafka --> resume
+deactivate kafka
+
+note over resume
+  <u>Processing</u>
+  - Verify consumer status  
+  - Identify paused topics  
+  - Resume all subscribed topics  
+  - Restart message consumption  
+  - Keep Kafka connection alive  
+  - Handle resume success or failure  
+end note
+
+resume --> requestor
+deactivate resume
+
+@enduml

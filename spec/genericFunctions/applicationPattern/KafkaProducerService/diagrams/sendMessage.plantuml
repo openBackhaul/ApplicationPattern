@@ -1,0 +1,36 @@
+@startuml sendMessage
+skinparam responseMessageBelowArrow true
+
+title
+sendMessage – Publish Message to Kafka Topic
+end title
+
+participant "Requestor" as requestor
+participant "p1KafkaProducer" as send #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> send: sendMessage(topic, message)
+activate send
+
+send -> kafka
+note right of send 
+send message
+ to topic
+end note
+activate kafka
+
+kafka --> send
+deactivate kafka
+
+note over send
+  <u>Processing</u>
+  - Verify producer availability  
+  - Serialize message  
+  - Send message to topic  
+  - Handle send success or failure  
+end note
+
+send --> requestor: Response object ({ status: "SUCCESS" }/{ status: "FAILED", reason })
+deactivate send
+
+@enduml

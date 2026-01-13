@@ -1,0 +1,38 @@
+@startuml disconnectKafka
+skinparam responseMessageBelowArrow true
+
+title
+disconnectKafka – Disconnect Kafka Consumer Session
+end title
+
+participant "Requestor" as requestor
+participant "p1KafkaConsumer" as disconnect #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+requestor -> disconnect: disconnectKafka(consumerObject)
+activate disconnect
+
+disconnect -> kafka
+activate kafka
+note right of disconnect
+connection to 
+kafka closed
+end note
+
+kafka --> disconnect
+deactivate kafka
+
+note over disconnect
+  <u>Processing</u>
+  
+  - Validate consumer object  
+  - Stop message consumption   
+  - Disconnect consumer from Kafka  
+  - Release broker-related resources  
+  - Handle disconnect errors if any  
+end note
+
+disconnect --> requestor
+deactivate disconnect
+
+@enduml

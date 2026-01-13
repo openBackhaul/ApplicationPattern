@@ -1,0 +1,42 @@
+@startuml connect
+
+ 
+title
+connect – Establish Consumer Session to Kafka
+end title
+
+ 
+participant "Requestor" as requestor
+participant "p1KafkaConsumer" as connect #LightCyan
+participant "Kafka" as kafka #LightYellow
+
+ 
+
+requestor -> connect: (groupId, clientId, brokers)
+activate connect
+
+ 
+connect -> kafka: {CONNECT event}
+activate kafka
+
+kafka --> connect
+deactivate kafka
+
+ 
+note over connect
+ <u>Processing</u>
+ - Initialize Kafka client  
+ - Create consumer with groupId  
+ - Register lifecycle events
+    (connect, disconnect, request-timeout)
+ - Attempt connection  
+ - Handle success or failure  
+
+end note
+
+ 
+connect --> requestor: {Object(KafkaConsumer) | false}
+deactivate connect
+
+ 
+@enduml
