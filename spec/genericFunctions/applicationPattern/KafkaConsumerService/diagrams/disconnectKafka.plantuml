@@ -12,10 +12,14 @@ participant "Kafka" as kafka #LightYellow
 requestor -> disconnect: disconnectKafka(consumerObject)
 activate disconnect
 
-disconnect -> kafka: close connection of kafka consumer
+disconnect -> kafka
 activate kafka
+note right of disconnect
+connection to 
+kafka closed
+end note
 
-kafka --> disconnect: disconnected
+kafka --> disconnect
 deactivate kafka
 
 note over disconnect
@@ -28,7 +32,7 @@ note over disconnect
   - Handle disconnect errors if any  
 end note
 
-disconnect --> requestor: void
+disconnect --> requestor
 deactivate disconnect
 
 @enduml

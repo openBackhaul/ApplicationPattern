@@ -18,7 +18,7 @@ applicationPattern/applicationPattern/services/KafkaConsumerService.js
 |------|------|-------------|
 | groupId | String |Consumer group identifier|
 | clientId | String | Kafka client identifier|
-| brokers | String []|List of Kafka broker addresses|
+| brokers | String []|List of reachable Kafka brokers in the format {address:port}|
 
 ### **Output**
 | Type | Description |

@@ -12,8 +12,13 @@ participant "Kafka" as kafka #LightYellow
 requestor -> pause: pauseKafkaConnection()
 activate pause
 
-pause -> kafka:{ pause subscribed topics }
+pause -> kafka
 activate kafka
+
+note right of pause
+pause subscribed
+ topics
+end note
 
 kafka --> pause: 
 deactivate kafka
@@ -27,7 +32,7 @@ note over pause
   - Allow resume without reconnect  
 end note
 
-pause --> requestor: void
+pause --> requestor
 deactivate pause
 
 @enduml

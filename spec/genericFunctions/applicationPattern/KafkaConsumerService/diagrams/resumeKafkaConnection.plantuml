@@ -12,10 +12,14 @@ participant "Kafka" as kafka #LightYellow
 requestor -> resume: resumeKafkaConnection()
 activate resume
 
-resume -> kafka: {resume subscribed topics}
+resume -> kafka
 activate kafka
+note right of resume
+resume subscribed 
+ topics
+end note
 
-kafka --> resume: 
+kafka --> resume
 deactivate kafka
 
 note over resume
@@ -28,7 +32,7 @@ note over resume
   - Handle resume success or failure  
 end note
 
-resume --> requestor: void
+resume --> requestor
 deactivate resume
 
 @enduml

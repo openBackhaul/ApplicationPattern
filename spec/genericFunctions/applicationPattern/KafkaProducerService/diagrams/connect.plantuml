@@ -16,7 +16,7 @@ activate connect
 connect -> kafka: {CONNECT event} 
 activate kafka
 
-kafka --> connect: connect
+kafka --> connect
 deactivate kafka
 
 note over connect

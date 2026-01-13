@@ -12,10 +12,14 @@ participant "Kafka" as kafka #LightYellow
 requestor -> send: sendMessage(topic, message)
 activate send
 
-send -> kafka: {send message to topic}
+send -> kafka
+note right of send 
+send message
+ to topic
+end note
 activate kafka
 
-kafka --> send: send response
+kafka --> send
 deactivate kafka
 
 note over send

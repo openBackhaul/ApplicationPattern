@@ -7,8 +7,8 @@ Subscribes to Kafka topics and listens for incoming messages.
 
 ### Description  
 
-Registers topic subscriptions and listens continuously for incoming messages.
-Each received message is parsed and forwarded to the provided routing function.
+Registers topic subscriptions and listens continuously for new messages in the topic.
+Each new message is pulled and forwarded to the provided routing function where further parsing and processing happens.
 
 **Module:**  
 applicationPattern/applicationPattern/services/KafkaConsumerService.js

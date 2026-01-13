@@ -12,10 +12,14 @@ participant "Kafka" as kafka #LightYellow
 requestor -> subscribe: subscribeMessages(topics, routingFunction)
 activate subscribe
 
-subscribe -> kafka: {subscribe(topics)}
+subscribe -> kafka
 activate kafka
 
-kafka --> subscribe: subscription acknowledged
+note right of subscribe 
+ subscribe [topics]
+end note
+
+kafka --> subscribe
 deactivate kafka
 
 note over subscribe
@@ -26,7 +30,7 @@ note over subscribe
   - Route messages to handler  
 end note
 
-subscribe --> requestor: void
+subscribe --> requestor
 deactivate subscribe
 
 @enduml
