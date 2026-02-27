@@ -7,14 +7,14 @@ Function Testing is designed to be:
 - **Deterministic** : all external dependencies are mocked
 - **Automated** : tests and mocks are generated from data files
 ## Purpose
-**Why do we need Function Testing?**
+### Why do we need Function Testing?
 Function Testing automatically checks that each function implementation:
 - validates inputs exactly as described in `interface.yaml` and `variable.yaml`
 - returns outputs that match the spec (structure + meaning)
 - returns the **exact error enum strings** defined in the spec
 - handles dependency failures in a predictable way (using defined error mappings)
 This catches regressions early, before integration testing.
-**Who runs and maintains it?**
+### Who runs and maintains it?
 - **CI** runs it automatically for each PR and merge candidate.
 - **TestEngineer** maintains scenarios, fixtures, and the runner/generator.
 - **ApplicationOwner** approves the scenarios/fixtures/expected results to ensure they reflect intended behavior.
