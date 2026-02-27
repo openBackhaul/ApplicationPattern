@@ -1,4 +1,5 @@
 # High Level Design for Function Testing
+
 This document describes testing Functions defined in spec/Functions/*.  
 These functions use JavaScript instead of REST interfaces.  
 
@@ -26,10 +27,44 @@ Function Testing automatically checks that each Function implementation ...
 - **Implementer**: Applies the package of test cases and mock servers on its individual Function implementation
 - **ContinuousTesting/ContinuousIntegration**: Binding the test packages into an automation chain and executing it with every pull request or merge.
 
+### ??
+
+The ApplicationOwner is writing the spec ???.
+The TestEngineer 
+- creates a description og the testing scenarios (,e.g. expected function, invalid inputs)
+
+is creating jest.js modules from the ??? of the Functions that are consumed by the Function under test.
 
 
-## Concept
+The Implementer executes the jest.js module for the Function under test.
+
+
+ for mocking the consumed Functions.
+
+
+The ContinuousTesting/ContinuousIntegration 
+
+
+
+### Description of the Testing Scenarios
+
+The scenarios are described in a yaml file.
+The yaml file shall have the following naming "/testing/p1FunctionName/scenarios.yaml".
+The scenarios.yaml file shall contain the following information:
+- the input for the function under test
+- the expected output for a given input
+- the expected error for a given input
+- the mocks
+
+
+
+
+
+
+### Concept
+
 Function Testing is **spec-driven** + **scenario-based**.
+
 ### Inputs
 1. **Function spec**: `spec/Functions/**/interface.yaml` and `spec/Functions/**/variable.yaml`
 This is the definition of the function. It provides:
