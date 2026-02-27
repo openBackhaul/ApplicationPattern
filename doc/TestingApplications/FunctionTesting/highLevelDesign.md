@@ -15,14 +15,14 @@ Function Testing automatically checks that each function implementation:
 - handles dependency failures in a predictable way (using defined error mappings)
 This catches regressions early, before integration testing.
 ### Who runs and maintains it?
-- **CI** runs it automatically for each PR and merge candidate.
-- **TestEngineer** maintains scenarios, fixtures, and the runner/generator.
-- **ApplicationOwner** approves the scenarios/fixtures/expected results to ensure they reflect intended behavior.
+- **CI** : runs it automatically for each PR and merge candidate.
+- **TestEngineer** : maintains scenarios, fixtures, and the runner/generator.
+- **ApplicationOwner** : approves the scenarios/fixtures/expected results to ensure they reflect intended behavior.
 ## Concept
 Function Testing is **spec-driven** + **scenario-based**.
 ### Inputs
 1. **Function spec**: `spec/Functions/**/interface.yaml` and `spec/Functions/**/variable.yaml`
-This is the authoritative definition of the function. It provides:
+This is the definition of the function. It provides:
     - **Input schema**
         - required fields
         - types / formats (when declared)
@@ -32,6 +32,7 @@ This is the authoritative definition of the function. It provides:
     - **Dependencies**
         - `processing` steps define what the function calls (external calls or sub-functions)
 2. **Scenario matrix: `scenarios.yaml` (one per function version)**
+
 This is the  list of test cases.
 Each scenario defines:
 - which **input fixture** is used
@@ -42,16 +43,19 @@ Each scenario defines:
   - expected success output fixture, or
   - expected function-level error enum string
 3. **Fixtures: JSON files**
+
 Fixtures are committed JSON files used by scenarios:
 - input fixtures (valid and invalid)
 - dependency return payload fixtures
 - expected (“golden”) output fixtures
 4. **Configuration: `test-config.yaml`**
+
 This maps spec dependency names to actual module paths and exports:
 - function under test -> module path + export name
 - dependency step name -> module path + export name
 It allows the tests to be independent of repository structure changes.
 5. **Error mapping: `error-mapping.yaml`**
+
 Defines deterministic mapping from:
 - “dependency failure string” -> “function error enum string”
 This prevents ambiguous or inconsistent error handling between implementations.
