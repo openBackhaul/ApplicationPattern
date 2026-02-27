@@ -1,0 +1,49 @@
+@startuml highLevelDesignTestExecution
+skinparam responseMessageBelowArrow true
+title 
+DPMDP - Function Test Execution (per scenario)
+end title
+
+skinparam responseMessageBelowArrow true
+
+actor "CI (Jenkins)\n(or implementer)" as CI
+participant "Jest\n(npm test)" as Jest
+participant "Generated Test\n(1 per scenarioId)" as Test
+participant "Scenario Runner" as Runner
+participant "Mocking Layer\n(Jest module mocks)" as Mock
+participant "FUT\n(Function Under Test)" as FUT
+participant "Dependency Step\n(processing module)" as Dep
+
+CI -> Jest : run npm test
+Jest -> Test : execute test suite
+
+Test -> Runner : runScenario(function, version, scenarioId)
+
+Runner -> Runner : load scenarios.yaml\nselect scenarioId
+Runner -> Runner : load fixtures/*.json\n(input + dep outputs + expected)
+Runner -> Runner : load test-config.yaml\n(resolve module paths/exports)
+Runner -> Runner : load error-mapping.yaml\n(dep error -> function error enum)
+
+Runner -> Mock : install mocks for each processing step\n(jest.mock + implementation per scenario)
+
+Test -> FUT : call FUT(inputFixture)
+
+loop for each processing step called by FUT
+  FUT -> Dep : call step(...)
+  alt scenario says "return fixture"
+    Dep --> FUT : return mocked payload
+  else scenario says "throw error string"
+    Dep --> FUT : throw "dependency failure string"
+  end
+end
+
+alt expected success
+  FUT --> Test : return output
+  Test -> Test : assert output == expected fixture
+else expected error
+  FUT --> Test : throw/return error enum string
+  Test -> Test : assert error == expected enum
+end
+
+Jest --> CI : publish results\nJUnit XML + logs (scenarioId, mock plan)
+@enduml

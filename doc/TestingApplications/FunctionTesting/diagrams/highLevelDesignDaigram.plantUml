@@ -1,0 +1,67 @@
+@startuml highLevelDesignDaigram
+skinparam responseMessageBelowArrow true
+
+title 
+DPMDP - Function Testing (HLD Overview)
+end title
+
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "Specification (spec/Functions/**)" {
+  [interface.yaml\nx-javascript-interface\n- input/output schemas\n- error enums\n- processing steps] as IFACE
+  [variables.yaml\n -structure] as VARS
+}
+
+package "Test Definition (committed test assets)" {
+  [scenarios.yaml\n1 scenario = 1 test\n- input fixture ref\n- mock plan per dependency\n- expected output/error] as SCEN
+  [fixtures/*.json\n- inputs\n- dependency outputs\n- expected (golden) outputs] as FIX
+  [error-mapping.yaml\n(dep failure string ->\n function error enum)] as EMAP
+  [test-config.yaml\nmaps:\n- function -> module path/export\n- step name -> module path/export] as TCFG
+}
+
+package "Automation" {
+  [Test Generator\ncreates  Jest tests\nfrom scenarios + config] as GEN
+  [Runner\nexecutes 1 scenario:\n- configure mocks\n- asserts result] as RUN
+}
+
+package "Sandbox Execution" {
+  [Node.js + npm (pinned)\nJest: npm test] as SANDBOX
+  [Artifacts\n- JUnit XML\n- logs ] as ART
+}
+
+package "function Under Test (once implemented)" {
+  [Function Under Test (FUT)\nCommonJS export] as FUT
+  [Dependency Modules\n(one per processing step)] as DEPS
+}
+
+package "Mocking" {
+  [Jest module mocking\njest.mock(modulePath)\nmock impl per scenario:\n- return fixture\n- throw error string] as JMOCK
+}
+
+' Spec drives what needs to be tested
+IFACE --> SCEN : scenarios derived from spec behavior
+IFACE --> TCFG : step names to be mapped
+VARS  --> FIX  : informs fixture structure
+
+' Test assets are inputs to automation
+SCEN --> GEN
+TCFG --> GEN
+SCEN --> RUN
+FIX  --> RUN
+EMAP --> RUN
+
+' Generator produces committed tests (conceptual output)
+GEN --> RUN : generated tests call runner
+
+' Runner uses sandbox + installs mocks + runs FUT
+RUN --> SANDBOX
+RUN --> JMOCK
+JMOCK ..> DEPS : replaces imports
+
+SANDBOX --> FUT : execute function code
+FUT --> DEPS : calls processing steps (mocked)
+
+SANDBOX --> ART : produce reports/logs
+@enduml
