@@ -1,6 +1,6 @@
 # High Level Design for Function Testing
-This document describes Function Testing for DPMDP application defined in spec/Functions/**.
-These functions use x-javascript-interface and typically do not expose a REST endpoint.
+This document describes  Testing  function  defined in spec/Functions/*.
+These functions use javascript-interface and in general do not expose a REST endpoint.
 Function Testing is designed to be:
 - **Fast** : runs on every PR/Commit
 - **Spec-driven** :  the specification is the single source of truth
