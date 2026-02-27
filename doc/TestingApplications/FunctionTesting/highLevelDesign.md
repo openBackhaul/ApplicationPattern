@@ -172,11 +172,13 @@ We achieve this by applying the following rules:
   - fail: behavior deviates from specification, or test assets are incomplete
 
 **Result documentation**
+
 Artifacts produced per run:
 - JUnit XML (CI-readable)
 - logs including scenario ID and mock configuration (for traceability)
 
 **Acceptance**
+
 A function implementation is accepted when:
 - all mandatory scenarios pass
 - output fixtures match for success cases
