@@ -7,14 +7,14 @@ Function Testing is designed to be:
 - **Deterministic** : all external dependencies are mocked
 - **Automated** : tests and mocks are generated from data files
 ## Purpose
-### Why do we need Function Testing?
+**Why do we need Function Testing?**
 Function Testing automatically checks that each function implementation:
 - validates inputs exactly as described in `interface.yaml` and `variable.yaml`
 - returns outputs that match the spec (structure + meaning)
 - returns the **exact error enum strings** defined in the spec
 - handles dependency failures in a predictable way (using defined error mappings)
 This catches regressions early, before integration testing.
-### Who runs and maintains it?
+**Who runs and maintains it?**
 - **CI** runs it automatically for each PR and merge candidate.
 - **TestEngineer** maintains scenarios, fixtures, and the runner/generator.
 - **ApplicationOwner** approves the scenarios/fixtures/expected results to ensure they reflect intended behavior.
@@ -23,15 +23,15 @@ Function Testing is **spec-driven** + **scenario-based**.
 ### Inputs
 1. **Function spec**: `spec/Functions/**/interface.yaml` and `spec/Functions/**/variable.yaml`
 This is the authoritative definition of the function. It provides:
-- **Input schema**
-  - required fields
-  - types / formats (when declared)
-- **Output schema**
-  - success output shape
-  - error output enum strings
-- **Dependencies**
-  - `processing` steps define what the function calls (external calls or sub-functions)
- 2. **Scenario matrix: `scenarios.yaml` (one per function version)**
+    - **Input schema**
+        - required fields
+        - types / formats (when declared)
+    - **Output schema**
+        - success output shape
+        - error output enum strings
+    - **Dependencies**
+        - `processing` steps define what the function calls (external calls or sub-functions)
+2. **Scenario matrix: `scenarios.yaml` (one per function version)**
 This is the  list of test cases.
 Each scenario defines:
 - which **input fixture** is used
@@ -41,7 +41,7 @@ Each scenario defines:
 - what the function is expected to produce:
   - expected success output fixture, or
   - expected function-level error enum string
-3.**Fixtures: JSON files**
+3. **Fixtures: JSON files**
 Fixtures are committed JSON files used by scenarios:
 - input fixtures (valid and invalid)
 - dependency return payload fixtures
@@ -139,7 +139,7 @@ To enable maximum automation in creating mocks and test cases, the specification
   - 1 test per scenario ID
 #### Automatic test case creation
 Test cases are automatically generated from:
-- `scenarios.yaml` (authoritative list of test cases)
+- `scenarios.yaml` ( list of test cases)
 - `test-config.yaml` (module paths/exports)
 **High level Design for test execution**
 ![Overview](./diagrams/highLevelDesignTestExecution.png)
