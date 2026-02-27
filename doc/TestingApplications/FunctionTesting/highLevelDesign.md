@@ -164,15 +164,18 @@ We achieve this by applying the following rules:
 **Platform**
 - Local execution for developers and TestEngineers
 - CI execution for commit/PR creation (Jenkins)
+
 **Execution**
 - Command: `npm test`
 - The test stage produces a binary result:
   - pass: function behavior matches the specification for all scenarios
   - fail: behavior deviates from specification, or test assets are incomplete
+
 **Result documentation**
 Artifacts produced per run:
 - JUnit XML (CI-readable)
 - logs including scenario ID and mock configuration (for traceability)
+
 **Acceptance**
 A function implementation is accepted when:
 - all mandatory scenarios pass
