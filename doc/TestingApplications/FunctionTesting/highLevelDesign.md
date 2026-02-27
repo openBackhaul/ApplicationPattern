@@ -1,23 +1,33 @@
 # High Level Design for Function Testing
-This document describes  Testing  function  defined in spec/Functions/*.
-These functions use javascript-interface and in general do not expose a REST endpoint.
-Function Testing is designed to be:
+This document describes testing Functions defined in spec/Functions/*.  
+These functions use JavaScript instead of REST interfaces.  
+
+### Design Targets
+
+Function testing is designed to be:
 - **Fast** : runs on every PR/Commit
 - **Spec-driven** :  the specification is the single source of truth
 - **Deterministic** : all external dependencies are mocked
 - **Automated** : tests and mocks are generated from data files
-## Purpose
-### Why do we need Function Testing?
-Function Testing automatically checks that each function implementation:
-- validates inputs exactly as described in `interface.yaml` and `variable.yaml`
-- returns outputs that match the spec (structure + meaning)
-- returns the **exact error enum strings** defined in the spec
-- handles dependency failures in a predictable way (using defined error mappings)
-This catches regressions early, before integration testing.
-### Who runs and maintains it?
-- **CI** : runs it automatically for each PR and merge candidate.
-- **TestEngineer** : maintains scenarios, fixtures, and the runner/generator.
-- **ApplicationOwner** : approves the scenarios/fixtures/expected results to ensure they reflect intended behavior.
+
+### Coverage of Function Testing
+
+Function Testing automatically checks that each Function implementation ...
+- ... provides the function as defined in the spec
+- ... returns outputs (structure + meaning) according to the spec (`interface.yaml`)
+- ... validates inputs as described in the spec
+- ... returns the exact error enum strings defined in the spec
+- ... handles dependency failures in a predictable way (using defined error mappings)
+
+### Roles
+
+- **ApplicationOwner**: Provides the spec of the Function in a way that allows a high level of automation of the test case and mock server creation
+- **TestEngineer**: Creates an automatically executable package of test cases and mock servers from the specification for each and every Function
+- **Implementer**: Applies the package of test cases and mock servers on its individual Function implementation
+- **ContinuousTesting/ContinuousIntegration**: Binding the test packages into an automation chain and executing it with every pull request or merge.
+
+
+
 ## Concept
 Function Testing is **spec-driven** + **scenario-based**.
 ### Inputs
