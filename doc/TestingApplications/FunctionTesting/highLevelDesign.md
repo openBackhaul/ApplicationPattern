@@ -62,6 +62,7 @@ The sandbox environment is a controlled, reproducible setup where Function Tests
 - Jest as the test runner (npm test)
 - committed test assets (scenarios + JSON fixtures + mappings)
 - the function under test (once implemented)
+
 **Key properties** :
 - No external infrastructure is required .
 - All dependencies listed in the spec processing section are mocked at module level (Jest module mocking).
@@ -127,7 +128,7 @@ To enable maximum automation in creating mocks and test cases, the specification
    - maps dependency (processing step names) to module path + export name
    - maps function under test to its module path + export name
    - makes test generation mechanical and repository-structure independent
-**High level Design**
+
 ![Overview](./diagrams/highLevelDesignDaigram.png)
 ### Test Cases
 #### Design
@@ -141,7 +142,7 @@ To enable maximum automation in creating mocks and test cases, the specification
 Test cases are automatically generated from:
 - `scenarios.yaml` ( list of test cases)
 - `test-config.yaml` (module paths/exports)
-**High level Design for test execution**
+
 ![Overview](./diagrams/highLevelDesignTestExecution.png)
 #### Reproducibility
 **Goal:** A Function Test run must produce the **same result** (pass/fail and outputs) whenever it is executed against the same Git commit—locally or in CI.
