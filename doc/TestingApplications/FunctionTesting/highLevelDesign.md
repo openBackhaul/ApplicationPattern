@@ -42,8 +42,8 @@ The scenarios are described in a yaml file.
 The yaml file shall have the following naming "/testing/p1FunctionName/scenarios.yaml".
 The scenarios.yaml file shall contain the following information:
 - Scenario ID and description (unique name for reporting and traceability)
-- the input for the function under test : reference to an input JSON fixture in "testing/<FunctionName>/Input/"
-- the expected output for a given input :reference to an output JSON fixture in "testing/<FunctionName>/Output/" 
+- the input for the function under test : reference to an input JSON fixture in "testing/p1FunctionName/Input/"
+- the expected output for a given input : reference to an output JSON fixture in "testing/p1FunctionName/Output/" 
 - the expected error for a given input : exact string as defined in the spec
 - the mocks : for each dependency step from the spec processing section, defining either:
   - a return payload (reference to an output JSON fixture)
