@@ -31,7 +31,7 @@ Function Testing automatically checks that each Function implementation ...
 
 - **The ApplicationOwner** : writes the function specification, which defines inputs, outputs, and dependencies.
 - **The TestEngineer** : Based on this specification creates the testing scenarios (including valid and invalid inputs, expected success outputs, and error cases) and generates the Jest test modules that automatically mock all dependent functions consumed by the function under test.
-- **The Implementer** : Implements the function according to the specification and runs these Jest modules against their function implementation to verify correctness.
+- **The Implementer** : Implements the function according to the specification and runs  these Jest modules locally against their function implementation to verify correctness.
 - **The ContinuousTesting/ContinuousIntegration** : Ensures that all generated tests are executed automatically for every pull request, providing reproducible and deterministic validation of the function behavior.
 
 
