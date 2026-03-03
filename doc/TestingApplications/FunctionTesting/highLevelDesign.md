@@ -29,10 +29,10 @@ Function Testing automatically checks that each Function implementation ...
 
 ### Responsabilities
 
-**The ApplicationOwner** : writes/owns the Function spec (interface.yaml/variable.yaml + processing dependencies).
-**The TestEngineer** : Produces and maintains the executable test package (scenarios, fixtures, mocks, config, error-mapping, generated Jest tests/runner).
-**The Implementer** : Implements the function according to the spec and runs the test package locally, fixing code until all scenarios in the scenarios.yml file pass deterministically.
-**The ContinuousTesting/ContinuousIntegration** : Runs the tests in scenarios.yml file   automatically for every pull request using a fixed setup, saves the test results, and blocks the merge if any test fails.
+- **The ApplicationOwner** : writes/owns the Function spec (interface.yaml/variable.yaml + processing dependencies).
+- **The TestEngineer** : Produces and maintains the executable test package (scenarios, fixtures, mocks, config, error-mapping, generated Jest tests/runner).
+- **The Implementer** : Implements the function according to the spec and runs the test package locally, fixing code until all scenarios in the scenarios.yml file pass deterministically.
+- **The ContinuousTesting/ContinuousIntegration** : Runs the tests in scenarios.yml file   automatically for every pull request using a fixed setup, saves the test results, and blocks the merge if any test fails.
 
 
 
