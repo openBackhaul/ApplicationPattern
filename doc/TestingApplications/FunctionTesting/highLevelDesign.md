@@ -27,12 +27,12 @@ Function Testing automatically checks that each Function implementation ...
 - **Implementer**: Applies the package of test cases and mock servers on its individual Function implementation
 - **ContinuousTesting/ContinuousIntegration**: Binding the test packages into an automation chain and executing it with every pull request or merge.
 
-### Responsabilities
+### Testing workflow
 
-- **The ApplicationOwner** : writes/owns the Function spec (interface.yaml/variable.yaml + processing dependencies).
-- **The TestEngineer** : Produces and maintains the executable test package (scenarios, fixtures, mocks, config, error-mapping, generated Jest tests/runner).
-- **The Implementer** : Implements the function according to the spec and runs the test package locally, fixing code until all scenarios in the scenarios.yml file pass deterministically.
-- **The ContinuousTesting/ContinuousIntegration** : Runs the tests in scenarios.yml file   automatically for every pull request using a fixed setup, saves the test results, and blocks the merge if any test fails.
+- **The ApplicationOwner** : writes the function specification, which defines inputs, outputs, and dependencies.
+- **The TestEngineer** : Based on this specification creates the testing scenarios (including valid and invalid inputs, expected success outputs, and error cases) and generates the Jest test modules that automatically mock all dependent functions consumed by the function under test .
+- **The Implementer** : Implements the function according to the specification and runs these Jest modules against their function implementation to verify correctness.
+- **The ContinuousTesting/ContinuousIntegration** : Ensures that all generated tests are executed automatically for every pull request, providing reproducible and deterministic validation of the function behavior.
 
 
 
