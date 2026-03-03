@@ -27,22 +27,12 @@ Function Testing automatically checks that each Function implementation ...
 - **Implementer**: Applies the package of test cases and mock servers on its individual Function implementation
 - **ContinuousTesting/ContinuousIntegration**: Binding the test packages into an automation chain and executing it with every pull request or merge.
 
-### ??
+### Responsabilities
 
-The ApplicationOwner is writing the spec ???.
-The TestEngineer 
-- creates a description og the testing scenarios (,e.g. expected function, invalid inputs)
-
-is creating jest.js modules from the ??? of the Functions that are consumed by the Function under test.
-
-
-The Implementer executes the jest.js module for the Function under test.
-
-
- for mocking the consumed Functions.
-
-
-The ContinuousTesting/ContinuousIntegration 
+**The ApplicationOwner** : writes/owns the Function spec (interface.yaml/variable.yaml + processing dependencies).
+**The TestEngineer** : Produces and maintains the executable test package (scenarios, fixtures, mocks, config, error-mapping, generated Jest tests/runner).
+**The Implementer** : Implements the function according to the spec and runs the test package locally, fixing code until all scenarios in the scenarios.yml file pass deterministically.
+**The ContinuousTesting/ContinuousIntegration** : Runs the tests in scenarios.yml file   automatically for every pull request using a fixed setup, saves the test results, and blocks the merge if any test fails.
 
 
 
@@ -51,10 +41,25 @@ The ContinuousTesting/ContinuousIntegration
 The scenarios are described in a yaml file.
 The yaml file shall have the following naming "/testing/p1FunctionName/scenarios.yaml".
 The scenarios.yaml file shall contain the following information:
-- the input for the function under test
-- the expected output for a given input
-- the expected error for a given input
-- the mocks
+- Scenario ID and description (unique name for reporting and traceability)
+- the input for the function under test : reference to an input JSON fixture in "testing/<FunctionName>/Input/"
+- the expected output for a given input :reference to an output JSON fixture in "testing/<FunctionName>/Output/" 
+- the expected error for a given input : exact string as defined in the spec
+- the mocks : for each dependency step from the spec processing section, defining either:
+  - a return payload (reference to an output JSON fixture)
+  - an error string to throw (which the function must map deterministically)
+- Module configuration : module path + export name for the function under test and each dependency (to keep tests independent of repository structure changes)
+- Error mapping : (dependency failure string → function error enum string) to guarantee deterministic error handling across implementations
+
+### Naming rules for the input/output
+
+-  Scenario IDs : Use a stable, readable ID (e.g happy_path,invalid_missing_MountName ...)
+-  Input fixtures : shall have the following naming in_<scenarioId>.json (e.g in_happy_path.json,in_invalid_missing_MountName.json ...)
+- Expected function outputs : success → out_<scenarioId>_success.json (e.g., out_happy_path_success.json); errors → use error enums from scenarios.yaml
+- Mock outputs for dependencies : shall have the following naming mock_<dependencyStepName>_<scenarioId>.json (e.g mock_p1FieldsFilter_happy_path.json)
+
+
+
 
 
 
