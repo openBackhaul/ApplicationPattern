@@ -1,0 +1,48 @@
+@startuml highLevelDesignTestFlow
+skinparam responseMessageBelowArrow true
+title 
+DPMDP - Function testing flow 
+end title
+
+skinparam responseMessageBelowArrow true
+
+
+actor ApplicationOwner as AO
+actor TestEngineer as TE
+actor Implementer as IM
+actor "ContinuousTesting/CI" as CI
+
+participant "Function Spec\n(spec/Functions/**)" as SPEC
+participant "Scenario + Fixtures\n(testing/<Function>/...)" as SCEN
+participant "Jest Test Modules\n(generated)" as JEST
+participant "Function Implementation\n(src/...)" as FCT
+participant "Dependencies\n(mocked modules)" as DEP
+
+== Authoring ==
+AO -> SPEC : Write/maintain spec\n(inputs, outputs, dependencies)
+TE -> SPEC : Read spec
+TE -> SCEN : Create scenarios + fixtures\n(valid/invalid, expected outputs, errors, mocks)
+TE -> JEST : Generate Jest modules\n(runner + auto-mocking)
+
+== Local verification ==
+IM -> FCT : Implement function according to spec
+IM -> JEST : Run tests locally (npm test)
+
+loop For each scenario
+  JEST -> SCEN : Load scenario + fixtures
+  JEST -> JEST : Resolve moduleConfig + errorMapping
+  JEST -> DEP : Install Jest mocks for all dependencies
+  JEST -> FCT : Call function with input fixture
+  alt success expected
+    FCT --> JEST : Return output
+    JEST -> JEST : Assert deep-equals expected output fixture
+  else error expected
+    FCT --> JEST : Throw/return error enum
+    JEST -> JEST : Assert exact error enum string
+  end
+end
+
+== PR validation ==
+CI -> JEST : Run generated tests on every PR
+CI -> CI : Publish JUnit XML + logs\nand enforce pass-as-gate
+@enduml
