@@ -54,9 +54,9 @@ The scenarios.yaml file shall contain the following information:
 ### Naming rules for the input/output
 
 -  Scenario IDs : Use a stable, readable ID (e.g happy_path,invalid_missing_MountName ...)
--  Input fixtures : shall have the following naming in_<scenarioId>.json (e.g in_happy_path.json,in_invalid_missing_MountName.json ...)
-- Expected function outputs : success → out_<scenarioId>_success.json (e.g., out_happy_path_success.json); errors → use error enums from scenarios.yaml
-- Mock outputs for dependencies : shall have the following naming mock_<dependencyStepName>_<scenarioId>.json (e.g mock_p1FieldsFilter_happy_path.json)
+-  Input fixtures : shall have the following naming in_scenarioId.json (e.g in_happy_path.json,in_invalid_missing_MountName.json ...)
+- Expected function outputs : success → out_scenarioId_success.json (e.g., out_happy_path_success.json); errors → use error enums from scenarios.yaml
+- Mock outputs for dependencies : shall have the following naming mock_dependencyStepName_scenarioId.json (e.g mock_p1FieldsFilter_happy_path.json)
 
 
 
