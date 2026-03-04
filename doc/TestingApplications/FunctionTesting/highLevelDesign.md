@@ -42,8 +42,8 @@ The scenarios are described in a yaml file.
 The yaml file shall have the following naming "/testing/p1FunctionName/scenarios.yaml".
 The scenarios.yaml file shall contain the following information:
 - Scenario ID and description (unique name for reporting and traceability)
-- the input for the function under test : reference to an input JSON fixture in "testing/p1FunctionName/Input/"
-- the expected output for a given input : reference to an output JSON fixture in "testing/p1FunctionName/Output/" 
+- the input for the function under test : reference to an input JSON fixture in "testing/p1FunctionName/input/"
+- the expected output for a given input : reference to an output JSON fixture in "testing/p1FunctionName/output/" 
 - the expected error for a given input : exact string as defined in the spec
 - the mocks : for each dependency step from the spec processing section, defining either:
   - a return payload (reference to an output JSON fixture)
@@ -53,8 +53,8 @@ The scenarios.yaml file shall contain the following information:
 
 ### Naming rules for the input/output
 
--  Scenario IDs : Use a stable, readable ID (e.g happy_path,invalid_missing_MountName ...)
--  Input fixtures : shall have the following naming in_scenarioId.json (e.g in_happy_path.json,in_invalid_missing_MountName.json ...)
+-  Scenario IDs : Use a stable, readable ID (e.g happy_path,invalid_missing_mountName ...)
+-  Input fixtures : shall have the following naming in_scenarioId.json (e.g in_happy_path.json,in_invalid_missing_mountName.json ...)
 - Expected function outputs : success → out_scenarioId_success.json (e.g., out_happy_path_success.json); errors → use error enums from scenarios.yaml
 - Mock outputs for dependencies : shall have the following naming mock_dependencyStepName_scenarioId.json (e.g mock_p1FieldsFilter_happy_path.json)
 
