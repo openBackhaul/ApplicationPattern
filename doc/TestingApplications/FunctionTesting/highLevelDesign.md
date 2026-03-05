@@ -43,12 +43,11 @@ The yaml file shall have the following naming "/testing/p1FunctionName/scenarios
 The scenarios.yaml file shall contain the following information:
 - Scenario ID and description (unique name for reporting and traceability)
 - the input for the function under test : reference to an input JSON fixture in "testing/p1FunctionName/input/"
-- the expected output for a given input : reference to an output JSON fixture in "testing/p1FunctionName/output/" 
-- the expected error for a given input : exact string as defined in the spec
+- the expected output for a given input : reference to an output JSON fixture in "testing/p1FunctionName/output/"  or the expected error for a given input : exact string as defined in the spec
 - the mocks : for each dependency step from the spec processing section, defining either:
-  - a return payload (reference to an output JSON fixture)
+  - a return payload (reference to an output JSON fixture) or
   - an error string to throw (which the function must map deterministically)
-- Module configuration : module path + export name for the function under test and each dependency (to keep tests independent of repository structure changes)
+- Module configuration : module path + export name for the function under test and each dependency 
 - Error mapping : (dependency failure string → function error enum string) to guarantee deterministic error handling across implementations
 
 ### Naming rules for the input/output
