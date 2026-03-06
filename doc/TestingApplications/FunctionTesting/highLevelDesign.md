@@ -69,16 +69,14 @@ Scenarios are described in a YAML file:
 
 The file contains:
  
-- **Module configuration**
-  module path + export name for:
+- **Module configuration** : module path + export name for
   - the Function under test
   - each dependency step
-- **Error mapping**
-  dependency failure string → Function-level error enum string
+- **Error mapping** : dependency failure string → Function-level error enum string
   
 And for each scenario entry:
 
-- **Scenario ID + description** (unique, stable)
+- **Scenario ID + description** : (unique, stable)
 - **Input fixture reference**  
   JSON fixture located in `testing/FunctionName/version/input/`
 - **Expected outcome**
