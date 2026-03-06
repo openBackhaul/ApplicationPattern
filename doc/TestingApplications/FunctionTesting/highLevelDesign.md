@@ -57,26 +57,30 @@ Scenarios are described in a YAML file:
 
 - Path: `testing/FunctionName/version/scenarios.yaml`
 
-Each scenario entry contains:
-
-- **Scenario ID + description** (unique, stable)
-- **Input fixture reference**  
-  JSON fixture located in `testing/FunctionName/version/input/`
-- **Expected outcome**
-  - expected success output fixture in `testing/FunctionName/version/output/`, **or**
-  - expected error enum string (exactly as defined in the spec)
-- **Mocks for dependencies**
-  For each dependency step from the spec `processing` section:
-  - return payload fixture (JSON), **or**
-  - error string to throw (mapped deterministically)
+The file contains:
+ 
 - **Module configuration**
   module path + export name for:
   - the Function under test
   - each dependency step
 - **Error mapping**
   dependency failure string → Function-level error enum string
+  
+And for each scenario entry:
 
-### Naming Rules for Fixtures
+- **Scenario ID + description** (unique, stable)
+- **Input fixture reference**  
+  JSON fixture located in `testing/FunctionName/version/input/`
+- **Expected outcome**
+  - expected success output fixture in `testing/FunctionName/version/output/`, or
+  - expected error enum string (exactly as defined in the spec)
+- **Mocks for dependencies**
+  For each dependency step from the spec `processing` section:
+  - return payload fixture (JSON), or
+  - error string to throw (mapped deterministically)
+
+
+### Naming Rules 
 
 - **Scenario IDs**: stable, readable IDs (e.g. `happy_path`, `invalid_missing_mountName`)
 - **Input fixtures**: `in_scenarioId.json`  
