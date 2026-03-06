@@ -43,8 +43,9 @@ For each Function version, the test package consists of:
 - **Scenario definition**
   - `testing/FunctionName/version/scenarios.yaml`
 - **Fixtures**
-  - `testing/FunctionName/version/input/*.json`
-  - `testing/FunctionName/version/output/*.json`
+  - `testing/FunctionName/version/scenarioId/input.json` 
+  - `testing/FunctionName/version/scenarioId/output.json`
+  - `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`
 - **Generated Jest test module(s)**
   - one generated Jest test file per Function version
   - `testing/FunctionName/version/tests/FunctionName.test.js`
