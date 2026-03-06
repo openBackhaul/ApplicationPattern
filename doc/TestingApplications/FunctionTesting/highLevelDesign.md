@@ -49,7 +49,17 @@ For each Function version, the test package consists of:
   - one generated Jest test file per Function version
   - `testing/FunctionName/version/tests/FunctionName.test.js`
 - **Runtime environment**
-  - Node.js + npm dependencies 
+  - Node.js + npm dependencies
+
+### Test File Generator
+The test file generator creates the  Jest test file for each Function version
+
+- Path : 'testing/tools/generateFunctionTests.js'
+
+The generator works as follows:
+  - read `testing/FunctionName/version/scenarios.yaml`
+  - generate: `testing/FunctionName/version/tests/FunctionName.test.js`
+
 
 ### Scenario Definition (`scenarios.yaml`)
 
