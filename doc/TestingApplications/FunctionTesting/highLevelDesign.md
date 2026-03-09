@@ -55,7 +55,7 @@ For each Function version, the test package consists of:
 ### Test File Generator
 The test file generator creates the  Jest test file for each Function version
 
-- Path : 'testing/tools/generateFunctionTests.js'
+- Path : `testing/tools/generateFunctionTests.js`
 
 The generator works as follows:
   - read `testing/FunctionName/version/scenarios.yaml`
@@ -79,27 +79,15 @@ And for each scenario entry:
 
 - **Scenario ID + description** : (unique, stable)
 - **Input fixture reference**  
-  JSON fixture located in `testing/FunctionName/version/input/`
+  JSON fixture located in `testing/FunctionName/version/scenarioId/input.json`
 - **Expected outcome**
-  - expected success output fixture in `testing/FunctionName/version/output/`, or
+  - expected success output fixture in  `testing/FunctionName/version/scenarioId/output.json`, or
   - expected error enum string (exactly as defined in the spec)
 - **Mocks for dependencies**
   For each dependency step from the spec `processing` section:
-  - return payload fixture (JSON), or
+  - return payload fixture in `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`, or
   - error string to throw (mapped deterministically)
 
-
-### Naming Rules 
-
-- **Scenario IDs**: stable, readable IDs (e.g. `happy_path`, `invalid_missing_mountName`)
-- **Input fixtures**: `in_scenarioId.json`  
-  Example: `in_happy_path.json`
-- **Expected outputs**:
-  - success: `out_scenarioId_success.json`  
-    Example: `out_happy_path_success.json`
-  - errors: use error enum strings in `scenarios.yaml`
-- **Dependency mock outputs**: `mock_dependencyStepName_scenarioId.json`  
-  Example: `mock_p1FieldsFilter_happy_path.json`
 
 ### Scenario Execution (Runner Logic)
 
@@ -112,8 +100,8 @@ The scenario execution logic is implemented once  and reused by all generated Je
 For each scenario ID, the runner performs:
 
 - **Load test data**
-   - load `in_scenarioId.json`
-   - load mock fixtures referenced by the scenario
+   - load `testing/FunctionName/version/scenarioId/input.json` 
+   - load mock(s) fixtures referenced in `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`
 
 - **Install dependency mocks**
    - all dependencies listed under `processing` are mocked at module level (Jest module mocking)
@@ -125,7 +113,7 @@ For each scenario ID, the runner performs:
    - call the real Function implementation with the loaded input fixture
 
 - **Assert**
-   - success: deep-compare with `out_scenarioId_success.json`
+   - success: deep-compare with `testing/FunctionName/version/scenarioId/output.json`
    - error: exact match with the expected error enum string
 
 ### Deterministic Error Handling
