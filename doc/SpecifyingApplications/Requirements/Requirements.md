@@ -38,11 +38,20 @@ To ensure requirements are captured, structured, and maintained consistently, a 
   To ensure every requirement follows the same structure and contains all necessary information.
 3. **Labels**  
   Such as priority, status, and category (and optionally issue type as a label) to enable efficient filtering, tracking, and reporting.
+4. **Milestones**  
+  Applying the milestone concept on the centralized user demand repositories could help to better organize requirements.
+5. **Tags**  
+  Tags in the headline of Github issues can be used to further categorize issues.  
+  It would also be possible to add certain labels as tags, rather than actual Github labels.
+  A headline could be written in the format "*[some_tag] The actual headline*"
+
 
 ### Possible issue types
 
 Different issue types are possible, not all of them might be required in the respective context.  
 Note that, instead of creating several issues (from different issue types) belonging to the same requirement, it would also be possible to have these as sections in the issue template. E.g. a non-functional requirement or constraint may directly be tied to a functional requirement - it can be captured within a dedicated section of the functional requirement issue.  
+
+*Note that while Github added configurable issue types in the past, this feature is limited to Github organisations only, and, therefore is not applicable here.*
 
 **Functional requirements**  
 - describe **what** functionality a system/application shall provide, **not how** it shall provide it (i.e. the technical solution is not described in the requirement)
@@ -83,13 +92,37 @@ The following categories are recommended:
   - here it makes more sense to add labels from the MW SDN context (e.g. `controller` or `config data`)
   - if requirements are documented inside a use case repository, the target applications could be used as labels (e.g. `mwdi` or `dpmdp`)
 
+### Milestones  
+
+For regular application repositories milestones are used to categorize issues into release specific clusters for specification, implementation and testing.  
+Milestones could also be used to intelligently structure requirements.
+
+Possible milestones would be:  
+- in the context of release bundles
+- grouping by required functionality  
+  *Example: there could be dedicated requirements for providing 15min performance data and certain configuration data of different interfaces of a device. These different requirements would belong to the same context.*
+- grouping certain requirement types
+  E.g. document overall constraints or business rules within a dedicated milestone
+
 ## Roles and Responsibilities
 
 Roles and responsibilities within the MW SDN domain are as described in [Enterprise Architecture](https://confluence.telefonica.de/pages/viewpage.action?pageId=39068165&spaceKey=ARCH&title=Introduction).
 
+Stakeholders shall be identified and, and their respective roles and responsibilities within the project shall be documented as defined in the referenced role description.  
+
 ## Workflow  
 
-The diagram shows the workflow for capturing requirements (1), getting the consumer team approval (2),  transforming them into capabilities and release bundles, before creating the specification (3), implement the release (4) and finally (after rollout) getting the consumers approval of the implemented solution.  
+The diagram shows the simplified workflow for capturing requirements (1), getting the consumer team approval (2),  transforming them into capabilities and release bundles, before creating the specification (3), implement the release (4) and finally (after rollout) getting the consumers approval of the implemented solution.  
 Roles are as outlined in the previous section.  
 
-![requirementWorkflow](./pictures/requirementWorkflow.png)
+![requirementWorkflow](./pictures/requirementWorkflow.png)  
+
+---  
+## TODOS
+
+The following topics require more discussion and alignement:
+- which labels?
+- slicing: how drill down from requirements to release features
+- how capture stakeholder information
+- how capture requirements -> workshops?
+- general concept
