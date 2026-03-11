@@ -126,3 +126,4 @@ The following topics require more discussion and alignement:
 - how capture stakeholder information
 - how capture requirements -> workshops?
 - general concept
+- who belongs to provider team, who to consumer team (e.g. for APTP - should Sven be seen as the Provider Team App owner, or as app owner from consumer team?)
