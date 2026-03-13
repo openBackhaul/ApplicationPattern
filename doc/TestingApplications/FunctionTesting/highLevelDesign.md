@@ -43,9 +43,9 @@ For each Function version, the test package consists of:
 - **Scenario definition**
   - `testing/FunctionName/version/scenarios.yaml`: file acts as the test configuration, allowing new scenarios to be added without modifying the test code
 - **Fixtures**
-  - `testing/FunctionName/version/scenarioId/input.json` : the request payload passed to the function under test
-  - `testing/FunctionName/version/scenarioId/output.json` : the expected response produced by the function
-  - `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json` : mocked response for a consumed sub-function, allowing tests to run without calling external services
+  - The request payload passed to the function under test : `testing/FunctionName/version/scenarioId/input.json` 
+  - The expected response produced by the function : `testing/FunctionName/version/scenarioId/output.json` 
+  - The mocked response for a consumed sub-function, allowing tests to run without calling external services : `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`
 - **Generated Jest test module(s)**
   - one generated Jest test file per Function version
   - `testing/FunctionName/version/tests/FunctionName.test.js`
