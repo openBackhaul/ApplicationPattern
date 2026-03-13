@@ -18,7 +18,7 @@ moduleConfig:
       exportName: 'readControlConstructFromReplica'
       kind: 'api'
     p1FieldsFilter:
-      modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/p1FieldsFilter.js'
+      modulePath: 'src/Functions/p1FieldsFilter/1.0.0/p1FieldsFilter.js'
       exportName: 'p1FieldsFilter'
       kind: 'function'
     retrieveMostRecentPeriodEndTimesFromDs:
@@ -26,7 +26,7 @@ moduleConfig:
       exportName: 'retrieveMostRecentPeriodEndTimesFromDs'
       kind: 'api'
     p1DiscardIrrelevantPmRecords:
-      modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/p1DiscardIrrelevantPmRecords.js'
+      modulePath: 'src/Functions/p1DiscardIrrelevantPmRecords/1.0.0/p1DiscardIrrelevantPmRecords.js'
       exportName: 'p1DiscardIrrelevantPmRecords'
       kind: 'function'
     addBatchTimestamp:
@@ -56,17 +56,15 @@ errorMapping:
 scenarios:
   - id: 'happy_path'
     description: 'All dependencies succeed'
-    inputFixture: 'in_happy_path.json'
+    inputFixture: 'happy_path/input.json'
     mocks:
       readControlConstructFromReplica:
-        returnsOutputFixture: 'mock_readControlConstructFromReplica_happy_path.json'
+        returnsOutputFixture: 'happy_path/consumedReadControlConstructFromReplica.json'
       p1FieldsFilter:
-        returnsOutputFixture: 'mock_p1FieldsFilter_happy_path.json'
+        returnsOutputFixture: 'happy_path/p1ConsumedFieldsFilter.json'
       retrieveMostRecentPeriodEndTimesFromDs:
-        returnsOutputFixture: 'mock_retrieveMostRecentPeriodEndTimesFromDs_happy_path.json'
+        returnsOutputFixture: 'happy_path/consumedRetrieveMostRecentPeriodEndTimesFromDs.json'
       p1DiscardIrrelevantPmRecords:
-        returnsOutputFixture: 'mock_p1DiscardIrrelevantPmRecords_happy_path.json'
-      addBatchTimestamp:
-        returnsOutputFixture: 'mock_addBatchTimestamp_happy_path.json'
+        returnsOutputFixture: 'happy_path/p1ConsumedDiscardIrrelevantPmRecords.json'
     expect:
-      successOutputFixture: 'out_happy_path_success.json'
+      successOutputFixture: 'happy_path/output.json'
