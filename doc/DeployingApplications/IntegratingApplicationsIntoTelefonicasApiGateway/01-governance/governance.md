@@ -50,8 +50,8 @@ The following table displays the **current** mapping between API Gateway environ
  | Environment             | Backend Environment Mapping | Publisher Portal Link | Subscriber (Dev) Portal Link |
 |-----------------         | -------------------------|--------------------|--------------------|
 | ICT  (_Currently not in use_) |   _NONE_      | [🔒Publisher Portal](https://ict.high.apigw-test.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://ict.high.apigw-test.aws.de.pri.o2.com/devportal)      |
-| E2E1                     | MW-SDN TestLab ??    | [🔒Publisher Portal](https://e2e1.high.apigw-test.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://e2e1.high.apigw-test.aws.de.pri.o2.com/devportal)      |
-| E2E2 (_Currently not in use_)|   _NONE_       | [🔒Publisher Portal](https://e2e2.high.apigw-test.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://e2e2.high.apigw-test.aws.de.pri.o2.com/devportal)      |
+| E2E1  (_Currently not in use_)                   |     | [🔒Publisher Portal](https://e2e1.high.apigw-test.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://e2e1.high.apigw-test.aws.de.pri.o2.com/devportal)      |
+| E2E2 (_Used for testing_)|   _NONE_       | [🔒Publisher Portal](https://e2e2.high.apigw-test.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://e2e2.high.apigw-test.aws.de.pri.o2.com/devportal)      |
 | PROD                     | MW-SDN Production  | [🔒Publisher Portal](https://prod.high.apigw-prod.aws.de.pri.o2.com/publisher) | [🔒DevPortal](https://prod.high.apigw-prod.aws.de.pri.o2.com/devportal)
 
 # _Applications_ and Users in API Gateway. User On-boarding
