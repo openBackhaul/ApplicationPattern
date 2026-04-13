@@ -62,6 +62,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDD | MicroWaveDomainDictionary | 1.0.0 | 127.0.0.1 | 4030
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 127.0.0.1 | 4031
 |  | NEP | NetExplorerProxy  | 1.2.0 | 127.0.0.1 | 4032
+|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.1.0 | 127.0.0.1 | 4033
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
