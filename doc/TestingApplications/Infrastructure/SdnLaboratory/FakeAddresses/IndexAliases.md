@@ -23,7 +23,8 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 
 |  |  |    Replica | | 18
 |  |  |    Logging | | 20
-|  |  |    DataStore | | 21
+|  |  |    DataStore 1.0.0| | 21
+|  |  |    DataStore 1.1.1| | 22
 
 # Historical Fake Index Aliases  
 
