@@ -43,9 +43,9 @@ For each Function version, the test package consists of:
 - **Scenario definition**
   - `testing/FunctionName/version/scenarios.yaml`: file acts as the test configuration, allowing new scenarios to be added without modifying the test code
 - **Fixtures**
-  - The request payload passed to the function under test : `testing/FunctionName/version/scenarioId/input.json` 
-  - The expected response produced by the function : `testing/FunctionName/version/scenarioId/output.json` 
-  - The mocked response for a consumed sub-function, allowing tests to run without calling external services : `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`
+  - The request payload passed to the function under test : `testing/FunctionName/version/fixture/scenarioId/input.json` 
+  - The expected response produced by the function : `testing/FunctionName/version/fixture/scenarioId/output.json` 
+  - The mocked response for a consumed sub-function, allowing tests to run without calling external services : `testing/FunctionName/version/fixture/scenarioId/p1ConsumedFunctionName.json`
 - **Generated Jest test module(s)**
   - one generated Jest test file per Function version
   - `testing/FunctionName/version/tests/FunctionName.test.js`
@@ -79,13 +79,13 @@ And for each scenario entry:
 
 - **Scenario ID + description** : (unique, stable)
 - **Input fixture reference**  
-  JSON fixture located in `testing/FunctionName/version/scenarioId/input.json`
+  JSON fixture located in `testing/FunctionName/version/fixture/scenarioId/input.json`
 - **Expected outcome**
   - expected success output fixture in  `testing/FunctionName/version/scenarioId/output.json`, or
   - expected error enum string (exactly as defined in the spec)
 - **Mocks for dependencies**
   For each dependency step from the spec `processing` section:
-  - return payload fixture in `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`, or
+  - return payload fixture in `testing/FunctionName/version/fixture/scenarioId/p1ConsumedFunctionName.json`, or
   - error string to throw (mapped deterministically)
 
 
@@ -100,8 +100,8 @@ The scenario execution logic is implemented once  and reused by all generated Je
 For each scenario ID, the runner performs:
 
 - **Load test data**
-   - load `testing/FunctionName/version/scenarioId/input.json` 
-   - load mock(s) fixtures referenced in `testing/FunctionName/version/scenarioId/p1ConsumedFunctionName.json`
+   - load `testing/FunctionName/version/fixture/scenarioId/input.json` 
+   - load mock(s) fixtures referenced in `testing/FunctionName/version/fixture/scenarioId/p1ConsumedFunctionName.json`
 
 - **Install dependency mocks**
    - all dependencies listed under `processing` are mocked at module level (Jest module mocking)
@@ -113,7 +113,7 @@ For each scenario ID, the runner performs:
    - call the real Function implementation with the loaded input fixture
 
 - **Assert**
-   - success: deep-compare with `testing/FunctionName/version/scenarioId/output.json`
+   - success: deep-compare with `testing/FunctionName/version/fixture/scenarioId/output.json`
    - error: exact match with the expected error enum string
 
 ### Deterministic Error Handling
