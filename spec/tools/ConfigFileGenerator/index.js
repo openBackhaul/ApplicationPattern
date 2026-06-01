@@ -50,7 +50,7 @@ function generateProfileList(ProfileData) {
                 "string-profile-1-0:string-profile-pac": {
                     "string-profile-capability": {
                         "string-name": profileInstance['capability']['string-name'],
-                        "string-name": profileInstance['capability']['purpose'],
+                        "string-purpose": profileInstance['capability']['purpose'],
                         "enumeration": profileInstance['capability']['enumeration'],
                         "pattern": profileInstance['capability']['pattern'],
                     },
@@ -397,7 +397,31 @@ function generateClients(clientList) {
                 translatedLTPClientList.push(generateTcpClient(httpClient, tcpClient));
             }
         }
+        else if (client["kafka-client"]) {
+            let kafkaClients = client["kafka-client"];
+            let consolidatedKafkaList = [];
 
+            consolidatedKafkaList = (kafkaClients && kafkaClients.length != 0)
+                ? consolidatedKafkaList.concat(kafkaClients)
+                : consolidatedKafkaList;
+
+            if (consolidatedKafkaList.length > 0) {
+
+                consolidatedKafkaList.forEach(kafkaClient => {
+                    translatedLTPClientList.push(
+                        generateKafkaClient(kafkaClient, httpClient)
+                    );
+                });
+
+                translatedLTPClientList.push(
+                    generateHttpClient(consolidatedKafkaList, httpClient, tcpClient)
+                );
+
+                translatedLTPClientList.push(
+                    generateTcpClient(httpClient, tcpClient)
+                );
+            }
+        }
 
     });
 
@@ -550,7 +574,7 @@ function generateOperationServers(operationServerYamlInstance, httpServerYamlIns
     let operationName = operationServerYamlInstance['operation-name'];
     let operationServerUuid = operationServerYamlInstance['uuid'];
     let lifeCycleState = (operationServerYamlInstance["life-cycle-state"] != null) ? "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationServerYamlInstance["life-cycle-state"].toUpperCase() : "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
-   
+
     let operationKey = operationServerYamlInstance["operation-key"] ? operationServerYamlInstance["operation-key"] : "Operation key not yet provided.";
 
     let httpUuid = httpServerYamlInstance["uuid"];
@@ -669,4 +693,33 @@ function generateTcpServer(httpServerYamlInstance, tcpServerYamlInstanceList) {
         }]
     }
     return tcpServer;
+}
+
+function generateKafkaClient(kafkaClientYamlInstance, httpClientYamlInstance) {
+
+    let kafkaClientUuid = kafkaClientYamlInstance["uuid"];
+    let topicName = kafkaClientYamlInstance["topic-name"];
+    let type = kafkaClientYamlInstance["type"];
+    let httpUuid = httpClientYamlInstance["uuid"];
+
+    let kafkaClient = {
+        "uuid": kafkaClientUuid,
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [],
+        "server-ltp": [
+            httpUuid
+        ],
+        "layer-protocol": [{
+            "local-id": "0",
+            "layer-protocol-name": "kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER",
+            "kafka-client-interface-1-0:kafka-client-interface-pac": {
+                "kafka-client-interface-configuration": {
+                    "topic-name": topicName,
+                    "type": type
+                }
+            }
+        }]
+    };
+
+    return kafkaClient;
 }
