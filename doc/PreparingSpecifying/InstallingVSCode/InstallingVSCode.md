@@ -61,7 +61,9 @@ Repeat this procedure for all required Extensions and the recommended Extensions
 - **GitHub Pull Requests and Issues**: used to create branches from issues and also pull requests directly from within VSCode  
 - **PlantUML**: Required for sketching communication or action sequences  
 - **YAML**: Required for YAML syntax support  
-- **OpenAPI (Swagger) Editor**: Required for real-time validation of the OpenApiSpecification  
+- **OpenAPI (Swagger) Editor**: Required for real-time validation of the OpenApiSpecification
+- **Code Spell Checker**: Checks for correct spelling, additional language packages might be required
+- **markdownlint**: For harmonizing the writing of .md files accross the team members
 
 **Recommended Extensions**  
 - **Todo Tree**: management of TODOs (or other keywords if configured) found in the workspace (highlighting, TODO lists etc.)  
