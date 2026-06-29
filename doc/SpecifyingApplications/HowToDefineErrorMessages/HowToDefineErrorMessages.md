@@ -41,7 +41,7 @@ Please consider the following examples, in which the application sending the res
 | Service exists, but authentication failed as user unknown | 401 | 531 |  
 | Service exists, but known user lacks rights | 403 | ? |  
 | Service/resource indicated to be locked by another user | 423 | ? |  
-| Service indicated to be busy (too many requests) | 429 | ? |  
+| Service indicated to be busy (too many requests) | 429 | 529, ? |  
 | Service complained about faulty input data (syntax) | 400 | ? | 
 | Service complained about non-sense input data (semantic) | 422 | ? |  
 | Server lacks some resource (e.g. storage) for executing | 507 | ? |  
@@ -237,6 +237,25 @@ components:
             type: integer
             example: 1100
           description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '529':
+      description: 'Response in case of a duplicate request, that shall not be executed again'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 529
+                maximum: 529
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Duplicate request, not to be executed.'****
     '530':
       description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, incomplete or corrupted'
       content:
