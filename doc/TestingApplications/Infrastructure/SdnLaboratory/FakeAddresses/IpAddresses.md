@@ -64,6 +64,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | NEP | NetExplorerProxy  | 1.2.0 | 127.0.0.1 | 4032
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.1.0 | 127.0.0.1 | 4033
 |  | MWDI | MicroWaveDeviceInventory  | 2.2.0 | 127.0.0.1 | 4034
+|  | APTP | AccessPlanningToolProxy | 1.2.0 | 127.0.0.1 | 4035
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
