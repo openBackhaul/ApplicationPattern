@@ -1,0 +1,70 @@
+info:
+  title: p1LoadRawCc test scenarios
+  version: 1.0.0
+  description: list of possible scenarios for p1LoadRawCc function
+
+
+########################################################################################################################
+#   moduleConfig
+########################################################################################################################
+
+moduleConfig:
+  functionUnderTest:
+    modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/p1LoadRawCc.js'
+    exportName: 'p1LoadRawCc'
+  dependencies:
+    readControlConstructFromReplica:
+      modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/readControlConstructFromReplica.js'
+      exportName: 'readControlConstructFromReplica'
+      kind: 'api'
+    p1FieldsFilter:
+      modulePath: 'src/Functions/p1FieldsFilter/1.0.0/p1FieldsFilter.js'
+      exportName: 'p1FieldsFilter'
+      kind: 'function'
+    retrieveMostRecentPeriodEndTimesFromDs:
+      modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/retrieveMostRecentPeriodEndTimesFromDs.js'
+      exportName: 'retrieveMostRecentPeriodEndTimesFromDs'
+      kind: 'api'
+    p1DiscardIrrelevantPmRecords:
+      modulePath: 'src/Functions/p1DiscardIrrelevantPmRecords/1.0.0/p1DiscardIrrelevantPmRecords.js'
+      exportName: 'p1DiscardIrrelevantPmRecords'
+      kind: 'function'
+    addBatchTimestamp:
+      modulePath: 'src/Functions/p1StreamPmData/p1ProcessDevice/p1LoadRawCc/1.0.0/addBatchTimestamp.js'
+      exportName: 'addBatchTimestamp'
+      kind: 'internal'
+
+########################################################################################################################
+#  Error Mapping
+########################################################################################################################
+ 
+errorMapping:
+  # readControlConstructFromReplica dependency failure strings
+  'Data structure is missing or invalid': 'rawCc could not be provided'
+  'ElasticSearch read error': 'rawCc could not be provided'
+  'General processing error during reading': 'General processing error'
+
+  # retrieveMostRecentPeriodEndTimesFromDs dependency failure strings
+  'dataStoreUrl not provided': 'dataStoreEsClient not provided'
+  'dataStoreUrl invalid': 'dataStoreEsClient invalid'
+  'General processing error': 'General processing error'
+
+########################################################################################################################
+# Scenarios
+########################################################################################################################
+
+scenarios:
+  - id: 'happy_path'
+    description: 'All dependencies succeed'
+    inputFixture: 'happy_path/input.json'
+    mocks:
+      readControlConstructFromReplica:
+        returnsOutputFixture: 'happy_path/consumedReadControlConstructFromReplica.json'
+      p1FieldsFilter:
+        returnsOutputFixture: 'happy_path/p1ConsumedFieldsFilter.json'
+      retrieveMostRecentPeriodEndTimesFromDs:
+        returnsOutputFixture: 'happy_path/consumedRetrieveMostRecentPeriodEndTimesFromDs.json'
+      p1DiscardIrrelevantPmRecords:
+        returnsOutputFixture: 'happy_path/p1ConsumedDiscardIrrelevantPmRecords.json'
+    expect:
+      successOutputFixture: 'happy_path/output.json'
