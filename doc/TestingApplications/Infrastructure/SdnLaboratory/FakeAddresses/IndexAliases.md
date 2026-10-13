@@ -25,6 +25,7 @@ The following fake Index Aliases have to be used in public documentation and spe
 |  |  |    Logging | | 20
 |  |  |    DataStore | 1.0.0 | 21
 |  |  |    DataStore | 1.1.0 | 22
+|  | FWM | FirmWareManager | 1.0.0 | 23
 
 # Historical Fake Index Aliases  
 
