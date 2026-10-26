@@ -53,7 +53,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | CP | ConnectionPreparation  | 1.0.0 | 127.0.0.1 | 4021
 |  | CP | ConnectionPreparation  | 1.1.0 | 127.0.0.1 | 4022
 |  | MWDI | MicroWaveDeviceInventory  | 1.2.2 | 127.0.0.1 | 4023
-|  | MWDI | MicroWaveDeviceInventory  | 2.0.1 | 127.0.0.1 | 4024
+|  | MWDI | MicroWaveDeviceInventory  | 2.1.1 | 127.0.0.1 | 4024
 |  | NP | NotificationProxy | 1.1.0 | 127.0.0.1 | 4025
 |  | ALM | ApplicationLayerManager | 1.0.0 | 127.0.0.1 | 4026
 |  | CDM | ControllerDomainManager | 1.0.0 | 127.0.0.1 | 4027
@@ -62,6 +62,9 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDD | MicroWaveDomainDictionary | 1.0.0 | 127.0.0.1 | 4030
 |  | DPMDP | DevicePerformanceManagementDataProcessor | 1.0.0 | 127.0.0.1 | 4031
 |  | NEP | NetExplorerProxy  | 1.2.0 | 127.0.0.1 | 4032
+|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.1.0 | 127.0.0.1 | 4033
+|  | MWDI | MicroWaveDeviceInventory  | 2.2.0 | 127.0.0.1 | 4034
+|  | APTP | AccessPlanningToolProxy | 1.2.0 | 127.0.0.1 | 4035
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 

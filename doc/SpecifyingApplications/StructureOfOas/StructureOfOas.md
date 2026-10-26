@@ -11,6 +11,18 @@ The version of the OpenAPI Specification shall be '3.0.0'.
 #### info:  
 The info section shall contain the _title_ and the _version_ statements.  
 
+#### description:  
+A short description of the application shall be stated in the _description_ statement. 
+
+#### contact:  
+The contact section shall contain the _contact.name_ and _contact.email_ statements.
+a
+#### name:  
+The full name of the corresponding application owner shall be stated in the _contact.name_ statement.
+
+#### email:  
+The official email address of the corresponding application owner person shall be stated in the _contact.email_ statement.
+
 #### title:  
 The official name of the application shall be stated in the _title_ statement.  
 

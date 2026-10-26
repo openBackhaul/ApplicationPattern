@@ -29,7 +29,7 @@ readYamlFile(profileInstancesFileName).then(ProfileData => {
                 }
             }
 
-            fs.writeFile("output/" + applicationUuid + "_config_autogen.json", JSON.stringify(controlConstruct, null, 4), function (err) {
+            fs.writeFile("output/" + applicationUuid + "_config_autogen.json", JSON.stringify(controlConstruct, null, 2), function (err) {
                 if (err) throw err;
                 console.log('complete');
             });
@@ -50,7 +50,7 @@ function generateProfileList(ProfileData) {
                 "string-profile-1-0:string-profile-pac": {
                     "string-profile-capability": {
                         "string-name": profileInstance['capability']['string-name'],
-                        "string-name": profileInstance['capability']['purpose'],
+                        "string-purpose": profileInstance['capability']['purpose'],
                         "enumeration": profileInstance['capability']['enumeration'],
                         "pattern": profileInstance['capability']['pattern'],
                     },
@@ -97,7 +97,69 @@ function generateProfileList(ProfileData) {
                 }
             }
             translatedProfileInstanceList.push(actionProfileInstance);
-        } else if (profileName == "GenericResponseProfile") {
+
+        }
+        else if (profileName === "RegexPatternMappingProfile") {
+            let regexPatternMappingProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "regex-pattern-mapping-profile-1-0:PROFILE_NAME_TYPE_REGEX_PATTERN_MAPPING_PROFILE",
+                "regex-pattern-mapping-profile-1-0:regex-pattern-mapping-profile-pac": {
+                    "regex-pattern-mapping-profile-capability": {
+                        "mapping-name": profileInstance['capability']['mapping-name'],
+                        "purpose": profileInstance['capability']['purpose']
+                    },
+                    "regex-pattern-mapping-profile-configuration": {
+                        "mapping-list": Array.isArray(profileInstance['configuration']['mapping-list'])
+                            ? profileInstance['configuration']['mapping-list']
+                            : []
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(regexPatternMappingProfileInstance);
+        }
+        else if (profileName === "FunctionProfile") {
+            let functionProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
+                "function-profile-1-0:function-profile-pac": {
+                    "function-profile-capability": {
+                        "function-name": profileInstance['capability']['function-name'],
+                        "function-description": profileInstance['capability']['function-description'],
+                        "parameter-list": Array.isArray(profileInstance['capability']['parameter-list'])
+                            ? profileInstance['capability']['parameter-list']
+                            : [],
+                        "sub-function-list": Array.isArray(profileInstance['capability']['sub-function-list'])
+                            ? profileInstance['capability']['sub-function-list']
+                            : []
+                    },
+                    "function-profile-configuration": {
+                        "is-active": profileInstance['configuration']['is-active']
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(functionProfileInstance);
+        }
+        else if (profileName === "FileProfile") {
+            let fileProfileInstance = {
+                "uuid": profileInstance['uuid'],
+                "profile-name": "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",
+                "file-profile-1-0:file-profile-pac": {
+                    "file-profile-capability": {
+                        "file-identifier": profileInstance['capability']['file-identifier'],
+                        "file-description": profileInstance['capability']['file-description']
+                    },
+                    "file-profile-configuration": {
+                        "file-path": profileInstance['configuration']['file-path'],
+                        "operation": profileInstance['configuration']['operation']
+                    }
+                }
+            };
+
+            translatedProfileInstanceList.push(fileProfileInstance);
+        }
+        else if (profileName == "GenericResponseProfile") {
             let responseProfileInstance;
             if (profileInstance['capability']['static-field-name']) {
                 responseProfileInstance = {
@@ -161,8 +223,10 @@ function generateLogicalTerminationPointList(serviceData) {
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['basic']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['own-oam']['individual']);
     consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['basic']);
-    consolidatedOperationServersList = consolidatedOperationServersList.concat(operationServers['service']['individual']);
-
+    if (operationServers['service']?.['individual']) {
+        consolidatedOperationServersList =
+            consolidatedOperationServersList.concat(operationServers['service']['individual']);
+    }
     consolidatedOperationServersList.forEach(operationServer => {
         translatedLTPList.push(generateOperationServers(operationServer, httpServer));
     });
@@ -325,15 +389,39 @@ function generateClients(clientList) {
             consolidatedOperationClientList = (elasticsearchClient && elasticsearchClient.length != 0) ?
                 consolidatedOperationClientList.concat(elasticsearchClient) : consolidatedOperationClientList;
             if (consolidatedOperationClientList.length > 0) {
-            consolidatedOperationClientList.forEach(esClient => {
-                translatedLTPClientList.push(generateElasticsearchClient(esClient, httpClient));
-            });
+                consolidatedOperationClientList.forEach(esClient => {
+                    translatedLTPClientList.push(generateElasticsearchClient(esClient, httpClient));
+                });
 
-            translatedLTPClientList.push(generateHttpClient(consolidatedOperationClientList, httpClient, tcpClient));
-            translatedLTPClientList.push(generateTcpClient(httpClient, tcpClient));
+                translatedLTPClientList.push(generateHttpClient(consolidatedOperationClientList, httpClient, tcpClient));
+                translatedLTPClientList.push(generateTcpClient(httpClient, tcpClient));
+            }
         }
-        }
+        else if (client["kafka-client"]) {
+            let kafkaClients = client["kafka-client"];
+            let consolidatedKafkaList = [];
 
+            consolidatedKafkaList = (kafkaClients && kafkaClients.length != 0)
+                ? consolidatedKafkaList.concat(kafkaClients)
+                : consolidatedKafkaList;
+
+            if (consolidatedKafkaList.length > 0) {
+
+                consolidatedKafkaList.forEach(kafkaClient => {
+                    translatedLTPClientList.push(
+                        generateKafkaClient(kafkaClient, httpClient)
+                    );
+                });
+
+                translatedLTPClientList.push(
+                    generateHttpClient(consolidatedKafkaList, httpClient, tcpClient)
+                );
+
+                translatedLTPClientList.push(
+                    generateTcpClient(httpClient, tcpClient)
+                );
+            }
+        }
 
     });
 
@@ -346,7 +434,7 @@ function generateOperationClient(operationClientYamlInstance, httpClientYamlInst
     let operationKey = operationClientYamlInstance["operation-key"] ? operationClientYamlInstance["operation-key"] :
         "Operation key not yet provided.";
     let detailedLoggingIsOn = (operationClientYamlInstance["detailed-logging-is-on"] != null) ? operationClientYamlInstance["detailed-logging-is-on"] : undefined;
-    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
+    let lifeCycleState = (operationClientYamlInstance["life-cycle-state"] != null) ? "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationClientYamlInstance["life-cycle-state"].toUpperCase() : "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED";
     let httpUuid = httpClientYamlInstance["uuid"];
 
     let operationClient = {
@@ -398,7 +486,7 @@ function generateElasticsearchClient(elasticsearchClientYamlInstance, httpClient
                         "auth": {
                             "api-key": apiKey
                         },
-                        "index-alias": indexAlis
+                        "index-alias": indexAlis.toString()
                     },
                     "elasticsearch-client-interface-status": {
                         "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
@@ -485,7 +573,7 @@ function generateTcpClient(httpClientYamlInstance, tcpClientYamlInstance) {
 function generateOperationServers(operationServerYamlInstance, httpServerYamlInstance) {
     let operationName = operationServerYamlInstance['operation-name'];
     let operationServerUuid = operationServerYamlInstance['uuid'];
-    let lifeCycleState = (operationServerYamlInstance["life-cycle-state"] != null) ? "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationServerYamlInstance["life-cycle-state"].toUpperCase : "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED";
+    let lifeCycleState = (operationServerYamlInstance["life-cycle-state"] != null) ? "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_" + operationServerYamlInstance["life-cycle-state"].toUpperCase() : "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL";
 
     let operationKey = operationServerYamlInstance["operation-key"] ? operationServerYamlInstance["operation-key"] : "Operation key not yet provided.";
 
@@ -605,4 +693,33 @@ function generateTcpServer(httpServerYamlInstance, tcpServerYamlInstanceList) {
         }]
     }
     return tcpServer;
+}
+
+function generateKafkaClient(kafkaClientYamlInstance, httpClientYamlInstance) {
+
+    let kafkaClientUuid = kafkaClientYamlInstance["uuid"];
+    let topicName = kafkaClientYamlInstance["topic-name"];
+    let type = kafkaClientYamlInstance["type"];
+    let httpUuid = httpClientYamlInstance["uuid"];
+
+    let kafkaClient = {
+        "uuid": kafkaClientUuid,
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [],
+        "server-ltp": [
+            httpUuid
+        ],
+        "layer-protocol": [{
+            "local-id": "0",
+            "layer-protocol-name": "kafka-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_KAFKA_LAYER",
+            "kafka-client-interface-1-0:kafka-client-interface-pac": {
+                "kafka-client-interface-configuration": {
+                    "topic-name": topicName,
+                    "type": type
+                }
+            }
+        }]
+    };
+
+    return kafkaClient;
 }

@@ -41,7 +41,7 @@ Please consider the following examples, in which the application sending the res
 | Service exists, but authentication failed as user unknown | 401 | 531 |  
 | Service exists, but known user lacks rights | 403 | ? |  
 | Service/resource indicated to be locked by another user | 423 | ? |  
-| Service indicated to be busy (too many requests) | 429 | ? |  
+| Service indicated to be busy (too many requests) | 429 | 529, ? |  
 | Service complained about faulty input data (syntax) | 400 | ? | 
 | Service complained about non-sense input data (semantic) | 422 | ? |  
 | Server lacks some resource (e.g. storage) for executing | 507 | ? |  
@@ -132,6 +132,79 @@ components:
                 type: string
                 enum:
                   - 'Not available. The topology (parent) object is currently not found in the cache.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '462':
+      description: 'Validation failed.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 462
+                maximum: 462
+                format: int32
+              message:
+                type: string
+                description: 'Individual message provided in reason attribute of response of ValidationFunction.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '463':
+      description: 'To be deleted object still referenced.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 463
+                maximum: 463
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'To be deleted object still referenced.'
+              referencing-object-type:
+                type: string
+                description: 'Type of the object that is referencing the to be deleted object.'
+              referencing-object:
+                type: array
+                description: 'List of objects that are referencing the to be deleted object.'
+                items:
+                  type: string
+              expectation-to-the-client:
+                type: string
+                enum:
+                  - 'Handle the referencing objects before retrying the deletion.'
       headers:
         x-correlator:
           schema:
@@ -237,6 +310,25 @@ components:
             type: integer
             example: 1100
           description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '529':
+      description: 'Response in case of a duplicate request, that shall not be executed again'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 529
+                maximum: 529
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Duplicate request, not to be executed.'****
     '530':
       description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal datatree), but response data is either not available, lost during transmission, incomplete or corrupted'
       content:

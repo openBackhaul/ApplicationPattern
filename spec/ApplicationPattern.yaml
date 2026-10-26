@@ -1,6 +1,10 @@
 ﻿openapi: 3.0.0
 info:
   title: ApplicationName
+  description: Short description of the application
+  contact:
+    name: Application Owner's name
+    email: xxxxxxxxxxx@telefonica.com
   version: 1.0.0
 
 x-gui-paths:
