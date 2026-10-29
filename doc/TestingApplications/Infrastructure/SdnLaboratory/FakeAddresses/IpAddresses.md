@@ -66,6 +66,7 @@ Both changes shall be applied on applications that did not yet reach milestone v
 |  | MWDI | MicroWaveDeviceInventory  | 2.2.0 | 127.0.0.1 | 4034
 |  | APTP | AccessPlanningToolProxy | 1.2.0 | 127.0.0.1 | 4035
 |  | FWM | FirmWareManager | 1.0.0 | 127.0.0.1 | 4036
+|  | DPMDP | DevicePerformanceManagementDataProcessor | 1.2.0 | 127.0.0.1 | 4037
 | Out of SDN Domain |  |  |  |  |  |
 |  | APT | AccessPlanningTool | 1.0.0 | 127.0.0.1 | 5001
 
