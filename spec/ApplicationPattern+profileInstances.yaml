@@ -190,3 +190,17 @@ profile-instances:
           map-to-string: ## TODO: Add what the regex expression shall be mapped to
 
   ## TODO: Potentially add further instances of RegexPatternMappingProfile
+
+  - profile-name: 'FunctionProfile'
+    uuid: 'xx-1-0-0-function-p-???'
+    capability:
+      function-name: ## TODO: Add name of the function
+      function-description: ## TODO: Add description of the function
+      parameter-list:
+        - parameter: ## TODO: Add uuid of StringProfile defining the parameter
+          owner: ## TODO: Choose from platform/engineering/user
+      sub-function-list: ## TODO: Add list of uuids of FunctionProfiles defining the sub-functions
+    configuration:
+      is-active: ## TODO: Choose from true/false
+
+  ## TODO: Potentially add further instances of FunctionProfile

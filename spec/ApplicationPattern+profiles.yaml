@@ -54,7 +54,6 @@ profiles:
     configuration:
       string-value: string
 
-
   - profile-name: 'RegexPatternMappingProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-mapping-p-[0-9]{3}$'
     capability:
@@ -64,5 +63,17 @@ profiles:
       mapping-list:
         - regex-string: string
           map-to-string: string
+
+  - profile-name: 'FunctionProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-function-p-[0-9]{3}$'
+    capability:
+      function-name: string
+      function-description: string
+      parameter-list:
+        - parameter: _StringProfile
+          owner: {'platform', 'engineering', 'user'}
+      sub-function-list: [_FunctionProfile]
+    configuration:
+      is-active: boolean
 
 ## TODO: Add further Profile definitions, if required
