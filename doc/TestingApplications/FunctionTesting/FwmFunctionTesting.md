@@ -206,7 +206,5 @@ For a validation-failure scenario, the runner can capture RunningDS before the c
 |---|---|---|
 | **Function test** | One real function; in-memory datastores and mocked dependencies | Verify its decisions, calls and state changes. |
 | **Function-chain test** | Several real functions; external systems simulated | Verify handoffs and wiring between functions. |
-| **Datastore integration test** | Real datastore adapter and datastore | Verify persistence, locking and adapter behavior. |
-| **Device integration test** | Real or representative device environment | Verify firmware download and activation when contracts and implementations exist. |
 
 
