@@ -134,14 +134,13 @@ testing/
 │       ├── fixedClock.js
 │       └── recordingLocks.js
 └── p1Pulser/
-    └── 1.0.0/
-        ├── scenarios.yaml
-        ├── fixture/
-        │   └── dueActivePulserCallsTarget/
-        │       ├── domainController.json
-        │       └── expectedDomainController.json
-        └── tests/
-            └── p1Pulser.test.js
+     ├── scenarios.yaml
+     ├── fixture/
+       │  └── dueActivePulserCallsTarget/
+       │    ├── domainController.json
+       │    └── expectedDomainController.json
+     └── tests/
+      └── p1Pulser.test.js
 ```
 
 This is a **proposed structure**, not an existing implementation. Other functions receive their own scenario and fixture folders while reusing the helpers.
